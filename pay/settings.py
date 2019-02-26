@@ -84,18 +84,19 @@ WSGI_APPLICATION = 'pay.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'production': {
+    'defautl': {
 	'ENGINE': 'django.db.backends.postgresql',
 	'NAME'	:  os.environ['PAY_DATABASE_NAME'],
 	'USER'	:  os.environ['PAY_DATABASE_USERNAME'],
 	'PASSWORD':  os.environ['PAY_DATABASE_PW'],
 	'HOST'	:  os.environ['PAY_DATABASE_HOST'] ,
 	'PORT' 	:  os.environ['PAY_DATABASE_PORT'],
-   }
+   },
+    'development': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+
 }
 
 
