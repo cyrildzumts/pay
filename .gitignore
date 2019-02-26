@@ -1,0 +1,15 @@
+*.sqlite3
+*.pyc
+*/staticfiles/images/*
+*/static/*
+*/static_root/*
+*.jpg
+*.png
+*.bmp
+*.pdf
+*.jpeg
+*/.vscode
+*/migrations/*
+*/__pycache__/*
+*.log
+
