@@ -96,6 +96,7 @@ DATABASES = {
 	'HOST'	:  os.environ['PAY_DATABASE_HOST'] ,
 	'PORT' 	:  os.environ['PAY_DATABASE_PORT'],
    }
+
 }
 
 
