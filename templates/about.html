@@ -1,0 +1,46 @@
+{% extends "flat_minimal_base.html" %}
+
+
+{% block MAINCONTENT %}
+    <div id="about-page" class="flat-row">
+        <div class="card">
+            <div class="header">
+                    <span class="">
+                            <strong> À propos de {{site_name}}</strong>
+                    </span>
+            </div>
+            <div class="content">
+                    <div class="flat-col-sm-12">
+                        <div class="flat-row flex-center">
+                                <div class="description">
+                                        <p class="flat-col-xs-12 flat-col-md-4">
+                                                <a class="flat-link" href="{% url 'catalog:index'%}"><strong>{{site_name}}</strong></a> a pour objectif de vendre des produits de qualité
+                                                à des prix abordable pour tous.
+                                                Sur <span class="site-name">{{site_name}}</span>  vous ne trouverez que des <strong>produits originaux</strong>,
+                                                pas de contre-facon ou imitations.
+                                                Nous achetons nos produits au près de sources fiables afin de pouvoir offrir
+                                                à nos clients des produits de qualités.
+                                                Nous sommes basés au Gabon et actuellement ne livrons que sur Port-gentil et 
+                                                Libreville. 
+                                        </p>
+                                        <p class="flat-col-xs-12 flat-col-md-4">
+                                                Si vous souhaitez avoir un produit particulier que nous ne vendons pas sur 
+                                                notre site, alors vous pouvez <a class="flat-link" href="{% url 'contact:index' %}"><strong>nous contacter</strong></a> 
+                                                et nous faire part de votre souhait. S'il nous est possible de le realiser
+                                                alors nous serons heureux de vous aider.
+                                        </p>
+                                        <p class="flat-col-xs-12 flat-col-md-4">
+                                                Vous pouvez egalement nous contacter pour nous donner vos impressions sur nos 
+                                                services, ca nous fera plaisir de les recevoir.
+                                        </p>
+        
+                                </div>
+                        </div>
+                    </div>
+            </div>
+             
+
+        </div>
+
+    </div>
+{% endblock MAINCONTENT %}

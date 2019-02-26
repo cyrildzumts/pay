@@ -1,0 +1,94 @@
+{% load catalog_tags %}
+<div class="flat-navbar bordered">
+    <section class="nav-left">
+            <a class="bg-dominant-brand flat-hidden" href="{% url 'catalog:index' %}"><span class="normal-text">LYSHOP</span></a>
+            <div class="flat-dropdown flat-visible-xs">
+                <button class="dropbtn"> <span class="normal-text">CATALOGUE</span>
+                    <i class="glyphicon glyphicon-chevron-down"></i>
+                </button>
+                <div class="flat-dropdown-content">
+                    <div class="header">
+                        <h3 class="flat-cat-header flat-hidden"> LYSHOP CATALOGUE</h3>
+                    </div>
+                    <div class="flat-row">
+        
+                            {% root_categorie as root_cats%} 
+                            {% for cat in root_cats.root_cats %}
+        
+                                <section class="flat-col flat-cat-box flat-col-xs-12 flat-col-md-4">
+                                {% if cat.is_parent %}
+                                    <div class="flat-cat-header">
+                                            <h3> {{cat.name}} </h3>
+                                    </div>
+                                    <div class="flat-cat-body">
+                                            <a class="flat-link" href="{{cat.get_absolute_url}}"> Voir tout </a>
+                                            {% include "tags/menu_list.html" with entry_list=cat.subcategories%}
+                                    </div>
+                                    
+                                {% else %}
+                            
+                                {% endif %}
+                                </section>
+                            {% endfor %}
+                        
+                    </div>
+                    <span class="flat-btn">
+                        Fermer
+                    </span>
+                </div>
+            </div>
+    </section>
+    
+    <section class="nav-center">
+            
+        <a class="logo" href="{% url 'catalog:index'%}"></a>
+    </section>
+    <section class="nav-right">
+        <a href="{% url 'wishlist:show_wishlist' %}" class="">
+            <div class="flat-column flex-center">
+                    <span class="glyphicon glyphicon-heart"></span>
+                    <span class="small">Favoris</span>
+            </div>
+            
+        </a>
+        <a href="{% url 'cart:show_cart' %}" class="">
+            <div class="flat-column flex-center">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                    <span class="small">Panier</span>
+            </div>
+        </a>
+        <a href="{% url 'accounts:user_account'%}">
+            <div class="flat-column flex-center">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="small">Mon Compte</span>
+            </div> 
+        </a>
+        {% comment "" %}
+        
+        
+        <div class="flat-dropdown flat-hidden">
+
+                <button class="dropbtn">
+                    <div class="flat-column flex-center">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="small">Mon Compte</span>
+                    </div> 
+                </button>
+                <div id="header-account" class="flat-dropdown-content bg-dark bordered">
+                    <div class="container-fluid bordered">
+                            {% if user.is_authenticated %}
+                            {% include "tags/account_menu.html" %}
+                            {% else %}
+                            {% include "tags/account_login_dialog.html" %}
+                            {% endif %}
+                    </div>
+                        
+                </div>
+                
+        </div>
+        {% endcomment %}
+            
+       
+        
+    </section>
+</div>

@@ -1,0 +1,46 @@
+<div class="infos-header-bar flex-row">
+        <div class="infos-content flex-row">
+                <span> Livraison gratuite sur Libreville et Port-gentil à partir de<span class="info">50000 FCFA</span></span>
+                <span> Service Client au <span class="phone-number">07433646</span></span>
+                <span> Disponible également sur Whatsapp au<span class="phone-number">07433646</span></span>
+
+        </div>
+</div>
+
+<div class="flex-row">
+        <div class="flat-col-md-4">
+                <div class="flex-left ">
+                        <div class="box">
+                                <a href="{% url 'catalog:index' %}"><span class="site-label">LYSHOP</span></a>
+                        </div>
+                </div>
+            </div>
+            <div class="flat-col-md-4">
+                <div class="box">
+                        
+                </div>
+            </div>
+            <div class="flat-col-md-4">
+                <div class=" flex-right">
+                        <div class="box">
+                                <a href="{% url 'wishlist:show_wishlist' %}"><span class="flat-label">Favoris</span></a>
+                        </div>
+                        <div class="box">
+                                <a href="{% url 'cart:show_cart' %}"> <span class="flat-label">Panier</span> </a>
+                        </div>       
+                
+                        <div class="box">
+                                {% if request.user.is_authenticated %}
+                                        <a class="fla-tlink" href="{% url 'accounts:user_account'%}">
+                                                <span class="flat-label">Mon Compte</span>
+                                        </a>
+                                {% else %}
+                                        <a class="flat-link" href="{% url 'accounts:login'%}">
+                                                <span class="flat-label">Se connecter</span>
+                                        </a>
+                                {% endif %}
+                        </div>
+                        
+                </div>
+            </div>
+</div>

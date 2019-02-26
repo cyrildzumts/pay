@@ -1,0 +1,136 @@
+
+{% load catalog_tags %}
+
+{% comment "cart_count" %}
+    This code need to be removed.
+    Use the views to provide  cart_count.
+{% endcomment %}
+{% load cart_tags %}
+{% cart_box request as cart_count %}
+<div class="card-fluid flex-item">
+        <div id="site-menu" class="menu-vt" role="dialog">
+                <div class="modal-header">
+                        <button type="button" class="close">&times;</button>
+                        <h4 class="modal-title">Categories</h4>
+                </div>
+                <div class="modal-body">
+                        <ul class="">
+                            {% category_list request.path %}
+                            <li><a href="{% url 'contact:index'%}">Contact</a></li>
+
+                        </ul>
+                </div>
+    
+        </div><!-- End of #Site Menu-->
+            
+    <div class="hidden-md hidden-lg  nav-mobile-div flex-container">
+            
+        
+        <ul class="icon-bar flex-container">
+            <li id="openMenu" class="flex-item">
+                    <a class="link-icon" href="javascript:void(0)">
+                            <span class="link-icon glyphicon glyphicon-menu-hamburger">
+            
+                            </span>
+                    </a>
+            </li>
+            <li class="flex-item">
+                <a  href="{% url 'catalog:index' %}">
+                    <span class="link-icon glyphicon glyphicon-home"></span>
+                </a>
+            </li>
+            <li class="flex-item">
+                <a  href="{% url 'wishlist:show_wishlist' %}">
+                           <span class="link-icon glyphicon glyphicon-heart"></span>
+                </a>
+            </li>
+            <li class="flex-item">
+                    <a class="link-icon" href="{% url 'cart:show_cart' %}">
+                            <span class="cart-button glyphicon glyphicon-shopping-cart">
+                            </span>
+                            {% if cart_count.count > 0 %}
+                            <span class="cart-badge"> 
+                                ({{ cart_count.count }})
+                            </span>
+                            {%endif%}
+                    </a>
+                <!--{% include "tags/cart_box.html" %}-->
+            </li>
+            {% if user.is_authenticated %}
+            <li class="flex-item account-button"><a href="{% url 'accounts:user_account'%}"><span class="link-icon glyphicon glyphicon-user"></span> </a></li>
+            <!--<li class="flex-item"><a href="{% url 'accounts:logout' %}"><span class="link-icon glyphicon glyphicon-log-out"></span></a></li>-->
+
+            {% else %}
+            <li class="flex-item"><a  href="{% url 'accounts:register' %}"><span class="link-icon glyphicon glyphicon-user"></span> <span class="hidden-xs">S'enregistrer</span></a></li>
+            <li id="loginBtn" class="flex-item"><span id="login" class="link-icon glyphicon glyphicon-log-in"></span> <span class="hidden-xs">Se connecter</span></li>
+            {% endif %}
+        </ul>
+
+        
+    </div>
+
+    <div class="visible-md visible-lg flex-container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'catalog:index'%}">GV</a>
+        </div>
+        <ul class="nav navbar-nav flex-item">
+            {% category_list request.path %}
+            <li><a href="{% url 'contact:index'%}">Contact</a></li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="flex-item cart-btn">
+                    <a class="link-icon" href="{% url 'cart:show_cart' %}">
+                            <span class="cart-button glyphicon glyphicon-shopping-cart">
+                            </span>
+                            {% if cart_count.count > 0 %}
+                            <span class="cart-badge"> 
+                                ({{ cart_count.count }})
+                            </span>
+                            {%endif%}
+                    </a>
+                    
+                <!--{% include "tags/cart_box.html" %}-->
+            </li>
+            <li class="flex-item">
+                <a href="{% url 'wishlist:show_wishlist' %}">
+                   <span class="glyphicon glyphicon-heart"></span>
+                </a>
+            </li>
+            {% if user.is_authenticated %}
+           <!-- <li class="flex-item"><a href="{% url 'accounts:logout' %}"> <span  class="glyphicon glyphicon-log-out"></span></a></li> -->
+            <li class="account-Button dropdown flex-item">
+                <a href="{% url 'accounts:user_account'%}"><span data-toggle="dropdown" class="dropdown-toggle glyphicon glyphicon-user"></span>
+                </a>
+                <ul class="dropdown-menu account-menu bg-aliceblue">
+                    <li>
+                        <a href="{% url 'accounts:user_account'%}">Appercu</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:orders' %}">Mes Commandes</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'wishlist:show_wishlist' %}">Wishlist</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact:index'%}">Contact</a>
+                    </li>
+                    <li class="divider">
+                        
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:logout' %}">Se déconnecter</a>
+                    </li>
+                </ul>
+            </li>
+            {% else %}
+            <li class="flex-item"><a href="{% url 'accounts:register' %}"><span class="glyphicon glyphicon-user"></span> <span>S'enregistrer</span></a></li>
+            <li id="loginBtn2" class="flex-item">
+                <a class="">
+                    <span id="login2" class="glyphicon glyphicon-log-in"></span><span> Se connecter </span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

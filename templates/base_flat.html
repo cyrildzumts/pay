@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+        <meta charset="utf-8">
+        <title>
+                {% block title %} {{page_title}} {% endblock %}
+        </title>
+        <meta name="keywords" content="{{meta_keywords}}" />
+        <meta name="description" content="{{meta_description}}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% load static %}
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Add icon library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">-->
+        <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" media="all" />
+
+        {% block external %} {% endblock external %}
+</head>
+
+<body class="">
+        
+
+        {% block HEADER %}
+
+                        {% comment %} 
+                        <header id="site-header" class="bottom-bordered">
+                                {% include "tags/responsive_topnav.html" %}
+                        </header> 
+                        {% endcomment %}
+
+                        <header class="new-header fluid-container">
+                                {% include "tags/site_header.html" %}
+                        </header>
+                
+                
+                
+        {% endblock HEADER %}
+
+        <div id="site-canva-menu">
+                        <div class="canva-container">
+                                <span class="js-close-canva" data-target="#site-canva-menu">Fermer</span>
+                                <div class="navigation bottom-bordered">
+
+                                </div>
+                                
+
+
+                                <div class="user-account">
+                                        {% if request.user.is_authenticated %}
+                                        <a class="site-header--link" href="#">
+                                                <div class="flat-row">
+                                                        <span class="glyphicon glyphicon-user"></span>
+                                                        <span class="secondary">Mon Compte</span>
+                
+                                                </div>
+                                        </a>
+                                        <a class="site-header--link" href="#">
+                                                <div class="flat-row">
+                                                        <span class="secondary">Se Déconnecter</span>
+                
+                                                </div>
+                                        </a>
+                                        {% else %}
+                                        <a class="site-header--link" href="#">
+                                                <div class="flat-row">
+                                                        <span class="glyphicon glyphicon-user"></span>
+                                                        <span class="secondary">Se connecter</span>
+                                                </div>
+                                        </a>
+                                        {% endif %}
+                                </div>
+        
+                        </div>
+        
+        </div>
+       
+<div id="site-wrapper" class="relative bottom-bordered">
+
+                <div id="notification" class="flat-container">
+                        <div class="content">
+                                                
+                        </div>
+                        <div class="js-notify-close flat-btn">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                <span>Fermer</span>
+                        </div>
+                </div>
+
+        {% block BANNER %}
+                 
+        {% endblock BANNER %}
+        
+        
+
+        {% block CURRENT_CATEGORY_PATH %}
+                
+                        {% block CATEGORY_PATH %}
+                               
+                        {% endblock CATEGORY_PATH %}
+                 
+        {% endblock CURRENT_CATEGORY_PATH %}
+        {% load catalog_tags %}
+        <div id="site-page">
+                        {% block GRID_HEADER%}
+                           {% include "tags/grid_header.html" %}
+                        {% endblock GRID_HEADER%}
+                        
+                        <div class="page-content">
+                                {% block ASIDE %}
+                                        <aside id="page-side" class="js-page-side flat-col-md-2 bordered">
+                                                {% block ASIDE_CONTENT %} {% endblock ASIDE_CONTENT %}
+                                        </aside>
+                                {% endblock ASIDE %}
+                                {% block MAINCONTENT %}
+                                        <div class="flat-col-xs-12 flat-col-md-10 bordered">
+                                                {% block CONTENT %}
+                                                        
+                                                {% endblock CONTENT %}
+                                        </div>
+                                {% endblock MAINCONTENT %}
+                        </div>
+        </div>
+                    
+        
+</div>
+{% block FOOTER %}
+        <footer id="site-footer" class="">
+                <section class="box">
+                        <section class="flat-col-xs-12 flat-col-md-3">
+                                <section class="site-footer--newsletter bordered">
+                                        <div class="">
+                                                <h4>Abonnement à notre newsletter</h4>
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                        </div>
+                                        <div class="">
+                                                <div class="">
+                                                        <span>Inscrivez-vous à notre newsletter</span> 
+                                                        <span>pour être informer sur nos offres.</span> 
+                                                        <span>Vous pouvez vous désinscrire à tout moment</span>
+                                                </div>
+                                                <form id="js-newsletter" action="">
+                                                        <input type="email" name="newsletter" placeholder="Saisisez votre E-Mail">
+                                                        <button  class="" type="submit">
+                                                                <i class="glyphicon glyphicon-send"> Envoyer</i>
+                                                        </button>
+                                                </form>
+                                                <div id="js-notification">
+
+                                                </div>
+                                        </div>
+                                </section>
+                        </section>
+                        <section class="flat-col-xs-12 flat-col-md-3">
+                                <section class="site-footer--faqs bordered">
+                                        <div class="" data-target="#faq-link">
+                                                <span> Service client </span>
+                                                <span class="fa fa-handshake-o"></span>
+                                        </div>
+                                        <div id="faq-link" class="">
+                                                <div class="">
+                                                        <p>
+                                                                Besoin d'aide ? Veuillez consulter notre FAQ
+                                                        </p>
+                                                        <a class="flat-link" href="{% url 'faq' %}"> Cliquer ici </a>
+                                                </div>
+                                        </div>
+        
+                                </section>
+                        </section>
+                        <section class="flat-col-xs-12 flat-col-md-3">
+                                <section class="site-footer--paiement bordered">
+                                        <div class="">
+                                                <span> Méthodes de Paiement
+                                                        <span class="fa fa-credit-card "></span>
+                                                </span>
+                                        </div>
+                                        <div class="flat-container">
+                                                <p class="indice">Payer à la livraison</p>
+                                                <p class="indice">Airtel Money</p>
+        
+                                        </div>
+                                        
+                                </section>
+                                
+                        </section>
+                        <section class="flat-col-xs-12 flat-col-md-3">
+                                <section class="site-footer--social bordered">
+                                        <div class="flat-container">
+                                                <span>Suivez nous sur Facebook</span>
+                                                <span class="fa fa-share-alt social-link"></span>
+                                        </div>
+                                        <div class="flat-container">
+                                                <a class="social-link" href="https://www.facebook.com/lyshoppinggabao/" target="_blank">
+                                                        <i class="fa fa-facebook-official"></i>
+                                                </a>
+                                        </div>
+                                        <div class="flat-container flat-column">
+                                                <a class="flat-link" href="{% url 'about' %}"> À propos de nous</a>
+                                        </div>
+        
+                                </section>
+                        </section>
+                </section>
+                <div class="site-footer-legal box bordered">
+                        <section class="flat-col-xs-12 ">
+                                <section class="copyright flat-row">
+                                <span> Copyright<span class="fa fa-copyright"></span> 2019 - Pay Online</span>
+                                </section>
+                        </section>
+                </div>
+        
+        
+        
+        
+        </footer>
+        {% endblock FOOTER %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+         
+        {% comment "" %}
+        
+         <script  src="{% static "js/lib/pubsub.js" %}"></script>
+         {% endcomment %}
+         <script  src="{% static "js/jquery.min.js" %}"></script>
+        <script  type="application/javascript" src="{% static "js/scripts.js" %}"></script>
+        
+              
+        
+</body>
+
+</html>

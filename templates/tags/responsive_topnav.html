@@ -1,0 +1,81 @@
+{% load staticfiles %}
+{% load catalog_tags %}
+<div class="box">
+    <div id="js-canva-menu" class="canva-menu-btn">
+        <i class="glyphicon glyphicon-menu-hamburger site-header--link"></i>
+    </div>
+    <div class="logo-container">
+        <a class="site-header--logo"  href="{% url 'catalog:index'%}">
+            <img src="{% static 'images/logo.png' %}" alt="Aller à la page d'acceuille">
+        </a>
+    </div>
+    
+</div>
+
+{% comment "" %}
+<div class="box flat-hidden">
+    <div class="logo-container">
+        <img src="{% static 'images/logo.png' %}" alt="Aller à la page d'acceuille">
+    </div>
+</div>
+{% endcomment %}
+
+<div class="box">
+    <ul class="site-header--links relative">
+        <li>
+            <a class="site-header--link" href="{% url 'wishlist:show_wishlist' %}">
+                    <div class="flat-column">
+                            <span class="flat-icon glyphicon glyphicon-heart"></span>
+                            <span class="flat-icon-label">Favoris</span>
+                    </div>
+            </a>
+        </li>
+        <li>
+            <a class="site-header--link" href="{% url 'cart:show_cart' %}">
+                <div class="flat-column">
+                    <span class="flat-icon glyphicon glyphicon-shopping-cart"></span>
+                    <span class="flat-icon-label">Panier</span>
+                </div>
+            </a>
+        </li>
+        <li class="flat-hidden-xs">
+                {% if request.user.is_authenticated %}
+                <a class="site-header--link" href="{% url 'accounts:user_account'%}">
+                        <div class="flat-column">
+                                <span class="flat-icon glyphicon glyphicon-user"></span>
+                                <span class="flat-icon-label">Mon Compte</span>
+                        </div>
+                </a>
+                {% else %}
+                <a class="site-header--link" href="{% url 'accounts:login'%}">
+                        <div class="flat-column">
+                                <span class="flat-icon glyphicon glyphicon-user"></span>
+                                <span class="flat-icon-label">Se connecter</span>
+                        </div>
+                </a>
+                {% endif %}
+            
+            {% comment "" %}
+            <div id="site-header--account" class="site-header--sublinks flat-hidden">
+                    {% if request.user.is_authenticated %}
+                    <ul id="site-account--menu">
+                        <li class="item">
+                            <a class="" href="{% url 'accounts:user_account'%}">Appercu</a>
+                        </li>
+                        <li class="item"><a class="" href="{% url 'accounts:orders' %}">Mes Commandes</a></li>
+                        <li class="item"><a class="" href="{% url 'wishlist:show_wishlist' %}"> Mes Favoris</a></li>
+                        <li class="item"><a class="" href="{% url 'contact:index'%}">Contact</a></li>
+                        <li class="item"></li>
+                        <li class="item"><a class="" href="{% url 'accounts:logout' %}">Se déconnecter</a></li>
+                        <li class="item"><span>Fermer</span></li>
+                    </ul>
+                    {% else %}
+                        {% include "tags/account_login_dialog.html" %}
+                    {% endif %}
+                </div>
+            {% endcomment %}
+            
+            
+        </li>
+    </ul>
+</div>    

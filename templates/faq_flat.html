@@ -1,0 +1,131 @@
+{% extends "flat_minimal_base.html" %}
+
+
+
+{% block CONTENT %}
+<div class="flat-col-xs-12 flat-col-md-6">
+
+    <div class="flex-row flex-center">
+
+
+        <div class="listview">
+            <div class="accordion flat-center">
+                    <div class="collapsible  bordered"> 
+                        <div class="header" data-target="#make-order">
+                            <strong>Comment passer une commande ?</strong> 
+                        </div>
+                        <div id="make-order" class="flat-flex content">
+                            <div class="entry-description">
+                                <p>
+                                        Pour passer une commande, ajoutez les articles qui 
+                                        vous interessent dans le Panier.
+                                </p>
+                                <p>
+                                        Une fois les articles
+                                        ajoutés dans le Panier, allez sur la page de votre Panier
+                                        en cliquant sur l'icon du panier <i class="glyphicon glyphicon-shopping-cart"></i>
+                                        qui se trouve sur la barre de navigation.
+                                </p>
+                                <p>
+                                        Une fois sur la page
+                                        de votre Panier, cliquer sur <i>aller à la caisse</i>. Une fois
+                                        que la nouvelle page est chargée, veuillez suivre la procedure jusqu'à
+                                        la fin. À la fin de ces étapes, votre commande sera passée et on vous enverra
+                                        une confirmation de reception de votre commande.
+                                </p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="collapsible bordered"> 
+                        <div class="header " data-target="#order-status">
+                            <strong>comment connaître le statut de ma commande ?</strong>
+                        </div>
+                        <div id="order-status" class="content">
+                            <div class="entry-description">
+                                <p>
+                                    Pour connaître le statut de votre commande, allez sur la 
+                                page de votre compte et de là cliquer sur l'option 
+                                <i>Mes commandes</i>. 
+                                </p>
+                                <p>
+                                    Une nouvelle page s'ouvrira, dans cette
+                                page se trouvent toutes vos commande. Sur chaque commande listé
+                                se trouve plusieurs information, y compris le statut de votre commande.
+                                </p>
+                                <div class="order-status-entry">
+                                    <div class="status-entry">
+                                        <span class="key">Passée : </span> 
+                                        <span class="value">
+                                            Votre commande a été placée, mais pas 
+                                                encore traitée.
+                                            </span>
+                                    </div>
+                                    <span class="status-entry">
+                                        <span class="key">En Traitement : </span> 
+                                        <span class="value"> Votre commande est entrain d'être traitée.</span> 
+                                    </span>
+                                    <div class="status-entry">
+                                            <span class="key">Annulée :</span>
+                                            <span class="value"> 
+                                                Votre commande a été annulée , les raisons de l'annulation 
+                                                peuvent être celles-ci : 
+                                            </span>
+                                    
+                                        <ul class="options-list">
+                                                <li> Vous l'avez annulé</li>
+                                                <li> L'article commandé n'est plus disponible</li>
+                                        </ul>
+                                    </div>
+                                    <div class="status-entry">
+                                        <span class="key">Expédiée : </span>
+                                        <span class="value"> Votre commande est en route pour vous être livrée </span>
+                                    </div>
+                                    <div class="status-entry">
+                                        <span class="key">Terminée :</span>
+                                        <span class="value"> Votre commande vous a été livrée.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="collapsible  flat-hidden"> 
+                        <div class="header">
+                                <strong>Où se trouve mon paquet ?</strong>
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+                    <div class="collapsible  bordered"> 
+                            <div class="header" data-target="#order-cancel">
+                                    <strong>Comment annuler ma commande ?</strong>
+                            </div>
+                            <div id="order-cancel" class="content">
+                                <div>
+                                    Pour annuler une commande, cliquer sur le bouton <i>Annuler</i>
+                                    depuis la page de la commande.
+                                    Notez que cette option n'est possible que lorsque la commande n'est pas encore
+                                    expédiée. Si l'article est deja expediée alors vous prendriez les charges liées
+                                    au transport de l'article commandé.
+                                </div>
+                            </div>
+                    </div>
+                    <div class="collapsible bordered"> 
+                            <div class="header" data-target="#feedback">
+                                    <strong>Suggestion et feedback</strong>
+                            </div>
+                            <div id="feedback" class="content">
+                                    <div>
+                                        Pour tout feedback et toute suggestion vous pouvez utiliser notre 
+                                        formulaire de contact disponible sur <a class="flat-link" href="{% url 'contact:index' %}">cette page</a>
+                                    </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock CONTENT %}

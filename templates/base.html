@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load cart_tags %}
+    
+    {% cart_box request as cart_box %}
+<head>
+  <meta charset="utf-8">
+  <title>
+    {% block title %} {{page_title}} {% endblock %}
+  </title>
+  <meta name="keywords" content="{{meta_keywords}}" />
+  <meta name="description" content="{{meta_description}}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> {% load staticfiles %} {% load static %}
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Add icon library -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/csscolor.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}" /> {% block external %} {% endblock external %}
+</head>
+
+<body>
+                                                                                                                                                                            
+    <header class="site-header" role="banner">
+      {%block header_panel%} {% block navigation %}
+      <nav role="navigation" id="site-navbar" class="navbar-default navbar-fixed-top flex-container">
+        {% include 'tags/navigation.html' %}
+      </nav>
+      {% endblock navigation %} {%endblock header_panel%}
+      <!-- End Of Header Panel -->
+      
+    </header>
+    {%block banner-panel%}
+    <div class="visible-md visible-lg bg-newspaper site-banner">
+      {% block banner_content %}
+      <div class="container-fluid text-center">
+        <h1>{{site_name}} </h1>
+        <p class="lead"> Produits de qualité à des prix imbatables.</p>
+        {%block banner_extra%}
+        {%endblock banner_extra%}
+      </div>
+      {% endblock banner_content %}
+    </div>
+    {%endblock banner-panel%}
+    <!-- End of banner-panel -->
+    <div class="container">
+      <div class="modal fade login-container" id="loginModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">&times; </button>
+                    <h4><span class="glyphicon glyphicon-lock"></span>
+                      Connexion
+                    </h4>
+                </div><!-- End of Modal Header -->
+                <div class="modal-body">
+                    {% if form.errors %}
+                    <p class="error"> Désolé, le nom ou le mot de passe est incorrect.</p>
+                    {% endif %}
+                    <form id="login_form" class="form" name="login_form" action="{% url 'accounts:login' %}" method="post" role="form">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="username"><span class="glyphicon glyphicon-user"></span> Username </label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="E-mail">
+                        </div>
+                        <div class="form-group">
+                                <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Mot de passe </label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
+                        </div>
+                        <button type="submit" class="btn"><span class="glyphicon glyphicon-off"></span> Se connecter </button>
+                    </form>
+                </div><!-- End of Modal Body -->
+                <div class="modal-footer">
+                    
+                    <button type="submit" class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"> Annuler </span></button>
+ 
+                    <p> Pas de Compte ? <a href="{% url 'accounts:register' %}"> Creer un compte </a></p>
+                    <p> Vous avez oublié votre <a href="">mot de passe ? </a></p>
+                </div><!-- End of Modal-footer -->
+            </div><!-- End Of Modal-Content -->
+        </div><!-- End Of Modal-Dialog -->
+    </div><!-- End OfModal -->
+    </div>
+    <div class="body-content">
+        {% block content_header %}
+      <header class="content-header">
+        
+          <div id="filter-box" class="filter-sorting flex-column">
+            <div class="flat-card flex-column  flat-dropdown bordered">
+              <div class="header flat-header bordered flat-dropdown-toggle">
+                  <h4 class="panel-title"> Filtres </h4>
+                  <button  class="btn"><span class="glyphicon glyphicon-plus-sign"></span></button>
+              </div>
+              <div id="select-filter" class="flat-dropdown-content main-content" role="menu">
+                <div name="brands" id="select-brands" class="grid-flex" role="menuitem">
+                          
+                </div> 
+                <div class="size-filter bordered">
+
+                </div>
+                <div class="list-divider">
+
+                </div>
+                <div class="footer">
+                    <button id="btn-filter" class="btn btn-default apply"> Appliquer </button>
+                    <button id="btn-filter-reset" class="btn btn-default apply"> Reset </button>
+                </div> <!-- Footer -->
+              </div> <!-- Main-Content -->
+              
+            </div> <!-- flat-card End -->
+            <div class="flat-card flex-column flat-dropdown bordered">
+              <section class="header bordered flat-dropdown-toggle">
+                <h4> Ordre d'affichage </h4>
+                <button class="btn"><span class="glyphicon glyphicon-plus-sign"></span></button>
+              </section>
+              <div class="main-content flat-dropdown-content" id="sorting-options" role="menu">
+                <div class="sorting-box">
+                    <p class="bordered"> Prix croissant </p>
+                    <p class="bordered"> Prix decroissant </p>
+                    <p class="bordered"> Popularité </p>
+                </div>
+                <div class="list-divider">
+
+                </div>
+                <section class="footer">
+                    <button id="btn-sort" class="btn btn-default apply"> Appliquer </button>
+                    <button id="btn-sort-reset" class="btn btn-default apply"> Reset </button>
+                </section>
+              </div>
+              
+              
+
+            </div>
+
+          </div> <!-- Filter End -->
+          
+        
+      </header>
+      
+      {% endblock content_header %}
+      <div class="cart-popup bordered bg-galery">
+        <div class="popup-header bg-ebony">
+            <h5>
+              Notification
+            </h5>
+        </div>
+        <div class="list-divider bg-ebony"></div>
+        <div class="popup-content">
+
+        </div>
+      </div>
+        {%block MainHeader%}
+          
+        {%endblock MainHeader%}
+        
+        {% block Sidebar %} 
+
+        {% endblock Sidebar %}
+        
+          <!-- End Of Sidebar -->
+
+        {% block PageContent %} 
+        
+
+        {% endblock PageContent %}
+        
+      {% block CartModal %}
+      
+      {% endblock CartModal %}
+      <!-- End of Main-Content -->
+      
+
+    </div>
+    <footer class="site-footer" role="contentinfo">
+        {% block footer %} {% include "tags/footer.html" %} {% endblock footer %}
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/scripts.js' %}">
+
+    </script>
+    <script type="text/javascript" src="{% static 'js/cart.js' %}">
+
+    </script>
+    <script type="text/javascript" src="{% static 'js/ajax_login.js' %}">
+
+    </script>
+</body>
+
+</html>

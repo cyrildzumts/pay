@@ -1,0 +1,14 @@
+{% extends "flat_minimal_base.html" %}
+{% block MAINCONTENT %}
+    <div  class="flat-card">
+        <section class="flat-row flex-center">
+            <div class="header">
+                Access interdit :  500 ! Oups !
+            </div>
+            <div class="flat-main-content">
+                    <p> Vous n'avez pas le droit d'accéder à cette page.</p>
+                    <p><a  href="{% url 'catalog:index'%}"> Retour à l'Acceuille </a> </p>
+            </div>
+        </section>
+    </div> 
+  {% endblock MAINCONTENT %}
