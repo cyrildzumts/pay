@@ -84,12 +84,6 @@ class Reduction(models.Model):
 
 
 
-class StaffUser(models.Model):
-    pass
-
-
-
-
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
