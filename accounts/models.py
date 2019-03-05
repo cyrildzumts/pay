@@ -11,7 +11,7 @@ class Policy(models.Model):
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5)
-    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    
 
 
 
@@ -37,12 +37,7 @@ class Account(models.Model):
             ('deactivate_account', "Can deactivate a User"),
         )
 
-    '''
-    @models.permalink
-    def get_absolute_url(self):
-        return ('accounts:edit_user', (), {'pk': self.pk})
-    '''
-    
+
     def get_absolute_url(self):
         return reverse('accounts:edit_user', args=[str(self.pk)])
 
