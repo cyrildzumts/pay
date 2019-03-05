@@ -40,7 +40,7 @@ class CaseIssue(models.Model):
 class Reduction(models.Model):
     reduction_id = models.AutoField(primary_key=True)
     code = models.TextField(max_length=8)
-    percent = models.DecimalField()
+    percent =  models.DecimalField(max_digits=10, decimal_places=5)
     user = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
     created_at = models.DateField(auto_now=True) 
     used_at = models.DateField()
