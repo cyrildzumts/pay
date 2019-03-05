@@ -10,6 +10,7 @@ class PaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
+        exclude = [ 'created_at', 'validated_at']
 
 
 
@@ -17,10 +18,12 @@ class TransactionForm(forms.ModelForm):
 
     class Meta:
         model = Transaction
+        exclude = [ 'created_at', 'validated_at']
 
 
 class CaseIssueForm(forms.ModelForm):
 
     class Meta:
         model = CaseIssue
+        exclude = [ 'created_at', 'closed_at', 'is_closed' ]
 

@@ -7,13 +7,13 @@ import datetime
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
-        #fields = ['first_name', 'last_name', 'email']
+        exclude = ['is_active_account', 'created_at', 'solde', 'policy']
 
 
 class IDCardForm(forms.ModelForm):
     class Meta:
         model = IDCard
-        #exclude = ['is_active_account']
+        exclude = ['is_active_account']
 
 
 
