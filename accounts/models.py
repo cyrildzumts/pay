@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 
 # Create your models here.
 class Policy(models.Model):
@@ -35,9 +36,14 @@ class Account(models.Model):
             ('deactivate_account', "Can deactivate a User"),
         )
 
+    '''
     @models.permalink
     def get_absolute_url(self):
         return ('accounts:edit_user', (), {'pk': self.pk})
+    '''
+    
+    def get_absolute_url(self):
+        return reverse('accounts:edit_user', args=[str(self.pk)])
 
 
     
