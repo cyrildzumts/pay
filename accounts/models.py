@@ -66,6 +66,7 @@ def create_profile(sender, **kwargs):
         Account.objects.create(user=user)
 
 
+'''
 @receiver(post_save, sender=User)
 def save_account(sender, instance, **kwargs):
     if hasattr(instance, 'account'):
@@ -73,3 +74,4 @@ def save_account(sender, instance, **kwargs):
 
 
 post_save.connect(create_profile, sender=User)
+'''
