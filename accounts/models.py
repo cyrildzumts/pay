@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Policy(models.Model):
-    policy_id = models.IntegerField(blank=False)
+    policy_id = models.AutoField(primary_key=True)
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
@@ -14,6 +14,7 @@ class Policy(models.Model):
 
 
 class Account(models.Model):
+    account_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField()
     country = models.CharField(default='', max_length=50, blank=True)
@@ -26,7 +27,7 @@ class Account(models.Model):
     is_active_account = models.BooleanField(default=True)
     solde = models.IntegerField(default=0)
     created_at = models.DateField(auto_now=True)
-    policy = models.ForeignKey(Policy, related_name="policy")
+    policy = models.ForeignKey(Policy, related_name="policy", null=True, on_delete=models.SET_NULL)
 
 
     class Meta:
@@ -41,6 +42,7 @@ class Account(models.Model):
 
     
 class IDCard(models.Model):
+    card_id = models.AutoField(primary_key=True)
     card_number = models.IntegerField(blank=False)
     image = models.ImageField(blank=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
