@@ -1,0 +1,42 @@
+<!--  Order Entry -->
+<div class="flat-col-xs-12">
+        <div class="order flat-row">
+
+        
+                <section class="flat-col-xs-12 order-ref">
+                        <div class="entry">
+                                <span class="flat-col-xs-4">Réference :</span>
+                                <span class="flat-col-xs-4"></span>
+                                <span class="flat-col-xs-4"><strong>{{order.ref_num}}</strong></span>
+                        </div>
+                </section>
+                <section class="flat-col-xs-12 order-date">
+                        <div class="entry">
+                                <span class="flat-col-xs-4">Date :</span>
+                                <span class="flat-col-xs-4"></span>
+                                <span class="flat-col-xs-4">
+                                        {{order.get_date}}
+                                </span>
+                        </div>
+                </section>
+                <section class="flat-col-xs-12 order-status">
+                        <div class="entry">
+                                <span class="flat-col-xs-4">Statut :</span>
+                                <span class="flat-col-xs-4"></span>
+                                <span class="flat-col-xs-4">{{order.get_status}}</span>
+                        </div>
+                </section>
+                <section class="flat-col-xs-12 order-link">
+                        <div class="entry">
+                                <span class="flat-col-xs-3"></span>
+                                <span class="flat-col-xs-9">
+                                        <a class="flat-link" href="{% url 'accounts:order_details' order.id %}"><strong>Voir la commande</strong></a>
+                                </span>
+                        </div>
+                </section>
+        </div>
+</div>
+
+<!-- End Of Order entry -->
+
+    

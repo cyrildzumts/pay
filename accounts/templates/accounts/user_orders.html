@@ -1,0 +1,21 @@
+{% extends "accountbase.html"%}
+
+{%block content_header%}
+<div class="content-header">
+     <h3> Mes Commandes !</h3>  
+</div><!-- End of main-header -->
+{%endblock content_header%}
+
+
+{% block MAINCONTENT %}
+<div class="flat-col-xs-12 flat-col-md-10">
+         <div id="user-orders" class="flat-column flat-col-sm-12 flat-col-md-6">
+                <div class="flat-row">
+                        {% for order in orders %} 
+                        {% include "tags/order_entry.html" %} 
+                        {% endfor %}
+                </div>
+        </div>
+        
+</div>
+{% endblock MAINCONTENT %}

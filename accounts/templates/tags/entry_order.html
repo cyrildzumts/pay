@@ -1,0 +1,12 @@
+
+    <tr> 
+        <td> {{order.date.date}} </td>
+        <td> {{order.ref_num}} </td>
+        <td> {{order.get_status}} </td>
+        <td>  {{order.total}} FCFA </td>
+        <td> 
+            <a class="" href="{% url 'accounts:order_details' order.id %}">
+                <button class="btn btn-sm card-action"> Details </button>
+            </a>
+        </td>
+    </tr>
