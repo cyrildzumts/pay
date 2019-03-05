@@ -101,7 +101,7 @@ def user_account(request):
 
 
 @login_required
-def edit_account(request, pk):
+def edit_account(request, pk=None):
     '''
     template_name = "accounts/my-account.html"
     page_title = 'Modification du profile | ' + settings.SITE_NAME
