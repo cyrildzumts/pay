@@ -79,7 +79,7 @@ def register(request):
     return render(request, template_name, context)
 
 
-@login_required
+#@login_required
 def user_account(request):
     """
      This method serves the default user account page.
