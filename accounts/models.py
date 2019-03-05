@@ -11,7 +11,7 @@ class Policy(models.Model):
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
 
 
@@ -52,7 +52,7 @@ class IDCard(models.Model):
     card_id = models.AutoField(primary_key=True)
     card_number = models.IntegerField(blank=False)
     image = models.ImageField(blank=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
 
 
 
