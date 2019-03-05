@@ -11,6 +11,7 @@ class Policy(models.Model):
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
     commission = models.DecimalField()
+    user = models.ForeignKey(User, on_delete=models.SET_NULL)
 
 
 
