@@ -24,7 +24,8 @@ class IDCardInline(admin.StackedInline):
 
 
 class AccountAdmin(BaseUserAdmin):
-    inlines = (AccountInline, IDCardInline,)
+    inlines = [AccountInline, IDCardInline,]
 
 admin.site.unregister(User)
-admin.site.register(User, Policy, AccountAdmin)
+admin.site.register(User ,AccountAdmin)
+admin.site.register( Policy)
