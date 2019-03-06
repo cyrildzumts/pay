@@ -29,7 +29,7 @@ class Account(models.Model):
     is_active_account = models.BooleanField(default=True)
     solde = models.IntegerField(default=0)
     created_at = models.DateField(auto_now=True)
-    policy = models.ForeignKey(Policy, related_name="policy", null=True, on_delete=models.SET_NULL)
+    policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True, on_delete=models.SET_NULL)
 
 
     class Meta:

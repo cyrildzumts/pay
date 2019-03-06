@@ -10,12 +10,12 @@ class AccountInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'accounts'
 
-
+'''
 class PolicyInline(admin.StackedInline):
     model = Policy
     can_delete = False
     verbose_name_plural = 'policies'
-
+'''
 
 class IDCardInline(admin.StackedInline):
     model = IDCard
@@ -23,8 +23,8 @@ class IDCardInline(admin.StackedInline):
 
 
 
-class UserAdmin(BaseUserAdmin):
-    inlines = (AccountInline, PolicyInline, IDCardInline,)
+class AccountAdmin(BaseUserAdmin):
+    inlines = (AccountInline, IDCardInline,)
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, Policy, AccountAdmin)

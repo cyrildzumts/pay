@@ -1,8 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
-from accounts.models import Account, IDCard
+from accounts.models import Account, IDCard, Policy
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
+
+
+
+class PolicyForm(forms.ModelForm):
+    class Meta:
+        model = Policy
+        exclude = ['policy_id']
 
 class AccountForm(forms.ModelForm):
     class Meta:
