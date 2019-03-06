@@ -11,6 +11,9 @@ class Policy(models.Model):
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5)
+
+    def __str__(self):
+        return "Policy id : {0} - Commission : {1}".format(self.policy_id, self.commission)
     
 
 
@@ -37,9 +40,12 @@ class Account(models.Model):
             ('deactivate_account', "Can deactivate a User"),
         )
 
+    def __str__(self):
+        return "Account : {}".format(self.user)
+
 
     def get_absolute_url(self):
-        return reverse('accounts:edit_user', args=[str(self.pk)])
+        return reverse('accounts:edit_account', args=[str(self.pk)])
 
 
     
@@ -48,6 +54,9 @@ class IDCard(models.Model):
     card_number = models.IntegerField(blank=False)
     image = models.ImageField(blank=False)
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return "Card id : {} User : {}".format(self.card_id, self.user)
 
 
 
