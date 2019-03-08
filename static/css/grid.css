@@ -1,0 +1,92 @@
+/* grid styles */
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+
+}
+.grid{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+
+.col {
+	position: relative;
+  border: LavenderBlush 2px solid;
+  /*border-radius: 8px;*/
+  padding: 14px;
+	margin: auto;
+}
+
+.col span, .col div
+{
+	border: LavenderBlush 2px solid;
+	padding: 5px;
+	margin: auto;
+}
+
+/*
+.col-1 { width: 8.333%; }
+.col-2 { width: 16.666%; }
+.col-3 { width: 25%; }
+.col-4 { width: 33.333%; }
+.col-5 { width: 41.666%; }
+.col-6 { width: 50%; }
+.col-7 { width: 58.333%; }
+.col-8 { width: 66.666%; }
+.col-9 { width: 75%; }
+.col-10 { width: 83.333%; }
+.col-11 { width: 91.666%; }
+.col-12 { width: 100%; }
+*/
+/* and so on up to 12 … */
+/
+.col-1 { flex-basis: 8.333%; }
+.col-2 { flex-basis: 16.666%; }
+.col-3 { flex-basis: 25%; }
+.col-4 { flex-basis: 33.333%; }
+.col-5 { flex-basis: 41.666%; }
+.col-6 { flex-basis: 50%; }
+.col-7 { flex-basis: 58.333%; }
+.col-8 { flex-basis: 66.666%; }
+.col-9 { flex-basis: 75%; }
+.col-10 { flex-basis: 83.333%; }
+.col-11 { flex-basis: 91.666%; }
+.col-12 { flex-basis: 100%; }
+
+
+.column {
+  --columns: 12; /* number of columns in the grid system */
+  --width: var(--width-mobile, 0); /* width of the element */
+
+  background-color: pink;
+  border: LavenderBlush 2px solid;
+  border-radius: 8px;
+  padding: 16px;
+  flex-basis: calc(var(--width) / var(--columns) * 100%);
+	margin: auto;
+}
+
+@media (min-width: 576px) {
+  .column {
+    --width-tablet: var(--width-mobile);
+    --width: var(--width-mobile);
+  }
+}
+
+@media (min-width: 768px) {
+  .column {
+    --width-desktop: var(--width-tablet);
+    --width: var(--width-desktop);
+  }
+}
