@@ -28,19 +28,10 @@
         
 
         {% block HEADER %}
+        <header class="new-header fluid-container">
+                {% include "tags/site_header.html" %}
+        </header>
 
-                        {% comment %} 
-                        <header id="site-header" class="bottom-bordered">
-                                {% include "tags/responsive_topnav.html" %}
-                        </header> 
-                        {% endcomment %}
-
-                        <header class="new-header fluid-container">
-                                {% include "tags/site_header.html" %}
-                        </header>
-                
-                
-                
         {% endblock HEADER %}
 
         <div id="site-canva-menu">

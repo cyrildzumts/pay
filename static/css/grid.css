@@ -1,9 +1,9 @@
 /* grid styles */
 
 .container {
+  display: flex;
   max-width: 100%;
   margin: 0 auto;
-  display: flex;
   flex-wrap: wrap;
 }
 
@@ -50,7 +50,6 @@
 .col-12 { width: 100%; }
 */
 /* and so on up to 12 … */
-/
 .col-1 { flex-basis: 8.333%; }
 .col-2 { flex-basis: 16.666%; }
 .col-3 { flex-basis: 25%; }
