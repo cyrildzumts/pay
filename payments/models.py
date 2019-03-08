@@ -13,6 +13,9 @@ class Transaction(models.Model):
     validated_at = models.DateField()
     details = models.TextField(max_length=256)
 
+    def __str__(self):
+        return "Transaction id : {0} - Amount : {1}".format(self.transaction_id, self.amount)
+
 
 class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)
@@ -22,6 +25,9 @@ class Payment(models.Model):
     created_at = models.DateField(auto_now=True)
     validated_at = models.DateField()
     details = models.TextField(max_length=256)
+
+    def __str__(self):
+        return "Payment id : {0} - Amount : {1}".format(self.payment_id, self.amount)
 
 
 class CaseIssue(models.Model):
@@ -35,6 +41,9 @@ class CaseIssue(models.Model):
     created_at = models.DateField(auto_now=True)
     closed_at = models.DateField()
 
+    def __str__(self):
+        return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.case_id, self.participant_1, self.participant_2)
+
 
 
 class Reduction(models.Model):
@@ -44,3 +53,6 @@ class Reduction(models.Model):
     user = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
     created_at = models.DateField(auto_now=True) 
     used_at = models.DateField()
+
+    def __str__(self):
+        return "Reduction id : {0} - percent : {1}".format(self.reduction_id, self.percent)

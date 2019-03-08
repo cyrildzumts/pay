@@ -1,8 +1,96 @@
 {% extends "flat_minimal_base.html" %}
 
 {% block MAINCONTENT %}
-<div class="flat-col-xs-12 flat-col-md-6">
-    {%include 'tags/account_login_dialog.html' %}
+<div class="col col-12">
 
+    <div class="tab-bar">
+        <div class="tab col col-6 bordered" data-toggle="#user-login" data-index="0">
+            <span> Se connecter</span>
+        </div>
+        <div class="tab col col-6 bordered" data-toggle="#user-signup" data-index="1">
+                <span> Créer un compte PAY </span>
+        </div>
+    </div>
+
+    <div id="account-dialog" class="container tab-container">
+        <section id="user-login" class="user-login tab-content">
+            <form id="login-form" class="login-form" name="login-form" action="{% url 'accounts:login' %}" method="POST">{% csrf_token %}
+                <input type="hidden" name="next" value="{{request.GET.next}}" />
+                <div class="row">
+                    <div class="col col-12"><span>Connexion</span> </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="form-group">
+                            <input type="text" name="username" placeholder="Nom d'utilisateur">
+                        </div>
+                    </div>
+                    <div class="col col-12">
+                            <div class="form-group">
+                                <input type="password" name="password" placeholder="Mot de passe">
+                            </div>
+                    </div>
+                </div><!-- End of row -->
+                <div class="row">
+                        <div class="col col-12">
+                            <div class="form-group">
+                                <a class="link" href="{% url 'accounts:password_reset' %}">J'ai oublié mon mot de passe</a>
+                            </div>
+                        </div>
+                        
+                </div><!-- End of row -->
+                <div class="row">
+                        <div class="col col-12">
+                                <div class="form-group">
+                                    <button type="submit">Se connecter</button>
+                                </div>
+                        </div>
+                    </div><!-- End of row -->
+            </form>
+        </section> <!-- End of Section Login-->
+        <section id="signup" class="tab-content">
+            <div class="container">
+                <form class="form signup-form" action="{% url 'accounts:register' %}" method="POST">{% csrf_token %}
+                    <div class="row">
+                        <div class="col col-12">
+                            <span> Créer votre compte </span>
+                        </div>
+                    </div><!-- End of row -->
+                    <div class="row">
+                            <div class="col col-12">
+                                <div class="form-group">
+                                    <input type="text" name="firstname" placeholder="Prénom">
+                                </div>
+                            </div>
+                            <div class="col col-12">
+                                    <div class="form-group">
+                                        <input type="text" name="lastname" placeholder="Nom de famille">
+                                    </div>
+                            </div>
+                            <div class="col col-12"></div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" placeholder="E-Mail">
+                                    </div>
+                            </div>
+                            <div class="col col-12">
+                                    <div class="form-group">
+                                        <input type="password" name="password" placeholder="Mot de passe">
+                                    </div>
+                            </div>
+                            <div class="col col-12">
+                                    <div class="form-group">
+                                        <input type="password" name="password2" placeholder="Resaisissez votre mot de passe">
+                                    </div>
+                            </div>
+                    </div><!-- End of row -->
+                    <div class="row">
+                        <div class="form-group">
+                            <button type="submit">Créer mon compte</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section><!-- End of Section signup -->
+    </div><!--End of account-dialog -->
 </div>
 {% endblock MAINCONTENT %}
