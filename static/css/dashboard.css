@@ -1,0 +1,113 @@
+.dashboard-page{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+}
+
+
+.dashboard-category li{
+    padding: 10px 20px;
+    margin: 10px 20px;
+}
+
+#dashboard-clock{
+    padding: 5px;
+    margin: 10px;
+}
+
+.dashboard-sidebar{
+    min-height: 100%;
+}
+
+.dashboard-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px 10px;
+    margin: 2px 5px;
+}
+
+.dashboard-card div{
+    text-align: center;
+    padding: 5px 2px;
+    margin: 2px 5px;
+}
+
+.dashboard-tab{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    padding: 5px 10px;
+    margin: 2px 5px;
+}
+
+.dashboard-tab .tab{
+    padding: 5px 10px;
+    margin: 2px 5px;
+    font-weight: bold;
+}
+
+.dashboard-card .header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: 5px 10px;
+    margin: 2px 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dashboard-entry{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: 5px 10px;
+    margin: 2px 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.dashboard-entry span{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+.dashboard-list{
+    width: 100%;
+
+}
+
+.dashboard-list .dashboard-card .content{
+    display: flex;
+    flex-direction: column;
+
+}
+.dashboard-title, .dashboard-list,
+.dashboard-list .header span,
+.dashboard-entry span
+{
+    padding: 5px 10px;
+    margin: 2px 5px;
+}
+
+.number{
+    text-align: center;
+    padding: 20px 15px;
+    margin: 2px;
+}
+
+
+
+#myChart{
+    width: 450px;
+    height: 600px;
+
+    padding: 5px 10px;
+    margin: 2px 5px;
+}

@@ -1,0 +1,238 @@
+
+
+.relative{
+    position: relative;
+}
+.absolute{
+    position: absolute;
+}
+
+.fixed{
+    position: fixed;
+}
+.sticky{
+    position: sticky;
+}
+.vertical{
+    flex-direction: column;
+}
+
+.listview.horizontal {
+    flex-direction: row;
+}
+
+li {
+    display: block;
+    padding: 5px;
+
+    position: relative;
+}
+
+li ul, li #site-header--account {
+    display: none;
+    position: relative;
+
+}
+
+#site-cat-nav-list .cat-entry{
+    position: relative;
+}
+
+#site-cat-nav-list .cat-entry .title{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
+
+/*
+li:hover > ul, li:hover #site-header--account{
+    display: block;
+    width: 100%;
+}
+*/
+/*
+li:hover #site-header--account{
+    display: block;
+    width: 100%;
+}
+ul.canva-nav{
+    position: relative;
+    padding: 5px;
+}
+ul.canva-nav li{
+    display: block;
+    padding: 10px;
+}
+
+ul.canva-nav li ul{
+    display: none;
+    position: relative;
+}
+ul.canva-nav li:hover > ul{
+    display: block;
+}
+
+#site-header--account ul{
+    width: 100%;
+}
+
+*/
+#site-newproducts-ads{
+    position: relative;
+}
+
+#page-side{
+    border-right: 1px solid #ccc;
+}
+/*
+#page-side li ul{
+    display: block;
+    position: relative;
+    padding: 5px;
+    margin: 5px;
+}
+*/
+#product-page{
+
+}
+.image-container{
+
+}
+.product-infos{
+
+}
+.product-infos .divider{
+    border: 1px dashed #E7E7E7;
+}
+.product-infos .header{
+    align-items: left;
+    text-align: left;
+}
+.product-infos .content{
+    justify-content: left;
+    text-align: left;
+}
+.product-infos .footer{
+    justify-content: left;
+    text-align: left;
+}
+.product-infos .flat-btn{
+    
+}
+.product-infos .flat-cart-add-btn{
+    
+}
+
+
+#wishlist.card .header, #cart.card .header{
+    
+}
+#wishlist.card .content, #cart.card .content{
+    
+}
+
+.card .details{
+
+}
+/***********************************************************/
+.mod-dropdown{
+    position: relative;
+}
+
+
+.mod-dropdown--content{
+    position: absolute;
+    top: 3rem;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    
+
+}
+
+.mod-dropdown:hover .mod-dropdown--content{
+    display: block;
+}
+
+.mod-dropdown--content .link{
+    width: 100%;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+
+}
+
+.product{
+    position: relative;
+}
+.product .label{
+    position: absolute;
+    top: 2%;
+    left:2%;
+}
+.product .image{
+    position: relative;
+}
+
+.product--price, .product--price-total{
+
+    font-weight: bold;
+    margin: 4px 0 0 0;
+}
+
+.image .image--link{
+    position: relative;
+}
+
+
+.order{
+    border-bottom: 1px solid #E7E7E7;
+    border-right: 1px solid #E7E7E7;
+}
+
+.flat-checkout-link .flat-btn{
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 15px;
+}
+
+.social-link{
+    font-size: 150%;
+    color: #E7E7E7;
+}
+
+.js-close-canva{
+    text-align: center;
+    cursor: pointer;
+    padding: 2px;
+}
+
+li .collapsible{
+    width: 100%;
+}
+.collapsible .open{
+    display: block;
+    width: 100%;
+    
+}
+#site-footer{
+    z-index: 10;
+}
+
+.product--options{
+    
+}
+.color-entry{
+
+}
+
+.size-entry{
+
+}
+
+.shoe-colors-list{
+
+}
+
+.shoe-size-list{
+    
+}

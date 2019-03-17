@@ -1,0 +1,245 @@
+.bg-softred{
+    background-color: #EC644B;
+}
+
+.bg-chestnutrose{
+    background-color: #D24D57;
+}
+.bg-sunflower{
+    color: #ecf0f1;
+    background-color: #f1c40f;
+}
+.bg-pomegranate{
+    background-color:#F22613;
+}
+
+.bg-thunderbird{
+    color:#F2F1FE;
+    background-color: #D91E18;
+}
+.bg-razzmatazz{
+    color:#F2F1FE;
+    background-color: #DB0A5B;
+}
+.bg-waxflower{
+    background-color: #F1A9A0;
+}
+.bg-radicalred{
+    background-color: #F62459;
+    color: #F2F1FE;
+}
+.bg-crimson{
+    background-color: #FF3951;
+    color: #F2F1FE;
+}
+
+.bg-tolopea{
+    background-color: #2A2742;
+    color: #F2F1FE;
+}
+.bg-snuff{
+    color: #F2F1FE;
+    background-color:#DCC6E0;
+}
+.bg-rebeccapurple{
+    color:#F2F1FE;
+    background-color:#663399;
+}
+.bg-plum{
+    color:#F2F1FE;
+    background-color: #913D88;
+}
+.bg-honeyflower{
+    color:#F2F1FE;
+    background-color:#674172
+}
+.bg-sanmarino{
+    color:#F2F1FE;
+    background-color:#446CB3
+}
+.bg-aliceblue{
+    color:#F2F1FE;
+    background-color:#E4F1FE
+}
+.bg-madison{
+    color:#F2F1FE;
+    background-color:#2C3E50
+}
+.bg-ming{
+    color:#F2F1FE;
+    background-color:#336E7B
+}
+.bg-ebonyclay{
+    color:#F2F1FE;
+    background-color:#22313F
+}
+.bg-jellybean{
+    color:#F2F1FE;
+    background-color: #2574A9;
+}
+.bg-pickledbluewood{
+    color:#F2F1FE;
+    background-color:#34495E
+}
+.bg-cararra{
+    background-color:#F2F1FE;
+}
+.bg-mediumturquoise{
+    background-color: #4ECDC4;
+}
+.bg-whitesmoke{
+    background-color: #ECECEC;
+}
+.bg-iron{
+    background-color: #DADFE1;
+}
+.bg-silver{
+    background-color: #BFBFBF;
+}
+.bg-sandstorm{
+    background-color: #F9BF3B;
+}
+.bg-niagara1{
+    color:#34495e;
+    background-color: #2ABB9B;
+}
+.bg-niagara{
+    color:#ECECEC;
+    background-color: #16A085;
+}
+.bg-niagara-complementary{
+    color:#ECECEC;
+    background-color: #5AC3AE;
+}
+.bg-turquoise{
+    color:#34495e;
+    background-color: #36D7B7;
+}
+.bg-oceangreen{
+    color: #ecf0f1;
+    background-color: #4DAF7C;
+}
+.bg-peterriver{
+    color: #ecf0f1;
+    background-color: #3498db;
+}
+.bg-amethys{
+    color: #ecf0f1;
+    background-color: #9b59b6;
+}
+.bg-midnightblue{
+    color: #ecf0f1;
+    background-color: #2c3e50;
+}
+.bg-wetasphalt{
+    color: #ecf0f1;
+    background-color: #34495e;
+}
+.bg-orange{
+    color: #ecf0f1;
+    background-color: #FF5722;
+}
+
+.bg-amber{
+    color:#34495e;
+    background-color: #FFC107;
+}
+.lightwisteria{
+    background-color: #BE90D4;
+}
+.bg-lightningyellow{
+    background-color: #F5AB33;
+}
+.bg-galery{
+    background-color: #EEEEEE;
+}
+.bg-crusta{
+    background-color: #F2784B;
+}
+
+.bg-emerald{
+    background-color: #3FC380;
+}
+.gradient-blue{
+    background: linear-gradient(#3498db, #4ECDC4);
+}
+
+.bg-parfum-section{
+    background-color: #F1A9A0;
+    color: #E4F1FE;
+}
+
+.bg-ebony{
+    background-color: #2C2C2C;
+    color: #ECF0F1;
+}
+.bg-newspaper{
+    background-color: #F9F8F4;
+    color:#2C2C2C;
+}
+
+.bg-mandys-pink{
+    background-color: #F1BC9E;
+    color:#2C2C2C;
+}
+
+.bg-transparent{
+    background-color: transparent;
+}
+
+.text-color-crimson{
+    color: #FF3951;
+}
+
+.text-purple
+{
+    font-family: "Montserrat", sans-serif;
+    color: #663399;    
+
+}
+.text-orange{
+    color: #f4511e;
+}
+.wishlist-remove-btn{
+    color: #FF3951;
+}
+.wishlist-clear-btn{
+ background-color: #FF3951;
+}
+
+.bg-success{
+    background-color: #53DF83;
+    color: #2C3E50;
+}
+.bg-whiteblack{
+    color: #2C2C2C;
+    background-color: #FFFFFF;
+}
+.bg-site-theme{
+    background-color: #ECF0F1;
+    color: #34495E;
+}
+.bg-frenchgrey{
+    /*color: #7D656C;*/
+    color: #F9F8F9;
+    background-color: #545151;
+}
+.bg-venus{
+    background-color: #7D656C;
+    color: #F9F8F9;
+}
+.bg-main-light{
+    background-color: #EEEEEE;
+    color: #1A1A1A;
+}
+.bg-dominant-brand{
+    background-color: #ff8080ff;
+    color: #2C2C2C;
+}
+.bg-main-light .flat-divider{
+    border-color: #846D74;
+}
+.bg-dark{
+    background-color: #1A1A1A;
+    color: #EEEEEE;
+}

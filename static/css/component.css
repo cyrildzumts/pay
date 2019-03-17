@@ -1,0 +1,56 @@
+
+/* sections */
+.balance{
+	font-size: 1.5em;
+	font-weight: bold;
+	line-height: 1.5;
+}
+
+.balance-info{
+	font-size: 1em;
+	font-weight: bold;
+	line-height: 1.5;
+	height: 25px;
+	border-radius:50%;
+}
+
+.header {
+  --width-mobile: 12;
+  /*height: 12rem;*/
+}
+
+.in{
+	background-color: #4caf50;
+	color: #eeeeee;
+}
+
+.out{
+	background-color: #e91e63;
+	color: #eeeeee;
+}
+
+.content {
+  --width-mobile: 12;
+  --width-tablet: 6;
+  --width-desktop: 8;
+  /*height: 64rem;*/
+}
+
+.sidebar {
+  --width-mobile: 12;
+   --width-tablet: 6;
+  --width-desktop: 4;
+  /*height: 64rem;*/
+}
+
+.footer {
+  --width-mobile: 12;
+  height: 8rem;
+}
+
+.divider {
+  --columns: 12; /* number of columns in the grid system */
+  --width: var(--width-mobile, 0); /* width of the element */
+  padding: 5px;
+  flex-basis: calc(var(--width) / var(--columns) * 100%);
+}
