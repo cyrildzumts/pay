@@ -1,0 +1,50 @@
+
+
+
+.usage-description{
+    width: 100%;
+    text-align: left;
+    padding: 10px 18px;
+}
+
+.usage-description a{
+    text-decoration: none;
+    color: var(--btn-color);
+    font-weight: 600;
+    padding: 16px 18px;
+}
+
+.usage-description a:link{
+    color: var(--btn-color);
+}
+
+.advantages{
+    background-color: #0B0C10;
+    color: #FEFFFF;
+    min-height: 25rem;
+    padding: 18px 20px;
+}
+
+.advantage h3{
+    padding: 16px 18px;
+    font-size: 1.25rem;
+}
+
+.advantage p{
+    color: #A8D0E8;
+    font-size: 1rem;
+    padding: 16px 18px;
+}
+
+.advantage a{
+    text-decoration: none;
+    color:#66FCF1;
+    font-weight: 600;
+    padding: 16px 18px;
+}
+
+.logo{
+    text-decoration: none;
+    color: #66FCF1;
+    font-weight: 600;
+}
