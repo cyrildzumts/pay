@@ -1859,32 +1859,10 @@ if(typeof (Storage)!== "undefined"){
 else{
     console.log("This Browser doesn't support webstorage");
 }
-Shopping.dispatcher = new Dispatcher();
-Shopping.banner = new Banner();
-Shopping.cart  = new Cart();
-Shopping.account = new Account();
-Shopping.catalog = new Catalog();
-Shopping.wishlist =  new Wishlist();
-Shopping.checkout = new Checkout();
-Shopping.banner.init();
-Shopping.catalog.init(0);
-Shopping.catalog.set_dispatcher(Shopping.dispatcher);
-Shopping.account.init();
-Shopping.cart.init();
-Shopping.cart.set_dispatcher(Shopping.dispatcher);
-Shopping.wishlist.init();
-Shopping.checkout.init();
-Shopping.wishlist.set_dispatcher(Shopping.dispatcher);
+
+
 //Shopping.wishlist.addCatalog(Shopping.catalog);
 //Shopping.cart.addCatalog(Shopping.catalog);
-Shopping.collapsible = new Collapsible();
-Shopping.collapsible.init();
-Shopping.modal = new Modal();
-Shopping.modal.init();
-Shopping.tabs = new Tabs();
-Shopping.tabs.init();
-
-
 
 //Dashboard.financeChart = new FinancesChart();
 //Dashboard.financeChart.init();

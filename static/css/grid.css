@@ -1,39 +1,34 @@
 /* grid styles */
 
 .container {
-  display: flex;
   max-width: 100%;
   margin: 0 auto;
+  display: flex;
   flex-wrap: wrap;
+  position: relative;
 }
 
-.row{
+.flex{
 	display: flex;
 	flex-direction: row;
-	width: 100%;
-
-}
-.grid{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
+
+
+.full{
+  width: 100%;
+}
 
 .col {
 	position: relative;
-  border: LavenderBlush 2px solid;
+  /*border: #fff 2px solid;*/
   /*border-radius: 8px;*/
-  padding: 14px;
 	margin: auto;
 }
 
-.col span, .col div
-{
-	border: LavenderBlush 2px solid;
-	padding: 5px;
-	margin: auto;
-}
 
 /*
 .col-1 { width: 8.333%; }
@@ -50,6 +45,7 @@
 .col-12 { width: 100%; }
 */
 /* and so on up to 12 … */
+
 .col-1 { flex-basis: 8.333%; }
 .col-2 { flex-basis: 16.666%; }
 .col-3 { flex-basis: 25%; }
@@ -64,16 +60,19 @@
 .col-12 { flex-basis: 100%; }
 
 
+.row{
+	display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+	width: 100%;
+
+}
+
 .column {
   --columns: 12; /* number of columns in the grid system */
   --width: var(--width-mobile, 0); /* width of the element */
-
-  background-color: pink;
-  border: LavenderBlush 2px solid;
-  border-radius: 8px;
-  padding: 16px;
   flex-basis: calc(var(--width) / var(--columns) * 100%);
-	margin: auto;
 }
 
 @media (min-width: 576px) {
@@ -89,3 +88,28 @@
     --width: var(--width-desktop);
   }
 }
+.grid{
+  display: flex;
+  max-width: 100%;
+  margin: 0 auto;
+	flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.responsive {
+  --width-mobile: 12;
+  --width-tablet: 6;
+  --width-desktop: 3;
+  /*height: 64rem;*/
+}
+.responsive-3 {
+  --width-mobile: 12;
+  --width-tablet: 6;
+  --width-desktop: 4;
+  /*height: 64rem;*/
+}
+
+
