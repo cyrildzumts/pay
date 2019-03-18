@@ -90,8 +90,8 @@ def user_account(request):
     template_name = "accounts/account.html"
     page_title = 'Mon Compte | ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
-    name = 'Cyrille Ngassam Nkwenga'
-    #orders = user.order_set.order_by('-date').exclude(status=Order.FINISHED)[:2]
+    name = request.user.get_full_name()
+    
     context = {
         'name'      : name,
         'page_title':page_title,

@@ -103,33 +103,25 @@ var Account = (function(){
 
          login_form.submit(function(event){
             event.preventDefault();
+            var flag = false;
             console.log("Login received");
             var username = $('input[name="username"]', login_form).val();
             var password = $('input[name="password"]', login_form).val();
             var error_div = $("#error-login", login_form);
             var error_msg = "";
-            if(username.length == 0 && password.length == 0){
-                error_msg = "nom d'utilisateur et mot de passe vide. Veuillez saisir ces informations et essayez à nouveau."
-                console.log("form error : username and password are empty.");
-                error_div.html(error_msg).show();
-            }
-            else
-            if(username.length == 0){
-                console.log("form error : username is empty.");
-                error_msg = "nom d'utilisateur vide. Veuillez saisir le nom d'utilisateur et essayez à nouveau."
-                error_div.html(error_msg).show();
-            }
-            else if(password.length == 0){
-                console.log("form error : password is empty.");
-                error_msg = "Mot de passe vide. Veuillez saisir le mot de passe et essayez à nouveau."
-                error_div.html(error_msg).show();
-            }
-            else{
+            if((username.length > 0) && (password.length > 0)){
+                
                 error_div.hide();
                 console.log("form : username = ", username);
                 console.log("form : password = ", password);
-
+                flag = true;
             }
+            else{
+                error_msg = "Votre nom d'utilisateur ou votre mot est incoreecte. Veuillez verifier ces informations et essayez à nouveau."
+                console.log("form error : username or password is empty.");
+                error_div.html(error_msg).show();
+            }
+            return flag;
          });
     };
 
