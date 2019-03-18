@@ -1,7 +1,276 @@
 {% extends "base_flat.html" %}
 
+
+{% block HEADER_PANEL %}
+  <div class="header--panel row">
+       <div class="col col-1">
+              <div class="logo">
+                PAY
+              </div>
+        </div>
+        <div class="col col-11">
+              <nav class="nav">
+                    <a href="#discover">Decouvrir nos services</a>
+                    <a href="#pay">PAY</a>
+                    <a href="#customer">Pour les particuliers</a>
+                    <a href="#enterprise">Pour les entreprises</a>
+                    <a class="signup-btn" href="#" data-tab="1">Creer un compte</a>
+                    <a class="signin-btn" href="#" data-tab="0">Se connecter</a>
+              </nav>
+        </div>                 
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+  <div class="header--banner">
+       <h1>Bienvenue chez PAY</h1>
+        <h3>Votre solution de payment</h3>
+        <p>Ne perdez plus votre temps à faire la queue pour payer votre facture.
+            Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
+        </p>
+        <button class="button"> Découvrir PAY</button>
+  </div>
+{% endblock HEADER_BANNER %}
+{% block SIGNUP_DIALOG %}
+                
+{% endblock SIGNUP_DIALOG %}
+
 {% block MAIN %}
-  <div class="">
-  MAIN CONTENT
-  </div>   
+  <div class="row">
+            <div class="full welcome-text center">
+                <h3>PAY - Une solution de paiement idéale pour tout le monde</h3>
+                <p>
+                  Fini les problèmes de pétite monaies, où que vous soyez payez en un simple clique.
+                  
+                </p>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="flex responsive column">
+              <div id="discover" class="mat-card">
+                  <div class="card__image adapt-color">
+                      <img class="contain" src="images/businessman.svg" alt="">
+                  </div>
+                  
+                  <div class="mat-card__body">
+                      <div class="title center">
+                          Découvrir PAY
+                      </div>
+                      <div class="secondary--text">
+                          <p class="center">  
+                            Chargez votre compte PAY et profitez du payement simplifié.
+                          </p>
+                      </div>
+                  </div>
+                  
+                    
+                  <div class="mat-card__footer">
+                      <div class="card__actions">
+                        <button class="button">
+                          En savoir plus
+                        </button>
+                      </div>
+                  </div>
+              </div><!--End of card-->
+            </div>
+            
+            <div class="flex responsive column">
+                <div id="customer" class="mat-card">
+                  <div class="card__image">
+                    <object class="contain" data="images/customer.svg" type="image/svg+xml"></object>
+                      <!-- <img class="contain" src="images/customer.svg" alt=""> -->
+                  </div>
+                  
+                  <div class="mat-card__body">
+                      <div class="title center">
+                          Pour les particuliers
+                      </div>
+                      <div class="secondary--text">
+                          <p class="center">
+                            En tant qu'utilisateur, rechargez juste votre compte auprès d'un de nos bureaux.
+                          </p>
+                      </div>
+                  </div>
+                  
+                    
+                  <div class="mat-card__footer">
+                      <div class="card__actions">
+                        <button class="button">
+                          En savoir plus
+                        </button>
+                      </div>
+                  </div>
+              </div><!--End of card-->
+            </div>
+            <div class="flex responsive column">
+                <div id="enterprise" class="mat-card">
+                  <div class="card__image adapt-color">
+                      <img class="contain" src="images/businessman.svg" alt="">
+                  </div>
+                  
+                  <div class="mat-card__body">
+                      <div class="title center">
+                          Pour les entreprises 2
+                      </div>
+                      <div class="secondary--text">
+                          <p class="center">
+                            En tant qu'entreprise recevez vos payements à tout moment.
+                          </p>
+                      </div>
+                  </div>
+                  
+                    
+                  <div class="mat-card__footer">
+                      <div class="card__actions">
+                        <button class="button">
+                          En savoir plus
+                        </button>
+                      </div>
+                  </div>
+              </div><!--End of card-->
+                
+            </div>
+          </div>
+          <div class="row">
+                <div class="tabs">
+                  <div class="tabs--title">
+                      <div class="full welcome-text center">
+                          <h3>PAY - Utilisation</h3>
+                      </div>
+                  </div>
+                  <div class="tab-bar">
+                    <div class="row">
+                        <span class="tab active" data-toggle="#customer-usage" data-index="0">Pour les particuliers</span>
+                        <span class="tab" data-toggle="#enterprise-usage" data-index="1">Pour les entreprises</span>
+                    </div>
+                    
+                  </div> <!--End of Tab-bar-->
+                  
+                  <div class="tab-container container">
+                    <div id="customer-usage" class="tab-content grid">
+                        <div class="usage-step responsive column">
+                            <div class="image">
+                              <img src="" alt="">
+                            </div>
+                            <div class="row">
+                                <div class="circle">1</div>
+                                <div class="usage-description">
+                                   <p> <a href="#">Creer gratuitement votre compte</a> chez PAY avec votre adresse E-mail et un mot de passe</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="usage-step responsive column">
+                          <div class="image">
+                            <img src="" alt="">
+                          </div>
+                          <div class="row">
+                              <div class="circle">2</div>
+                              <div class="usage-description">
+                                 <p>Chargez votre compte PAY auprès d'un de nos bureaux</p>
+                              </div>
+                          </div>
+                          
+                      </div>
+                      <div class="usage-step responsive column">
+                        <div class="image">
+                          <img src="" alt="">
+                        </div>
+                        <div class="row">
+                            <div class="circle">3</div>
+                            <div class="usage-description">
+                               <p>Effectuez vos achats ou payez vos factures avec compte PAY</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                        
+                    </div>
+                    <div id="enterprise-usage" class="tab-content grid">
+                      
+                        <div class="usage-step responsive column">
+                            <div class="image">
+                              <img src="" alt="">
+                            </div>
+                            <div class="row">
+                                <div class="circle">1</div>
+                                <div class="usage-description">
+                                   <p>Ouvrez gratuitement votre compte business chez PAY</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="usage-step responsive column">
+                          <div class="image">
+                            <img src="" alt="">
+                          </div>
+                          <div class="row">
+                              <div class="circle">2</div>
+                              <div class="usage-description">
+                                 <p>Choisissez l'option PAY qui vous convient</p>
+                              </div>
+                          </div>
+                          
+                      </div>
+                      <div class="usage-step responsive column">
+                        <div class="image">
+                          <img src="" alt="">
+                        </div>
+                        <div class="row">
+                            <div class="circle">3</div>
+                            <div class="usage-description">
+                               Generez un lien pour recevoir vos paiements
+                            </div>
+                        </div>
+                        
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span class="button">En savoir plus</span>
+                  </div>
+                  </div>
+                </div>
+              
+          </div>
+          <div class="advantages grid">
+            <div class="responsive column">
+              <div class="advantage">
+                <h3 class="left">Plus de securité</h3>
+                <p class="leftr">Vos paiements sont securisés. 
+                  Si un vendeur ne vous livre pas votre commande payée à 
+                  travers PAY, PAY vous renboursera le payera.
+                </p>
+                <a class="link" href="#">Protection du client</a>
+              </div><!--End of advantage-->
+            </div><!--End of column-->
+            <div class="responsive column">
+                <div class="advantage">
+                  <h3 class="left">Plus de securité</h3>
+                  <p class="left">Vos paiements sont securisés. 
+                    Si un vendeur ne vous livre pas votre commande payée à 
+                    travers PAY, PAY vous renboursera le payera.
+                  </p>
+                  <a class="link" href="#">Protection du client</a>
+                </div><!--End of advantage-->
+            </div><!--End of column-->
+            <div class="responsive column">
+                <div class="advantage">
+                  <h3 class="left">Plus de securité</h3>
+                  <p class="left">Vos paiements sont securisés. 
+                    Si un vendeur ne vous livre pas votre commande payée à 
+                    travers PAY, PAY vous renboursera le payera.
+                  </p>
+                  <a class="link" href="#">Protection du client</a>
+                </div><!--End of advantage-->
+              </div><!--End of column-->
+              <div class="responsive column">
+                  <div class="advantage">
+                    <h3 class="left">Plus de securité</h3>
+                    <p class="left">Vos paiements sont securisés. 
+                      Si un vendeur ne vous livre pas votre commande payée à 
+                      travers PAY, PAY vous renboursera le payera.
+                    </p>
+                    <a class="link" href="#">Protection du client</a>
+                  </div><!--End of advantage-->
+                </div><!--End of column-->
+          </div>
 {% endblock MAIN %}
