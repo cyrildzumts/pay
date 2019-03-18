@@ -38,7 +38,7 @@
 {% endblock HEADER_BANNER %}
 
 {% block SIGNUP_DIALOG %}
-{% if  request.user.is_authenticated %}
+{% if not request.user.is_authenticated %}
   <div id="signup-dialog" class="modal signup-dialog">
             <div class="tabs box-shadow">
                 <div class="tab--title">
