@@ -36,7 +36,7 @@
         <button class="button"> Découvrir PAY</button>
   </div>
 {% endblock HEADER_BANNER %}
-{% if not request.user.is_authenticated  %}
+{% if  request.user.is_authenticated is not True %}
   {% block SIGNUP_DIALOG %}
   <div id="signup-dialog" class="modal signup-dialog">
             <div class="tabs box-shadow">
