@@ -102,7 +102,7 @@ var Account = (function(){
          });
 
          login_form.submit(function(event){
-            event.preventDefault();
+            //event.preventDefault();
             var flag = false;
             console.log("Login received");
             var username = $('input[name="username"]', login_form).val();
