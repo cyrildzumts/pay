@@ -1,21 +1,37 @@
 {% extends "base_flat.html"%}
 
-{%block CURRENT_CATEGORY_PATH%}
-<div class="content-header flex-container">
-     <p> Bienvenue {{request.user.first_name}}! </p>  
-</div><!-- End of main-header -->
-{%endblock CURRENT_CATEGORY_PATH%}
-{% block GRID_HEADER%}
-                        
-{% endblock GRID_HEADER%}
-{% block ASIDE %}
-    <aside id="page-side" class="col col-2">
-            {% block ASIDE_CONTENT %} 
+{% block HEADER_PANEL %}
+  <div class="header--panel row">
+       <div class="col col-1">
+              <div class="logo">
+                PAY
+              </div>
+        </div>
+        <div class="col col-11">
+              <nav class="nav">
+                    <a href="#pay">PAY</a>
+                    <a href="#customer">Activités</a>
+                    <i class="far fa-bell"></i>
+                    <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >Se deconnecter</a>
+                    
+              </nav>
+        </div>                 
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+  <div class="header--banner row">
+       <div class="col col-12">
+        <span class="account-balance">Votre Solde</span>
+       </div>
+       <div class="row">
+        <span class="balance">325000 FCFA</span>
+        <span class="info"> <i class="fas fa-info-circle"></i></span>
+        <span> <i class="fas fa-plus-circle"></i> </span>
+       </div>
+  </div>
+{% endblock HEADER_BANNER %}
 
-            {% endblock ASIDE_CONTENT %}            
-    </aside>
-{% endblock ASIDE %}
 
-    
-{% block MAINCONTENT %}
-{% endblock MAINCONTENT %}
+{% block MAIN %}
+
+{% endblock MAIN %}

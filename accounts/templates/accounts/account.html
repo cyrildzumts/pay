@@ -1,71 +1,65 @@
 {% extends "account_base.html"%}
-{% block MAINCONTENT %}
 
+{% block MAIN %}
+<div class="row">
+        <div class="tabs">
+                <!-- <div class="tabs--title">
+                        <div class="full welcome-text center">
+                                <h3>PAY - Utilisation</h3>
+                        </div>
+                </div> -->
+                <div class="tab-bar">
+                        <div class="row">
+                                <span class="tab active" data-toggle="#activities-view" data-index="0">Activités</span>
+                                <span class="tab" data-toggle="#services-view" data-index="1">Services</span>
+                                <span class="tab" data-toggle="#favorite-view" data-index="2">Favoris</span>
+                        </div>
 
+                </div>
+                <!--End of Tab-bar-->
 
-<div class="col col-12">
-        <div class="row">
-                <span class="col-12">Appercu de mon compte</span>
+                <div class="tab-container container">
+                        <div id="activities-view" class="tab-content grid">
+                                {% if activites %}
+                                        {% for activity in activities  %}
+                                        <div class="action entry trello-card">
+                                                {{activity.name}}
+                                        </div>
+                                        {% endfor %}
+                                {% else %}
+                                        <span> Vous n'avez aucune transactions actuellement.
+                                                Apres avoir avoir effectuyé une transaction, cette transaction sera listée
+                                                ici.
+                                        </span>
+                                {% endif %}
+                        </div>
+                        <div id="services-view" class="tab-content grid">
+
+                                {% if services %}
+                                        {% for service in services  %}
+                                        <span class="action entry"> {{service.name}} </span>
+                                        {% endfor %}
+                                {% else %}
+                                        <span> Il n'y a actuellement aucun service disponible.
+                                                Lorsque que de nouveaux services seront disponible, ils seront listés ici.
+                                        </span>
+                                {% endif %}
+                                
+                        </div>
+                        <div id="favorite-view" class="tab-content grid">
+                                {% if favorites %}
+                                        {% for favory in favories   %}
+                                        <span class="action entry"> {{favory.name}} </span>
+                                        {% endfor %}
+                                {% else %}
+                                        <span> Vous n'avez aucun favori actuellement.
+                                                Ici sera afficher comment ajouter des favoris
+                                        </span>
+                                {% endif %}
+                        </div>
+                </div>
         </div>
-        <div id="user-infos" class="">
-                <section class="col-6">
-                        <div class="card bordered">
-                                <section class="header">
-                                        <span>Données d'utilisateur</span>
-                                </section>
-                                <section class="content">
-                                        <span>{{request.user.username}}</span>
-                                        <span>{{request.user.last_name}} {{request.user.first_name}}</span>
-                                        <span>{{request.user.email}}</span>
-                                </section>
-                                <section class="footer">
-                                        <span class="col col-9"></span>
-                                        <span class="col col-3">
-                                                <a class="flat-link" href="{% url 'accounts:edit_account' pk=1 %}">Modifier</a>
-                                        </span>
-                                </section>
-                        </div>
-                </section>
-                <section class="col col-6">
-                        <div class="card bordered">
-                                <section class="header">
-                                        <span>Abonnement à la Newsletter</span>
-                                </section>
-                                <section class="content">
-                                        <span> Inscrivez-vous à notre newsletter <br>
-                                                pour être informer sur nos offres. <br>
-                                                Vous pouvez vous désinscrire à tout <br>
-                                                moment.
-                                        </span>
-                                        <span class="footer">
-                                                <span class="input-box">
-                                                        <label class="input-container" for="newsletter"> M'abonner
-                                                                <input type="checkbox" name="newsletter" id="subscribe">
-                                                                <span class="checkmark"></span>
-                                                        </label>
-                                                </span>
-                                        </span>
-                        
-                                </section>
-                               
-                        
-                        </div>
-                </section>
-                <section class="col col-12 ">
-                        <div class="card  bordered">
-                                <section class="header">
-                                        <span> Addresses  de Livraison et de Retrait </span>
-                                </section>
-                                <section class="content">
-                                        <span> Retrait à Douala</span>
-                                </section>
-                                <section class="footer">
-                                        <span class="col col-9"></span>
-                                        <span class="col col-3"> <a class="flat-link" href="">Modifier</a></span>
-                                </section>
-                        </div>
-                </section>
-        </div>
-
+        <!--End of tabs-->
 </div>
-{% endblock MAINCONTENT %}
+
+{% endblock MAIN %}
