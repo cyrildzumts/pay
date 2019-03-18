@@ -61,7 +61,11 @@
   padding: 50px;
 
 }
-
+.header .header--banner{
+  width: 100%;
+  font-family: 'Monserrat';
+  margin-bottom: 60px;
+}
 h1{
   font-size: 60px;
   margin-bottom: 30px;
