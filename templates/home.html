@@ -72,7 +72,7 @@
                         </form>
                     </div><!--End of Tab-content-->
                     <div id="register" class="tab-content grid">
-                      <form id="signup-form" class="login-form" action="{% url 'accounts:register' %}" method="post"> {% csrf_token %}
+                      <form id="signup-form" class="login-form" action="{% url 'accounts:register' %}" method="post" autocomplete="off"> {% csrf_token %}
                         <div class="form-group">
                               
                               <input  type="text" name="username" placeholder="Nom d'utilisateur" value="">
