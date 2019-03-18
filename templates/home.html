@@ -75,13 +75,13 @@
                       <form id="signup-form" class="login-form" action="{% url 'accounts:register' %}" method="post"> {% csrf_token %}
                         <div class="form-group">
                               
-                              <input  type="text" name="username" placeholder="Nom d'utilisateur">
-                              <input  type="text" name="firstname" placeholder="Prénom">
-                              <input  type="text" name="lastname" placeholder="Nom de famille">
-                              <input  type="password" name="password1" placeholder="Votre mot de passe">
-                              <input  type="password" name="password1" placeholder="Ressaisissez votre mot de passe">
-                              <input  type="email" name="email" placeholder="Adresse E-Mail">
-                              <input  type="text" name="telefon" placeholder="Numéro de téléphone">
+                              <input  type="text" name="username" placeholder="Nom d'utilisateur" value="">
+                              <input  type="text" name="firstname" placeholder="Prénom" value="">
+                              <input  type="text" name="lastname" placeholder="Nom de famille" value="">
+                              <input  type="password" name="password1" placeholder="Votre mot de passe" value="">
+                              <input  type="password" name="password1" placeholder="Ressaisissez votre mot de passe" value="">
+                              <input  type="email" name="email" placeholder="Adresse E-Mail" value="">
+                              <input  type="text" name="telefon" placeholder="Numéro de téléphone" value="">
                         </div>
                         <div class="form-group">
                             <button class="button" type="submit">Créer mon compte PAY</button>
