@@ -69,6 +69,8 @@ def home(request):
     page_title = settings.SITE_NAME + " - Paiement en ligne"
     context = {
         'page_title': page_title,
+        'user_is_authenticated' : request.user_is_authenticated(),
+        'site_name': settings.SITE_NAME
     }
     return render(request, template_name,context)
 
