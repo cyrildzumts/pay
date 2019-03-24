@@ -20,42 +20,35 @@
 
                 <div class="tab-container container">
                         <div id="activities-view" class="tab-content grid">
-                                {% if activites %}
+
                                         {% for activity in activities  %}
                                         <div class="action entry trello-card">
                                                 {{activity.name}}
                                         </div>
-                                        {% endfor %}
-                                {% else %}
+                                        {% empty %}
                                         <span> Vous n'avez aucune transactions actuellement.
                                                 Apres avoir avoir effectuyé une transaction, cette transaction sera listée
                                                 ici.
                                         </span>
-                                {% endif %}
+                                        {% endfor %}
                         </div>
                         <div id="services-view" class="tab-content grid">
-
-                                {% if services %}
-                                        {% for service in services  %}
+                                        {% for service in services %}
                                         <span class="action entry"> {{service.name}} </span>
-                                        {% endfor %}
-                                {% else %}
+                                        {% empty %}
                                         <span> Il n'y a actuellement aucun service disponible.
                                                 Lorsque que de nouveaux services seront disponible, ils seront listés ici.
                                         </span>
-                                {% endif %}
-                                
+                                        {% endfor %}                             
                         </div>
                         <div id="favorite-view" class="tab-content grid">
-                                {% if favorites %}
-                                        {% for favory in favories   %}
+                                        {% for favory in favories %}
                                         <span class="action entry"> {{favory.name}} </span>
-                                        {% endfor %}
-                                {% else %}
+                                        {% empty %}
                                         <span> Vous n'avez aucun favori actuellement.
                                                 Ici sera afficher comment ajouter des favoris
                                         </span>
-                                {% endif %}
+                                        {% endfor %}
                         </div>
                 </div>
         </div>
