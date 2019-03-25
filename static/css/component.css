@@ -45,6 +45,7 @@
 .header {
 
   --width-mobile: 12;
+  min-width: 100%;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -52,7 +53,7 @@
   color: var(--header-color);
   font-family: 'Montserrat';
   /*height: 12rem;*/
-  padding: 10px 16px;
+  /*padding: 10px 16px;*/
 }
 
 .header .overlay{
