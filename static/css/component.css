@@ -62,9 +62,9 @@
 
 }
 .header .header--banner{
-  width: 100%;
+  min-width: 100%;
   font-family: 'Monserrat';
-  margin-bottom: 60px;
+  padding-top: 58px;
 }
 h1{
   font-size: 60px;
