@@ -95,7 +95,7 @@ var Account = (function(){
          $(".dialog-btn").click(function(event){
              event.preventDefault();
              event.stopPropagation();
-
+             console.log("dialog btn clicked");
              $($(this).data('target')).toggle();
          });
 
