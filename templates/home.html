@@ -18,8 +18,8 @@
       <a class="link" href="{% url 'accounts:account' %}">Mon Compte</a>
       <a class="signout-btn link signout" href="{% url 'accounts:logout' %}">Se deconnecter</a>
       {% else %}
-      <a class="signup-btn" href="#" data-tab="1">Creer un compte</a>
-      <a class="signin-btn" href="#" data-tab="0">Se connecter</a>
+      <a class="dialog-btn" href="#" data-tab="1" data-target="#signup-dialog">Creer un compte</a>
+      <a class="dialog-btn" href="#" data-tab="0" data-target="#signup-dialog">Se connecter</a>
       {% endif %}
 
     </nav>
@@ -43,7 +43,7 @@
 {% block SIGNUP_DIALOG %}
 {% if not request.user.is_authenticated %}
 <div id="signup-dialog" class="modal signup-dialog dialog">
-  <div class="tabs box-shadow">
+  <div class="tabs dialog-content box-shadow">
     <div class="tab--title">
       <div class="full welcome-text center">
         <h4>Accedez à PAY</h4>

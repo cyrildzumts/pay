@@ -602,7 +602,7 @@ form .form-group{
   padding-top: 58px;
 }
 
-.dialog .tabs{
+.dialog .dialog-content{
   position: relative;
   width: 500px;
   max-height: 514px;

@@ -89,16 +89,14 @@ var Account = (function(){
          }
          $(".close").click(function(event){
             var target = $(this).data('target');
-            console.log("close btn clicked for target : ", target);
             $(target).hide();
          });
          console.log("Login form found in this page");
-         $(".signup-btn, .signin-btn").click(function(event){
+         $(".dialog-btn").click(function(event){
              event.preventDefault();
              event.stopPropagation();
-             console.log("signup-btn clicked : ");
-             console.log(this);
-             $("#signup-dialog").toggle();
+
+             $($(this).data('target')).toggle();
          });
 
          login_form.submit(function(event){
