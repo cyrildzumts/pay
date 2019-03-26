@@ -82,6 +82,10 @@ var Account = (function(){
     };
 
     Account.prototype.init = function(){
+        $(".dialog-btn").click(function(event){
+            var target = $(this).data('target');
+            $(target).toggle();
+         });
          var login_form = $("#login-form");
          if(login_form.length == 0){
              console.log("no Login form found in this page");
@@ -92,10 +96,7 @@ var Account = (function(){
             $(target).hide();
          });
          console.log("Login form found in this page");
-         $(".dialog-btn").click(function(event){
-             console.log("dialog btn clicked");
-             $($(this).data('target')).toggle();
-         });
+        
 
          login_form.submit(function(event){
             //event.preventDefault();
