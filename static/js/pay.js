@@ -93,8 +93,6 @@ var Account = (function(){
          });
          console.log("Login form found in this page");
          $(".dialog-btn").click(function(event){
-             event.preventDefault();
-             event.stopPropagation();
              console.log("dialog btn clicked");
              $($(this).data('target')).toggle();
          });
