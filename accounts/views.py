@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 #from django.core import urlresolvers
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
@@ -12,10 +12,12 @@ from accounts.models import Account
 from accounts.forms import AccountForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
-from pay import settings
+from pay import settings, utils
 from accounts.account_services import AccountService
 from django.urls import reverse_lazy
 from django.views.generic.edit import  UpdateView
+from payments.models import Transaction
+from django.db.models import F
 
 # Create your views here.
 
@@ -91,7 +93,20 @@ def user_account(request):
     page_title = 'Mon Compte | ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
-    
+    if request.method == 'POST':
+        current_account = Account.objects.get(user=request.user)
+        current_solde = current_account.solde
+        postdata = utils.get_postdata(request)
+        transaction_form = Transaction(data=postdata)
+        if transaction_form.is_valid():
+            recipient_name = postdata['recipient']
+            amount = int(postdata['amount'])
+            if(current_solde >=  amount):
+                Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
+                Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
+                transaction_form.save()
+            
+
     context = {
         'name'      : name,
         'page_title':page_title,
@@ -100,6 +115,36 @@ def user_account(request):
     }
     return render(request, template_name, context)
 
+
+@login_required
+def transactions(request):
+    if request.method == 'POST':
+        context = {}
+        current_account = Account.objects.get(user=request.user)
+        current_solde = current_account.solde
+        postdata = utils.get_postdata(request)
+        transaction_form = Transaction(data=postdata)
+        if transaction_form.is_valid():
+            recipient_name = postdata['recipient']
+            amount = int(postdata['amount'])
+            if(current_solde >=  amount):
+                Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
+                Account.objects.all().filter(user=request.user).update(solde=F('solde') - amount)
+                transaction_form.save()
+                context['success'] = 1
+                context['solde'] = current_account - amount
+                
+            else :
+                context['success'] = 0
+                context['solde'] = current_account
+                context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
+        else{
+            context['success'] = 0
+            context['solde'] = current_account
+            context['errors'] = "Verifiez les champs du formulaire."
+        }
+
+    return JsonResponse(context)
 
 @login_required
 def edit_account(request, pk=None):
