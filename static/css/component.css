@@ -579,6 +579,7 @@ h3, .header p{
 
 form .form-group{
   padding: 5px 16px;
+  margin: 2px auto;
 }
 
  .error-login{
@@ -587,7 +588,7 @@ form .form-group{
 
 }
 
-#signup-dialog{
+.dialog{
   display: none;
   position: fixed;
   width: 100%;
@@ -601,7 +602,7 @@ form .form-group{
   padding-top: 58px;
 }
 
-#signup-dialog .tabs{
+.dialog .tabs{
   position: relative;
   width: 500px;
   max-height: 514px;

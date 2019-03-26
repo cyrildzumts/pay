@@ -69,6 +69,15 @@
 
 }
 
+.flex-column{
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+	width: 100%;
+
+}
+
 .column {
   --columns: 12; /* number of columns in the grid system */
   --width: var(--width-mobile, 0); /* width of the element */
