@@ -86,15 +86,16 @@ var Account = (function(){
             var target = $(this).data('target');
             $(target).toggle();
          });
+         $(".close").click(function(event){
+            var target = $(this).data('target');
+            $(target).hide();
+         });
          var login_form = $("#login-form");
          if(login_form.length == 0){
              console.log("no Login form found in this page");
              return;
          }
-         $(".close").click(function(event){
-            var target = $(this).data('target');
-            $(target).hide();
-         });
+         
          console.log("Login form found in this page");
         
 
