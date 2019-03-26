@@ -1,17 +1,17 @@
 
 <div id="transaction-dialog" class="modal transaction-dialog  dialog">
-    <div id="transaction-form" class="transaction-form dialog-content">
-        <form name="transaction" action="" method="POST">{% csrf_token %}
+    <div id="transaction" class="transaction dialog-content">
+        <form id="transaction-form" class="transaction-form" name="transaction" action="" method="POST">{% csrf_token %}
             <div id="error-login" class="error-login left">
                 <p></p>
               </div>
               <div class="form-group flex-column">
                 
                 <input type="text" name="recipient" placeholder="Nom du destinataire">
-                <input type="text" name="amount" placeholder="Montant à envoyer">
+                <input type="text" name="amount" placeholder="Montant à envoyer en FCFA">
                 <input type="text" name="details" placeholder="Description du transfert">
               </div>
-              <div class="form-group">
+              <div class="form-group row">
                 <button class="button" type="submit">Transferer</button>
                 <span class="button close" data-target="#transaction-dialog">Annuler</span>
               </div>

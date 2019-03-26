@@ -91,36 +91,66 @@ var Account = (function(){
             $(target).hide();
          });
          var login_form = $("#login-form");
+         var transaction_form = $('#transaction-form');
          if(login_form.length == 0){
              console.log("no Login form found in this page");
              return;
          }
+         else{
+            console.log("Login form found in this page");
+            login_form.submit(function(event){
+                event.preventDefault();
+                var flag = false;
+                console.log("Login received");
+                var username = $('input[name="username"]', login_form).val();
+                var password = $('input[name="password"]', login_form).val();
+                var error_div = $("#error-login", login_form);
+                var error_msg = "";
+                if((username.length > 0) && (password.length > 0)){
+                    
+                    error_div.hide();
+                    console.log("form : username = ", username);
+                    console.log("form : password = ", password);
+                    flag = true;
+                }
+                else{
+                    error_msg = "Votre nom d'utilisateur ou votre mot est incoreecte. Veuillez verifier ces informations et essayez à nouveau."
+                    console.log("form error : username or password is empty.");
+                    error_div.html(error_msg).show();
+                }
+                return flag;
+             });
+         }
+        if(transaction_form.length != 0){
+            transaction_form.submit(function(event){
+                event.preventDefault();
+                var flag = false;
+                var error_div = $("#error-login", login_form);
+                var error_msg = "";
+                var recipient =  $('input[name="recipient"]', transaction_form).val();
+                var amount =  $('input[name="amount"]', transaction_form).val();
+                var details =  $('input[name="details"]', transaction_form).val();
+                if((recipient.length > 0) && (details.length > 0) ){
+                    if(parseInt(amount) > 0 ){
+                        flag = true;
+                        error_div.hide();
+                    }
+                    else{
+                        flag = false;
+                        error_msg = "Verifier les informations saisies."
+                        error_div.html(error_msg).show();
+                    }
+                    
+                }
+
+                return flag;
+            });
+        }
          
-         console.log("Login form found in this page");
+         
         
 
-         login_form.submit(function(event){
-            //event.preventDefault();
-            var flag = false;
-            console.log("Login received");
-            var username = $('input[name="username"]', login_form).val();
-            var password = $('input[name="password"]', login_form).val();
-            var error_div = $("#error-login", login_form);
-            var error_msg = "";
-            if((username.length > 0) && (password.length > 0)){
-                
-                error_div.hide();
-                console.log("form : username = ", username);
-                console.log("form : password = ", password);
-                flag = true;
-            }
-            else{
-                error_msg = "Votre nom d'utilisateur ou votre mot est incoreecte. Veuillez verifier ces informations et essayez à nouveau."
-                console.log("form error : username or password is empty.");
-                error_div.html(error_msg).show();
-            }
-            return flag;
-         });
+         
     };
 
     return Account;
