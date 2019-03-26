@@ -129,6 +129,10 @@ h3, .header p{
   height: 8rem;
 }
 
+.footer .copyright span{
+  padding: 10px 16px;
+}
+
 .divider {
   --columns: 12; /* number of columns in the grid system */
   --width: var(--width-mobile, 0); /* width of the element */
