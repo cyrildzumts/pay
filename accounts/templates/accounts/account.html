@@ -1,6 +1,8 @@
 {% extends "account_base.html"%}
 
 {% block MAIN %}
+
+{% include "tags/transaction_dialog.html" %}
 <div class="row">
         <div class="tabs">
                 <div class="tabs--title">
@@ -27,7 +29,7 @@
                                         </div>
                                         {% empty %}
                                         <span> Vous n'avez aucune transactions actuellement.
-                                                Apres avoir avoir effectuyé une transaction, cette transaction sera listée
+                                                Apres avoir avoir effectué une transaction, cette transaction sera listée
                                                 ici.
                                         </span>
                                         {% endfor %}

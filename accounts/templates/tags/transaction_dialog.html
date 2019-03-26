@@ -1,0 +1,20 @@
+
+<div id="transaction-dialog" class="modal transaction-dialog  dialog">
+    <div id="transaction-form" class="transaction-form">
+        <form name="transaction" action="" method="POST">{% csrf_token %}
+            <div id="error-login" class="error-login left">
+                <p></p>
+              </div>
+              <div class="form-group">
+                
+                <input type="text" name="recipient" placeholder="Nom du destinataire">
+                <input type="text" name="amount" placeholder="Montant à envoyer">
+                <input type="text" name="details" placeholder="Description du transfert">
+              </div>
+              <div class="form-group">
+                <button class="button" type="submit">Transferer</button>
+                <span class="button close" data-target="#transaction-dialog">Annuler</span>
+              </div>
+        </form>
+    </div>
+</div>
