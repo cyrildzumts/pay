@@ -91,6 +91,6 @@ class AccountTestCase(TestCase):
     def test_account_creation(self):
         """ We should have 3 users in the database"""
         self.assertEqual(first=Account.objects.count() , second=3, msg="There are 3 users account in the database")
-        self.assertEqual(first=Account.objects.filter(user_username=user1['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=Account.objects.filter(user_username=user2['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=Account.objects.filter(user_username=user3['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=Account.objects.filter(user__username=user1['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=Account.objects.filter(user__username=user2['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=Account.objects.filter(user__username=user3['username']).count(), second=1,msg="any user account in the database must be unique")
