@@ -138,11 +138,11 @@ def transactions(request):
                 context['success'] = 0
                 context['solde'] = current_account
                 context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
-        else{
+        else:
             context['success'] = 0
             context['solde'] = current_account
             context['errors'] = "Verifiez les champs du formulaire."
-        }
+        
 
     return JsonResponse(context)
 
