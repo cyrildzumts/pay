@@ -19,6 +19,10 @@ class Policy(models.Model):
 
 
 class Account(models.Model):
+    ACCOUNT_TYPE = (
+        ('P', 'Privé'),
+        ('B', 'Business'),
+    )
     account_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField()
@@ -32,6 +36,7 @@ class Account(models.Model):
     is_active_account = models.BooleanField(default=True)
     solde = models.IntegerField(default=0)
     created_at = models.DateField(auto_now=True)
+    account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
     policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True, on_delete=models.SET_NULL)
 
 
