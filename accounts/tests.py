@@ -99,8 +99,8 @@ class AccountTestCase(TestCase):
     def test_update_account(self):
         account_set = Account.objects.all()
         account_set.filter(user=self.user1).update(**account1)
-        account_set.filter(user=self.user2).update(**account1)
-        account_set.filter(user=self.user3).update(**account1)
+        account_set.filter(user=self.user2).update(**account2)
+        account_set.filter(user=self.user3).update(**account3)
 
         account_set = Account.objects.all()
         no_all_private_account_flags = [account.account_type == 'P' for account in account_set]
