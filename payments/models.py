@@ -4,15 +4,33 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+class Reduction(models.Model):
+    reduction_id = models.AutoField(primary_key=True)
+    code = models.TextField(max_length=8)
+    percent =  models.DecimalField(max_digits=10, decimal_places=5)
+    user = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
+    created_at = models.DateField(auto_now=True) 
+    used_at = models.DateField()
+
+    def __str__(self):
+        return "Reduction id : {0} - percent : {1}".format(self.reduction_id, self.percent)
+
+
 class Transaction(models.Model):
+    TRANSACTION_TYPES = (
+        ('T', 'Transfert'),
+        ('P', 'Paiement'),
+    )
     transaction_id = models.AutoField(primary_key=True)
     amount = models.IntegerField(blank=False)
-    sender = models.OneToOneField(User, on_delete=models.SET_NULL)
-    recipient = models.OneToOneField(User, on_delete=models.SET_NULL)
+    sender = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, related_name='outgoing_transactions')
+    recipient = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, related_name='incoming_transactions')
     created_at = models.DateField(auto_now=True)
     validated_at = models.DateField()
     details = models.TextField(max_length=256)
-
+    transaction_type = models.CharField(max_length=1, choices=TRANSACTION_TYPES)
+    policy = models.ForeignKey('accounts.Policy', on_delete=models.SET_NULL)
+    reduction = models.ForeignKey('Reduction', blank=True, null=True, on_delete=models.SET_NULL)
     def __str__(self):
         return "Transaction id : {0} - Amount : {1}".format(self.transaction_id, self.amount)
 
@@ -20,8 +38,8 @@ class Transaction(models.Model):
 class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)
     amount = models.IntegerField(blank=False)
-    sender = models.OneToOneField(User, on_delete=models.SET_NULL)
-    recipient = models.OneToOneField(User, on_delete=models.SET_NULL)
+    sender = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL)
+    recipient = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL)
     created_at = models.DateField(auto_now=True)
     validated_at = models.DateField()
     details = models.TextField(max_length=256)
@@ -32,8 +50,8 @@ class Payment(models.Model):
 
 class CaseIssue(models.Model):
     case_id = models.AutoField(primary_key=True)
-    participant_1 = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
-    participant_2 = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
+    participant_1 = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
+    participant_2 = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
     amount = models.IntegerField()
     subject = models.TextField(max_length=32)
     description = models.TextField(max_length=256)
@@ -46,13 +64,4 @@ class CaseIssue(models.Model):
 
 
 
-class Reduction(models.Model):
-    reduction_id = models.AutoField(primary_key=True)
-    code = models.TextField(max_length=8)
-    percent =  models.DecimalField(max_digits=10, decimal_places=5)
-    user = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
-    created_at = models.DateField(auto_now=True) 
-    used_at = models.DateField()
 
-    def __str__(self):
-        return "Reduction id : {0} - percent : {1}".format(self.reduction_id, self.percent)
