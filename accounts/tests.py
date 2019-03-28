@@ -64,6 +64,8 @@ account3 = {
     'account_type': 'B'
 }
 
+accounts_data = [account1, account2, account3]
+
 class DefaultAccountTestCase(unittest.TestCase):
     pass
 
@@ -83,7 +85,7 @@ class AccountTestCase(TestCase):
         self.assertEqual(first=account_set.filter(user__username=user3['username']).count(), second=1,msg="any user account in the database must be unique")
 
 
-    def test_account_state(self):
+    def test_account_default_state(self):
         """ By default account are created  not ready to be used as the user has not filled the 
             the need information. This unit test checks that the default settings are applied
         """
@@ -92,3 +94,16 @@ class AccountTestCase(TestCase):
         no_business_account = [account.account_type == 'B' for account in account_set]
         self.assertTrue(all(are_all_private_account_flags))
         self.assertFalse(any(no_business_account))
+    
+
+    def test_update_account(self):
+        account_set = Account.objects.all()
+        account_set.filter(user=self.user1).update(**account1)
+        account_set.filter(user=self.user2).update(**account1)
+        account_set.filter(user=self.user3).update(**account1)
+
+        account_set = Account.objects.all()
+        no_all_private_account_flags = [account.account_type == 'P' for account in account_set]
+        one_business_account = [account.account_type == 'B' for account in account_set]
+        self.assertFalse(all(no_all_private_account_flags))
+        self.assertTrue(any(one_business_account))
