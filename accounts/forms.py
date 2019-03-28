@@ -52,36 +52,10 @@ class RegistrationForm(forms.ModelForm):
     """
     Form for registering a new account.
     """
-    username = forms.CharField(widget=forms.widgets.TextInput,
-                               label="Nom d'utilisateur")
-    first_name = forms.CharField(widget=forms.widgets.TextInput,
-                                 label="Prénom")
-    last_name = forms.CharField(widget=forms.widgets.TextInput,
-                                label="Nom")
-    email = forms.EmailField(widget=forms.widgets.TextInput,
-                             label='Email')
-    country = forms.CharField(max_length=50, widget=forms.widgets.TextInput,
-                              label='Pays de résidence')
-    city = forms.CharField(max_length=50, widget=forms.widgets.TextInput,
-                           label='Ville')
-    password1 = forms.CharField(widget=forms.widgets.PasswordInput,
-                                label="Mot de passe")
-    password2 = forms.CharField(widget=forms.widgets.PasswordInput,
-                                label="Mot de passe(Confirmation)")
-    date_of_birth = forms.DateField(label="Date de Naissance",
-                                    widget=forms.widgets.SelectDateWidget(
-                                        empty_label=("Choisissez l'année",
-                                                     "choisissez le mois",
-                                                     "choisissez le jour"),
-                                        years=YEARS_CHOICES
-                                                     )
-                                    )
 
     class Meta:
         model = Account
-        fields = ['last_name', 'first_name',
-                  'username', 'password1',
-                  'password2', 'date_of_birth', 'email', 'country', 'city']
+        fields = ['user','account_type','address','zip_code', 'date_of_birth','country', 'city','province', 'telefon', 'newsletter']
 
     def clean(self):
         """
