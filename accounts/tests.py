@@ -33,12 +33,7 @@ user3 = {
 
 
 account1 = {
-    'username' : 'unitTest1',
-    'password': 'unitestpassword',
-    'email' : 'user1@unittest.com',
-    'first_name': 'user1',
     'date_of_birth' : '2000-12-12',
-    'last_name': 'user_lastname1',
     'country' : 'Cameroun',
     'city': 'Douala',
     'province': 'Littoral',
@@ -48,12 +43,7 @@ account1 = {
     'account_type': 'P'
 }
 account2 = {
-    'username' : 'unitTest2',
-    'password': 'unitestpassword',
-    'email' : 'user1@unittest.com',
-    'first_name': 'user2',
     'date_of_birth' : '2001-03-06',
-    'last_name': 'user_lastname2',
     'country' : 'Cameroun',
     'city': 'Douala',
     'province': 'Littoral',
@@ -64,12 +54,7 @@ account2 = {
 }
 
 account3 = {
-    'username' : 'unitTest3',
-    'password': 'unitestpassword',
-    'email' : 'user1@unittest.com',
-    'first_name': 'user3',
     'date_of_birth' : '2000-06-05',
-    'last_name': 'user_lastname3',
     'country' : 'Cameroun',
     'city': 'Douala',
     'province': 'Littoral',
@@ -83,14 +68,27 @@ class DefaultAccountTestCase(unittest.TestCase):
     pass
 
 class AccountTestCase(TestCase):
-    def setUp(self):
-        User.objects.create(**user1)
-        User.objects.create(**user2)
-        User.objects.create(**user3)
+    @classmethod
+    def setUpTestData(cls):
+        cls.user1 = User.objects.create(**user1)
+        cls.user2 = User.objects.create(**user2)
+        cls.user3 = User.objects.create(**user3)
 
     def test_account_creation(self):
         """ We should have 3 users in the database"""
-        self.assertEqual(first=Account.objects.count() , second=3, msg="There are 3 users account in the database")
-        self.assertEqual(first=Account.objects.filter(user__username=user1['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=Account.objects.filter(user__username=user2['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=Account.objects.filter(user__username=user3['username']).count(), second=1,msg="any user account in the database must be unique")
+        account_set = Account.objects.all()
+        self.assertEqual(first=account_set.count() , second=3, msg="There are 3 users account in the database")
+        self.assertEqual(first=account_set.filter(user__username=user1['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=account_set.filter(user__username=user2['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=account_set.filter(user__username=user3['username']).count(), second=1,msg="any user account in the database must be unique")
+
+
+    def test_account_state(self):
+        """ By default account are created  not ready to be used as the user has not filled the 
+            the need information. This unit test checks that the default settings are applied
+        """
+        account_set = Account.objects.all()
+        are_all_private_account_flags = [account.account_type == 'P' for account in account_set]
+        no_business_account = [account.account_type == 'B' for account in account_set]
+        self.assertTrue(all(are_all_private_account_flags))
+        self.assertFalse(any(no_business_account))
