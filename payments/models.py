@@ -8,7 +8,7 @@ class Reduction(models.Model):
     reduction_id = models.AutoField(primary_key=True)
     code = models.TextField(max_length=8)
     percent =  models.DecimalField(max_digits=10, decimal_places=5)
-    user = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
+    account = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
     created_at = models.DateField(auto_now=True) 
     used_at = models.DateField()
 
@@ -23,8 +23,8 @@ class Transaction(models.Model):
     )
     transaction_id = models.AutoField(primary_key=True)
     amount = models.IntegerField(blank=False)
-    sender = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, related_name='outgoing_transactions')
-    recipient = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, related_name='incoming_transactions')
+    sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='outgoing_transactions')
+    recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='incoming_transactions')
     created_at = models.DateField(auto_now=True)
     validated_at = models.DateField()
     details = models.TextField(max_length=256)
@@ -38,8 +38,8 @@ class Transaction(models.Model):
 class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)
     amount = models.IntegerField(blank=False)
-    sender = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL)
-    recipient = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL)
+    sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='customer')
+    recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='seller')
     created_at = models.DateField(auto_now=True)
     validated_at = models.DateField()
     details = models.TextField(max_length=256)
@@ -50,8 +50,8 @@ class Payment(models.Model):
 
 class CaseIssue(models.Model):
     case_id = models.AutoField(primary_key=True)
-    participant_1 = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
-    participant_2 = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
+    participant_1 = models.ForeignKey('accounts.Account', null=True , on_delete = models.CASCADE, related_name='issue_creator')
+    participant_2 = models.ForeignKey('accounts.Account', null=True , on_delete = models.CASCADE, related_name='issue_participant')
     amount = models.IntegerField()
     subject = models.TextField(max_length=32)
     description = models.TextField(max_length=256)
