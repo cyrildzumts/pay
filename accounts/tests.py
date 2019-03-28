@@ -1,10 +1,38 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
 from accounts.models import Account
 import unittest
 
 # Create your tests here.
 
+
 user1 = {
+    'username' : 'unitTest1',
+    'password': 'unitestpassword',
+    'email' : 'user1@unittest.com',
+    'first_name': 'user1',
+    'last_name': 'user_lastname1',
+}
+user2 = {
+    'username' : 'unitTest2',
+    'password': 'unitestpassword',
+    'email' : 'user1@unittest.com',
+    'first_name': 'user2',
+    'last_name': 'user_lastname2',
+
+}
+
+user3 = {
+    'username' : 'unitTest3',
+    'first_name': 'user3',
+    'last_name': 'user_lastname3',
+    'password': 'unitestpassword',
+    'email' : 'user1@unittest.com',
+}
+
+
+
+account1 = {
     'username' : 'unitTest1',
     'password': 'unitestpassword',
     'email' : 'user1@unittest.com',
@@ -19,7 +47,7 @@ user1 = {
     'telefon': '+237699457812',
     'account_type': 'P'
 }
-user2 = {
+account2 = {
     'username' : 'unitTest2',
     'password': 'unitestpassword',
     'email' : 'user1@unittest.com',
@@ -35,7 +63,7 @@ user2 = {
     'account_type': 'P'
 }
 
-user3 = {
+account3 = {
     'username' : 'unitTest3',
     'password': 'unitestpassword',
     'email' : 'user1@unittest.com',
@@ -56,13 +84,13 @@ class DefaultAccountTestCase(unittest.TestCase):
 
 class AccountTestCase(TestCase):
     def setUp(self):
-        Account.objects.create(**user1)
-        Account.objects.create(**user2)
-        Account.objects.create(**user3)
+        User.objects.create(**user1)
+        User.objects.create(**user2)
+        User.objects.create(**user3)
 
     def test_account_creation(self):
         """ We should have 3 users in the database"""
         self.assertEqual(first=Account.objects.count() , second=3, msg="There are 3 users account in the database")
-        self.assertEqual(first=Account.objects.filter(username=user1['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=Account.objects.filter(username=user2['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=Account.objects.filter(username=user3['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=Account.objects.filter(user_username=user1['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=Account.objects.filter(user_username=user2['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=Account.objects.filter(user_username=user3['username']).count(), second=1,msg="any user account in the database must be unique")

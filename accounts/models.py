@@ -25,15 +25,15 @@ class Account(models.Model):
     )
     account_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date_of_birth = models.DateField()
-    country = models.CharField(default='', max_length=50, blank=True)
-    city = models.CharField(max_length=50, blank=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    country = models.CharField(default='', max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
     province = models.CharField(default='', max_length=50, blank=True, null=True)
-    address = models.CharField(default='', max_length=50)
+    address = models.CharField(default='', max_length=50,null=True)
     zip_code = models.CharField(default='', max_length=15, blank=True, null=True)
-    telefon = models.CharField(default='', max_length=15)
+    telefon = models.CharField(default='', max_length=15, null=True, blank=True)
     newsletter = models.BooleanField(default=False)
-    is_active_account = models.BooleanField(default=True)
+    is_active_account = models.BooleanField(default=True, blank=True, null=True)
     solde = models.IntegerField(default=0)
     created_at = models.DateField(auto_now=True)
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
@@ -66,11 +66,9 @@ class IDCard(models.Model):
 
 
 
-
+@receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
-        #user_profil = UserProfile(user=user)
-        #user_profil.save()
         Account.objects.create(user=user)
 
