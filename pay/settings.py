@@ -98,7 +98,10 @@ DATABASES = {
 	'PASSWORD':  os.environ['PAY_DATABASE_PW'],
 	'HOST'	:  os.environ['PAY_DATABASE_HOST'] ,
 	'PORT' 	:  os.environ['PAY_DATABASE_PORT'],
-   }
+    'TEST'  :{
+        'NAME': 'test_pay',
+    },
+   },
 
 }
 
