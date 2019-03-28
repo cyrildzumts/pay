@@ -90,10 +90,8 @@ class AccountTestCase(TestCase):
             the need information. This unit test checks that the default settings are applied
         """
         account_set = Account.objects.all()
-        are_all_private_account_flags = [account.account_type == 'P' for account in account_set]
-        no_business_account = [account.account_type == 'B' for account in account_set]
-        self.assertTrue(all(are_all_private_account_flags))
-        self.assertFalse(any(no_business_account))
+        self.assertTrue(account_set.filter(account_type='P').count() == 3)
+        self.assertTrue(account_set.filter(account_type='B').count() == 0)
     
 
     def test_update_account(self):
@@ -103,7 +101,5 @@ class AccountTestCase(TestCase):
         account_set.filter(user=self.user3).update(**account3)
 
         account_set = Account.objects.all()
-        no_all_private_account_flags = [account.account_type == 'P' for account in account_set]
-        one_business_account = [account.account_type == 'B' for account in account_set]
-        self.assertFalse(all(no_all_private_account_flags))
-        self.assertTrue(any(one_business_account))
+        self.assertTrue(account_set.filter(account_type='P').count() == 2)
+        self.assertTrue(account_set.filter(account_type='B').count() == 1)
