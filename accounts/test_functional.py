@@ -75,3 +75,5 @@ class AccountServiceTest(TestCase):
 
         created = AccountService.create_account(accountdata=account1, userdata=user1)
         self.assertTrue(created == (Account.objects.filter(user__username=user1['username']).filter(**account1).count() == 1 ))
+        created = AccountService.create_account(accountdata=account1, userdata=user1)
+        self.assertFalse(created)
