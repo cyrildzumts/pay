@@ -26,11 +26,11 @@ class AccountPage(TestCase):
 
     def test_login_url(self):
         found = resolve('/account/login/')
-        self.assertEqual(found.func, auth_views.LoginView.as_view())
+        self.assertEqual(found.func, login)
     
     def test_logout_url(self):
         found = resolve('/account/logout/')
-        self.assertEqual(found.func, auth_views.LogoutView.as_view())
+        self.assertEqual(found.func, logout)
 
     def test_register_url(self):
         found = resolve('/account/register/')
