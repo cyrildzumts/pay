@@ -1,6 +1,7 @@
 from django.urls import resolve
 from django.test import TestCase
 import unittest
+from django.contrib.auth import views as auth_views
 from accounts.views import user_account, edit_account, login, logout, register, transactions, services
 
 
@@ -25,11 +26,11 @@ class AccountPage(TestCase):
 
     def test_login_url(self):
         found = resolve('/account/login/')
-        self.assertEqual(found.func, login)
+        self.assertEqual(found.func, auth_views.LoginView.as_view())
     
     def test_logout_url(self):
         found = resolve('/account/logout/')
-        self.assertEqual(found.func, logout)
+        self.assertEqual(found.func, auth_views.LogoutView.as_view())
 
     def test_register_url(self):
         found = resolve('/account/register/')
