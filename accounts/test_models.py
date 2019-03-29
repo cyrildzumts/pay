@@ -128,9 +128,9 @@ class AccountTestCase(TestCase):
 
     def test_update_account(self):
         account_set = Account.objects.all()
-        account_set.filter(user=self.user1).update(**account1)
-        account_set.filter(user=self.user2).update(**account2)
-        account_set.filter(user=self.user3).update(**account3)
+        account_set.filter(user__username=user1['username']).update(**account1)
+        account_set.filter(user__username=user2['username']).update(**account2)
+        account_set.filter(user__username=user3['username']).update(**account3)
 
         #account_set = Account.objects.all()
         self.assertTrue(account_set.filter(account_type='P').count() == 2)
@@ -149,7 +149,7 @@ class PolicyTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.policies_obj = [Policy(**policy) for policy in policies]
-        cls.policy = Policy.objects.bulk_create(cls.policies)
+        cls.policy = Policy.objects.bulk_create(cls.policies_obj)
     
     def test_policy_creation(self):
         self.assertTrue(Policy.objects.count() == 4, msg="There should be 4 Policy Entries in the database")

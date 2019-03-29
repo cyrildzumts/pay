@@ -5,7 +5,6 @@ from django.dispatch import receiver
 
 
 class Reduction(models.Model):
-    reduction_id = models.AutoField(primary_key=True)
     code = models.TextField(max_length=8)
     percent =  models.DecimalField(max_digits=10, decimal_places=5)
     account = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
@@ -21,7 +20,6 @@ class Transaction(models.Model):
         ('T', 'Transfert'),
         ('P', 'Paiement'),
     )
-    transaction_id = models.AutoField(primary_key=True)
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='outgoing_transactions')
     recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='incoming_transactions')
@@ -36,7 +34,6 @@ class Transaction(models.Model):
 
 
 class Payment(models.Model):
-    payment_id = models.AutoField(primary_key=True)
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='customer')
     recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='seller')
@@ -49,7 +46,6 @@ class Payment(models.Model):
 
 
 class CaseIssue(models.Model):
-    case_id = models.AutoField(primary_key=True)
     participant_1 = models.ForeignKey('accounts.Account', null=True , on_delete = models.CASCADE, related_name='issue_creator')
     participant_2 = models.ForeignKey('accounts.Account', null=True , on_delete = models.CASCADE, related_name='issue_participant')
     amount = models.IntegerField()

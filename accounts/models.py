@@ -6,7 +6,6 @@ from django.urls import reverse
 
 # Create your models here.
 class Policy(models.Model):
-    policy_id = models.AutoField(primary_key=True)
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
@@ -55,7 +54,6 @@ class Account(models.Model):
 
     
 class IDCard(models.Model):
-    card_id = models.AutoField(primary_key=True)
     card_number = models.IntegerField(blank=False)
     image = models.ImageField(blank=False)
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)

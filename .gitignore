@@ -11,4 +11,5 @@ static_root/*
 */migrations/*
 */__pycache__/*
 *.log
+__pycache__
 
