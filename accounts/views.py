@@ -81,6 +81,20 @@ def register(request):
     return render(request, template_name, context)
 
 
+def password_change_views(request):
+    """ 
+        This view is called when the user want to change its password
+    """
+    pass
+    
+
+def password_change_done_views(request):
+    """ 
+        This view is called when the user has changed its password
+    """
+    pass
+
+
 #@login_required
 def user_account(request):
     """
