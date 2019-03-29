@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+import uuid
 
 # Create your models here.
 class Policy(models.Model):
@@ -36,6 +37,7 @@ class Account(models.Model):
     created_at = models.DateField(auto_now=True)
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
     policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    #account_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
     class Meta:

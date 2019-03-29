@@ -116,35 +116,7 @@ def user_account(request):
     return render(request, template_name, context)
 
 
-@login_required
-def transactions(request):
-    if request.method == 'POST':
-        context = {}
-        current_account = Account.objects.get(user=request.user)
-        current_solde = current_account.solde
-        postdata = utils.get_postdata(request)
-        transaction_form = Transaction(data=postdata)
-        if transaction_form.is_valid():
-            recipient_name = postdata['recipient']
-            amount = int(postdata['amount'])
-            if(current_solde >=  amount):
-                Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
-                Account.objects.all().filter(user=request.user).update(solde=F('solde') - amount)
-                transaction_form.save()
-                context['success'] = 1
-                context['solde'] = current_account - amount
-                
-            else :
-                context['success'] = 0
-                context['solde'] = current_account
-                context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
-        else:
-            context['success'] = 0
-            context['solde'] = current_account
-            context['errors'] = "Verifiez les champs du formulaire."
-        
 
-    return JsonResponse(context)
 
 @login_required
 def edit_account(request, pk=None):
@@ -178,4 +150,39 @@ def edit_account(request, pk=None):
     name = request.user.username
     return render(request, template_name, locals())
     '''
+    pass
+
+@login_required
+def transactions(request):
+    if request.method == 'POST':
+        context = {}
+        current_account = Account.objects.get(user=request.user)
+        current_solde = current_account.solde
+        postdata = utils.get_postdata(request)
+        transaction_form = Transaction(data=postdata)
+        if transaction_form.is_valid():
+            recipient_name = postdata['recipient']
+            amount = int(postdata['amount'])
+            if(current_solde >=  amount):
+                Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
+                Account.objects.all().filter(user=request.user).update(solde=F('solde') - amount)
+                transaction_form.save()
+                context['success'] = 1
+                context['solde'] = current_account - amount
+                
+            else :
+                context['success'] = 0
+                context['solde'] = current_account
+                context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
+        else:
+            context['success'] = 0
+            context['solde'] = current_account
+            context['errors'] = "Verifiez les champs du formulaire."
+        
+
+    return JsonResponse(context)
+
+
+@login_required
+def services(request):
     pass
