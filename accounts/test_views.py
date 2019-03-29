@@ -39,12 +39,12 @@ class AccountPage(TestCase):
         self.assertEqual(found.func, views.password_change_views)
     
 
-     def test_password_change_done_url(self):
+    def test_password_change_done_url(self):
         found = resolve('/account/password_change/done/')
         self.assertEqual(found.func, views.password_change_done_views)
     
 
-     def test_register_url(self):
+    def test_register_url(self):
         found = resolve('/account/register/')
         self.assertEqual(found.func, views.register)
     
