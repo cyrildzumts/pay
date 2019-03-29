@@ -10,7 +10,7 @@ class Policy(models.Model):
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_digits=10, decimal_places=5)
+    commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
 
     def __str__(self):
         return "Policy id : {0} - Commission : {1}".format(self.policy_id, self.commission)
