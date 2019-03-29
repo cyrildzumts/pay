@@ -5,7 +5,7 @@ import unittest
 from accounts import views
 
 
-class AccountPage(TestCase):
+class AccountViewsUrlTest(TestCase):
     def test_account_root_url_resolve(self):
         found = resolve('/account/')
         self.assertEqual(found.func, views.user_account)
