@@ -6,7 +6,6 @@ from django.dispatch import receiver
 # Create your models here.
 
 class Voucher(models.Model):
-    voucher_id = models.IntegerField(primary_key=True)
     voucher_code = models.TextField(max_length=18)
     created_at = models.DateField(auto_now=True)
     used_at = models.DateField()

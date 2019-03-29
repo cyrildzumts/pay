@@ -22,7 +22,6 @@ class Account(models.Model):
         ('P', 'Privé'),
         ('B', 'Business'),
     )
-    account_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
     country = models.CharField(default='', max_length=50, blank=True, null=True)
