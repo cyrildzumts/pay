@@ -1,9 +1,13 @@
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login, logout as django_logout
+from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
 from accounts.forms import  RegistrationForm, AuthenticationForm
+from accounts.models import Account, Policy
+
 
 
 REDIRECT_URL = settings.LOGIN_REDIRECT_URL
@@ -60,4 +64,18 @@ class AccountService(ABC):
         
         return result_dict
 
+
+
+    @staticmethod
+    def create_account(accountdata=None, userdata=None):
+        created = False
+        if accountdata and userdata:
+            try:
+                user = User.objects.create(**userdata)
+                Account.objects.filter(user=user).update(**accountdata)
+                created = True
+            
+            except IntegrityError:
+                created = False
+        return created
 
