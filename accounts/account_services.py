@@ -79,3 +79,17 @@ class AccountService(ABC):
                 created = False
         return created
 
+
+    @staticmethod
+    def create_policy(policy_data=None):
+        created = False
+        if policy_data:
+            try:
+                p , created = Policy.objects.get_or_create(**policy_data)
+            except IntegrityError:
+                pass
+        return created
+
+    @staticmethod
+    def add_idcard_to_user(cardImage=None):
+        pass

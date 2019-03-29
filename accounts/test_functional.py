@@ -68,6 +68,35 @@ account3 = {
 }
 accounts_data = [account1, account2, account3]
 
+# Policies data for creating Policy models
+
+policy1 = {
+    'daily_limit': '100000',
+    'weekly_limit': '450000',
+    'monthly_limit': '800000',
+    'commission' : '3.5'
+}
+policy2 = {
+    'daily_limit': '250000',
+    'weekly_limit': '750000',
+    'monthly_limit': '950000',
+    'commission' : '3.0'
+}
+policy3 = {
+    'daily_limit': '500000',
+    'weekly_limit': '1000000',
+    'monthly_limit': '1500000',
+    'commission' : '2.8'
+}
+
+policy4 = {
+    'daily_limit': '1000000',
+    'weekly_limit': '5000000',
+    'monthly_limit': '15000000',
+    'commission' : '2.5'
+}
+
+policies = [policy1, policy2, policy3, policy4]
 
 class AccountServiceTest(TestCase):
 
@@ -76,4 +105,10 @@ class AccountServiceTest(TestCase):
         created = AccountService.create_account(accountdata=account1, userdata=user1)
         self.assertTrue(created == (Account.objects.filter(user__username=user1['username']).filter(**account1).count() == 1 ))
         created = AccountService.create_account(accountdata=account1, userdata=user1)
+        self.assertFalse(created)
+    
+    def test_create_policy(self):
+        created = AccountService.create_policy(policy_data=policy1)
+        self.assertTrue(created == (Policy.objects.filter(**policy1).count() == 1 ))
+        created = AccountService.create_policy(policy_data=policy1)
         self.assertFalse(created)
