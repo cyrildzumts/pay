@@ -92,4 +92,5 @@ class AccountService(ABC):
 
     @staticmethod
     def add_idcard_to_user(cardImage=None):
-        pass
+        created = False
+        return created
