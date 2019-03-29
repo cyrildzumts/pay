@@ -35,7 +35,7 @@ class Account(models.Model):
     solde = models.IntegerField(default=0)
     created_at = models.DateField(auto_now=True)
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
-    policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True, on_delete=models.SET_NULL)
+    policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
 
     class Meta:
