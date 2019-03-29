@@ -112,9 +112,9 @@ class AccountTestCase(TestCase):
         """ We should have 3 users in the database"""
         account_set = Account.objects.all()
         self.assertEqual(first=account_set.count() , second=3, msg="There are 3 users account in the database")
-        self.assertEqual(first=account_set.filter(user__username=self.users[0]['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=account_set.filter(user__username=self.users[1]['username']).count(), second=1,msg="any user account in the database must be unique")
-        self.assertEqual(first=account_set.filter(user__username=self.users[2]['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=account_set.filter(user__username=users[0]['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=account_set.filter(user__username=users[1]['username']).count(), second=1,msg="any user account in the database must be unique")
+        self.assertEqual(first=account_set.filter(user__username=users[2]['username']).count(), second=1,msg="any user account in the database must be unique")
 
 
     def test_account_default_state(self):
@@ -128,9 +128,9 @@ class AccountTestCase(TestCase):
 
     def test_update_account(self):
         account_set = Account.objects.all()
-        account_set.filter(user__username=self.users[0]['username']).update(**account1)
-        account_set.filter(user__username=self.users[1]['username']).update(**account2)
-        account_set.filter(user__username=self.users[2]['username']).update(**account3)
+        account_set.filter(user__username=users[0]['username']).update(**account1)
+        account_set.filter(user__username=users[1]['username']).update(**account2)
+        account_set.filter(user__username=users[2]['username']).update(**account3)
 
         #account_set = Account.objects.all()
         self.assertTrue(account_set.filter(account_type='P').count() == 2)
