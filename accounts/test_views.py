@@ -11,7 +11,7 @@ class AccountPage(TestCase):
         self.assertEqual(found.func, user_account)
 
     def test_edit_account_url(self):
-        found = resolve('/account/edit_account/10')
+        found = resolve('/account/edit_account/10/')
         self.assertEqual(found.func, edit_account)
 
 
