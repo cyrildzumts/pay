@@ -4,7 +4,7 @@ import unittest
 from accounts.views import user_account, edit_account, login, logout, register, transactions, services
 
 
-class AccoutPage(TestCase):
+class AccountPage(TestCase):
     def test_account_root_url_resolve(self):
         found = resolve('/account/')
         self.assertEqual(found.func, user_account)
