@@ -37,9 +37,9 @@ def login(request):
         result = AccountService.process_login_request(request)
         if result['user_logged']:
             return redirect(result['next_url'])
-    else:
-        form = AccountService.get_authentication_form()
-        register_form = AccountService.get_registration_form()
+    
+    form = AccountService.get_authentication_form()
+    register_form = AccountService.get_registration_form()
     
     context = {
         

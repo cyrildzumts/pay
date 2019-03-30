@@ -29,19 +29,23 @@ class AccountService(ABC):
         result_dict['next_url'] = REDIRECT_URL
         postdata = utils.get_postdata(request)
         form = AuthenticationForm(data=postdata)
+        username = postdata['username']
+        password = postdata['password']
         if form.is_valid():
-            str_url = postdata['next']
-            if len(str_url) > 0 :
-                result_dict['next_url'] = str_url
-            
-            user = auth.authenticate(username=postdata['username'],
-                                    password=postdata['password'])
+            print("User Login : Submitted Form is valid")
+            user = auth.authenticate(username=username,
+                                    password=password)
 
             if user is not None:
+                print("User Login : User authenticated : username : {} - password : {}".format(username, password))
                 if user.is_active:
                     auth.login(request, user)
                     result_dict['user_logged'] = True
-
+                    print("User Logged In")
+            else:
+                print("User Login : User not authenticated : username : {} - password : {}".format(username, password))
+        else :
+            print("User Login : Submitted Form is not valid")
         return result_dict
     
 

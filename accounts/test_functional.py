@@ -1,9 +1,13 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
 from accounts.models import Account, Policy
-import unittest
 from accounts.account_services import AccountService
 
+import time
+import unittest
 
 
 
@@ -112,3 +116,44 @@ class AccountServiceTest(TestCase):
         self.assertTrue(created == (Policy.objects.filter(**policy1).count() == 1 ))
         created = AccountService.create_policy(policy_data=policy1)
         self.assertFalse(created)
+
+
+
+class AccountPageTest(unittest.TestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_user_can_login_form_home_page(self):
+        created = AccountService.create_account(accountdata=account1, userdata=user1)
+        self.assertTrue(created == (Account.objects.filter(user__username=user1['username']).filter(**account1).count() == 1 ))
+        self.browser.get('http://localhost:8000')
+        self.assertIn('PAY', self.browser.title)
+        login_form = self.browser.find_element_by_id('login-form')
+        username = login_form.find_element_by_name('username')
+        password = login_form.find_element_by_name('password')
+        submit = login_form.find_element_by_id('login-submit')
+        self.assertEqual(username.get_attribute('placeholder'), "Nom d'utilisateur")
+        self.assertEqual(password.get_attribute('placeholder'), 'Mot de passe')
+        #username.send_keys(user1['username'])
+        #password.send_keys(user1['password'])
+        username.send_keys('admin')
+        password.send_keys('Engineering0')
+        submit.send_keys(Keys.ENTER)
+        time.sleep(3)
+        login_form = self.browser.find_element_by_id('login-form')
+    
+    def can_make_payment(self):
+        self.browser.get('http://localhost:8000/account/')
+        self.assertIn('Mon Compte', self.browser.title)
+        transaction_form = self.browser.find_element_by_id('transaction-form')
+        recipient = transaction_form.find_element_by_name('recipient')
+        amount = transaction_form.find_element_by_name('amount')
+        details = transaction_form.find_element_by_name('details')
+        submit = transaction_form.find_element_by_name('recipient')
+        self.assertEqual(recipient.get_attribute('placeholder'), 'Nom du destinataire')
+        self.assertEqual(amount.get_attribute('placeholder'), 'Montant à envoyer en FCFAA')
+        self.assertEqual(details.get_attribute('placeholder'), 'Description du transfert')
+        time.sleep(3)
