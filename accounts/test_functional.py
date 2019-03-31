@@ -22,7 +22,7 @@ user1 = {
 user2 = {
     'username' : 'unitTest2',
     'password': 'unitestpassword',
-    'email' : 'user1@unittest.com',
+    'email' : 'user2@unittest.com',
     'first_name': 'user2',
     'last_name': 'user_lastname2',
 
@@ -33,7 +33,7 @@ user3 = {
     'first_name': 'user3',
     'last_name': 'user_lastname3',
     'password': 'unitestpassword',
-    'email' : 'user1@unittest.com',
+    'email' : 'user3@unittest.com',
 }
 
 users  = [user1, user2, user3]
@@ -139,13 +139,12 @@ class AccountPageTest(unittest.TestCase):
         self.assertEqual(password.get_attribute('placeholder'), 'Mot de passe')
         #username.send_keys(user1['username'])
         #password.send_keys(user1['password'])
-        username.send_keys('admin')
-        password.send_keys('Engineering0')
+        username.send_keys('democlient')
+        password.send_keys('testuser')
         submit.send_keys(Keys.ENTER)
         time.sleep(3)
-        login_form = self.browser.find_element_by_id('login-form')
     
-    def can_make_payment(self):
+    def test_can_make_payment(self):
         self.browser.get('http://localhost:8000/account/')
         self.assertIn('Mon Compte', self.browser.title)
         transaction_form = self.browser.find_element_by_id('transaction-form')
