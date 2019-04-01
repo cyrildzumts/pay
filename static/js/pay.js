@@ -99,7 +99,7 @@ var Account = (function(){
          else{
             console.log("Login form found in this page");
             login_form.submit(function(event){
-                event.preventDefault();
+                //event.preventDefault();
                 var flag = false;
                 console.log("Login received");
                 var username = $('input[name="username"]', login_form).val();
@@ -123,7 +123,7 @@ var Account = (function(){
          }
         if(transaction_form.length != 0){
             transaction_form.submit(function(event){
-                event.preventDefault();
+                //event.preventDefault();
                 var flag = false;
                 var error_div = $("#error-login", login_form);
                 var error_msg = "";
