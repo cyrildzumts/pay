@@ -1,15 +1,15 @@
 
 {% extends "flat_minimal_base.html" %}
-
+{% load i18n %} 
 {% block MAINCONTENT %}
     <div  class="flat-card">
         <section class="flat-row flex-center">
             <div class="header">
-                Mauvaise Requête :  404 ! Oups !
+                {% trans "Mauvaise Requête :  404 ! Oups !" %}
             </div>
             <div class="flat-main-content">
-                    <p> La page demandée n'existe pas ...</p>
-                    <p><a  href="#"> Retour à l'Acceuille </a> </p>
+                    <p> {% trans "La page demandée n'existe pas ..." %}</p>
+                    <p><a  href="#"> {% trans "Retour à l'Acceuille " %}</a> </p>
             </div>
         </section>
     </div> 

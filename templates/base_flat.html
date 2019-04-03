@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
+{% load i18n %} 
 <head>
         <meta charset="utf-8">
         <title>
@@ -53,7 +53,7 @@
                 {% block FOOTER %}
                 <div class="copyright row">
                         <span>Copyright <i class="fa fa-copyright"></i> 2019</span>
-                        <span>{{site_name}} site de paiement en ligne</span>
+                        <span>{{site_name}} {% blocktrans %}site de paiement en ligne{% endblocktrans %}</span>
                 </div>
                 {% endblock FOOTER %}
                 </footer>

@@ -1,5 +1,5 @@
 {% extends "account_base.html"%}
-
+{% load i18n %} 
 {% block MAIN %}
 
 {% include "tags/transaction_dialog.html" %}
@@ -7,14 +7,14 @@
         <div class="tabs">
                 <div class="tabs--title">
                         <div class="full welcome-text center">
-                                <p>Bienvenue {{name}}</p>
+                                <p> {% trans "Bienvenue" %} {{name}}</p>
                         </div>
                 </div>
                 <div class="tab-bar">
                         <div class="row">
-                                <span class="tab active" data-toggle="#activities-view" data-index="0">Activités</span>
-                                <span class="tab" data-toggle="#services-view" data-index="1">Services</span>
-                                <span class="tab" data-toggle="#favorite-view" data-index="2">Favoris</span>
+                                <span class="tab active" data-toggle="#activities-view" data-index="0">{% trans "Activités" %}</span>
+                                <span class="tab" data-toggle="#services-view" data-index="1">{% trans "Services" %}</span>
+                                <span class="tab" data-toggle="#favorite-view" data-index="2">{% trans "Favoris" %}</span>
                         </div>
 
                 </div>
@@ -25,12 +25,15 @@
 
                                         {% for activity in activities  %}
                                         <div class="action entry trello-card">
-                                                {{activity.name}}
+                                               {% trans activity.name %} 
                                         </div>
                                         {% empty %}
-                                        <span> Vous n'avez aucune transactions actuellement.
-                                                Apres avoir avoir effectué une transaction, cette transaction sera listée
-                                                ici.
+                                        <span> 
+                                        {% blocktrans %}
+                                        Vous n'avez aucune transactions actuellement.
+                                        Apres avoir avoir effectué une transaction, cette transaction sera listée
+                                        ici.
+                                        {% endblocktrans %}
                                         </span>
                                         {% endfor %}
                         </div>
@@ -38,8 +41,11 @@
                                         {% for service in services %}
                                         <span class="action entry"> {{service.name}} </span>
                                         {% empty %}
-                                        <span> Il n'y a actuellement aucun service disponible.
-                                                Lorsque que de nouveaux services seront disponible, ils seront listés ici.
+                                        <span> 
+                                        {% blocktrans %}
+                                        Il n'y a actuellement aucun service disponible.
+                                        Lorsque que de nouveaux services seront disponible, ils seront listés ici.
+                                        {% endblocktrans %}
                                         </span>
                                         {% endfor %}                             
                         </div>
@@ -47,8 +53,11 @@
                                         {% for favory in favories %}
                                         <span class="action entry"> {{favory.name}} </span>
                                         {% empty %}
-                                        <span> Vous n'avez aucun favori actuellement.
-                                                Ici sera afficher comment ajouter des favoris
+                                        <span> 
+                                        {% blocktrans %}
+                                        Vous n'avez aucun favori actuellement.
+                                        Ici sera afficher comment ajouter des favoris
+                                        {% endblocktrans %}
                                         </span>
                                         {% endfor %}
                         </div>

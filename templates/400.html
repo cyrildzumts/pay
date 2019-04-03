@@ -1,15 +1,15 @@
 
 {% extends "flat_minimal_base.html" %}
-
+{% load i18n %} 
   {% block MAINCONTENT %}
     <div  class="flat-card">
         <section class="flat-row flex-center">
             <div class="header">
-                Mauvaise Requête :  400 ! Oups !
+                {% trans "Mauvaise Requête :  400 ! Oups !" %}
             </div>
             <div class="flat-main-content">
-                    <p> Mauvaise requete envoyée ...</p>
-                    <p><a  href="#"> Retour à l'Acceuille </a> </p>
+                    <p> {% trans "Mauvaise requete envoyée ..." %}</p>
+                    <p><a  href="#">{% trans " Retour à l'Acceuille" %} </a> </p>
             </div>
         </section>
     </div> 

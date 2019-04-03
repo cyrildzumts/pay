@@ -7,13 +7,13 @@
               </div>
               <div class="form-group flex-column">
                 
-                <input type="text" name="recipient" placeholder="Nom du destinataire">
-                <input type="text" name="amount" placeholder="Montant à envoyer en FCFA">
-                <input type="text" name="details" placeholder="Description du transfert">
+                <input type="text" name="recipient" placeholder="{% trans 'Nom du destinataire' %}">
+                <input type="text" name="amount" placeholder="{% trans 'Montant' %}">
+                <input type="text" name="details" placeholder="{% trans 'Description du transfert' %}">
               </div>
               <div class="form-group row">
-                <button class="button" type="submit">Transferer</button>
-                <span class="button close" data-target="#transaction-dialog">Annuler</span>
+                <button class="button" type="submit">{% trans "Transferer" %}</button>
+                <span class="button close" data-target="#transaction-dialog">{% trans "Annuler" %}</span>
               </div>
         </form>
     </div>
