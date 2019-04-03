@@ -634,7 +634,7 @@ form .form-group{
   padding: 14px 16px;
 }
 
-.lang .active{
+.lang.active{
   color: var(--btn-color);
   font-weight: bold;
   border-bottom: var(--btn-border);
