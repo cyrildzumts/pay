@@ -25,7 +25,6 @@
       {% endif %}
       <div class="languages">
       {{LANGUAGE_CODE}}
-      {% get_available_languages as LANGUAGES %}
       {% for lang in LANGUAGES %}
         <span class="lang" caption="{{lang.name}}"> {{lang.code}} </span>
       {% endfor %}

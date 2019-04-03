@@ -14,7 +14,6 @@
                     <a class="notification-bell"> <i class="far fa-bell"></i> </a>
                     <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Se deconnecter" %}</a>
                     <div class="languages">
-                   {% get_available_languages as LANGUAGES %}
                    {% for lang in LANGUAGES %}
                         <span class="lang" caption="{{lang.name}}"> {{lang.code}} </span>
                   {% endfor %}
