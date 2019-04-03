@@ -633,3 +633,7 @@ form .form-group{
   font-weight: 500;
   padding: 10px 18px;
 }
+
+.lang .active{
+  border-bottom: var(--btn-border);
+}
