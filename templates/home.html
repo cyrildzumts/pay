@@ -32,8 +32,7 @@
       <h1> {%trans 'Bienvenue chez PAY'%} </h1>
       <h3>{% trans 'Votre solution de payment' %}</h3>
       <p>
-      {% {% blocktrans %}
-         Ne perdez plus votre temps à faire la queue pour payer votre facture.
+      {% {% blocktrans %}Ne perdez plus votre temps à faire la queue pour payer votre facture.
          Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
          {% endblocktrans %} %}
       </p>
@@ -54,12 +53,12 @@
     </div>
     <div class="tab-bar">
       <div class="row">
-        <span class="tab active" data-toggle="#login" data-index="0"> {% blocktrans %}
-          J'ai déjà un compte PAY
-        {% endblocktrans %} </span>
-        <span class="tab" data-toggle="#register" data-index="1"> {% blocktrans %}
-        Je veux creer un compte PAY
-        {% endblocktrans %} </span>
+        <span class="tab active" data-toggle="#login" data-index="0"> 
+          {%trans "J'ai déjà un compte PAY"%}
+         </span>
+        <span class="tab" data-toggle="#register" data-index="1"> 
+          {% trans 'Je veux creer un compte PAY'%}
+         </span>
 
       </div>
     </div>
@@ -118,7 +117,7 @@
 {% block MAIN %}
 <div class="row">
   <div class="full welcome-text center">
-    <h3> {% blocktrans %}PAY - Une solution de paiement idéale pour tout le monde{% endblocktrans %} </h3>
+    <h3> {%trans "PAY - Une solution de paiement idéale pour tout le monde"%} </h3>
     <p>
       {% blocktrans %}Fini les problèmes de pétite monaies, où que vous soyez payez en un simple clique{% endblocktrans %}
     </p>
@@ -137,7 +136,7 @@
         </div>
         <div class="secondary--text">
           <p class="center">
-            {% blocktrans %}Chargez votre compte PAY et profitez du payement simplifié.{% endblocktrans %}
+            {%trans "Chargez votre compte PAY et profitez du payement simplifié." %}
           </p>
         </div>
       </div>
@@ -167,7 +166,7 @@
         </div>
         <div class="secondary--text">
           <p class="center">
-            {% blocktrans %}En tant qu'utilisateur, rechargez juste votre compte auprès d'un de nos bureaux.{% endblocktrans %}
+            {%trans "En tant qu'utilisateur, rechargez juste votre compte auprès d'un de nos bureaux."%}
           </p>
         </div>
       </div>
@@ -191,11 +190,11 @@
 
       <div class="mat-card__body">
         <div class="title center">
-          {% blocktrans %}Pour les entreprises 2{% endblocktrans %}
+          {%trans "Pour les entreprises 2"%}
         </div>
         <div class="secondary--text">
           <p class="center">
-            {% blocktrans %}En tant qu'entreprise recevez vos payements à tout moment.{% endblocktrans %}
+            {%trans "En tant qu'entreprise recevez vos payements à tout moment"%}
           </p>
         </div>
       </div>
@@ -217,7 +216,7 @@
   <div class="tabs">
     <div class="tabs--title">
       <div class="full welcome-text center">
-        <h3>{% blocktrans %}PAY - Utilisation{% endblocktrans %}</h3>
+        <h3> {%trans "PAY - Utilisation"%} </h3>
       </div>
     </div>
     <div class="tab-bar">
@@ -238,10 +237,8 @@
           <div class="row">
             <div class="circle">1</div>
             <div class="usage-description">
-              <p> <a href="#">{% blocktrans %}Creer gratuitement votre compte PAY {% endblocktrans %}</a> 
-              {% blocktrans %}
-              avec votre adresse E-mail et un mot de passe
-              {% endblocktrans %}
+              <p> <a href="#"> {%trans "Creer gratuitement votre compte PAY"%} </a> 
+               {%trans "avec votre adresse E-mail et un mot de passe"%}
               </p>
             </div>
           </div>
@@ -254,7 +251,7 @@
           <div class="row">
             <div class="circle">2</div>
             <div class="usage-description">
-              <p>{% blocktrans %}Chargez votre compte PAY auprès d'un de nos bureaux{% endblocktrans %}</p>
+              <p> {%trans "Chargez votre compte PAY auprès d'un de nos bureaux"%} </p>
             </div>
           </div>
 
@@ -266,7 +263,7 @@
           <div class="row">
             <div class="circle">3</div>
             <div class="usage-description">
-              <p>{% blocktrans %}Effectuez vos achats ou payez vos factures avec compte PAY{% endblocktrans %}</p>
+              <p> {%trans "Effectuez vos achats ou payez vos factures avec votre compte PAY"%} </p>
             </div>
           </div>
 
@@ -282,7 +279,7 @@
           <div class="row">
             <div class="circle">1</div>
             <div class="usage-description">
-              <p> {% blocktrans %}Ouvrez gratuitement votre compte business chez PAY{% endblocktrans %}</p>
+              <p> {%trans "Ouvrez gratuitement votre compte Business PAY"} </p>
             </div>
           </div>
 
@@ -294,7 +291,7 @@
           <div class="row">
             <div class="circle">2</div>
             <div class="usage-description">
-              <p> {% blocktrans %}Choisissez l'option PAY qui vous convient{% endblocktrans %} </p>
+              <p> {%trans "Choisissez l'option PAY qui vous convient"%} </p>
             </div>
           </div>
 
@@ -306,7 +303,7 @@
           <div class="row">
             <div class="circle">3</div>
             <div class="usage-description">
-              {% blocktrans %}Generez un lien pour recevoir vos paiements{% endblocktrans %}
+              {%trans 'Generez un lien pour recevoir vos paiements'%}
             </div>
           </div>
 
@@ -325,8 +322,8 @@
       <h3 class="left">{% trans "Plus de securité" %}</h3>
       <p class="leftr">
       {% blocktrans %}Vos paiements sont securisés.
-        Si un vendeur ne vous livre pas votre commande payée à
-        travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
+Si un vendeur ne vous livre pas votre commande payée à
+travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
       </p>
       <a class="link" href="#">{% trans "Protection du client" %}</a>
     </div>
@@ -338,8 +335,8 @@
       <h3 class="left">{% trans "Plus de securité" %}</h3>
       <p class="left">
       {% blocktrans %}Vos paiements sont securisés.
-        Si un vendeur ne vous livre pas votre commande payée à
-        travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
+Si un vendeur ne vous livre pas votre commande payée à
+travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
       </p>
       <a class="link" href="#">{% trans "Protection du client" %}</a>
     </div>
@@ -351,8 +348,8 @@
       <h3 class="left">{% trans "Plus de securité" %}</h3>
       <p class="left">
       {% blocktrans %}Vos paiements sont securisés.
-        Si un vendeur ne vous livre pas votre commande payée à
-        travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
+Si un vendeur ne vous livre pas votre commande payée à
+travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
       </p>
       <a class="link" href="#">{% trans "Protection du client" %}</a>
     </div>
@@ -364,8 +361,8 @@
       <h3 class="left">{% trans "Plus de securité" %}</h3>
       <p class="left">
       {% blocktrans %}Vos paiements sont securisés.
-        Si un vendeur ne vous livre pas votre commande payée à
-        travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
+Si un vendeur ne vous livre pas votre commande payée à
+travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
       </p>
       <a class="link" href="#">{% trans "Protection du client" %}</a>
     </div>

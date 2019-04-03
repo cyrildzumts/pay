@@ -1,0 +1,427 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-03 11:32+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: accounts/templates/account_base.html:13
+#: accounts/templates/accounts/account.html:15
+msgid "Activités"
+msgstr ""
+
+#: accounts/templates/account_base.html:15 templates/home.html:19
+msgid "Se deconnecter"
+msgstr ""
+
+#: accounts/templates/account_base.html:25
+msgid "Votre Solde"
+msgstr ""
+
+#: accounts/templates/accounts/account.html:10
+msgid "Bienvenue"
+msgstr ""
+
+#: accounts/templates/accounts/account.html:16
+msgid "Services"
+msgstr ""
+
+#: accounts/templates/accounts/account.html:17
+msgid "Favoris"
+msgstr ""
+
+#: accounts/templates/accounts/account.html:32
+msgid ""
+"\n"
+"                                        Vous n'avez aucune transactions "
+"actuellement.\n"
+"                                        Apres avoir avoir effectué une "
+"transaction, cette transaction sera listée\n"
+"                                        ici.\n"
+"                                        "
+msgstr ""
+
+#: accounts/templates/accounts/account.html:45
+msgid ""
+"\n"
+"                                        Il n'y a actuellement aucun service "
+"disponible.\n"
+"                                        Lorsque que de nouveaux services "
+"seront disponible, ils seront listés ici.\n"
+"                                        "
+msgstr ""
+
+#: accounts/templates/accounts/account.html:57
+msgid ""
+"\n"
+"                                        Vous n'avez aucun favori "
+"actuellement.\n"
+"                                        Ici sera afficher comment ajouter "
+"des favoris\n"
+"                                        "
+msgstr ""
+
+#: accounts/templates/registration/password_reset_complete.html:8
+#: accounts/templates/registration/password_reset_confirm.html:6
+#: accounts/templates/registration/password_reset_done.html:6
+#: accounts/templates/registration/password_reset_form.html:10
+msgid "Home"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_complete.html:9
+#: accounts/templates/registration/password_reset_done.html:7
+#: accounts/templates/registration/password_reset_form.html:11
+msgid "Password reset"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_complete.html:18
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: accounts/templates/registration/password_reset_complete.html:20
+msgid "Log in"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_confirm.html:7
+msgid "Password reset confirmation"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_confirm.html:17
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: accounts/templates/registration/password_reset_confirm.html:21
+msgid "New password:"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_confirm.html:23
+msgid "Confirm password:"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_confirm.html:24
+msgid "Change my password"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_confirm.html:29
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: accounts/templates/registration/password_reset_done.html:15
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+#: accounts/templates/registration/password_reset_done.html:17
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#: accounts/templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: accounts/templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_form.html:19
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+
+#: accounts/templates/registration/password_reset_form.html:23
+msgid "Email address:"
+msgstr ""
+
+#: accounts/templates/registration/password_reset_form.html:23
+msgid "Reset my password"
+msgstr ""
+
+#: accounts/templates/tags/transaction_dialog.html:10
+msgid "Nom du destinataire"
+msgstr ""
+
+#: accounts/templates/tags/transaction_dialog.html:11
+msgid "Montant"
+msgstr ""
+
+#: accounts/templates/tags/transaction_dialog.html:12
+msgid "Description du transfert"
+msgstr ""
+
+#: accounts/templates/tags/transaction_dialog.html:15
+msgid "Transferer"
+msgstr ""
+
+#: accounts/templates/tags/transaction_dialog.html:16 templates/home.html:80
+#: templates/home.html:102
+msgid "Annuler"
+msgstr ""
+
+#: pay/settings.py:134
+msgid "English"
+msgstr ""
+
+#: pay/settings.py:135
+msgid "French"
+msgstr ""
+
+#: templates/400.html:8
+msgid "Mauvaise Requête :  400 ! Oups !"
+msgstr ""
+
+#: templates/400.html:11
+msgid "Mauvaise requete envoyée ..."
+msgstr ""
+
+#: templates/400.html:12
+msgid " Retour à l'Acceuille"
+msgstr ""
+
+#: templates/403.html:7
+msgid "Access interdit :  500 ! Oups !"
+msgstr ""
+
+#: templates/403.html:10
+msgid "Vous n'avez pas le droit d'accéder à cette page."
+msgstr ""
+
+#: templates/403.html:11
+msgid "Retour à l'Acceuille"
+msgstr ""
+
+#: templates/404.html:8
+msgid "Mauvaise Requête :  404 ! Oups !"
+msgstr ""
+
+#: templates/404.html:11
+msgid "La page demandée n'existe pas ..."
+msgstr ""
+
+#: templates/404.html:12
+msgid "Retour à l'Acceuille "
+msgstr ""
+
+#: templates/500.html:7
+msgid "Serveur en maintenance :  500 ! Oups !"
+msgstr ""
+
+#: templates/500.html:11
+msgid ""
+"\n"
+"                        Le serveur est actuellement en maintenance.\n"
+"                      veuillez revenir plus tard. Nos techniciens \n"
+"                      resolvent le problème.\n"
+"                        "
+msgstr ""
+
+#: templates/base_flat.html:56
+msgid "site de paiement en ligne"
+msgstr ""
+
+#: templates/home.html:13
+msgid "Decouvrir nos services"
+msgstr ""
+
+#: templates/home.html:15 templates/home.html:166 templates/home.html:225
+msgid "Pour les particuliers"
+msgstr ""
+
+#: templates/home.html:16 templates/home.html:226
+msgid "Pour les entreprises"
+msgstr ""
+
+#: templates/home.html:18
+msgid "Mon Compte"
+msgstr ""
+
+#: templates/home.html:21
+msgid "Creer un compte"
+msgstr ""
+
+#: templates/home.html:22 templates/home.html:79
+msgid "Se connecter"
+msgstr ""
+
+#: templates/home.html:32
+msgid "Bienvenue chez PAY"
+msgstr ""
+
+#: templates/home.html:33
+msgid "Votre solution de payment"
+msgstr ""
+
+#: templates/home.html:40 templates/home.html:136
+msgid "Découvrir PAY"
+msgstr ""
+
+#: templates/home.html:52
+msgid "Accedez à PAY"
+msgstr ""
+
+#: templates/home.html:57
+msgid ""
+"\n"
+"          J'ai déjà un compte PAY\n"
+"        "
+msgstr ""
+
+#: templates/home.html:60
+msgid ""
+"\n"
+"        Je veux creer un compte PAY\n"
+"        "
+msgstr ""
+
+#: templates/home.html:92
+msgid "Nom d"
+msgstr ""
+
+#: templates/home.html:93
+msgid "Prénom"
+msgstr ""
+
+#: templates/home.html:94
+msgid "Nom de famille"
+msgstr ""
+
+#: templates/home.html:95
+msgid "Votre mot de passe"
+msgstr ""
+
+#: templates/home.html:96
+msgid "Ressaisissez votre mot de passe"
+msgstr ""
+
+#: templates/home.html:97
+msgid "Adresse E-Mail"
+msgstr ""
+
+#: templates/home.html:98
+msgid "Numéro de téléphone"
+msgstr ""
+
+#: templates/home.html:101
+msgid "Créer mon compte PAY"
+msgstr ""
+
+#: templates/home.html:121
+msgid "PAY - Une solution de paiement idéale pour tout le monde"
+msgstr ""
+
+#: templates/home.html:123
+msgid ""
+"Fini les problèmes de pétite monaies, où que vous soyez payez en un simple "
+"clique"
+msgstr ""
+
+#: templates/home.html:140
+msgid "Chargez votre compte PAY et profitez du payement simplifié."
+msgstr ""
+
+#: templates/home.html:149 templates/home.html:179 templates/home.html:207
+#: templates/home.html:316
+msgid "En savoir plus"
+msgstr ""
+
+#: templates/home.html:170
+msgid ""
+"En tant qu'utilisateur, rechargez juste votre compte auprès d'un de nos "
+"bureaux."
+msgstr ""
+
+#: templates/home.html:194
+msgid "Pour les entreprises 2"
+msgstr ""
+
+#: templates/home.html:198
+msgid "En tant qu'entreprise recevez vos payements à tout moment."
+msgstr ""
+
+#: templates/home.html:220
+msgid "PAY - Utilisation"
+msgstr ""
+
+#: templates/home.html:241
+msgid "Creer gratuitement votre compte PAY "
+msgstr ""
+
+#: templates/home.html:242
+msgid ""
+"\n"
+"              avec votre adresse E-mail et un mot de passe\n"
+"              "
+msgstr ""
+
+#: templates/home.html:257
+msgid "Chargez votre compte PAY auprès d'un de nos bureaux"
+msgstr ""
+
+#: templates/home.html:269
+msgid "Effectuez vos achats ou payez vos factures avec compte PAY"
+msgstr ""
+
+#: templates/home.html:285
+msgid "Ouvrez gratuitement votre compte business chez PAY"
+msgstr ""
+
+#: templates/home.html:297
+msgid "Choisissez l'option PAY qui vous convient"
+msgstr ""
+
+#: templates/home.html:309
+msgid "Generez un lien pour recevoir vos paiements"
+msgstr ""
+
+#: templates/home.html:325 templates/home.html:338 templates/home.html:351
+#: templates/home.html:364
+msgid "Plus de securité"
+msgstr ""
+
+#: templates/home.html:327 templates/home.html:340 templates/home.html:353
+#: templates/home.html:366
+msgid ""
+"Vos paiements sont securisés.\n"
+"        Si un vendeur ne vous livre pas votre commande payée à\n"
+"        travers PAY, PAY vous renboursera le payera."
+msgstr ""
+
+#: templates/home.html:331 templates/home.html:344 templates/home.html:357
+#: templates/home.html:370
+msgid "Protection du client"
+msgstr ""
