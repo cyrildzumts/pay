@@ -93,7 +93,9 @@ var Account = (function(){
          var lang_form = $("#lang-form");
          var input = $("#current-lang");
          lang_form.submit(function(event){
-
+            //event.preventDefault();
+            console.log("lang-form submitted");
+            return false;
          });
          $(".js-lang").click(function(event){
             var span = $(this);
