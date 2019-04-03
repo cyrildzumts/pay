@@ -28,6 +28,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('faq/', views.faq, name='faq'),
     path('index/', views.home, name='index'),
+    path('i18n/', include('django.conf.urls.i18n')),
  #   path('recharge/', include('voucher.urls')),
  #   path('issues/', include('issues.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

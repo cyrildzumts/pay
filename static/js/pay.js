@@ -90,6 +90,18 @@ var Account = (function(){
             var target = $(this).data('target');
             $(target).hide();
          });
+         var lang_form = $("#lang-form");
+         var input = $("#current-lang");
+         lang_form.submit(function(event){
+
+         });
+         $(".js-lang").click(function(event){
+            var span = $(this);
+            if(!span.hasClass("active")){
+                console.log("span content [lang] : ", span.val());
+                input.val(span.val());
+            }
+         });
          var login_form = $("#login-form");
          var transaction_form = $('#transaction-form');
          if(login_form.length == 0){
