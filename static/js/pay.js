@@ -103,6 +103,7 @@ var Account = (function(){
                 console.log("span content [lang] : ");
                 console.log(span.text());
                 input.val(span.text());
+                lang_form.submit();
             }
          });
          var login_form = $("#login-form");
