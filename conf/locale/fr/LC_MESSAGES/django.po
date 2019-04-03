@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-03 11:32+0200\n"
+"POT-Creation-Date: 2019-04-03 13:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: accounts/templates/account_base.html:13
-#: accounts/templates/accounts/account.html:15
+#: accounts/templates/accounts/account.html:16
 msgid "Activités"
 msgstr ""
 
@@ -34,42 +34,33 @@ msgstr ""
 msgid "Bienvenue"
 msgstr ""
 
-#: accounts/templates/accounts/account.html:16
+#: accounts/templates/accounts/account.html:18
 msgid "Services"
 msgstr ""
 
-#: accounts/templates/accounts/account.html:17
+#: accounts/templates/accounts/account.html:20
 msgid "Favoris"
 msgstr ""
 
-#: accounts/templates/accounts/account.html:32
+#: accounts/templates/accounts/account.html:35
 msgid ""
-"\n"
-"                                        Vous n'avez aucune transactions "
-"actuellement.\n"
-"                                        Apres avoir avoir effectué une "
-"transaction, cette transaction sera listée\n"
-"                                        ici.\n"
+"Vous n'avez aucune transactions actuellement.\n"
+"Apres avoir avoir effectué une transaction, cette transaction sera listée "
+"ici.\n"
 "                                        "
 msgstr ""
 
-#: accounts/templates/accounts/account.html:45
+#: accounts/templates/accounts/account.html:46
 msgid ""
-"\n"
-"                                        Il n'y a actuellement aucun service "
-"disponible.\n"
-"                                        Lorsque que de nouveaux services "
-"seront disponible, ils seront listés ici.\n"
+"Il n'y a actuellement aucun service disponible.\n"
+"Lorsque que de nouveaux services seront disponible, ils seront listés ici.\n"
 "                                        "
 msgstr ""
 
 #: accounts/templates/accounts/account.html:57
 msgid ""
-"\n"
-"                                        Vous n'avez aucun favori "
-"actuellement.\n"
-"                                        Ici sera afficher comment ajouter "
-"des favoris\n"
+"Vous n'avez aucun favori actuellement.\n"
+"Ici sera afficher comment ajouter des favoris\n"
 "                                        "
 msgstr ""
 
@@ -188,14 +179,14 @@ msgstr ""
 msgid "Transferer"
 msgstr ""
 
-#: accounts/templates/tags/transaction_dialog.html:16 templates/home.html:80
-#: templates/home.html:102
+#: accounts/templates/tags/transaction_dialog.html:16 templates/home.html:79
+#: templates/home.html:101
 msgid "Annuler"
 msgstr ""
 
 #: pay/settings.py:134
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: pay/settings.py:135
 msgid "French"
@@ -243,10 +234,8 @@ msgstr ""
 
 #: templates/500.html:11
 msgid ""
-"\n"
-"                        Le serveur est actuellement en maintenance.\n"
-"                      veuillez revenir plus tard. Nos techniciens \n"
-"                      resolvent le problème.\n"
+"Le serveur est actuellement en maintenance.\n"
+"veuillez revenir plus tard. Nos techniciens resolvent le problème.\n"
 "                        "
 msgstr ""
 
@@ -258,11 +247,11 @@ msgstr ""
 msgid "Decouvrir nos services"
 msgstr ""
 
-#: templates/home.html:15 templates/home.html:166 templates/home.html:225
+#: templates/home.html:15 templates/home.html:165 templates/home.html:224
 msgid "Pour les particuliers"
 msgstr ""
 
-#: templates/home.html:16 templates/home.html:226
+#: templates/home.html:16 templates/home.html:225
 msgid "Pour les entreprises"
 msgstr ""
 
@@ -274,7 +263,7 @@ msgstr ""
 msgid "Creer un compte"
 msgstr ""
 
-#: templates/home.html:22 templates/home.html:79
+#: templates/home.html:22 templates/home.html:78
 msgid "Se connecter"
 msgstr ""
 
@@ -286,142 +275,129 @@ msgstr ""
 msgid "Votre solution de payment"
 msgstr ""
 
-#: templates/home.html:40 templates/home.html:136
+#: templates/home.html:39 templates/home.html:135
 msgid "Découvrir PAY"
 msgstr ""
 
-#: templates/home.html:52
+#: templates/home.html:51
 msgid "Accedez à PAY"
 msgstr ""
 
 #: templates/home.html:57
-msgid ""
-"\n"
-"          J'ai déjà un compte PAY\n"
-"        "
+msgid "J'ai déjà un compte PAY"
 msgstr ""
 
 #: templates/home.html:60
-msgid ""
-"\n"
-"        Je veux creer un compte PAY\n"
-"        "
+msgid "Je veux creer un compte PAY"
 msgstr ""
 
-#: templates/home.html:92
+#: templates/home.html:91
 msgid "Nom d"
 msgstr ""
 
-#: templates/home.html:93
+#: templates/home.html:92
 msgid "Prénom"
 msgstr ""
 
-#: templates/home.html:94
+#: templates/home.html:93
 msgid "Nom de famille"
 msgstr ""
 
-#: templates/home.html:95
+#: templates/home.html:94
 msgid "Votre mot de passe"
 msgstr ""
 
-#: templates/home.html:96
+#: templates/home.html:95
 msgid "Ressaisissez votre mot de passe"
 msgstr ""
 
-#: templates/home.html:97
+#: templates/home.html:96
 msgid "Adresse E-Mail"
 msgstr ""
 
-#: templates/home.html:98
+#: templates/home.html:97
 msgid "Numéro de téléphone"
 msgstr ""
 
-#: templates/home.html:101
+#: templates/home.html:100
 msgid "Créer mon compte PAY"
 msgstr ""
 
-#: templates/home.html:121
+#: templates/home.html:120
 msgid "PAY - Une solution de paiement idéale pour tout le monde"
 msgstr ""
 
-#: templates/home.html:123
+#: templates/home.html:122
 msgid ""
 "Fini les problèmes de pétite monaies, où que vous soyez payez en un simple "
 "clique"
 msgstr ""
 
-#: templates/home.html:140
+#: templates/home.html:139
 msgid "Chargez votre compte PAY et profitez du payement simplifié."
 msgstr ""
 
-#: templates/home.html:149 templates/home.html:179 templates/home.html:207
-#: templates/home.html:316
+#: templates/home.html:148 templates/home.html:178 templates/home.html:206
+#: templates/home.html:313
 msgid "En savoir plus"
 msgstr ""
 
-#: templates/home.html:170
+#: templates/home.html:169
 msgid ""
 "En tant qu'utilisateur, rechargez juste votre compte auprès d'un de nos "
 "bureaux."
 msgstr ""
 
-#: templates/home.html:194
+#: templates/home.html:193
 msgid "Pour les entreprises 2"
 msgstr ""
 
-#: templates/home.html:198
-msgid "En tant qu'entreprise recevez vos payements à tout moment."
+#: templates/home.html:197
+msgid "En tant qu'entreprise recevez vos payements à tout moment"
 msgstr ""
 
-#: templates/home.html:220
+#: templates/home.html:219
 msgid "PAY - Utilisation"
 msgstr ""
 
+#: templates/home.html:240
+msgid "Creer gratuitement votre compte PAY"
+msgstr ""
+
 #: templates/home.html:241
-msgid "Creer gratuitement votre compte PAY "
+msgid "avec votre adresse E-mail et un mot de passe"
 msgstr ""
 
-#: templates/home.html:242
-msgid ""
-"\n"
-"              avec votre adresse E-mail et un mot de passe\n"
-"              "
-msgstr ""
-
-#: templates/home.html:257
+#: templates/home.html:254
 msgid "Chargez votre compte PAY auprès d'un de nos bureaux"
 msgstr ""
 
-#: templates/home.html:269
-msgid "Effectuez vos achats ou payez vos factures avec compte PAY"
+#: templates/home.html:266
+msgid "Effectuez vos achats ou payez vos factures avec votre compte PAY"
 msgstr ""
 
-#: templates/home.html:285
-msgid "Ouvrez gratuitement votre compte business chez PAY"
-msgstr ""
-
-#: templates/home.html:297
+#: templates/home.html:294
 msgid "Choisissez l'option PAY qui vous convient"
 msgstr ""
 
-#: templates/home.html:309
+#: templates/home.html:306
 msgid "Generez un lien pour recevoir vos paiements"
 msgstr ""
 
-#: templates/home.html:325 templates/home.html:338 templates/home.html:351
-#: templates/home.html:364
+#: templates/home.html:322 templates/home.html:335 templates/home.html:348
+#: templates/home.html:361
 msgid "Plus de securité"
 msgstr ""
 
-#: templates/home.html:327 templates/home.html:340 templates/home.html:353
-#: templates/home.html:366
+#: templates/home.html:324 templates/home.html:337 templates/home.html:350
+#: templates/home.html:363
 msgid ""
 "Vos paiements sont securisés.\n"
-"        Si un vendeur ne vous livre pas votre commande payée à\n"
-"        travers PAY, PAY vous renboursera le payera."
+"Si un vendeur ne vous livre pas votre commande payée à\n"
+"travers PAY, PAY vous renboursera le payera."
 msgstr ""
 
-#: templates/home.html:331 templates/home.html:344 templates/home.html:357
-#: templates/home.html:370
+#: templates/home.html:328 templates/home.html:341 templates/home.html:354
+#: templates/home.html:367
 msgid "Protection du client"
 msgstr ""
