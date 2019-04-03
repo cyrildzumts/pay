@@ -13,7 +13,7 @@
                     <a href="#customer">{% trans "Activités" %}</a>
                     <a class="notification-bell"> <i class="far fa-bell"></i> </a>
                     <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Se deconnecter" %}</a>
-                    <div class="languages">
+                    <div class="languages row">
                    {% for lang in LANGUAGES %}
                         <span class="lang" caption="{{lang.1}}"> {{lang.0}} </span>
                   {% endfor %}
