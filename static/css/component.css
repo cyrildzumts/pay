@@ -623,3 +623,13 @@ form .form-group{
 .details-info{
   padding: 10px 16px;
 }
+
+.languages{
+  
+}
+
+.lang{
+  font-size: 1.25em;
+  font-weight: 500;
+  padding: 10px 18px;
+}

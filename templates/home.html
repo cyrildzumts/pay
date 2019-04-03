@@ -1,6 +1,6 @@
 {% extends "base_flat.html" %}
 {% load i18n %} 
-
+{% get_available_languages as LANGUAGES %}
 {% block HEADER_PANEL %}
 <div class="header--panel row">
   <div class="col col-1">
@@ -20,8 +20,15 @@
       {% else %}
       <a class="dialog-btn" href="#" data-tab="1" data-target="#signup-dialog">{% trans 'Creer un compte' %}</a>
       <a class="dialog-btn" href="#" data-tab="0" data-target="#signup-dialog">{% trans 'Se connecter' %}</a>
-      {% endif %}
+      
 
+      {% endif %}
+      <div class="languages">
+
+      {% for lang in LANGUAGES %}
+        <span class="lang" caption="{{lang.name}}"> {{lang.code}} </span>
+      {% endfor %}
+      </div>
     </nav>
   </div>
 </div>
