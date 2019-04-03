@@ -15,7 +15,11 @@
                     <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Se deconnecter" %}</a>
                     <div class="languages row">
                    {% for lang in LANGUAGES %}
+                   {% if lang.0 == LANGUAGE_CODE %}
+                        <span class="lang active" caption="{{lang.1}}"> {{lang.0}} </span>
+                   {% else %}
                         <span class="lang" caption="{{lang.1}}"> {{lang.0}} </span>
+                  {% endif %} 
                   {% endfor %}
                    </div>
               </nav>
