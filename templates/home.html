@@ -25,7 +25,7 @@
       {% endif %}
       <div class="languages">
       {{LANGUAGE_CODE}}
-      {% for lang in request.LANGUAGES %}
+      {% for lang in LANGUAGES %}
         <span class="lang" caption="{{lang.name}}"> {{lang.code}} </span>
       {% endfor %}
       </div>
