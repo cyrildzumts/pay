@@ -26,9 +26,9 @@
       <div class="languages">
       {% for lang in LANGUAGES %}
         {% if lang.0 == LANGUAGE_CODE %}
-        <span class="lang active" caption="{{lang.1}}"> {{lang.0}} </span>
+        <span class="lang active" title="{{lang.1}}"> {{lang.0}} </span>
          {% else %}
-         <span class="lang" caption="{{lang.1}}"> {{lang.0}} </span>
+         <span class="lang" title="{{lang.1}}"> {{lang.0}} </span>
         {% endif %}
       {% endfor %}
       </div>
