@@ -98,8 +98,9 @@ var Account = (function(){
          $(".js-lang").click(function(event){
             var span = $(this);
             if(!span.hasClass("active")){
-                console.log("span content [lang] : ", span.val());
-                input.val(span.val());
+                console.log("span content [lang] : ");
+                console.log(span.text());
+                input.val(span.text());
             }
          });
          var login_form = $("#login-form");
