@@ -5,7 +5,7 @@ from django.contrib.auth import login as django_login, logout as django_logout
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
-from accounts.forms import  RegistrationForm, AuthenticationForm
+from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm
 from accounts.models import Account, Policy
 
 

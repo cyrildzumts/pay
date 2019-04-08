@@ -1,68 +1,31 @@
 
 {% extends "base_flat.html" %}
 {% load i18n %} 
-{% block title%} {{page_title}} {% endblock %}
-
-{% block content_header %}
-<div class="flex-container">
-    <h2 class="flex-item">
-        <strong>Creation de Compte utilisateur</strong>
-    </h2>
-</div>
-{% endblock content_header %}
-{% block MAINCONTENT %}
-<div class="flex-container">
-    <div class="">
-      <form class="form" action="{% url 'accounts:register' %}" method="post"> {% csrf_token %}
-
-        <div class="form-group">
-          <label class="control-label" for="{{form.last_name.id_for_label}}">Nom:</label>
-          <input type="text" class="form-control" id="{{form.last_name.id_last_name}}" name="{{form.last_name.name}}">
+{% block HEADER_PANEL %}
+  <div class="header--panel row">
+       <div class="col col-1">
+              <div class="logo">
+                PAY
+              </div>
         </div>
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
 
-        <div class="form-group">
-          <label class="control-label  text-right" for="{{form.first_name.id_for_label}}">Prénom:</label>
-          <input type="text" class="form-control" id="{{form.first_name.id_first_name}}" name="{{form.first_name.name}}">
-        </div>
+{% endblock HEADER_BANNER %}
 
-        <div class="form-group">
-          <label class="control-label text-right" for="{{form.username.id_for_label}}">Nom d'utilisateur:</label>
-          <input type="text" class="form-control" id="{{form.username.id_username}}" name="{{form.username.name}}">
-        </div>
+{% block MAIN %}
 
-        <div class="form-group">
-          <label class="control-label text-right" for="{{form.password1.id_for_label}}">Mot de passe:</label>
-          <input type="password" class="form-control" id="{{form.password1.id_password1}}" name="{{form.password1.name}}">
-        </div>
+<div class="grid">
+  <div class="title">
+    {%trans 'Creation de compte PAY'%}
+  </div>
 
-        <div class="form-group">
-          <label class="control-label text-right" for="{{form.password2.id_for_label}}">Mot de passe(Confirmation):</label>
-          <input type="password" class="form-control" id="{{form.password2.id_password1}}" name="{{form.password2.name}}">
-        </div>
-
-        <div class="form-group">
-          <label class="control-label text-right" for="{{form.date_of_birth.id_for_label}}">Date de Naissance:</label>
-            {{form.date_of_birth}}
-        </div>
-        <div class="form-group">
-          <label class="control-label text-right" for="{{form.email.id_for_label}}">Email:</label>
-          <input type="text" class="form-control" id="{{form.email.id_email}}" name="{{form.email.name}}">
-        </div>
-
-        <div class="form-group">
-          <label class="control-label text-right" for="{{form.country.id_for_label}}">Pays de résidence:</label>
-          <input type="text" class="form-control" id="{{form.country.id_country}}" name="{{form.country.name}}">
-        </div>
-
-        <div class="form-group">
-          <label class="control-label text-right" for="{{form.city.id_for_label}}">Ville:</label>
-          <input type="text"  class="form-control" id="{{form.city.id_city}}" name="{{form.city.name}}">
-        </div>
-
-        <button class="btn" type="submit">Créer le compte</button>
+  <div class="container">
+      <form class="signup-form" action="{% url 'accounts:register'%}" method="POST">
+        {{form}}
+        <button type="submit">{%trans 'Creer mon compte'%} </button>
       </form>
-    </div>
-
+  </div>
 </div>
-
-{% endblock MAINCONTENT %}
+{% endblock MAIN %}

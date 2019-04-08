@@ -4,6 +4,23 @@ from accounts.models import Account, IDCard, Policy
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
+class UserForm(forms.ModelForm):
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name','email']
+    
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Les mots de passe ne correspondent pas")
+        
+        return password1
+
+    def save(self):
+        
 
 
 class PolicyForm(forms.ModelForm):
@@ -52,10 +69,19 @@ class RegistrationForm(forms.ModelForm):
     """
     Form for registering a new account.
     """
-
+    username = forms.CharField(widget=forms.widgets.TextInput,
+                               label="Nom d'utilisateur")
+    password = forms.CharField(widget=forms.widgets.PasswordInput,
+                               label='Mot de passse')
+    first_name = forms.CharField(widget=forms.widgets.TextInput,
+                               label="Nom d'utilisateur")
+    last_name = forms.CharField(widget=forms.widgets.TextInput,
+                               label="Nom d'utilisateur")
+    email = forms.CharField(widget=forms.widgets.TextInput,
+                               label="Nom d'utilisateur")
     class Meta:
         model = Account
-        fields = ['user','account_type','address','zip_code', 'date_of_birth','country', 'city','province', 'telefon', 'newsletter']
+        fields = ['account_type','address','zip_code', 'date_of_birth','country', 'city','province', 'telefon', 'newsletter']
 
     def clean(self):
         """

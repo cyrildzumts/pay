@@ -18,8 +18,8 @@
       <a class="link" href="{% url 'accounts:account' %}">{% trans 'Mon Compte' %}</a>
       <a class="signout-btn link signout" href="{% url 'accounts:logout' %}">{% trans 'Se deconnecter' %}</a>
       {% else %}
-      <a class="dialog-btn" href="#" data-tab="1" data-target="#signup-dialog">{% trans 'Creer un compte' %}</a>
-      <a class="dialog-btn" href="#" data-tab="0" data-target="#signup-dialog">{% trans 'Se connecter' %}</a>
+      <a class="dialog-btn" href="{% url 'accounts:register' %}" data-tab="1" data-target="#signup-dialog">{% trans 'Creer un compte' %}</a>
+      <a class="dialog-btn" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Se connecter' %}</a>
       
 
       {% endif %}

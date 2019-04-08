@@ -17,7 +17,7 @@ from accounts.account_services import AccountService
 from django.urls import reverse_lazy
 from django.views.generic.edit import  UpdateView
 from payments.models import Transaction
-from django.db.models import F
+from django.db.models import F, Q
 
 # Create your views here.
 
@@ -119,7 +119,7 @@ def user_account(request):
                 Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
                 Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
                 transaction_form.save()
-            
+    
 
     context = {
         'name'      : name,
@@ -134,42 +134,25 @@ def user_account(request):
 
 @login_required
 def edit_account(request, pk=None):
-    '''
-    template_name = "accounts/my-account.html"
-    page_title = 'Modification du profile | ' + settings.SITE_NAME
-    user = User.objects.get(pk=pk)
-    user = request.user
-    user_form = UserForm(instance=user)
-    ProfileInlineFormSet = inlineformset_factory(User,
-                                                 UserProfile,
-                                                 fields=('country', 'city',
-                                                         'province', 'address',
-                                                         'zip_code', 'telefon',
-                                                         'newsletter',
-                                                         'is_active_account'))
-    formset = ProfileInlineFormSet(instance=user)
-    if request.method == "POST":
-        user_form = UserForm(request.POST, request.FILES, instance=user)
-        formset = ProfileInlineFormSet(request.POST, request.FILES, instance=user)
-
-        if user_form.is_valid():
-            created_user = user_form.save(commit=False)
-            formset = ProfileInlineFormSet(request.POST, request.FILES, instance=created_user)
-
-            if formset.is_valid():
-                created_user.save()
-                formset.save()
-                return HttpResponseRedirect(REDIRECT_URL)
-
-    name = request.user.username
-    return render(request, template_name, locals())
-    '''
-    pass
+    page_title = "Modifier mon compte"
+    instance = Account.objects.get(pk)
+    template_name = "tags/edit_accoutn.html"
+    form = AccountForm(request.POST or None, instance=instance)
+    context = {
+        'page_title':page_title,
+        'site_name' : settings.SITE_NAME,
+        'template_name':template_name,
+        'form': form
+    }
+    if form.is_valid():
+        form.save()
+        return redirect('next_view')
+    return render(request, template_name,context )
 
 @login_required
 def transactions(request):
+    context = {}
     if request.method == 'POST':
-        context = {}
         current_account = Account.objects.get(user=request.user)
         current_solde = current_account.solde
         postdata = utils.get_postdata(request)
@@ -192,10 +175,20 @@ def transactions(request):
             context['success'] = 0
             context['solde'] = current_account
             context['errors'] = "Verifiez les champs du formulaire."
-        
+
 
     return JsonResponse(context)
 
+@login_required
+def api_get_transactions(request, pk=None):
+    context = {}
+    if request.is_ajax:
+        current_account = Account.objects.get(user=request.user)
+        current_solde = current_account.solde
+        user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+        context['solde'] = current_solde
+        context['transactions'] = user_transactions
+    return JsonResponse(context)
 
 @login_required
 def services(request):
