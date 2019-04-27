@@ -17,8 +17,9 @@ REDIRECT_URL = settings.LOGIN_REDIRECT_URL
 def print_form(form=None):
     print("Printing Registration Form Fields")
     if form :
-        for field in form:
-            print(field.label + " : " + field.value)
+        fields = form.fields
+        for field in fields:
+            print(field + " : " + fields[field])
     else :
         print("form is not defined")
 
