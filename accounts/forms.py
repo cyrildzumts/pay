@@ -104,6 +104,10 @@ class RegistrationForm(forms.ModelForm):
             if cleaned_data['password1'] != cleaned_data['password2']:
                 raise forms.ValidationError("Les mots ne correspondent pas.\
                 Veuillez verifier que les deux champs sont identiques.")
+            else:
+                print("RegistrationForm : Password is valid")
+        else:
+            print("RegistrationForm is invalid: password error")
         return cleaned_data
 
     def save(self, commit=True):
