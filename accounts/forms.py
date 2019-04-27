@@ -19,8 +19,15 @@ class UserForm(forms.ModelForm):
         
         return password1
 
+
     def save(self):
-        
+        user = super(UserForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+        user.set_password(self.cleaned_data['password1'])
+        user.save()
+        return user
 
 
 class PolicyForm(forms.ModelForm):
