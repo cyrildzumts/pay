@@ -17,9 +17,9 @@ REDIRECT_URL = settings.LOGIN_REDIRECT_URL
 def print_form(form=None):
     print("Printing Registration Form Fields")
     if form :
-        fields = form.fields
-        for field in fields:
-            print(field + " : " + fields[field])
+        items = form.items()
+        for field, value in items:
+            print(field + " : " + value)
     else :
         print("form is not defined")
 
@@ -68,7 +68,7 @@ class AccountService(ABC):
         result_dict['next_url'] = REDIRECT_URL
         postdata = utils.get_postdata(request)
         form = RegistrationForm(data=postdata)
-        print_form(form)
+        print_form(postdata)
         if form.is_valid():
             form.save()
             username = postdata['username']
