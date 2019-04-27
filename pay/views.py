@@ -8,6 +8,7 @@ from pay import settings
 
 
 def print_form(form=None):
+    print("Printing Registration Form Fields")
     if form :
         for field in form:
             print(field.label + " : " + field.value)
@@ -55,17 +56,25 @@ def logout_view(request):
 
 
 def register(request):
-    flag = True
+    f = None
+    template_name="registration/register.html"
+    page_title = settings.SITE_NAME + " - Creation de Compte"
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
+        print_form(form)
         if form.is_valid():
             new_user = form.save()
             return HttpResponseRedirect("/")
         else:
-            form = UserCreationForm()
+            f = UserCreationForm()
     else:
-        form = UserCreationForm()
-    return render(request, template_name="registration/register.html", context=locals())
+        f = UserCreationForm()
+    context = {
+        'page_title': page_title,
+        'form' : f,
+        'site_name': settings.SITE_NAME
+    }
+    return render(request,template_name, context)
 
 
 
