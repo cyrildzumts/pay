@@ -70,6 +70,7 @@ class AccountService(ABC):
         form = RegistrationForm(data=postdata)
         print_form(postdata)
         if form.is_valid():
+            print("RegistrationForm is valid")
             form.save()
             username = postdata['username']
             password = postdata['password1']
@@ -78,7 +79,8 @@ class AccountService(ABC):
             if user and user.is_active:
                 auth.login(request, user)
                 result_dict['user_logged'] = True
-        
+        else:
+            print("RegistrationForm is invalid")
         return result_dict
 
 
