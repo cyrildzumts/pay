@@ -6,6 +6,15 @@ from pay import settings
 
 
 
+
+def print_form(form=None):
+    if form :
+        for field in form:
+            print(field.label + " : " + field.value)
+    else :
+        print("form is not defined")
+    
+
 def page_not_found(request):
     template_name = '404.html'
     return render(request, template_name)
