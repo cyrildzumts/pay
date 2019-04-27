@@ -62,8 +62,7 @@ def register(request):
             return HttpResponseRedirect("/")
     else:
         form = UserCreationForm()
-    return render(request, template_name="registration/register.html",
-                  context=locals())
+    return render(request, template_name="registration/register.html", context=locals())
 
 
 
