@@ -55,11 +55,14 @@ def logout_view(request):
 
 
 def register(request):
+    flag = True
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
             return HttpResponseRedirect("/")
+        else:
+            form = UserCreationForm()
     else:
         form = UserCreationForm()
     return render(request, template_name="registration/register.html", context=locals())
