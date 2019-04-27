@@ -69,6 +69,8 @@ def register(request):
         result = AccountService.process_registration_request(request)
         if result['user_logged']:
             return result['next_url']
+        else:
+            form = AccountService.get_registration_form()
 
     else:
         # form = UserCreationForm()

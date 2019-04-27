@@ -81,11 +81,11 @@ class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.widgets.PasswordInput,
                                label='Mot de passse')
     first_name = forms.CharField(widget=forms.widgets.TextInput,
-                               label="Nom d'utilisateur")
+                               label="Prénom")
     last_name = forms.CharField(widget=forms.widgets.TextInput,
-                               label="Nom d'utilisateur")
+                               label="Nom de famille")
     email = forms.CharField(widget=forms.widgets.TextInput,
-                               label="Nom d'utilisateur")
+                               label="Email")
     class Meta:
         model = Account
         fields = ['account_type','address','zip_code', 'date_of_birth','country', 'city','province', 'telefon', 'newsletter']

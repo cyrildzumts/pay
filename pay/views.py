@@ -4,16 +4,6 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from pay import settings
 
-
-
-
-def print_form(form=None):
-    print("Printing Registration Form Fields")
-    if form :
-        for field in form:
-            print(field.label + " : " + field.value)
-    else :
-        print("form is not defined")
     
 
 def page_not_found(request):

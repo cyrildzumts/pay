@@ -12,6 +12,17 @@ from accounts.models import Account, Policy
 
 REDIRECT_URL = settings.LOGIN_REDIRECT_URL
 
+
+
+def print_form(form=None):
+    print("Printing Registration Form Fields")
+    if form :
+        for field in form:
+            print(field.label + " : " + field.value)
+    else :
+        print("form is not defined")
+
+
 class AccountService(ABC):
 
     @staticmethod
@@ -56,6 +67,7 @@ class AccountService(ABC):
         result_dict['next_url'] = REDIRECT_URL
         postdata = utils.get_postdata(request)
         form = RegistrationForm(data=postdata)
+        print_form(form)
         if form.is_valid():
             form.save()
             username = postdata['username']
