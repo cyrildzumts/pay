@@ -68,9 +68,12 @@ class IDCard(models.Model):
 @receiver(post_save, sender=User)
 def create_account(sender, **kwargs):
     print("New user signal")
+    print("sender : {}".format(sender.username))
     user = kwargs["instance"]
     if kwargs["created"]:
         print("New user was created")
+        print("user being created : {}".format(user.username))
+        #Account.objects.create(user=user)
         if not sender.is_superuser:
             print("This user is not beeing created by admin")
             Account.objects.create(user=user)
