@@ -81,6 +81,14 @@ class AccountService(ABC):
             print("User creation data is valid")
         else:
             print("User creation data is invalid")
+            if user_form.is_valid():
+                print("User creation Form is valid")
+            else:
+                print("User creation Form is invalid")
+            if account_form.is_valid():
+                print("Acount creation Form is valid")
+            else:
+                print("Account creation Form is invalid")
 
         return result_dict
 
