@@ -72,13 +72,14 @@ class AccountService(ABC):
         account_form = AccountCreationForm(postdata)
         print_form(postdata)
         if user_form.is_valid() and account_form.is_valid():
+            print("User creation data is valid")
             user = user_form.save()
             user.refresh_from_db()
             account_form = AccountCreationForm(postdata, instance=user.account)
             account_form.full_clean()
             account_form.save()
             result_dict['user_created'] = True
-            print("User creation data is valid")
+            
         else:
             print("User creation data is invalid")
             if user_form.is_valid():
