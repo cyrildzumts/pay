@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from accounts.models import Account, IDCard, Policy
 from django.contrib.admin.widgets import AdminDateWidget
@@ -9,7 +10,7 @@ class UserForm(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name','email']
+        fields = ['username', 'first_name', 'last_name','password1', 'password2','email']
     
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -28,6 +29,7 @@ class UserForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password1'])
         user.save()
         return user
+
 
 
 class PolicyForm(forms.ModelForm):
@@ -72,14 +74,31 @@ class AuthenticationForm(forms.Form):
 
 
 
+class UserSignUpForm(UserCreationForm):
+    
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name','password1', 'password2','email']
+
+
+class AccountCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Account
+        fields = ['account_type','address','zip_code', 'date_of_birth','country', 'city','province', 'telefon', 'newsletter']
+    
+
+
+
+
 class RegistrationForm(forms.ModelForm):
     """
     Form for registering a new account.
     """
     username = forms.CharField(widget=forms.widgets.TextInput,
                                label="Nom d'utilisateur")
-    password = forms.CharField(widget=forms.widgets.PasswordInput,
-                               label='Mot de passse')
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     first_name = forms.CharField(widget=forms.widgets.TextInput,
                                label="Prénom")
     last_name = forms.CharField(widget=forms.widgets.TextInput,
@@ -88,7 +107,9 @@ class RegistrationForm(forms.ModelForm):
                                label="Email")
     class Meta:
         model = Account
-        fields = ['account_type','address','zip_code', 'date_of_birth','country', 'city','province', 'telefon', 'newsletter']
+        fields = ['account_type','address','zip_code', 'date_of_birth','country', 'city','province', 'telefon', 'newsletter', 
+            'password1', 'password2', 'username', 'first_name', 'last_name', 'email'
+        ]
 
     def clean(self):
         """

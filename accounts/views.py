@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login, logout as django_logout
 from accounts.models import Account
-from accounts.forms import AccountForm
+from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 from pay import settings, utils
@@ -67,18 +67,24 @@ def register(request):
     page_title = 'Creation de compte | ' + settings.SITE_NAME
     if request.method == 'POST':
         result = AccountService.process_registration_request(request)
-        if result['user_logged']:
+        if result['user_created']:
             return result['next_url']
         else:
-            form = AccountService.get_registration_form()
+            #form = AccountService.get_registration_form()
+            account_form = AccountCreationForm()
+            user_form = UserSignUpForm()
 
     else:
         # form = UserCreationForm()
-        form = AccountService.get_registration_form()
+        #form = AccountService.get_registration_form()
+        account_form = AccountCreationForm()
+        user_form = UserSignUpForm()
     context = {
         'page_title': page_title,
         'template_name': template_name,
-        'form': form,
+        #'form': form,
+        'account_form' : account_form,
+        'user_form': user_form
     }
     return render(request, template_name, context)
 

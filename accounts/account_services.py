@@ -5,7 +5,7 @@ from django.contrib.auth import login as django_login, logout as django_logout
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
-from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm
+from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm
 from accounts.models import Account, Policy
 
 
@@ -64,23 +64,24 @@ class AccountService(ABC):
     @staticmethod
     def process_registration_request(request):
         result_dict = {}
-        result_dict['user_logged'] = False
+        result_dict['user_created'] = False
         result_dict['next_url'] = REDIRECT_URL
         postdata = utils.get_postdata(request)
-        form = RegistrationForm(data=postdata)
+        #form = RegistrationForm(data=postdata)
+        user_form = UserSignUpForm(postdata)
+        account_form = AccountCreationForm(postdata)
         print_form(postdata)
-        if form.is_valid():
-            print("RegistrationForm is valid")
-            form.save()
-            username = postdata['username']
-            password = postdata['password1']
-            user = auth.authenticate(username=username, password=password)
-
-            if user and user.is_active:
-                auth.login(request, user)
-                result_dict['user_logged'] = True
+        if user_form.is_valid() and account_form.is_valid():
+            user = user_form.save()
+            user.refresh_from_db()
+            account_form = AccountCreationForm(postdata, instance=user.account)
+            account_form.full_clean()
+            account_form.save()
+            result_dict['user_created'] = True
+            print("User creation data is valid")
         else:
-            print("RegistrationForm is invalid")
+            print("User creation data is invalid")
+
         return result_dict
 
 

@@ -23,7 +23,8 @@
 
   <div class="container">
       <form class="signup-form flex-column" action="{% url 'accounts:register'%}" method="POST">{% csrf_token %}
-        {{form}}
+        {{user_form.as_p}}
+        {{account_form.as_p}}
         <button type="submit">{%trans 'Creer mon compte'%} </button>
       </form>
   </div>
