@@ -1,6 +1,20 @@
-{% extends "flat_minimal_base.html" %}
+{% extends "base_flat.html" %}
 {% load i18n %} 
-{% block MAINCONTENT %}
+
+
+{% block HEADER_PANEL %}
+    <div class="header--panel row">
+        <span>CONNEXION  PAY</span>
+    </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+    <div class="header--banner">
+        <p>Connectez-vous dans votre compte</p>
+    </div>
+{% endblock HEADER_BANNER %}
+
+
+{% block MAIN %}
 <div class="col col-12">
 
     <div class="tab-bar">
@@ -14,83 +28,27 @@
 
     <div id="account-dialog" class="container tab-container">
         <section id="user-login" class="user-login tab-content">
-            <form id="login-form" class="login-form" name="login-form" action="{% url 'accounts:login' %}" method="POST">{% csrf_token %}
-                <input type="hidden" name="next" value="{{request.GET.next}}" />
-                <div class="row">
-                    <div class="col col-12"><span>Connexion</span> </div>
+            <form id="login-form" class="login-form" action="{% url 'accounts:login' %}" method="post"> {% csrf_token %}
+                <div id="error-login" class="error-login left">
+                  <p></p>
                 </div>
-                <div class="row">
-                    <div class="col col-12">
-                        <div class="form-group">
-                            <input type="text" name="username" placeholder="Nom d'utilisateur">
-                        </div>
-                    </div>
-                    <div class="col col-12">
-                            <div class="form-group">
-                                <input type="password" name="password" placeholder="Mot de passe">
-                            </div>
-                    </div>
-                </div><!-- End of row -->
-                <div class="row">
-                        <div class="col col-12">
-                            <div class="form-group">
-                                <a class="link" href="{% url 'accounts:password_reset' %}">J'ai oublié mon mot de passe</a>
-                            </div>
-                        </div>
-                        
-                </div><!-- End of row -->
-                <div class="row">
-                        <div class="col col-12">
-                                <div class="form-group">
-                                    <button type="submit">Se connecter</button>
-                                </div>
-                        </div>
-                    </div><!-- End of row -->
+                <div class="form-group">
+      
+                  <input type="text" name="username" placeholder="Nom d'utilisateur">
+                  <input type="password" name="password" placeholder="Mot de passe">
+                </div>
+                <div class="form-group">
+                  <button id="login-submit" class="button"  name="submit" type="submit">{% trans "Se connecter" %}</button>
+                  <span class="button close" data-target="#signup-dialog">{% trans "Annuler" %}</span>
+                </div>
+      
             </form>
         </section> <!-- End of Section Login-->
         <section id="signup" class="tab-content">
             <div class="container">
-                <form class="form signup-form" action="{% url 'accounts:register' %}" method="POST">{% csrf_token %}
-                    <div class="row">
-                        <div class="col col-12">
-                            <span> Créer votre compte </span>
-                        </div>
-                    </div><!-- End of row -->
-                    <div class="row">
-                            <div class="col col-12">
-                                <div class="form-group">
-                                    <input type="text" name="firstname" placeholder="Prénom">
-                                </div>
-                            </div>
-                            <div class="col col-12">
-                                    <div class="form-group">
-                                        <input type="text" name="lastname" placeholder="Nom de famille">
-                                    </div>
-                            </div>
-                            <div class="col col-12"></div>
-                                    <div class="form-group">
-                                        <input type="email" name="email" placeholder="E-Mail">
-                                    </div>
-                            </div>
-                            <div class="col col-12">
-                                    <div class="form-group">
-                                        <input type="password" name="password" placeholder="Mot de passe">
-                                    </div>
-                            </div>
-                            <div class="col col-12">
-                                    <div class="form-group">
-                                        <input type="password" name="password2" placeholder="Resaisissez votre mot de passe">
-                                    </div>
-                            </div>
-                    </div><!-- End of row -->
-                    <div class="row">
-                        <div class="form-group">
-                            <button type="submit">Créer mon compte</button>
-                        </div>
-                    </div>
-                </form>
+               
             </div>
         </section><!-- End of Section signup -->
     </div><!--End of account-dialog -->
 </div>
-{% endblock MAINCONTENT %}
+{% endblock MAIN %}
