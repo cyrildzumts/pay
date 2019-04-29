@@ -23,7 +23,7 @@ class IDCardInline(admin.StackedInline):
 
 
 
-class AccountAdmin(UserAdmin):
+class AccountAdmin(BaseUserAdmin):
     inlines = [AccountInline, IDCardInline,]
 
     def get_inline_instances(self, request, obj=None):
