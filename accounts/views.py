@@ -68,7 +68,7 @@ def register(request):
     if request.method == 'POST':
         result = AccountService.process_registration_request(request)
         if result['user_created']:
-            return result['next_url']
+            return HttpResponseRedirect(result['next_url'])
         else:
             #form = AccountService.get_registration_form()
             account_form = AccountCreationForm()
