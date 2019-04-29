@@ -66,17 +66,30 @@ class IDCard(models.Model):
 
 
 @receiver(post_save, sender=User)
-def create_account(sender, **kwargs):
-    print("New user signal")
-    print("sender : {}".format(sender.username))
-    user = kwargs["instance"]
-    if kwargs["created"]:
+def create_or_update_account(sender,instance, created,  **kwargs):
+    """
+    This slot is called whenever a new User is created.
+    There are two way to create a new user : From the Admin Site and 
+    from A views. When a new User is created from the Admin Site, an account 
+    profile is also created, so we don't have create an associated account again when
+    this slot is executed.
+    When a new User created from a views or programmatically, there is no associated account 
+    to the new user, so we have to create a new account for that user.
+    """
+
+    print("New user  signal")
+    print("sender is superuser: {}".format(sender.is_superuser))
+    
+    if created:
         print("New user was created")
-        print("user being created : {}".format(user.username))
-        #Account.objects.create(user=user)
-        if not sender.is_superuser:
+        print("user being created : {}".format(instance.username))
+        # first check if instance already has a account profile
+        # if the user hasn't an associated account profile then we create an Profile account.
+        #
+        if not Account.objects.exists(user=instance):
             print("This user is not beeing created by admin")
-            Account.objects.create(user=user)
+            Account.objects.create(user=instance)
         else:
             print("This user is beeing created by admin")
+        
 
