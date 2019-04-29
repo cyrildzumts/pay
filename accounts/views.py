@@ -95,7 +95,7 @@ def password_change_views(request):
         This view is called when the user want to change its password
     """
     page_title = 'Modification de  mot de passe | ' + settings.SITE_NAME
-    template_name = "accounts/registration/password_change_form.html"
+    template_name = "registration/password_change.html"
     if request.method == 'POST':
         postdata = utils.get_postdata(request)
         form = PasswordChangeForm(request.user, postdata)
@@ -120,7 +120,7 @@ def password_change_done_views(request):
     """ 
         This view is called when the user has changed its password
     """
-    template_name = "registration/password_change_form.html"
+    template_name = "registration/password_change.html"
     page_title = 'Creation de compte | ' + settings.SITE_NAME
     if request.method == 'POST':
         result = AccountService.process_change_password_request(request)
