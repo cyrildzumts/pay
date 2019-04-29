@@ -89,6 +89,7 @@ def create_or_update_account(sender,instance, created,  **kwargs):
         if not Account.objects.filter(user=instance).exists():
             print("This user is not beeing created by admin")
             Account.objects.create(user=instance)
+            print("Account instance created")
         else:
             print("This user is beeing created by admin")
         
