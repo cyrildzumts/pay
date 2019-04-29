@@ -86,7 +86,7 @@ def create_or_update_account(sender,instance, created,  **kwargs):
         # first check if instance already has a account profile
         # if the user hasn't an associated account profile then we create an Profile account.
         #
-        if not Account.objects.exists(user=instance):
+        if not Account.objects.filter(user=instance).exists():
             print("This user is not beeing created by admin")
             Account.objects.create(user=instance)
         else:
