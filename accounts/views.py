@@ -3,11 +3,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 #from django.core import urlresolvers
 from django.http import HttpResponseRedirect, JsonResponse
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login as django_login, logout as django_logout
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import login as django_login, logout as django_logout, update_session_auth_hash
 from accounts.models import Account
 from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm
 from django.forms.models import inlineformset_factory
@@ -88,19 +89,61 @@ def register(request):
     }
     return render(request, template_name, context)
 
-
+@login_required
 def password_change_views(request):
     """ 
         This view is called when the user want to change its password
     """
-    pass
+    page_title = 'Modification de  mot de passe | ' + settings.SITE_NAME
+    template_name = "registration/password_change_form.html"
+    if request.method == 'POST':
+        postdata = utils.get_postdata(request)
+        form = PasswordChangeForm(request.user, postdata)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Votre mot de passe a été changé!")
+            return redirect('accounts:password_change')
+        else:
+            messages.error(request, 'Veuillez corriger les erreurs indiquées.')
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    context = {
+        'page_title': page_title,
+        'form' : form
+    }
+    return render(request, template_name, context)
     
 
 def password_change_done_views(request):
     """ 
         This view is called when the user has changed its password
     """
-    pass
+    template_name = "registration/password_change_form.html"
+    page_title = 'Creation de compte | ' + settings.SITE_NAME
+    if request.method == 'POST':
+        result = AccountService.process_change_password_request(request)
+        if result['changed']:
+            return HttpResponseRedirect(result['next_url'])
+        else:
+            #form = AccountService.get_registration_form()
+            account_form = AccountCreationForm()
+            user_form = UserSignUpForm()
+
+    else:
+        # form = UserCreationForm()
+        #form = AccountService.get_registration_form()
+        account_form = AccountCreationForm()
+        user_form = UserSignUpForm()
+    context = {
+        'page_title': page_title,
+        'template_name': template_name,
+        #'form': form,
+        'account_form' : account_form,
+        'user_form': user_form
+    }
+    return render(request, template_name, context)
 
 
 #@login_required

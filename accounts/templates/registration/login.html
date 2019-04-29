@@ -33,16 +33,17 @@
                   <p></p>
                 </div>
                 <div class="form-group">
-      
                   <input type="text" name="username" placeholder="Nom d'utilisateur">
                   <input type="password" name="password" placeholder="Mot de passe">
+                </div>
+                <div class="form-group">
+                    <p> <a href="{% url 'accounts:password_change' %}">{% trans "J'ai oublié mon mot de passe." %}</a></p>
                 </div>
                 <div class="form-group">
                   <button id="login-submit" class="button"  name="submit" type="submit">{% trans "Se connecter" %}</button>
                   <span class="button close" data-target="#signup-dialog">{% trans "Annuler" %}</span>
                 </div>
-      
-            </form>
+              </form>
         </section> <!-- End of Section Login-->
         <section id="signup" class="tab-content">
             <div class="container">

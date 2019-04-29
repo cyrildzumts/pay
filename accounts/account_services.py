@@ -2,6 +2,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login, logout as django_logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
@@ -33,6 +34,23 @@ class AccountService(ABC):
     @staticmethod
     def get_registration_form():
         return RegistrationForm()
+
+    @staticmethod
+    def process_change_password_request(request):
+        result_dict = {}
+        result_dict['changed'] = False
+        
+        postdata = utils.get_postdata(request)
+        form = PasswordChangeForm(request.user, postdata)
+        if form.is_valid():
+            user = form.save()
+            result_dict['changed'] = True
+            result_dict['next_url'] = 'accounts:password_change'
+        return result_dict
+        
+
+
+
 
     @staticmethod
     def process_login_request(request):
