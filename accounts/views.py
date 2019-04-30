@@ -7,7 +7,7 @@ from django.contrib import auth, messages
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import login as django_login, logout as django_logout, update_session_auth_hash
 from accounts.models import Account
 from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm
@@ -134,6 +134,23 @@ def password_change_done_views(request):
     }
     return render(request, template_name, context)
 
+
+
+def password_reset_views(request):
+    """ 
+        This view is called when the user want to reset her password
+    """
+    template_name = "registration/password_reset_form.html"
+    email_template_name = "registration/password_reset_email.html"
+    ext
+    page_title = 'Remise à zéro du mot de passe | ' + settings.SITE_NAME
+
+    
+    context = {
+        'page_title': page_title,
+        'template_name': template_name
+    }
+    return render(request, template_name, context)
 
 #@login_required
 def user_account(request):
