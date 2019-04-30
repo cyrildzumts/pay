@@ -96,6 +96,7 @@ def password_change_views(request):
     """
     page_title = 'Modification de  mot de passe | ' + settings.SITE_NAME
     template_name = "registration/password_change.html"
+    success_url = 'accounts:password_change_done'
     if request.method == 'POST':
         postdata = utils.get_postdata(request)
         form = PasswordChangeForm(request.user, postdata)
@@ -105,9 +106,9 @@ def password_change_views(request):
             messages.success(request, "Votre mot de passe a été changé!")
             context = {
                 'changed' : True,
-                'redirect_to': 'accounts:account'
+                'redirect_to': success_url
             }
-            return redirect('accounts:password_change')
+            return redirect(success_url)
         else:
             messages.error(request, 'Veuillez corriger les erreurs indiquées.')
     else:
@@ -125,27 +126,11 @@ def password_change_done_views(request):
         This view is called when the user has changed its password
     """
     template_name = "registration/password_change_done.html"
-    page_title = 'Creation de compte | ' + settings.SITE_NAME
-    if request.method == 'POST':
-        result = AccountService.process_change_password_request(request)
-        if result['changed']:
-            return HttpResponseRedirect(result['next_url'])
-        else:
-            #form = AccountService.get_registration_form()
-            account_form = AccountCreationForm()
-            user_form = UserSignUpForm()
-
-    else:
-        # form = UserCreationForm()
-        #form = AccountService.get_registration_form()
-        account_form = AccountCreationForm()
-        user_form = UserSignUpForm()
+    page_title = 'Confirmation | ' + settings.SITE_NAME
+    
     context = {
         'page_title': page_title,
-        'template_name': template_name,
-        #'form': form,
-        'account_form' : account_form,
-        'user_form': user_form
+        'template_name': template_name
     }
     return render(request, template_name, context)
 

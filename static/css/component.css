@@ -96,6 +96,9 @@ h3, .header p{
   margin: 4px 8px ;
 }
 
+a.button{
+  text-decoration: none;
+}
 .button:hover{
   cursor: pointer;
 }
