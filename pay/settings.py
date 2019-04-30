@@ -39,6 +39,8 @@ EMAIL_HOST_PASSWORD = os.environ['PAY_EMAIL_PASSWORD']
 EMAIL_HOST_USER = os.environ['PAY_EMAIL_USER']
 CONTACT_MAIL =  os.environ['PAY_CONTACT_MAIL']
 EMAIL_USE_SSL = True
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 
