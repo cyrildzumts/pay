@@ -38,6 +38,8 @@ class Account(models.Model):
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
     policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     #account_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    activation_token = models.CharField(max_length=8, blank=True, null=True)
+    reset_token = models.CharField(max_length=8, blank=True, null=True)
 
 
     class Meta:
