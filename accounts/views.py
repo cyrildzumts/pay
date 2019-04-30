@@ -103,6 +103,10 @@ def password_change_views(request):
             user = form.save()
             update_session_auth_hash(request, user)
             messages.success(request, "Votre mot de passe a été changé!")
+            context = {
+                'changed' : True,
+                'redirect_to': 'accounts:account'
+            }
             return redirect('accounts:password_change')
         else:
             messages.error(request, 'Veuillez corriger les erreurs indiquées.')
@@ -120,7 +124,7 @@ def password_change_done_views(request):
     """ 
         This view is called when the user has changed its password
     """
-    template_name = "registration/password_change.html"
+    template_name = "registration/password_change_done.html"
     page_title = 'Creation de compte | ' + settings.SITE_NAME
     if request.method == 'POST':
         result = AccountService.process_change_password_request(request)
