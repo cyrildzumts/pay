@@ -115,15 +115,17 @@ class AccountService(ABC):
 
     @staticmethod
     def create_account(accountdata=None, userdata=None):
-        created = False
+        created = True
         if accountdata and userdata:
             try:
                 user = User.objects.create(**userdata)
+                #user.refresh_from_db()
                 Account.objects.filter(user=user).update(**accountdata)
-                created = True
             
             except IntegrityError:
                 created = False
+        else:
+            created = False
         return created
 
 

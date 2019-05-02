@@ -168,18 +168,27 @@ def user_account(request):
     template_name = "accounts/account.html"
     page_title = 'Mon Compte | ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
-    name = request.user.get_full_name()
-    current_account = Account.objects.get(user=request.user)
-    current_solde = current_account.solde
-    user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-    
-
-    context = {
+    if request.user.is_authenticated:
+        name = request.user.get_full_name()
+        current_account = Account.objects.get(user=request.user)
+        current_solde = current_account.solde
+        user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+        context = {
         'name'      : name,
         'page_title':page_title,
         'site_name' : settings.SITE_NAME,
-        'template_name':template_name,
+        'solde'     : current_solde,
+        'transactions' : user_transactions
     }
+    else:
+        context = {
+        'name'      : "AnonymUser",
+        'page_title':page_title,
+        'site_name' : settings.SITE_NAME,
+        'transactions' : None
+    }
+
+    
     return render(request, template_name, context)
 
 
