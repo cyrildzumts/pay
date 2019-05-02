@@ -159,23 +159,19 @@ def user_account(request):
      This page display an overview of the user's orders,
      user's infos ...  So this method have to provide these
      informations to the template.
+     This view must provide a context providing the following informations :
+     *current solde
+     *transaction history
+     *list of available services
+     *a list of favoris
     """
     template_name = "accounts/account.html"
     page_title = 'Mon Compte | ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
-    if request.method == 'POST':
-        current_account = Account.objects.get(user=request.user)
-        current_solde = current_account.solde
-        postdata = utils.get_postdata(request)
-        transaction_form = Transaction(data=postdata)
-        if transaction_form.is_valid():
-            recipient_name = postdata['recipient']
-            amount = int(postdata['amount'])
-            if(current_solde >=  amount):
-                Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
-                Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
-                transaction_form.save()
+    current_account = Account.objects.get(user=request.user)
+    current_solde = current_account.solde
+    user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     
 
     context = {
