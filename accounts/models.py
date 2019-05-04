@@ -71,7 +71,7 @@ class Service(models.Model):
     operator = models.ForeignKey(User, related_name="service_operator", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(User, related_name="service_customer", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     reference_number = models.IntegerField(blank=False)
-    customer_reference = city = models.CharField(max_length=50, blank=True, null=True)
+    customer_reference = models.CharField(max_length=50, blank=True, null=True)
     price = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
     created_at = models.DateField(auto_now=True)
