@@ -142,7 +142,6 @@ def password_reset_views(request):
     """
     template_name = "registration/password_reset_form.html"
     email_template_name = "registration/password_reset_email.html"
-    ext
     page_title = 'Remise à zéro du mot de passe | ' + settings.SITE_NAME
 
     
