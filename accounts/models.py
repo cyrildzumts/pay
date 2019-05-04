@@ -103,9 +103,9 @@ class Account(models.Model):
     created_at = models.DateField(auto_now=True)
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
     policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    #account_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    activation_token = models.CharField(max_length=8, blank=True, null=True)
-    reset_token = models.CharField(max_length=8, blank=True, null=True)
+    account_uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
+    email_validated = models.BooleanField(default=False, blank=True, null=True)
+    #reset_token = models.CharField(max_length=8, blank=True, null=True)
 
 
     class Meta:
@@ -144,13 +144,7 @@ def create_or_update_account(sender,instance, created,  **kwargs):
     When a new User created from a views or programmatically, there is no associated account 
     to the new user, so we have to create a new account for that user.
     """
-
-    print("New user  signal")
-    print("sender is superuser: {}".format(sender.is_superuser))
-    
     if created:
-        print("New user was created")
-        print("user being created : {}".format(instance.username))
         # first check if instance already has a account profile
         # if the user hasn't an associated account profile then we create an Profile account.
         #
@@ -158,7 +152,6 @@ def create_or_update_account(sender,instance, created,  **kwargs):
             print("This user is not beeing created by admin")
             Account.objects.create(user=instance)
             print("Account instance created")
-        else:
-            print("This user is beeing created by admin")
+    return
         
 
