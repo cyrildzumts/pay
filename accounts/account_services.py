@@ -26,7 +26,14 @@ def print_form(form=None):
 
 
 class AccountService(ABC):
-
+    """
+    This class exists only to avoid that the accounts.views directly manipulate the models it is working with.
+    That way the Service can be changed without affecting the views.
+    The job of this AccountService is to provide access to the database related to the Account operations.
+    It provides differents utilities functions to obtains Forms, log user in, to create a new user account, 
+    to create a new policy. 
+    New bussiness services will be added to the class instead of updating the views.
+    """
     @staticmethod
     def get_authentication_form(initial_content=False):
         return AuthenticationForm()
@@ -62,25 +69,24 @@ class AccountService(ABC):
         username = postdata['username']
         password = postdata['password']
         if form.is_valid():
-            print("User Login : Submitted Form is valid")
             user = auth.authenticate(username=username,
                                     password=password)
 
             if user is not None:
-                print("User Login : User authenticated : username : {} - password : {}".format(username, password))
                 if user.is_active:
                     auth.login(request, user)
                     result_dict['user_logged'] = True
-                    print("User Logged In")
-            else:
-                print("User Login : User not authenticated : username : {} - password : {}".format(username, password))
-        else :
-            print("User Login : Submitted Form is not valid")
+                
+
         return result_dict
     
 
     @staticmethod
     def process_registration_request(request):
+        """
+        The form used to fill the data provide data for both the UserSignUpForm and the AccountCreationForm.
+        From the data it is possible process many form at the same times just like this code is doing.
+        """
         result_dict = {}
         result_dict['user_created'] = False
         result_dict['next_url'] = REDIRECT_URL
@@ -97,17 +103,6 @@ class AccountService(ABC):
             account_form.full_clean()
             account_form.save()
             result_dict['user_created'] = True
-            
-        else:
-            print("User creation data is invalid")
-            if user_form.is_valid():
-                print("User creation Form is valid")
-            else:
-                print("User creation Form is invalid")
-            if account_form.is_valid():
-                print("Acount creation Form is valid")
-            else:
-                print("Account creation Form is invalid")
 
         return result_dict
 
@@ -115,17 +110,20 @@ class AccountService(ABC):
 
     @staticmethod
     def create_account(accountdata=None, userdata=None):
-        created = True
+        created = False
         if accountdata and userdata:
             try:
                 user = User.objects.create(**userdata)
-                #user.refresh_from_db()
-                Account.objects.filter(user=user).update(**accountdata)
+                user.refresh_from_db()
+                # creating a new user will trigger a signal that will automatically create a new account the new user.
+                # So instead of creating a new account , update the already created account associated to the new user.
+                if user: 
+                    Account.objects.filter(user=user).update(**accountdata)
+                    created = True
             
             except IntegrityError:
-                created = False
-        else:
-            created = False
+                pass
+
         return created
 
 
