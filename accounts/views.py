@@ -178,7 +178,6 @@ def user_account(request):
         'name'      : name,
         'page_title':page_title,
         'site_name' : settings.SITE_NAME,
-        'template_name':template_name,
     }
     return render(request, template_name, context)
 

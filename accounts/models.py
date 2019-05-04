@@ -7,6 +7,17 @@ import uuid
 
 # Create your models here.
 class Policy(models.Model):
+    """
+        Every Business account has a policy set. This policy defines the 
+        transfer limit applied to the business account.
+        For every transfer going to a business account a commission fee is extracted from 
+        the transfer amount. This fee is added the PAY account.
+        The daily_limit is maximal amount allowed to be received by a business account in a day.
+        The weekly_limit is maximal amount allowed to be received by a business account in a week.
+        The monthly_limit is maximal amount allowed to be received by a business account in a month.
+        The commission is a percent value that is to be taken from the transfer amount.
+
+    """
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
@@ -16,9 +27,64 @@ class Policy(models.Model):
         return "Policy id : {0} - Commission : {1}".format(self.policy_id, self.commission)
     
 
+class AvailableService(models.Model):
+    """
+    This model saves the available services. Each new available is saved in the database using this model.
+    This model allows dynamics detection of newly added services.
+    To make it easier to work with, a service is identified with a service code.
+    The service code must be a unique value.
+    template_name contains the name of the template used to render this service in html
+    form_class contains the name of the Form used to interact with the service in html.
+    """
+    service_code = models.IntegerField(blank=False)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    operator_name = models.CharField(max_length=50, blank=True, null=True)
+    operator = models.ForeignKey(User, related_name="available_service", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    template_name = models.CharField(max_length=50, blank=True, null=True)
+    form_class = models.CharField(max_length=50, blank=True, null=True)
+    created_at = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return "Service : {}".format(name)
+    
+
+
+class Service(models.Model):
+    """
+        A service is offered by an operator and is consumed by a customer.
+        Both operator and customer are registered users.
+        A service has an invoice which is identified by the operator with a reference number.
+        Each consumed service has a price. The cost is substracted from the customer account.
+        *A commision is applied to each service. The applied commission is defined by the policy 
+        set to operator.
+        *When an operator ses an ID number to reference his registered customer, the field customer_reference can be 
+        used to save this ID.
+        *The Field reference_number refers to the bill number as issued by the operator. Some business issue a
+        whole integer as a bill number , some other issues an alpha-numeric value, this why this field is 
+        represented with a CharField insteed of an IntegerField.
+
+        * The field issued_at represents the date at which the operator has created the bill for which the customer
+        is paying now.
+
+
+    """
+    operator = models.ForeignKey(User, related_name="service_operator", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(User, related_name="service_customer", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    reference_number = models.IntegerField(blank=False)
+    customer_reference = city = models.CharField(max_length=50, blank=True, null=True)
+    price = models.IntegerField(blank=False)
+    commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
+    created_at = models.DateField(auto_now=True)
+    issued_at = models.DateField()
+    description = models.CharField(max_length=80, blank=True, null=True)
+
 
 
 class Account(models.Model):
+    """
+    The Account Model extends the User Model with a profile.
+    This model provides extra information to identify a user.
+    """
     ACCOUNT_TYPE = (
         ('P', 'Privé'),
         ('B', 'Business'),
