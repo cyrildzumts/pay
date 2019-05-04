@@ -31,7 +31,7 @@ def login(request):
     Log in view
     """
     page_title = "Connexion d'utilisateur"
-    template_name = 'registration/login.html'
+    template_name = 'accounts/registration/login.html'
     
     # template_name = 'tags/login_form.html'
     if request.method == 'POST':
@@ -64,7 +64,7 @@ def register(request):
     """
     User registration view
     """
-    template_name = "registration/register.html"
+    template_name = "accounts/registration/register.html"
     page_title = 'Creation de compte | ' + settings.SITE_NAME
     if request.method == 'POST':
         result = AccountService.process_registration_request(request)
@@ -140,7 +140,7 @@ def password_reset_views(request):
     """ 
         This view is called when the user want to reset her password
     """
-    template_name = "registration/password_reset_form.html"
+    template_name = "accounts/registration/password_reset_form.html"
     email_template_name = "registration/password_reset_email.html"
     page_title = 'Remise à zéro du mot de passe | ' + settings.SITE_NAME
 
