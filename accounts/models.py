@@ -44,6 +44,9 @@ class ServiceCategory(models.Model):
     created_at = models.DateField(auto_now=True)
     created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return "{} : {}".format(self.category_name, self.category_code)
+
 
 class AvailableService(models.Model):
     """
