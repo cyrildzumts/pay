@@ -69,7 +69,7 @@ class AvailableService(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return "Service : {}".format(self.name)
+        return self.name
     
 
 
