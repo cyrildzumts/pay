@@ -8,6 +8,7 @@ from accounts.models import  Policy, Account, IDCard, Service, ServiceCategory, 
 class AccountInline(admin.StackedInline):
     model = Account
     can_delete = False
+    fk_name = 'user'
     verbose_name_plural = 'Profile'
 
 '''
@@ -34,4 +35,5 @@ class AccountAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User ,AccountAdmin)
 admin.site.register( Policy)
-admin.site.register(ServiceCategory, AvailableService)
+admin.site.register(ServiceCategory)
+admin.site.register(AvailableService)
