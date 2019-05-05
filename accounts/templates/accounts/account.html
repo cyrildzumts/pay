@@ -43,10 +43,23 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                         <div id="services-view" class="tab-content grid service-grid">
 
                                 <div>
+                                        <ul>
+                                                <p>Type de services :</p>
                                                 {% for cat in active_cats %}
-                                                <span class=" button action entry"> {{cat.category_name}} </span>
+                                                <li><span class="action entry"> {{cat.category_name}} </span>
+                                                    <ul>
+                                                            {% for service in cat.category_services  %}
+                                                                <li><span class="action entry"> {{service.name}} </span></li>
+                                                            {% empty %}
+                                                            
+                                                            {% endfor %}
+                                                    </ul>
+                                                </li>
 
                                                 {% endfor %}
+
+                                        </ul>
+                                        
                                 </div>
 
                                 {% for service in services %}
