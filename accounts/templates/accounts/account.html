@@ -41,6 +41,14 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                 {% endfor %}
                         </div>
                         <div id="services-view" class="tab-content grid service-grid">
+
+                                <div>
+                                                {% for cat in active_cats %}
+                                                <span class=" button action entry"> {{cat.category_name}} </span>
+
+                                                {% endfor %}
+                                </div>
+
                                 {% for service in services %}
                                 <button class="button action entry" data-toggle="#service-cat" data-target=""> {{service.name}} </button>
                                 
