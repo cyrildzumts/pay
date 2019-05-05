@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import login as django_login, logout as django_logout, update_session_auth_hash
-from accounts.models import Account
+from accounts.models import Account, ServiceCategory, AvailableService
 from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -167,25 +167,23 @@ def user_account(request):
     template_name = "accounts/account.html"
     page_title = 'Mon Compte | ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
-    if request.user.is_authenticated:
-        name = request.user.get_full_name()
-        current_account = Account.objects.get(user=request.user)
-        current_solde = current_account.solde
-        user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-        context = {
-        'name'      : name,
-        'page_title':page_title,
-        'site_name' : settings.SITE_NAME,
-        'solde'     : current_solde,
-        'transactions' : user_transactions
+    name = request.user.get_full_name()
+    current_account = Account.objects.get(user=request.user)
+    current_solde = current_account.solde
+    user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    active_cat = ServiceCategory.objects.select_related().exclude(category_services__isnull=True)
+    available_services = AvailableService.objects.select_related().all()
+    context = {
+        'name'          : name,
+        'page_title'    : page_title,
+        'site_name'     : settings.SITE_NAME,
+        'solde'         : current_solde,
+        'transactions'  : user_transactions,
+        'active_cats'   : active_cat,
+        'services': available_services
     }
-    else:
-        context = {
-        'name'      : "AnonymUser",
-        'page_title':page_title,
-        'site_name' : settings.SITE_NAME,
-        'transactions' : None
-    }
+        
+
 
     
     return render(request, template_name, context)
