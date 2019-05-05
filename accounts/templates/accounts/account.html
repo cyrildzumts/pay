@@ -40,9 +40,10 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                 </span>
                                 {% endfor %}
                         </div>
-                        <div id="services-view" class="tab-content grid">
+                        <div id="services-view" class="tab-content grid service-grid">
                                 {% for service in services %}
-                                <span class="action entry"> {{service.name}} </span>
+                                <button class="button action entry" data-toggle="#service-cat" data-target=""> {{service.name}} </button>
+                                
                                 {% empty %}
                                 <span>
                                         {% blocktrans %}Il n'y a actuellement aucun service disponible.
