@@ -32,6 +32,8 @@ class AccountAdmin(BaseUserAdmin):
             return list()
         return super(AccountAdmin, self).get_inline_instances(request, obj)
 
+
+
 admin.site.unregister(User)
 admin.site.register(User ,AccountAdmin)
 admin.site.register( Policy)
