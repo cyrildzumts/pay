@@ -5,6 +5,15 @@ from django.dispatch import receiver
 from django.urls import reverse
 import uuid
 
+
+SERVICE_NAME = (
+    ('ORANGE','Mobile'),
+    ('MTN', 'Mobile'),
+    ('ENEO', 'ELECTRICITY'),
+    ()
+)
+
+
 # Create your models here.
 class Policy(models.Model):
     """
@@ -27,6 +36,15 @@ class Policy(models.Model):
         return "Policy id : {0} - Commission : {1}".format(self.policy_id, self.commission)
     
 
+
+class ServiceCategory(models.Model):
+    category_name = models.CharField(max_length=50, unique=True, null=False,blank=False)
+    category_code = models.IntegerField(blank=False, unique=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateField(auto_now=True)
+    created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+
+
 class AvailableService(models.Model):
     """
     This model saves the available services. Each new available is saved in the database using this model.
@@ -35,17 +53,20 @@ class AvailableService(models.Model):
     The service code must be a unique value.
     template_name contains the name of the template used to render this service in html
     form_class contains the name of the Form used to interact with the service in html.
+    operator_name is 
     """
     service_code = models.IntegerField(blank=False)
     name = models.CharField(max_length=50, blank=True, null=True)
-    operator_name = models.CharField(max_length=50, blank=True, null=True)
     operator = models.ForeignKey(User, related_name="available_service", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     template_name = models.CharField(max_length=50, blank=True, null=True)
     form_class = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateField(auto_now=True)
+    created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return "Service : {}".format(name)
+        return "Service : {}".format(self.name)
     
 
 
@@ -68,10 +89,13 @@ class Service(models.Model):
 
 
     """
+    name = models.CharField(max_length=50, blank=True, null=True)
     operator = models.ForeignKey(User, related_name="service_operator", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(User, related_name="service_customer", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     reference_number = models.IntegerField(blank=False)
     customer_reference = models.CharField(max_length=50, blank=True, null=True)
+    category = models.ForeignKey(ServiceCategory, related_name="category", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    service_instance = models.ForeignKey(AvailableService, related_name="service_entry", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     price = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
     created_at = models.DateField(auto_now=True)
@@ -105,6 +129,7 @@ class Account(models.Model):
     policy = models.ForeignKey(Policy, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     account_uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
     email_validated = models.BooleanField(default=False, blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name="created_accounts", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     #reset_token = models.CharField(max_length=8, blank=True, null=True)
 
 

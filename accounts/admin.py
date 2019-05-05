@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from accounts.models import  Policy, Account, IDCard
+from accounts.models import  Policy, Account, IDCard, Service, ServiceCategory, AvailableService
 
 # Register your models here.
 
@@ -34,3 +34,4 @@ class AccountAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User ,AccountAdmin)
 admin.site.register( Policy)
+admin.site.register(ServiceCategory, AvailableService)

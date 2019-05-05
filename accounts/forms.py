@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from accounts.models import Account, IDCard, Policy
+from accounts.models import Account, IDCard, Policy, AvailableService, Service, ServiceCategory
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
@@ -141,3 +141,22 @@ class RegistrationForm(forms.ModelForm):
         if commit:
             account.save()
         return account
+    
+
+
+class ServiceCategoryCreationForm(forms.ModelForm):
+    class Meta:
+        model = ServiceCategory
+        exclude = ['created_at','is_active']
+
+
+class AvailableServiceCreationForm(forms.ModelForm):
+    class Meta:
+        model = AvailableService
+        exclude = ['created_at','is_active']
+
+
+class ServiceCreationForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        exclude = ['created_at']
