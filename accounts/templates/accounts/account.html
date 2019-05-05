@@ -55,23 +55,16 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                                             {% endfor %}
                                                     </ul>
                                                 </li>
-
+                                                {% empty %}
+                                                <p>
+                                                        {% blocktrans %}Il n'y a actuellement aucun service disponible. Lorsque que de nouveaux services seront disponible, ils seront listés ici.
+                                                        {% endblocktrans %}
+                                                </p>
                                                 {% endfor %}
 
                                         </ul>
                                         
                                 </div>
-
-                                {% for service in services %}
-                                <button class="button action entry" data-toggle="#service-cat" data-target=""> {{service.name}} </button>
-                                
-                                {% empty %}
-                                <span>
-                                        {% blocktrans %}Il n'y a actuellement aucun service disponible.
-Lorsque que de nouveaux services seront disponible, ils seront listés ici.
-                                        {% endblocktrans %}
-                                </span>
-                                {% endfor %}
                         </div>
                         <div id="favorite-view" class="tab-content grid">
                                 {% for favory in favories %}
