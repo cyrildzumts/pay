@@ -48,7 +48,7 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                                 {% for cat in active_cats %}
                                                 <li><span class="action entry"> {{cat.category_name}} </span>
                                                     <ul>
-                                                            {% for service in cat.category_services  %}
+                                                            {% for service in cat.category_services.all  %}
                                                                 <li><span class="action entry"> {{service.name}} </span></li>
                                                             {% empty %}
                                                             
