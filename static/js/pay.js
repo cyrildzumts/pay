@@ -179,9 +179,347 @@ var Account = (function(){
     return Account;
 })();
 
-account = new Account();
+
+var CardFactory = (function(){
+    function CardFactory(options){
+        this.required_keys = ["label", "label_attr_title", "title", "date", "amount", "initials", "initials_title", "is_seller"];
+        this.default_option = options;
+        this.template = $('#list-card-template');
+        this.template_found = this.template.length > 0;
+    }
+
+    CardFactory.prototype.isOptionsValide = function(options){
+        var flag = true;
+        if(options){
+            if (Object.keys(options).length < 0){
+                flag = false;
+            }
+            else{
+                flag = this.required_keys.every(function(key, index){
+                    return options.hasOwnProperty(key);
+                });
+            }
+        }
+        else{
+            flag = false;
+        }
+        return flag;
+    };
+
+    CardFactory.prototype.createCard = function(options){
+        var card = null;
+        if(this.isOptionsValide(options)){
+            if(this.template_found){
+                var $template = this.template.clone();
+                $('.card-label', $template).attr('title', options.label_attr_title).html(options.label);
+                $('.list-card-title', $template).html(options.title);
+                $('.date', $template).html(options.date);
+                $('.amount', $template).html(options.amount);
+                $('.member-initials', $template).attr('title', options.initials_title).html(options.initials);
+                if(options.is_seller){
+                    $('.member-is-a-seller', $template).attr('title', 'Ce membre est un prestataire de services').removeClass('hide');
+                }
+                card = $template;
+                card.removeAttr('id');
+            }
+            else{
+                console.log('No card template could be found');
+            }
+            
+
+        }
+        else{
+            console.log('No valid card actions');
+        }
+        return card;
+    };
+
+    CardFactory.prototype.default_card = function(){
+        return this.createCard(this.default_option);
+    }
+
+
+    return CardFactory;
+})();
+
+var Transaction = (function(){
+    function Transaction(){
+        this.template =$("#transaction-form-wrapper.template");
+        this.init();
+        
+    }
+
+    Transaction.prototype.init = function(){
+        this.re = RegExp('^[0-9]+$');
+        var form = $('.template #transaction-form');
+        console.log("Intialization transaction Form.");
+        if(form.length == 0){
+            console.log("transaction Form not found.");
+            return;
+        }
+        regex = this.re;
+        console.log("Found transaction Form.");
+        $("#transaction-modal .modal-body").on("submit","#transaction-form", function(event){
+            var form = $(this);
+            var flag = true;
+            event.preventDefault();
+            var recipient = $("#recipient", this).val();
+            var amount = 0;
+            var amount_val = $("#amount", this).val();
+            var description = $("#description", this).val();
+            var fields = [recipient, amount_val, description];
+            var errors_fields = $("#recipient-error , #amount-error , #description-error",this);
+            
+            fields.forEach(function(field, index){
+                //console.log("Field #\n",index);
+                if(field.length > 0){
+                    $(errors_fields[index]).hide();
+                }else{
+                    //console.log("Field #", index, " is incorrect\n");
+                    $(errors_fields[index]).show();
+                    flag = false;
+                }
+            });
+            if(!regex.test(amount_val)){
+                $('#amount-error', this).html('Le montant doit être un numbre').show();
+                console.log("the field amount must be a number");
+            }
+            else{
+                amount = parseInt(amount_val);
+            }
+            if(flag){
+                console.log("Recipient : ", recipient, "Amount : ", amount, "Description : ", description);
+            }
+            
+            return flag;
+        });
+        
+    };
+
+    Transaction.prototype.create = function(){
+        var transaction = null;
+        transaction = this.template.clone().removeClass("template");
+        console.log("new transaction element created");
+        return transaction;
+    };
+
+    return Transaction;
+})();
+
+var CaseIssue = (function(){
+    function CaseIssue(options){
+        console.log("Issue construction...");
+        this.template = $("#case-form-wrapper.template");
+        if(options && options.selector){
+            this.form_selector = options.selector;
+        }
+        else{
+            this.form_selector = "#case-form";
+        }
+        console.log("Issue constructed ...");
+        this.init();
+
+    }
+
+    CaseIssue.prototype.init = function(){
+        if(this.form_selector){
+            this.form = $(this.form_selector);
+            if(this.form.length == 0){
+                console.log("No Case Issue form found on this page");
+                return;
+            }
+            var form = this.form;
+            $(".modal .modal-body").on("submit", "#case-form",function(event){
+            event.preventDefault();
+            var flag = true;
+            
+            var $reporter = $("#reporter", this);
+            var $participant = $("#participant", this);
+            var $reference = $("#reference", this);
+            var $description = $("#case-description", this);
+
+            var reporter = $reporter.val();
+            var participant = $participant.val();
+            var reference = $reference.val();
+            var description = $description.val();
+            var fields = [participant, reference, description];
+            var errors_fields = $("#participant-error , #reference-error , #case-description-error",this);
+            
+            fields.forEach(function(field, index){
+                //console.log("Field #\n",index);
+                if(field.length > 0){
+                    $(errors_fields[index]).hide();
+                }else{
+                    //console.log("Field #", index, " is incorrect\n");
+                    $(errors_fields[index]).show();
+                    flag = false;
+                }
+            });
+            if(flag){
+                console.log("Reporter : ", reporter, " - Participant : ", participant, " - Ref : ", reference, " - Description : ", description);
+            }
+            else{
+                console.log("The issue form contains invalid fields");
+            }
+            return flag;
+            });
+        }
+        else{
+            return;
+        }
+
+    };
+
+    CaseIssue.prototype.create = function(){
+        var issue = null;
+        issue = this.template.clone().removeClass("template");
+        console.log("new CaseIssue element created");
+        return issue;
+    };
+
+    return CaseIssue;
+})();
+
+
+var Modal = (function(){
+    function Modal(options){
+        this.init();
+        if(options ){
+            this.transaction_factory = options.transaction_factory;
+            this.factories = options.factories;
+        }
+        
+
+    }
+
+
+    Modal.prototype.init = function(){
+        that = this;
+        var trigger = $(".open-modal").click(function(event){
+            var target = $($(this).data('target'));
+            //console.log("opening modal ...");
+            var options = {template: $(this).data('template'), modal: $(this).data('target'), factory:$(this).data('factory')};
+            that.create(options);
+            target.show();
+        });
+
+        $("body .modal").on("click", ".close-modal", function(event){
+            //console.log("Close modal clicked");
+            var target = $($(this).data('target'));
+            target.hide();
+            $(".modal-content .modal-body", target).empty();
+
+        });
+        if(window){
+            $(window).click(function(event){
+                var target = $(event.target);
+                if(target.hasClass("modal")){
+                    //console.log("Closing current modal");
+                    target.hide();
+                    $(".modal-content .modal-body", target).empty();
+                }
+            });
+        }
+    }
+
+    Modal.prototype.create = function(options){
+        var template = this.factories[options.factory].create();
+        var modal = $(options.modal);
+        $(".modal-content .modal-body", modal).append(template);
+        //console.log("added into the modal");
+
+    }
+    return Modal;
+})();
+
+
+var Notify = (function(){
+    function Notify(){
+        this.template = $("#notify");
+    }
+
+    Notify.prototype.init = function(){
+        $(".modal .modal-body").on("click", "#notify .close", function(event){
+            var target = $($(this).data("target"));
+            target.hide();
+            $(".modal-body", target).empty();
+        });
+
+    };
+
+    Notify.prototype.notify = function(data){
+        if(data && data.hasOwnProperty('msg')){
+            alert(data.msg);
+        }
+        else{
+            alert("Notify called with wrong parameters");
+        }
+    };
+
+    Notify.prototype.create = function(){
+
+        var template = null;
+        template = this.template.clone().removeClass("template");
+        console.log("new Notification template element created");
+        return template;
+    };
+
+    return Notify;
+})();
+//var trans = new Transaction();
+var issue_descr = "J'ai acheter un article le 23.03.2019."
+" Jusqu'aujourd'hui je n'ai toujours pas recu la commande."
+" Je souhaite recevoir mon article dans les plus bref delai sinon j'aimerai me faire rembourser.";
+
+var options = {label: 'Reception', label_attr_title: 'Entrant', title: 'Reception venant de Cyrille', date: '04-05-2019', amount: 25000, initials: 'CN',initials_title: 'Cyrille Ngassam', is_seller: false};
+
+
+
+var notify = new Notify();
+
+
+function fetchTransaction(){
+    $.ajax({
+        url: "transactions",
+        type: 'post',
+        success : function(data){
+            notify.notify({msg: "Nouvell Transaction sur votre compte"});
+        },
+        error: function(data){
+            notify.notify({msg: "Error : Votre compte n'a pas pu etre actualisé"});
+        },
+        complete: function(data){
+            setTimeout(fetchTransaction, 60000);
+        }
+    });
+}
+
+$(document).ready(function(){
+let account = new Account();
 account.init();
-tabs = new Tabs();
+let tabs = new Tabs();
 tabs.init();
-slider = new Slider();
+let slider = new Slider();
 slider.init();
+    var factory = new CardFactory(options);
+    var list = $('.list-cards');
+    var transaction = new Transaction();
+    var cases = new CaseIssue();
+    
+    var modal = new Modal({transaction_factory: transaction, factories: {transaction : transaction, cases : cases, notify : notify}});
+
+    //setTimeout(fetchTransaction, 60000);
+    $('.js-add-another').click(function(event){
+        var card = factory.default_card();
+        if(card != null){
+            card.appendTo(list).addClass('list-card').hide().fadeIn(600);
+            console.log("Added new card");
+        }
+        else{
+            console.log("Card not created");
+        }
+        
+    });
+});
+
+
