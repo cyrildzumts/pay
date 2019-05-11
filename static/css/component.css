@@ -1240,3 +1240,8 @@ input[type=text]:focus, textarea:focus{
 	color: #aaa;
 	font-size: 1em;
 }
+
+.action{
+	padding: 2px 5px;
+	border: var(--btn-border);
+}
