@@ -47,7 +47,7 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                         <ul class="grid">
                                                
                                                 {% for cat in active_cats %}
-                                                <li class="col-4"><span class="action entry"> {{cat.category_name}} </span>
+                                                <li class="col-4 bordered"><span class="action entry"> {{cat.category_name}} </span>
                                                     <ul>
                                                             {% for service in cat.category_services.all  %}
                                                                 <li><span> {{service.name}} </span></li>
