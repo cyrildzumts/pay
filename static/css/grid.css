@@ -115,6 +115,24 @@
   width: 50%;
 }
 
+.listview{
+  display: flex;
+  max-width: 100%;
+  margin: 0 auto;
+	flex-direction: column;
+  flex-wrap: wrap;
+  /*align-items: center;*/
+  /*justify-content: center;*/
+}
+
+.listview .listitem{
+  flex-basis: 100%;
+}
+
+.listview .listitem .listview{
+  display: none;
+}
+
 .responsive {
   --width-mobile: 12;
   --width-tablet: 6;
