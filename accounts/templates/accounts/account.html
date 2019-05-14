@@ -44,13 +44,13 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
 
                                 <div class="container bordered">
                                         <p>Type de services :</p>
-                                        <ul class="grid">
+                                        <ul class="gridview">
                                                
                                                 {% for cat in active_cats %}
-                                                <li class="responsive-3 bordered"><span class="action entry"> {{cat.category_name}} </span>
-                                                    <ul>
+                                                <li class="column responsive-3 bordered"><span class="action entry"> {{cat.category_name}} </span>
+                                                    <ul class="gridview">
                                                             {% for service in cat.category_services.all  %}
-                                                                <li><span> {{service.name}} </span></li>
+                                                                <li class="column responsive-3"><span> {{service.name}} </span></li>
                                                             {% empty %}
                                                             
                                                             {% endfor %}

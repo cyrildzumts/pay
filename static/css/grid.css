@@ -100,7 +100,7 @@
     --width: var(--width-desktop);
   }
 }
-.grid{
+.grid, .gridview{
   display: flex;
   max-width: 100%;
   margin: 0 auto;
@@ -109,6 +109,10 @@
   /*align-items: center;*/
   /*justify-content: center;*/
 
+}
+
+.gridview{
+  width: 50%;
 }
 
 .responsive {
