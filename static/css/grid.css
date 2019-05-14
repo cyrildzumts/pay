@@ -117,10 +117,10 @@
 
 .listview{
   display: flex;
-  max-width: 100%;
+  min-width: 100%;
   margin: 0 auto;
 	flex-direction: column;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   text-decoration: none;
   list-style: none;
   /*align-items: center;*/
