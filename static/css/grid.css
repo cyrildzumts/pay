@@ -121,15 +121,17 @@
   margin: 0 auto;
 	flex-direction: column;
   flex-wrap: wrap;
+  text-decoration: none;
+  list-style: none;
   /*align-items: center;*/
   /*justify-content: center;*/
 }
 
-.listview .listitem{
+.listview .list-item{
   flex-basis: 100%;
 }
 
-.listview .listitem .listview{
+.listview .list-item .listview{
   display: none;
 }
 
