@@ -1242,6 +1242,8 @@ input[type=text]:focus, textarea:focus{
 }
 
 .action{
+	font-size: 1.5em;
+	text-align: center;
 	padding: 2px 5px;
 	border: var(--btn-border);
 }
