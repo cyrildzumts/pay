@@ -47,10 +47,10 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                         <ul class="listview full">
                                                
                                                 {% for cat in active_cats %}
-                                                <li class="list-item full"><span class="action entry"> {{cat.category_name}} </span>
+                                                <li class="list-item full action entry">{{cat.category_name}}
                                                     <ul class="listview">
                                                             {% for service in cat.category_services.all  %}
-                                                                <li class="list-item"><span class="action entry"> {{service.name}} </span></li>
+                                                                <li class="list-item action entry">{{service.name}}</li>
                                                             {% empty %}
                                                             
                                                             {% endfor %}
