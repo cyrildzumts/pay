@@ -135,6 +135,9 @@
 .listview .list-item .listview{
   display: none;
 }
+.listview .list-item:hover .listview{
+  display: flex;
+}
 
 .responsive {
   --width-mobile: 12;
