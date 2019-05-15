@@ -25,7 +25,7 @@
                 </div>
                 <!--End of Tab-bar-->
 
-                <div class="tab-container container">
+                <div class="tab-container container full">
                         <div id="activities-view" class="tab-content grid">
 
                                 {% for activity in activities  %}
@@ -42,12 +42,12 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                         </div>
                         <div id="services-view" class="tab-content">
 
-                                <div class="grid service-grid bordered">
+                                <div class="grid service-grid full bordered">
                                         <p>Type de services :</p>
-                                        <ul class="listview">
+                                        <ul class="listview full">
                                                
                                                 {% for cat in active_cats %}
-                                                <li class="list-item"><span class="action entry"> {{cat.category_name}} </span>
+                                                <li class="list-item full"><span class="action entry"> {{cat.category_name}} </span>
                                                     <ul class="listview">
                                                             {% for service in cat.category_services.all  %}
                                                                 <li class="list-item"><span class="action entry"> {{service.name}} </span></li>
