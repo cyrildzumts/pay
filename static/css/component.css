@@ -1247,3 +1247,18 @@ input[type=text]:focus, textarea:focus{
 	padding: 2px 5px;
 	border-bottom: var(--btn-border);
 }
+
+.bordered{
+	border: 1px solid #201c29;
+}
+
+.collapsible{
+    width: 100%;
+    padding: 5px;
+    margin: 2px;
+}
+
+.collapsible .collapse-content{
+	display: flex;
+    display: none;
+}

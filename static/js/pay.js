@@ -466,6 +466,49 @@ var Notify = (function(){
 
     return Notify;
 })();
+
+
+
+var Collapsible = (function(){
+    function Collapsible(){
+        this.$collapsible   = {}; // all element with collapsible class
+        this.$close         = {}; // all button used to close a collapsible elements.
+
+    }
+    Collapsible.prototype.init = function(){
+        console.log("Initializing Collapsible ...");
+        this.$collapsible = $(".collapsible");
+        //this.$close = this.$collapsible.find(".close");
+        
+        if(this.$collapsible.length == 0){
+            console.log("No collapsible found on this page.");
+            return;
+        }
+        console.log("Found " + this.$collapsible.length + " collapsibles on this pages.");
+        $(this.$collapsible).on("click", ".open", function(event){
+            var target =$(event.target).data("target");
+            if(target == undefined){
+                $(this).parent().children("ul").toggle();
+            }
+            else{
+                $(target).toggle();
+                console.log("Target : " + target);
+            }
+        });
+
+        $(this.$collapsible).on("click", ".close", function(event){
+            event.stopPropagation();
+            console.log("collapsible closing ...");
+            var target =$(event.target).data("target");
+            $(target).toggle();
+        });
+
+        console.log("Initializing Collapsible done.");
+    };
+
+    return Collapsible;
+})();
+
 //var trans = new Transaction();
 var issue_descr = "J'ai acheter un article le 23.03.2019."
 " Jusqu'aujourd'hui je n'ai toujours pas recu la commande."
@@ -505,6 +548,8 @@ slider.init();
     var list = $('.list-cards');
     var transaction = new Transaction();
     var cases = new CaseIssue();
+    var collapsible = new Collapsible();
+    collapsible.init();
     
     var modal = new Modal({transaction_factory: transaction, factories: {transaction : transaction, cases : cases, notify : notify}});
 
