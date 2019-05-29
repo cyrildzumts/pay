@@ -27,45 +27,97 @@
 
                 <div class="tab-container container full">
                         <div id="activities-view" class="tab-content grid">
-
-                                {% for activity in activities  %}
-                                <div class="action entry trello-card">
-                                        {% trans activity.name %}
-                                </div>
-                                {% empty %}
-                                <span>
+                                <div class="list">
+                                        <div class="list-header">
+                                                <span class="header-title" title="{% trans 'Vos transactions' %}">{% trans "Historique de vos Transactions" %}</span>
+                                        </div>
+                                        <div class="list-cards js-card">
+                                        {% for activity in activities  %}
+                                                <a class="list-card js-list-card" href="{% url activity.url %}">
+                                                        <div class="list-card-cover js-card-cover">
+                                                        </div>
+                                                        <span class="icon-sm icon-edit list-card-operation"></span>
+                                                        <div class="list-card-stickers-area js-card-stickers-area hide">
+                                                                <div class="stickers js-card-stickers">
+                                                
+                                                                </div>
+                                                        </div>
+                                                        <div class="list-card-details js-card-details">
+                                                                <div class="list-card-labels js-card-labels">
+                                                                {% if activity.is_outgoing %}
+                                                                        <span class="card-label card-front outgoing" title="{% trans 'Sortant' %}"> {% trans "Envoi" %}</span>
+                                                                {% else %}
+                                                                        <span class="card-label card-front incoming" title="{% trans 'Entrant' %}">{% trans "Reception" %}</span>
+                                                                {% endif %}
+                                                                        
+                                                                </div>
+                                                                <span class="list-card-title js-card-name">{{activity.sender.name}}</span>
+                                                                <div class="badges">
+                                                                        <span class="js-badges">
+                                                                                <div class="badge is-icon-only">
+                                                                                        <span class="badge-icon date">{{activity.date}}</span>
+                                                                                </div>
+                                                                                <div class="badge is-icon-only">
+                                                                                        <span class="badge-icon icon-sm icon-description">{{activity.state}}</span>
+                                                                                </div>
+                                                                                <div class="badge is-icon-only">
+                                                                                        <span class="badge-icon icon-money-text amount">{{activity.amount}}FCFA</span>
+                                                                                </div>
+                                                                        </span>
+                                                                </div>
+                                                                <div class="list-card-members js-list-card-members">
+                                                                        <div class="member js-member-on-card-menu" data-idref="2145abfce">
+                                                                                <span class="member-initials" title="{{activity.sender.name}}">{{activity.sender.initial}}</span>
+                                                                                <span class="undefined-avatar"></span>
+                                                                                {% if activity.sender.is_seller %}
+                                                                                <span class="member-is-a-seller"
+                                                                                        title="Ce membre est un prestataire de services"></span>
+                                                                                {% else %}
+                                                                                {% endif %}
+                                                                                
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </a>
+                                        {% empty %}
+                                        <p>
                                         {% blocktrans %}Vous n'avez aucune transactions actuellement.
 Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                         {% endblocktrans %}
-                                </span>
-                                {% endfor %}
+                                        </p>
+                                        {% endfor %}
+                                        </div>
+
+                                </div>
+
+                                
                         </div>
                         <div id="services-view" class="tab-content">
-
-                                <div class="grid service-grid full bordered">
-                                        <p>Type de services :</p>
-                                        <ul class="listview full">
-                                               
-                                                {% for cat in active_cats %}
-                                                <li class="list-item full action entry">{{cat.category_name}}
-                                                    <ul class="listview">
-                                                            {% for service in cat.category_services.all  %}
-                                                                <li class="list-item action entry">{{service.name}}</li>
-                                                            {% empty %}
-                                                            
-                                                            {% endfor %}
-                                                    </ul>
-                                                </li>
-                                                {% empty %}
+                                <p> {% trans "Type de services" %} :</p>
+                                <div class="gridview">
+                                        {% for cat in active_cats %}
+                                        <div class="column responsive-3">
+                                                <div class="action collapsible">
+                                                        <div class="open data-caption"> {% trans cat.category_name %}</div>
+                                                        
+                                                        <div class="listview collapse-content">
+                                                                {% for service in cat.category_services.all %}
+                                                                        <div class="list-item"> {% trans service.name %}</div>
+                                                                {% empty %}
+                                                        
+                                                                {% endfor %}
+                                                                <button class="button close">{% trans "Fermer" %}</button>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        {% empty %}
                                                 <p>
                                                         {% blocktrans %}Il n'y a actuellement aucun service disponible. Lorsque que de nouveaux services seront disponible, ils seront listés ici.
                                                         {% endblocktrans %}
                                                 </p>
-                                                {% endfor %}
-
-                                        </ul>
-                                        
+                                        {% endfor %}
                                 </div>
+                                
                         </div>
                         <div id="favorite-view" class="tab-content grid">
                                 {% for favory in favories %}
