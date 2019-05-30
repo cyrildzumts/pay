@@ -228,7 +228,7 @@ def transactions(request, transaction_type = 'T'):
     """
     context = {}
     email_template_name = "accounts/transaction_done_email.html"
-    template_name = "acounts/transactions.html"
+    template_name = "accounts/transactions.html"
     page_title = "Transaction"
     if request.method == 'POST':
         current_account = Account.objects.get(user=request.user)

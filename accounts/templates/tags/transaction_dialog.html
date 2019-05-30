@@ -1,7 +1,7 @@
 {% load i18n %} 
 <div id="transaction-dialog" class="modal transaction-dialog  dialog">
     <div id="transaction" class="transaction dialog-content">
-        <form id="transaction-form" class="transaction-form" name="transaction" action="" method="POST">{% csrf_token %}
+        <form id="transaction-form" class="transaction-form" name="transaction" action="{% url 'accounts:transactions' 'T' %}" method="POST">{% csrf_token %}
             <div id="error-login" class="error-login left">
                 <p></p>
               </div>
