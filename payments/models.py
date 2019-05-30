@@ -19,6 +19,7 @@ class Transaction(models.Model):
     TRANSACTION_TYPES = (
         ('T', 'Transfert'),
         ('P', 'Paiement'),
+        ('S', 'Service'),
     )
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='outgoing_transactions')

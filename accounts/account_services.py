@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
-from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm
+from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm, ServiceCreationForm
 from accounts.models import Account, Policy
 
 
@@ -34,6 +34,7 @@ class AccountService(ABC):
     to create a new policy. 
     New bussiness services will be added to the class instead of updating the views.
     """
+
     @staticmethod
     def get_authentication_form(initial_content=False):
         return AuthenticationForm()
@@ -41,6 +42,10 @@ class AccountService(ABC):
     @staticmethod
     def get_registration_form():
         return RegistrationForm()
+    
+    @staticmethod
+    def get_service_form():
+        return ServiceCreationForm()
 
     @staticmethod
     def process_change_password_request(request):
@@ -55,9 +60,6 @@ class AccountService(ABC):
             result_dict['next_url'] = 'accounts:password_change'
         return result_dict
         
-
-
-
 
     @staticmethod
     def process_login_request(request):
@@ -141,3 +143,10 @@ class AccountService(ABC):
     def add_idcard_to_user(cardImage=None):
         created = False
         return created
+
+    
+    @staticmethod
+    def process_transaction_request(request, transaction_type = 'T'):
+        context = {}
+        context['success'] = False
+        return context

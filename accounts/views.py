@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 #from django.core import urlresolvers
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.contrib import auth, messages
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
@@ -209,8 +209,27 @@ def edit_account(request, pk=None):
     return render(request, template_name,context )
 
 @login_required
-def transactions(request):
+def transactions(request, transaction_type = 'T'):
+    """
+    This view is responsible for processing transactions.
+    To process a transaction : 
+    The user must provide the following informations :
+        * recipient ID
+        * the amount of money to send
+        * the type of transaction : TRANSFER, INVOICE PAYMENT, SERVICE CONSUMER
+    For TRANSFER no more information data are needed.
+    For INVOICE PAYMENT, the following extra informations are needed :
+        * Invoice Reference Number
+        * Invoice Date
+        * Customer ID of as used by the recipient
+    For SERVICE CONSUMER, the following extra informations are needed :
+        The needed information are dependent of the type of service.
+        A service REF ID is needed to identify the actual data needed.
+    """
     context = {}
+    email_template_name = "accounts/transaction_done_email.html"
+    template_name = "acounts/transactions.html"
+    page_title = "Transaction"
     if request.method == 'POST':
         current_account = Account.objects.get(user=request.user)
         current_solde = current_account.solde
@@ -235,8 +254,26 @@ def transactions(request):
             context['solde'] = current_account
             context['errors'] = "Verifiez les champs du formulaire."
 
+    elif request.method == "GET":
+            form = AccountService.get_service_form()
+            context = {
+                'page_title':page_title,
+                'site_name' : settings.SITE_NAME,
+                'form': form
+            }
+    return render(request, template_name, context)
 
-    return JsonResponse(context)
+
+def transaction_done(request, redirected_from = None):
+    if redirected_from is None:
+        return HttpResponseForbidden()
+    
+    context = {}
+    template_name = "accounts/transactions_done.html"
+    page_title = "Transaction effectué - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    return render(request,template_name, context) 
 
 @login_required
 def api_get_transactions(request, pk=None):
