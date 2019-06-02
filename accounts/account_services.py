@@ -8,11 +8,13 @@ from pay import utils, settings
 from abc import ABCMeta, ABC
 from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm, ServiceCreationForm
 from accounts.models import Account, Policy
-
+from django.apps import apps
+from django.forms import modelform_factory
 
 
 REDIRECT_URL = settings.LOGIN_REDIRECT_URL
-
+TransactionModel = None
+TransactionForm = None
 
 
 def print_form(form=None):
@@ -149,4 +151,40 @@ class AccountService(ABC):
     def process_transaction_request(request, transaction_type = 'T'):
         context = {}
         context['success'] = False
+        if TransactionModel == None:
+            try:
+                TransactionModel = apps.get_model('payments', 'Transaction')
+                TransactionForm = modelform_factory(TransactionModel, exclude=('created_at','validated_at'))
+            except LookupError as e:
+                context['errors'] = "Transaction Model not available in the payments APP"
+                return context
+            
+        if request.method == 'POST':
+            current_account = Account.objects.get(user=request.user)
+            current_solde = current_account.solde
+            postdata = utils.get_postdata(request)
+            transaction_form = TransactionForm(data=postdata)
+            if transaction_form.is_valid():
+                recipient_name = postdata['recipient']
+                amount = int(postdata['amount'])
+                if(current_solde >=  amount):
+                    Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
+                    Account.objects.all().filter(user=request.user).update(solde=F('solde') - amount)
+                    transaction_form.save()
+                    context['success'] = 1
+                    context['solde'] = current_account - amount
+                    
+                else :
+                    context['success'] = False
+                    context['solde'] = current_account
+                    context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
+        else:
+            context['success'] = 0
+            context['solde'] = current_account
+            context['errors'] = "Verifiez les champs du formulaire."
         return context
+
+
+    @staticmethod
+    def process_service_request(request, service=None):
+        pass
