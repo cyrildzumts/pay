@@ -578,7 +578,11 @@ a.button{
 }
 
 /* Form */
-
+.form{
+	background-color: var(--body-bg);
+	color: var(--btn-color);
+	border: var(--btn-border);
+}
 
 form .form-group{
   padding: 5px 16px;
