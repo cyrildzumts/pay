@@ -154,6 +154,7 @@ class AccountService(ABC):
     def process_transaction_request(request, transaction_type = 'T'):
         context = {}
         context['success'] = False
+        print("[account_service.py] process_transaction_request entering")
         if this.TransactionModel is None:
             try:
                 this.TransactionModel = apps.get_model('payments', 'Transaction')
@@ -161,13 +162,16 @@ class AccountService(ABC):
             except LookupError as e:
                 context['errors'] = "Transaction Model not available in the payments APP"
                 return context
-            
+        
+
         if request.method == 'POST':
+            print("[account_service.py] process_transaction_request entering : POST REQUEST")
             current_account = Account.objects.get(user=request.user)
             current_solde = current_account.solde
             postdata = utils.get_postdata(request)
             transaction_form = this.TransactionForm(data=postdata)
             if transaction_form.is_valid():
+                print("[account_service.py] process_transaction_request entering : Transaction Form is Valid")
                 recipient_name = postdata['recipient']
                 amount = int(postdata['amount'])
                 if(current_solde >=  amount):
@@ -182,11 +186,13 @@ class AccountService(ABC):
                         context['errors'] = "The recipient could not be found."
                         print("[account_service.py]There was an error with the transaction request : ")
                         print(context['errors'])
+                        return context
                     
                 else :
                     context['success'] = False
                     context['solde'] = current_account
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
+                    return context
         else:
             context['solde'] = current_account
             context['errors'] = "Verifiez les champs du formulaire."
