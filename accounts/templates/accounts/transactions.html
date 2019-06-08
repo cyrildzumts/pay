@@ -13,12 +13,15 @@
           <div class="form-group">
             {{form}}
           </div>
+          {% comment "" %}
           <div class="form-group flex-column">
             
             <input type="text" name="recipient" placeholder="{% trans 'Nom du destinataire' %}">
             <input type="text" name="amount" placeholder="{% trans 'Montant' %}">
             <input type="text" name="details" placeholder="{% trans 'Description du transfert' %}">
           </div>
+          {% endcomment %}
+          
           <div class="form-group row">
             <button class="button" type="submit">{% trans "Transferer" %}</button>
             <span class="button">{% trans "Annuler" %}</span>
