@@ -180,6 +180,8 @@ class AccountService(ABC):
                         context['solde'] = current_account - amount
                     else:
                         context['errors'] = "The recipient could not be found."
+                        print("[account_service.py]There was an error with the transaction request : ")
+                        print(context['errors'])
                     
                 else :
                     context['success'] = False
