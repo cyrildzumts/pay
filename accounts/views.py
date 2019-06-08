@@ -230,7 +230,7 @@ def transactions(request, transaction_type = 'T'):
     email_template_name = "accounts/transaction_done_email.html"
     template_name = "accounts/transactions.html"
     page_title = "Transaction"
-    
+    print("New transaction request incoming")
     if request.method == "POST":
         context = AccountService.process_transaction_request(request=request, transaction_type=transaction_type)
         if context['success']:
