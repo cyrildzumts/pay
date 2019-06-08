@@ -1123,8 +1123,6 @@ a {
 .transaction-form, .case-form{
 	max-width: 272px;
 	padding: 10px;
-	background-color: #dfe3e6;
-	
 }
 
 .form-title{
@@ -1147,6 +1145,8 @@ a {
 	width: 100%;
 	padding: 4px 8px;
 	margin-bottom: 4px;
+	color: var(--btn-color);
+	border: var(--btn-border);
 }
 
 .form-group button{
