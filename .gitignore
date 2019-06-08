@@ -12,4 +12,4 @@ static_root/*
 */__pycache__/*
 *.log
 __pycache__
-
+XDG_CACHE_HOME

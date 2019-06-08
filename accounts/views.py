@@ -230,29 +230,11 @@ def transactions(request, transaction_type = 'T'):
     email_template_name = "accounts/transaction_done_email.html"
     template_name = "accounts/transactions.html"
     page_title = "Transaction"
-    if request.method == 'POST':
-        current_account = Account.objects.get(user=request.user)
-        current_solde = current_account.solde
-        postdata = utils.get_postdata(request)
-        transaction_form = Transaction(data=postdata)
-        if transaction_form.is_valid():
-            recipient_name = postdata['recipient']
-            amount = int(postdata['amount'])
-            if(current_solde >=  amount):
-                Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
-                Account.objects.all().filter(user=request.user).update(solde=F('solde') - amount)
-                transaction_form.save()
-                context['success'] = 1
-                context['solde'] = current_account - amount
-                
-            else :
-                context['success'] = 0
-                context['solde'] = current_account
-                context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
-        else:
-            context['success'] = 0
-            context['solde'] = current_account
-            context['errors'] = "Verifiez les champs du formulaire."
+    
+    if request.method == "POST":
+        context = AccountService.process_transaction_request(request=request, transaction_type=transaction_type)
+        if context['success']:
+            redirect('accounts:transaction_done')
 
     elif request.method == "GET":
             form = AccountService.get_service_form()

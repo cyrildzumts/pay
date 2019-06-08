@@ -8,13 +8,16 @@ from pay import utils, settings
 from abc import ABCMeta, ABC
 from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm, ServiceCreationForm
 from accounts.models import Account, Policy
+from django.db.models import F, Q
 from django.apps import apps
 from django.forms import modelform_factory
-
+import sys
 
 REDIRECT_URL = settings.LOGIN_REDIRECT_URL
-TransactionModel = None
-TransactionForm = None
+
+this = sys.modules[__name__]
+this.TransactionModel = None
+this.TransactionForm = None
 
 
 def print_form(form=None):
@@ -151,10 +154,10 @@ class AccountService(ABC):
     def process_transaction_request(request, transaction_type = 'T'):
         context = {}
         context['success'] = False
-        if TransactionModel == None:
+        if this.TransactionModel is None:
             try:
-                TransactionModel = apps.get_model('payments', 'Transaction')
-                TransactionForm = modelform_factory(TransactionModel, exclude=('created_at','validated_at'))
+                this.TransactionModel = apps.get_model('payments', 'Transaction')
+                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=('created_at','validated_at'))
             except LookupError as e:
                 context['errors'] = "Transaction Model not available in the payments APP"
                 return context
@@ -163,15 +166,15 @@ class AccountService(ABC):
             current_account = Account.objects.get(user=request.user)
             current_solde = current_account.solde
             postdata = utils.get_postdata(request)
-            transaction_form = TransactionForm(data=postdata)
+            transaction_form = this.TransactionForm(data=postdata)
             if transaction_form.is_valid():
                 recipient_name = postdata['recipient']
                 amount = int(postdata['amount'])
                 if(current_solde >=  amount):
                     Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
-                    Account.objects.all().filter(user=request.user).update(solde=F('solde') - amount)
+                    Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
                     transaction_form.save()
-                    context['success'] = 1
+                    context['success'] = True
                     context['solde'] = current_account - amount
                     
                 else :
@@ -179,7 +182,6 @@ class AccountService(ABC):
                     context['solde'] = current_account
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
         else:
-            context['success'] = 0
             context['solde'] = current_account
             context['errors'] = "Verifiez les champs du formulaire."
         return context
