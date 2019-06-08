@@ -235,6 +235,9 @@ def transactions(request, transaction_type = 'T'):
         context = AccountService.process_transaction_request(request=request, transaction_type=transaction_type)
         if context['success']:
             redirect('accounts:transaction_done')
+        else : 
+            print("There was an error with the transaction request : ")
+            print(context['errors'])
 
     elif request.method == "GET":
             form = AccountService.get_service_form()

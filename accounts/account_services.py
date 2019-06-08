@@ -171,11 +171,15 @@ class AccountService(ABC):
                 recipient_name = postdata['recipient']
                 amount = int(postdata['amount'])
                 if(current_solde >=  amount):
-                    Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
-                    Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
-                    transaction_form.save()
-                    context['success'] = True
-                    context['solde'] = current_account - amount
+                    recipient_exist = Account.objects.filter(user_name=recipient_name).exists()
+                    if recipient_exist:
+                        Account.objects.all().filter(user_name=recipient_name).update(solde=F('solde') + amount)
+                        Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
+                        transaction_form.save()
+                        context['success'] = True
+                        context['solde'] = current_account - amount
+                    else:
+                        context['errors'] = "The recipient could not be found."
                     
                 else :
                     context['success'] = False
