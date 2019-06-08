@@ -240,7 +240,7 @@ def transactions(request, transaction_type = 'T'):
             print(context['errors'])
 
     elif request.method == "GET":
-            form = AccountService.get_service_form()
+            form = AccountService.get_transaction_form()
             context = {
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,

@@ -151,6 +151,16 @@ class AccountService(ABC):
 
     
     @staticmethod
+    def get_transaction_form():
+        if this.TransactionModel is None:
+            try:
+                this.TransactionModel = apps.get_model('payments', 'Transaction')
+                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=('created_at','validated_at'))
+            except LookupError as e:
+                pass
+        return this.TransactionForm
+
+    @staticmethod
     def process_transaction_request(request, transaction_type = 'T'):
         context = {}
         context['success'] = False
@@ -169,7 +179,7 @@ class AccountService(ABC):
             current_account = Account.objects.get(user=request.user)
             current_solde = current_account.solde
             postdata = utils.get_postdata(request)
-            transaction_form = this.TransactionForm(data=postdata)
+            transaction_form = this.TransactionForm(postdata)
             if transaction_form.is_valid():
                 print("[account_service.py] process_transaction_request entering : Transaction Form is Valid")
                 recipient_name = postdata['recipient']
