@@ -3,7 +3,7 @@
 
 {% block MAIN %}
 
-{% include "tags/transaction_dialog.html" %}
+{% include "tags/transfert_form.html" %}
 
 <div class="container">
     <form id="transaction-form" class="transaction-form form" name="transaction" action="{% url 'accounts:transactions' 'T' %}" method="POST">{% csrf_token %}
@@ -11,7 +11,9 @@
             <p></p>
           </div>
           <div class="form-group">
+            <table>
             {{form}}
+            </table>
           </div>
           {% comment "" %}
           <div class="form-group flex-column">
