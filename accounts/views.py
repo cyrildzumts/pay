@@ -281,6 +281,11 @@ def api_get_transactions(request, pk=None):
 def services(request):
     pass
 
+
+@login_required
+def service_done(request):
+    pass
+
 @login_required
 def service_details(request, pk=None):
     pass
@@ -301,6 +306,15 @@ def available_services(request):
 
 @login_required
 def available_service_details(request, pk=None):
+    pass
+
+
+@login_required
+def make_payment(request):
+    pass
+
+@login_required
+def payment_done(request):
     pass
 
 @login_required
@@ -343,4 +357,9 @@ def reduction_details(request, pk=None):
 
 @login_required
 def idcards(request):
+    pass
+
+
+@login_required
+def idcards_done(request):
     pass

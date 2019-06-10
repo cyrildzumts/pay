@@ -97,6 +97,10 @@ class AccountViewsUrlTest(TestCase):
     def test_services_url(self):
         found = resolve('/accounts/services/')
         self.assertEqual(found.func, views.services)
+
+    def test_service_done_url(self):
+        found = resolve('/accounts/service_done/')
+        self.assertEqual(found.func, views.service_done)
     
     def test_service_details_url(self):
         found = resolve('/accounts/services/10')
@@ -105,6 +109,10 @@ class AccountViewsUrlTest(TestCase):
     def test_payments_url(self):
         found = resolve('/accounts/payments/')
         self.assertEqual(found.func, views.payments)
+
+    def test_payment_done_url(self):
+        found = resolve('/accounts/payment_done/')
+        self.assertEqual(found.func, views.payment_done)
     
     def test_payment_details_url(self):
         found = resolve('/accounts/payments/10')
