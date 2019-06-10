@@ -263,7 +263,15 @@ def transaction_done(request, redirected_from = None):
 
 @login_required
 def transaction_details(request, pk=None):
-    pass
+    context = {}
+    model = AccountService.get_transaction_model()
+    transaction = model.objects,get_object_or_404(pk=pk)
+    template_name = "accounts/transaction.html"
+    page_title = "Transaction - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['transaction'] = transaction
+    return render(request,template_name, context)
 
 
 @login_required

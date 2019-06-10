@@ -149,6 +149,16 @@ class AccountService(ABC):
         created = False
         return created
 
+
+    @staticmethod
+    def get_transaction_model():
+        if this.TransactionModel is None:
+            try:
+                this.TransactionModel = apps.get_model('payments', 'Transaction')
+            except LookupError as e:
+                pass
+        return this.TransactionModel
+
     
     @staticmethod
     def get_transaction_form():
