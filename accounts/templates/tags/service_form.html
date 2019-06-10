@@ -1,0 +1,48 @@
+{% load i18n %} 
+
+<div class="responsive">
+
+    <form name="transaction" action="{% url 'accounts:transactions' 'S' %}" method="POST">{% csrf_token %}
+        <div class="form-group">
+            
+        </div>
+        <div class="form-group">
+            <input type="text" name="name" placeholder="{% trans 'Service name' %}">
+            
+            <select name="operator" >
+                <option value="">{% trans "Select the operator" %}</option>
+            {% for op in available_operators %}
+                <option value="{{op.pk}}">{{op}}</option>
+            {% endfor %}
+                
+            </select>
+            <select name="service_instance" >
+                <option value="">{% trans "Select the type of service" %}</option>
+            {% for service in available_services %}
+                <option value="{{service.pk}}"> {% trans service.name %}</option>
+            {% endfor %}
+                
+            </select>
+
+            <select name="category" >
+                <option value="">{% trans "Select the service category" %}</option>
+            {% for cat in service_categories %}
+                <option value="{{cat.pk}}">{% trans cat.name %}</option>
+            {% endfor %}
+            </select>
+
+            <input type="hidden" name="customer" value="{{request.user.pk}}">
+            <input type="number" name="reference_number" placeholder="{% trans 'Reference number if applicable' %}">
+            <input type="text" name="customer_reference" placeholder="{% trans 'your customer number' %}">
+            <input type="number" name="price" placeholder="{% trans 'Enter the price of the service' %}">
+            <input type="date" name="issued_at" placeholder="{% trans 'Enter the date of the bill, if applicable' %}">
+            <input type="text" name="description" placeholder="{% trans 'Transfert description' %}">
+            <input type="hidden" name="transaction_type" value="S">
+        </div>
+        <div class="form-group row">
+            <button class="button" type="submit">{% trans "Apply" %}</button>
+            <a class="button link" href="{%url 'accounts:account'%}">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+
+</div>

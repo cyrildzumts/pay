@@ -33,7 +33,7 @@ class Policy(models.Model):
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
 
     def __str__(self):
-        return "Policy id : {0} - Commission : {1}".format(self.pk, self.commission)
+        return self.commission
     
 
 
@@ -45,7 +45,7 @@ class ServiceCategory(models.Model):
     created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return "{} : {}".format(self.category_name, self.category_code)
+        return self.category_name
 
 
 class AvailableService(models.Model):
@@ -105,6 +105,9 @@ class Service(models.Model):
     issued_at = models.DateField()
     description = models.CharField(max_length=80, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 
 class Account(models.Model):
@@ -142,7 +145,7 @@ class Account(models.Model):
         )
 
     def __str__(self):
-        return "Account : {}".format(self.user)
+        return self.user.get_fullname()
 
 
     def get_absolute_url(self):

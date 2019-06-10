@@ -47,4 +47,66 @@ class AccountViewsUrlTest(TestCase):
     def test_register_url(self):
         found = resolve('/accounts/register/')
         self.assertEqual(found.func, views.register)
+
+    def test_available_service_url(self):
+        found = resolve('/accounts/available_services/')
+        self.assertEqual(found.func, views.available_services)
+
+    
+    def test_idcard_url(self):
+        found = resolve('/accounts/idcards/')
+        self.assertEqual(found.func, views.idcards)
+    
+    def test_service_categories_url(self):
+        found = resolve('/accounts/service_categories/')
+        self.assertEqual(found.func, views.service_categories)
+
+    def test_transactions_url(self):
+        found = resolve('/accounts/transactions/')
+        self.assertEqual(found.func, views.transactions)
+    
+    def test_transaction_details_url(self):
+        found = resolve('/accounts/transactions/10')
+        self.assertEqual(found.func, views.transaction_details)
+    
+
+    def test_reductions_url(self):
+        found = resolve('/accounts/reductions/')
+        self.assertEqual(found.func, views.reductions)
+
+    def test_reductions_details_url(self):
+        found = resolve('/accounts/reductions/10')
+        self.assertEqual(found.func, views.reduction_details)
+
+    def test_policy_url(self):
+        found = resolve('/accounts/policies/')
+        self.assertEqual(found.func, views.policies)
+    
+    def test_policy_edit_url(self):
+        found = resolve('/accounts/policies/10')
+        self.assertEqual(found.func, views.policy_details)
+
+    def test_cases_url(self):
+        found = resolve('/accounts/cases/')
+        self.assertEqual(found.func, views.cases)
+    
+    def test_cases_edit_url(self):
+        found = resolve('/accounts/cases/10')
+        self.assertEqual(found.func, views.case_details)
+
+    def test_services_url(self):
+        found = resolve('/accounts/services/')
+        self.assertEqual(found.func, views.services)
+    
+    def test_service_details_url(self):
+        found = resolve('/accounts/services/10')
+        self.assertEqual(found.func, views.service_details)
+
+    def test_payments_url(self):
+        found = resolve('/accounts/payments/')
+        self.assertEqual(found.func, views.payments)
+    
+    def test_payment_details_url(self):
+        found = resolve('/accounts/payments/10')
+        self.assertEqual(found.func, views.payment_details)
     

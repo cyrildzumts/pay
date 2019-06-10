@@ -209,7 +209,7 @@ def edit_account(request, pk=None):
     return render(request, template_name,context )
 
 @login_required
-def transactions(request, transaction_type = 'T'):
+def transactions(request):
     """
     This view is responsible for processing transactions.
     To process a transaction : 
@@ -232,7 +232,7 @@ def transactions(request, transaction_type = 'T'):
     page_title = "Transaction"
     print("New transaction request incoming")
     if request.method == "POST":
-        context = AccountService.process_transaction_request(request=request, transaction_type=transaction_type)
+        context = AccountService.process_transaction_request(request=request)
         if context['success']:
             redirect('accounts:transaction_done')
         else : 
@@ -258,7 +258,13 @@ def transaction_done(request, redirected_from = None):
     page_title = "Transaction effectué - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-    return render(request,template_name, context) 
+    return render(request,template_name, context)
+
+
+@login_required
+def transaction_details(request, pk=None):
+    pass
+
 
 @login_required
 def api_get_transactions(request, pk=None):
@@ -273,4 +279,63 @@ def api_get_transactions(request, pk=None):
 
 @login_required
 def services(request):
+    pass
+
+@login_required
+def service_details(request, pk=None):
+    pass
+
+@login_required
+def service_categories(request):
+    pass
+
+
+@login_required
+def service_category_details(request, pk=None):
+    pass
+
+@login_required
+def available_services(request):
+    pass
+
+
+@login_required
+def available_service_details(request, pk=None):
+    pass
+
+@login_required
+def payments(request, pk=None):
+    pass
+
+
+@login_required
+def payment_details(request, pk=None):
+    pass
+
+
+@login_required
+def policies(request, pk=None):
+    pass
+
+
+@login_required
+def policy_details(request, pk=None):
+    pass
+
+@login_required
+def cases(request, pk=None):
+    pass
+
+@login_required
+def case_details(request, pk=None):
+    pass
+
+
+@login_required
+def reductions(request):
+    pass
+
+
+@login_required
+def reduction_details(request, pk=None):
     pass

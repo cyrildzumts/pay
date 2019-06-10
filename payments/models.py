@@ -12,7 +12,7 @@ class Reduction(models.Model):
     used_at = models.DateField()
 
     def __str__(self):
-        return "Reduction id : {0} - percent : {1}".format(self.reduction_id, self.percent)
+        return "Reduction {}".format( self.percent)
 
 
 class Transaction(models.Model):

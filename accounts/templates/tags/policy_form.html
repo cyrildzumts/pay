@@ -1,0 +1,20 @@
+{% load i18n %} 
+
+<div class="responsive">
+    <div class="form-group">
+            
+    </div>
+    <form id="policy-form" class="policy-form form" name="available_services" action="{% url 'accounts:policies' %}" method="POST">{% csrf_token %}
+        <input type="hidden" name="created_by" value="{{request.user.pk}}">
+        <div class="form-group">
+            <input type="number" name="daily_limit" id="daily_limit" placeholder="{% trans 'Enter the daily limit' %}">
+            <input type="number" name="weekly_limit" id="weekly_limit" placeholder="{% trans 'Enter the weekly limit' %}">
+            <input type="number" name="monthly_limit" id="monthly_limit" placeholder="{% trans 'Enter the monthly limit' %}">
+            <input type="number" name="commision" placeholder="{% trans 'Enter the commision' %}">
+        </div>
+        <div class="form-group row">
+            <button class="button" type="submit">{% trans "Create the Policy" %}</button>
+            <a class="button link" href="{%url 'accounts:account'%}">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+</div>

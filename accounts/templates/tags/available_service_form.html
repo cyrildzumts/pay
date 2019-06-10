@@ -1,0 +1,28 @@
+{% load i18n %} 
+
+<div class="responsive">
+    <div class="form-group">
+            
+    </div>
+    <form id="available-services-form" class="available-services-form form" name="available_services" action="{% url 'accounts:available_services' %}" method="POST">{% csrf_token %}
+        <input type="hidden" name="created_by" value="{{request.user.pk}}">
+        <div class="form-group">
+            <input type="text" name="service_code" id="code" placeholder="{% trans 'Enter the service code' %}">
+            <input type="text" name="name" placeholder="{% trans 'Enter the service name' %}">
+            <input type="text" name="operator_name" id="operator_name" placeholder="{% trans 'Enter the operator name' %}">
+            
+            <select name="category">
+                <option value="" selected>{% trans "Select a category please" %}</option>
+                {% for cat in available_cats %}
+                <option value="{{cat.pk}}">{% trans "{{cat.category_name}}" %}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="operator" id="operator">
+            <input type="checkbox" name="is_active" id="is_active" checked>
+        </div>
+        <div class="form-group row">
+            <button class="button" type="submit">{% trans "Create the Service" %}</button>
+            <a class="button link" href="{%url 'accounts:account'%}">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+</div>

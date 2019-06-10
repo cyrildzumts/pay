@@ -1,0 +1,19 @@
+{% load i18n %} 
+
+<div class="responsive">
+    <div class="form-group">
+            
+    </div>
+    <form id="reduction-form" class="reduction-form form" name="reduction" action="{% url 'accounts:service_categories' %}" method="POST">{% csrf_token %}
+        <input type="hidden" name="created_by" value="{{request.user.pk}}">
+        <div class="form-group">
+            <input type="text" name="category_code" id="code" placeholder="{% trans 'Enter the service category' %}">
+            <input type="text" name="category_name" placeholder="{% trans 'Enter the category name' %}">
+            <input type="checkbox" name="is_active" id="is_active" checked>
+        </div>
+        <div class="form-group row">
+            <button class="button" type="submit">{% trans "Create category" %}</button>
+            <a class="button link" href="{%url 'accounts:account'%}">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+</div>
