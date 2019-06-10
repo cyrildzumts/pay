@@ -304,7 +304,7 @@ def available_service_details(request, pk=None):
     pass
 
 @login_required
-def payments(request, pk=None):
+def payments(request):
     pass
 
 
@@ -314,7 +314,7 @@ def payment_details(request, pk=None):
 
 
 @login_required
-def policies(request, pk=None):
+def policies(request):
     pass
 
 
@@ -323,7 +323,7 @@ def policy_details(request, pk=None):
     pass
 
 @login_required
-def cases(request, pk=None):
+def cases(request):
     pass
 
 @login_required

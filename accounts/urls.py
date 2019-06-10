@@ -29,7 +29,7 @@ urlpatterns = [
     path('transactions/done', views.transaction_done, name='transactions_done'),
 
     path('payments/', views.payments, name='payments'),
-    path('payments/<int:pk>', views.payments_details, name='payments_details'),
+    path('payments/<int:pk>', views.payment_details, name='payment_details'),
     path('policies/', views.policies, name='policies'),
     path('policies/<int:pk>', views.policy_details, name='policy_details'),
     path('service_categories/', views.transactions, name='service_categories'),
