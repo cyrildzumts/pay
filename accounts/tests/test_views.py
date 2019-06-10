@@ -53,7 +53,7 @@ class AccountViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.available_services)
 
     
-    def test_idcard_url(self):
+    def test_idcards_url(self):
         found = resolve('/accounts/idcards/')
         self.assertEqual(found.func, views.idcards)
     
@@ -82,7 +82,7 @@ class AccountViewsUrlTest(TestCase):
         found = resolve('/accounts/policies/')
         self.assertEqual(found.func, views.policies)
     
-    def test_policy_edit_url(self):
+    def test_policy_details_url(self):
         found = resolve('/accounts/policies/10')
         self.assertEqual(found.func, views.policy_details)
 

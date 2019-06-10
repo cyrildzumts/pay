@@ -11,6 +11,7 @@ urlpatterns = [
     path('cases/', views.cases, name='cases'),
     path('cases/<int:pk>', views.case_details, name='case_details'),
     path('edit_account/<int:pk>/', views.edit_account, name='edit_account'),
+    path('idcards/', views.idcards, name='idcards'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('password_change/', views.password_change_views, name='password_change'),

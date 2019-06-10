@@ -339,3 +339,8 @@ def reductions(request):
 @login_required
 def reduction_details(request, pk=None):
     pass
+
+
+@login_required
+def idcards(request):
+    pass
