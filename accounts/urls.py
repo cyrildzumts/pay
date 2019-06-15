@@ -12,6 +12,7 @@ urlpatterns = [
     path('cases/<int:pk>', views.case_details, name='case_details'),
     path('edit_account/<int:pk>/', views.edit_account, name='edit_account'),
     path('idcards/', views.idcards, name='idcards'),
+    path('idcards/<int:pk>/', views.idcard_details, name='idcard_details'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('password_change/', views.password_change_views, name='password_change'),

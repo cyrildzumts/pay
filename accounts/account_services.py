@@ -16,7 +16,7 @@ import sys
 REDIRECT_URL = settings.LOGIN_REDIRECT_URL
 
 this = sys.modules[__name__]
-this.TransactionModel = None
+this.TransactionModel = utils.get_model('payments', 'Transaction')
 this.TransactionForm = None
 
 
@@ -159,6 +159,7 @@ class AccountService(ABC):
                 pass
         return this.TransactionModel
 
+    
     
     @staticmethod
     def get_transaction_form():

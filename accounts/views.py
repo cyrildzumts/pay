@@ -265,7 +265,7 @@ def transaction_done(request, redirected_from = None):
 def transaction_details(request, pk=None):
     context = {}
     model = AccountService.get_transaction_model()
-    transaction = model.objects,get_object_or_404(pk=pk)
+    transaction = model.objects.get_object_or_404(model, pk=pk)
     template_name = "accounts/transaction.html"
     page_title = "Transaction - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -287,7 +287,18 @@ def api_get_transactions(request, pk=None):
 
 @login_required
 def services(request):
-    pass
+    context = {}
+    model = utils.get_model('accounts', 'Service')
+    if request.method == 'POST':
+        pass
+
+    services = model.objects.filter(customer=request.user)
+    template_name = "accounts/service_list.html"
+    page_title = "Services - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['services'] = services
+    return render(request,template_name, context)
 
 
 @login_required
@@ -296,25 +307,66 @@ def service_done(request):
 
 @login_required
 def service_details(request, pk=None):
-    pass
+    context = {}
+    model = utils.get_model('accounts', 'Service')
+    service = get_object_or_404(model, pk=pk)
+    template_name = "accounts/service_details.html"
+    page_title = "Service Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['service'] = service
+    return render(request,template_name, context)
+
 
 @login_required
 def service_categories(request):
-    pass
+    context = {}
+    model = utils.get_model('accounts', 'ServiceCategory')
+    available_services = model.objects.all()
+    template_name = "accounts/service_category_list.html"
+    page_title = "Available Service - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['available_services'] = available_services
+    return render(request,template_name, context)
 
 
 @login_required
 def service_category_details(request, pk=None):
-    pass
+    context = {}
+    model = utils.get_model('accounts', 'ServiceCategory')
+    service = get_object_or_404(model, pk=pk)
+    template_name = "accounts/service_category_details.html"
+    page_title = "Service Category Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['service'] = service
+    return render(request,template_name, context)
 
 @login_required
 def available_services(request):
-    pass
+    context = {}
+    model = utils.get_model('accounts', 'AvailableService')
+    available_services = model.objects.all()
+    template_name = "accounts/available_service_list.html"
+    page_title = "Available Services - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['available_services'] = available_services
+    return render(request,template_name, context)
 
 
 @login_required
 def available_service_details(request, pk=None):
-    pass
+    context = {}
+    model = utils.get_model('accounts', 'AvailableService')
+    available_service_details= get_object_or_404(model, pk=pk)
+    template_name = "accounts/service_available_details.html"
+    page_title = "Available Service Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['available_service_details'] = available_service_details
+    return render(request,template_name, context)
 
 
 @login_required
@@ -327,45 +379,139 @@ def payment_done(request):
 
 @login_required
 def payments(request):
-    pass
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='Payment')
+    current_account = Account.objects.get(user=request.user)
+    user_payments = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    template_name = "payments/payments_list.html"
+    page_title = "Payments - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['payments'] = payments
+    return render(request,template_name, context)
 
 
 @login_required
 def payment_details(request, pk=None):
-    pass
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='Payment')
+    #current_account = Account.objects.get(user=request.user)
+    payment = get_object_or_404(model, pk=pk)
+    template_name = "payments/payment_details.html"
+    page_title = "Payment Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['payment'] = payment
+    return render(request,template_name, context)
 
 
 @login_required
 def policies(request):
-    pass
+    context = {}
+    model = utils.get_model(app_name='accounts', modelName='Policy')
+    #current_account = Account.objects.get(user=request.user)
+    current_policies = model.objects.all()
+    template_name = "accounts/policy_list.html"
+    page_title = "Policies - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['policies'] = current_policies
+    return render(request,template_name, context)
 
 
 @login_required
 def policy_details(request, pk=None):
-    pass
+    context = {}
+    model = utils.get_model(app_name='accounts', modelName='Policy')
+    #current_account = Account.objects.get(user=request.user)
+    policy = get_object_or_404(model, pk=pk)
+    template_name = "accounts/policy_details.html"
+    page_title = "Policy Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['policy'] = policy
+    return render(request,template_name, context)
 
 @login_required
 def cases(request):
-    pass
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='CaseIssue')
+    #current_account = Account.objects.get(user=request.user)
+    claims = model.objects.all()
+    template_name = "accounts/case_list.html"
+    page_title = "Claims - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['claims'] = claims
+    return render(request,template_name, context)
 
 @login_required
 def case_details(request, pk=None):
-    pass
-
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='CaseIssue')
+    #current_account = Account.objects.get(user=request.user)
+    claim = get_object_or_404(model, pk=pk)
+    template_name = "accounts/policy_details.html"
+    page_title = "Claim Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['claim'] = claim
+    return render(request,template_name, context)
 
 @login_required
 def reductions(request):
-    pass
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='Reduction')
+    #current_account = Account.objects.get(user=request.user)
+    current_reductions = model.objects.all()
+    template_name = "payment/reduction_list.html"
+    page_title = "Reductions - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['reductions'] = current_reductions
+    return render(request,template_name, context)
 
 
 @login_required
 def reduction_details(request, pk=None):
-    pass
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='Reduction')
+    #current_account = Account.objects.get(user=request.user)
+    reduction = get_object_or_404(model, pk=pk)
+    template_name = "payments/reduction_details.html"
+    page_title = "Reduction Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['reduction'] = reduction
+    return render(request,template_name, context)
 
 
 @login_required
 def idcards(request):
-    pass
+    context = {}
+    model = utils.get_model(app_name='accounts', modelName='IDCard')
+    #current_account = Account.objects.get(user=request.user)
+    current_idcards = model.objects.all()
+    template_name = "accounts/idcard_list.html"
+    page_title = "ID Cards - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['idcards'] = current_idcards
+    return render(request,template_name, context)
+
+
+@login_required
+def idcard_details(request, pk=None):
+    context = {}
+    model = utils.get_model(app_name='accounts', modelName='IDCard')
+    #current_account = Account.objects.get(user=request.user)
+    idcard = get_object_or_404(model, pk=pk)
+    template_name = "accounts/idcard_details.html"
+    page_title = "ID Card Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['idcard'] = idcard
+    return render(request,template_name, context)
 
 
 @login_required
