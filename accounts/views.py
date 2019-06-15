@@ -214,7 +214,7 @@ def transactions(request):
     model = utils.get_model(app_name='payments', modelName='Transaction')
     current_account = Account.objects.get(user=request.user)
     user_transactions = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-    template_name = "payments/transaction_list.html"
+    template_name = "accounts/transaction_list.html"
     page_title = "Your Transactions - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -243,7 +243,7 @@ def new_transaction(request):
     """
     context = {}
     email_template_name = "accounts/transaction_done_email.html"
-    template_name = "accounts/new_transation.html"
+    template_name = "accounts/new_transaction.html"
     page_title = "Make a Transaction"
     print("New transaction request incoming")
     if request.method == "POST":
@@ -284,7 +284,7 @@ def transaction_details(request, pk=None):
     current_account = Account.objects.get(user=request.user)
     user_transactions = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     transaction = get_object_or_404(user_transactions, pk=pk)
-    template_name = "payments/transaction_details.html"
+    template_name = "accounts/transaction_details.html"
     page_title = "Transaction Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
