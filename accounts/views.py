@@ -210,6 +210,21 @@ def edit_account(request, pk=None):
 
 @login_required
 def transactions(request):
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='Transaction')
+    current_account = Account.objects.get(user=request.user)
+    user_transactions = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    template_name = "payments/transaction_list.html"
+    page_title = "Your Transactions - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['transactions'] = user_transactions
+    return render(request,template_name, context)
+
+
+
+@login_required
+def new_transaction(request):
     """
     This view is responsible for processing transactions.
     To process a transaction : 
@@ -228,8 +243,8 @@ def transactions(request):
     """
     context = {}
     email_template_name = "accounts/transaction_done_email.html"
-    template_name = "accounts/transactions.html"
-    page_title = "Transaction"
+    template_name = "accounts/new_transation.html"
+    page_title = "Make a Transaction"
     print("New transaction request incoming")
     if request.method == "POST":
         context = AccountService.process_transaction_request(request=request)
@@ -263,11 +278,14 @@ def transaction_done(request, redirected_from = None):
 
 @login_required
 def transaction_details(request, pk=None):
+
     context = {}
-    model = AccountService.get_transaction_model()
-    transaction = model.objects.get_object_or_404(model, pk=pk)
-    template_name = "accounts/transaction.html"
-    page_title = "Transaction - " + settings.SITE_NAME
+    model = utils.get_model(app_name='payments', modelName='Transaction')
+    current_account = Account.objects.get(user=request.user)
+    user_transactions = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    transaction = get_object_or_404(user_transactions, pk=pk)
+    template_name = "payments/transaction_details.html"
+    page_title = "Transaction Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['transaction'] = transaction
@@ -289,9 +307,6 @@ def api_get_transactions(request, pk=None):
 def services(request):
     context = {}
     model = utils.get_model('accounts', 'Service')
-    if request.method == 'POST':
-        pass
-
     services = model.objects.filter(customer=request.user)
     template_name = "accounts/service_list.html"
     page_title = "Services - " + settings.SITE_NAME
@@ -309,7 +324,8 @@ def service_done(request):
 def service_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'Service')
-    service = get_object_or_404(model, pk=pk)
+    user_services = model.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
+    service = get_object_or_404(user_services, pk=pk)
     template_name = "accounts/service_details.html"
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -370,7 +386,7 @@ def available_service_details(request, pk=None):
 
 
 @login_required
-def make_payment(request):
+def new_payment(request):
     pass
 
 @login_required
@@ -395,8 +411,9 @@ def payments(request):
 def payment_details(request, pk=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Payment')
-    #current_account = Account.objects.get(user=request.user)
-    payment = get_object_or_404(model, pk=pk)
+    current_account = Account.objects.get(user=request.user)
+    user_payments = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    payment = get_object_or_404(user_payments, pk=pk)
     template_name = "payments/payment_details.html"
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -436,21 +453,22 @@ def policy_details(request, pk=None):
 def cases(request):
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
-    #current_account = Account.objects.get(user=request.user)
-    claims = model.objects.all()
+    current_account = Account.objects.get(user=request.user)
+    user_claims = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     template_name = "accounts/case_list.html"
     page_title = "Claims - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-    context['claims'] = claims
+    context['claims'] = user_claims
     return render(request,template_name, context)
 
 @login_required
 def case_details(request, pk=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
-    #current_account = Account.objects.get(user=request.user)
-    claim = get_object_or_404(model, pk=pk)
+    current_account = Account.objects.get(user=request.user)
+    user_claims = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    claim = get_object_or_404(user_claims, pk=pk)
     template_name = "accounts/policy_details.html"
     page_title = "Claim Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -491,7 +509,7 @@ def idcards(request):
     context = {}
     model = utils.get_model(app_name='accounts', modelName='IDCard')
     #current_account = Account.objects.get(user=request.user)
-    current_idcards = model.objects.all()
+    current_idcards = model.objects.filter(user=request.user)
     template_name = "accounts/idcard_list.html"
     page_title = "ID Cards - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -504,8 +522,8 @@ def idcards(request):
 def idcard_details(request, pk=None):
     context = {}
     model = utils.get_model(app_name='accounts', modelName='IDCard')
-    #current_account = Account.objects.get(user=request.user)
-    idcard = get_object_or_404(model, pk=pk)
+    user_idcards = model.objects.filter(user=request.user)
+    idcard = get_object_or_404(user_idcards, pk=pk)
     template_name = "accounts/idcard_details.html"
     page_title = "ID Card Details - " + settings.SITE_NAME
     context['page_title'] = page_title
