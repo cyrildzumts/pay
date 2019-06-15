@@ -1,0 +1,19 @@
+{% extends "account_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+    {% for transaction in transactions %}
+        <div class="card">
+          <p> Sender : {{transaction.sender.get_full_name}} </p>
+          <p> Amount : {{transaction.amount}} FCFA </p>
+          <p> Date : {{transaction.created_at}} </p>
+          <a class="button link" href="{% url 'accounts:transaction_detail' transaction.pk %}">More ...</button>
+        </div>
+    {% empty %}
+    <p> You haven't done any transaction yet.</p>
+    <a class="button link" href="{% url 'accounts:new_transaction' %}"> New Transaction </button>
+    {% endfor %}
+</div>
+{% endblock MAIN %}

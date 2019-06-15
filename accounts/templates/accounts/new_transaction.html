@@ -3,10 +3,8 @@
 
 {% block MAIN %}
 
-{% include "tags/transfert_form.html" %}
-
 <div class="container">
-    <form id="transaction-form" class="transaction-form form" name="transaction" action="{% url 'accounts:transactions' 'T' %}" method="POST">{% csrf_token %}
+    <form id="transaction-form" class="transaction-form form" name="transaction" action="{% url 'accounts:new_transaction'%}" method="POST">{% csrf_token %}
         <div id="error-login" class="error-login left">
             <p></p>
           </div>
@@ -25,7 +23,7 @@
           {% endcomment %}
           
           <div class="form-group row">
-            <button class="button" type="submit">{% trans "Transferer" %}</button>
+            <button class="button" type="submit">{% trans "Send Transaction" %}</button>
             <span class="button">{% trans "Annuler" %}</span>
           </div>
     </form>

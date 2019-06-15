@@ -307,7 +307,7 @@ def api_get_transactions(request, pk=None):
 def services(request):
     context = {}
     model = utils.get_model('accounts', 'Service')
-    services = model.objects.filter(customer=request.user)
+    services = model.objects.select_related('category').filter(customer=request.user)
     template_name = "accounts/service_list.html"
     page_title = "Services - " + settings.SITE_NAME
     context['page_title'] = page_title
