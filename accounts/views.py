@@ -189,15 +189,25 @@ def user_account(request):
     return render(request, template_name, context)
 
 
-def account_details(request):
-    pass
+def account_details(request, pk=None):
+    page_title = "Account Details"
+    instance = get_object_or_404(Account, pk=pk)
+    template_name = "accounts/account_details.html"
+    #form = AccountForm(request.POST or None, instance=instance)
+    context = {
+        'page_title':page_title,
+        'site_name' : settings.SITE_NAME,
+        'template_name':template_name,
+        'account': instance
+    }
+    return render(request,template_name,context )
 
 
 @login_required
 def edit_account(request, pk=None):
     page_title = "Modifier mon compte"
     instance = Account.objects.get(pk=pk)
-    template_name = "tags/edit_accoutn.html"
+    template_name = "accounts/edit_account.html"
     form = AccountForm(request.POST or None, instance=instance)
     context = {
         'page_title':page_title,

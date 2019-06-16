@@ -7,6 +7,7 @@ from accounts import views
 app_name = 'accounts'
 urlpatterns = [
     path('', views.user_account, name='account'),
+    path('account_details/<int:pk>/', views.account_details, name='account_details'),
     path('available_services/', views.available_services, name='available_services'),
     path('cases/', views.cases, name='cases'),
     path('cases/<int:pk>', views.case_details, name='case_details'),
