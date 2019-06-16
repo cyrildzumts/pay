@@ -23,6 +23,7 @@ this.TransactionForm = None
 def print_form(form=None):
     print("Printing Registration Form Fields")
     if form :
+        print(dir(form))
         items = form.items()
         for field, value in items:
             print(field + " : " + value)
