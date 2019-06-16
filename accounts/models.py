@@ -33,7 +33,7 @@ class Policy(models.Model):
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
 
     def __str__(self):
-        return self.commission
+        return "{0}".format(self.commission)
     
 
 
