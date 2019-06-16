@@ -189,6 +189,8 @@ def user_account(request):
     return render(request, template_name, context)
 
 
+def account_details(request):
+    pass
 
 
 @login_required
