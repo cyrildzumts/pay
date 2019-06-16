@@ -14,7 +14,7 @@ from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 from pay import settings, utils
-from accounts.account_services import AccountService
+from accounts.account_services import AccountService, print_form
 from django.urls import reverse_lazy
 from django.views.generic.edit import  UpdateView
 from payments.models import Transaction
@@ -270,6 +270,9 @@ def new_transaction(request):
     elif request.method == "GET":
         print("New transaction request")
         form = AccountService.get_transaction_form()
+        print_form(form)
+        if form is None:
+            print("Transaction Form is not Valide")
         context = {
                 'page_title': page_title,
                 'site_name' : settings.SITE_NAME,
