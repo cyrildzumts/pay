@@ -180,6 +180,7 @@ def user_account(request):
         'solde'         : current_solde,
         'transactions'  : user_transactions,
         'active_cats'   : active_cat,
+        'account'       : current_account,
         'services': available_services
     }
         
