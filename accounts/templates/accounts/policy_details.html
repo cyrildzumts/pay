@@ -1,0 +1,14 @@
+{% extends "account_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+        <div class="card">
+          <p> {% trans "Daily Limit" %} : {{policy.daily_limit}} FCFA </p>
+          <p> {% trans "Weekly Limit" %} : {{policy.weekly_limit}} FCFA </p>
+          <p> {% trans "Monthly Limit" %} : {{policy.monthly_limit}} FCFA </p>
+          <p> {% trans "Commission" %} : {{policy.commission}}</p>  
+        </div>
+</div>
+{% endblock MAIN %}

@@ -338,12 +338,12 @@ def service_details(request, pk=None):
 def service_categories(request):
     context = {}
     model = utils.get_model('accounts', 'ServiceCategory')
-    available_services = model.objects.all()
+    categories = model.objects.filter(is_active=True)
     template_name = "accounts/service_category_list.html"
-    page_title = "Available Service - " + settings.SITE_NAME
+    page_title = "Service Categories - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-    context['available_services'] = available_services
+    context['categories'] = categories
     return render(request,template_name, context)
 
 
@@ -351,12 +351,12 @@ def service_categories(request):
 def service_category_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'ServiceCategory')
-    service = get_object_or_404(model, pk=pk)
+    category = get_object_or_404(model, pk=pk)
     template_name = "accounts/service_category_details.html"
     page_title = "Service Category Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-    context['service'] = service
+    context['category'] = category
     return render(request,template_name, context)
 
 @login_required
@@ -399,11 +399,11 @@ def payments(request):
     model = utils.get_model(app_name='payments', modelName='Payment')
     current_account = Account.objects.get(user=request.user)
     user_payments = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-    template_name = "payments/payments_list.html"
+    template_name = "payments/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-    context['payments'] = payments
+    context['payments'] = user_payments
     return render(request,template_name, context)
 
 
