@@ -429,7 +429,7 @@ def available_service_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'AvailableService')
     available_service_details= get_object_or_404(model, pk=pk)
-    template_name = "accounts/service_available_details.html"
+    template_name = "accounts/available_service_details.html"
     page_title = "Available Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
