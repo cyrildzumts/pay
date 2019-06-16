@@ -268,12 +268,13 @@ def new_transaction(request):
             print(context['errors'])
 
     elif request.method == "GET":
-            form = AccountService.get_transaction_form()
-            context = {
-                'page_title':page_title,
+        print("New transaction request")
+        form = AccountService.get_transaction_form()
+        context = {
+                'page_title': page_title,
                 'site_name' : settings.SITE_NAME,
                 'form': form
-            }
+        }
     return render(request, template_name, context)
 
 

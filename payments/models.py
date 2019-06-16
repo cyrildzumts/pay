@@ -29,7 +29,7 @@ class Transaction(models.Model):
     details = models.TextField(max_length=256)
     transaction_type = models.CharField(max_length=1, choices=TRANSACTION_TYPES)
     policy = models.ForeignKey('accounts.Policy', blank=True, null=True, on_delete=models.SET_NULL)
-    reduction = models.ForeignKey('Reduction', blank=True, null=True, on_delete=models.SET_NULL)
+    reduction = models.ForeignKey('payments.Reduction', blank=True, null=True, on_delete=models.SET_NULL)
     def __str__(self):
         return "Transaction id : {0} - Amount : {1}".format(self.transaction_id, self.amount)
 

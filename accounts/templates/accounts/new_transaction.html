@@ -6,7 +6,6 @@
 <div class="container">
     <form id="transaction-form" class="transaction-form form" name="transaction" action="{% url 'accounts:new_transaction'%}" method="POST">{% csrf_token %}
         <div id="error-login" class="error-login left">
-            <p></p>
           </div>
           <div class="form-group">
             <table>
@@ -23,7 +22,7 @@
           {% endcomment %}
           
           <div class="form-group row">
-            <button class="button" type="submit">{% trans "Send Transaction" %}</button>
+            <button class="button" type="submit">{% trans "Send Money" %}</button>
             <span class="button">{% trans "Annuler" %}</span>
           </div>
     </form>
