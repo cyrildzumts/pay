@@ -5,7 +5,7 @@
     <div class="form-group">
             <input id="recipient_name" type="text" name="recipient_name" placeholder="{% trans 'Enter the customer name' %}">
     </div>
-    <form id="payment-form" class="payment-form form" name="payment" action="{% url 'accounts:transactions' 'P' %}" method="POST">{% csrf_token %}
+    <form id="payment-form" class="payment-form form" name="payment" action="{% url 'accounts:new_payment' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="transaction_type" value="P">
         <div class="form-group">

@@ -6,14 +6,14 @@
 <div class="container">
     {% for transaction in transactions %}
         <div class="card">
-          <p> Sender : {{transaction.sender.get_full_name}} </p>
-          <p> Amount : {{transaction.amount}} FCFA </p>
-          <p> Date : {{transaction.created_at}} </p>
-          <a class="button link" href="{% url 'accounts:transaction_detail' transaction.pk %}">More ...</button>
+          <p> {% trans "Sender" %} : {{transaction.sender.get_full_name}} </p>
+          <p> {% trans "Amount" %} : {{transaction.amount}} FCFA </p>
+          <p> {% trans "Date" %} : {{transaction.created_at}} </p>
+          <a class="button link" href="{% url 'accounts:transaction_detail' transaction.pk %}">More ...</a>
         </div>
     {% empty %}
     <p> You haven't done any transaction yet.</p>
-    <a class="button link" href="{% url 'accounts:new_transaction' %}"> New Transaction </button>
+    <a class="button link" href="{% url 'accounts:new_transaction' %}"> New Transaction </a>
     {% endfor %}
 </div>
 {% endblock MAIN %}

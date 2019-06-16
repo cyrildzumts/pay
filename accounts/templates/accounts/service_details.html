@@ -5,16 +5,16 @@
 
 <div class="container">
         <div class="card">
-          <p> Operator : {{service.operator.get_full_name}} </p>
-          <p> Customer : {{service.customer.get_full_name}} </p>
-          <p> Price : {{service.price}} FCFA </p>
+          <p> {% trans "Operator" %} : {{service.operator.get_full_name}} </p>
+          <p> {% trans "Customer" %} : {{service.customer.get_full_name}} </p>
+          <p> {% trans "Price" %} : {{service.price}} FCFA </p>
           <div>  
-            <p> Desciption : </p>
+            <p> {% trans "Desciption" %} : </p>
             <p>{{service.description}}</p>
           </div>
-          <p> Date : {{service.created_at}} </p>
+          <p> {% trans "Date" %} : {{service.created_at}} </p>
         </div>
-    <p> You haven't used any services..</p>
-    <a class="button link" href="{% url 'accounts:new_transaction' %}"> Pay a Bill </button>
+    <p> {% trans "You haven't used any services" %} ...</p>
+    <a class="button link" href="{% url 'accounts:new_transaction' %}"> {% trans "Pay a Bill" %} </a>
 </div>
 {% endblock MAIN %}

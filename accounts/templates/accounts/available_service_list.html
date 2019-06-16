@@ -4,17 +4,15 @@
 {% block MAIN %}
 
 <div class="container">
-    {% for service in services %}
+    {% for service in available_services %}
         <div class="card">
           <p> {% trans "Name" %} : {{service.name}} </p>
-          <p> {% trans "Price" %} : {{service.price}} FCFA </p>
           <p> {% trans "Category" %} : {{service.category.category_name}} </p>
           <p> {% trans "Date" %} : {{service.created_at}} </p>
-          <a class="button link" href="{% url 'accounts:service_detail' service.pk %}"> {% trans "More" %} ...</a>
+          <a class="button link" href="{% url 'accounts:available_service_details' service.pk %}"> {% trans "More" %} ...</a>
         </div>
     {% empty %}
-    <p> {% trans "You haven't used any services" %} ...</p>
-    <a class="button link" href="{% url 'accounts:available_services' %}"> {% trans "See Available services" %} </a>
+    <p> {% trans "There are no  services available now" %} ...</p>
     {% endfor %}
 </div>
 {% endblock MAIN %}
