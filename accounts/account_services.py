@@ -20,13 +20,26 @@ this.TransactionModel = utils.get_model('payments', 'Transaction')
 this.TransactionForm = None
 
 
+def get_all_fields_from_form(instance):
+    """"
+    Return names of all available fields from given Form instance.
+
+    :arg instance: Form instance
+    :returns list of field names
+    :rtype: list
+    """
+
+    fields = list(instance().base_fields)
+
+    for field in list(instance().declared_fields):
+        if field not in fields:
+            fields.append(field)
+    return fields
+
 def print_form(form=None):
     print("Printing Registration Form Fields")
     if form :
-        print(dir(form))
-        items = form.items()
-        for field, value in items:
-            print(field + " : " + value)
+        print(get_all_fields_from_form(form))
     else :
         print("form is not defined")
 
