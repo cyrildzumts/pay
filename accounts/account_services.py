@@ -155,6 +155,7 @@ class AccountService(ABC):
         if this.TransactionModel is None:
             try:
                 this.TransactionModel = apps.get_model('payments', 'Transaction')
+                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=('created_at','validated_at'))
             except LookupError as e:
                 pass
         return this.TransactionModel
@@ -163,9 +164,9 @@ class AccountService(ABC):
     
     @staticmethod
     def get_transaction_form():
-        if this.TransactionModel is None:
+        if this.TransactionForm is None:
             try:
-                this.TransactionModel = apps.get_model('payments', 'Transaction')
+                this.TransactionModel = AccountService.get_transaction_model()
                 this.TransactionForm = modelform_factory(this.TransactionModel, exclude=('created_at','validated_at'))
             except LookupError as e:
                 pass
