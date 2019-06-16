@@ -196,7 +196,7 @@ def account_details(request):
 @login_required
 def edit_account(request, pk=None):
     page_title = "Modifier mon compte"
-    instance = Account.objects.get(pk)
+    instance = Account.objects.get(pk=pk)
     template_name = "tags/edit_accoutn.html"
     form = AccountForm(request.POST or None, instance=instance)
     context = {
