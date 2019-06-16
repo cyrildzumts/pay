@@ -317,6 +317,46 @@ def services(request):
 
 
 @login_required
+def new_service(request):
+    """
+    This view is responsible for processing a service.
+    To process a transaction : 
+    The user must provide the following informations :
+        * recipient ID
+        * the amount of money to send
+        * the type of transaction : TRANSFER, INVOICE PAYMENT, SERVICE CONSUMER
+    For TRANSFER no more information data are needed.
+    For INVOICE PAYMENT, the following extra informations are needed :
+        * Invoice Reference Number
+        * Invoice Date
+        * Customer ID of as used by the recipient
+    For SERVICE CONSUMER, the following extra informations are needed :
+        The needed information are dependent of the type of service.
+        A service REF ID is needed to identify the actual data needed.
+    """
+    context = {}
+    email_template_name = "accounts/service_done_email.html"
+    template_name = "accounts/new_service.html"
+    page_title = "Service Usage"
+    if request.method == "POST":
+        context = AccountService.process_service_request(request)
+        if context['success']:
+            redirect('accounts:transaction_done')
+        else : 
+            print("There was an error with the service request : ")
+            print(context['errors'])
+
+    elif request.method == "GET":
+            form = AccountService.get_service_form()
+            context = {
+                'page_title':page_title,
+                'site_name' : settings.SITE_NAME,
+                'form': form
+            }
+    return render(request, template_name, context)
+
+
+@login_required
 def service_done(request):
     pass
 
