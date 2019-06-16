@@ -154,7 +154,6 @@ class Account(models.Model):
     def get_absolute_url(self):
         return reverse('accounts:edit_account', args=[str(self.pk)])
 
-    @property
     def full_name(self):
         return self.user.get_full_name()
 
