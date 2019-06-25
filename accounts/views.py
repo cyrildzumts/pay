@@ -19,6 +19,9 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import  UpdateView
 from payments.models import Transaction
 from django.db.models import F, Q
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -37,6 +40,7 @@ def login(request):
     if request.method == 'POST':
         result = AccountService.process_login_request(request)
         if result['user_logged']:
+            logger.info("New user logged in.")
             return redirect(result['next_url'])
     
     form = AccountService.get_authentication_form()
@@ -232,6 +236,7 @@ def transactions(request):
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['transactions'] = user_transactions
+    logger.debug("%s requested transactions list", current_account.full_name())
     return render(request,template_name, context)
 
 
@@ -258,21 +263,20 @@ def new_transaction(request):
     email_template_name = "accounts/transaction_done_email.html"
     template_name = "accounts/new_transaction.html"
     page_title = "Make a Transaction"
-    print("New transaction request incoming")
+    logger.debug("New transaction request incoming")
     if request.method == "POST":
         context = AccountService.process_transaction_request(request=request)
         if context['success']:
             redirect('accounts:transaction_done')
         else : 
-            print("There was an error with the transaction request : ")
-            print(context['errors'])
+            logger.debug("There was an error with the transaction request : %s", context['errors'])
 
     elif request.method == "GET":
         print("New transaction request")
         form = AccountService.get_transaction_form()
         print_form(form)
         if form is None:
-            print("Transaction Form is not Valide")
+            logger.error("Transaction Form is not Valide")
         context = {
                 'page_title': page_title,
                 'site_name' : settings.SITE_NAME,
