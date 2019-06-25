@@ -117,6 +117,9 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                 </div>
                                 
                         </div>
+                        {% comment "" %}
+                        
+                        
                         <div id="favorite-view" class="tab-content grid">
                                 {% for favory in favories %}
                                 <span class="action entry"> {{favory.name}} </span>
@@ -128,6 +131,7 @@ Ici sera afficher comment ajouter des favoris
                                 </span>
                                 {% endfor %}
                         </div>
+                        {% endcomment %}
                 </div>
         </div>
         <!--End of tabs-->

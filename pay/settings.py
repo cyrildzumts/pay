@@ -163,7 +163,7 @@ LOGGING = {
 
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'console'
         },
@@ -171,7 +171,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'file',
-            'filename':'logs/pay.log'
+            'filename':'pay.log'
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -184,7 +184,8 @@ LOGGING = {
             'handlers': ['console', 'file']
         },
         'django': {
-            'handlers': ['console'],
+            'level': 'DEBUG',
+            'handlers': ['file'],
             'propagate': True,
         },
         'django.request': {
