@@ -12,12 +12,17 @@ from django.db.models import F, Q
 from django.apps import apps
 from django.forms import modelform_factory
 import sys
+import logging
+
+logger = logging.getLogger(__name__)
 
 REDIRECT_URL = settings.LOGIN_REDIRECT_URL
 
 this = sys.modules[__name__]
 this.TransactionModel = utils.get_model('payments', 'Transaction')
 this.TransactionForm = None
+this.TransferModel = utils.get_model('payments', 'Transfer')
+this.TransferForm = None
 
 
 def get_all_fields_from_form(instance):
@@ -117,12 +122,13 @@ class AccountService(ABC):
         account_form = AccountCreationForm(postdata)
         print_form(postdata)
         if user_form.is_valid() and account_form.is_valid():
-            print("User creation data is valid")
+            logger.info("User creation data is valid")
             user = user_form.save()
             user.refresh_from_db()
             account_form = AccountCreationForm(postdata, instance=user.account)
             account_form.full_clean()
             account_form.save()
+            logger.info("User creation succesfull")
             result_dict['user_created'] = True
 
         return result_dict
@@ -174,7 +180,15 @@ class AccountService(ABC):
                 pass
         return this.TransactionModel
 
-    
+    @staticmethod
+    def get_transfer_model():
+        if this.TransferModel is None:
+            try:
+                this.TransferModel = apps.get_model('payments', 'Transfer')
+                this.TransferForm = modelform_factory(this.TransferModel, exclude=('created_at'))
+            except LookupError as e:
+                pass
+        return this.TransferModel
     
     @staticmethod
     def get_transaction_form():
@@ -185,6 +199,15 @@ class AccountService(ABC):
             except LookupError as e:
                 pass
         return this.TransactionForm
+
+    @staticmethod
+    def get_transfer_form():
+        if this.TransferForm is None:
+            try:
+                model = AccountService.get_transfer_model()
+            except LookupError as e:
+                pass
+        return this.TransferForm
 
     @staticmethod
     def process_transaction_request(request, transaction_type = 'T'):
@@ -234,6 +257,50 @@ class AccountService(ABC):
             context['errors'] = "Verifiez les champs du formulaire."
         return context
 
+
+    @staticmethod
+    def process_transfer_request(request):
+        context = {}
+        context['success'] = False
+        ("[account_service.py] process_transaction_request entering")
+        model = AccountService.get_transfer_model()
+        form = AccountService.get_transfer_form()
+        
+
+        if request.method == 'POST':
+            logger.info("processing new transfer request : POST REQUEST")
+            current_account = Account.objects.get(user=request.user)
+            current_solde = current_account.solde
+            postdata = utils.get_postdata(request)
+            transfer_form = form(postdata)
+            if transfer_form.is_valid():
+                logger.info(" Transfer Form is Valid")
+                recipient = postdata['recipient']
+                amount = int(postdata['amount'])
+                if(current_solde >=  amount):
+                    recipient_exist = Account.objects.filter(user_email=recipient).exists()
+                    if recipient_exist:
+                        Account.objects.all().filter(user_email=recipient).update(solde=F('solde') + amount)
+                        Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
+                        transfer_form.save()
+                        context['success'] = True
+                        context['solde'] = current_account - amount
+                        logger.info("Transfer was succefull")
+                    else:
+                        context['errors'] = "The recipient could not be found."
+                        logger.error("There was an error with the transfer request : %s", context['errors'])
+                        
+                        return context
+                    
+                else :
+                    context['success'] = False
+                    context['solde'] = current_account
+                    context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
+                    return context
+        else:
+            context['solde'] = current_account
+            context['errors'] = "Verifiez les champs du formulaire."
+        return context
 
     @staticmethod
     def process_service_request(request, service=None):

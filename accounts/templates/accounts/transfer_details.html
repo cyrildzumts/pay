@@ -1,0 +1,20 @@
+{% extends "account_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+        <div class="card">
+          <p> {% trans "Recipient" %} : {{transfer.recipient.get_full_name}} </p>
+          <p> {% trans "Sender" %} : {{transfer.sender.get_full_name}} </p>
+          <p> {% trans "Amount" %} : {{transfer.amount}} FCFA </p>
+          <div>  
+            <p> {% trans "Desciption" %} : </p>
+            <p>{{transfer.description}}</p>
+          </div>
+          <p> {% trans "Date of transfer" %} : {{transfer.created_at}} </p>
+        </div>
+    <a class="button link" href="{% url 'accounts:new_transfer' %}"> {% trans "Make a new transfer" %} </a>
+    <a class="button link" href="{% url 'accounts:account' %}"> {% trans "My Account" %} </a>
+</div>
+{% endblock MAIN %}

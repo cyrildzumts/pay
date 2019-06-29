@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from accounts.models import Account, IDCard
-from payments.models import Payment, Transaction, CaseIssue
+from payments.models import Payment, Transaction,Transfer, CaseIssue
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
@@ -19,6 +19,13 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         exclude = [ 'created_at', 'validated_at']
+
+
+class TransferForm(forms.ModelForm):
+
+    class Meta:
+        model = Transfer
+        exclude = [ 'created_at']
 
 
 class CaseIssueForm(forms.ModelForm):

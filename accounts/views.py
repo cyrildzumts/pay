@@ -185,7 +185,8 @@ def user_account(request):
         'transactions'  : user_transactions,
         'active_cats'   : active_cat,
         'account'       : current_account,
-        'services': available_services
+        'services': available_services,
+        'favorites': None
     }
         
 
@@ -272,7 +273,6 @@ def new_transaction(request):
             logger.debug("There was an error with the transaction request : %s", context['errors'])
 
     elif request.method == "GET":
-        print("New transaction request")
         form = AccountService.get_transaction_form()
         print_form(form)
         if form is None:
@@ -323,6 +323,57 @@ def api_get_transactions(request, pk=None):
         context['solde'] = current_solde
         context['transactions'] = user_transactions
     return JsonResponse(context)
+
+
+@login_required
+def new_transfer(request):
+    """
+    This view is responsible for processing a service.
+    To process a transaction : 
+    The user must provide the following informations :
+        * recipient ID
+        * the amount of money to send
+        * the type of transaction : TRANSFER, INVOICE PAYMENT, SERVICE CONSUMER
+    For TRANSFER no more information data are needed.
+    
+    """
+    context = {}
+    email_template_name = "accounts/transfer_done_email.html"
+    template_name = "accounts/new_transfer.html"
+    page_title = "New Transfer"
+    if request.method == "POST":
+        context = AccountService.process_transfer_request(request)
+        if context['success']:
+            redirect('accounts:transfer_done')
+        else : 
+            logger.error("There was an error with the transfer request : %s", context['errors'])
+
+    elif request.method == "GET":
+            form = AccountService.get_transfer_form()
+            context = {
+                'page_title':page_title,
+                'site_name' : settings.SITE_NAME,
+                'form': form
+            }
+    return render(request, template_name, context)
+
+@login_required
+def transfer_done(request):
+    pass
+
+
+@login_required
+def transfer_details(request, pk=None):
+    context = {}
+    model = utils.get_model('accounts', 'Service')
+    user_services = model.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
+    transfer = get_object_or_404(user_services, pk=pk)
+    template_name = "accounts/transfer_details.html"
+    page_title = "Transfer Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    context['transfer'] = transfer
+    return render(request,template_name, context)
 
 @login_required
 def services(request):

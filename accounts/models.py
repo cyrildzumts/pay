@@ -165,7 +165,7 @@ class IDCard(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return "Card id : {} User : {}".format(self.card_id, self.user)
+        return "Card id : {} User : {}".format(self.pk, self.user)
 
 
 

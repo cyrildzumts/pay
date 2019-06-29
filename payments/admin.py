@@ -1,5 +1,5 @@
 from django.contrib import admin
-from payments.models import Reduction, Transaction, Payment, CaseIssue
+from payments.models import Reduction, Transaction, Transfer, Payment, CaseIssue
 
 # Register your models here.
 
@@ -17,6 +17,10 @@ class PaymentInline(admin.StackedInline):
     model = Payment
 
 
+class TransferInline(admin.StackedInline):
+    model = Transfer
+
+
 class CaseIssueInline(admin.StackedInline):
     model = CaseIssue
 
@@ -24,5 +28,6 @@ class CaseIssueInline(admin.StackedInline):
 
 admin.site.register(Reduction)
 admin.site.register(Transaction)
+admin.site.register(Transfer)
 admin.site.register(Payment)
 admin.site.register(CaseIssue)
