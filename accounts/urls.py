@@ -29,7 +29,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(success_url=reverse_lazy('accounts:password_reset_complete')), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('reductions/', views.reductions, name='reductions'),
-    path('reductions/<int:pk>', views.reduction_details, name='reduction_details'),
+    path('reductions/<int:pk>/', views.reduction_details, name='reduction_details'),
     path('service_done/', views.service_done, name='service_done'),
     path('services/', views.services, name='services'),
     path('services/<int:pk>/', views.service_details, name='service_details'),
@@ -43,7 +43,7 @@ urlpatterns = [
     path('payment_done/', views.payment_done, name='payment_done'),
     path('payments/<int:pk>/', views.payment_details, name='payment_details'),
     path('policies/', views.policies, name='policies'),
-    path('policies/<int:pk>', views.policy_details, name='policy_details'),
+    path('policies/<int:pk>/', views.policy_details, name='policy_details'),
     path('service_categories/', views.service_categories, name='service_categories'),
     path('service_categories/<int:pk>/', views.service_category_details, name='service_categories_details'),
     
