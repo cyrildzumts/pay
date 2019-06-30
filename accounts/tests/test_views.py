@@ -12,7 +12,7 @@ class AccountViewsUrlTest(TestCase):
 
     def test_edit_account_url(self):
         found = resolve('/accounts/account_details/10/')
-        self.assertEqual(found.func, views.edit_account)
+        self.assertEqual(found.func, views.account_details)
 
 
     def test_account_transactions_url(self):
