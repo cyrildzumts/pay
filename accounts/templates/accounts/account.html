@@ -6,18 +6,18 @@
         <div class="tabs">
                 <div class="tabs--title">
                         <div class="full welcome-text center">
-                                <p> {% trans "Bienvenue" %} {{name}}</p>
-                                <a class="link" href="{%url 'accounts:password_change' %}"> {% trans "Changer mon mot de passe" %}</a>
+                                <p> {% trans "Welcome" %} {{name}}</p>
+                                <a class="link" href="{%url 'accounts:password_change' %}"> {% trans "Change my password" %}</a>
                         </div>
                 </div>
                 <div class="tab-bar">
                         <div class="row">
                                 <span class="tab active" data-toggle="#activities-view"
-                                        data-index="0">{% trans "Activités" %}</span>
+                                        data-index="0">{% trans "Activities" %}</span>
                                 <span class="tab" data-toggle="#services-view"
                                         data-index="1">{% trans "Services" %}</span>
                                 <span class="tab" data-toggle="#favorite-view"
-                                        data-index="2">{% trans "Favoris" %}</span>
+                                        data-index="2">{% trans "Favories" %}</span>
                         </div>
                 </div>
                 <!--End of Tab-bar-->
@@ -26,7 +26,7 @@
                         <div id="activities-view" class="tab-content grid">
                                 <div class="list">
                                         <div class="list-header">
-                                                <span class="header-title" title="{% trans 'Vos transactions' %}">{% trans "Historique de vos Transactions" %}</span>
+                                                <span class="header-title" title="{% trans 'Your transactions' %}">{% trans "Your transactions" %}</span>
                                         </div>
                                         <div class="list-cards js-card">
                                         {% for activity in activities  %}
@@ -42,9 +42,9 @@
                                                         <div class="list-card-details js-card-details">
                                                                 <div class="list-card-labels js-card-labels">
                                                                 {% if activity.is_outgoing %}
-                                                                        <span class="card-label card-front outgoing" title="{% trans 'Sortant' %}"> {% trans "Envoi" %}</span>
+                                                                        <span class="card-label card-front outgoing" title="{% trans 'Outgoing' %}"> {% trans "Sending" %}</span>
                                                                 {% else %}
-                                                                        <span class="card-label card-front incoming" title="{% trans 'Entrant' %}">{% trans "Reception" %}</span>
+                                                                        <span class="card-label card-front incoming" title="{% trans 'Incoming' %}">{% trans "Receiving" %}</span>
                                                                 {% endif %}
                                                                         
                                                                 </div>

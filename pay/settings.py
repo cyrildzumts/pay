@@ -180,11 +180,11 @@ LOGGING = {
     },
     'loggers': {
         '' : {
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'handlers': ['console', 'file']
         },
         'django': {
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'handlers': ['file'],
             'propagate': True,
         },

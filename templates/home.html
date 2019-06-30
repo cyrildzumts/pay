@@ -16,10 +16,10 @@
       <a href="#enterprise">{% trans 'Pour les entreprises'%}</a>
       {% if request.user.is_authenticated %}
       <a class="link" href="{% url 'accounts:account' %}">{% trans 'Mon Compte' %}</a>
-      <a class="signout-btn link signout" href="{% url 'accounts:logout' %}">{% trans 'Se deconnecter' %}</a>
+      <a class="signout-btn link signout" href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a>
       {% else %}
-      <a class="dialog-btn" href="{% url 'accounts:register' %}" data-tab="1" data-target="#signup-dialog">{% trans 'Creer un compte' %}</a>
-      <a class="dialog-btn" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Se connecter' %}</a>
+      <a class="dialog-btn" href="{% url 'accounts:register' %}" data-tab="1" data-target="#signup-dialog">{% trans 'Create an Account' %}</a>
+      <a class="dialog-btn" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Login' %}</a>
       
 
       {% endif %}
@@ -43,14 +43,14 @@
 {% block HEADER_BANNER %}
 <div class="header--banner">
   <div>
-      <h1> {%trans 'Bienvenue chez PAY'%} </h1>
-      <h3>{% trans 'Votre solution de payment' %}</h3>
+      <h1> {%trans 'Welcome to PAY'%} </h1>
+      <h3>{% trans 'Your Payment Solution' %}</h3>
       <p>
       {% blocktrans %}Ne perdez plus votre temps à faire la queue pour payer votre facture.
 Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
          {% endblocktrans %}
       </p>
-      <button class="button"> {% trans 'Découvrir PAY' %} </button>
+      <button class="button"> {% trans 'Discover PAY' %} </button>
   </div>
   
 </div>
@@ -68,10 +68,10 @@ Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
     <div class="tab-bar">
       <div class="row">
         <span class="tab active" data-toggle="#login" data-index="0"> 
-          {%trans "J'ai déjà un compte PAY"%}
+          {%trans "I have a PAY account"%}
          </span>
         <span class="tab" data-toggle="#register" data-index="1"> 
-          {% trans 'Je veux creer un compte PAY'%}
+          {% trans 'I want to create an PAY account'%}
          </span>
 
       </div>
@@ -85,12 +85,12 @@ Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
           </div>
           <div class="form-group">
 
-            <input type="text" name="username" placeholder="Nom d'utilisateur">
-            <input type="password" name="password" placeholder="Mot de passe">
+            <input type="text" name="username" placeholder="{% trans 'Username'%}">
+            <input type="password" name="password" placeholder="{% trans 'Password'%}">
           </div>
           <div class="form-group">
-            <button id="login-submit" class="button"  name="submit" type="submit">{% trans "Se connecter" %}</button>
-            <span class="button close" data-target="#signup-dialog">{% trans "Annuler" %}</span>
+            <button id="login-submit" class="button"  name="submit" type="submit">{% trans "Login" %}</button>
+            <span class="button close" data-target="#signup-dialog">{% trans "Cancel" %}</span>
           </div>
 
         </form>
@@ -102,17 +102,17 @@ Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
           <input autocomplete="off" name="hidden" type="text" style="display:none;">
           <div class="form-group">
             <input autocomplete="off" name="hidden" type="text" style="display:none;">
-            <input type="text" name="username" placeholder="{% trans 'Nom d&#39;utilisateur' %}" value="">
-            <input type="text" name="firstname" placeholder="{% trans 'Prénom' %}" value="">
-            <input type="text" name="lastname" placeholder=" {% trans 'Nom de famille' %}" value="">
-            <input type="password" name="password1" placeholder=" {% trans 'Votre mot de passe' %}" value="">
-            <input type="password" name="password1" placeholder=" {% trans 'Ressaisissez votre mot de passe' %}" value="">
-            <input type="email" name="email" placeholder=" {% trans 'Adresse E-Mail' %}" value="">
-            <input type="text" name="telefon" placeholder=" {% trans 'Numéro de téléphone' %}" value="">
+            <input type="text" name="username" placeholder="{% trans 'Username' %}" value="">
+            <input type="text" name="firstname" placeholder="{% trans 'Firstname' %}" value="">
+            <input type="text" name="lastname" placeholder=" {% trans 'Lastname' %}" value="">
+            <input type="password" name="password1" placeholder=" {% trans 'Your Password' %}" value="">
+            <input type="password" name="password1" placeholder=" {% trans 'Enter Your Password again' %}" value="">
+            <input type="email" name="email" placeholder=" {% trans 'E-Mail' %}" value="">
+            <input type="text" name="telefon" placeholder=" {% trans 'Phone-Number' %}" value="">
           </div>
           <div class="form-group">
-            <button id="signup-submit" class="button" name="submit" type="submit"> {% trans 'Créer mon compte PAY' %}</button>
-            <span class="button close" data-target="#signup-dialog"> {% trans 'Annuler' %} </span>
+            <button id="signup-submit" class="button" name="submit" type="submit"> {% trans 'Create My PAY Account' %}</button>
+            <span class="button close" data-target="#signup-dialog"> {% trans 'Cancel' %} </span>
           </div>
         </form>
       </div>

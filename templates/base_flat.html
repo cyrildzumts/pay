@@ -7,10 +7,12 @@
         <title>
                 {% block title %} {{page_title}} {% endblock %}
         </title>
-        <!--
+        {% comment "" %}
+        
+        
         <meta name="keywords" content="{{meta_keywords}}" />
         <meta name="description" content="{{meta_description}}" />
-        -->
+        {% endcomment %}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         {% load static %}
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -55,7 +57,7 @@
                 {% block FOOTER %}
                 <div class="copyright row">
                         <span>Copyright <i class="fa fa-copyright"></i> 2019</span>
-                        <span>{{site_name}} {%trans 'site de paiement en ligne' %} </span>
+                        <span>{{site_name}} {%trans 'Online Payment' %} </span>
                 </div>
                 {% endblock FOOTER %}
                 </footer>

@@ -326,6 +326,10 @@ def api_get_transactions(request, pk=None):
 
 
 @login_required
+def transfers(request):
+    pass
+
+@login_required
 def new_transfer(request):
     """
     This view is responsible for processing a service.

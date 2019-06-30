@@ -4,15 +4,15 @@
   <div class="header--panel row">
        <div class="col col-1">
               <div class="logo">
-                PAY
+                {{site_name}}
               </div>
         </div>
         <div class="col col-11">
               <nav class="nav">
-                    <a href="#pay">PAY</a>
-                    <a href="#customer">{% trans "Activités" %}</a>
+                    <a href="#pay">{{site_name}}</a>
+                    <a href="#customer">{% trans "Activities" %}</a>
                     <a class="notification-bell"> <i class="far fa-bell"></i> </a>
-                    <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Se deconnecter" %}</a>
+                    <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a>
                     <div class="languages">
                    {% for lang in LANGUAGES %}
                    {% if lang.0 == LANGUAGE_CODE %}
@@ -31,8 +31,8 @@
         <div class="col col-6">
           <div class="row">
                 <div class="solde-info">
-                    <div class="account-balance">{% trans "Votre Solde" %}</div>
-                    <div class="balance"> {{solde}} FCFA </div>
+                    <div class="account-balance">{% trans "Balance" %}</div>
+                    <div class="balance"> {{solde}} {%trans "FCFA" %} </div>
                 </div>
                 <div class="details-info">
                     <div></div>

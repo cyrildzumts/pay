@@ -36,6 +36,7 @@ urlpatterns = [
     path('transaction_done/', views.transaction_done, name='transaction_done'),
     path('transfer_done/', views.transfer_done, name='transfer_done'),
     path('transactions/', views.transactions, name='transactions'),
+    path('transfers/', views.transfers, name='transfers'),
     path('transactions/<int:pk>/', views.transaction_details, name='transaction_details'),
     path('transfer/<int:pk>/', views.transfer_details, name='transfer_details'),
     path('payments/', views.payments, name='payments'),
