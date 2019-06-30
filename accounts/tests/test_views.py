@@ -66,7 +66,7 @@ class AccountViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.transactions)
     
     def test_transaction_details_url(self):
-        found = resolve('/accounts/transactions/10')
+        found = resolve('/accounts/transactions/10/')
         self.assertEqual(found.func, views.transaction_details)
     
     def test_new_transaction_url(self):
@@ -78,7 +78,7 @@ class AccountViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.reductions)
 
     def test_reductions_details_url(self):
-        found = resolve('/accounts/reductions/10')
+        found = resolve('/accounts/reductions/10/')
         self.assertEqual(found.func, views.reduction_details)
 
     def test_policy_url(self):
@@ -86,7 +86,7 @@ class AccountViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.policies)
     
     def test_policy_details_url(self):
-        found = resolve('/accounts/policies/10')
+        found = resolve('/accounts/policies/10/')
         self.assertEqual(found.func, views.policy_details)
 
     def test_cases_url(self):
@@ -94,7 +94,7 @@ class AccountViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.cases)
     
     def test_cases_edit_url(self):
-        found = resolve('/accounts/cases/10')
+        found = resolve('/accounts/cases/10/')
         self.assertEqual(found.func, views.case_details)
 
     def test_services_url(self):
@@ -106,7 +106,7 @@ class AccountViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.service_done)
     
     def test_service_details_url(self):
-        found = resolve('/accounts/services/10')
+        found = resolve('/accounts/services/10/')
         self.assertEqual(found.func, views.service_details)
 
     def test_payments_url(self):
@@ -122,6 +122,6 @@ class AccountViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.payment_done)
     
     def test_payment_details_url(self):
-        found = resolve('/accounts/payments/10')
+        found = resolve('/accounts/payments/10/')
         self.assertEqual(found.func, views.payment_details)
     
