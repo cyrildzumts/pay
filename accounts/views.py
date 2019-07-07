@@ -35,13 +35,12 @@ def login(request):
     """
     page_title = "Connexion d'utilisateur"
     template_name = 'accounts/registration/login.html'
-    print("Login Request")
+
     # template_name = 'tags/login_form.html'
     if request.method == 'POST':
         result = AccountService.process_login_request(request)
         if result['user_logged']:
-            print("Login Successful")
-            #logger.info("New user logged in.")
+            logger.info("New user logged in.")
             return redirect(result['next_url'])
     
     form = AccountService.get_authentication_form()
