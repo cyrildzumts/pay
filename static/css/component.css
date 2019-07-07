@@ -1098,7 +1098,7 @@ a {
 }
 
 
-.entrant{
+.entrant, .incoming{
 	background-color: #00e676;
 	color: #fafafa;
 }
