@@ -358,7 +358,7 @@ def new_transfer(request):
             context = {
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,
-                'form': form()
+                'form': form
             }
     return render(request, template_name, context)
 
