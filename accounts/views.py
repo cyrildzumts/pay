@@ -378,7 +378,7 @@ def transfer_done(request):
 def transfer_details(request, pk=None):
     context = {}
     model = utils.get_model('payments', 'Transfer')
-    user_services = model.objects.filter(Q(sender_user=request.user) | Q(recipient_user=request.user) )
+    user_services = model.objects.filter(Q(sender__user=request.user) | Q(recipient__user=request.user) )
     transfer = get_object_or_404(user_services, pk=pk)
     template_name = "accounts/transfer_details.html"
     page_title = "Transfer Details - " + settings.SITE_NAME
