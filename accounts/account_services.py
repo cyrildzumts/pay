@@ -221,11 +221,11 @@ class AccountService(ABC):
             try:
                 model = AccountService.get_transfer_model()
                 if this.TransferForm is None:
-                    print("[TransferForm ]: still None")
+                    print("[get_transfer_form]: TransferForm still None")
                 else:
-                    print("[TransferForm ]: still is Available")
+                    print("[get_transfer_form]: TransferForm is Available")
             except LookupError as e:
-                print("[TransferForm ] Exception LookupError : {}".format(e))
+                print("[get_transfer_form] Exception LookupError : {}".format(e))
         return this.TransferForm
 
     @staticmethod
