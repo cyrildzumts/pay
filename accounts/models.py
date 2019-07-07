@@ -158,7 +158,7 @@ class Account(models.Model):
         return self.user.get_full_name()
     
     def initial(self):
-        return ''.join(i[0] for i in self.user.get_full_name().spilt()).upper()
+        return ''.join(i[0] for i in self.user.get_full_name().split()).upper()
 
 
     
