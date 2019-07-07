@@ -284,7 +284,7 @@ class AccountService(ABC):
     def process_transfer_request(request):
         context = {}
         context['success'] = False
-        ("[account_service.py] process_transaction_request entering")
+        logger.debug("[account_service.py] process_transaction_request entering")
         model = AccountService.get_transfer_model()
         form = AccountService.get_transfer_form()
         
@@ -299,14 +299,14 @@ class AccountService(ABC):
                 logger.info(" Transfer Form is Valid")
                 recipient = postdata['recipient']
                 amount = int(postdata['amount'])
-                if(current_solde >=  amount):
-                    recipient_exist = Account.objects.filter(user_email=recipient).exists()
+                if(current_solde - amount) >= 0:
+                    recipient_exist = Account.objects.filter(user=recipient).exists()
                     if recipient_exist:
-                        Account.objects.all().filter(user_email=recipient).update(solde=F('solde') + amount)
+                        Account.objects.all().filter(user=recipient).update(solde=F('solde') + amount)
                         Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
                         transfer_form.save()
                         context['success'] = True
-                        context['solde'] = current_account - amount
+                        context['solde'] = current_solde - amount
                         logger.info("Transfer was succefull")
                     else:
                         context['errors'] = "The recipient could not be found."
