@@ -96,7 +96,7 @@ class AccountService(ABC):
         password = postdata['password']
         print("[AccountService.process_login_request] : starting")
         if form.is_valid():
-            print("[AccountService.process_login_request] : form is valid")
+            print("[AccountService.process_login_request] : form is valid Username : {} - Password : {}".format(username,password))
             user = auth.authenticate(username=username,
                                     password=password)
             print("[AccountService.process_login_request] : user is authenticated")
