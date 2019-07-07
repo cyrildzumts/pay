@@ -35,7 +35,7 @@ def login(request):
     """
     page_title = "Connexion d'utilisateur"
     template_name = 'accounts/registration/login.html'
-    
+    print("Login Request")
     # template_name = 'tags/login_form.html'
     if request.method == 'POST':
         result = AccountService.process_login_request(request)

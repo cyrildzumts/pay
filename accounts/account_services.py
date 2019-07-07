@@ -94,6 +94,7 @@ class AccountService(ABC):
         form = AuthenticationForm(data=postdata)
         username = postdata['username']
         password = postdata['password']
+        print("[AccountService.process_login_request] : starting")
         if form.is_valid():
             user = auth.authenticate(username=username,
                                     password=password)
@@ -103,7 +104,7 @@ class AccountService(ABC):
                     auth.login(request, user)
                     result_dict['user_logged'] = True
                 
-
+        print("[AccountService.process_login_request] : finished")
         return result_dict
     
 
