@@ -41,7 +41,7 @@
                                                         </div>
                                                         <div class="list-card-details js-card-details">
                                                                 <div class="list-card-labels js-card-labels">
-                                                                {% if activity.sender__user is request.user %}
+                                                                {% if activity.sender.user == request.user %}
                                                                         <span class="card-label card-front outgoing" title="{% trans 'Outgoing' %}"> {% trans "Sending" %}</span>
                                                                 {% else %}
                                                                         <span class="card-label card-front incoming" title="{% trans 'Incoming' %}">{% trans "Receiving" %}</span>
