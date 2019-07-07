@@ -365,6 +365,7 @@ def new_transfer(request):
 
 @login_required
 def transfer_done(request):
+    print("Transfer Done")
     context = {}
     template_name = "accounts/transfer_done.html"
     page_title = "Confirmation - " + settings.SITE_NAME
