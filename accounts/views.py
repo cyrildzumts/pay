@@ -40,7 +40,8 @@ def login(request):
     if request.method == 'POST':
         result = AccountService.process_login_request(request)
         if result['user_logged']:
-            logger.info("New user logged in.")
+            print("Login Successful")
+            #logger.info("New user logged in.")
             return redirect(result['next_url'])
     
     form = AccountService.get_authentication_form()
