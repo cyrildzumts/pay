@@ -174,7 +174,8 @@ def user_account(request):
     name = request.user.get_full_name()
     current_account = Account.objects.get(user=request.user)
     current_solde = current_account.solde
-    user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    model = AccountService.get_transfer_model()
+    activities = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     active_cat = ServiceCategory.objects.select_related().exclude(category_services__isnull=True)
     available_services = AvailableService.objects.select_related().all()
     context = {
@@ -182,7 +183,7 @@ def user_account(request):
         'page_title'    : page_title,
         'site_name'     : settings.SITE_NAME,
         'solde'         : current_solde,
-        'transactions'  : user_transactions,
+        'activities'    : activities,
         'active_cats'   : active_cat,
         'account'       : current_account,
         'services': available_services,

@@ -156,6 +156,9 @@ class Account(models.Model):
 
     def full_name(self):
         return self.user.get_full_name()
+    
+    def initial(self):
+        return ''.join(i[0] for i in self.user.get_full_name().spilt()).upper()
 
 
     
