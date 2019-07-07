@@ -380,11 +380,13 @@ def transfer_details(request, pk=None):
     model = utils.get_model('payments', 'Transfer')
     user_services = model.objects.filter(Q(sender__user=request.user) | Q(recipient__user=request.user) )
     transfer = get_object_or_404(user_services, pk=pk)
+    solde = Account.objects.get(user=request.user).solde
     template_name = "accounts/transfer_details.html"
     page_title = "Transfer Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['transfer'] = transfer
+    context['solde'] = solde
     return render(request,template_name, context)
 
 @login_required
