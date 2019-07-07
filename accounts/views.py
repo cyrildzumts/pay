@@ -350,7 +350,7 @@ def new_transfer(request):
     if request.method == "POST":
         context = AccountService.process_transfer_request(request)
         if context['success']:
-            redirect('accounts:transfer_done')
+            return redirect('accounts:transfer_done')
         else : 
             logger.error("There was an error with the transfer request : %s", context['errors'])
 
