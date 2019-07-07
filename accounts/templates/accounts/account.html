@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="list-cards js-card">
                                         {% for activity in activities  %}
-                                                <a class="list-card js-list-card" href="{% url activity.url %}">
+                                                <a class="list-card js-list-card" href="{{activity.get_absolute_url}}">
                                                         <div class="list-card-cover js-card-cover">
                                                         </div>
                                                         <span class="icon-sm icon-edit list-card-operation"></span>

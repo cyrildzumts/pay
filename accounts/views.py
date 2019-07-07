@@ -377,8 +377,8 @@ def transfer_done(request):
 @login_required
 def transfer_details(request, pk=None):
     context = {}
-    model = utils.get_model('accounts', 'Service')
-    user_services = model.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
+    model = utils.get_model('payments', 'Transfer')
+    user_services = model.objects.filter(Q(sender_user=request.user) | Q(recipient_user=request.user) )
     transfer = get_object_or_404(user_services, pk=pk)
     template_name = "accounts/transfer_details.html"
     page_title = "Transfer Details - " + settings.SITE_NAME

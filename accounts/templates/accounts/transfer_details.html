@@ -5,12 +5,12 @@
 
 <div class="container">
         <div class="card">
-          <p> {% trans "Recipient" %} : {{transfer.recipient.get_full_name}} </p>
-          <p> {% trans "Sender" %} : {{transfer.sender.get_full_name}} </p>
+          <p> {% trans "Recipient" %} : {{transfer.recipient.full_name}} </p>
+          <p> {% trans "Sender" %} : {{transfer.sender.full_name}} </p>
           <p> {% trans "Amount" %} : {{transfer.amount}} FCFA </p>
           <div>  
             <p> {% trans "Desciption" %} : </p>
-            <p>{{transfer.description}}</p>
+            <p>{{transfer.details}}</p>
           </div>
           <p> {% trans "Date of transfer" %} : {{transfer.created_at}} </p>
         </div>
