@@ -217,7 +217,9 @@ class AccountService(ABC):
 
     @staticmethod
     def get_transfer_form():
+        print("[get_transfer_model ]: Entered")
         if this.TransferForm is None:
+            print("[get_transfer_model ]: TransferForm is none")
             try:
                 model = AccountService.get_transfer_model()
                 if this.TransferForm is None:
