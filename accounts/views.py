@@ -189,10 +189,6 @@ def user_account(request):
         'services': available_services,
         'favorites': None
     }
-        
-
-
-    
     return render(request, template_name, context)
 
 
