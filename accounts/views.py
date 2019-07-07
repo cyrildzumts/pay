@@ -345,6 +345,8 @@ def new_transfer(request):
     email_template_name = "accounts/transfer_done_email.html"
     template_name = "accounts/new_transfer.html"
     page_title = "New Transfer"
+    account = Account.objects.get(user=request.user)
+    
     if request.method == "POST":
         context = AccountService.process_transfer_request(request)
         if context['success']:
@@ -359,6 +361,7 @@ def new_transfer(request):
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,
                 'form': form,
+                'solde': account.solde,
                 'contacts': User.objects.filter(is_staff=False)
             }
     return render(request, template_name, context)
