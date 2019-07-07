@@ -9,7 +9,7 @@
         </div>
         <div class="col col-11">
               <nav class="nav">
-                    <a href="#pay">{{site_name}}</a>
+                    <a href="{% url 'accounts:account' %}">{{site_name}}</a>
                     <a href="#customer">{% trans "Activities" %}</a>
                     <a class="notification-bell"> <i class="far fa-bell"></i> </a>
                     <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a>
