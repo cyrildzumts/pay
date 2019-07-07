@@ -183,7 +183,7 @@ class AccountService(ABC):
         if this.TransactionModel is None:
             try:
                 this.TransactionModel = apps.get_model('payments', 'Transaction')
-                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=('created_at','validated_at'))
+                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=['created_at','validated_at'])
             except LookupError as e:
                 pass
         return this.TransactionModel
@@ -195,7 +195,7 @@ class AccountService(ABC):
             print("[get_transfer_model ]: TransferModel None")
             try:
                 this.TransferModel = apps.get_model('payments', 'Transfer')
-                this.TransferForm = modelform_factory(this.TransferModel, exclude=('created_at'))
+                this.TransferForm = modelform_factory(this.TransferModel, exclude=['created_at'])
                 if this.TransferModel is None:
                     print("[get_transfer_model ]: TransferModel still None")
 
@@ -210,7 +210,7 @@ class AccountService(ABC):
         if this.TransactionForm is None:
             try:
                 this.TransactionModel = AccountService.get_transaction_model()
-                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=('created_at','validated_at'))
+                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=['created_at','validated_at'])
             except LookupError as e:
                 pass
         return this.TransactionForm
@@ -224,7 +224,7 @@ class AccountService(ABC):
                 model = AccountService.get_transfer_model()
                 if this.TransferForm is None:
                     print("[get_transfer_form]: TransferForm still None")
-                    this.TransferForm = modelform_factory(model, exclude=('created_at'))
+                    this.TransferForm = modelform_factory(model, exclude=['created_at'])
                 else:
                     print("[get_transfer_form]: TransferForm is Available")
             except LookupError as e:
@@ -239,7 +239,7 @@ class AccountService(ABC):
         if this.TransactionModel is None:
             try:
                 this.TransactionModel = apps.get_model('payments', 'Transaction')
-                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=('created_at','validated_at'))
+                this.TransactionForm = modelform_factory(this.TransactionModel, exclude=['created_at','validated_at'])
             except LookupError as e:
                 context['errors'] = "Transaction Model not available in the payments APP"
                 return context
