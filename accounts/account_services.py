@@ -190,7 +190,9 @@ class AccountService(ABC):
 
     @staticmethod
     def get_transfer_model():
+        print("[get_transfer_model ]: Entered")
         if this.TransferModel is None:
+            print("[get_transfer_model ]: TransferModel None")
             try:
                 this.TransferModel = apps.get_model('payments', 'Transfer')
                 this.TransferForm = modelform_factory(this.TransferModel, exclude=('created_at'))
@@ -198,7 +200,7 @@ class AccountService(ABC):
                     print("[get_transfer_model ]: TransferModel still None")
 
                 if this.TransfeForm is None:
-                    print("[get_transfer_model ]: TransferModel still None")
+                    print("[get_transfer_model ]: TransferForm still None")
             except LookupError as e:
                 pass
         return this.TransferModel
