@@ -319,9 +319,9 @@ class AccountService(ABC):
     def checkFromAvailability(form=None):
         logger.info("Checking Form availability")
         logger.info("Checking TransactionForm :")
-        print_form(AccountService.get_transaction_form()())
+        print_form(AccountService.get_transaction_form())
         logger.info("Checking TransferForm :")
-        print_form(AccountService.get_transfer_form()())
+        print_form(AccountService.get_transfer_form())
         logger.info("Checking passed parameter Form :")
         print_form(form)
 
