@@ -2,7 +2,7 @@
 
 <div class="responsive">
 
-    <form name="transaction" action="{% url 'accounts:new_transfer' %}" method="POST">{% csrf_token %}
+    <form name="transfer" action="{% url 'accounts:new_transfer' %}" method="POST">{% csrf_token %}
         <div class="form-group">
             <input type="hidden" name="sender" value="{{request.user.pk}}">
         </div>
