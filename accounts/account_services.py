@@ -25,6 +25,9 @@ this.TransferModel = utils.get_model('payments', 'Transfer')
 this.TransferForm = None
 
 
+
+
+
 def get_all_fields_from_form(instance):
     """"
     Return names of all available fields from given Form instance.
@@ -42,11 +45,13 @@ def get_all_fields_from_form(instance):
     return fields
 
 def print_form(form=None):
-    print("Printing Registration Form Fields")
+    print("Printing  Form Fields")
     if form :
         print(get_all_fields_from_form(form))
     else :
         print("form is not defined")
+
+
 
 
 class AccountService(ABC):
@@ -308,3 +313,15 @@ class AccountService(ABC):
     @staticmethod
     def process_service_request(request, service=None):
         pass
+
+
+    @staticmethod
+    def checkFromAvailability(form=None):
+        logger.info("Checking Form availability")
+        logger.info("Checking TransactionForm :")
+        print_form(AccountService.get_transaction_form()())
+        logger.info("Checking TransferForm :")
+        print_form(AccountService.get_transfer_form()())
+        logger.info("Checking passed parameter Form :")
+        print_form(form)
+

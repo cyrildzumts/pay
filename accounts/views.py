@@ -354,6 +354,7 @@ def new_transfer(request):
 
     elif request.method == "GET":
             form = AccountService.get_transfer_form()
+            AccountService.checkFromAvailability(form=form)
             context = {
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,
