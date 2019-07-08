@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.contrib import auth, messages
 from django.template import RequestContext
+from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
@@ -21,6 +22,7 @@ from payments.models import Transaction
 from django.db.models import F, Q
 import logging
 
+
 logger = logging.getLogger(__name__)
 
 # Create your views here.
@@ -33,7 +35,7 @@ def login(request):
     """
     Log in view
     """
-    page_title = "Connexion d'utilisateur"
+    page_title = _("Login") + ' | ' + settings.SITE_NAME
     template_name = 'accounts/registration/login.html'
 
     # template_name = 'tags/login_form.html'
@@ -69,7 +71,7 @@ def register(request):
     User registration view
     """
     template_name = "accounts/registration/register.html"
-    page_title = 'Creation de compte | ' + settings.SITE_NAME
+    page_title = _('Registration') +' | ' + settings.SITE_NAME
     if request.method == 'POST':
         result = AccountService.process_registration_request(request)
         if result['user_created']:
@@ -169,7 +171,7 @@ def user_account(request):
      *a list of favoris
     """
     template_name = "accounts/account.html"
-    page_title = 'Mon Compte | ' + settings.SITE_NAME
+    page_title = _('My Account ') + '| ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
     current_account = Account.objects.get(user=request.user)
@@ -193,7 +195,7 @@ def user_account(request):
 
 
 def account_details(request, pk=None):
-    page_title = "Account Details"
+    page_title = _("Account Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Account, pk=pk)
     template_name = "accounts/account_details.html"
     #form = AccountForm(request.POST or None, instance=instance)
@@ -208,7 +210,7 @@ def account_details(request, pk=None):
 
 @login_required
 def edit_account(request, pk=None):
-    page_title = "Modifier mon compte"
+    page_title = _("Edit my account")+ ' | ' + settings.SITE_NAME
     instance = Account.objects.get(pk=pk)
     template_name = "accounts/edit_account.html"
     form = AccountForm(request.POST or None, instance=instance)
@@ -230,7 +232,7 @@ def transactions(request):
     current_account = Account.objects.get(user=request.user)
     user_transactions = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     template_name = "accounts/transaction_list.html"
-    page_title = "Your Transactions - " + settings.SITE_NAME
+    page_title = _("Your Transactions") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['transactions'] = user_transactions
@@ -260,7 +262,7 @@ def new_transaction(request):
     context = {}
     email_template_name = "accounts/transaction_done_email.html"
     template_name = "accounts/new_transaction.html"
-    page_title = "Make a Transaction"
+    page_title = _("New Transaction")
     logger.debug("New transaction request incoming")
     if request.method == "POST":
         context = AccountService.process_transaction_request(request=request)
@@ -303,7 +305,7 @@ def transaction_details(request, pk=None):
     user_transactions = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     transaction = get_object_or_404(user_transactions, pk=pk)
     template_name = "accounts/transaction_details.html"
-    page_title = "Transaction Details - " + settings.SITE_NAME
+    page_title = _("Transaction Details") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['transaction'] = transaction
@@ -341,7 +343,7 @@ def new_transfer(request):
     context = {}
     email_template_name = "accounts/transfer_done_email.html"
     template_name = "accounts/new_transfer.html"
-    page_title = "New Transfer"
+    page_title = _("New Transfer") + " - " + settings.SITE_NAME
     account = Account.objects.get(user=request.user)
     
     if request.method == "POST":
@@ -368,7 +370,7 @@ def transfer_done(request):
     print("Transfer Done")
     context = {}
     template_name = "accounts/transfer_done.html"
-    page_title = "Confirmation - " + settings.SITE_NAME
+    page_title = _("Confirmation") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     return render(request,template_name, context)
@@ -382,7 +384,7 @@ def transfer_details(request, pk=None):
     transfer = get_object_or_404(user_services, pk=pk)
     solde = Account.objects.get(user=request.user).solde
     template_name = "accounts/transfer_details.html"
-    page_title = "Transfer Details - " + settings.SITE_NAME
+    page_title = _("Transfer Details") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['transfer'] = transfer
@@ -395,7 +397,7 @@ def services(request):
     model = utils.get_model('accounts', 'Service')
     services = model.objects.select_related('category').filter(customer=request.user)
     template_name = "accounts/service_list.html"
-    page_title = "Services - " + settings.SITE_NAME
+    page_title = _("Services") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['services'] = services

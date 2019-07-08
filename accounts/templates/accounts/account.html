@@ -94,7 +94,7 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                 
                         </div>
                         <div id="services-view" class="tab-content">
-                                <p> {% trans "Type de services" %} :</p>
+                                <p> {% trans "Service type" %} :</p>
                                 <div class="gridview">
                                         {% for cat in active_cats %}
                                         <div class="column responsive-3">
@@ -107,13 +107,14 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                                                 {% empty %}
                                                         
                                                                 {% endfor %}
-                                                                <button class="button close">{% trans "Fermer" %}</button>
+                                                                <button class="button close">{% trans "Close" %}</button>
                                                         </div>
                                                 </div>
                                         </div>
                                         {% empty %}
                                                 <p>
-                                                        {% blocktrans %}Il n'y a actuellement aucun service disponible. Lorsque que de nouveaux services seront disponible, ils seront listés ici.
+                                                        {% blocktrans %}
+                                                        There is service available yet. New services will be listed here.
                                                         {% endblocktrans %}
                                                 </p>
                                         {% endfor %}
