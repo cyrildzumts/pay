@@ -102,7 +102,7 @@ Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
                                                         <div class="open data-caption"> {% trans cat.category_name %}</div>
                                                         
                                                         <div class="listview collapse-content">
-                                                                {% for service in cat.category_services.all %}
+                                                                {% for service in cat.category_services._set %}
                                                                         <div class="list-item"> {% trans service.name %}</div>
                                                                 {% empty %}
                                                         
