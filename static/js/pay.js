@@ -489,7 +489,7 @@ var Collapsible = (function(){
             console.log("collapsible clicked");
             console.log(this);
             var target =$(event.target).data("target");
-            //var taret = $(this).siblings("collapse-content");
+            //var taret = $(this).siblings(".collapse-content");
             if(target == undefined){
                 console.log("collpasible : target undefined");
                 $(this).parent().children(".collapse-content").toggle();
@@ -506,7 +506,7 @@ var Collapsible = (function(){
             var target =$(event.target).data("target");
 
             if(target == undefined){
-                $(this).parent().children(".collapse-content").toggle();
+                $(this).parent().toggle();
             }
             else{
                 $(target).toggle();
