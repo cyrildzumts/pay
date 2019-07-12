@@ -487,9 +487,11 @@ var Collapsible = (function(){
         console.log("Found " + this.$collapsible.length + " collapsibles on this pages.");
         $(this.$collapsible).on("click", ".open", function(event){
             console.log("collapsible clicked");
+            console.log(this);
             var target =$(event.target).data("target");
             //var taret = $(this).siblings("collapse-content");
             if(target == undefined){
+                console.log("collpasible : target undefined");
                 $(this).parent().children("collapse-content").toggle();
             }
             else{
