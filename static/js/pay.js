@@ -488,8 +488,9 @@ var Collapsible = (function(){
         $(this.$collapsible).on("click", ".open", function(event){
             console.log("collapsible clicked");
             var target =$(event.target).data("target");
+            //var taret = $(this).siblings("collapse-content");
             if(target == undefined){
-                $(this).parent().children("ul").toggle();
+                $(this).parent().children("collapse-content").toggle();
             }
             else{
                 $(target).toggle();
@@ -501,7 +502,14 @@ var Collapsible = (function(){
             event.stopPropagation();
             console.log("collapsible closing ...");
             var target =$(event.target).data("target");
-            $(target).toggle();
+
+            if(target == undefined){
+                $(this).parent().children("collapse-content").toggle();
+            }
+            else{
+                $(target).toggle();
+                console.log("Target : " + target);
+            }
         });
 
         console.log("Initializing Collapsible done.");
