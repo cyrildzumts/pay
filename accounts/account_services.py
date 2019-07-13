@@ -361,7 +361,7 @@ class AccountService(ABC):
                     logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")
                     context['errors'] = "Pay account not found. The service request cannot be processed"
                     return context
-                pay_account = Account.objects.filter(user_username="pay")
+                pay_account = Account.objects.filter(user__username="pay")
                 current_account = Account.objects.get(user=request.user)
                 operator_account = Account.objects.select_related().get(user=user_operator)
                 current_solde = current_account.solde
@@ -390,7 +390,7 @@ class AccountService(ABC):
                     context['solde'] = current_solde
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
                     return context
-                    
+
         else:
             context['solde'] = current_solde
             context['errors'] = "Verifiez les champs du formulaire."

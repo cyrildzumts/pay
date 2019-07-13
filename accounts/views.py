@@ -427,19 +427,20 @@ def new_service(request, pk=None):
     template_name = "accounts/new_service.html"
     page_title = "Service Usage"
     if request.method == "POST":
-        context = AccountService.process_service_request(request)
+        context = AccountService.process_service_request(request, service_pk=pk)
         if context['success']:
             return redirect('accounts:transaction_done')
         else : 
-            print("There was an error with the service request : ")
-            print(context['errors'])
+            logger.debug("There was an error with the service request : {}".format(context['errors']))
 
     elif request.method == "GET":
             form = AccountService.get_service_form()
+            service = get_object_or_404(AvailableService, pk=pk)
             context = {
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,
-                'form': form
+                'service' : service,
+                'form': form()
             }
     return render(request, template_name, context)
 
