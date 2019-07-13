@@ -406,7 +406,7 @@ def services(request):
 
 @login_required
 def new_service(request, pk=None):
-    """
+    '''
     This view is responsible for processing a service.
     To process a transaction : 
     The user must provide the following informations :
@@ -421,7 +421,7 @@ def new_service(request, pk=None):
     For SERVICE CONSUMER, the following extra informations are needed :
         The needed information are dependent of the type of service.
         A service REF ID is needed to identify the actual data needed.
-    """
+    '''
     context = {}
     email_template_name = "accounts/service_done_email.html"
     template_name = "accounts/new_service.html"
