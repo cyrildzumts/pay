@@ -67,9 +67,22 @@ class AvailableService(models.Model):
     created_at = models.DateField(auto_now=True)
     created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)
+    description = models.CharField(max_length=80, blank=True, null=True)
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        """
+        This method returns the url that is used to query the details of this models.
+        """
+        return reverse('accounts:available_service_details', kwargs={'pk':self.pk})
+    
+    def get_link(self):
+        """
+        This method returns the link that let the user use this services.
+        """
+        return reverse('accounts:new_service', kwargs={'pk':self.pk})
     
 
 
@@ -152,7 +165,7 @@ class Account(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('accounts:account_details', args=[str(self.pk)])
+        return reverse('accounts:account_details', kwargs={'pk':self.pk})
 
     def full_name(self):
         return self.user.get_full_name()
@@ -169,6 +182,9 @@ class IDCard(models.Model):
 
     def __str__(self):
         return "Card id : {} User : {}".format(self.pk, self.user)
+    
+    def get_absolute_url(self):
+        return reverse('accounts:idcard_details', kwargs={'pk':self.pk})
 
 
 

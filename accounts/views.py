@@ -405,7 +405,7 @@ def services(request):
 
 
 @login_required
-def new_service(request):
+def new_service(request, pk=None):
     """
     This view is responsible for processing a service.
     To process a transaction : 
@@ -429,7 +429,7 @@ def new_service(request):
     if request.method == "POST":
         context = AccountService.process_service_request(request)
         if context['success']:
-            redirect('accounts:transaction_done')
+            return redirect('accounts:transaction_done')
         else : 
             print("There was an error with the service request : ")
             print(context['errors'])

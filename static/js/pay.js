@@ -486,7 +486,6 @@ var Collapsible = (function(){
         }
         console.log("Found " + this.$collapsible.length + " collapsibles on this pages.");
         $(this.$collapsible).on("click", ".open", function(event){
-            console.log("collapsible clicked");
             console.log(this);
             var target =$(event.target).data("target");
             //var taret = $(this).siblings(".collapse-content");
@@ -496,13 +495,11 @@ var Collapsible = (function(){
             }
             else{
                 $(target).toggle();
-                console.log("Target : " + target);
             }
         });
 
         $(this.$collapsible).on("click", ".close", function(event){
             event.stopPropagation();
-            console.log("collapsible closing ...");
             var target =$(event.target).data("target");
 
             if(target == undefined){
@@ -510,7 +507,6 @@ var Collapsible = (function(){
             }
             else{
                 $(target).toggle();
-                console.log("Target : " + target);
             }
         });
 

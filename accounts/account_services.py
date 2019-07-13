@@ -13,6 +13,7 @@ from django.apps import apps
 from django.forms import modelform_factory
 import sys
 import logging
+import numbers
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ this.TransactionModel = utils.get_model('payments', 'Transaction')
 this.TransactionForm = None
 this.TransferModel = utils.get_model('payments', 'Transfer')
 this.TransferForm = None
+this.ServiceForm = ServiceCreationForm
 
 
 
@@ -74,7 +76,21 @@ class AccountService(ABC):
     
     @staticmethod
     def get_service_form():
-        return ServiceCreationForm()
+        return ServiceCreationForm
+
+
+    @staticmethod
+    def get_commission(price, applied_commision):
+        pay_fee = 0
+        operator_amount = price
+        succeed = False
+        if isinstance(price, numbers.Number) and isinstance(applied_commision, numbers.Number):
+            pay_fee = round(price * applied_commision, 2)
+            operator_amount = price - pay_fee
+            succeed = True
+        
+        return (pay_fee, operator_amount, succeed)
+
 
     @staticmethod
     def process_change_password_request(request):
@@ -325,8 +341,60 @@ class AccountService(ABC):
         return context
 
     @staticmethod
-    def process_service_request(request, service=None):
-        pass
+    def process_service_request(request, service_pk=None):
+        context = {}
+        context['success'] = False
+        logger.debug("[account_service.py] process_service_request entering")
+        form = AccountService.get_service_form()
+        
+
+        if request.method == 'POST':
+            logger.info("processing new service request : POST REQUEST")
+            postdata = utils.get_postdata(request)
+            service_form = form(postdata)
+            if service_form.is_valid():
+                logger.info(" Service Form is Valid")
+                user_operator = postdata['operator']
+                price = int(postdata['price'])
+                pay_account_exist= Account.objects.filter(user_username="pay").exist()
+                if not pay_account_exist:
+                    logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")
+                    context['errors'] = "Pay account not found. The service request cannot be processed"
+                    return context
+                pay_account = Account.objects.filter(user_username="pay")
+                current_account = Account.objects.get(user=request.user)
+                operator_account = Account.objects.select_related().get(user=user_operator)
+                current_solde = current_account.solde
+                if(current_solde - price) >= 0:
+                    operator_exist = Account.objects.filter(user=user_operator).exists()
+                    if operator_exist:
+                        pay_fee, operator_amount, succeed = AccountService.get_commission(price,operator_account.policy.commission)
+                        if succeed :
+                            Account.objects.all().filter(user=user_operator).update(solde=F('solde') + operator_amount)
+                            Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - price)
+                            Account.objects.all().filter(pk=pay_account.pk).update(solde=F('solde') + pay_fee)
+                            service_form.save()
+                            context['success'] = True
+                            context['solde'] = current_solde - price
+                            logger.info("Service Operation was succefull")
+                        else:
+                            logger.info("Service Operation was succefull : there was an error on process the commission fee")
+                    else:
+                        context['errors'] = "The service operator could not be found."
+                        logger.error("There was an error with the service request : %s", context['errors'])
+                        
+                        return context
+                    
+                else :
+                    context['success'] = False
+                    context['solde'] = current_solde
+                    context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
+                    return context
+                    
+        else:
+            context['solde'] = current_solde
+            context['errors'] = "Verifiez les champs du formulaire."
+        return context
 
 
     @staticmethod
