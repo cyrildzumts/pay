@@ -10,7 +10,8 @@
             <input type="text" name="name" value="{{service.name}}">
             <input type="text" name="operator" value="{{service.operator}}">
             <input type="hidden" name="service_instance" value="{{service.pk}}">
-            <input type="text" name="category" value="{{service.category.pk}}">
+            <input type="text" name="category" value="{{service.category.category_name}}">
+            <input type="hidden" name="category" value="{{service.category.pk}}">
             
             <input type="hidden" name="customer" value="{{request.user.pk}}">
             <input type="number" name="reference_number" placeholder="{% trans 'You bill Reference number if applicable' %}">
