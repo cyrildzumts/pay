@@ -178,7 +178,7 @@ def user_account(request):
     current_solde = current_account.solde
     model = AccountService.get_transfer_model()
     activities = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-    active_cat = ServiceCategory.objects.select_related().exclude(category_services__isnull=True)
+    active_cat = ServiceCategory.objects.select_related().exclude(available_services__isnull=True)
     available_services = AvailableService.objects.select_related().all()
     context = {
         'name'          : name,
