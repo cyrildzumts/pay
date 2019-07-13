@@ -127,5 +127,5 @@ class AccountViewsUrlTest(TestCase):
     
 
     def test_new_service_url(self):
-        found = resolve('/accounts/new_service/2')
+        found = resolve('/accounts/new_service/2/')
         self.assertEqual(found.func, views.new_service)
