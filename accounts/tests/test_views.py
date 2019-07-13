@@ -125,3 +125,7 @@ class AccountViewsUrlTest(TestCase):
         found = resolve('/accounts/payments/10/')
         self.assertEqual(found.func, views.payment_details)
     
+
+    def test_new_service_url(self):
+        found = resolve('/accounts/new_service/2')
+        self.assertEqual(found.func, views.new_service)
