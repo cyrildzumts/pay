@@ -60,8 +60,8 @@ class AvailableService(models.Model):
     """
     service_code = models.IntegerField(blank=False)
     name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="available_service", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     template_name = models.CharField(max_length=50, blank=True, null=True)
     form_class = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateField(auto_now=True)
@@ -102,12 +102,13 @@ class Service(models.Model):
 
         * The field issued_at represents the date at which the operator has created the bill for which the customer
         is paying now.
+        This model is accessible a User instance through 
 
 
     """
     name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="service_operator", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    customer = models.ForeignKey(User, related_name="service_customer", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    operator = models.ForeignKey(User, related_name="offered_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(User, related_name="used_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     reference_number = models.IntegerField(blank=False)
     customer_reference = models.CharField(max_length=50, blank=True, null=True)
     category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
