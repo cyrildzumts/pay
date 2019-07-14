@@ -393,7 +393,8 @@ class AccountService(ABC):
                     return context
             else :
                 #context['solde'] = current_solde
-                print_form(service_form)
+                print("Form is Invalid : See the errors fields below")
+                print(service_form.errors)
                 context['errors'] = "Form invalide : Check your Form fields please."
         else:
             #context['solde'] = current_solde
