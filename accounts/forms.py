@@ -159,4 +159,5 @@ class AvailableServiceCreationForm(forms.ModelForm):
 class ServiceCreationForm(forms.ModelForm):
     class Meta:
         model = Service
-        exclude = ['created_at']
+        fields = ['name', 'operator', 'customer', 'customer_reference', 'reference_number', 'category', 'service_instance',
+        'price', 'description', 'issued_at']

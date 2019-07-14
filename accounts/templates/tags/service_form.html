@@ -14,6 +14,7 @@
             <input type="hidden" name="category" value="{{service.category.pk}}">
             
             <input type="hidden" name="customer" value="{{request.user.pk}}">
+            
             <input type="number" name="reference_number" placeholder="{% trans 'You bill Reference number if applicable' %}">
             <input type="text" name="customer_reference" placeholder="{% trans 'your customer number as known by the operator' %}">
             <input type="number" name="price" placeholder="{% trans 'Enter the price of the service' %}">
