@@ -147,7 +147,7 @@ LOGGING = {
 }
 """
 ###############
-"""
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -181,7 +181,7 @@ LOGGING = {
     },
     'loggers': {
         '' : {
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'handlers': ['console', 'file']
         },
         'django': {
@@ -196,7 +196,7 @@ LOGGING = {
         }
     }
 }
-"""
+
 ###############
 
 # Internationalization
