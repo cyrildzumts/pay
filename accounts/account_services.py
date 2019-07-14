@@ -356,7 +356,7 @@ class AccountService(ABC):
                 logger.info(" Service Form is Valid")
                 user_operator = postdata['operator']
                 price = int(postdata['price'])
-                pay_account_exist= Account.objects.filter(user__username="pay").exist()
+                pay_account_exist= Account.objects.filter(user__username="pay").exists()
                 if not pay_account_exist:
                     logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")
                     context['errors'] = "Pay account not found. The service request cannot be processed"
