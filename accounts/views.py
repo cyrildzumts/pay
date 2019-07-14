@@ -432,6 +432,14 @@ def new_service(request, pk=None):
             return redirect('accounts:transaction_done')
         else : 
             logger.debug("There was an error with the service request : {}".format(context['errors']))
+            form = AccountService.get_service_form()
+            service = get_object_or_404(AvailableService, pk=pk)
+            context = {
+                'page_title':page_title,
+                'site_name' : settings.SITE_NAME,
+                'service' : service,
+                'form': form()
+            }
 
     elif request.method == "GET":
             form = AccountService.get_service_form()
