@@ -8,7 +8,8 @@
         </div>
         <div class="form-group">
             <input type="text" name="name" value="{{service.name}}">
-            <input type="text" name="operator" value="{{service.operator}}">
+            <input type="text" name="operator_name" value="{{service.operator}}">
+            <input type="hidden" name="operator" value="{{service.operator.pk}}">
             <input type="hidden" name="service_instance" value="{{service.pk}}">
             <input type="text" name="category" value="{{service.category.category_name}}">
             <input type="hidden" name="category" value="{{service.category.pk}}">
