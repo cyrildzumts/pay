@@ -389,12 +389,14 @@ class AccountService(ABC):
                     context['success'] = False
                     context['solde'] = current_solde
                     context['errors'] = "You don't have enough money on your account."
+
                     return context
             else :
-                context['solde'] = current_solde
+                #context['solde'] = current_solde
+                print_form(service_form)
                 context['errors'] = "Form invalide : Check your Form fields please."
         else:
-            context['solde'] = current_solde
+            #context['solde'] = current_solde
             context['errors'] = "Your request could not be process. Please Check the Form fields."
         return context
 
