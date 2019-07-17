@@ -181,11 +181,11 @@ LOGGING = {
     },
     'loggers': {
         '' : {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'handlers': ['console', 'file']
         },
         'django': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'handlers': ['file'],
             'propagate': True,
         },
