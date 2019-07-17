@@ -430,7 +430,7 @@ def new_service(request, pk=None):
         context = AccountService.process_service_request(request, service_pk=pk)
         if context['success']:
             logger.info("Service request successful. Redirecting now to transaction_done")
-            return redirect('accounts:transaction_done', {'redirected_from': "service_request"})
+            return redirect('accounts:transaction_done', redirected_from="service_request")
         else : 
             logger.debug("There was an error with the service request : {}".format(context['errors']))
             form = AccountService.get_service_form()
