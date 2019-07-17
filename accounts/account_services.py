@@ -379,8 +379,9 @@ class AccountService(ABC):
                             context['success'] = True
                             context['solde'] = current_solde - price
                             logger.info("Service Operation was succefull")
+                            return context
                         else:
-                            logger.info("Service Operation was succefull : there was an error on process the commission fee")
+                            logger.info("Service Operation was not succefull : there was an error on process the commission fee")
                     else:
                         context['errors'] = "The service operator could not be found."
                         logger.error("There was an error with the service request : %s", context['errors'])
