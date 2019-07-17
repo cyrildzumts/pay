@@ -88,6 +88,7 @@ class AccountService(ABC):
             pay_fee = round(price * applied_commision, 2)
             operator_amount = price - pay_fee
             succeed = True
+        logger.info("Commission : {} - PAY fee : {} - Price : {} - Operator Amount : {}".format(applied_commision, pay_fee, price, operator_amount))
         
         return (pay_fee, operator_amount, succeed)
 
