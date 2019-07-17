@@ -289,7 +289,7 @@ def transaction_done(request, redirected_from = None):
         return HttpResponseForbidden()
     
     context = {}
-    template_name = "accounts/transactions_done.html"
+    template_name = "accounts/transaction_done.html"
     page_title = "Transaction effectué - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -349,7 +349,7 @@ def new_transfer(request):
     if request.method == "POST":
         context = AccountService.process_transfer_request(request)
         if context['success']:
-            return redirect('accounts:transfer_done', request=request)
+            return redirect('accounts:transfer_done')
         else : 
             logger.error("There was an error with the transfer request : %s", context['errors'])
 
