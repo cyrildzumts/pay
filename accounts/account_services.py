@@ -342,6 +342,8 @@ class AccountService(ABC):
 
     @staticmethod
     def process_service_request(request, service_pk=None):
+        #TODO : when a user registers itself, for bussiness users it should be checked
+        # that all the necessary fields are present : policy, id card and email is verified
         context = {}
         context['success'] = False
         logger.debug("[account_service.py] process_service_request entering")
@@ -361,7 +363,7 @@ class AccountService(ABC):
                     logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")
                     context['errors'] = "Pay account not found. The service request cannot be processed"
                     return context
-                pay_account = Account.objects.filter(user__username="pay")
+                pay_account = Account.objects.get(user__username="pay")
                 current_account = Account.objects.get(user=request.user)
                 operator_account = Account.objects.select_related().get(user=user_operator)
                 current_solde = current_account.solde
