@@ -370,7 +370,7 @@ def transfer_done(request):
     print("Transfer Done")
     context = {}
     template_name = "accounts/transfer_done.html"
-    page_title = _("Confirmation") + " - " + settings.SITE_NAME
+    page_title = "Confirmation" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     return render(request,template_name, context)
