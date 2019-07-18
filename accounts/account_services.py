@@ -354,6 +354,7 @@ class AccountService(ABC):
         if request.method == 'POST':
             logger.info("processing new service request : POST REQUEST")
             postdata = utils.get_postdata(request)
+            postdata.setdefault('commission', 0.03)
             service_form = form(postdata)
             if service_form.is_valid():
                 logger.info(" Service Form is Valid")
@@ -377,7 +378,8 @@ class AccountService(ABC):
                             Account.objects.all().filter(user=user_operator).update(solde=F('solde') + operator_amount)
                             Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - price)
                             Account.objects.all().filter(pk=pay_account.pk).update(solde=F('solde') + pay_fee)
-                            service_form['commission'] = commission
+                            postdata['commission'] = commission
+                            service_form = form(postdata)
                             service_form.save()
                             context['success'] = True
                             context['solde'] = current_solde - price

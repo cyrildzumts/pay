@@ -160,4 +160,4 @@ class ServiceCreationForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['name', 'operator', 'customer', 'customer_reference', 'reference_number', 'category', 'service_instance',
-        'price', 'description', 'issued_at']
+        'price', 'description', 'issued_at', 'commission']
