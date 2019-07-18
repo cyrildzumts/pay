@@ -5,6 +5,11 @@ from accounts.models import  Policy, Account, IDCard, Service, ServiceCategory, 
 
 # Register your models here.
 
+class ServiceInline(admin.StackedInline):
+    model = Service
+    can_delete = False
+    verbose_name_plural = 'Services'
+
 class AccountInline(admin.StackedInline):
     model = Account
     can_delete = False
@@ -25,7 +30,7 @@ class IDCardInline(admin.StackedInline):
 
 
 class AccountAdmin(BaseUserAdmin):
-    inlines = [AccountInline, IDCardInline,]
+    inlines = [AccountInline, IDCardInline, ServiceInline]
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
@@ -39,3 +44,4 @@ admin.site.register(User ,AccountAdmin)
 admin.site.register( Policy)
 admin.site.register(ServiceCategory)
 admin.site.register(AvailableService)
+admin.site.register(Service)
