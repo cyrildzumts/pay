@@ -30,7 +30,7 @@ class IDCardInline(admin.StackedInline):
 
 
 class AccountAdmin(BaseUserAdmin):
-    inlines = [AccountInline, IDCardInline, ServiceInline]
+    inlines = [AccountInline, IDCardInline]
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
