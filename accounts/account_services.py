@@ -371,11 +371,13 @@ class AccountService(ABC):
                 if(current_solde - price) >= 0:
                     operator_exist = Account.objects.filter(user=user_operator).exists()
                     if operator_exist:
-                        pay_fee, operator_amount, succeed = AccountService.get_commission(price,operator_account.policy.commission)
+                        commission = operator_account.policy.commission
+                        pay_fee, operator_amount, succeed = AccountService.get_commission(price,commission)
                         if succeed :
                             Account.objects.all().filter(user=user_operator).update(solde=F('solde') + operator_amount)
                             Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - price)
                             Account.objects.all().filter(pk=pay_account.pk).update(solde=F('solde') + pay_fee)
+                            service_form['commission'] = commission
                             service_form.save()
                             context['success'] = True
                             context['solde'] = current_solde - price
