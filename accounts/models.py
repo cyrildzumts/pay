@@ -175,10 +175,12 @@ class Account(models.Model):
     def initial(self):
         return ''.join(i[0] for i in self.user.get_full_name().split()).upper()
 
-def ident_file_path(user, filename):
+
+
+def ident_file_path(instance, filename):
     file_ext = filename.split(".")[-1]
     name = settings.IDENTIFICATION_DOC_NAME_PREFIX + "." + file_ext
-    return "identifications/user_{0}_{1}".format(user.pk, name)
+    return "identifications/pay_user_{0}_{1}".format(instance.user.id, name)
     
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=False)
