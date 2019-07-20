@@ -7,11 +7,21 @@
                 <div class="tabs--title">
                         <div class="full welcome-text center">
                                 <p> {% trans "Welcome" %} {{name}}</p>
-                                <a class="link" href="{%url 'accounts:password_change' %}"> {% trans "Change my password" %}</a>
-                                {% if has_idcard is True %}
-                                        <a class="link" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a>
-                                {% endif %}
                         </div>
+                </div>
+                <div class="row">
+                        <ul  class="action-list listview">
+                                <li class="action list-item"><a class="link" href="{%url 'accounts:password_change' %}"> {% trans "Change my password" %}</a> </li>
+                                <li class="action list-item"> <a class="link" href="{%url 'accounts:new_transfer' %}"> {% trans "Send money" %}</a> </li>
+                                {% if has_idcard is True %}
+                                <li class="action list-item"><a class="link" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a> </li>
+
+                                {% else %}
+                                <li class="action list-item"><a class="link" href="{% url 'accounts:upload_idcard'%}"> {% trans "Add an ID Card" %}</a> </li>
+                                {% endif %}
+                                
+                                
+                        </ul>
                 </div>
                 <div class="tab-bar">
                         <div class="row">
