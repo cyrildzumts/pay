@@ -1,0 +1,25 @@
+{% extends "account_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container flex column">
+        {% if has_idcard %}
+            <div class="card">
+                <p> {% trans "ID number" %} : {{idcard.card_number}} </p>
+                <div class="card-image responsive"> 
+                {% trans "Image" %}: 
+                    <img class="responsive" src="{{idcard.image.url}}"/>
+                </div>
+
+            </div>
+            
+        {% else %}
+            <p> {% trans "Wrong request" %} 
+        {% endif %}
+        <div class="responsive">
+                <a class="button link" href="{% url 'accounts:account' %}"> {% trans "My Account" %} </a>
+        </div>
+        
+</div>
+{% endblock MAIN %}

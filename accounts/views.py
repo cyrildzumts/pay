@@ -180,6 +180,7 @@ def user_account(request):
     activities = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     active_cat = ServiceCategory.objects.select_related().exclude(available_services__isnull=True)
     available_services = AvailableService.objects.select_related().all()
+
     context = {
         'name'          : name,
         'page_title'    : page_title,
@@ -188,9 +189,13 @@ def user_account(request):
         'activities'    : activities,
         'active_cats'   : active_cat,
         'account'       : current_account,
-        'services': available_services,
-        'favorites': None
+        'services'      : available_services,
+        'has_idcard'    : False,
+        'favorites'     : None
     }
+    if hasattr(request.user, 'idcard'):
+        context['has_idcard'] = True
+        
     return render(request, template_name, context)
 
 
@@ -659,14 +664,17 @@ def idcards(request):
 @login_required
 def idcard_details(request, pk=None):
     context = {}
-    model = utils.get_model(app_name='accounts', modelName='IDCard')
-    user_idcards = model.objects.filter(user=request.user)
-    idcard = get_object_or_404(user_idcards, pk=pk)
+    context['has_idcard'] = False
+    if hasattr(request.user, 'idcard'):
+        context['has_idcard'] = True
+        if request.user.idcard.pk == int(pk):
+            context['idcard'] = request.user.idcard
+        else:
+            context['has_idcard'] = False
     template_name = "accounts/idcard_details.html"
-    page_title = "ID Card Details - " + settings.SITE_NAME
+    page_title = "My ID Card - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-    context['idcard'] = idcard
     return render(request,template_name, context)
 
 

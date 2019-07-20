@@ -185,7 +185,7 @@ def ident_file_path(instance, filename):
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=False)
     image = models.ImageField(upload_to=ident_file_path, blank=False)
-    user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
+    user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL,related_name='idcard')
 
     def __str__(self):
         return "Card id : {} User : {}".format(self.pk, self.user)

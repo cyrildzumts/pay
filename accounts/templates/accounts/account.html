@@ -8,6 +8,9 @@
                         <div class="full welcome-text center">
                                 <p> {% trans "Welcome" %} {{name}}</p>
                                 <a class="link" href="{%url 'accounts:password_change' %}"> {% trans "Change my password" %}</a>
+                                {% if has_idcard is True %}
+                                        <a class="link" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a>
+                                {% endif %}
                         </div>
                 </div>
                 <div class="tab-bar">
