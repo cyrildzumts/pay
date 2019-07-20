@@ -680,12 +680,15 @@ def upload_idcard(request):
     page_title = "Identification Solution - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-
+    if form().is_multipart():
+        logger.info("IDCard Form is multipart")
+    else :
+        logger.info("IDCard Form is not multipart")
 
     if request.method == "POST":
         postdata = utils.get_postdata(request)
         
-        id_form = form(postdata)
+        id_form = form(postdata, request.FILES)
         if id_form.is_valid():
             logger.info("submitted idcard form is valide")
             post_user = int(postdata['user'])
