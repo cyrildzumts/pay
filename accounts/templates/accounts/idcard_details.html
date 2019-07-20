@@ -6,8 +6,8 @@
 <div class="container flex column">
         {% if has_idcard %}
             <div class="card">
-                <p> {% trans "ID number" %} : {{idcard.card_number}} </p>
-                <div class="card-image responsive"> 
+                <p class="responsive"> {% trans "ID number" %} : {{idcard.card_number}} </p>
+                <div class="card-image responsive idcard"> 
                 {% trans "Image" %}: 
                     <img class="responsive" src="{{idcard.image.url}}"/>
                 </div>
