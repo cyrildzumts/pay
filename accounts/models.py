@@ -1,4 +1,5 @@
 from django.db import models
+from pay import settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -175,7 +176,9 @@ class Account(models.Model):
         return ''.join(i[0] for i in self.user.get_full_name().split()).upper()
 
 def ident_file_path(user, filename):
-    return "identifications/user_{0}_{1}".format(user.id, filename)
+    file_ext = filename.split(".")[-1]
+    name = settings.IDENTIFICATION_DOC_NAME_PREFIX + "." + file_ext
+    return "identifications/user_{0}_{1}".format(user.pk, name)
     
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=False)
