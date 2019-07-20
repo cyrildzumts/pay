@@ -94,8 +94,8 @@
                                                 </a>
                                         {% empty %}
                                         <p>
-                                        {% blocktrans %}Vous n'avez aucune transactions actuellement.
-Apres avoir avoir effectué une transaction, cette transaction sera listée ici.
+                                        {% blocktrans %} You have done no transactions yet.
+Your transactions will be displayed here.
                                         {% endblocktrans %}
                                         </p>
                                         <a class="button link" href="{% url 'accounts:new_transfer' %}"> {% trans "Send Money" %} </a>
