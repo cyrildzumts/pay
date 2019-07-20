@@ -686,7 +686,7 @@ def upload_idcard(request):
         postdata = utils.get_postdata(request)
         
         id_form = form(postdata)
-        if id_form.is_valid:
+        if id_form.is_valid():
             logger.info("submitted idcard form is valide")
             post_user = int(postdata['user'])
             if post_user == request.user.pk:
