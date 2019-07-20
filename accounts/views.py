@@ -699,6 +699,9 @@ def upload_idcard(request):
                 return redirect('accounts:upload_idcard_done')
             else :
                 logger.warning("User uploading ID card suspicious : submitted user %s is different than the request user %s ", post_user, request.user.pk )
+        else:
+            logger.error("The idcard form is not valide. Error : %s", id_form.errors)
+    
     context['form'] = form()
     return render(request,template_name, context)
 
