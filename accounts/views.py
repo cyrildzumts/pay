@@ -672,7 +672,7 @@ def idcard_details(request, pk=None):
 
 
 @login_required
-def upload_idCard(request):
+def upload_idcard(request):
     context = {}
     form = AccountService.get_idcard_form()
     
