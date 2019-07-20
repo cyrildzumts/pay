@@ -4,7 +4,7 @@
     <div class="form-group">
             
     </div>
-    <form id="idcard-form" class="idcard-form form" name="idcard" action="{% url 'accounts:idcards' %}" method="POST">{% csrf_token %}
+    <form id="idcard-form" class="idcard-form form" name="idcard" action="{% url 'accounts:upload_idcard' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="user" value="{{request.user.pk}}">
         <div class="form-group">
             <input type="number" name="card_number" id="card_number" placeholder="{% trans 'Enter your ID Card number' %}">

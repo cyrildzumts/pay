@@ -174,11 +174,12 @@ class Account(models.Model):
     def initial(self):
         return ''.join(i[0] for i in self.user.get_full_name().split()).upper()
 
-
+def ident_file_path(user, filename):
+    return "identifications/user_{0}_{1}".format(user.id, filename)
     
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=False)
-    image = models.ImageField(blank=False)
+    image = models.ImageField(upload_to=ident_file_path, blank=False)
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -186,7 +187,6 @@ class IDCard(models.Model):
     
     def get_absolute_url(self):
         return reverse('accounts:idcard_details', kwargs={'pk':self.pk})
-
 
 
 

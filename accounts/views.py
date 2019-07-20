@@ -670,6 +670,54 @@ def idcard_details(request, pk=None):
     return render(request,template_name, context)
 
 
+
+@login_required
+def upload_idCard(request):
+    context = {}
+    form = AccountService.get_idcard_form()
+    
+    template_name = "accounts/upload_idcard.html"
+    page_title = "Identification Solution - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+
+
+    if request.method == "POST":
+        postdata = utils.get_postdata(request)
+        
+        id_form = form(postdata)
+        if id_form.is_valid:
+            logger.info("submitted idcard form is valide")
+            post_user = postdata['user']
+            if post_user == request.user.pk:
+                logger.info("saving submitted idcard form")
+                id_form.save()
+                logger.info("submitted idcard form saved")
+                return redirect('accounts:upload_idcard_done')
+            else :
+                logger.warning("User uploading ID card suspicious : submitted user %s is different than the request user %s ", post_user, request.user.pk )
+    context['form'] = form()
+    return render(request,template_name, context)
+
+
+@login_required
+def upload_idcard_done(request):
+    context = {}
+    template_name = "accounts/upload_idcard_done.html"
+    page_title = "ID Card uploaded - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    return render(request,template_name, context)
+
+@login_required
+def validate_idcard(request):
+    pass
+
+
+
+
+
+
 @login_required
 def idcards_done(request):
     pass

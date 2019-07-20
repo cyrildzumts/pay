@@ -46,7 +46,7 @@ class AccountForm(forms.ModelForm):
 class IDCardForm(forms.ModelForm):
     class Meta:
         model = IDCard
-        exclude = ['is_active_account']
+        fields = ['card_number', 'image', 'user']
 
 
 

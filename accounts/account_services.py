@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
-from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm, ServiceCreationForm
+from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm, ServiceCreationForm, IDCardForm
 from accounts.models import Account, Policy
 from django.db.models import F, Q
 from django.apps import apps
@@ -78,6 +78,9 @@ class AccountService(ABC):
     def get_service_form():
         return ServiceCreationForm
 
+    @staticmethod
+    def get_idcard_form():
+        return IDCardForm
 
     @staticmethod
     def get_commission(price, applied_commision):

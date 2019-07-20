@@ -129,3 +129,11 @@ class AccountViewsUrlTest(TestCase):
     def test_new_service_url(self):
         found = resolve('/accounts/new_service/2/')
         self.assertEqual(found.func, views.new_service)
+
+    def test_upload_idcard_url(self):
+        found = resolve('/accounts/upload_idcard/')
+        self.assertEqual(found.func, views.upload_idCard)
+
+    def test_upload_idcard_done_url(self):
+        found = resolve('/accounts/upload_idcard/upload_idcard_done/')
+        self.assertEqual(found.func, views.upload_idcard_done)
