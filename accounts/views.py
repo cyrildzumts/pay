@@ -21,6 +21,7 @@ from django.views.generic.edit import  UpdateView
 from payments.models import Transaction
 from django.db.models import F, Q
 import logging
+from pay.tasks import send_mail_task
 
 
 logger = logging.getLogger(__name__)
@@ -434,6 +435,8 @@ def new_service(request, pk=None):
     if request.method == "POST":
         context = AccountService.process_service_request(request, service_pk=pk)
         if context['success']:
+            messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
+            send_mail_task.delay()
             logger.info("Service request successful. Redirecting now to transaction_done")
             return redirect('accounts:transaction_done', redirected_from="service_request")
         else : 

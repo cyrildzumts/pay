@@ -30,7 +30,8 @@ SITE_NAME =  os.environ['PAY_SITE_NAME']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CELERY_BROKER_URL = os.environ['PAY_CELERY_BROKER_URL']
+CELERY_BACKEND = os.environ['PAY_CELERY_BACKEND']
 ALLOWED_HOSTS = ['localhost',os.environ['PAY_ALLOWED_HOST']]
 
 #EMAIL SETTINGS
