@@ -11,6 +11,5 @@ def send_mail_task(to=None, msg=None):
         get_random_string(12),
         get_random_string(75),
         'root@local_pay.com',
-        'pay_user@local_pay.com'
+        ['pay_user@local_pay.com']
     )
-    
