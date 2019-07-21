@@ -43,6 +43,9 @@ EMAIL_USE_SSL = True
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,7 +57,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'payments.apps.PaymentsConfig',
+    'rest_framework',
+    'api.apps.ApiConfig',
 ]
+
+# RESTFRAMEWORK SETTINGS
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

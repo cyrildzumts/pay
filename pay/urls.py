@@ -23,12 +23,14 @@ from pay import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('about/', views.about, name='about'),
+    path('api/', include('api.urls', namespace='api')),
+    path('api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('faq/', views.faq, name='faq'),
     path('index/', views.home, name='index'),
     path('i18n/', include('django.conf.urls.i18n')),
- #   path('recharge/', include('voucher.urls')),
- #   path('issues/', include('issues.urls')),
+#   path('recharge/', include('voucher.urls')),
+#   path('issues/', include('issues.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

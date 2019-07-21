@@ -195,7 +195,7 @@ def user_account(request):
     }
     if hasattr(request.user, 'idcard'):
         context['has_idcard'] = True
-        
+
     return render(request, template_name, context)
 
 
@@ -735,3 +735,6 @@ def validate_idcard(request):
 @login_required
 def idcards_done(request):
     pass
+
+
+
