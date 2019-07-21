@@ -10,7 +10,7 @@ from api.serializers import AvailableServiceSerializer, AvailableService
 
 # Create your views here.
 # REST API Views
-class AvailableServiceListAPIView(generics.ListAPIView):
+class AvailableServiceListAPIView(ListAPIView):
     queryset =  AvailableService.objects.all()
     serializer_class =  AvailableServiceSerializer
 
