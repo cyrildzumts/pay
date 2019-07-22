@@ -436,7 +436,10 @@ def new_service(request, pk=None):
         context = AccountService.process_service_request(request, service_pk=pk)
         if context['success']:
             messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
-            send_mail_task.delay()
+            send_mail_task.apply_async(
+                queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+            )
             logger.info("Service request successful. Redirecting now to transaction_done")
             return redirect('accounts:transaction_done', redirected_from="service_request")
         else : 
