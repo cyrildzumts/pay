@@ -401,7 +401,7 @@ class AccountService(ABC):
                                 'pay_fee'           : pay_fee,
                                 'payment_date'      : service.created_at,
                                 'description'       : service.description,
-                                'template_name'     : 'accounts/service_mail_confirmation_ougoing.html',
+                                'template_name'     : 'accounts/service_mail_confirmation_incoming.html',
                                 'recipient_email'   : service.operator.email,
                                 'sender_email'      : service.customer.email,
                                 'has_image'         : False
