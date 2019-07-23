@@ -7,6 +7,7 @@ from celery import shared_task
 
 @shared_task
 def send_mail_task(to=None, msg=None):
+    # TODO : make sending email based on Django Template System.
     send_mail(
         get_random_string(12),
         get_random_string(75),
