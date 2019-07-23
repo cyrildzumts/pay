@@ -349,6 +349,7 @@ class AccountService(ABC):
         #TODO : when a user registers itself, for bussiness users it should be checked
         # that all the necessary fields are present : policy, id card and email is verified
         context = {}
+
         context['success'] = False
         logger.debug("[account_service.py] process_service_request entering")
         form = AccountService.get_service_form()
@@ -378,13 +379,35 @@ class AccountService(ABC):
                         commission = operator_account.policy.commission
                         pay_fee, operator_amount, succeed = AccountService.get_commission(price,commission)
                         if succeed :
+                            
                             Account.objects.all().filter(user=user_operator).update(solde=F('solde') + operator_amount)
                             Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - price)
                             Account.objects.all().filter(pk=pay_account.pk).update(solde=F('solde') + pay_fee)
                             postdata['commission'] = commission
                             service_form = form(postdata)
-                            service_form.save()
+                            service = service_form.save()
+                            email_context = {
+                                'title'             : 'Payment Confirmation',
+                                'recipient_name'    : operator_account.full_name(),
+                                'sender_name'       : current_account.full_name(),
+                                'service_name'      : service.name,
+                                'customer_reference': service.customer_reference,
+                                'consumer_name'     : current_account.full_name(),
+                                'reference_number'  : service.reference_number,
+                                'invoice_date'      : service.issued_at,
+                                'category_name'     : service.category.category_name,
+                                'price'             : service.price,
+                                'commission'        : service.commission,
+                                'pay_fee'           : pay_fee,
+                                'payment_date'      : service.created_at,
+                                'description'       : service.description,
+                                'template_name'     : 'accounts/service_mail_confirmation_ougoing.html',
+                                'recipient_email'   : service.operator.email,
+                                'sender_email'      : service.customer.email,
+                                'has_image'         : False
+                            }
                             context['success'] = True
+                            context['email_context'] = email_context
                             context['solde'] = current_solde - price
                             logger.info("Service Operation was succefull")
                             return context
