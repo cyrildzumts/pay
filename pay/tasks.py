@@ -24,7 +24,7 @@ def send_mail_task(email_context=None):
             email_context['title'],
             rendered,
             'root@local_pay.com',
-            [email_context['recepient_email']],
+            [email_context['recipient_email']],
             html_message=html_message
         )
     else:
