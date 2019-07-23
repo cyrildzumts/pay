@@ -18,7 +18,6 @@ def send_mail_task(email_context=None):
     if email_context is not None:
         logger.debug("email_context available. Running send_mail now")
         template_name = email_context['template_name']
-        loader.get_template()
         rendered = loader.render_to_string(template_name, {'email': email_context})
         html_message = loader.get_template(template_name=template_name).render({'email': email_context})
         send_mail(
