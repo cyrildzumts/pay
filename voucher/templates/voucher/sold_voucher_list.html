@@ -15,7 +15,7 @@
           <a class="button link" href="{{sold_voucher.get_absolute_url}}"> {% trans "More" %} ...</a>
         </div>
     {% empty %}
-    <p> {% trans "You haven't used any services" %} ...</p>
+    <p> {% trans "There is currently no sold voucher." %} ...</p>
     <a class="button link" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
     <a class="button link" href="{% url 'home' %}"> {% trans "PAY Home" %} </a>
     {% endfor %}
