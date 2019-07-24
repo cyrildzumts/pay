@@ -18,7 +18,6 @@ class UsedVoucherInline(admin.StackedInline):
 
 
 
-@admin.register(Voucher)
 class VoucherAdmin(admin.ModelAdmin):
     inlines = (SoldVoucherInline, UsedVoucherInline)
 
