@@ -122,9 +122,9 @@ def voucher_generate(request):
         postdata = utils.get_postdata(request)
         form = VoucherCreationForm(postdata)
         if form.is_valid():
-            name = form.name
-            amount = int(form.amount)
-            number = int(form.number)
+            name = form['name']
+            amount = int(form['amount'])
+            number = int(form['number'])
             logger.debug("Submitted Voucher Creation Form is valid.")
             logger.debug("Voucher creation request : Name : %s - Amout : %s - Number : %s", name, amount, number)
             return redirect('voucher:voucher_home')
