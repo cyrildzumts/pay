@@ -30,6 +30,5 @@ class VoucherAdmin(admin.ModelAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User ,VoucherAdmin)
-admin.site.register( Voucher)
 admin.site.register(SoldVoucher)
 admin.site.register(UsedVoucher)
