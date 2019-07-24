@@ -27,3 +27,9 @@ class VoucherAdmin(admin.ModelAdmin):
             return list()
         return super(VoucherAdmin, self).get_inline_instances(request, obj)
 
+
+admin.site.unregister(User)
+admin.site.register(User ,VoucherAdmin)
+admin.site.register( Voucher)
+admin.site.register(SoldVoucher)
+admin.site.register(UsedVoucher)
