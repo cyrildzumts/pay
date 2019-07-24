@@ -199,7 +199,7 @@ def user_account(request):
 
     return render(request, template_name, context)
 
-
+@login_required
 def account_details(request, pk=None):
     page_title = _("Account Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Account, pk=pk)

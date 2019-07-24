@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'payments.apps.PaymentsConfig',
     'rest_framework',
     'api.apps.ApiConfig',
+    'voucher.apps.ApiConfig',
 ]
 
 # RESTFRAMEWORK SETTINGS
