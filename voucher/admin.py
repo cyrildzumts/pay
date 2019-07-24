@@ -9,18 +9,18 @@ class VoucherInline(admin.StackedInline):
 
 class SoldVoucherInline(admin.StackedInline):
     model = SoldVoucher
-    fk_name = 'voucher'
+    fk_name = 'seller'
 
 
 class UsedVoucherInline(admin.StackedInline):
     model = UsedVoucher
-    fk_name = 'voucher'
+    fk_name = 'customer'
 
 
 
 @admin.register(Voucher)
 class VoucherAdmin(admin.ModelAdmin):
-    inlines = (VoucherInline, SoldVoucherInline, UsedVoucherInline)
+    inlines = (SoldVoucherInline, UsedVoucherInline)
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
@@ -29,6 +29,7 @@ class VoucherAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(User)
-admin.site.register(User ,VoucherAdmin)
+admin.site.register(User, VoucherAdmin)
+admin.site.register(Voucher)
 admin.site.register(SoldVoucher)
 admin.site.register(UsedVoucher)
