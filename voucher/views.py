@@ -6,6 +6,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from pay import settings, utils
+from django.utils.translation import gettext as _
 import logging
 # Create your views here.
 
