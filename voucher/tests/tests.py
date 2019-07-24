@@ -39,3 +39,7 @@ class VouchersViewsUrlTest(TestCase):
         found = resolve('/voucher/sold_voucher_details/10/')
         self.assertEqual(found.func, views.sold_voucher_details)
 
+    def test_voucher_generate_url(self):
+        found = resolve('/voucher/voucher_generate/')
+        self.assertEqual(found.func, views.voucher_generate)
+
