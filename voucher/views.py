@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from pay import settings, utils
 from voucher.forms import VoucherCreationForm
+from voucher.tasks import generate_voucher
 from django.utils.translation import gettext as _
 import logging
 # Create your views here.
@@ -127,6 +128,16 @@ def voucher_generate(request):
             number = form.cleaned_data['number']
             logger.info("Submitted Voucher Creation Form is valid.")
             logger.info("Voucher creation request : Name : %s - Amout : %s - Number : %s", name, amount, number)
+            generate_voucher.apply_async(
+                args=[{
+                    'name':name,
+                    'amount': amount,
+                    'number': number
+                }],
+                queue=settings.CELERY_VOUCHER_GENERATE_QUEUE,
+                routing_key=settings.CELERY_VOUCHER_ROUTING_KEY
+            )
+            logger.info("Voucher Creation pushed in the Queue")
             return redirect('voucher:voucher_home')
     context = {
             'page_title':page_title,
