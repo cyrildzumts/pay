@@ -117,12 +117,16 @@ def sold_voucher_details(request, pk=None):
 @login_required
 def voucher_generate(request):
     page_title = _("Voucher Generator") + ' | ' + settings.SITE_NAME
-    template_name = "voucher/oucher_generate.html"
+    template_name = "voucher/voucher_generate.html"
     if request.method == "POST":
         postdata = utils.get_postdata(request)
         form = VoucherCreationForm(postdata)
         if form.is_valid():
+            name = form.name
+            amount = int(form.amount)
+            number = int(form.number)
             logger.debug("Submitted Voucher Creation Form is valid.")
+            logger.debug("Voucher creation request : Name : %s - Amout : %s - Number : %s", name, amount, number)
             return redirect('voucher:voucher_home')
     context = {
             'page_title':page_title,
