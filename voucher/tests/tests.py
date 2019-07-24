@@ -6,11 +6,11 @@ from voucher import views
 
 
 class VouchersViewsUrlTest(TestCase):
-    def test_vouchers_url(self):
+    def test_voucher_home_url(self):
         found = resolve('/voucher/')
-        self.assertEqual(found.func, views.vouchers)
+        self.assertEqual(found.func, views.voucher_home)
 
-    def test_vouchers_2_url(self):
+    def test_vouchers_url(self):
         found = resolve('/voucher/vouchers/')
         self.assertEqual(found.func, views.vouchers)
 

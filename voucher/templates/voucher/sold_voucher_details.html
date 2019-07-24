@@ -14,6 +14,7 @@
           <p> {% trans "Seller" %} : {{sold_voucher.seller.get_full_name}} </p>
 
         </div>
+    <a class="button link" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
     <a class="button link" href="{% url 'accounts:account' %}"> {% trans "My Account" %} </a>
 </div>
 {% endblock MAIN %}

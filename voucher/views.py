@@ -14,6 +14,18 @@ logger = logging.getLogger(__name__)
 
 
 @login_required
+def voucher_home(request):
+    context = {}
+    #model = utils.get_model('voucher', 'Voucher')
+    #TODO Must be fixed : The users visiting this must have the appropiatre
+    # permission
+    template_name = "voucher/voucher.html"
+    page_title = _("Voucher Dashboard") + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['site_name'] = settings.SITE_NAME
+    return render(request,template_name, context)
+
+@login_required
 def vouchers(request):
     context = {}
     #model = utils.get_model('voucher', 'Voucher')
