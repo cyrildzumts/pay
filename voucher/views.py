@@ -125,8 +125,8 @@ def voucher_generate(request):
             name = form.cleaned_data['name']
             amount = form.cleaned_data['amount']
             number = form.cleaned_data['number']
-            logger.debug("Submitted Voucher Creation Form is valid.")
-            logger.debug("Voucher creation request : Name : %s - Amout : %s - Number : %s", name, amount, number)
+            logger.info("Submitted Voucher Creation Form is valid.")
+            logger.info("Voucher creation request : Name : %s - Amout : %s - Number : %s", name, amount, number)
             return redirect('voucher:voucher_home')
     context = {
             'page_title':page_title,
