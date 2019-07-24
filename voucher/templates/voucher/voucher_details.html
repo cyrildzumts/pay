@@ -1,0 +1,28 @@
+{% extends "account_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+         <div class="card">
+          <p> {% trans "Name" %} : {{voucher.name}} </p>
+          <p> {% trans "Credit" %} : {{voucher.amount}} FCFA </p>
+          <p> {% trans "Voucher Code" %} : {{voucher.voucher_code}} </p>
+          <p> {% trans "Creation Date" %} : {{voucher.created_at}} </p>
+          {% if voucher.activated is True %}
+          <p> {% trans "Activated" %} :  {% trans "Yes" %}</p>
+          <p> {% trans "Activation Date" %} : {{voucher.activated_at}} </p>
+          {% else %}
+          <p> {% trans "Activated" %} :  {% trans "No" %}</p>
+          {% endif %}
+
+          {% if voucher.is_used is True %}
+          <p> {% trans "Is already used " %} :  {% trans "Yes" %}</p>
+
+          {% else %}
+          <p> {% trans "Is already used " %} :  {% trans "No" %}</p>
+          {% endif %}
+        </div>
+    <a class="button link" href="{% url 'accounts:account' %}"> {% trans "My Account" %} </a>
+</div>
+{% endblock MAIN %}

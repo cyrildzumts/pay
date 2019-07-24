@@ -78,12 +78,12 @@ def sold_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     #TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    vouchers = Voucher.objects.all()
+    sold_vouchers = SoldVoucher.objects.all()
     template_name = "voucher/sold_voucher_list.html"
     page_title = _("Sold Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
-    context['vouchers'] = vouchers
+    context['sold_vouchers'] = sold_vouchers
     return render(request,template_name, context)
 
 @login_required
@@ -95,6 +95,6 @@ def sold_voucher_details(request, pk=None):
         'page_title':page_title,
         'site_name' : settings.SITE_NAME,
         'template_name':template_name,
-        'voucher': instance
+        'sold_voucher': instance
     }
     return render(request,template_name,context)

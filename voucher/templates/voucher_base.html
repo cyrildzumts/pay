@@ -1,0 +1,44 @@
+{% extends "base_flat.html"%}
+{% load i18n %} 
+{% block META_REDIRECT %}
+        
+{% endblock META_REDIRECT %}
+{% block HEADER_PANEL %}
+  <div class="header--panel row">
+       <div class="col col-1">
+              <div class="logo">
+                {{site_name}}
+              </div>
+        </div>
+        <div class="col col-11">
+              <nav class="nav">
+                    <a href="{% url 'accounts:account' %}">{{site_name}}</a>
+                    <a href="#customer">{% trans "Activities" %}</a>
+                    <a class="notification-bell"> <i class="far fa-bell"></i> </a>
+                    <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a>
+                    <div class="languages">
+                   {% for lang in LANGUAGES %}
+                   {% if lang.0 == LANGUAGE_CODE %}
+                        <span class="lang active" title="{{lang.1}}"> {{lang.0}} </span>
+                   {% else %}
+                        <span class="lang" title="{{lang.1}}"> {{lang.0}} </span>
+                  {% endif %} 
+                  {% endfor %}
+                   </div>
+              </nav>
+        </div>                 
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+  <div class="header--banner row">
+        <div class="col col-6">
+          <div class="row">
+                <p> {% trans "VOUCHER DASHBOARD" %} </p>
+          </div>
+        </div> 
+  </div>
+{% endblock HEADER_BANNER %}
+
+{% block MAIN %}
+
+{% endblock MAIN %}

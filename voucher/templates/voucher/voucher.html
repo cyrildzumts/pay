@@ -1,0 +1,29 @@
+{% extends "voucher_base.html"%}
+{% load i18n %}
+{% block MAIN %}
+
+<div class="row">
+        
+        <p> Voucher Dashboard</p>
+        <p> Navigate this page to see and manage the voucher </p>
+
+</div>
+<div class="row">
+        
+        <nav class="card responsive">
+            <ul class="list listview">
+                <li class="list-item"> <a class="link" href="{%url 'voucher:vouchers'%}">
+                    </a> {% trans "Generated Voucher List" %}
+                </li>
+                <li class="list-item"> <a class="link" href="{%url 'voucher:used_vouchers'%}"> 
+                     </a> {% trans "Used Voucher List" %} 
+                </li>
+                <li class="list-item"> <a class="link" href="{%url 'voucher:sold_vouchers'%}">
+                     </a> {% trans "Sold Voucher List" %} 
+                </li>
+            </ul>
+        </nav>
+
+</div>
+
+{% endblock MAIN %}
