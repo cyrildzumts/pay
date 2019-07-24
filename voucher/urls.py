@@ -16,4 +16,5 @@ urlpatterns = [
 
     path('sold_vouchers/', views.sold_vouchers, name='sold_vouchers'),
     path('sold_voucher_details/<int:pk>/', views.sold_voucher_details, name='sold_voucher_details'),
+    path('generate/', views.voucher_generate, name='voucher_generate'),
 ]

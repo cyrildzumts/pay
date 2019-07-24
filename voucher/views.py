@@ -6,6 +6,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from pay import settings, utils
+from voucher.forms import VoucherCreationForm
 from django.utils.translation import gettext as _
 import logging
 # Create your views here.
@@ -109,4 +110,23 @@ def sold_voucher_details(request, pk=None):
         'template_name':template_name,
         'sold_voucher': instance
     }
+    return render(request,template_name,context)
+
+
+
+@login_required
+def voucher_generate(request):
+    page_title = _("Voucher Generator") + ' | ' + settings.SITE_NAME
+    template_name = "voucher/oucher_generate.html"
+    if request.method == "POST":
+        postdata = utils.get_postdata(request)
+        form = VoucherCreationForm(postdata)
+        if form.is_valid():
+            logger.debug("Submitted Voucher Creation Form is valid.")
+            return redirect('voucher:voucher_home')
+    context = {
+            'page_title':page_title,
+            'site_name' : settings.SITE_NAME,
+            'template_name':template_name,
+        }
     return render(request,template_name,context)

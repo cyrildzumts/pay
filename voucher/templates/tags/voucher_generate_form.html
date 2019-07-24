@@ -1,0 +1,27 @@
+{% load i18n %} 
+
+<div class="responsive">
+
+    <form id="voucher-generate-form" class="voucher-generate-form form" name="voucher-generate" action="{% url 'voucher:voucher_generate' %}" method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="name">{% trans "Voucher Card Name" %} : </label>
+            <input id="name" type="text" name="name">
+        </div>
+
+        <div class="form-group">
+            <label for="amount">{% trans "Voucher Recharge Credit" %} : </label>
+            <input id="amount" type="text" name="amount">
+        </div>
+
+        <div class="form-group">
+            <label for="number">{% trans "Number of Voucher card to generate" %} :</label>
+            <input id="number" type="text" name="number">
+        </div>
+        
+        <div class="form-group row">
+            <button class="button" type="submit">{% trans "Generate" %}</button>
+            <a class="button link" href="{%url 'voucher:voucher_home'%}">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+
+</div>
