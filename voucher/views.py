@@ -34,7 +34,7 @@ def vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     #TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    vouchers = Voucher.objects.all()
+    vouchers = Voucher.objects.order_by('pk').all()
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
