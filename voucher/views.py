@@ -10,6 +10,7 @@ from voucher.forms import VoucherCreationForm
 from voucher.tasks import generate_voucher
 from django.utils.translation import gettext as _
 import logging
+from datetime import datetime
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -58,7 +59,7 @@ def voucher_details(request, pk=None):
 
 @login_required
 def voucher_activate(request, pk=None):
-    c = Voucher.objects.filter(pk=pk,activated=False, is_used=False).update(activated=True)
+    c = Voucher.objects.filter(pk=pk,activated=False, is_used=False).update(activated=True, activated_at=datetime.now())
     if c > 0 :
         return redirect('voucher:vouchers')
     else :
