@@ -23,7 +23,7 @@
           <p> {% trans "Is already used " %} :  {% trans "No" %}</p>
           {% endif %}
         </div>
-    <a class="button link" href="{% url 'voucher:voucher_activate' voucher.pk %} "> {% trans "Activate this Voucher" %} </a>
+    <a class="button link" href="{% url 'voucher:activate' voucher.pk %} "> {% trans "Activate this Voucher" %} </a>
     <a class="button link" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
     <a class="button link" href="{% url 'accounts:account' %}"> {% trans "My Account" %} </a>
     

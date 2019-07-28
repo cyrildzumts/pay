@@ -8,7 +8,7 @@ app_name = 'voucher'
 
 urlpatterns = [
     path('', views.voucher_home, name='voucher_home'),
-    path('activate/<int:pk>/', views.voucher_activate, name='voucher_activate'),
+    path('activate/<int:pk>/', views.voucher_activate, name='activate'),
     path('vouchers/', views.vouchers, name='vouchers'),
     path('voucher_details/<int:pk>/', views.voucher_details, name='voucher_details'),
 
