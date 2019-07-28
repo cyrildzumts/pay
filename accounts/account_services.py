@@ -6,11 +6,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
-from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm, ServiceCreationForm, IDCardForm
+from accounts.forms import  RegistrationForm, AuthenticationForm, AccountForm, UserSignUpForm, AccountCreationForm, ServiceCreationForm, IDCardForm, RechargeForm
 from accounts.models import Account, Policy
 from django.db.models import F, Q
 from django.apps import apps
 from django.forms import modelform_factory
+from voucher import voucher_service
 import sys
 import logging
 import numbers
@@ -433,6 +434,34 @@ class AccountService(ABC):
         else:
             #context['solde'] = current_solde
             context['errors'] = "Your request could not be process. Please Check the Form fields."
+        return context
+
+    @staticmethod
+    def process_recharge_request(request):
+        context = {
+            'success': False
+        }
+        if request and request.method=="POST":
+            logger.info("processing new recharge request")
+            postdata = utils.get_postdata(request)
+            recharge_form = RechargeForm(postdata)
+            if recharge_form.is_valid():
+                logger.info(" Submitted Recharge Form is Valid")
+                voucher = recharge_form.cleaned_data['voucher']
+                succeed, amount = voucher_service.VoucherService.use_voucher(voucher, request.user.pk)
+                if succeed:
+                    email_context = {
+                        'title' : 'Recharge Confirmation',
+                        'customer_name': request.user.get_full_name(),
+                        'voucher': voucher,
+                        'amount' : amount,
+                        'recipient_email': request.user.email,
+                        'email_template': "accounts/account_recharge_done_email.html"
+                    }
+                    context['success'] = True
+                    context['email_context'] = email_context
+                    logger.info("Recharge was succefull")
+                    return context
         return context
 
 

@@ -161,3 +161,9 @@ class ServiceCreationForm(forms.ModelForm):
         model = Service
         fields = ['name', 'operator', 'customer', 'customer_reference', 'reference_number', 'category', 'service_instance',
         'price', 'description', 'issued_at', 'commission']
+
+
+
+class RechargeForm(forms.Form):
+    voucher = forms.CharField(max_length=32, label="Voucher Code")
+

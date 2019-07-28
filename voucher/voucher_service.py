@@ -1,3 +1,7 @@
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.db.models import F, Q
+from pay import utils
 import codecs
 import random
 import hashlib
@@ -161,39 +165,53 @@ class VoucherService:
     @classmethod
     def can_be_used(cls, voucher):
         flag = False
+        Voucher = utils.get_model("voucher", "Voucher")
         if cls.is_valide(voucher):
-            active = voucher in cls.voucher_activated
-            used = voucher not in cls.voucher_already_used
-            flag = active and used
+            flag = Voucher.objects.filter(voucher_code=voucher, activated=True, is_used=False).exists()
         return flag
 
     @classmethod
-    def use_voucher(cls, voucher):
+    def use_voucher(cls, voucher, user_pk=None):
+        succeed = False
+        amount = 0
         if cls.can_be_used(voucher):
-            cls.voucher_already_used.add(voucher)
-            try:
-                cls.voucher_activated.remove(voucher)
-                cls.used_voucher += 1
-                logger.info("Voucher {} used.".format(voucher))
-            except KeyError:
-                logger.error("Voucher error : Voucher {} not in the activated list".format(voucher))
-                
+            Voucher = utils.get_model("voucher", "Voucher")
+            Account = utils.get_model("accounts", "Account")
+            UsedVoucher = utils.get_model("voucher", "UsedVoucher")
+            user = User.objects.get(user=user_pk)
+            voucher_queryset = Voucher.objects.filter(voucher_code=voucher)
+            voucher_queryset.update(is_used=True)
+            v = voucher_queryset.get()
+            amount = v.amount
+            Account.objects.filter(user=user).update(solde=F('solde') + amount)
+            UsedVoucher.objects.create(customer=user, voucher=v)
+
+            logger.info("Voucher %s used by user %s", voucher, user.get_full_name())
+            succeed = True
         else:
-            logger.info("Voucher {} could not be used.".format(voucher))
+
+            logger.info("Voucher %s could not be used. Verify that the voucher is activated", voucher)
             
-    
+        return succeed,amount
 
 
     @classmethod
-    def activate_voucher(cls,voucher):
+    def activate_voucher(cls,voucher, seller_pk=None):
+        succeed = False
+        Voucher = utils.get_model("voucher", "Voucher")
+        SoldVoucher = utils.get_model("voucher", "SoldVoucher")
         if cls.is_valide(voucher):
-            if voucher not in cls.voucher_activated:
-                cls.voucher_activated.add(voucher)
-                cls.activated_voucher += 1
-                logger.info("Voucher {} activated.".format(voucher))
-            else :
-                 logger.warning("Voucher {} already activated.".format(voucher))
-    
+            queryset = Voucher.objects.filter(voucher_code=voucher, activated=False, is_used=False)
+        if queryset.exists():
+            queryset.update(activated=True)
+            succeed = True
+            #SoldVoucher.objects.create(seller=seller_pk, voucher=queryset.get())
+            logger.info("Voucher %s is successfuly activated ",voucher)
+
+        else :
+            logger.warning("Voucher %s is whether activated or it doesn't exists.",voucher)
+
+        return succeed
 
     @classmethod
     def generate_new_code(cls,number_of_code=DEFAULT_VOUCHER_LIMIT, parts=VOUCHER_DEFAULT_PART_COUNT, part_len=VOUCHER_DEFAULT_PART_LENGTH):

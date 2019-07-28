@@ -13,6 +13,8 @@
                         <ul  class="action-list listview">
                                 <li class="action list-item"><a class="link" href="{%url 'accounts:password_change' %}"> {% trans "Change my password" %}</a> </li>
                                 <li class="action list-item"> <a class="link" href="{%url 'accounts:new_transfer' %}"> {% trans "Send money" %}</a> </li>
+                                <li class="action list-item"> <a class="link" href="{%url 'accounts:recharge' %}"> {% trans "Recharge my account" %}</a> </li>
+
                                 {% if has_idcard is True %}
                                 <li class="action list-item"><a class="link" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a> </li>
 

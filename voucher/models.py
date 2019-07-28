@@ -31,7 +31,7 @@ class SoldVoucher(models.Model):
 
     seller = models.ForeignKey(User, related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="sold_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    sold_at = models.DateField()
+    sold_at = models.DateField(auto_now=True)
 
     class Meta:
         verbose_name = _("SoldVoucher")
@@ -49,7 +49,7 @@ class UsedVoucher(models.Model):
 
     customer = models.ForeignKey(User, related_name='used_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="used_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    used_at = models.DateField()
+    used_at = models.DateField(auto_now=True)
     class Meta:
         verbose_name = _("UsedVoucher")
         verbose_name_plural = _("UsedVouchers")

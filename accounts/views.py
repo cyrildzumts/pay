@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import login as django_login, logout as django_logout, update_session_auth_hash
 from accounts.models import Account, ServiceCategory, AvailableService
-from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm
+from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm, RechargeForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 from pay import settings, utils
@@ -652,6 +652,56 @@ def reduction_details(request, pk=None):
     context['reduction'] = reduction
     return render(request,template_name, context)
 
+
+@login_required
+def recharge(request):
+    '''
+    This view is responsible for processing a service.
+    To process a transaction : 
+    The user must provide the following informations :
+        * recipient ID
+        * the amount of money to send
+        * the type of transaction : TRANSFER, INVOICE PAYMENT, SERVICE CONSUMER
+    For TRANSFER no more information data are needed.
+    For INVOICE PAYMENT, the following extra informations are needed :
+        * Invoice Reference Number
+        * Invoice Date
+        * Customer ID of as used by the recipient
+    For SERVICE CONSUMER, the following extra informations are needed :
+        The needed information are dependent of the type of service.
+        A service REF ID is needed to identify the actual data needed.
+    '''
+    context = {}
+    email_template_name = "accounts/account_recharge_done_email.html"
+    template_name = "accounts/recharge.html"
+    page_title = "Account Recharge"
+    if request.method == "POST":
+        context = AccountService.process_recharge_request(request)
+        if context['success']:
+            messages.success(request, 'Your account has been recharged.We have send you a confirmation E-Mail. You will receive it in an instant')
+            send_mail_task.apply_async(args=[context['email_context']],
+                queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+            )
+            logger.info("Recharge request successful. Redirecting now to user account")
+            return redirect('accounts:account')
+        else : 
+            logger.debug("There was an error with the recharge request : {}".format(context['errors']))
+            form = RechargeForm()
+            context = {
+                'page_title':page_title,
+                'site_name' : settings.SITE_NAME,
+                'form': form
+            }
+
+    elif request.method == "GET":
+            form = RechargeForm()
+            context = {
+                'page_title':page_title,
+                'site_name' : settings.SITE_NAME,
+                'form': form
+            }
+    return render(request, template_name, context)
 
 @login_required
 def idcards(request):

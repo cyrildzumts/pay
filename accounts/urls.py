@@ -46,6 +46,7 @@ urlpatterns = [
     path('payments/<int:pk>/', views.payment_details, name='payment_details'),
     path('policies/', views.policies, name='policies'),
     path('policies/<int:pk>/', views.policy_details, name='policy_details'),
+    path('recharge/', views.recharge, name='recharge'),
     path('service_categories/', views.service_categories, name='service_categories'),
     path('service_categories/<int:pk>/', views.service_category_details, name='service_categories_details'),
     
