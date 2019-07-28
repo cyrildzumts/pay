@@ -456,7 +456,7 @@ class AccountService(ABC):
                         'voucher': voucher,
                         'amount' : amount,
                         'recipient_email': request.user.email,
-                        'email_template': "accounts/account_recharge_done_email.html"
+                        'template_name': "accounts/account_recharge_done_email.html"
                     }
                     context['success'] = True
                     context['email_context'] = email_context
