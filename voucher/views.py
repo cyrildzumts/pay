@@ -57,10 +57,12 @@ def voucher_details(request, pk=None):
 
 
 @login_required
-def voucher_activate(request, voucher_pk=None):
-    Voucher.objects.filter(pk=voucher_pk,activated=False, is_used=False).update(activated=True)
-    
-    return redirect('voucher:vouchers')
+def voucher_activate(request, pk=None):
+    c = Voucher.objects.filter(pk=pk,activated=False, is_used=False).update(activated=True)
+    if c > 0 :
+        return redirect('voucher:vouchers')
+    else :
+        return redirect('voucher:voucher_details', pk=pk)
 
 
 @login_required
