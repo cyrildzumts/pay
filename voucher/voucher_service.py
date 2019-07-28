@@ -178,7 +178,7 @@ class VoucherService:
             Voucher = utils.get_model("voucher", "Voucher")
             Account = utils.get_model("accounts", "Account")
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
-            user = User.objects.get(user=user_pk)
+            user = User.objects.get(pk=user_pk)
             voucher_queryset = Voucher.objects.filter(voucher_code=voucher)
             voucher_queryset.update(is_used=True)
             v = voucher_queryset.get()
