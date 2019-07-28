@@ -462,6 +462,8 @@ class AccountService(ABC):
                     context['email_context'] = email_context
                     logger.info("Recharge was succefull")
                     return context
+                else :
+                    context['errors'] = "Voucher could'nt be use"
         return context
 
 

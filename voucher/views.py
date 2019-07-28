@@ -46,6 +46,7 @@ def voucher_details(request, pk=None):
     page_title = _("Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Voucher, pk=pk)
     template_name = "voucher/voucher_details.html"
+    
     context = {
         'page_title':page_title,
         'site_name' : settings.SITE_NAME,
@@ -55,6 +56,11 @@ def voucher_details(request, pk=None):
     return render(request,template_name,context)
 
 
+@login_required
+def voucher_activate(request, voucher_pk=None):
+    Voucher.objects.filter(pk=voucher_pk,activated=False, is_used=False).update(activated=True)
+    
+    return redirect('voucher:vouchers')
 
 
 @login_required
