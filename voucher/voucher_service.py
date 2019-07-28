@@ -196,7 +196,7 @@ class VoucherService:
     
 
     @classmethod
-    def generate_new_code(cls,number_of_code=DEFAULT_VOUCHER_LIMIT, parts=voucher.VOUCHER_DEFAULT_PART_COUNT, part_len=voucher.VOUCHER_DEFAULT_PART_LENGTH):
+    def generate_new_code(cls,number_of_code=DEFAULT_VOUCHER_LIMIT, parts=VOUCHER_DEFAULT_PART_COUNT, part_len=VOUCHER_DEFAULT_PART_LENGTH):
         for i in range(number_of_code):
             cls.voucher_generated.add(voucher_generate(n_parts=parts, part_len=part_len))
         
