@@ -9,7 +9,7 @@ from django.urls import reverse
 
 class Voucher(models.Model):
     name = models.CharField(max_length=32, blank=False)
-    voucher_code = models.TextField(max_length=18)
+    voucher_code = models.TextField(max_length=32)
     created_at = models.DateField(auto_now=True)
     amount = models.IntegerField(blank=False, null=False)
     activated = models.BooleanField(default=False)
