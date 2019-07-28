@@ -13,7 +13,7 @@ class Voucher(models.Model):
     created_at = models.DateField(auto_now=True)
     amount = models.IntegerField(blank=False, null=False)
     activated = models.BooleanField(default=False)
-    activated_at = models.DateField(blank=True)
+    activated_at = models.DateField(blank=True, null=True)
     is_used = models.BooleanField(default=False)
 
     class Meta:
