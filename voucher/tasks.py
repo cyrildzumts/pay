@@ -17,7 +17,7 @@ def generate_voucher(name='PAY-STANDARD', amount=2500, number=100):
     }
     voucher_codes = [ voucher_service.voucher_generate() for i in range(number)]
     
-    vouchers = (Voucher(name=name, amount=amount, code=code) for code in voucher_codes)
+    vouchers = (Voucher(name=name, amount=amount, voucher_code=code) for code in voucher_codes)
     while True:
         batch = list(islice(vouchers, batch_size))
         if not batch:
