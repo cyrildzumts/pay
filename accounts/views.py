@@ -216,6 +216,7 @@ def account_details(request, pk=None):
 
 @login_required
 def account_update(request, pk=None):
+    
     page_title = _("Edit my account")+ ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Account, pk=pk)
     template_name = "accounts/account_update.html"
@@ -228,8 +229,11 @@ def account_update(request, pk=None):
         'form': form
     }
     if form.is_valid():
+        logger.info("Edit Account form is valid.")
         form.save()
         return redirect('accounts:account')
+    else:
+        logger.info("Edit Account form is not valid. Errors : %s", form.errors)
     return render(request, template_name,context )
 
 @login_required

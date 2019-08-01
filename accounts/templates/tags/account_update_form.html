@@ -22,6 +22,12 @@
         
                 <form class="form" name="account" action="{% url 'accounts:update'  account.pk %}" method="POST">{% csrf_token %}
                     <div class="form-group">
+                        {% if form.errors %}
+                        
+                        {% else %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
                         <label for="city">{% trans "City" %}</label>
                         <input id="city" type="text"  name="city" value="{{account.city}}">
                     </div>
