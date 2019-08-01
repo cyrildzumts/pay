@@ -215,20 +215,21 @@ def account_details(request, pk=None):
 
 
 @login_required
-def edit_account(request, pk=None):
+def account_update(request, pk=None):
     page_title = _("Edit my account")+ ' | ' + settings.SITE_NAME
-    instance = Account.objects.get(pk=pk)
-    template_name = "accounts/edit_account.html"
+    instance = get_object_or_404(Account, pk=pk)
+    template_name = "accounts/account_update.html"
     form = AccountForm(request.POST or None, instance=instance)
     context = {
         'page_title':page_title,
         'site_name' : settings.SITE_NAME,
         'template_name':template_name,
+        'account' : instance,
         'form': form
     }
     if form.is_valid():
         form.save()
-        return redirect('next_view')
+        return redirect('accounts:account')
     return render(request, template_name,context )
 
 @login_required

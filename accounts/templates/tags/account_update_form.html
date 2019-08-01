@@ -1,0 +1,65 @@
+{% load i18n %} 
+
+
+
+<div class="responsive">
+
+    <div class="card">
+          <p> {% trans "Name" %} : {{account.full_name}} </p>
+          <p> {% trans "Country" %} : {% trans "account.country" %} </p>
+          <p> {% trans "Current account" %} : {{account.solde}} FCFA </p>
+          <p> {% trans "City" %} :  {%trans "account.city"%} </p>
+          <p> {% trans "Telefon" %} :  {{account.telefon}} </p>
+          <p> {% trans "UUID" %} :  {{account.account_uuid}} </p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>{% trans "Edit my account" %}</h3>
+        </div>
+        <div class="card-body">
+        
+        
+                <form class="form" name="account" action="{% url 'accounts:update'  account.pk %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <label for="city">{% trans "City" %}</label>
+                        <input id="city" type="text"  name="city" value="{{account.city}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="province">{% trans "Province" %}</label>
+                        <input id="province" type="text"  name="province" value="{{account.province}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefon">{% trans "Telefon" %}</label>
+                        <input id="telefon" type="text"  name="telefon" value="{{account.telefon}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">{% trans "Country" %}</label>
+                        <input id="country" type="text"  name="country" value="{{account.country}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">{% trans "Address" %}</label>
+                        <input id="address" type="text"  name="addres" value="{{account.address}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="zip-code">{% trans "Zip Code" %}</label>
+                        <input id="zip-code" type="text"  name="zip-code" value="{{account.zip_code}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="newsletter">{% trans "Newsletter" %}</label>
+                        {% if account.newsletter %}
+                        <input id="newsletter" type="checkbox"  name="newsletter" value="{{account.newsletter}}" checked>
+                        {% else %}
+                        <input id="newsletter" type="checkbox"  name="newsletter" value="{{account.newsletter}}">
+                        {% endif %}
+                        
+                    </div>
+                    <div class="form-group">
+                        <a class="link btn" href="{% url 'accounts:account' %}">{% trans "Cancel" %}</a>
+                        <button type="submit">{% trans "Submit" %}</button>
+                    </div>
+
+                </form>
+            </div>
+    </div>          
+</div>

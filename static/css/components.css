@@ -410,8 +410,8 @@ tr a:link, tr a:visited, .orders-link a:link, .orders-link a:visited{
         box-sizing: border-box;
         border-radius: 2px;
         overflow: hidden;
-    }
-    .card-fluid {
+}
+.card-fluid {
         box-sizing: border-box;
         width: 100%;
         max-width: 100%;
