@@ -228,9 +228,9 @@ def account_update(request, pk=None):
             return redirect('accounts:account')
         else:
             logger.info("Edit Account form is not valid. Errors : %s", form.errors)
-    else:
-        form = AccountForm(instance=instance)
-        context = {
+    
+    form = AccountForm(instance=instance)
+    context = {
             'page_title':page_title,
             'site_name' : settings.SITE_NAME,
             'template_name':template_name,
