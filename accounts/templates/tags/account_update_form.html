@@ -13,6 +13,13 @@
           <p> {% trans "UUID" %} :  {{account.account_uuid}} </p>
     </div>
 
+    <div class="container">
+        <table>
+            {{form}}
+        </table>
+    
+    </div>
+
     <div class="card">
         <div class="card-header">
             <h3>{% trans "Edit my account" %}</h3>
@@ -21,6 +28,12 @@
         
         
                 <form class="form" name="account" action="{% url 'accounts:update'  account.pk %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                       <input type="hidden" name="user" value="{{account.user}}">
+                       <input type="hidden" name="account_type" value="{{account.account_type}}">
+                       <input type="hidden" name="date_of_birth" value="{{account.date_of_birth}}">
+
+                    </div>
                     <div class="form-group">
                         <label for="city">{% trans "City" %}</label>
                         <input id="city" type="text"  name="city" value="{{account.city}}">

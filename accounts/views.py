@@ -220,20 +220,24 @@ def account_update(request, pk=None):
     page_title = _("Edit my account")+ ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Account, pk=pk)
     template_name = "accounts/account_update.html"
-    form = UpdateAccountForm(request.POST or None, instance=instance)
-    context = {
-        'page_title':page_title,
-        'site_name' : settings.SITE_NAME,
-        'template_name':template_name,
-        'account' : instance,
-        'form': form
-    }
-    if form.is_valid():
-        logger.info("Edit Account form is valid.")
-        form.save()
-        return redirect('accounts:account')
+    if request.method =="POST":
+        form = AccountForm(request.POST, instance=instance)
+        if form.is_valid():
+            logger.info("Edit Account form is valid.")
+            form.save()
+            return redirect('accounts:account')
+        else:
+            logger.info("Edit Account form is not valid. Errors : %s", form.errors)
     else:
-        logger.info("Edit Account form is not valid. Errors : %s", form.errors)
+        form = AccountForm(instance=instance)
+        context = {
+            'page_title':page_title,
+            'site_name' : settings.SITE_NAME,
+            'template_name':template_name,
+            'account' : instance,
+            'form': form
+        }
+    
     return render(request, template_name,context )
 
 @login_required
