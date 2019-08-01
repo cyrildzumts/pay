@@ -11,6 +11,7 @@
                 </div>
                 <div class="row">
                         <ul  class="action-list listview">
+                                <li class="action list-item"><a class="link" href="{%url 'accounts:account_update' account.pk %}"> {% trans "Edit my account" %}</a> </li>
                                 <li class="action list-item"><a class="link" href="{%url 'accounts:password_change' %}"> {% trans "Change my password" %}</a> </li>
                                 <li class="action list-item"> <a class="link" href="{%url 'accounts:new_transfer' %}"> {% trans "Send money" %}</a> </li>
                                 <li class="action list-item"> <a class="link" href="{%url 'accounts:recharge' %}"> {% trans "Recharge my account" %}</a> </li>
