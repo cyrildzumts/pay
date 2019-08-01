@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import login as django_login, logout as django_logout, update_session_auth_hash
 from accounts.models import Account, ServiceCategory, AvailableService
-from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm, RechargeForm
+from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm, RechargeForm, UpdateAccountForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 from pay import settings, utils
@@ -220,7 +220,7 @@ def account_update(request, pk=None):
     page_title = _("Edit my account")+ ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Account, pk=pk)
     template_name = "accounts/account_update.html"
-    form = AccountForm(request.POST or None, instance=instance)
+    form = UpdateAccountForm(request.POST or None, instance=instance)
     context = {
         'page_title':page_title,
         'site_name' : settings.SITE_NAME,

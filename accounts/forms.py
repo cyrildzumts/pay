@@ -37,6 +37,13 @@ class PolicyForm(forms.ModelForm):
         model = Policy
         exclude = ['policy_id']
 
+class UpdateAccountForm(forms.ModelForm):
+    
+    class Meta:
+        model = Account
+        fields = ("city", "country","province", "address", "telefon", "zip_code", "newsletter",)
+
+
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
