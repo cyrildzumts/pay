@@ -235,6 +235,7 @@ def account_update(request, pk=None):
             'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'account' : instance,
+            'solde'     : instance.solde,
             'form': form
         }
     

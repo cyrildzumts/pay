@@ -5,30 +5,14 @@
 <div class="responsive">
 
     <div class="card">
-          <p> {% trans "Name" %} : {{account.full_name}} </p>
-          <p> {% trans "Country" %} : {% trans account.country %} </p>
-          <p> {% trans "Current account" %} : {{account.solde}} FCFA </p>
-          <p> {% trans "City" %} :  {%trans account.city %} </p>
-          <p> {% trans "Telefon" %} :  {{account.telefon}} </p>
-          <p> {% trans "UUID" %} :  {{account.account_uuid}} </p>
-    </div>
-
-    <div class="container">
-        <table>
-            {{form}}
-        </table>
-    
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <h3>{% trans "Edit my account" %}</h3>
+        <div class="card__title">
+            <h1>{% trans "Edit my account" %}</h1>
         </div>
-        <div class="card-body">
+        <div class="mat-card__body">
         
         
-                <form class="form" name="account" action="{% url 'accounts:update'  account.pk %}" method="POST">{% csrf_token %}
-                    <div class="form-group">
+                <form class="form card" name="account" action="{% url 'accounts:update'  account.pk %}" method="POST">{% csrf_token %}
+                    <div class="card-main">
                     {% comment "" %}
                     
                    
@@ -37,7 +21,7 @@
                        <input type="hidden" name="date_of_birth" value="{{account.date_of_birth}}">
                     {% endcomment %}
 
-                    </div>
+                    
                     <div class="form-group">
                         <label for="city">{% trans "City" %}</label>
                         <input id="city" type="text"  name="city" value="{{account.city}}">
@@ -71,10 +55,14 @@
                         {% endif %}
                         
                     </div>
-                    <div class="form-group">
-                        <a class="link btn" href="{% url 'accounts:account' %}">{% trans "Cancel" %}</a>
-                        <button type="submit">{% trans "Submit" %}</button>
-                    </div>
+                    </div><!-- End of Card-Main-->
+                    <div class="mat-card__footer">
+                        <div class="form-group card__actions">
+                            <a class="link btn" href="{% url 'accounts:account' %}">{% trans "Cancel" %}</a>
+                            <button type="submit">{% trans "Update my Account" %}</button>
+                        </div>
+                    </div><!--End of Card-footer-->
+                    
 
                 </form>
             </div>
