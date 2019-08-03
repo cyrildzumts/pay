@@ -223,7 +223,7 @@ def account_update(request, pk=None):
     if request.method =="POST":
         form = UpdateAccountForm(request.POST, instance=instance)
         if form.is_valid():
-            logger.info("Edit Account form is valid.")
+            logger.info("Edit Account form is valid. newsletter : %s", form.cleaned_data['newsletter'])
             form.save()
             return redirect('accounts:account')
         else:
