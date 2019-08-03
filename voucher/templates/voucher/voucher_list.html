@@ -6,33 +6,42 @@
 <div class="container">
     {% for voucher in vouchers %}
         <div class="card bordered">
-          <p> {% trans "Name" %} : {{voucher.name}} </p>
-          <p> {% trans "Credit" %} : {{voucher.amount}} FCFA </p>
-          <p> {% trans "Voucher Code" %} : {{voucher.voucher_code}} </p>
-          <p> {% trans "Creation Date" %} : {{voucher.created_at}} </p>
-          {% if voucher.activated is True %}
-          <p> {% trans "Activated" %} :  {% trans "Yes" %}</p>
-          <p> {% trans "Activation Date" %} : {{voucher.activated_at}} </p>
-          {% else %}
-          <p> {% trans "Activated" %} :  {% trans "No" %}</p>
-          {% endif %}
 
-          {% if voucher.is_used is True %}
-          <p> {% trans "Is already used " %} :  {% trans "Yes" %}</p>
+            <div class="card__title">
+                <p> {% trans "Name" %} : {{voucher.name}} </p>
+            </div>
+            <div class="card__body">
+                <p> {% trans "Credit" %} : {{voucher.amount}} FCFA </p>
+                <p> {% trans "Voucher Code" %} : {{voucher.voucher_code}} </p>
+                <p> {% trans "Creation Date" %} : {{voucher.created_at}} </p>
+                {% if voucher.activated is True %}
+                <p> {% trans "Activated" %} :  {% trans "Yes" %}</p>
+                <p> {% trans "Activation Date" %} : {{voucher.activated_at}} </p>
+                {% else %}
+                <p> {% trans "Activated" %} :  {% trans "No" %}</p>
+                {% endif %}
 
-          {% else %}
-          <p> {% trans "Is already used " %} :  {% trans "No" %}</p>
-          {% endif %}
+            </div>
 
-          <a class="button link" href="{{voucher.get_absolute_url}}"> {% trans "More" %} ...</a>
+            <div class="card__actions">
+                <a class="button link" href="{{voucher.get_absolute_url}}"> {% trans "More" %} ...</a>
+            </div>
         </div>
     {% empty %}
-    <p> {% trans "There are currently no voucher generated." %} ...</p>
-    <a class="button link" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
-    <a class="link" href="{%url 'voucher:voucher_generate'%}">
-        {% trans "Generate new Voucher cards" %} 
-    </a> 
-    <a class="button link" href="{% url 'home' %}"> {% trans "PAY Home" %} </a>
+    <div class="card">
+        <div class="card__title">
+            <p> {% trans "There are currently no voucher generated." %} ...</p>
+        </div>
+        <div class="card__actions">
+            <a class="button link" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
+            <a class="link" href="{%url 'voucher:voucher_generate'%}">
+                {% trans "Generate new Voucher cards" %} 
+            </a> 
+            <a class="button link" href="{% url 'home' %}"> {% trans "PAY Home" %} </a>
+        </div>
+    </div>
+    
+    
     {% endfor %}
 </div>
 {% endblock MAIN %}
