@@ -29,9 +29,13 @@
         
                 <form class="form" name="account" action="{% url 'accounts:update'  account.pk %}" method="POST">{% csrf_token %}
                     <div class="form-group">
+                    {% comment "" %}
+                    
+                   
                        <input type="hidden" name="user" value="{{account.user}}">
                        <input type="hidden" name="account_type" value="{{account.account_type}}">
                        <input type="hidden" name="date_of_birth" value="{{account.date_of_birth}}">
+                    {% endcomment %}
 
                     </div>
                     <div class="form-group">
@@ -52,11 +56,11 @@
                     </div>
                     <div class="form-group">
                         <label for="address">{% trans "Address" %}</label>
-                        <input id="address" type="text"  name="addres" value="{{account.address}}">
+                        <input id="address" type="text"  name="address" value="{{account.address}}">
                     </div>
                     <div class="form-group">
                         <label for="zip-code">{% trans "Zip Code" %}</label>
-                        <input id="zip-code" type="text"  name="zip-code" value="{{account.zip_code}}">
+                        <input id="zip-code" type="text"  name="zip_code" value="{{account.zip_code}}">
                     </div>
                     <div class="form-group">
                         <label for="newsletter">{% trans "Newsletter" %}</label>

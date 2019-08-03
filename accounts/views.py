@@ -221,7 +221,7 @@ def account_update(request, pk=None):
     instance = get_object_or_404(Account, pk=pk)
     template_name = "accounts/account_update.html"
     if request.method =="POST":
-        form = AccountForm(request.POST, instance=instance)
+        form = UpdateAccountForm(request.POST, instance=instance)
         if form.is_valid():
             logger.info("Edit Account form is valid.")
             form.save()
@@ -229,7 +229,7 @@ def account_update(request, pk=None):
         else:
             logger.info("Edit Account form is not valid. Errors : %s", form.errors)
     
-    form = AccountForm(instance=instance)
+    form = UpdateAccountForm(instance=instance)
     context = {
             'page_title':page_title,
             'site_name' : settings.SITE_NAME,
