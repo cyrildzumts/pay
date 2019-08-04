@@ -6,10 +6,13 @@
 <div class="container flex column">
         {% if has_idcard %}
             <div class="card">
-                <p class="responsive"> {% trans "ID number" %} : {{idcard.card_number}} </p>
-                <div class="card-image responsive idcard"> 
+                <p class="responsive card__title"> {% trans "ID number" %} : {{idcard.card_number}} </p>
+                <div class="card__body responsive idcard"> 
                 {% trans "Image" %}: 
                     <img class="full js-zoom" src="{{idcard.image.url}}"/>
+                </div>
+                <div class="card__actions">
+                    <li class="action list-item"><a class="link" href="{%url 'accounts:idcard_update' idcard.pk %}"> {% trans "Update my ID Card" %}</a> </li>
                 </div>
 
             </div>
