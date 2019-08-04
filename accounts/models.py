@@ -196,6 +196,10 @@ class IDCard(models.Model):
     
     def get_absolute_url(self):
         return reverse('accounts:idcard_details', kwargs={'pk':self.pk})
+    
+    def get_update_url(self):
+        return reverse('accounts:idcard_update', kwargs={'pk':self.pk})
+    
 
 
 

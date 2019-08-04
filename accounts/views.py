@@ -786,7 +786,7 @@ def update_idcard(request, pk=None):
     instance = get_object_or_404(IDCard, pk=pk)
     template_name = "accounts/account_idcard_update.html"
     if request.method =="POST":
-        form = UpdateIDCardForm(request.POST, instance=instance)
+        form = UpdateIDCardForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             logger.info("Update IDCard form is valid")
             form.save()
