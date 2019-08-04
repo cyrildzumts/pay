@@ -183,7 +183,7 @@ def ident_file_path(instance, filename):
     return "identifications/pay_user_{0}_{1}".format(instance.user.id, name)
     
 class IDCard(models.Model):
-    card_number = models.IntegerField(blank=False)
+    card_number = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to=ident_file_path, blank=False)
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL,related_name='idcard')
     delivery_at = models.DateTimeField(blank=True, null=True)
