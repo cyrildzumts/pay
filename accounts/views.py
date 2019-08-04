@@ -793,6 +793,7 @@ def update_idcard(request, pk=None):
             return redirect('accounts:account')
         else:
             logger.info("Edit Account form is not valid. Errors : %s", form.errors)
+            logger.info("Form clean data : %s", form.cleaned_data)
     
     form = UpdateIDCardForm(instance=instance)
     account = get_object_or_404(Account, user=request.user)
