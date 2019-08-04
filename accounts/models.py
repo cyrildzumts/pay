@@ -186,6 +186,10 @@ class IDCard(models.Model):
     card_number = models.IntegerField(blank=False)
     image = models.ImageField(upload_to=ident_file_path, blank=False)
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL,related_name='idcard')
+    delivery_at = models.DateTimeField(blank=True, null=True)
+    expire_at = models.DateTimeField(blank=True, null=True)
+    delivery_place = models.CharField(max_length=32, blank=True, null=True)
+    
 
     def __str__(self):
         return "Card id : {} User : {}".format(self.pk, self.user)

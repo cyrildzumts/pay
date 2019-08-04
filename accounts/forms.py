@@ -50,6 +50,14 @@ class AccountForm(forms.ModelForm):
         exclude = ['is_active_account', 'created_at', 'solde', 'policy']
 
 
+
+class UpdateIDCardForm(forms.ModelForm):
+    
+    class Meta:
+        model = IDCard
+        fields = ("card_number", "image", "delivery_at", "delivery_place", "expire_at",)
+
+
 class IDCardForm(forms.ModelForm):
     class Meta:
         model = IDCard

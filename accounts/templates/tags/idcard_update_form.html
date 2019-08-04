@@ -1,0 +1,27 @@
+{% load i18n %} 
+
+<div class="responsive">
+    <div class="form-group">
+            
+    </div>
+    <form id="idcard-form-update" class="idcard-form form" name="idcard" action="{% url 'accounts:upload_idcard' %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+         {% comment "" %}
+         <input type="hidden" name="user" value="{{request.user.pk}}">
+         {% endcomment %}
+         
+        <div class="card">
+            <div class="card__title">
+                {% trans "Update my ID Card" %}
+            </div>
+            <div class="card__body">
+                <table>
+                    {{form}}
+                 </table>
+            </div>
+            <div class="card__actions">
+                <a class="button link" href="{%url 'accounts:account'%}">{% trans "Cancel" %}</a>
+                <button class="button" type="submit">{% trans "Update" %}</button>
+            </div>
+        </div>
+    </form>
+</div>

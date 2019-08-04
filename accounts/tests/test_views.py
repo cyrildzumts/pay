@@ -134,6 +134,10 @@ class AccountViewsUrlTest(TestCase):
         found = resolve('/accounts/upload_idcard/')
         self.assertEqual(found.func, views.upload_idcard)
 
+    def test_idcard_update_url(self):
+        found = resolve('/accounts/idcard/update/10/')
+        self.assertEqual(found.func, views.update_idcard)
+
     def test_upload_idcard_done_url(self):
         found = resolve('/accounts/upload_idcard/upload_idcard_done/')
         self.assertEqual(found.func, views.upload_idcard_done)

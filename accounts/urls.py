@@ -41,6 +41,7 @@ urlpatterns = [
     path('transactions/<int:pk>/', views.transaction_details, name='transaction_details'),
     path('transfer/<int:pk>/', views.transfer_details, name='transfer_details'),
     path('upload_idcard/', views.upload_idcard, name='upload_idcard'),
+    path('idcard/update/<int:pk>/', views.update_idcard, name='idcard_update'),
     path('upload_idcard/upload_idcard_done/', views.upload_idcard_done, name='upload_idcard_done'),
     path('payments/', views.payments, name='payments'),
     path('payment_done/', views.payment_done, name='payment_done'),

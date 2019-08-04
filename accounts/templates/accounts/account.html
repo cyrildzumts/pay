@@ -18,6 +18,7 @@
 
                                 {% if has_idcard is True %}
                                 <li class="action list-item"><a class="link" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a> </li>
+                                <li class="action list-item"><a class="link" href="{%url 'accounts:idcard_update' request.user.idcard %}"> {% trans "Update my ID Card" %}</a> </li>
 
                                 {% else %}
                                 <li class="action list-item"><a class="link" href="{% url 'accounts:upload_idcard'%}"> {% trans "Add an ID Card" %}</a> </li>

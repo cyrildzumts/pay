@@ -10,8 +10,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import login as django_login, logout as django_logout, update_session_auth_hash
-from accounts.models import Account, ServiceCategory, AvailableService
-from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm, RechargeForm, UpdateAccountForm
+from accounts.models import Account, ServiceCategory, AvailableService, IDCard
+from accounts.forms import AccountForm, AccountCreationForm, UserSignUpForm, RechargeForm, UpdateAccountForm, UpdateIDCardForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 from pay import settings, utils
@@ -778,6 +778,34 @@ def upload_idcard(request):
     
     context['form'] = form()
     return render(request,template_name, context)
+
+
+@login_required
+def update_idcard(request, pk=None):
+    page_title = _("Edit my account")+ ' | ' + settings.SITE_NAME
+    instance = get_object_or_404(IDCard, pk=pk)
+    template_name = "accounts/account_idcard_update.html"
+    if request.method =="POST":
+        form = UpdateIDCardForm(request.POST, instance=instance)
+        if form.is_valid():
+            logger.info("Update IDCard form is valid")
+            form.save()
+            return redirect('accounts:account')
+        else:
+            logger.info("Edit Account form is not valid. Errors : %s", form.errors)
+    
+    form = UpdateAccountForm(instance=instance)
+    account = get_object_or_404(Account, user=request.user)
+    context = {
+            'page_title':page_title,
+            'site_name' : settings.SITE_NAME,
+            'template_name':template_name,
+            'idcard' : instance,
+            'solde'     : account.solde,
+            'form': form
+        }
+    
+    return render(request, template_name,context )
 
 
 @login_required

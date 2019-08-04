@@ -8,19 +8,11 @@
         <div class="card__title">
             <h1>{% trans "Edit my account" %}</h1>
         </div>
-        <div class="mat-card__body">
+        <div class="card__body">
         
         
                 <form class="form card" name="account" action="{% url 'accounts:update'  account.pk %}" method="POST">{% csrf_token %}
-                    <div class="card-main">
-                    {% comment "" %}
-                    
-                   
-                       <input type="hidden" name="user" value="{{account.user}}">
-                       <input type="hidden" name="account_type" value="{{account.account_type}}">
-                       <input type="hidden" name="date_of_birth" value="{{account.date_of_birth}}">
-                    {% endcomment %}
-
+                    <div class="card__body">
                     
                     <div class="form-group">
                         <label for="city">{% trans "City" %}</label>
@@ -55,15 +47,13 @@
                         {% endif %}
                         
                     </div>
-                    </div><!-- End of Card-Main-->
-                    <div class="mat-card__footer">
-                        <div class="form-group card__actions">
-                            <a class="link button" href="{% url 'accounts:account' %}">{% trans "Cancel" %}</a>
-                            <button type="submit">{% trans "Update my Account" %}</button>
-                        </div>
-                    </div><!--End of Card-footer-->
-                    
+                    </div><!-- End of Card-body-->
 
+                    <div class="card__actions">
+                            <a class="link button" href="{% url 'accounts:account' %}">{% trans "Cancel" %}</a>
+                            <button class="button" type="submit">{% trans "Update my Account" %}</button>
+                        </div>
+                    
                 </form>
             </div>
     </div>          
