@@ -14,9 +14,27 @@
                 {% trans "Update my ID Card" %}
             </div>
             <div class="card__body">
+                {% comment "" %}
                 <table>
                     {{form}}
                  </table>
+                {% endcomment %}
+                 <div class="container">
+                    <div class="form-group">
+                        <input type="text" name="card_number" placeholder="{{idcard.card_number}}">
+                        <input type="datetime" name="delivery_at" id="delivery_at" placeholder="{{idcard.delivery_at}}">
+                        <input type="datetime" name="expire_at" id="expire_at" placeholder="{{idcard.expire_at}}">
+                        <input type="text" name="delivery_place" id="delivery_place" placeholder="{{idcard.delivery_place}}">
+                        
+                        <input type="file" name="image" id="image">
+
+                    </div>
+
+                    <div class="form-group responsive">
+                        <label for="old_image">{% trans "Current ID image" %}</label>
+                       <img id="old_image" class="full js-zoom" src="{{idcard.image.url}}"/>
+                    </div>
+                 </div>
             </div>
             <div class="card__actions">
                 <a class="button link" href="{%url 'accounts:account'%}">{% trans "Cancel" %}</a>
