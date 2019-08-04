@@ -794,7 +794,7 @@ def update_idcard(request, pk=None):
         else:
             logger.info("Edit Account form is not valid. Errors : %s", form.errors)
     
-    form = UpdateAccountForm(instance=instance)
+    form = UpdateIDCardForm(instance=instance)
     account = get_object_or_404(Account, user=request.user)
     context = {
             'page_title':page_title,
