@@ -21,12 +21,20 @@
                 {% endcomment %}
                  <div class="container">
                     <div class="form-group">
-                        <input type="text" name="card_number" placeholder="{{idcard.card_number}}">
-                        <input type="datetime" name="delivery_at" id="delivery_at" placeholder="{{idcard.delivery_at}}">
-                        <input type="datetime" name="expire_at" id="expire_at" placeholder="{{idcard.expire_at}}">
-                        <input type="text" name="delivery_place" id="delivery_place" placeholder="{{idcard.delivery_place}}">
+                        <label for="card_number">{% trans "Card Number" %}</label>
+                        <input id="card_number" type="text" name="card_number" placeholder="{{idcard.card_number}}">
                         
-                        <input type="file" name="image" id="image">
+                        <label for="delivery_at">{% trans "Issued Date" %} : </label>
+                        <input id="delivery_at" type="datetime" name="delivery_at" id="delivery_at" placeholder="{{idcard.delivery_at}}">
+                        
+                        <label for="expire_at">{% trans "Epire at " %} : </label>
+                        <input id="expire_at" type="datetime" name="expire_at" id="expire_at" placeholder="{{idcard.expire_at}}">
+                        
+                        <label for="delivery_place">{% trans "Delivrance place" %} : </label>
+                        <input id="delivery_place" type="text" name="delivery_place" id="delivery_place" placeholder="{{idcard.delivery_place}}">
+                        
+                        <label for="image">{% trans "ID card Picture" %} : </label>
+                        <input id="image" type="file" name="image" id="image">
 
                     </div>
 
