@@ -1,0 +1,20 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+        <div class="card">
+          <div class="card__title">
+              <h3>{% trans "Policy" %}</h3>
+          </div>
+          <div class="card__body">
+            <p> {% trans "Daily Limit" %} : {{policy.daily_limit}} FCFA </p>
+            <p> {% trans "Weekly Limit" %} : {{policy.weekly_limit}} FCFA </p>
+            <p> {% trans "Monthly Limit" %} : {{policy.monthly_limit}} FCFA </p>
+            <p> {% trans "Commission" %} : {{policy.commission}}</p>  
+          </div>
+          
+        </div>
+</div>
+{% endblock MAIN %}

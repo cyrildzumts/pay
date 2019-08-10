@@ -1,0 +1,16 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+        <div class="card">
+          <p> {% trans "Name" %} : {{account.full_name}} </p>
+          <p> {% trans "Country" %} : {% trans "account.country" %} </p>
+          <p> {% trans "Current account" %} : {{account.solde}} FCFA </p>
+          <p> {% trans "City" %} :  {%trans "account.city"%} </p>
+          <p> {% trans "Telefon" %} :  {{account.telefon}} </p>
+          <p> {% trans "UUID" %} :  {{account.account_uuid}} </p>
+        </div>
+</div>
+{% endblock MAIN %}

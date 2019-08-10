@@ -1,0 +1,19 @@
+{% extends "account_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+        <div class="card">
+          <p> Sender : {{transaction.sender.user.get_full_name}} </p>
+          <p> Recipient : {{transaction.recipient.user.get_full_name}} </p>
+          <p> Amount : {{transaction.amount}} FCFA </p>
+          <div>  
+            <p> Desciption : </p>
+            <p>{{transaction.details}}</p>
+          </div>
+          <p> Date : {{transaction.created_at}} </p>
+        </div>
+        <a class="button link" href="{% url 'accounts:new_transaction' %}"> New Transaction </a>
+</div>
+{% endblock MAIN %}

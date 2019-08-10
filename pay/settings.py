@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'voucher.apps.VoucherConfig',
+    'dashboard.apps.DashboardConfig',
 ]
 
 # RESTFRAMEWORK SETTINGS

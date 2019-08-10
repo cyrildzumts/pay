@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls', namespace='api')),
     path('api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('dashboard/',include('dashboard.urls')),
     path('faq/', views.faq, name='faq'),
     path('index/', views.home, name='index'),
     path('i18n/', include('django.conf.urls.i18n')),
