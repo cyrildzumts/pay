@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
@@ -7,7 +9,7 @@ from pay import utils, settings
 # Create your views here.
 
 
-
+@login_required
 def dashboard(request):
     template_name = "dashboard/dashboard.html"
     page_title = _('My Account ') + '| ' + settings.SITE_NAME
@@ -33,6 +35,7 @@ def dashboard(request):
     return render(request, template_name, context)
 
 
+@login_required
 def service_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'Service')
@@ -44,6 +47,7 @@ def service_details(request, pk=None):
     context['site_name'] = settings.SITE_NAME
     context['service'] = service
     return render(request,template_name, context)
+
 
 @login_required
 def services(request):
@@ -57,6 +61,8 @@ def services(request):
     context['services'] = services
     return render(request,template_name, context)
 
+
+    
 @login_required
 def available_services(request):
     context = {}
