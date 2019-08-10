@@ -3,7 +3,23 @@
 {% block MAIN %}
 
 <div class="container">
-        <h3>Dashboard</h3>
+        <div class="row">
+                <h3>Dashboard</h3>
+        </div>
+
+        <div class="row">
+                <nav class="nav">
+                        <ul class="nav listview">
+                                <li class="list-item"><a class="link" href="{% url 'dashboard:available_services' %}">{% trans "Available Services" %}</a></li>
+                                <li class="list-item"><a class="link" href="{% url 'dashboard:services' %}">{% trans "Services" %}</a></li>
+                                <li class="list-item"><a class="link" href="{% url 'dashboard:transfers' %}">{% trans "Transfers" %}</a></li>
+                                <li class="list-item"><a class="link" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
+                                <li class="list-item"><a class="link" href="{% url 'dashboard:service_categories' %}">{% trans "Categories" %}</a></li>
+                        </ul>
+                </nav>
+
+        </div>
+        
 </div>
 
 {% endblock MAIN %}

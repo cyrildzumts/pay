@@ -12,7 +12,7 @@ from pay import utils, settings
 @login_required
 def dashboard(request):
     template_name = "dashboard/dashboard.html"
-    page_title = _('My Account ') + '| ' + settings.SITE_NAME
+    page_title = _('Dashboard') + '| ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
     #current_account = Account.objects.get(user=request.user)
