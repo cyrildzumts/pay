@@ -111,7 +111,7 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.payment_details)
     
     def test_transfers_url(self):
-        found = resolve('/dashboard/transfer/')
+        found = resolve('/dashboard/transfers/')
         self.assertEqual(found.func, views.transfers)
     
         
