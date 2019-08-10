@@ -628,7 +628,7 @@ def case_details(request, pk=None):
     current_account = Account.objects.get(user=request.user)
     user_claims = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     claim = get_object_or_404(user_claims, pk=pk)
-    template_name = "accounts/policy_details.html"
+    template_name = "accounts/case_details.html"
     page_title = "Claim Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
