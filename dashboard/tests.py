@@ -20,16 +20,16 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.available_service_create)
     
     def test_available_service_update_url(self):
-        found = resolve('/dashboard/available_services/update/10')
+        found = resolve('/dashboard/available_services/update/10/')
         self.assertEqual(found.func, views.available_service_update)
 
     def test_available_service_remove_url(self):
-        found = resolve('/dashboard/available_services/remove/10')
+        found = resolve('/dashboard/available_services/remove/10/')
         self.assertEqual(found.func, views.available_service_remove) 
     
 
     def test_available_service_details_url(self):
-        found = resolve('/dashboard/available_services/details/10')
+        found = resolve('/dashboard/available_services/details/10/')
         self.assertEqual(found.func, views.available_service_details) 
 
     def test_cases_url(self):
