@@ -1,0 +1,29 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+    {% for transfer in transfers %}
+        <div class="card">
+            <div class="card__body">
+                <p> {% trans "Sender" %} : {{transfer.sender.full_name}} </p>
+                <p> {% trans "Recipient" %} : {{transfer.recipient.full_name}} </p>
+                <p> {% trans "Price" %} : {{transfer.amount}} FCFA </p>
+                <p> {% trans "Date" %} : {{transfer.created_at}} </p>
+            </div>
+          
+          <div class="card__actions">
+            <a class="button link" href="{% url 'dashboard:transfer_details' transfer.pk %}">{% trans "More" %} ...</a>
+          </div>
+          
+        </div>
+    {% empty %}
+    <p> {% trans "There is no Transfer yet." %} ...</p>
+    
+    {% endfor %}
+    <div class="row">
+        <a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    </div>
+</div>
+{% endblock MAIN %}

@@ -394,7 +394,7 @@ def transfers(request):
     model = utils.get_model(app_name='payments', modelName='Transfer')
     #current_account = Account.objects.get(user=request.user)
     queryset = model.objects.all()
-    template_name = "dashboard/transfers.html"
+    template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -420,7 +420,7 @@ def payments(request):
     model = utils.get_model(app_name='payments', modelName='Payment')
     #current_account = Account.objects.get(user=request.user)
     queryset = model.objects.all()
-    template_name = "dashboard/payments.html"
+    template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME

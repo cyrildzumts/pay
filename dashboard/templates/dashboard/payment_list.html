@@ -1,0 +1,20 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+    {% for payment in payments %}
+        <div class="card">
+          <p> {% trans "Sender" %} : {{payment.sender.full_name}} </p>
+          <p> {% trans "Recipient" %} : {{payment.recipient.full_name}} </p>
+          <p> {% trans "Price" %} : {{payment.amount}} FCFA </p>
+          <p> {% trans "Date" %} : {{payment.created_at}} </p>
+          <a class="button link" href="{% url 'accounts:payment_details' payment.pk %}">{% trans "More" %} ...</a>
+        </div>
+    {% empty %}
+    <p> {% trans "You haven't made any Payments" %} ...</p>
+    <a class="button link" href="{% url 'accounts:new_payment' %}"> {% trans "Make a Payment" %} </a>
+    {% endfor %}
+</div>
+{% endblock MAIN %}
