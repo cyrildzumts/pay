@@ -189,6 +189,7 @@ class IDCard(models.Model):
     delivery_at = models.DateTimeField(blank=True, null=True)
     expire_at = models.DateTimeField(blank=True, null=True)
     delivery_place = models.CharField(max_length=32, blank=True, null=True)
+    is_valid = models.BooleanField(default=False, blank=True, null=True)
     
 
     def __str__(self):
