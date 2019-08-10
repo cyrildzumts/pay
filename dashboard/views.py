@@ -62,7 +62,7 @@ def services(request):
     return render(request,template_name, context)
 
 
-    
+
 @login_required
 def available_services(request):
     context = {}
@@ -157,7 +157,9 @@ def policies(request):
 def policy_update(request, pk=None):
     pass
 
-
+@login_required
+def transfers(request):
+    pass
 
 @login_required
 def policy_remove(request, pk=None):
