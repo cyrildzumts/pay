@@ -35,8 +35,8 @@ urlpatterns = [
    # path('recharge/', views.recharge, name='recharge'),
 
 
-    path('service_categories/', views.service_categories, name='service_categories'),
-    path('service_categories/<int:pk>/', views.service_category_details, name='service_categories_details'),
+    path('service_categories/', views.category_services, name='service_categories'),
+    path('service_categories/<int:pk>/', views.category_service_details, name='service_categories_details'),
     path('service_categories/remove/<int:pk>/', views.category_service_remove, name='category_service_remove'),
     path('service_categories/update/<int:pk>/', views.category_service_update, name='category_service_update'),
     path('service_categories/create/', views.category_service_create, name='category_service_create'),
