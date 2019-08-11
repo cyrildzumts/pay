@@ -79,41 +79,66 @@
   height: 100%;
   font-family: 'Monserrat';
   padding: 58px;
+}
 
+.banner{
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+	padding : 10px 5px;
+}
+
+.banner--title{
+	width: 100%;
+	text-align: center;
+
+}
+
+.banner--content{
+	width: 100%;
+}
+
+.banner--description{
+	font-size: 1.2rem;
+	line-height: 2.2;
+	
+}
+
+.banner--actions{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
 }
 
 h1,h2,h3, h4, h5, h6{
 	font-family: 'Montserrat';
+	line-height: 1.5;
 }
 
 h1{
   font-size: 2rem;
-  margin-bottom: 30px;
 }
 
 h2{
 	font-size: 1.8rem;
-	margin-bottom: 30px;
 }
 
 h3, .header p{
   font-size: 1.6rem;
-  margin-bottom: 30px;
 }
 
 h4{
 	font-size: 1.3rem;
-	margin-bottom: 30px;
 }
 
 h5{
 	font-size: 1rem;
-	margin-bottom: 30px;
 }
 
 h6{
 	font-size: 0.8rem;
-	margin-bottom: 30px;
 }
 
 .button, input{

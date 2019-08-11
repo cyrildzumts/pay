@@ -41,19 +41,24 @@
 </div>
 {% endblock HEADER_PANEL %}
 {% block HEADER_BANNER %}
-<div class="row">
-  <div>
+<div class="banner">
+    <div class="banner--title">
       <h1> {%trans 'Welcome to PAY'%} </h1>
       <h3>{% trans 'Your Payment Solution' %}</h3>
-      <p>
-      {% blocktrans %}Ne perdez plus votre temps à faire la queue pour payer votre facture.
-Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
-         {% endblocktrans %}
-      </p>
-      <button class="button"> {% trans 'Discover PAY' %} </button>
-  </div>
+    </div><!--End of Banner Titlte-->
+    <div class="banner--content">
+        <p class="banner--description">
+          {% blocktrans %}Ne perdez plus votre temps à faire la queue pour payer votre facture.
+    Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
+            {% endblocktrans %}
+        </p>
+    </div><!--End of Banner Content-->
+      
+  <div class="banner--actions">
+    <button class="button"> {% trans 'Discover PAY' %} </button>
+  </div><!--End of Banner Actions-->
   
-</div>
+</div><!--End of Banner-->
 {% endblock HEADER_BANNER %}
 
 {% block SIGNUP_DIALOG %}
