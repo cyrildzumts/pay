@@ -7,6 +7,8 @@
   --header-color: #fff;
   --header-panel-bg :#0B0C10;
   --header-panel-color: #fff;
+  --banner-bg: #45A29E;
+  --banner-color: #fff;
   --card-bg : transparent;
   --card-color : #616161;
   --btn-border : 1px solid #66FCF1;
@@ -78,6 +80,8 @@
   min-width: 100%;
   height: 100%;
   font-family: 'Monserrat';
+  background-color: var(--banner-bg);
+  color: var(--banner-color);
   padding: 58px;
 }
 
@@ -102,7 +106,7 @@
 .banner--description{
 	font-size: 1.2rem;
 	line-height: 2.2;
-	
+
 }
 
 .banner--actions{
