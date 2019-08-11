@@ -49,17 +49,23 @@
 }
 
 .header {
-
+	
   --width-mobile: 12;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   min-width: 100%;
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
   background-color: var(--header-bg);
   color: var(--header-color);
   font-family: 'Montserrat';
-  height: auto;
-  /*padding: 10px 16px;*/
+  line-height: 26px;
+  height: 40px;
+  padding: 0 16px;
 }
 
 .header .overlay{
@@ -176,13 +182,10 @@ a.button{
 .header .header--panel{
   display: flex;
   flex-direction: row;
-  position: fixed;
+  position: relative;
   width: 100%;
   padding: 0;
   margin: 0;
-  top: 0;
-  left: 0;
-  z-index: 1000;
   background-color: var(--header-panel-bg);
   color: var(--header-panel-color);
   font-weight: 400;
@@ -694,6 +697,13 @@ body.header-not-at-top .site-header{
 	box-shadow: 0 4px 3px #252525;
 	transform: translateY(-100px);
 	animation: move-down .2s forwards;
+}
+
+.page{
+	position: relative;
+	z-index: -100;
+	overflow: hidden;
+	margin-top: 40px;
 }
 
 .hide{

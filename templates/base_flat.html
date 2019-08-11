@@ -33,39 +33,40 @@
 </head>
 
 <body class="">
-        <div class="container">
-                <header class="header">
+        <header class="header">
                 {% block HEADER_PANEL %}
                 <div class="header--panel row">
                         DEFAULT HEADER PANEL
                 </div>
                 {% endblock HEADER_PANEL %}
+                
+        </header>
+        <div class="page">
                 {% block HEADER_BANNER %}
                 <div class="header--banner">
                         DEFAULT HEADER BANNER
                 </div>
                 {% endblock HEADER_BANNER %}
-                </header>
-                {% block SIGNUP_DIALOG %}
+
+                 {% block SIGNUP_DIALOG %}
                 
                 {% endblock SIGNUP_DIALOG %}
-
 
                 <main class="container">
                 {% block MAIN %}
                 
                 {% endblock MAIN %}
                 </main>
+
                 <footer class="footer column row">
                 {% block FOOTER %}
                 <div class="copyright row">
-                        <span>Copyright <i class="fa fa-copyright"></i> 2019</span>
-                        <span>{{site_name}} {%trans 'Online Payment' %} </span>
+                        <div>Copyright <i class="fa fa-copyright"></i> 2019</div>
+                        <div>{{site_name}} {%trans 'Online Payment' %} </div>
                 </div>
                 {% endblock FOOTER %}
                 </footer>
         </div>
-
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
