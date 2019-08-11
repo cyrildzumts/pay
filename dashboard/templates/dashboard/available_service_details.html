@@ -5,13 +5,27 @@
 
 <div class="container flex column">
         <div class="card">
-          <p> {% trans "Operator" %} : {{service.operator.get_full_name}} </p>
-          <p> {% trans "Category" %}: {{service.category.category_name}} </p>
-          <p> {% trans "Created by" %}: {{service.created_by.get_full_name}} </p>
-          <p> {% trans "Date" %} : {{service.created_at}} </p>
+          <div class="card__title">
+            <h3>{{service.name}} </h3>
+            <h4>{{service.service_code}}</h4>
+          </div>
+          <div class="card__body">
+              <p> {% trans "Operator" %} : {{service.operator.get_full_name}} </p>
+              <p> {% trans "Category" %}: {{service.category.category_name}} </p>
+              <p> {% trans "Created by" %}: {{service.created_by.get_full_name}} </p>
+              <p> {% trans "Date" %} : {{service.created_at}} </p>
+              <p> {% trans "Description" %} : </p>
+              <p> {{service.description}} </p>
+          </div>
+          <div class="card__actions">
+              <a class="button link" href="{% url 'dashboard:available_services_remove' service.pk %}"> {% trans "Remove" %} </a>
+              <a class="button link" href="{% url 'dashboard:available_services_details' service.pk %}"> {% trans "Edit" %} </a>
+              <a class="button link" href="{% url 'dashboard:available_services_create' %}"> {% trans "Add new Service" %} </a>
+              <a class="button link" href="{% url 'dashboard:available_services' %}"> {% trans "Available Services" %} </a>
+          </div>
         </div>
         <div class="responsive">
-          <a class="button link" href="{% url 'dashboard:available_services' %}"> {% trans "Available Services" %} </a>
+          <a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
         </div>
 </div>
 {% endblock MAIN %}

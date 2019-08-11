@@ -4,12 +4,22 @@
 {% block MAIN %}
 
 <div class="container">
+        <div class="row">
+          <h3>{% trans "Available services" %}</h3>
+          <a class="button link" href="{% url 'dashboard:home'%}"> {% trans "Dashboard" %}</a>
+        </div>
     {% for service in available_services %}
         <div class="card">
-          <p> {% trans "Name" %} : {{service.name}} </p>
-          <p> {% trans "Category" %} : {{service.category.category_name}} </p>
-          <p> {% trans "Date" %} : {{service.created_at}} </p>
-          <a class="button link" href="{% url 'dashboard:available_service_details' service.pk %}"> {% trans "More" %} ...</a>
+          <div class="card__title">
+            <p> {% trans "Service Name" %} : {{service.name}} </p>
+          </div>
+          <div class="card__body">
+            <p> {% trans "Category" %} : {{service.category.category_name}} </p>
+            <p> {% trans "Date" %} : {{service.created_at}} </p>
+          </div>
+          <div class="card__actions">
+            <a class="button link" href="{% url 'dashboard:available_service_details' service.pk %}"> {% trans "More" %} ...</a>
+          </div>
         </div>
     {% empty %}
     <p> {% trans "There are no  services available now" %} ...</p>
