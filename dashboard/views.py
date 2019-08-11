@@ -174,7 +174,7 @@ def category_services(request):
     context = {}
     model = utils.get_model('accounts', 'ServiceCategory')
     categories = model.objects.filter(is_active=True)
-    template_name = "dashboard/service_category_list.html"
+    template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
