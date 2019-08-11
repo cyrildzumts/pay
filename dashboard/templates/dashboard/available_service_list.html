@@ -7,6 +7,8 @@
         <div class="row">
           <h3>{% trans "Available services" %}</h3>
           <a class="button link" href="{% url 'dashboard:home'%}"> {% trans "Dashboard" %}</a>
+          <a class="button link" href="{% url 'dashboard:available_services_create'%}"> {% trans "Add new Service" %}</a>
+
         </div>
     {% for service in available_services %}
         <div class="card">

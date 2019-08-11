@@ -1,0 +1,44 @@
+{% load i18n %} 
+
+<div class="responsive">
+
+    <div class="form-group">
+            <input id="participant_name" type="text" name="participant_name" placeholder="{% trans 'Enter the Operator name' %}">
+    </div>
+    <form id="case-form" class="case-form form" name="case" action="{% url 'dashboard:case_update' case.pk %}" method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="participant_1">Participant 1</label>
+            <input id="participant_1" type="text" name="participant_1" value="{{case.participant_1.pk}}">
+        </div>
+
+        <div class="form-group">
+            <label for="participant_2">Participant 2</label>
+            <input id="participant_2" type="text" name="participant_2" value="{{case.participant_2.pk}}">
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Amount (FCFA)</label>
+            <input id="amount" type="text" name="amount" value="{{case.amount}}">
+        </div>
+        <div class="form-group">
+            <label for="subject">{% trans "Subject" %}</label>
+            <input id="subject" type="text" name="subject" value="{{case.subject}}">
+            
+        </div>
+
+        <div class="form-group">
+            <label for="description">{% trans "Description" %}</label>
+            <textarea name="description" id="description">{{case.description}}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="is_closed">{% trans "Closed" %}</label>
+            <input id="is_closed" type="checkbox" name="is_closed" value="{{case.is_closed}}">
+        </div>
+
+        <div class="form-group row">
+            <button class="button" type="submit">{% trans "Update" %}</button>
+            <a class="button link" href="{%url 'dashboard:cases'%}">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+
+</div>

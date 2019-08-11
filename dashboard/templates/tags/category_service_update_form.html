@@ -1,0 +1,39 @@
+{% load i18n %} 
+
+
+
+<div class="responsive">
+
+    <div class="card">
+        <div class="card__title">
+            <h1>{% trans "Edit Category Service" %}</h1>
+        </div>
+        <div class="card__body">
+        
+        
+                <form class="form card" name="category_service" action="{% url 'dashboard:category_services_update'  category.pk %}" method="POST">{% csrf_token %}
+                    <div class="card__body">
+                    
+                    <div class="form-group">
+                        <label for="category_name">{% trans "Category Name" %}</label>
+                        <input id="category_name" type="text"  name="category_name" value="{{category.category_name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="category_code">{% trans "Category Code" %}</label>
+                        <input id="category_code" type="text"  name="category_code" value="{{category.category_code}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="is_active">{% trans "Is Active" %}</label>
+                        <input id="is_active" type="text"  name="is_active" value="{{category.is_active}}">
+                    </div>
+                    </div><!-- End of Card-body-->
+
+                    <div class="card__actions">
+                            <a class="link button" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
+                            <button class="button" type="submit">{% trans "Update" %}</button>
+                        </div>
+                    
+                </form>
+            </div>
+    </div>          
+</div>

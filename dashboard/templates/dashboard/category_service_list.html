@@ -1,0 +1,33 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+    <div>
+        <h3>{% trans "Category Service" %}</h3>
+        <a class="button link" href="{% url 'dashboard:category_services_create'%}">{% trans "Add a new Category" %}</a>
+        <a class="button link" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
+    </div>
+    {% for category in categories %}
+        <div class="card">
+            <div class="card__title">
+                <h3> {% trans "Category Name" %} : {{category.category_name}} </h3>
+                <h5>{% trans "Category Code" %} : {{category.category_code}}</h5>
+            </div>
+            <div class="card__body">
+              <p> {% trans "Date" %} : {{category.created_at}} </p>
+            </div>
+            <div class="card__actions">
+            <a class="button link" href="{% url 'dashboard:category_services_update' category.pk %}">{% trans "Edit" %}</a>
+            <a class="button link" href="{% url 'dashboard:category_services_remove' category.pk %}">{% trans "Remove" %}</a>
+            <a class="button link" href="{% url 'dashboard:category_services_details' category.pk %}">{% trans "Details" %}</a>
+            </div>
+          
+        </div>
+    {% empty %}
+    <p> {% trans "There is no service categories" %} </p>
+    <a class="button link" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+    {% endfor %}
+</div>
+{% endblock MAIN %}
