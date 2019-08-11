@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
             <label for="is_closed">{% trans "Closed" %}</label>
-            <input id="is_closed" type="checkbox" name="is_closed" value="{{case.is_closed}}">
+            <input id="is_closed" type="checkbox" name="is_closed" {% if case.is_closed %}checked{% endif %}>
         </div>
 
         <div class="form-group row">

@@ -16,6 +16,11 @@
                 <li class="list-item"> {% trans "Created by" %}: {{service.created_by.get_full_name}} </li>
                 <li class="list-item"> {% trans "Date" %} : {{service.created_at}} </li>
                 <li class="list-item"> 
+                    <label for="is_active">{% trans "Activated" %} : </label>
+                    <input type="checkbox" name="is_active" id="is_active" {% if service.is_active %}checked{% endif %} disabled>
+                 </li>
+                
+                <li class="list-item"> 
                     <div class="">
                       <p> {% trans "Description" %} : </p>
                       <p> {{service.description}} </p>
