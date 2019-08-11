@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  justify-content: center;
 }
 
 .flex{
@@ -106,8 +107,8 @@
   margin: 0 auto;
 	flex-direction: row;
   flex-wrap: wrap;
-  /*align-items: center;*/
-  /*justify-content: center;*/
+  align-items: baseline;
+  justify-content: space-evenly;
 
 }
 
