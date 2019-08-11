@@ -11,7 +11,7 @@
         <div class="card__body">
         
         
-                <form class="form card" name="category_service" action="{% url 'dashboard:category_services_create' %}" method="POST">{% csrf_token %}
+                <form class="form card" name="category_service" action="{% url 'dashboard:category_service_create' %}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     <div class="form-group">
                         <input type="hidden" name="created_by" value="{{request.user.pk}}">

@@ -201,7 +201,7 @@ def category_service_update(request, pk=None):
             'page_title':page_title,
             'site_name' : settings.SITE_NAME,
             'template_name':template_name,
-            'service' : instance,
+            'category' : instance,
             'form': form
         }
     
@@ -227,7 +227,7 @@ def category_service_remove(request, pk=None):
             'page_title':page_title,
             'site_name' : settings.SITE_NAME,
             'template_name':template_name,
-            'service' : instance,
+            'category' : instance,
             'form': form
         }
     

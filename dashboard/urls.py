@@ -26,11 +26,11 @@ urlpatterns = [
     path('policies/remove/<int:pk>/', views.policy_remove, name='policy_remove'),
     path('policies/update/<int:pk>/', views.policy_update, name='policy_update'),
     path('policies/create/', views.policy_create, name='policy_create'),
-    path('service_categories/', views.category_services, name='service_categories'),
-    path('service_categories/details/<int:pk>/', views.category_service_details, name='service_categories_details'),
-    path('service_categories/remove/<int:pk>/', views.category_service_remove, name='category_service_remove'),
-    path('service_categories/update/<int:pk>/', views.category_service_update, name='category_service_update'),
-    path('service_categories/create/', views.category_service_create, name='category_service_create'),
+    path('category_services/', views.category_services, name='category_services'),
+    path('category_services/details/<int:pk>/', views.category_service_details, name='category_service_details'),
+    path('category_services/remove/<int:pk>/', views.category_service_remove, name='category_service_remove'),
+    path('category_services/update/<int:pk>/', views.category_service_update, name='category_service_update'),
+    path('category_services/create/', views.category_service_create, name='category_service_create'),
     
 
 ]

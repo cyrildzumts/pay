@@ -3,6 +3,32 @@
 
 {% block MAIN %}
 
-{% include "tags/category_service_details_form.html" %}
-
+<div class="container flex column">
+        <div class="card">
+          <div class="card__title">
+            <h3> {% trans "Service Category Name" %} : {{catetgory.category_name}} </h3>
+            <h4> {% trans "Service Category Code" %} : {{category.category_code}}</h4>
+          </div>
+          <div class="card__body">
+              <ul class="listview" role="navigation">
+                
+                <li class="list-item"> 
+                    <label for="is_active">{% trans "Activated" %} : </label>
+                    <input type="checkbox" name="is_active" id="is_active" value="{{category.is_active}}" disabled>
+                 </li>
+                <li class="list-item"> {% trans "Created by" %}: {{category.created_by.get_full_name}} </li>
+                <li class="list-item"> {% trans "Created at" %} : {{category.created_at}} </li>
+              </ul>
+          </div>
+          <div class="card__actions">
+              <ul class="nav" role="navigation">
+                  <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_remove' category.pk %}"> {% trans "Remove" %} </a> </li>
+                  <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_update' category.pk %}"> {% trans "Edit" %} </a> </li>
+                  <li class="list-item"> <a class="button link" href="{% url 'dashboard:category_service_create' %}"> {% trans "Add new Category Service" %} </a> </li>
+                  <li class="list-item"> <a class="button link" href="{% url 'dashboard:category_services' %}"> {% trans "Category Services" %} </a> </li>
+                  <li class="list-item"> <a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
+              </ul>
+          </div>
+        </div>
+</div>
 {% endblock MAIN %}

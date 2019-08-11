@@ -6,7 +6,7 @@
 <div class="container">
     <div>
         <h3>{% trans "Category Service" %}</h3>
-        <a class="button link" href="{% url 'dashboard:category_services_create'%}">{% trans "Add a new Category" %}</a>
+        <a class="button link" href="{% url 'dashboard:category_service_create'%}">{% trans "Add a new Category" %}</a>
         <a class="button link" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
     </div>
     {% for category in categories %}
@@ -19,11 +19,12 @@
               <p> {% trans "Date" %} : {{category.created_at}} </p>
             </div>
             <div class="card__actions">
-            <a class="button link" href="{% url 'dashboard:category_services_update' category.pk %}">{% trans "Edit" %}</a>
-            <a class="button link" href="{% url 'dashboard:category_services_remove' category.pk %}">{% trans "Remove" %}</a>
-            <a class="button link" href="{% url 'dashboard:category_services_details' category.pk %}">{% trans "Details" %}</a>
+                    <ul>
+                        <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_update' category.pk %}">{% trans "Edit" %}</a></li>
+                        <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_remove' category.pk %}">{% trans "Remove" %}</a></li>
+                        <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_details' category.pk %}">{% trans "Details" %}</a></li>
+                    </ul>
             </div>
-          
         </div>
     {% empty %}
     <p> {% trans "There is no service categories" %} </p>
