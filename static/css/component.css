@@ -158,14 +158,18 @@ h6{
 	text-align: center;
 	cursor: pointer;
 }
-
+.button{
+	padding: 2px;
+}
+input{
+	padding: 10px 20px;
+}
 .button, input{
   border: var(--btn-border);
   outline: none;
   font-size: 1rem;
   font-weight: 700;
   line-height: 22px;
-  padding: 10px 20px;
   border-radius: 50px;
   color: var(--btn-color);
   background: transparent;
