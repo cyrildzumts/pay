@@ -16,8 +16,10 @@
                 <p> {% trans "Date of transfer" %} : {{transfer.created_at}} </p>
             </div>
             <div class="card__actions">
-                <a class="button link" href="{% url 'dashboard:transfers' %}"> {% trans "Transfers" %} </a>
-                <a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+                <ul class="listview nav" role="navigation">
+                    <li class="list-item"><a class="button link" href="{% url 'dashboard:transfers' %}"> {% trans "Transfers" %} </a></li>
+                    <li class="list-item"><a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
+                </ul>
             </div>
           
         </div>
