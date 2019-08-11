@@ -11,7 +11,7 @@
         <div class="card__body">
         
         
-                <form class="form card" name="available_service" action="{% url 'dashboard:available_services_create' %}" method="POST">{% csrf_token %}
+                <form class="form card" name="available_service" action="{% url 'dashboard:available_service_create' %}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     
                     <div class="form-group">
@@ -41,7 +41,7 @@
                     </div><!-- End of Card-body-->
 
                     <div class="card__actions">
-                            <a class="link button" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
+                            <a class="link button" href="{% url 'dashboard:available_services' %}">{% trans "Cancel" %}</a>
                             <button class="button" type="submit">{% trans "Update" %}</button>
                         </div>
                     
