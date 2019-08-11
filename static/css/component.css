@@ -388,7 +388,7 @@ a.button{
   width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  /*padding: 10px 20px;*/
 }
 
 .card__actions--wrapper{
@@ -401,7 +401,7 @@ a.button{
 }
 
 .card__actions--text{
-  color: #798d99;
+ /* color: #798d99;*/
   font-size: .8rem;
   margin-left: -.25rem;
   margin-right: .5rem;
