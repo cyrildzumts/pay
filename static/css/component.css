@@ -155,6 +155,7 @@ h6{
 }
 
 .button, .link{
+	text-align: center;
 	cursor: pointer;
 }
 
