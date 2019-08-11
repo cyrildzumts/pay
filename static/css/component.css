@@ -87,6 +87,7 @@
 
 .banner{
 	display: flex;
+	flex-direction: column;
 	align-content: center;
 	align-items: center;
 	justify-content: center;
@@ -151,6 +152,10 @@ h5{
 
 h6{
 	font-size: 0.8rem;
+}
+
+.button, .link{
+	cursor: pointer;
 }
 
 .button, input{
