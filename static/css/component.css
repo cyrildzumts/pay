@@ -114,7 +114,7 @@
 	width: 50%;
 	text-align: center;
 	font-size: 1.2rem;
-	line-height: 2.2;
+	line-height: 1.8;
 
 }
 
@@ -743,7 +743,6 @@ body.header-not-at-top .site-header{
 
 .page{
 	position: relative;
-	z-index: -100;
 	overflow: hidden;
 	margin-top: 40px;
 }
