@@ -10,5 +10,6 @@ body {
 }
 
 *, ::after, ::before {
+  text-align: center;
   box-sizing: border-box;
 }
