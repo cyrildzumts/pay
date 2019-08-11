@@ -42,11 +42,13 @@
                 
         </header>
         <div class="page">
-                {% block HEADER_BANNER %}
-                <div class="header--banner">
+                
+                <div class="page--banner">
+                        {% block HEADER_BANNER %}
                         DEFAULT HEADER BANNER
+                        {% endblock HEADER_BANNER %}
                 </div>
-                {% endblock HEADER_BANNER %}
+                
 
                  {% block SIGNUP_DIALOG %}
                 
