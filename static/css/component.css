@@ -75,16 +75,39 @@
   padding: 58px;
 
 }
+
+h1,h2,h3, h4, h5, h6{
+	font-family: 'Montserrat';
+}
+
 h1{
-  font-size: 60px;
+  font-size: 2rem;
   margin-bottom: 30px;
-  font-family: 'Montserrat';
+}
+
+h2{
+	font-size: 1.8rem;
+	margin-bottom: 30px;
 }
 
 h3, .header p{
-  font-family: 'Montserrat';
-  font-size: 40px;
+  font-size: 1.6px;
   margin-bottom: 30px;
+}
+
+h4{
+	font-size: 1.3rem;
+	margin-bottom: 30px;
+}
+
+h5{
+	font-size: 1rem;
+	margin-bottom: 30px;
+}
+
+h6{
+	font-size: 0.8rem;
+	margin-bottom: 30px;
 }
 
 .button, input{
@@ -1271,4 +1294,11 @@ input[type=text]:focus, textarea:focus{
 .collapsible .collapse-content{
 	display: flex;
     display: none;
+}
+
+.scrollable{
+	max-height: 900px;
+	min-width: 100%;
+	overflow-y: auto;
+	padding: 10px 5px;
 }
