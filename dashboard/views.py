@@ -267,7 +267,7 @@ def category_service_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'ServiceCategory')
     category = get_object_or_404(model, pk=pk)
-    template_name = "dashboard/service_category_details.html"
+    template_name = "dashboard/category_service_details.html"
     page_title = "Service Category Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
