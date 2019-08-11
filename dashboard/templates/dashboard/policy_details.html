@@ -16,7 +16,7 @@
           </div>
           <div class="card__actions">
             <a class="button link" href="{% url 'dashboard:policy_update' policy.pk %}"><span class="pen"></span>{% trans "Edit" %}</a>
-            <a class="button link" href="{% url 'dashboard:policy_create' policy.pk %}"><span class="add"></span>{% trans "New Policy" %}</a>
+            <a class="button link" href="{% url 'dashboard:policy_create'%}"><span class="add"></span>{% trans "New Policy" %}</a>
             <a class="button link" href="{% url 'dashboard:policies' %}"><span class="back"></span>{% trans "Policies" %}</a>
             <a class="button link" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
           </div>
