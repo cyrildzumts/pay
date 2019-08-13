@@ -9,8 +9,10 @@
     --banner-color: #242424;
     --card-bg : transparent;
     --card-color : #242424;
-    --btn-border : 1px solid #658934;
+    --btn-border : 1px solid #242424;
     --btn-color: #242424;
+    --btn-hover-border : 1px solid #454545;
+    --btn-hover-color: #454545;
     --box-shadow: 0 1px 0 rgba(9,45,66,.25);
     --in-bg : #BEBEBE;
     --in-color: #454545;
