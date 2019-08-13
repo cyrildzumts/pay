@@ -1,11 +1,11 @@
 :root{
     --body-bg: #fff;
     --header-hover-color: #242424; 
-    --header-bg: #cecece;
+    --header-bg: transparent;
     --header-color: #242424;
     --header-panel-bg :#cecece;
     --header-panel-color: #242424;
-    --banner-bg: #FEFEFE;
+    --banner-bg: transparent;
     --banner-color: #242424;
     --card-bg : transparent;
     --card-color : #242424;
