@@ -11,19 +11,22 @@
               </div>
         </div>
         <div class="col col-11">
-              <nav class="nav">
-                    <a href="{% url 'dashboard:home' %}">{{site_name}}</a>
-
-                    <a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a>
-                    <div class="languages">
-                   {% for lang in LANGUAGES %}
-                   {% if lang.0 == LANGUAGE_CODE %}
-                        <span class="lang active" title="{{lang.1}}"> {{lang.0}} </span>
-                   {% else %}
-                        <span class="lang" title="{{lang.1}}"> {{lang.0}} </span>
-                  {% endif %} 
-                  {% endfor %}
-                   </div>
+              <nav class="nav-container">
+                  <ul class="nav">
+                        <li><a href="{% url 'dashboard:home' %}">{{site_name}}</a></li>
+                        <li><a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a></li> 
+                  </ul>
+                    
+                  <ul class="nav languages">
+                        {% for lang in LANGUAGES %}
+                              {% if lang.0 == LANGUAGE_CODE %}
+                              <li><span class="lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
+                              {% else %}
+                              <li><span class="lang" title="{{lang.1}}"> {{lang.0}} </span></li>
+                              {% endif %} 
+                        {% endfor %}
+                        <li><span class="js-grid-enable baseline-grid-btn">Enable Grid</span></li>
+                  </ul>
               </nav>
         </div>                 
   </div>

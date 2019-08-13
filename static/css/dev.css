@@ -1,0 +1,21 @@
+.baseline-16{
+    background-image: url("/static/assets/baseline_16.svg");
+    background-repeat: repeat;
+    background-color: white;
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+.baseline-grid-btn{
+
+    color: aquamarine;
+    background-color: #fff;
+    padding: 0 22px
+}
+
+.baseline-grid-btn.active{
+    color: #fff;
+    background-color: aquamarine;
+}

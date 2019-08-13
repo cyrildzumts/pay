@@ -34,7 +34,18 @@
 
 /* sections */
 
+ul, nav, .nav{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
 
+li a{
+	display: block;
+	text-align: center;
+	text-decoration: none;
+}
 
 .balance{
 	font-size: 1.5em;
@@ -248,6 +259,12 @@ a.button{
 
 .header .nav{
   
+}
+
+.nav-container{
+	width: 100%;
+	padding: 0;
+
 }
 
 .nav{
