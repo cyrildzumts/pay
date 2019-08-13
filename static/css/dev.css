@@ -3,7 +3,7 @@
     --header-hover-color: #242424; 
     --header-bg: transparent;
     --header-color: #242424;
-    --header-panel-bg :#cecece;
+    --header-panel-bg :transparent;
     --header-panel-color: #242424;
     --banner-bg: transparent;
     --banner-color: #242424;
@@ -14,9 +14,9 @@
     --btn-hover-border : 1px solid #454545;
     --btn-hover-color: #454545;
     --box-shadow: 0 1px 0 rgba(9,45,66,.25);
-    --in-bg : #BEBEBE;
+    --in-bg : transparent;
     --in-color: #454545;
-    --out-bg:#e91e63;
+    --out-bg:transparent;
     --out-color:#eeeeee;
     --nav-link-color: #242424
     --nav-link-hover-color: #454545;
