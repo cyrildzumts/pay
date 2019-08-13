@@ -25,6 +25,8 @@
   --logo-color: #242424;
   --nav-link-color: #fff;
   --nav-link-hover-color: #242424;
+  --form-bg: #cecece;
+  --form-color: #242424;
 
 }
 
@@ -697,8 +699,8 @@ a.button{
 
 /* Form */
 .form{
-	background-color: var(--body-bg);
-	color: var(--btn-color);
+	background-color: var(--form-bg);
+	color: var(--form-color);
 	border: var(--btn-border);
 }
 
