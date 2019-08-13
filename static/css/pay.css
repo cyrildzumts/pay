@@ -1,6 +1,6 @@
 
 .link{
-    color: #FEFFFF;
+    color: #242424;
     text-decoration: none;
 }
 
@@ -22,8 +22,8 @@
 }
 
 .advantages{
-    background-color: #0B0C10;
-    color: #FEFFFF;
+    background-color: #fff;
+    color: #242424;
     min-height: 25rem;
     padding: 18px 20px;
 }
@@ -34,7 +34,7 @@
 }
 
 .advantage p{
-    color: #A8D0E8;
+    color: #242424;
     font-size: 1rem;
     padding: 16px 18px;
 }
@@ -48,7 +48,7 @@
 
 .logo{
     text-decoration: none;
-    color: #66FCF1;
+    color: var(--logo-color);
     font-weight: 600;
 }
 
