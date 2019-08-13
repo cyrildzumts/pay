@@ -23,6 +23,9 @@
   --out-color:#eeeeee;
   --logo-bg: #fff;
   --logo-color: #242424;
+  --nav-link-color: #fff;
+  --nav-link-hover-color: #242424;
+
 }
 
 .adapt-color{
@@ -292,7 +295,7 @@ a.button{
 
 .nav a, .logo{
   display: flex;
-  color: #fff;
+  color: var(--nav-link-color);
 
   font-size: 20px;
   font-weight: 400;
@@ -304,7 +307,7 @@ a.button{
 }
 
 .nav a:hover{
-  color: var(--header-hover-color);
+  color: var(--nav-link-hover-color);
 }
 /*  */
 
