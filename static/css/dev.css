@@ -1,5 +1,22 @@
+:root{
+    --body-bg: #fff;
+    --header-hover-color: #66FCF1; 
+    --header-bg: #cecece;
+    --header-color: #242424;
+    --header-panel-bg :#cecece;
+    --header-panel-color: #242424;
+    --banner-bg: #FEFEFE;
+    --banner-color: #242424;
+    --card-bg : transparent;
+    --card-color : #242424;
+    --btn-border : 1px solid #658934;
+    --btn-color: #242424;
+    --box-shadow: 0 1px 0 rgba(9,45,66,.25);
+  }
 
-*{
+
+
+* {
     background-color: #fff;
     color: black;
     font-size: 1em;
@@ -7,6 +24,15 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    background-color: #fff;
+    color:black;
+    font-size: 1em;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    line-height: 1.5;
+    margin: 0;
+  }
 
 .baseline-16{
     background-image: url("/static/assets/baseline_16.svg");
