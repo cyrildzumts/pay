@@ -14,6 +14,10 @@
   --btn-border : 1px solid #66FCF1;
   --btn-color: #66FCF1;
   --box-shadow: 0 1px 0 rgba(9,45,66,.25);
+  --in-bg : #4caf50;
+  --in-color: #eeeeee;
+  --out-bg:#e91e63;
+  --out-color:#eeeeee;
 }
 
 .adapt-color{
@@ -197,13 +201,13 @@ a.button{
 }
 
 .in{
-	background-color: #4caf50;
-	color: #eeeeee;
+	background-color: var(--in-bg);
+	color: var(--in-color);
 }
 
 .out{
-	background-color: #e91e63;
-	color: #eeeeee;
+	background-color: var(--out-bg);
+	color: var(--out-color);
 }
 
 .content {
@@ -920,16 +924,6 @@ button, input, select, textarea{
 .header {
   --width-mobile: 12;
   /*height: 12rem;*/
-}
-
-.in{
-	background-color: #4caf50;
-	color: #eeeeee;
-}
-
-.out{
-	background-color: #e91e63;
-	color: #eeeeee;
 }
 
 .content {

@@ -1,6 +1,6 @@
 :root{
     --body-bg: #fff;
-    --header-hover-color: #66FCF1; 
+    --header-hover-color: #242424; 
     --header-bg: #cecece;
     --header-color: #242424;
     --header-panel-bg :#cecece;
@@ -12,6 +12,10 @@
     --btn-border : 1px solid #658934;
     --btn-color: #242424;
     --box-shadow: 0 1px 0 rgba(9,45,66,.25);
+    --in-bg : #BEBEBE;
+    --in-color: #454545;
+    --out-bg:#e91e63;
+    --out-color:#eeeeee;
   }
 
 
