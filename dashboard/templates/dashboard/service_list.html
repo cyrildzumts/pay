@@ -17,7 +17,7 @@
             </div>
 
             <div class="card__actions">
-              <a class="button link" href="{% url 'dashboard:service_details' service.pk %}"> {% trans "More" %} ...</a>
+              <a class="button link" href="{% url 'dashboard:service_details' service.uuid %}"> {% trans "More" %} ...</a>
               <a class="button link" href="{% url 'dashboard:available_services' %}"> {% trans "See Available services" %} </a>
               <a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
             </div>

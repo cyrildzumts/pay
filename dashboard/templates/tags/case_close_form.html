@@ -5,15 +5,15 @@
     <div class="form-group">
             <h3>{% trans "Close this case" %}</h3>
     </div>
-    <form id="case-form" class="case-form form" name="case" action="{% url 'dashboard:case_close' case.pk %}" method="POST">{% csrf_token %}
+    <form id="case-form" class="case-form form" name="case" action="{% url 'dashboard:case_close' case.uuid %}" method="POST">{% csrf_token %}
         <div class="form-group">
             <label for="participant_1">{% trans "Participant" %} 1</label>
-            <input id="participant_1" type="text" name="participant_1" value="{{case.participant_1.pk}}">
+            <input id="participant_1" type="text" name="participant_1" value="{{case.participant_1.uuid}}">
         </div>
 
         <div class="form-group">
             <label for="participant_2"> {% trans "Participant" %} 2</label>
-            <input id="participant_2" type="text" name="participant_2" value="{{case.participant_2.pk}}">
+            <input id="participant_2" type="text" name="participant_2" value="{{case.participant_2.uuid}}">
         </div>
 
         <div class="form-group">

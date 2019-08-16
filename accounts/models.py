@@ -28,15 +28,20 @@ class Policy(models.Model):
         The commission is a percent value that is to be taken from the transfer amount.
 
     """
-    daily_limit = models.IntegerField(blank=False)
-    weekly_limit = models.IntegerField(blank=False)
-    monthly_limit = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_digits=10, decimal_places=5, default=0.03)
+    daily_limit         = models.IntegerField(blank=False)
+    weekly_limit        = models.IntegerField(blank=False)
+    monthly_limit       = models.IntegerField(blank=False)
+    commission          = models.DecimalField(max_digits=10, decimal_places=5, default=0.03)
+    uuid         = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
+
 
     def __str__(self):
         return "{0}".format(self.commission)
     
 
+    def get_absolute_url(self):
+        return reverse("accounts:policy_details", kwargs={"uuid": self.uuid})
+    
 
 class ServiceCategory(models.Model):
     category_name = models.CharField(max_length=50, unique=True, null=False,blank=False)
@@ -44,9 +49,16 @@ class ServiceCategory(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateField(auto_now=True)
     created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
+
 
     def __str__(self):
         return self.category_name
+
+
+    def get_absolute_url(self):
+        return reverse("accounts:category_service_details", kwargs={"uuid": self.uuid})
+    
 
 
 class AvailableService(models.Model):
@@ -69,21 +81,23 @@ class AvailableService(models.Model):
     created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)
     description = models.CharField(max_length=80, blank=True, null=True)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
         return self.name
     
+
     def get_absolute_url(self):
         """
         This method returns the url that is used to query the details of this models.
         """
-        return reverse('accounts:available_service_details', kwargs={'pk':self.pk})
+        return reverse('accounts:available_service_details', kwargs={'uuid':self.uuid})
     
     def get_link(self):
         """
         This method returns the link that let the user use this services.
         """
-        return reverse('accounts:new_service', kwargs={'pk':self.pk})
+        return reverse('accounts:new_service', kwargs={'uuid':self.uuid})
     
 
 
@@ -119,12 +133,13 @@ class Service(models.Model):
     created_at = models.DateField(auto_now=True)
     issued_at = models.DateField()
     description = models.CharField(max_length=80, blank=True, null=True)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('accounts:service_details', kwargs={'pk':self.pk})
+        return reverse('accounts:service_details', kwargs={'uuid':self.uuid})
 
 
 
@@ -151,7 +166,7 @@ class Account(models.Model):
     created_at = models.DateField(auto_now=True)
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
     policy = models.ForeignKey(Policy, related_name="accounts", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    account_uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
     email_validated = models.BooleanField(default=False, blank=True, null=True)
     created_by = models.ForeignKey(User, related_name="created_accounts", null=True,blank=True, on_delete=models.SET_NULL)
     #reset_token = models.CharField(max_length=8, blank=True, null=True)
@@ -167,7 +182,7 @@ class Account(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('accounts:account_details', kwargs={'pk':self.pk})
+        return reverse('accounts:account_details', kwargs={'uuid':self.uuid})
 
     def full_name(self):
         return self.user.get_full_name()
@@ -190,16 +205,16 @@ class IDCard(models.Model):
     expire_at = models.DateTimeField(blank=True, null=True)
     delivery_place = models.CharField(max_length=32, blank=True, null=True)
     is_valid = models.BooleanField(default=False, blank=True, null=True)
-    
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
-        return "Card id : {} User : {}".format(self.pk, self.user)
+        return "Card id : {} User : {}".format(self.uuid, self.user)
     
     def get_absolute_url(self):
-        return reverse('accounts:idcard_details', kwargs={'pk':self.pk})
+        return reverse('accounts:idcard_details', kwargs={'uuid':self.uuid})
     
     def get_update_url(self):
-        return reverse('accounts:idcard_update', kwargs={'pk':self.pk})
+        return reverse('accounts:idcard_update', kwargs={'uuid':self.uuid})
     
 
 

@@ -10,7 +10,7 @@
           <p> {% trans "Recipient" %} : {{payment.recipient.full_name}} </p>
           <p> {% trans "Price" %} : {{payment.amount}} FCFA </p>
           <p> {% trans "Date" %} : {{payment.created_at}} </p>
-          <a class="button link" href="{% url 'accounts:payment_details' payment.pk %}">{% trans "More" %} ...</a>
+          <a class="button link" href="{% url 'accounts:payment_details' payment.uuid %}">{% trans "More" %} ...</a>
         </div>
     {% empty %}
     <p> {% trans "You haven't made any Payments" %} ...</p>
