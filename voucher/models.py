@@ -30,7 +30,7 @@ class Voucher(models.Model):
 
 class SoldVoucher(models.Model):
 
-    seller = models.ForeignKey(User, related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    seller = models.ForeignKey('accounts:Account', related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="sold_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     sold_at = models.DateField(auto_now=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
@@ -49,7 +49,7 @@ class SoldVoucher(models.Model):
 
 class UsedVoucher(models.Model):
 
-    customer = models.ForeignKey(User, related_name='used_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey('accounts:Account', related_name='used_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="used_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateField(auto_now=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
