@@ -5,7 +5,7 @@
             
     </div>
     <form id="reduction-form" class="reduction-form form" name="reduction" action="{% url 'accounts:reductions' %}" method="POST">{% csrf_token %}
-        <input type="hidden" name="account" value="{{request.user.account.uuid}}">
+        <input type="hidden" name="account" value="{{request.user.pk}}">
         <div class="form-group">
             <input type="text" name="code" id="code">
             <input type="number" name="percent" placeholder="{% trans 'Enter the percent to apply' %}">
