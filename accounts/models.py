@@ -75,6 +75,8 @@ class AvailableService(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    template_name = models.CharField(max_length=50, blank=True, null=True)
+    form_class = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateField(auto_now=True)
     created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)
