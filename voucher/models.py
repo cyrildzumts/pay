@@ -15,7 +15,6 @@ class Voucher(models.Model):
     activated = models.BooleanField(default=False)
     activated_at = models.DateField(auto_now=True, blank=True, null=True)
     is_used = models.BooleanField(default=False)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     class Meta:
         verbose_name = _("Voucher")
@@ -25,7 +24,7 @@ class Voucher(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("voucher:voucher_details", kwargs={"uuid": self.uuid})
+        return reverse("voucher:voucher_details", kwargs={"pk": self.pk})
 
 
 class SoldVoucher(models.Model):
@@ -33,7 +32,6 @@ class SoldVoucher(models.Model):
     seller = models.ForeignKey(User, related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="sold_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     sold_at = models.DateField(auto_now=True)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     class Meta:
         verbose_name = _("SoldVoucher")
@@ -43,7 +41,7 @@ class SoldVoucher(models.Model):
         return self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:sold_voucher_detail", kwargs={"uuid": self.uuid})
+        return reverse("voucher:sold_voucher_detail", kwargs={"pk": self.pk})
 
 
 
@@ -52,8 +50,6 @@ class UsedVoucher(models.Model):
     customer = models.ForeignKey(User, related_name='used_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="used_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateField(auto_now=True)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
-
     class Meta:
         verbose_name = _("UsedVoucher")
         verbose_name_plural = _("UsedVouchers")
@@ -62,4 +58,4 @@ class UsedVoucher(models.Model):
         return self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:used_voucher_details", kwargs={"uuid": self.uuid})
+        return reverse("voucher:used_voucher_details", kwargs={"pk": self.pk})

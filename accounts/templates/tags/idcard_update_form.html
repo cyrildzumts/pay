@@ -4,7 +4,7 @@
     <div class="form-group">
             
     </div>
-    <form id="idcard-form-update" class="idcard-form form" name="idcard" action="{% url 'accounts:idcard_update' idcard.uuid %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+    <form id="idcard-form-update" class="idcard-form form" name="idcard" action="{% url 'accounts:idcard_update' idcard.pk %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
          {% comment "" %}
          <input type="hidden" name="user" value="{{request.user.pk}}">
          {% endcomment %}

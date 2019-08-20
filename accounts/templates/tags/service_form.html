@@ -2,17 +2,17 @@
 
 <div class="responsive">
 
-    <form name="transaction" action="{% url 'accounts:new_service'  service.uuid %}" method="POST">{% csrf_token %}
+    <form name="transaction" action="{% url 'accounts:new_service'  service.pk %}" method="POST">{% csrf_token %}
         <div class="form-group">
             
         </div>
         <div class="form-group">
             <input type="text" name="name" value="{{service.name}}">
             <input type="text" name="operator_name" value="{{service.operator}}">
-            <input type="hidden" name="operator" value="{{service.operator.uuid}}">
-            <input type="hidden" name="service_instance" value="{{service.uuid}}">
+            <input type="hidden" name="operator" value="{{service.operator.pk}}">
+            <input type="hidden" name="service_instance" value="{{service.pk}}">
             <input type="text" name="category_name" value="{{service.category.category_name}}">
-            <input type="hidden" name="category" value="{{service.category.uuid}}">
+            <input type="hidden" name="category" value="{{service.category.pk}}">
             <input type="hidden" name="customer" value="{{request.user.pk}}">
             
             <input type="number" name="reference_number" placeholder="{% trans 'You bill Reference number if applicable' %}">

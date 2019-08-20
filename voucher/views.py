@@ -43,9 +43,9 @@ def vouchers(request):
     return render(request,template_name, context)
 
 @login_required
-def voucher_details(request, uuid=None):
+def voucher_details(request, pk=None):
     page_title = _("Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(Voucher, uuid=uuid)
+    instance = get_object_or_404(Voucher, pk=pk)
     template_name = "voucher/voucher_details.html"
     
     context = {
@@ -58,12 +58,12 @@ def voucher_details(request, uuid=None):
 
 
 @login_required
-def voucher_activate(request, uuid=None):
-    c = Voucher.objects.filter(uuid=uuid,activated=False, is_used=False).update(activated=True, activated_at=datetime.now())
+def voucher_activate(request, pk=None):
+    c = Voucher.objects.filter(pk=pk,activated=False, is_used=False).update(activated=True, activated_at=datetime.now())
     if c > 0 :
         return redirect('voucher:vouchers')
     else :
-        return redirect('voucher:voucher_details', uuid=uuid)
+        return redirect('voucher:voucher_details', pk=pk)
 
 
 @login_required
@@ -81,9 +81,9 @@ def used_vouchers(request):
     return render(request,template_name, context)
 
 @login_required
-def used_voucher_details(request, uuid=None):
+def used_voucher_details(request, pk=None):
     page_title = _("Used Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(UsedVoucher, uuid=uuid)
+    instance = get_object_or_404(UsedVoucher, pk=pk)
     template_name = "voucher/used_voucher_details.html"
     context = {
         'page_title':page_title,
@@ -110,9 +110,9 @@ def sold_vouchers(request):
     return render(request,template_name, context)
 
 @login_required
-def sold_voucher_details(request, uuid=None):
+def sold_voucher_details(request, pk=None):
     page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(SoldVoucher, uuid=uuid)
+    instance = get_object_or_404(SoldVoucher, pk=pk)
     template_name = "voucher/sold_voucher_details.html"
     context = {
         'page_title':page_title,

@@ -171,14 +171,14 @@ class VoucherService:
         return flag
 
     @classmethod
-    def use_voucher(cls, voucher, user_uuid=None):
+    def use_voucher(cls, voucher, user_pk=None):
         succeed = False
         amount = 0
         if cls.can_be_used(voucher):
             Voucher = utils.get_model("voucher", "Voucher")
             Account = utils.get_model("accounts", "Account")
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
-            user = User.objects.get(uuid=user_uuid)
+            user = User.objects.get(pk=user_pk)
             voucher_queryset = Voucher.objects.filter(voucher_code=voucher)
             voucher_queryset.update(is_used=True)
             v = voucher_queryset.get()
@@ -196,7 +196,7 @@ class VoucherService:
 
 
     @classmethod
-    def activate_voucher(cls,voucher, seller_uuid=None):
+    def activate_voucher(cls,voucher, seller_pk=None):
         succeed = False
         Voucher = utils.get_model("voucher", "Voucher")
         SoldVoucher = utils.get_model("voucher", "SoldVoucher")
@@ -205,7 +205,7 @@ class VoucherService:
         if queryset.exists():
             queryset.update(activated=True)
             succeed = True
-            #SoldVoucher.objects.create(seller=seller_uuid, voucher=queryset.get())
+            #SoldVoucher.objects.create(seller=seller_pk, voucher=queryset.get())
             logger.info("Voucher %s is successfuly activated ",voucher)
 
         else :

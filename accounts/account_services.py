@@ -280,7 +280,7 @@ class AccountService(ABC):
                     recipient_exist = Account.objects.filter(user_email=recipient).exists()
                     if recipient_exist:
                         Account.objects.all().filter(user_email=recipient).update(solde=F('solde') + amount)
-                        Account.objects.all().filter(uuid=current_account.uuid).update(solde=F('solde') - amount)
+                        Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
                         transaction_form.save()
                         context['success'] = True
                         context['solde'] = current_account - amount
@@ -324,7 +324,7 @@ class AccountService(ABC):
                     recipient_exist = Account.objects.filter(user=recipient).exists()
                     if recipient_exist:
                         Account.objects.all().filter(user=recipient).update(solde=F('solde') + amount)
-                        Account.objects.all().filter(uuid=current_account.uuid).update(solde=F('solde') - amount)
+                        Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
                         transfer_form.save()
                         context['success'] = True
                         context['solde'] = current_solde - amount
@@ -346,7 +346,7 @@ class AccountService(ABC):
         return context
 
     @staticmethod
-    def process_service_request(request, service_uuid=None):
+    def process_service_request(request, service_pk=None):
         #TODO : when a user registers itself, for bussiness users it should be checked
         # that all the necessary fields are present : policy, id card and email is verified
         context = {}
@@ -382,8 +382,8 @@ class AccountService(ABC):
                         if succeed :
                             
                             Account.objects.all().filter(user=user_operator).update(solde=F('solde') + operator_amount)
-                            Account.objects.all().filter(uuid=current_account.uuid).update(solde=F('solde') - price)
-                            Account.objects.all().filter(uuid=pay_account.uuid).update(solde=F('solde') + pay_fee)
+                            Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - price)
+                            Account.objects.all().filter(pk=pay_account.pk).update(solde=F('solde') + pay_fee)
                             postdata['commission'] = commission
                             service_form = form(postdata)
                             service = service_form.save()

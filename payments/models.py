@@ -11,13 +11,12 @@ class Reduction(models.Model):
     account = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
     created_at = models.DateField(auto_now=True) 
     used_at = models.DateField()
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
         return "Reduction {}".format( self.percent)
     
     def get_absolute_url(self):
-        return reverse('accounts:reduction_details', kwargs={'uuid':self.uuid})
+        return reverse('accounts:reduction_details', kwargs={'pk':self.pk})
 
 
 class Transaction(models.Model):
@@ -35,13 +34,12 @@ class Transaction(models.Model):
     transaction_type = models.CharField(max_length=1, choices=TRANSACTION_TYPES)
     policy = models.ForeignKey('accounts.Policy', blank=True, null=True, on_delete=models.SET_NULL)
     reduction = models.ForeignKey('payments.Reduction', blank=True, null=True, on_delete=models.SET_NULL)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
-        return "Transaction id : {0} - Amount : {1}".format(self.uuid, self.amount)
+        return "Transaction id : {0} - Amount : {1}".format(self.pk, self.amount)
     
     def get_absolute_url(self):
-        return reverse('accounts:transaction_details', kwargs={'uuid':self.uuid})
+        return reverse('accounts:transaction_details', kwargs={'pk':self.pk})
 
 
 class Payment(models.Model):
@@ -51,13 +49,12 @@ class Payment(models.Model):
     created_at = models.DateField(auto_now=True)
     validated_at = models.DateField()
     details = models.TextField(max_length=256)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
-        return "Payment id : {0} - Amount : {1}".format(self.uuid, self.amount)
+        return "Payment id : {0} - Amount : {1}".format(self.pk, self.amount)
     
     def get_absolute_url(self):
-        return reverse('accounts:payment_details', kwargs={'uuid':self.uuid})
+        return reverse('accounts:payment_details', kwargs={'pk':self.pk})
 
 
 class Transfer(models.Model):
@@ -66,13 +63,12 @@ class Transfer(models.Model):
     recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='transfer_recipient')
     created_at = models.DateField(auto_now=True)
     details = models.TextField(max_length=256)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
-        return "Transfer id : {0} - Amount : {1}".format(self.uuid, self.amount)
+        return "Transfer id : {0} - Amount : {1}".format(self.pk, self.amount)
 
     def get_absolute_url(self):
-        return reverse('accounts:transfer_details', kwargs={'uuid':self.uuid})
+        return reverse('accounts:transfer_details', kwargs={'pk':self.pk})
 
 class CaseIssue(models.Model):
     participant_1 = models.ForeignKey('accounts.Account', null=True , on_delete = models.CASCADE, related_name='issue_creator')
@@ -83,13 +79,12 @@ class CaseIssue(models.Model):
     is_closed = models.BooleanField(default=False)
     created_at = models.DateField(auto_now=True)
     closed_at = models.DateField()
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
 
     def __str__(self):
-        return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.uuid, self.participant_1, self.participant_2)
+        return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.pk, self.participant_1, self.participant_2)
 
     def get_absolute_url(self):
-        return reverse('accounts:case_details', kwargs={'uuid':self.uuid})
+        return reverse('accounts:case_details', kwargs={'pk':self.pk})
 
 
 

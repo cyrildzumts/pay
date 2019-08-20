@@ -5,15 +5,15 @@
     <div class="form-group">
             <input id="participant_name" type="text" name="participant_name" placeholder="{% trans 'Enter the Operator name' %}">
     </div>
-    <form id="case-form" class="case-form form" name="case" action="{% url 'dashboard:case_update' case.uuid %}" method="POST">{% csrf_token %}
+    <form id="case-form" class="case-form form" name="case" action="{% url 'dashboard:case_update' case.pk %}" method="POST">{% csrf_token %}
         <div class="form-group">
             <label for="participant_1">Participant 1</label>
-            <input id="participant_1" type="text" name="participant_1" value="{{case.participant_1.uuid}}">
+            <input id="participant_1" type="text" name="participant_1" value="{{case.participant_1.pk}}">
         </div>
 
         <div class="form-group">
             <label for="participant_2">Participant 2</label>
-            <input id="participant_2" type="text" name="participant_2" value="{{case.participant_2.uuid}}">
+            <input id="participant_2" type="text" name="participant_2" value="{{case.participant_2.pk}}">
         </div>
 
         <div class="form-group">

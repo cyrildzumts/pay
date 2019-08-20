@@ -25,4 +25,4 @@ class AvailableServiceRetrieveUpdateCreateAPIView(RetrieveUpdateDestroyAPIView):
     queryset = AvailableService.objects.all()
     permission_classes = (IsAuthenticated, )
     serializer_class =  AvailableServiceSerializer
-    lookup_field = 'uuid'
+    lookup_field = 'pk'

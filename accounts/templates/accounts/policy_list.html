@@ -7,7 +7,7 @@
     {% for policy in policies %}
         <div class="card">
            <p> {% trans "Commission" %} : {{policy.commission}}</p>  
-          <a class="button link" href="{% url 'accounts:policy_details' policy.uuid %}">{% trans "More" %} ...</a>
+          <a class="button link" href="{% url 'accounts:policy_details' policy.pk %}">{% trans "More" %} ...</a>
         </div>
     {% empty %}
     <p> {% trans "There is no policies now." %} ...</p>
