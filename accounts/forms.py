@@ -35,7 +35,21 @@ class UserForm(forms.ModelForm):
 class PolicyForm(forms.ModelForm):
     class Meta:
         model = Policy
-        exclude = ['policy_id']
+        fields = ('daily_limit', 'weekly_limit','monthly_limit','commission',)
+    
+    def clean_commission(self):
+        commission = self.cleaned_data['commission']
+        try:
+            policy = Policy.objects.get(commission=commission)
+            msg = "A Policy %s entry with commission %s already exists".format(
+                policy, commission
+            )
+            raise forms.ValidationError(msg)
+        except Policy.DoesNotExist:
+            pass
+        return commission
+
+
 
 class UpdateAccountForm(forms.ModelForm):
     
@@ -61,8 +75,19 @@ class UpdateIDCardForm(forms.ModelForm):
 class IDCardForm(forms.ModelForm):
     class Meta:
         model = IDCard
-        fields = ['card_number', 'image', 'user']
+        fields = ['card_number', 'image', 'user', 'delivery_at', 'expire_at','delivery_place']
 
+    def clean_card_number(self):
+        card_number = self.cleaned_data['card_number']
+        try:
+            idcard = IDCard.objects.get(card_number=card_number)
+            msg = "An ID card with the card number %s already exist.".format(
+                card_number
+            )
+            raise forms.ValidationError(msg)
+        except IDCard.DoesNotExist:
+            pass
+        return card_number
 
 
 
@@ -168,6 +193,7 @@ class ServiceCategoryCreationForm(forms.ModelForm):
 class AvailableServiceCreationForm(forms.ModelForm):
     class Meta:
         model = AvailableService
+        fields = ('service_code')
         exclude = ['created_at','is_active']
 
 
