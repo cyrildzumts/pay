@@ -25,7 +25,7 @@
                   <h3>{% trans "Services Available in this category" %} :</h3>
                   <ul class="listview">
                     {% for service in available_services %}
-                     <li class="list-item"><a class="link" href="{%url 'dashboard:available_service_detail' service.pk %}"></a></li>
+                     <li class="list-item"><a class="link" href="{%url 'dashboard:available_service_detail' service.pk %}">{{service.name}}</a></li>
                     {% endfor %}
                   </ul>
               </div>
