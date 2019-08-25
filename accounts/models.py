@@ -77,7 +77,7 @@ class AvailableService(models.Model):
         """
         This method returns the url that is used to query the details of this models.
         """
-        return reverse('accounts:available_service_details', kwargs={'pk':self.pk})
+        return reverse('accounts:available_service_detail', kwargs={'pk':self.pk})
     
     def get_link(self):
         """
