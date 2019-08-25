@@ -266,12 +266,15 @@ def category_service_create(request):
 def category_service_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'ServiceCategory')
+    avs_model = utils.get_model('accounts', 'AvailableService')
     category = get_object_or_404(model, pk=pk)
+    avs = avs_model.objects.filter(category=category)
     template_name = "dashboard/category_service_detail.html"
     page_title = "Service Category Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['category'] = category
+    context['available_services'] = category.available_services
     return render(request,template_name, context)
 
 
