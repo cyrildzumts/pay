@@ -47,7 +47,7 @@ def service_details(request, pk=None):
     model = utils.get_model('accounts', 'Service')
     user_services = model.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
     service = get_object_or_404(user_services, pk=pk)
-    template_name = "dashboard/service_details.html"
+    template_name = "dashboard/service_detail.html"
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -162,7 +162,7 @@ def available_service_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'AvailableService')
     service= get_object_or_404(model, pk=pk)
-    template_name = "dashboard/available_service_details.html"
+    template_name = "dashboard/available_service_detail.html"
     page_title = "Available Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -267,7 +267,7 @@ def category_service_details(request, pk=None):
     context = {}
     model = utils.get_model('accounts', 'ServiceCategory')
     category = get_object_or_404(model, pk=pk)
-    template_name = "dashboard/category_service_details.html"
+    template_name = "dashboard/category_service_detail.html"
     page_title = "Service Category Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -377,7 +377,7 @@ def policy_details(request, pk=None):
     model = utils.get_model(app_name='accounts', modelName='Policy')
     #current_account = Account.objects.get(user=request.user)
     policy = get_object_or_404(model, pk=pk)
-    template_name = "dashboard/policy_details.html"
+    template_name = "dashboard/policy_detail.html"
     page_title = "Policy Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -407,7 +407,7 @@ def transfer_details(request, pk=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Transfer')
     transfer = get_object_or_404(model, pk=pk)
-    template_name = "dashboard/transfer_details.html"
+    template_name = "dashboard/transfer_detail.html"
     page_title = "Transfer Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -433,7 +433,7 @@ def payment_details(request, pk=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Payment')
     payment = get_object_or_404(model, pk=pk)
-    template_name = "dashboard/payment_details.html"
+    template_name = "dashboard/payment_detail.html"
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
@@ -459,7 +459,7 @@ def case_details(request, pk=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
     claim = get_object_or_404(model, pk=pk)
-    template_name = "dashboard/case_details.html"
+    template_name = "dashboard/case_detail.html"
     page_title = "Claim Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
