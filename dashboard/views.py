@@ -274,6 +274,7 @@ def category_service_details(request, pk=None):
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['category'] = category
+    context['has_services'] = category.available_services.exists()
     context['available_services'] = category.available_services.all()
     return render(request,template_name, context)
 

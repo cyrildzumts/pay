@@ -19,16 +19,20 @@
                 <li class="list-item"> {% trans "Created by" %}: {{category.created_by.get_full_name}} </li>
                 <li class="list-item"> {% trans "Created at" %} : {{category.created_at}} </li>
               </ul>
+              {% if has_services %}
+              
               <div>
                   <h3>{% trans "Services Available in this category" %}</h3>
                   <ul class="listview">
                     {% for service in available_services %}
-                    <li class="list-item">
-                      <a class="link" href="%url 'dashboard:available_service_detail' service.pk %"></a>
-                    </li>
+                    
                     {% endfor %}
                   </ul>
               </div>
+              {%else%}
+                  <p>{% trans "There are no services available for this category yet" %}</p>
+              {% endif %}
+              
           </div>
           <div class="card__actions">
               <ul class="listview nav" role="navigation">
