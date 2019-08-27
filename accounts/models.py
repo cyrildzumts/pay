@@ -124,7 +124,7 @@ class Service(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('accounts:service_details', kwargs={'pk':self.pk})
+        return reverse('accounts:service_detail', kwargs={'pk':self.pk})
 
 
 
@@ -167,7 +167,7 @@ class Account(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('accounts:account_details', kwargs={'pk':self.pk})
+        return reverse('accounts:account_detail', kwargs={'pk':self.pk})
 
     def full_name(self):
         return self.user.get_full_name()
@@ -196,7 +196,7 @@ class IDCard(models.Model):
         return "Card id : {} User : {}".format(self.pk, self.user)
     
     def get_absolute_url(self):
-        return reverse('accounts:idcard_details', kwargs={'pk':self.pk})
+        return reverse('accounts:idcard_detail', kwargs={'pk':self.pk})
     
     def get_update_url(self):
         return reverse('accounts:idcard_update', kwargs={'pk':self.pk})
