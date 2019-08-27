@@ -7,17 +7,14 @@
   <div class="row">
        <div class="col col-1">
               <div class="logo">
-                {{site_name}}
+                <a href="{% url 'dashboard:home' %}">{{site_name}}</a>
               </div>
         </div>
         <div class="col col-11">
               <nav class="nav-container">
-                  <ul class="nav">
+                  <ul class="nav-links">
                         <li><a href="{% url 'dashboard:home' %}">{{site_name}}</a></li>
                         <li><a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a></li> 
-                  </ul>
-                    
-                  <ul class="nav languages">
                         {% for lang in LANGUAGES %}
                               {% if lang.0 == LANGUAGE_CODE %}
                               <li><span class="lang active" title="{{lang.1}}"> {{lang.0}} </span></li>

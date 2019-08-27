@@ -21,8 +21,8 @@
               </ul>
               {% if has_services %}
               
-              <div class="row">
-                  <h3>{% trans "Services Available in this category" %} :</h3>
+              <div class="container">
+                  <h5>{% trans "Services Available in this category" %} :</h5>
                   <ul class="listview">
                     {% for service in available_services %}
                      <li class="list-item"><a class="link" href="{%url 'dashboard:available_service_detail' service.pk %}">{{service.name}}</a></li>
