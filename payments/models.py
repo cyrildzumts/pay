@@ -16,7 +16,7 @@ class Reduction(models.Model):
         return "Reduction {}".format( self.percent)
     
     def get_absolute_url(self):
-        return reverse('accounts:reduction_details', kwargs={'pk':self.pk})
+        return reverse('accounts:reduction_detail', kwargs={'pk':self.pk})
 
 
 class Transaction(models.Model):
@@ -39,7 +39,7 @@ class Transaction(models.Model):
         return "Transaction id : {0} - Amount : {1}".format(self.pk, self.amount)
     
     def get_absolute_url(self):
-        return reverse('accounts:transaction_details', kwargs={'pk':self.pk})
+        return reverse('accounts:transaction_detail', kwargs={'pk':self.pk})
 
 
 class Payment(models.Model):
@@ -54,7 +54,7 @@ class Payment(models.Model):
         return "Payment id : {0} - Amount : {1}".format(self.pk, self.amount)
     
     def get_absolute_url(self):
-        return reverse('accounts:payment_details', kwargs={'pk':self.pk})
+        return reverse('accounts:payment_detail', kwargs={'pk':self.pk})
 
 
 class Transfer(models.Model):
@@ -68,7 +68,7 @@ class Transfer(models.Model):
         return "Transfer id : {0} - Amount : {1}".format(self.pk, self.amount)
 
     def get_absolute_url(self):
-        return reverse('accounts:transfer_details', kwargs={'pk':self.pk})
+        return reverse('accounts:transfer_detail', kwargs={'pk':self.pk})
 
 class CaseIssue(models.Model):
     participant_1 = models.ForeignKey('accounts.Account', null=True , on_delete = models.CASCADE, related_name='issue_creator')
@@ -84,7 +84,7 @@ class CaseIssue(models.Model):
         return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.pk, self.participant_1, self.participant_2)
 
     def get_absolute_url(self):
-        return reverse('accounts:case_details', kwargs={'pk':self.pk})
+        return reverse('accounts:case_detail', kwargs={'pk':self.pk})
 
 
 
