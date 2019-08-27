@@ -12,7 +12,7 @@
         </div>
         <div class="col col-11">
               <nav class="nav-container">
-                  <ul class="nav-links">
+                  <ul class="nav row">
                         <li><a href="{% url 'dashboard:home' %}">{{site_name}}</a></li>
                         <li><a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a></li> 
                         {% for lang in LANGUAGES %}
