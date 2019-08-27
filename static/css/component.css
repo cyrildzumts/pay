@@ -295,7 +295,7 @@ a.button{
   width: 100%;
 }
 
-.nav a, .logo{
+.nav a, .logo a{
   display: flex;
   color: var(--nav-link-color);
 
