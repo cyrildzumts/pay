@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 
-def get_model_instance_filter_by(appName=None, modelName=None, **kwargs=**{}):
+def get_model_instance_filter_by(appName=None, modelName=None, **kwargs):
     model = utils.get_model(appName, modelName)
     instance = None
     if model is None:
@@ -27,7 +27,7 @@ def get_model_instance_filter_by(appName=None, modelName=None, **kwargs=**{}):
 
     return instance
 
-def get_model_all_instance_filter_by(appName=None, modelName=None, **kwargs=**{}):
+def get_model_all_instance_filter_by(appName=None, modelName=None, **kwargs):
     model = utils.get_model(appName, modelName)
     queryset = None
     if model is None:
@@ -39,7 +39,7 @@ def get_model_all_instance_filter_by(appName=None, modelName=None, **kwargs=**{}
     return queryset
 
 
-def get_number_model_instance_filter_by(appName=None, modelName=None, **kwargs=**{}):
+def get_number_model_instance_filter_by(appName=None, modelName=None, **kwargs):
     model = utils.get_model(appName, modelName)
     count = None
     if model is None:
@@ -200,47 +200,47 @@ def get_number_of_active_account():
     return utils.get_model('accounts', 'Account').objects.filter(is_active=True).count()
 
 
-def get_all_account_filter_by(**kwargs=**{}):
+def get_all_account_filter_by(**kwargs):
     return utils.get_model('accounts', 'Account').objects.filter(**kwargs)
 
 def get_account_filter_by(**kwargs=**{}):
     return utils.get_model('accounts', 'Account').objects.get(**kwargs)
 
 
-def get_number_of_account_filter_by(**kwargs=**{}):
+def get_number_of_account_filter_by(**kwargs):
     return utils.get_model('accounts', 'Account').objects.filter(**kwargs).count()
 
-def get_idcards_filter_by(**kwargs=**{}):
+def get_idcards_filter_by(**kwargs):
     return utils.get_model('accounts', 'IDCard').objects.filter(**kwargs)
 
-def get_nomber_of_idcards_filter_by(**kwargs=**{}):
+def get_nomber_of_idcards_filter_by(**kwargs):
     return utils.get_model('accounts', 'IDCard').objects.filter(**kwargs).count()
 
-def get_services_filter_by(**kwargs=**{}):
+def get_services_filter_by(**kwargs):
     return utils.get_model('accounts', 'Service').objects.filter(**kwargs)
 
-def get_number_of_services_filter_by(**kwargs=**{}):
+def get_number_of_services_filter_by(**kwargs):
     return utils.get_model('accounts', 'Service').objects.filter(**kwargs).count()
 
-def get_available_services_filter_by(**kwargs=**{}):
+def get_available_services_filter_by(**kwargs):
     return utils.get_model('accounts', 'AvailableService').objects.filter(**kwargs)
 
 
-def get_number_available_services_filter_by(**kwargs=**{}):
+def get_number_available_services_filter_by(**kwargs):
     return utils.get_model('accounts', 'AvailableService').objects.filter(**kwargs).count()
 
 
-def get_category_services_filter_by(**kwargs=**{}):
+def get_category_services_filter_by(**kwargs):
     return utils.get_model('accounts', 'ServiceCategory').objects.filter(**kwargs)
 
 
-def get_number_category_services_filter_by(**kwargs=**{}):
+def get_number_category_services_filter_by(**kwargs):
     return utils.get_model('accounts', 'ServiceCategory').objects.filter(**kwargs).count()
 
 
-def get_policies_filter_by(**kwargs=**{}):
+def get_policies_filter_by(**kwargs):
     return utils.get_model('accounts', 'Policy').objects.filter(**kwargs)
 
 
-def get_number_of_policies_filter_by(**kwargs=**{}):
+def get_number_of_policies_filter_by(**kwargs):
     return utils.get_model('accounts', 'Policy').objects.filter(**kwargs).count()
