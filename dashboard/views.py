@@ -493,8 +493,6 @@ def usage(request):
 
 @login_required
 def model_usage(request, appName=None, modelName=None):
-    model = analytics.utils.get_model(app_name=appName, modelName=modelName)
-    if model is not None :
-        #instances = analytics.get_model_all_instance_filter_by({'is_active'})
+    pass
 
 
