@@ -203,7 +203,7 @@ def get_number_of_active_account():
 def get_all_account_filter_by(**kwargs):
     return utils.get_model('accounts', 'Account').objects.filter(**kwargs)
 
-def get_account_filter_by(**kwargs=**{}):
+def get_account_filter_by(**kwargs):
     return utils.get_model('accounts', 'Account').objects.get(**kwargs)
 
 
