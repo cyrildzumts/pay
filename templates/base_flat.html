@@ -18,16 +18,19 @@
         {% endcomment %}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         {% load static %}
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <!--
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        -->
+        
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
         <!-- Add icon library -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">-->
-        <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" media="all" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/fonts/Fontawesome/css/all.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/fonts/Monserrat/Monserrat.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" media="all" />
 
         {% block external %} {% endblock external %}
 </head>
@@ -73,15 +76,14 @@
                 </footer>
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
          
         {% comment "" %}
         
          <script  src="{% static "js/lib/pubsub.js" %}"></script>
          {% endcomment %}
-         <script  src="{% static "js/jquery.min.js" %}"></script>
-        <script  type="application/javascript" src="{% static "js/pay.js" %}"></script> 
+         <script  src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
+        <script  type="application/javascript" src="{% static 'js/pay.js' %}"></script> 
 </body>
 
 </html>

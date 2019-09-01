@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models import F, Q
 from pay import utils, settings
 from dashboard import forms
+from dashboard import analytics
 import logging
 from pay.tasks import send_mail_task
 
@@ -483,3 +484,17 @@ def case_close(request, pk=None):
     context['site_name'] = settings.SITE_NAME
     context['claim'] = claim
     return render(request,template_name, context)
+
+
+@login_required
+def usage(request):
+    pass
+
+
+@login_required
+def model_usage(request, appName=None, modelName=None):
+    model = analytics.utils.get_model(app_name=appName, modelName=modelName)
+    if model is not None :
+        #instances = analytics.get_model_all_instance_filter_by({'is_active'})
+
+
