@@ -2,8 +2,57 @@
 {% load i18n %}
 
 {% block MAIN %}
-
 <div class="container">
+  <div class="row">
+    <h3>{% trans "Summary" %}</h3>
+  </div>
+  <div class="row">
+    <div class="responsive">
+        <div class="">
+          <span class="title">{% trans "Money transferred" %}</span>
+          <span class="subtitle">{{service_summar.total_amount}}</span>
+        </div>
+    </div>
+    <div class="responsive">
+        <div class="">
+          <span class="title">{% trans "Service usage" %}</span>
+          <span class="subtitle">{{service_summary.usage_count}}</span>
+        </div>
+    </div>
+
+    <div class="responsive">
+        <div class="">
+          <span class="title">{% trans "Max paid money" %}</span>
+          <span class="subtitle">{{service_summary.max_paid_amount}}</span>
+        </div>
+    </div>
+
+    <div class="responsive">
+        <div class="">
+          <span class="title">{% trans "Min paid money" %}</span>
+          <span class="subtitle">{{service_summary.min_paid_amount}}</span>
+        </div>
+    </div>
+
+    <div class="responsive">
+        <div class="">
+          <span class="title">{% trans "Number of user of the service" %}</span>
+          <span class="subtitle">{{service_summary.number_of_customer}}</span>
+        </div>
+    </div> 
+    <div class="responsive">
+        <div class="">
+          <span class="title">{% trans "Number of operators" %}</span>
+          <span class="subtitle">{{service_summary.number_of_operator}}</span>
+        </div>
+    </div>        
+        
+    </div> <!--End of row-->
+  </div><!--End of Container-->
+
+</div>
+<div class="container">
+
     {% for service in services %}
         <div class="card">
             <div class="card__title">

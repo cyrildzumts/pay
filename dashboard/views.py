@@ -53,6 +53,7 @@ def service_details(request, pk=None):
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['service'] = service
+    context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
 
 
@@ -66,6 +67,7 @@ def services(request):
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['services'] = services
+    context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
 
 
