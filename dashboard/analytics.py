@@ -194,8 +194,8 @@ def get_service_usage_summary():
     queryset = get_model_all_instance_filter_by(appName=appName, modelName=modelName, **{})
     if queryset is not None:
         summary = queryset.aggregate(total_amount=Sum(price_field), usage_count=Count(pk_field), 
-        min_paid_amount=Min(price_field), max_paid_amount=Min(price_field), number_of_customer=Count(customer_field, distinct=True),
-        number_of_oprator=Count(operator_field, distinct=True))
+        min_paid_amount=Min(price_field), max_paid_amount=Max(price_field), number_of_customer=Count(customer_field, distinct=True),
+        number_of_operator=Count(operator_field, distinct=True))
 
     return summary
 
