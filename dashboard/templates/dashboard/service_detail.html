@@ -9,44 +9,44 @@
   </div>
   <div class="row">
     <div class="responsive">
-        <div class="">
-          <span class="title">{% trans "Money transferred" %}</span>
-          <span class="subtitle">{{service_summary.total_amount}}</span>
+        <div class="entry flex-column">
+          <div class="title">{% trans "Money transferred" %}</div>
+          <div class="subtitle">{{service_summary.total_amount}}</div>
         </div>
     </div>
     <div class="responsive">
-        <div class="">
-          <span class="title">{% trans "Service usage" %}</span>
-          <span class="subtitle">{{service_summary.usage_count}}</span>
-        </div>
-    </div>
-
-    <div class="responsive">
-        <div class="">
-          <span class="title">{% trans "Max paid money" %}</span>
-          <span class="subtitle">{{service_summary.max_paid_amount}}</span>
+        <div class="entry flex-column">
+          <div class="title">{% trans "Service usage" %}</div>
+          <div class="subtitle">{{service_summary.usage_count}}</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="">
-          <span class="title">{% trans "Min paid money" %}</span>
-          <span class="subtitle">{{service_summary.min_paid_amount}}</span>
+        <div class="entry flex-column">
+          <div class="title">{% trans "Max paid money" %}</div>
+          <div class="subtitle">{{service_summary.max_paid_amount}}</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="">
-          <span class="title">{% trans "Number of user of the service" %}</span>
-          <span class="subtitle">{{service_summary.number_of_customer}}</span>
+        <div class="entry flex-column">
+          <div class="title">{% trans "Min paid money" %}</div>
+          <div class="subtitle">{{service_summary.min_paid_amount}}</div>
+        </div>
+    </div>
+
+    <div class="responsive">
+        <div class="entry flex-column">
+          <div class="title">{% trans "Number of user of the service" %}</div>
+          <div class="subtitle">{{service_summary.number_of_customer}}</div>
         </div>
     </div> 
     <div class="responsive">
-        <div class="">
-          <span class="title">{% trans "Number of operators" %}</span>
-          <span class="subtitle">{{service_summary.number_of_operator}}</span>
+        <div class="entry flex-column">
+          <div class="title">{% trans "Number of operators" %}</div>
+          <div class="subtitle">{{service_summary.number_of_operator}}</div>
         </div>
-    </div>        
+    </div>         
         
     </div> <!--End of row-->
   </div><!--End of Container-->

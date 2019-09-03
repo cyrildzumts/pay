@@ -55,3 +55,20 @@
 .idcard{
     max-width: 1024px;
 }
+
+
+.entry{
+    width: 100%;
+    font: 1.5em;
+}
+
+.entry .title{
+    width: 100%;
+    font: 1.5em;
+    font-weight: bold;
+}
+
+.entry .subtitle{
+    width: 100%;
+    font: 1.2em;
+}
