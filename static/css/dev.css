@@ -68,17 +68,17 @@ body {
 
 .entry{
     width: 100%;
-    font: 1.5em;
+    font-size: 1.5em;
     padding: 16px 8px;
 }
 
 .entry .title{
     width: 100%;
-    font: 1em;
+    font-size: 1em;
     font-weight: bold;
 }
 
 .entry .subtitle{
     width: 100%;
-    font: 0.8em;
+    font-size: 0.8em;
 }
