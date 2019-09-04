@@ -56,7 +56,22 @@
     max-width: 1024px;
 }
 
+.highlight{
 
+    font-weight: bold;
+    color: aquamarine;
+}
+
+.shadow{
+    box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
+}
+
+.box{
+
+    padding:16px 8px;
+    margin: 16px auto;
+    text-align: center;
+}
 
 .entry{
     width: 100%;
@@ -65,13 +80,13 @@
     padding: 16px 8px;
 }
 
-.entry .title{
+.box .title{
     width: 100%;
     font-size: 1em;
     font-weight: bold;
 }
 
-.entry .subtitle{
+.box .subtitle{
     width: 100%;
     font-size: 0.8em;
 }

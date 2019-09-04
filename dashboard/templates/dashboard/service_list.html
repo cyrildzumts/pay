@@ -8,42 +8,42 @@
   </div>
   <div class="row">
     <div class="responsive">
-        <div class="entry flex-column">
+        <div class="box flex-column">
           <div class="title">{% trans "Money transferred" %}</div>
-          <div class="subtitle">{{service_summary.total_amount}} FCFA</div>
+          <div class="subtitle highlight">{{service_summary.total_amount}} FCFA</div>
         </div>
     </div>
     <div class="responsive">
-        <div class="entry flex-column">
+        <div class="box flex-column">
           <div class="title">{% trans "Service usage" %}</div>
-          <div class="subtitle">{{service_summary.usage_count}}</div>
+          <div class="subtitle highlight">{{service_summary.usage_count}}</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="entry flex-column">
+        <div class="box flex-column">
           <div class="title">{% trans "Max paid money" %}</div>
-          <div class="subtitle">{{service_summary.max_paid_amount}} FCFA</div>
+          <div class="subtitle highlight">{{service_summary.max_paid_amount}} FCFA</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="entry flex-column">
+        <div class="box flex-column">
           <div class="title">{% trans "Min paid money" %}</div>
-          <div class="subtitle">{{service_summary.min_paid_amount}} FCFA</div>
+          <div class="subtitle highlight">{{service_summary.min_paid_amount}} FCFA</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="entry flex-column">
+        <div class="box flex-column">
           <div class="title">{% trans "Number of user of the service" %}</div>
-          <div class="subtitle">{{service_summary.number_of_customer}}</div>
+          <div class="subtitle highlight">{{service_summary.number_of_customer}}</div>
         </div>
     </div> 
     <div class="responsive">
-        <div class="entry flex-column">
+        <div class="box flex-column">
           <div class="title">{% trans "Number of operators" %}</div>
-          <div class="subtitle">{{service_summary.number_of_operator}}</div>
+          <div class="subtitle highlight">{{service_summary.number_of_operator}}</div>
         </div>
     </div>        
         
@@ -66,15 +66,15 @@
             </div>
 
             <div class="card__actions">
-              <a class="button link" href="{% url 'dashboard:service_detail' service.pk %}"> {% trans "More" %} ...</a>
-              <a class="button link" href="{% url 'dashboard:available_services' %}"> {% trans "See Available services" %} </a>
+              <a class="button link" href="{% url 'dashboard:service_detail' service.pk %}"> {% trans "Details" %}</a>
+              <a class="button link" href="{% url 'dashboard:available_services' %}"> {% trans "Available services" %} </a>
               <a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
             </div>
           
         </div>
     {% empty %}
     <p> {% trans "No services has been used." %} ...</p>
-    <a class="button link" href="{% url 'dashboard:available_services' %}"> {% trans "See Available services" %} </a>
+    <a class="button link" href="{% url 'dashboard:available_services' %}"> {% trans "Available services" %} </a>
     <a class="button link" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
     {% endfor %}
 </div>
