@@ -2,46 +2,46 @@
 {% load i18n %}
 
 {% block MAIN %}
-<div class="container">
+<div class="container shadow">
   <div class="row">
     <h3>{% trans "Summary" %}</h3>
   </div>
   <div class="row">
     <div class="responsive">
-        <div class="box flex-column">
+        <div class="box shadow flex-column">
           <div class="title">{% trans "Money transferred" %}</div>
           <div class="subtitle highlight">{{service_summary.total_amount}} FCFA</div>
         </div>
     </div>
     <div class="responsive">
-        <div class="box flex-column">
+        <div class="box shadow flex-column">
           <div class="title">{% trans "Service usage" %}</div>
           <div class="subtitle highlight">{{service_summary.usage_count}}</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="box flex-column">
+        <div class="box shadow flex-column">
           <div class="title">{% trans "Max paid money" %}</div>
           <div class="subtitle highlight">{{service_summary.max_paid_amount}} FCFA</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="box flex-column">
+        <div class="box shadow flex-column">
           <div class="title">{% trans "Min paid money" %}</div>
           <div class="subtitle highlight">{{service_summary.min_paid_amount}} FCFA</div>
         </div>
     </div>
 
     <div class="responsive">
-        <div class="box flex-column">
+        <div class="box shadow flex-column">
           <div class="title">{% trans "Number of user of the service" %}</div>
           <div class="subtitle highlight">{{service_summary.number_of_customer}}</div>
         </div>
     </div> 
     <div class="responsive">
-        <div class="box flex-column">
+        <div class="box shadow flex-column">
           <div class="title">{% trans "Number of operators" %}</div>
           <div class="subtitle highlight">{{service_summary.number_of_operator}}</div>
         </div>
