@@ -90,3 +90,21 @@
     width: 100%;
     font-size: 0.8em;
 }
+
+.panel{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    height: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 16px;
+    background-color: #4a148C;
+    color: #fff;
+}
+
+.panel.panel-column{
+    flex-direction: column;
+    width: 140px;
+    
+}
