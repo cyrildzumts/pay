@@ -102,6 +102,9 @@
     background-color: #4a148C;
     color: #fff;
 }
+.panel a{
+    color: #fff;
+}
 
 .panel.panel-column{
     flex-direction: column;
