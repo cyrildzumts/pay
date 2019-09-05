@@ -1,49 +1,59 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 {% block MAIN %}
-<aside class="panel panel-column">
+<div class="container row">
+        <div class="col col-2">
+                <aside class="panel panel-column">
 
-<ul class="listview">
-  <li class="item"><a href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>
-  <li class="item"><a href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>
-  <li class="item"><a href="{% url 'dashboard:available_services'%}">{% trans "Available Services" %}</a></li>
-  <li class="item"><a href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
-</ul>
+                        <ul class="listview">
+                                <li class="item"><a href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>
+                                <li class="item"><a href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>
+                                <li class="item"><a href="{% url 'dashboard:available_services'%}">{% trans "Available Services" %}</a></li>
+                                <li class="item"><a href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
+                        </ul>
 
-</aside>
-<nav class="panel panel-row">
+                </aside>
+        </div>
 
-</nav>
-<section class="banner">
-        <h3>Dashboard</h3>
-</section>
-<div class="container">
-    <div class="row">
-      <div class="col col-9">
-      
-      </div>
-      <div class="col col-3">
-            <ul class="nav listview">
-                <li class="list-item"><a class="button link" href="{% url 'dashboard:available_services' %}">{% trans "Available Services" %}</a></li>
-                <li class="list-item"><a class="button link" href="{% url 'dashboard:services' %}">{% trans "Services" %}</a></li>
-                <li class="list-item"><a class="button link" href="{% url 'dashboard:transfers' %}">{% trans "Transfers" %}</a></li>
-                <li class="list-item"><a class="button link" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
-                <li class="list-item"><a class="button link" href="{% url 'dashboard:category_services' %}">{% trans "Categories" %}</a></li>
-            </ul>
-      </div>
-    
-    </div>
+        <div class="col col-10">
+                <nav class="panel panel-row">
 
-    <div class="row">
-      <div class="col col-9">
-      
-      </div>
-      <div class="col col-3">
-      
-      </div>
-    
-    </div>
+                </nav>
+                <section class="banner">
+                        <h3>Dashboard</h3>
+                </section>
+                <div class="container">
+                        <div class="row">
+                                <div class="col col-9">
+                                
+                                </div>
+                                <div class="col col-3">
+                                        <ul class="nav listview">
+                                                <li class="list-item"><a class="button link" href="{% url 'dashboard:available_services' %}">{% trans "Available Services" %}</a></li>
+                                                <li class="list-item"><a class="button link" href="{% url 'dashboard:services' %}">{% trans "Services" %}</a></li>
+                                                <li class="list-item"><a class="button link" href="{% url 'dashboard:transfers' %}">{% trans "Transfers" %}</a></li>
+                                                <li class="list-item"><a class="button link" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
+                                                <li class="list-item"><a class="button link" href="{% url 'dashboard:category_services' %}">{% trans "Categories" %}</a></li>
+                                        </ul>
+                                </div>
+                
+                        </div><!--End of Row-->
+
+                        <div class="row">
+                                <div class="col col-9">
+                                
+                                </div>
+                                <div class="col col-3">
+                                
+                                </div>
+                
+                        </div><!--End of Row-->
+                </div><!--End of Container-->
+        </div><!--End of Col-10-->
+
 </div>
+
+
 
 
 
