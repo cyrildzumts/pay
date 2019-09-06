@@ -3,13 +3,13 @@
 {% block MAIN %}
 <div class="container row">
         <div class="col col-2">
-                <aside class="panel panel-column">
+                <aside class="panel">
 
-                        <ul class="listview">
-                                <li class="item"><a href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>
-                                <li class="item"><a href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>
-                                <li class="item"><a href="{% url 'dashboard:available_services'%}">{% trans "Available Services" %}</a></li>
-                                <li class="item"><a href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
+                        <ul class="dock dock-left">
+                                <li class="docklet"><a class="link" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>
+                                <li class="docklet"><a class="link" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>
+                                <li class="docklet"><a class="link" href="{% url 'dashboard:available_services'%}">{% trans "Available Services" %}</a></li>
+                                <li class="docklet"><a class="link" href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
                         </ul>
 
                 </aside>

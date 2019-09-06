@@ -91,6 +91,30 @@
     font-size: 0.8em;
 }
 
+.dock{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+}
+.dock-left{
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 160px;
+}
+
+.dock-left .docklet{
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    padding: 8px;
+
+}
+
 .panel{
     display: flex;
     align-items: baseline;
