@@ -95,12 +95,13 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    
     position: relative;
 
 }
 .dock-left{
     flex-direction: column;
+    justify-content: left;
     top: 0;
     left: 0;
     width: 160px;
