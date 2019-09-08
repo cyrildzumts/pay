@@ -118,16 +118,23 @@
 
 .docklet:hover{
 
-    background-color: beige;
+    background-color: #ccc;
     color: #242424;
+    border: 1px solid #242424;
 }
 
 .docklet .link{
     text-decoration: none;
     font-size: 1em;
     font-weight: 500;
+    color: #242424;
 }
 
+.docklet:hover .link{
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+}
 
 .panel{
     display: flex;
