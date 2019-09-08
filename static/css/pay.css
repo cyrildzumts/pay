@@ -144,8 +144,7 @@
     font-size: 1em;
     font-weight: bold;
     line-height: 16px;
-    background-color: #4a148C;
-    color: #fff;
+    color: #242424;
 }
 
 .panel-align-left{
@@ -159,9 +158,6 @@
     justify-content: center;
 }
 
-.panel a{
-    color: #fff;
-}
 
 .panel.panel-column{
     flex-direction: column;
