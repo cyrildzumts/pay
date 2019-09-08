@@ -226,6 +226,7 @@ def dashboard_summary():
         'service_summary': service_summary,
         'transfer_summary': transfer_summary
     }
+    return context
 
 
 def get_number_of_active_account():
