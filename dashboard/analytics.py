@@ -184,7 +184,7 @@ def get_transfers_summary():
     if queryset is not None:
         summary = queryset.aggregate(number_of_transfers=Count(pk_field),max_transferred_amount=Max(amount_field),
             min_transferred_amount=Min(amount_field), number_of_sender=Count(sender_field, distinct=True), 
-            number_of_recipients=Count(recipient_field, distinct=True), average_transferred_amount=Avg(amount_field) )
+            number_of_recipients=Count(recipient_field, distinct=True), average_transferred_amount=Avg(amount_field, output_field=IntegerField()) )
     return summary
 
 
