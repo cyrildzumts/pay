@@ -1,5 +1,30 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
+
+{% block HEADER_BANNER %}
+  <div class="container">
+        <div class="row">
+                <h3>Dashboard</h3>
+        </div>
+        <div class="row">
+                <div class="responsive">
+                        <p>responsive 1 </p>
+                </div>
+                <div class="responsive">
+                        <p>responsive 2 </p>
+                </div>
+                <div class="responsive">
+                        <p>responsive 3 </p>
+                </div>
+                <div class="responsive">
+                        <p>responsive 4 </p>
+                </div>
+                <div class="responsive">
+                        <p>responsive 5 </p>
+                </div>
+        </div>
+  </div>
+{% endblock HEADER_BANNER %}
 {% block MAIN %}
 <div class="container row">
         <div class="col col-2">
@@ -19,12 +44,6 @@
         </div>
 
         <div class="col col-10">
-                <nav class="panel panel-row">
-                        <h3>Panel Row</h3>
-                </nav>
-                <section class="banner">
-                        <h3>Dashboard</h3>
-                </section>
                 <div class="container">
                         <div class="row">
                                 <div class="col col-9">
