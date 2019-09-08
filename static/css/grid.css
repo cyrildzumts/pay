@@ -70,6 +70,10 @@
 
 }
 
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
 .flex-column{
 	display: flex;
   flex-direction: column;
@@ -88,19 +92,7 @@
   flex-basis: calc(var(--width) / var(--columns) * 100%);
 }
 
-@media (min-width: 576px) {
-  .column {
-    --width-tablet: var(--width-mobile);
-    --width: var(--width-mobile);
-  }
-}
 
-@media (min-width: 768px) {
-  .column {
-    --width-desktop: var(--width-tablet);
-    --width: var(--width-desktop);
-  }
-}
 .grid, .gridview{
   display: flex;
   max-width: 100%;
@@ -153,4 +145,16 @@
   /*height: 64rem;*/
 }
 
+@media (min-width: 576px) {
+  .column {
+    --width-tablet: var(--width-mobile);
+    --width: var(--width-mobile);
+  }
+}
 
+@media (min-width: 768px) {
+  .column {
+    --width-desktop: var(--width-tablet);
+    --width: var(--width-desktop);
+  }
+}
