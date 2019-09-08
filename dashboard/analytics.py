@@ -196,6 +196,7 @@ def get_service_usage_summary():
     summary = None
     queryset = get_model_all_instance_filter_by(appName=appName, modelName=modelName, **{'created_at__month': datetime.now().month})
     if queryset is not None:
+        logger.debug("get_service_usage: queryet not None")
         summary = queryset.aggregate(total_amount=Sum(price_field), usage_count=Count(pk_field), 
         min_paid_amount=Min(price_field), max_paid_amount=Max(price_field), number_of_customer=Count(customer_field, distinct=True),
         number_of_operator=Count(operator_field, distinct=True), average_amount=Avg(price_field))
@@ -220,7 +221,7 @@ def dashboard_summary():
     transfer_summary = get_transfers_summary()
     context = {
         'service_summary': service_summary,
-        'transfer_summray': transfer_summary
+        'transfer_summary': transfer_summary
     }
 
 
