@@ -179,7 +179,7 @@ def get_transfers_summary():
     created_at_field = 'created_at'
     summary = None
     Transfer = utils.get_model(appName, modelName)
-    queryset = Transfer.objects.filter(created_at__month=datetime.now().month)
+    queryset = Transfer.objects.all()
     #queryset = get_model_all_instance_filter_by(appName, modelName, **{'created_at__month': datetime.now().month})
     if queryset is not None:
         summary = queryset.aggregate(number_of_transfers=Count(pk_field),max_transferred_amount=Max(amount_field),
@@ -197,7 +197,7 @@ def get_service_usage_summary():
     operator_field = 'operator'
     summary = None
     Service = utils.get_model(appName, modelName)
-    queryset = Service.objects.filter(created_at__month=datetime.now().month)
+    queryset = Service.objects.all()
     if queryset is not None:
         logger.debug("get_service_usage: queryet not None")
         summary = queryset.aggregate(total_amount=Sum(price_field), usage_count=Count(pk_field), 
