@@ -29,10 +29,12 @@ def dashboard(request):
     #active_cat = ServiceCategory.objects.select_related().exclude(available_services__isnull=True)
     #available_services = AvailableService.objects.select_related().all()
 
+
     context = {
         'name'          : name,
         'page_title'    : page_title,
         'site_name'     : settings.SITE_NAME,
+        'summary' : analytics.dashboard_summary()
        # 'activities'    : activities,
        # 'active_cats'   : active_cat,
        # 'account'       : current_account,

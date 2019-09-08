@@ -9,29 +9,36 @@
         <div class="row flex-wrap">
                 <div class="responsive">
                         <div class="box">
-                                <p class="title"> {% trans 'Must used Services' %} </p>
-                                <p></p>
+                                <p class="title"> {% trans 'Service Usage' %} </p>
+                                <p>{{summary.service_summary.usage_count}}</p>
+                        </div>
+                        
+                </div>
+                <div class="responsive">
+                        <div class="box">
+                                <p class="title"> {% trans 'Number of Transfer' %} </p>
+                                <p>{{summary.transfer_summary.number_of_transfers}}</p>
                         </div>
                         
                 </div>
                 <div class="responsive">
                         <div class="box">
                                 <p class="title">{% trans "Total Paid amount for this month" %} </p>
-                                <p></p>
+                                <p>{{summary.service_summary.total_amount}} FCFA</p>
                         </div>
                         
                 </div>
                 <div class="responsive">
                         <div class="box">
-                                <p class="title">{% trans "Last Transferred amount" %}</p>
-                                <p></p>
+                                <p class="title">{% trans "Min Transferred amount" %}</p>
+                                <p>{{summary.transfer_summary.min_transferred_amount}} FCFA</p>
                         </div>
                         
                 </div>
                 <div class="responsive">
                         <div class="box">
-                                <p class="title"> {% trans "Last used Service" %} </p>
-                                <p></p>
+                                <p class="title"> {% trans "Max Paid amount Service" %} </p>
+                                <p>{{summary.service_summary.max_paid_amount}} FCFA</p>
                         </div>
                        
 
@@ -39,14 +46,14 @@
                 <div class="responsive">
                         <div class="box">
                                 <p class="title">{% trans "Average Paid amount for Service this month" %} </p>
-                                <p></p>
+                                <p>{{summary.service_summary.average_amount}} FCFA</p>
                         </div>
                         
                 </div>
                 <div class="responsive">
                         <div class="box">
                                 <p class="title">{% trans "Average Transferred amount this month" %} </p>
-                                <p></p>
+                                <p>{{summary.transfer_summary.average_transferred_amount}} FCFA</p>
                         </div>
                         
                 </div>

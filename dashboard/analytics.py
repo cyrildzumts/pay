@@ -4,6 +4,7 @@ from django.db.models import F, Q
 from django.db.models import Count, Sum, Avg, Min, Max
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 import logging
+from datetime import datetime
 
 
 
@@ -170,16 +171,18 @@ def get_transfers_summary():
     amount_field = 'amount'
     appName = 'payments'
     modelName = 'Transfer'
+    pk_field = 'pk'
     order_by_field = '-created_at'
     recipient_field = 'recipient'
+    sender_field = 'sender'
     recipient_name_field = 'recipient__user__username'
     created_at_field = 'created_at'
     summary = None
-    queryset = get_model_all_instance_filter_by(appName, modelName, **{})
+    queryset = get_model_all_instance_filter_by(appName, modelName, **{'created_at__month': datetime.now().month})
     if queryset is not None:
-        summary = queryset.values(created_at_field).annotate(number_of_transfers=Count(created_at_field)) \
-            .annotate(max_transferred_amount=Max(amount_field), min_transferred_amount=Min(amount_field)) \
-            .order_by(order_by_field)
+        summary = queryset.aggregate(number_of_transfers=Count(pk_field),max_transferred_amount=Max(amount_field),
+            min_transferred_amount=Min(amount_field), number_of_sender=Count(sender_field, distinct=True), 
+            number_of_recipients=Count(recipient_field, distinct=True), average_transferred_amount=Avg(amount_field) )
     return summary
 
 
@@ -191,13 +194,34 @@ def get_service_usage_summary():
     customer_field = 'customer'
     operator_field = 'operator'
     summary = None
-    queryset = get_model_all_instance_filter_by(appName=appName, modelName=modelName, **{})
+    queryset = get_model_all_instance_filter_by(appName=appName, modelName=modelName, **{'created_at__month': datetime.now().month})
     if queryset is not None:
         summary = queryset.aggregate(total_amount=Sum(price_field), usage_count=Count(pk_field), 
         min_paid_amount=Min(price_field), max_paid_amount=Max(price_field), number_of_customer=Count(customer_field, distinct=True),
-        number_of_operator=Count(operator_field, distinct=True))
+        number_of_operator=Count(operator_field, distinct=True), average_amount=Avg(price_field))
 
     return summary
+
+def dashboard_summary():
+    """
+    This method returns a summary context variable that contains 
+    summary report on the services and transfers of the current month.
+    The service summary provides the following data :
+    {total_amount, usage_count, min_paid_amount, max_paid_amount, number_of_customer, number_of_operator, average_amount}.
+
+    The transfer summary provides the following data :
+    {number_of_transfers, max_transferred_amount, min_transferred_amount, number_of_sender, number_of_recipient,average_transferred_amount}
+    """
+    #Service = utils.get_model('accounts', 'Service')
+    #Transfer = utils.get_model('payments', 'Transfer')
+    #service_queryset = Service.objects.filter(created_at__month=datetime.now().month)
+    #transfer_queryset = Transfer.objects.filter(created_at__month=datetime.now().month)
+    service_summary = get_service_usage_summary()
+    transfer_summary = get_transfers_summary()
+    context = {
+        'service_summary': service_summary,
+        'transfer_summray': transfer_summary
+    }
 
 
 def get_number_of_active_account():
