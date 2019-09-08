@@ -97,6 +97,7 @@
     align-items: center;
     
     position: relative;
+    list-style-type: none;
 
 }
 .dock-left{
@@ -104,7 +105,6 @@
     justify-content: left;
     top: 0;
     left: 0;
-    width: 160px;
 }
 
 .dock-left .docklet{
@@ -116,10 +116,22 @@
 
 }
 
+.docklet:hover{
+
+    background-color: beige;
+    color: #242424;
+}
+
+.docklet .link{
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+
 .panel{
     display: flex;
     align-items: baseline;
-    justify-content: center;
     height: 100%;
     font-size: 1em;
     font-weight: bold;
@@ -127,6 +139,18 @@
     background-color: #4a148C;
     color: #fff;
 }
+
+.panel-align-left{
+    justify-content: flex-start;
+}
+.panel-align-rigth{
+    justify-content: flex-end;
+}
+
+.panel-align-center{
+    justify-content: center;
+}
+
 .panel a{
     color: #fff;
 }
