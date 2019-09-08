@@ -11,8 +11,8 @@
               </div>
         </div>
         <div class="col col-11">
-              <nav class="nav-container">
-                  <ul class="nav row">
+              <div class="row">
+                  <ul class="panel panel-align-rigth">
                         <li><a href="{% url 'dashboard:home' %}">{{site_name}}</a></li>
                         <li><a class="signout-btn link signout" href="{% url 'accounts:logout' %}" >{% trans "Logout" %}</a></li> 
                         {% for lang in LANGUAGES %}
@@ -22,8 +22,9 @@
                               <li><span class="lang" title="{{lang.1}}"> {{lang.0}} </span></li>
                               {% endif %} 
                         {% endfor %}
+                        <li><a href="{% url 'accounts:account' %}">{{user.username}}</a></li>
                   </ul>
-              </nav>
+              </div>
         </div>                 
   </div>
 {% endblock HEADER_PANEL %}
