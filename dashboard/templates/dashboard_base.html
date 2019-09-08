@@ -13,14 +13,14 @@
         <div class="col col-11">
               <div class="row">
                   <ul class="panel panel-align-rigth">
-                        <li><a href="{% url 'dashboard:home' %}">{{site_name}}</a></li>
-                        <li><a href="#" ><i class="far fa-bell"></i></a></li> 
-                        <li><a href="{% url 'accounts:account' %}">{{user.username}}</a></li>
+                        <li class="entry"><a href="{% url 'dashboard:home' %}">{{site_name}}</a></li>
+                        <li class="entry"><a href="#" ><i class="far fa-bell"></i></a></li> 
+                        <li class="entry"><a href="{% url 'accounts:account' %}">{{user.username}}</a></li>
                         {% for lang in LANGUAGES %}
                               {% if lang.0 == LANGUAGE_CODE %}
-                              <li><span class="lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
+                              <li class="entry"><span class="lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
                               {% else %}
-                              <li><span class="lang" title="{{lang.1}}"> {{lang.0}} </span></li>
+                              <li class="entry"><span class="lang" title="{{lang.1}}"> {{lang.0}} </span></li>
                               {% endif %} 
                         {% endfor %}
                         

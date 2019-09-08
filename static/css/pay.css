@@ -147,6 +147,13 @@
     color: #242424;
 }
 
+.panel .entry{
+    width: 100%;
+    font-size: 1em;
+    text-align: center;
+    padding: 8px 8px;
+}
+
 .panel-align-left{
     justify-content: flex-start;
 }
