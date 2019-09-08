@@ -178,7 +178,9 @@ def get_transfers_summary():
     recipient_name_field = 'recipient__user__username'
     created_at_field = 'created_at'
     summary = None
-    queryset = get_model_all_instance_filter_by(appName, modelName, **{'created_at__month': datetime.now().month})
+    Transfer = utils.get_model(appName, modelName)
+    queryset = Transfer.objects.filter(created_at__month=datetime.now().month)
+    #queryset = get_model_all_instance_filter_by(appName, modelName, **{'created_at__month': datetime.now().month})
     if queryset is not None:
         summary = queryset.aggregate(number_of_transfers=Count(pk_field),max_transferred_amount=Max(amount_field),
             min_transferred_amount=Min(amount_field), number_of_sender=Count(sender_field, distinct=True), 
@@ -194,7 +196,8 @@ def get_service_usage_summary():
     customer_field = 'customer'
     operator_field = 'operator'
     summary = None
-    queryset = get_model_all_instance_filter_by(appName=appName, modelName=modelName, **{'created_at__month': datetime.now().month})
+    Service = utils.get_model(appName, modelName)
+    queryset = Service.objects.filter(created_at__month=datetime.now().month)
     if queryset is not None:
         logger.debug("get_service_usage: queryet not None")
         summary = queryset.aggregate(total_amount=Sum(price_field), usage_count=Count(pk_field), 
