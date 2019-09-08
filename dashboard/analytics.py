@@ -1,7 +1,7 @@
 from pay import utils
 from django.contrib.auth.models import User
 from django.db.models import F, Q
-from django.db.models import Count, Sum, Avg, Min, Max
+from django.db.models import Count, Sum, Avg, Min, Max, IntegerField
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 import logging
 from datetime import datetime
@@ -202,7 +202,7 @@ def get_service_usage_summary():
         logger.debug("get_service_usage: queryet not None")
         summary = queryset.aggregate(total_amount=Sum(price_field), usage_count=Count(pk_field), 
         min_paid_amount=Min(price_field), max_paid_amount=Max(price_field), number_of_customer=Count(customer_field, distinct=True),
-        number_of_operator=Count(operator_field, distinct=True), average_amount=Avg(price_field))
+        number_of_operator=Count(operator_field, distinct=True), average_amount=Avg(price_field, output_field=IntegerField()))
 
     return summary
 
