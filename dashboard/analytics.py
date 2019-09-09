@@ -51,7 +51,19 @@ def get_number_model_instance_filter_by(appName=None, modelName=None, **kwargs):
 
     return count
 
+def get_recent_model_instance(appName, modelName, limit=5):
+    '''
+    This method return a queryset that contains the last n  .
+     n is defined by the parameter limit. which default to 5.
+    None is returned when no instance is found
+    '''
 
+    order_field = '-created_at'
+
+    queryset = get_model_all_instance_filter_by(appName, modelName, **{})
+    if queryset is not None:
+        queryset = queryset.order_by(order_field)[:limit]
+    return queryset
 
 def get_number_of_validated_account_by_country():
     '''
@@ -154,6 +166,19 @@ def get_max_transfered_amount():
         queryset.aggregate(max_transferred_amount=Max(amount_field))
     return queryset
 
+def get_recent_transfers(limit=5):
+    '''
+    This method return a queryset that contains the last n  transfers.
+     n is defined by the parameter limit. which default to 5.
+    None is returned when no Transfer
+    '''
+    amount_field = 'amount'
+    appName = 'payments'
+    modelName = 'Transfer'
+    order_field = '-created_at'
+
+    queryset = get_recent_model_instance(appName=appName, modelName=modelName, limit=limit)
+    return queryset
 
 def get_transfers_summary():
     '''

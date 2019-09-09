@@ -34,7 +34,8 @@ def dashboard(request):
         'name'          : name,
         'page_title'    : page_title,
         'site_name'     : settings.SITE_NAME,
-        'summary' : analytics.dashboard_summary()
+        'summary' : analytics.dashboard_summary(),
+        'recent_transfers' : analytics.get_recent_transfers()
        # 'activities'    : activities,
        # 'active_cats'   : active_cat,
        # 'account'       : current_account,
