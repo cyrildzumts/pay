@@ -84,10 +84,11 @@
                                 <div class="col col-9">
                                         <div class="row">
                                                 <div class="6">
-                                                        <div class="row">
-                                                                <h3>{% trans "Transfer History" %}</h3>
-                                                        </div>
+                                                        
                                                         <ul class="listview">
+                                                        <div class="list-title">
+                                                                {% trans "Transfer History" %}
+                                                        </div>
                                                         {% for xfer in recent_transfers %}
                                                         <li class="list-item">
 
@@ -104,15 +105,15 @@
                                                 </div>
 
                                                 <div class="6">
-                                                        <div class="row">
-                                                                <h3>{% trans "Service History" %}</h3>
-                                                                </div>
                                                         <ul class="listview">
+                                                        <div class="list-title">
+                                                                {% trans "Service History" %}
+                                                        </div>
                                                         {% for s in recent_services %}
                                                         <li class="list-item">
 
                                                                 <div class="box">
-                                                                        <p>{{s.customer.get_full_name}}</p>
+                                                                        <p>{{s.name}}</p>
                                                                         <p>{{s.price}} FCFA</p>
                                                                         <p>{{s.created_at}}</p>
                                                                 </div>
