@@ -84,30 +84,45 @@
                                 <div class="col col-9">
                                         <div class="row">
                                                 <div class="6">
-                                                <div class="row">
-                                                        <h3>{% trans "Transfer History" %}</h3>
-                                                </div>
-                                                <ul class="listview">
-                                                {% for xfer in recent_transfers %}
-                                                <li class="list-item">
-
-                                                        <div class="box">
-                                                                <p>{{xfer.sender.full_name}}</p>
-                                                                <p>{{xfer.amount}} FCFA</p>
-                                                                <p>{{xfer.created_at}}</p>
+                                                        <div class="row">
+                                                                <h3>{% trans "Transfer History" %}</h3>
                                                         </div>
-                                                
-                                                </li>
-                                                {% endfor %}
-                                                </ul>
-                                                
+                                                        <ul class="listview">
+                                                        {% for xfer in recent_transfers %}
+                                                        <li class="list-item">
+
+                                                                <div class="box">
+                                                                        <p>{{xfer.sender.full_name}}</p>
+                                                                        <p>{{xfer.amount}} FCFA</p>
+                                                                        <p>{{xfer.created_at}}</p>
+                                                                </div>
+                                                        
+                                                        </li>
+                                                        {% endfor %}
+                                                        </ul>
+                                                        
                                                 </div>
 
                                                 <div class="6">
+                                                        <div class="row">
+                                                                <h3>{% trans "Service History" %}</h3>
+                                                                </div>
+                                                        <ul class="listview">
+                                                        {% for s in recent_services %}
+                                                        <li class="list-item">
+
+                                                                <div class="box">
+                                                                        <p>{{s.customer.get_full_name}}</p>
+                                                                        <p>{{s.price}} FCFA</p>
+                                                                        <p>{{s.created_at}}</p>
+                                                                </div>
+                                                        
+                                                        </li>
+                                                        {% endfor %}
+                                                        </ul>
                                                 
                                                 </div>
                                         </div>
-                                        <p> Col 9 </p>
                                 </div>
                                 <div class="col col-3">
                                         <p> Col 3 </p>

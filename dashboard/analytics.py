@@ -213,6 +213,21 @@ def get_transfers_summary():
     return summary
 
 
+def get_recent_services(limit=5):
+    '''
+    This method return a queryset that contains the last n  service.
+     n is defined by the parameter limit. which default to 5.
+    None is returned when no Service
+    '''
+    amount_field = 'amount'
+    appName = 'accounts'
+    modelName = 'Service'
+    order_field = '-created_at'
+
+    queryset = get_recent_model_instance(appName=appName, modelName=modelName, limit=limit)
+    return queryset
+
+
 def get_service_usage_summary():
     appName ='accounts'
     modelName = 'Service'
