@@ -36,7 +36,7 @@ def dashboard(request):
         'site_name'     : settings.SITE_NAME,
         'summary' : analytics.dashboard_summary(),
         'recent_transfers' : analytics.get_recent_transfers(),
-        'recent_service' : analytics.get_recent_services()
+        'recent_services' : analytics.get_recent_services()
        # 'activities'    : activities,
        # 'active_cats'   : active_cat,
        # 'account'       : current_account,
