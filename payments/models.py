@@ -9,8 +9,8 @@ class Reduction(models.Model):
     code = models.TextField(max_length=8)
     percent =  models.DecimalField(max_digits=10, decimal_places=5)
     account = models.ForeignKey('accounts.Account', null=True , on_delete = models.SET_NULL)
-    created_at = models.DateField(auto_now=True) 
-    used_at = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    used_at = models.DateTimeField()
 
     def __str__(self):
         return "Reduction {}".format( self.percent)
@@ -28,8 +28,8 @@ class Transaction(models.Model):
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='outgoing_transactions')
     recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='incoming_transactions')
-    created_at = models.DateField(auto_now=True)
-    validated_at = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateField(auto_now=True)
     details = models.TextField(max_length=256)
     transaction_type = models.CharField(max_length=1, choices=TRANSACTION_TYPES)
     policy = models.ForeignKey('accounts.Policy', blank=True, null=True, on_delete=models.SET_NULL)

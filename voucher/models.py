@@ -10,10 +10,10 @@ from django.urls import reverse
 class Voucher(models.Model):
     name = models.CharField(max_length=32, blank=False)
     voucher_code = models.TextField(max_length=32)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField(blank=False, null=False)
     activated = models.BooleanField(default=False)
-    activated_at = models.DateField(auto_now=True, blank=True, null=True)
+    activated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     is_used = models.BooleanField(default=False)
 
     class Meta:
@@ -31,7 +31,7 @@ class SoldVoucher(models.Model):
 
     seller = models.ForeignKey(User, related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="sold_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    sold_at = models.DateField(auto_now=True)
+    sold_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _("SoldVoucher")
@@ -49,7 +49,7 @@ class UsedVoucher(models.Model):
 
     customer = models.ForeignKey(User, related_name='used_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="used_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    used_at = models.DateField(auto_now=True)
+    used_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         verbose_name = _("UsedVoucher")
         verbose_name_plural = _("UsedVouchers")

@@ -32,6 +32,9 @@ class Policy(models.Model):
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=0.03)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return "{0}".format(self.commission)
@@ -42,7 +45,9 @@ class ServiceCategory(models.Model):
     category_name = models.CharField(max_length=50, unique=True, null=False,blank=False)
     category_code = models.IntegerField(blank=False, unique=True)
     is_active = models.BooleanField(default=True)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_by = models.ForeignKey(User, related_name="modified_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -65,8 +70,11 @@ class AvailableService(models.Model):
     category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     template_name = models.CharField(max_length=50, blank=True, null=True)
     form_class = models.CharField(max_length=50, blank=True, null=True)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_by = models.ForeignKey(User, related_name="modified_available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)
     description = models.CharField(max_length=80, blank=True, null=True)
 
@@ -116,7 +124,7 @@ class Service(models.Model):
     service_instance = models.ForeignKey(AvailableService, related_name="executed_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     price = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     issued_at = models.DateField()
     description = models.CharField(max_length=80, blank=True, null=True)
 
@@ -148,7 +156,8 @@ class Account(models.Model):
     newsletter = models.BooleanField(default=False)
     is_active_account = models.BooleanField(default=True, blank=True, null=True)
     solde = models.IntegerField(default=0)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
     policy = models.ForeignKey(Policy, related_name="accounts", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     account_uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
@@ -186,8 +195,10 @@ class IDCard(models.Model):
     card_number = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to=ident_file_path, blank=False)
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL,related_name='idcard')
-    delivery_at = models.DateTimeField(blank=True, null=True)
-    expire_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    delivery_at = models.DateField(blank=True, null=True)
+    expire_at = models.DateField(blank=True, null=True)
     delivery_place = models.CharField(max_length=32, blank=True, null=True)
     is_valid = models.BooleanField(default=False, blank=True, null=True)
     
