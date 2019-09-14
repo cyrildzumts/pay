@@ -95,7 +95,7 @@
                                                                 <div class="box">
                                                                         <p>{{xfer.sender.full_name}}</p>
                                                                         <p>{{xfer.amount}} FCFA</p>
-                                                                        <p>{{xfer.created_at}}</p>
+                                                                        <p>{{xfer.created_at | date : '%Y-%m-%d %H:%M'}} </p>
                                                                 </div>
                                                         
                                                         </li>
@@ -115,7 +115,7 @@
                                                                 <div class="box">
                                                                         <p>{{s.name}}</p>
                                                                         <p>{{s.price}} FCFA</p>
-                                                                        <p>{{s.created_at}}</p>
+                                                                        <p>{{s.created_at | date : '%Y-%m-%d %H:%M'}}</p>
                                                                 </div>
                                                         
                                                         </li>

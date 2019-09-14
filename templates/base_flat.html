@@ -62,11 +62,13 @@
 
                 <footer class="footer column row">
                 {% block FOOTER %}
-                <div class="copyright row">
-                        <div>Copyright <i class="fa fa-copyright"></i> 2019</div>
-                        <div>{{site_name}} {%trans 'Online Payment' %} </div>
-                </div>
+                
                 {% endblock FOOTER %}
+                <div class="row">
+                        {% now "Y" as current_year %}
+                        <div class="copyright">Copyright <i class="fa fa-copyright"></i><span class="copyright-year">{{current_year}}<</span> /div>
+                        <div class="site">{{site_name}} - {%trans 'Online Payment' %} </div>
+                </div>
                 </footer>
         </div>
 
