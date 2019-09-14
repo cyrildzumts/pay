@@ -62,7 +62,7 @@ class Transfer(models.Model):
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='transfer_sender')
     recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='transfer_recipient')
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     details = models.TextField(max_length=256)
 
     def __str__(self):
