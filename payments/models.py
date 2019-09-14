@@ -46,8 +46,9 @@ class Payment(models.Model):
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='customer')
     recipient = models.ForeignKey('accounts.Account', on_delete=models.CASCADE, related_name='seller')
-    created_at = models.DateField(auto_now=True)
-    validated_at = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_validated = models.BooleanField(default=False)
+    validated_at = models.DateTimeField(auto_now=True)
     details = models.TextField(max_length=256)
 
     def __str__(self):
@@ -77,8 +78,8 @@ class CaseIssue(models.Model):
     subject = models.TextField(max_length=32)
     description = models.TextField(max_length=256)
     is_closed = models.BooleanField(default=False)
-    created_at = models.DateField(auto_now=True)
-    closed_at = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    closed_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.pk, self.participant_1, self.participant_2)
