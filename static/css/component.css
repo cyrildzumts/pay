@@ -858,7 +858,7 @@ body.header-not-at-top .site-header{
 }
 
 form{
-	margin: o;
+	margin: 0;
 }
 
 .site-header .search-form input[type="search"]{
