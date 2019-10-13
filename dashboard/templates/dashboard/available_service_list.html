@@ -25,7 +25,7 @@
         <table id="available-service-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                           <th>{% trans "Service Name" %}</th>
                           <th>{% trans "Category" %}</th>
                           <th>{% trans "Details" %}</th>
@@ -34,7 +34,7 @@
           <tbody>
                   {% for avs in available_services  %}
                   <tr>
-                  <td class="checkbox"><input type="checkbox" name="selected-service"></td>
+                  <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                   <td>{{avs.name}}</td>
                   <td>{{avs.category.category_name}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'dashboard:available_service_detail' avs.pk %}"> {% trans "Details" %}</a></td>

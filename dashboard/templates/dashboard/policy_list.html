@@ -28,7 +28,7 @@
         <table id="policy-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                           <th>{% trans "Commission" %}</th>
                           <th>{% trans "Daily Limit" %}</th>
                           <th>{% trans "Weekly Limit" %}</th>
@@ -39,7 +39,7 @@
           <tbody>
                   {% for policy in policies  %}
                   <tr>
-                  <td class="checkbox"><input type="checkbox" name="selected-policy"></td>
+                  <!--<td class="checkbox"><input type="checkbox" name="selected-policy"></td>-->
                   <td>{{policy.commission}}</td>
                   <td>{{policy.daily_limit}} {% trans "XAF" %}</td>
                   <td>{{policy.weekly_limit}} {% trans "XAF" %}</td>

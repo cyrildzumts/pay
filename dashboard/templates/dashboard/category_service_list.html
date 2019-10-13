@@ -34,7 +34,7 @@
         <table id="available-category-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                           <th>{% trans "Category Name" %}</th>
                           <th>{% trans "Category Code" %}</th>
                           <th>{% trans "Details" %}</th>
@@ -43,7 +43,7 @@
           <tbody>
                   {% for category in categories  %}
                   <tr>
-                  <td class="checkbox"><input type="checkbox" name="selected-category"></td>
+                  <!--<td class="checkbox"><input type="checkbox" name="selected-category"></td>-->
                   <td>{{category.category_name}}</td>
                   <td>{{category.category_code}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'dashboard:category_service_detail' category.pk %}"> {% trans "Details" %}</a></td>

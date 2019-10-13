@@ -99,7 +99,7 @@
                                                                 <table id="transfer-list" class="mat-table js-filter-table">
                                                                         <thead>
                                                                                 <tr>
-                                                                                        <th><input id="filter-select-all" type="checkbox" name="allselected-transfer"></th>
+                                                                                        <!--<th><input id="filter-select-all" type="checkbox" name="allselected-transfer"></th>-->
                                                                                         <th>{% trans "Sender" %}</th>
                                                                                         <th>{% trans "Amount" %}</th>
                                                                                         <th>{% trans "Date of Transfer" %}</th>
@@ -108,7 +108,7 @@
                                                                         <tbody>
                                                                                 {% for xfer in recent_transfers  %}
                                                                                 <tr>
-                                                                                <td class="checkbox"><input type="checkbox" name="selected-transfer"></td>
+                                                                                <!--<td class="checkbox"><input type="checkbox" name="selected-transfer"></td>-->
                                                                                 <td>{{xfer.sender.full_name}}</td>
                                                                                 <td>{{xfer.amount}} {% trans "XAF" %}</td>
                                                                                 <td>{{xfer.created_at}}</td>
@@ -161,7 +161,7 @@
                                                                 <table id="service-list" class="mat-table js-filter-table">
                                                                         <thead>
                                                                                 <tr>
-                                                                                        <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                                                                                        <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                                                                                         <th>{% trans "Service Name" %}</th>
                                                                                         <th>{% trans "Price" %}</th>
                                                                                         <th>{% trans "Date of usage" %}</th>

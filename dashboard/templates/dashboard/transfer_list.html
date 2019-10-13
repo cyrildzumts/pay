@@ -25,7 +25,7 @@
         <table id="service-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                           <th>{% trans "Sender" %}</th>
                           <th>{% trans "Recipient" %}</th>
                           <th>{% trans "Amount" %}</th>
@@ -36,7 +36,7 @@
           <tbody>
                   {% for xfer in transfers  %}
                   <tr>
-                    <td class="checkbox"><input type="checkbox" name="selected-service"></td>
+                    <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                     <td>{{xfer.sender.full_name}}</td>
                     <td>{{xfer.recipient.full_name}}</td>
                     <td>{{xfer.amount}} {% trans "XAF" %}</td>
