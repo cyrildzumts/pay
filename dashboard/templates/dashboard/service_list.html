@@ -78,7 +78,7 @@
         <table id="service-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>
                           <th>{% trans "Service Name" %}</th>
                           <th>{% trans "Price" %}</th>
                           <th>{% trans "Category" %}</th>
@@ -89,7 +89,7 @@
           <tbody>
                   {% for s in services  %}
                   <tr>
-                  <td class="checkbox"><input type="checkbox" name="selected-service"></td>
+                  <td class="checkbox hidden"><input type="checkbox" name="selected-service"></td>
                   <td>{{s.name}}</td>
                   <td>{{s.price}} {% trans "XAF" %}</td>
                   <td>{{s.category.category_name}}</td>
