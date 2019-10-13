@@ -43,7 +43,7 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Payment
-        fiels = [ 'amount', 'sender', 'recipient','is_validated','validated_at','created_at', 'details']
+        fields = [ 'amount', 'sender', 'recipient','is_validated','validated_at','created_at', 'details']
 
 
 
@@ -52,7 +52,7 @@ class TransferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transfer
-        fiels = [ 'amount', 'sender', 'recipient','created_at', 'details']
+        fields = [ 'amount', 'sender', 'recipient','created_at', 'details']
 
 
 class CaseIssueSerializer(serializers.ModelSerializer):
