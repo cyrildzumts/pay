@@ -40,10 +40,10 @@
                   {% for policy in policies  %}
                   <tr>
                   <td class="checkbox"><input type="checkbox" name="selected-policy"></td>
-                  <td>{{policy.commission}} {% trans "XAF" %}</td>
-                  <td>{{policy.daily_limit}}</td>
-                  <td>{{policy.weekly_limit}}</td>
-                  <td>{{policy.monthly_limit}}</td>
+                  <td>{{policy.commission}}</td>
+                  <td>{{policy.daily_limit}} {% trans "XAF" %}</td>
+                  <td>{{policy.weekly_limit}} {% trans "XAF" %}</td>
+                  <td>{{policy.monthly_limit}} {% trans "XAF" %}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'dashboard:policy_detail' policy.pk %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
