@@ -3,28 +3,70 @@
 
 {% block MAIN %}
 
+<div class="row">
+  <div class="nav">
+    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:available_service_create'%}"> {% trans "Add new Service" %}</a>
+    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+  </div>
+</div>
 <div class="container">
-        <div class="row">
-          <h3>{% trans "Available services" %}</h3>
-          <a class="button link" href="{% url 'dashboard:home'%}"> {% trans "Dashboard" %}</a>
-          <a class="button link" href="{% url 'dashboard:available_service_create'%}"> {% trans "Add new Service" %}</a>
 
-        </div>
-    {% for service in available_services %}
-        <div class="card">
-          <div class="card__title">
-            <p> {% trans "Service Name" %} : {{service.name}} </p>
+    <div class="mat-table-wrapper">
+        <div class="row">
+            <div class="mat-table-title">
+                {% trans "Available Services" %}
+            </div>
+        </div><!--End of Row-->
+        <div class="row">
+              <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
+              <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
+              <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
+        </div><!--End of Row-->
+        <table id="available-service-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <th>{% trans "Service Name" %}</th>
+                          <th>{% trans "Category" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for avs in available_services  %}
+                  <tr>
+                  <td class="checkbox"><input type="checkbox" name="selected-service"></td>
+                  <td>{{avs.name}}</td>
+                  <td>{{avs.category.category_name}}</td>
+                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:available_service_detail' avs.pk %}"> {% trans "Details" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    <div class="row">
+          <div class="table-select-wrapper">
+                  <label for="table-step">{% trans "Row per page" %}</label>
+                  <select class="mat-select" name="step" id="table-step">
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="30">30</option>
+                  </select>
           </div>
-          <div class="card__body">
-            <p> {% trans "Category" %} : {{service.category.category_name}} </p>
-            <p> {% trans "Date" %} : {{service.created_at}} </p>
+          <div class="table-pagination">
+                  <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
+                  <div class="controls">
+                  <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
+                  <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
+                  </div>
           </div>
-          <div class="card__actions">
-            <a class="button link" href="{% url 'dashboard:available_service_detail' service.pk %}"> {% trans "More" %} ...</a>
-          </div>
-        </div>
-    {% empty %}
-    <p> {% trans "There are no  services available now" %} ...</p>
-    {% endfor %}
+
+    </div><!--End of Row-->
+    </div><!--End of Table Wrapper-->
+
 </div>
 {% endblock MAIN %}
