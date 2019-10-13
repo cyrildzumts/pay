@@ -3,32 +3,79 @@
 
 {% block MAIN %}
 
-<div class="container">
-    <div>
-        <h3>{% trans "Category Service" %}</h3>
-        <a class="button link" href="{% url 'dashboard:category_service_create'%}">{% trans "Add a new Category" %}</a>
-        <a class="button link" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
+{% comment "" %}
+    <div class="card__actions">
+            <ul>
+                <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_update' category.pk %}">{% trans "Edit" %}</a></li>
+                <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_remove' category.pk %}">{% trans "Remove" %}</a></li>
+                <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_detail' category.pk %}">{% trans "Details" %}</a></li>
+            </ul>
     </div>
-    {% for category in categories %}
-        <div class="card">
-            <div class="card__title">
-                <h3> {% trans "Category Name" %} : {{category.category_name}} </h3>
-                <h5>{% trans "Category Code" %} : {{category.category_code}}</h5>
+{% endcomment %}
+<div class="row">
+  <div class="nav">
+    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:category_service_create'%}"> {% trans "Add new Category" %}</a>
+    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+  </div>
+</div>
+<div class="container">
+
+    <div class="mat-table-wrapper">
+        <div class="row">
+            <div class="mat-table-title">
+                {% trans "Available Categories" %}
             </div>
-            <div class="card__body">
-              <p> {% trans "Date" %} : {{category.created_at}} </p>
-            </div>
-            <div class="card__actions">
-                    <ul>
-                        <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_update' category.pk %}">{% trans "Edit" %}</a></li>
-                        <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_remove' category.pk %}">{% trans "Remove" %}</a></li>
-                        <li class="list-item"><a class="button link" href="{% url 'dashboard:category_service_detail' category.pk %}">{% trans "Details" %}</a></li>
-                    </ul>
-            </div>
-        </div>
-    {% empty %}
-    <p> {% trans "There is no service categories" %} </p>
-    <a class="button link" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
-    {% endfor %}
+        </div><!--End of Row-->
+        <div class="row">
+              <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
+              <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
+              <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
+        </div><!--End of Row-->
+        <table id="available-category-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <th>{% trans "Category Name" %}</th>
+                          <th>{% trans "Category Code" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for category in categories  %}
+                  <tr>
+                  <td class="checkbox"><input type="checkbox" name="selected-category"></td>
+                  <td>{{category.category_name}}</td>
+                  <td>{{category.category_code}}</td>
+                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:category_service_detail' category.pk %}"> {% trans "Details" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    <div class="row">
+          <div class="table-select-wrapper">
+                  <label for="table-step">{% trans "Row per page" %}</label>
+                  <select class="mat-select" name="step" id="table-step">
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="30">30</option>
+                  </select>
+          </div>
+          <div class="table-pagination">
+                  <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
+                  <div class="controls">
+                  <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
+                  <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
+                  </div>
+          </div>
+
+    </div><!--End of Row-->
+    </div><!--End of Table Wrapper-->
+
 </div>
 {% endblock MAIN %}
