@@ -1,10 +1,14 @@
 from django.conf.urls import url, include
 from django.urls import path, reverse_lazy
-from api import views
+from rest_framework.routers import DefaultRouter
+from api import views, viewsets
 
 app_name = 'api'
+router = DefaultRouter()
+router.register(r'services', viewsets.ServiceViewSet)
+router.register(r'transfers', viewsets.TransferViewSet)
 
 urlpatterns = [
-    path('', views.AvailableServiceListCreateAPIView.as_view(), name='pay_rest_api'),
-    path('available_service/<int:pk>/', views.AvailableServiceRetrieveUpdateCreateAPIView.as_view(), name='pay_rest_api'),
+    path('', include(router.urls)),
+    
 ]
