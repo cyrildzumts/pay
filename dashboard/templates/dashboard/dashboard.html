@@ -83,48 +83,132 @@
                         <div class="row">
                                 <div class="col col-9">
                                         <div class="row">
-                                                <div class="6">
-                                                        
-                                                        <ul class="listview">
-                                                        <div class="list-title">
-                                                                {% trans "Transfer History" %}
-                                                        </div>
-                                                        {% for xfer in recent_transfers %}
-                                                        <li class="list-item">
-
-                                                                <div class="box">
-                                                                        <p>{{xfer.sender.full_name}}</p>
-                                                                        <p>{{xfer.amount}} FCFA</p>
-                                                                        <p>{{xfer.created_at}} </p>
+                                                <div class="col col-6">
+                                                        <div class="row">
+                                                           <div class="mat-table-wrapper">
+                                                                <div class="row">
+                                                                        <div class="list-title">
+                                                                                {% trans "Transfer History" %}
+                                                                        </div>
                                                                 </div>
-                                                        
-                                                        </li>
-                                                        {% endfor %}
-                                                        </ul>
-                                                        
-                                                </div>
-
-                                                <div class="6">
-                                                        <ul class="listview">
-                                                        <div class="list-title">
-                                                                {% trans "Service History" %}
-                                                        </div>
-                                                        {% for s in recent_services %}
-                                                        <li class="list-item">
-
-                                                                <div class="box">
-                                                                        <p>{{s.name}}</p>
-                                                                        <p>{{s.price}} FCFA</p>
-                                                                        <p>{{s.created_at}}</p>
+                                                                <div class="row">
+                                                                        <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
+                                                                        <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
+                                                                        <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
                                                                 </div>
+                                                                <table id="transfer-list" class="mat-table js-filter-table">
+                                                                        <thead>
+                                                                                <tr>
+                                                                                        <th><input id="filter-select-all" type="checkbox" name="allselected-transfer"></th>
+                                                                                        <th>{% trans "Sender" %}</th>
+                                                                                        <th>{% trans "Amount" %}</th>
+                                                                                        <th>{% trans "Date of Transfer" %}</th>
+                                                                                </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                                {% for xfer in recent_transfers  %}
+                                                                                <tr>
+                                                                                <td class="checkbox"><input type="checkbox" name="selected-transfer"></td>
+                                                                                <td>{{xfer.sender.full_name}}</td>
+                                                                                <td>{{xfer.amount}} {% trans "XAF" %}</td>
+                                                                                <td>{{xfer.created_at}}</td>
+                                                                                </tr>
+                                                                                {% endfor %}
+                                                                                
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                                
+                                                                        </tfoot>
                                                         
-                                                        </li>
-                                                        {% endfor %}
-                                                        </ul>
+                                                                </table>
+                                                                <div class="row">
+                                                                        <div class="table-select-wrapper">
+                                                                                <label for="table-step">{% trans "Row per page" %}</label>
+                                                                                <select class="mat-select" name="step" id="table-step">
+                                                                                <option value="3">3</option>
+                                                                                <option value="5">5</option>
+                                                                                <option value="10">10</option>
+                                                                                <option value="30">30</option>
+                                                                                </select>
+                                                                        </div>
+                                                                        <div class="table-pagination">
+                                                                                <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
+                                                                                <div class="controls">
+                                                                                <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
+                                                                                <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
+                                                                                </div>
+                                                                        </div>
+                            
+                                                                </div><!--End of Row-->
+                                                           </div> <!--End of Table Wrapper-->
+                                                        </div> <!--End of Row-->
+                                                </div> <!--End of Col-6-->
+
+                                                <div class="col col-6">
+
+                                                        <div class="row">
+                                                           <div class="mat-table-wrapper">
+                                                                <div class="row">
+                                                                        <div class="list-title">
+                                                                                {% trans "Service History" %}
+                                                                        </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                        <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
+                                                                        <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
+                                                                        <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
+                                                                </div>
+                                                                <table id="service-list" class="mat-table js-filter-table">
+                                                                        <thead>
+                                                                                <tr>
+                                                                                        <th><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                                                                                        <th>{% trans "Service Name" %}</th>
+                                                                                        <th>{% trans "Price" %}</th>
+                                                                                        <th>{% trans "Date of usage" %}</th>
+                                                                                </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                                {% for s in recent_services  %}
+                                                                                <tr>
+                                                                                <td class="checkbox"><input type="checkbox" name="selected-service"></td>
+                                                                                <td>{{s.name}}</td>
+                                                                                <td>{{s.price}} {% trans "XAF" %}</td>
+                                                                                <td>{{s.created_at}}</td>
+                                                                                </tr>
+                                                                                {% endfor %}
+                                                                                
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                                
+                                                                        </tfoot>
+                                                        
+                                                                </table>
+                                                                <div class="row">
+                                                                        <div class="table-select-wrapper">
+                                                                                <label for="table-step">{% trans "Row per page" %}</label>
+                                                                                <select class="mat-select" name="step" id="table-step">
+                                                                                <option value="3">3</option>
+                                                                                <option value="5">5</option>
+                                                                                <option value="10">10</option>
+                                                                                <option value="30">30</option>
+                                                                                </select>
+                                                                        </div>
+                                                                        <div class="table-pagination">
+                                                                                <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
+                                                                                <div class="controls">
+                                                                                <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
+                                                                                <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
+                                                                                </div>
+                                                                        </div>
+                            
+                                                                </div><!--End of Row-->
+                                                           </div> <!--End of Table Wrapper-->
+                                                        </div> <!--End of Row-->
+                                                        
                                                 
-                                                </div>
-                                        </div>
-                                </div>
+                                                </div><!--End of Col-6-->
+                                        </div><!--End of Row-->
+                                </div><!--End of Col-9-->
                                 <div class="col col-3">
                                         <p> Col 3 </p>
                                 </div>

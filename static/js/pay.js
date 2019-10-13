@@ -1,4 +1,18 @@
+/**
+ * 
+ * @param {*} options is a JSON defining the following data :
+ * type - string
+ * url - string
+ * data - json
+ * dataType - string
+ * Example : 
+ * type: 'POST',
+   url : '/cart/add_to_cart/',
+   data: {product_id: 102, quantity: 4},
+   dataType: 'json'
 
+   A future object is returned
+ */
 function ajax(options){
     return new Promise(function(resolve, reject){
         $.ajax(options).done(resolve).fail(reject);
@@ -516,6 +530,164 @@ var Collapsible = (function(){
     return Collapsible;
 })();
 
+
+
+var TableFilter = (function(){
+    function TableFilter (){
+        this.tables = {};
+        this.rowStep = 5; // default number of row to display per page
+        this.currentRowIndex = 0;
+        this.numberOfRows = 0;
+        this.rows = [];
+        this.interval_start = {};
+        this.interval_end = {};
+        this.element_table_row_number = {};
+
+    }
+    TableFilter.prototype.init = function (){
+       var that = this;
+       this.tables = $(".js-filter-table");
+       this.table = $('#employee-list');
+       this.tableTbody = $('tbody', this.table);
+       this.tr = $('tr', this.tableTbody).hide();
+       this.numberOfRows = this.tr.length;
+       this.element_table_row_number = $(".js-table-rows-number");
+       this.interval_start = $(".js-table-interval-start");
+       this.interval_end = $(".js-table-interval-end");
+       var n = this.tables.length;
+       var $select = $("#table-step");
+       
+       if(n == 0){
+           console.log("No filter table found on this page");
+           return;
+       }
+       Array.prototype.push.apply(this.rows, this.tr.toArray());
+       if($select.length > 0){
+            this.rowStep = $select.val();
+            $select.on('change', function(event){
+                that.setStep($select.val());
+                console.log("table step changed to %s", that.rowStep );
+            });
+       }
+       
+       this.updateTable();
+     
+       console.log("%s filter table found on this page", n);
+
+    }
+
+    TableFilter.prototype.setStep = function(step){
+        if(isNaN(step)){
+            console.warn("TableFilter::setStep() : step is undefined");
+            return;
+        }
+        var n = parseInt(step);
+        if(n != this.rowStep){
+            this.rowStep = n;
+            this.updateTable();
+        }
+        
+    }
+
+    TableFilter.prototype.showRows = function(start, last){
+        console.log("Table current rows interval :  start  - last  -> [%s - %s]", start, last);
+            this.rows.forEach(function(tr, index){
+                if(index >= start && index < last){
+                    $(tr).show();
+                }else{
+                    $(tr).hide();
+                }
+            });
+            this.interval_start.html(parseInt(start+1));
+            this.interval_end.html(parseInt(last));
+            this.element_table_row_number.html(parseInt(this.numberOfRows));
+    }
+
+    TableFilter.prototype.previous = function(){
+        var start = 0;
+        var last = 0;
+        var tmp = this.currentRowIndex - this.rowStep;
+        if( (this.currentRowIndex != 0) && !(tmp < 0)){
+            last = this.currentRowIndex;
+            start = tmp;
+            this.currentRowIndex = start;
+            this.showRows(start, last);
+        }
+    }
+    
+    TableFilter.prototype.next = function(){
+        var start = 0;
+        var last = 0;
+        var tmp = this.currentRowIndex + this.rowStep;
+        if(tmp < this.numberOfRows){
+            start = tmp;
+            this.currentRowIndex = start;
+        }else{
+            return;
+        }
+        if(start + this.rowStep < this.numberOfRows){
+            last = start + this.rowStep;
+        }else{
+            last = this.numberOfRows;
+        }
+        this.showRows(start, last);
+    }
+
+    TableFilter.prototype.updateTable = function(){
+        console.log("Table update entry :  currentIndex  - numberOfRows  -> [%s - %s]", this.currentRowIndex, this.numberOfRows);
+        var start = this.currentRowIndex;
+        var last = 0;
+        var tmp = this.currentRowIndex + this.rowStep;
+        if(tmp < this.numberOfRows){
+            last = tmp;
+        }else{
+            last = this.numberOfRows;
+        }
+        this.showRows(start, last);
+    }
+
+    TableFilter.prototype.onAdd = function(event, n){
+        if(isNaN(n)){
+            console.warn("n is undefined");
+            return;
+        }
+        var last = parseInt(n);
+        for(var i = 0; i < last; i++){
+            this.addRow({company: "novomind AG", name:"Cyrille Ngassam Nkwenga"});
+        }
+        this.updateTable();
+        
+    }
+    TableFilter.prototype.addRow = function(data){
+        var table = $('#employee-list');
+        if(table.length == 0){
+            console.log("No Employee List Table found");
+            return;
+        }
+        if(typeof data == "undefined"){
+            console.log("Data Table Error : data is undefined");
+            return;
+        }
+        var attrs = ["company", "name"];
+        var valid = attrs.every(function(e){
+            return data.hasOwnProperty(e);
+        });
+        if(!valid){
+            console.log("TableFilter.addRow : data is invalid");
+            return;
+        }
+        this.numberOfRows++;
+        var markup = `<tr><td class="checkbox"><input type="checkbox" name="selected"></td> <td>${data.company} - ${this.numberOfRows}</td> <td>${data.name}</td> </tr>`;
+        var tbody = $('tbody', table);
+        var $tr = $(markup).hide().appendTo(tbody);
+        this.rows.push($tr);
+    }
+
+    TableFilter.prototype.fetchData = function(){
+        console.log("TableFilter::fetchData () not implemented yet");
+    }
+    return TableFilter;
+})();
 //var trans = new Transaction();
 var issue_descr = "J'ai acheter un article le 23.03.2019."
 " Jusqu'aujourd'hui je n'ai toujours pas recu la commande."
@@ -549,6 +721,25 @@ let account = new Account();
 account.init();
 let tabs = new Tabs();
 tabs.init();
+
+var filter = new TableFilter();
+filter.init();
+
+
+$('.js-table-update').on('click', function(event){
+    console.log("Updating the Table");
+});
+$('.js-table-next').on('click', function(event){
+    console.log("Displaying the next %s row of the Table", filter.rowStep);
+    filter.next();
+    
+});
+
+$('.js-table-previous').on('click', function(event){
+    console.log("Displaying the next %s row of the Table", filter.rowStep);
+    filter.previous();
+    
+});
 let slider = new Slider();
 slider.init();
     var factory = new CardFactory(options);
