@@ -5,8 +5,14 @@ from api import views, viewsets
 
 app_name = 'api'
 router = DefaultRouter()
+router.register(r'accounts', viewsets.AccountViewSet)
+router.register(r'available_service', viewsets.AvailableServiceViewSet)
+router.register(r'caseissues', viewsets.CaseIssueViewSet)
 router.register(r'services', viewsets.ServiceViewSet)
 router.register(r'transfers', viewsets.TransferViewSet)
+router.register(r'services', viewsets.ServiceViewSet)
+router.register(r'policies', viewsets.PolicyViewSet)
+router.register(r'categories', viewsets.ServiceCategoryViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
