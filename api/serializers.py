@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from accounts.models import AvailableService, ServiceCategory, Service, Policy, Account
 from payments.models import Transfer, Payment, CaseIssue
+from voucher.models import (
+    Voucher, SoldVoucher, UsedVoucher
+)
 
 
 class AvailableServiceSerializer(serializers.ModelSerializer):
@@ -60,3 +63,27 @@ class CaseIssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaseIssue
         fields = [ 'participant_1', 'participant_2', 'amount', 'subject', 'description', 'is_closed' ]
+
+
+
+class VoucherSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Voucher
+        fields = ('name','voucher_code', 'amount', 'is_used', 'created_at', 'activated', 'activated_at', )
+
+
+
+class UsedVoucherSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = UsedVoucher
+        fields = ("customer","voucher", "used_at", )
+
+
+
+class SoldVoucherSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = SoldVoucher
+        fields = ("seller","voucher", "sold_at", )

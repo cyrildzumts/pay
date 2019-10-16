@@ -3,7 +3,8 @@ from rest_framework.permissions import BasePermission, IsAuthenticated
 
 from api.serializers import ( AvailableServiceSerializer, AvailableService, Account, AccountSerializer,
     Transfer, TransferSerializer, Payment, PaymentSerializer,CaseIssue, CaseIssueSerializer,
-    CategorySerializer, ServiceCategory, Policy, PolicySerializer, Service, ServiceSerializer
+    CategorySerializer, ServiceCategory, Policy, PolicySerializer, Service, ServiceSerializer,
+    VoucherSerializer, SoldVoucherSerializer, UsedVoucherSerializer, Voucher, SoldVoucher, UsedVoucher
  )
 
 
@@ -67,3 +68,23 @@ class CaseIssueViewSet(viewsets.ModelViewSet):
      permission_classes = [IsAuthenticated]
      queryset = CaseIssue.objects.all()
      serializer_class = CaseIssueSerializer
+
+
+
+class VoucherViewSet(viewsets.ReadOnlyModelViewSet):
+     queryset = Voucher.objects.all()
+     serializer_class = VoucherSerializer
+     permission_classes = [IsAuthenticated]
+
+
+
+class UsedVoucherViewSet(viewsets.ReadOnlyModelViewSet):
+     queryset = UsedVoucher.objects.all()
+     serializer_class = UsedVoucherSerializer
+     permission_classes = [IsAuthenticated]
+
+
+class SoldVoucherViewSet(viewsets.ReadOnlyModelViewSet):
+     queryset = SoldVoucher.objects.all()
+     serializer_class = SoldVoucherSerializer
+     permission_classes = [IsAuthenticated]
