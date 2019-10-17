@@ -3,7 +3,10 @@ from rest_framework import permissions as rest_perms
 class CanReadVoucherPermission(rest_perms.BasePermission):
 
     def has_permission(self, request, view):
-        return request.user.has_permission('api_view_voucher')
+        flag = False
+        if request.user.is_authenticated:
+            flag = request.user.has_permission('api_view_voucher')
+        return flag
     
 
     def has_object_permission(self, request, view, obj):
@@ -13,7 +16,10 @@ class CanReadVoucherPermission(rest_perms.BasePermission):
 class CanChangeVoucherPermission(rest_perms.BasePermission):
 
     def has_permission(self, request, view):
-        return request.user.has_permission('api_change_voucher')
+        flag = False
+        if request.user.is_authenticated:
+            flag = request.user.has_permission('api_change_voucher')
+        return flag
     
 
     def has_object_permission(self, request, view, obj):
@@ -23,7 +29,10 @@ class CanChangeVoucherPermission(rest_perms.BasePermission):
 class CanDeleteVoucherPermission(rest_perms.BasePermission):
 
     def has_permission(self, request, view):
-        return request.user.has_permission('api_delete_voucher')
+        flag = False
+        if request.user.is_authenticated:
+            flag = request.user.has_permission('api_delete_voucher')
+        return flag
     
 
     def has_object_permission(self, request, view, obj):
@@ -33,7 +42,10 @@ class CanDeleteVoucherPermission(rest_perms.BasePermission):
 class CanAddVoucherPermission(rest_perms.BasePermission):
 
     def has_permission(self, request, view):
-        return request.user.has_permission('api_add_voucher')
+        flag = False
+        if request.user.is_authenticated:
+            flag = request.user.has_permission('api_add_voucher')
+        return flag
     
 
     def has_object_permission(self, request, view, obj):
