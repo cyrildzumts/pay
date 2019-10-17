@@ -15,6 +15,7 @@ class AccountInline(admin.StackedInline):
     can_delete = False
     fk_name = 'user'
     verbose_name_plural = 'Profile'
+    list_display = ['user', 'country', 'city', 'telefon', 'created_by', 'solde']
 
 '''
 class PolicyInline(admin.StackedInline):
