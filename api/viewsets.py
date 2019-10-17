@@ -1,5 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.permissions import BasePermission, IsAuthenticated
+from api.permissions import (
+     CanAddVoucherPermission, CanChangeVoucherPermission, CanDeleteVoucherPermission, CanReadVoucherPermission
+)
 
 from api.serializers import ( AvailableServiceSerializer, AvailableService, Account, AccountSerializer,
     Transfer, TransferSerializer, Payment, PaymentSerializer,CaseIssue, CaseIssueSerializer,
@@ -74,7 +77,7 @@ class CaseIssueViewSet(viewsets.ModelViewSet):
 class VoucherViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = Voucher.objects.all()
      serializer_class = VoucherSerializer
-     permission_classes = [IsAuthenticated]
+     permission_classes = [IsAuthenticated|CanReadVoucherPermission|CanDeleteVoucherPermission]
 
 
 
