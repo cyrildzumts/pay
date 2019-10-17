@@ -35,7 +35,7 @@ class Voucher(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("voucher:voucher_detail", kwargs={"pk": self.pk})
+        return reverse("voucher:voucher_details", kwargs={"pk": self.pk})
 
 
 class SoldVoucher(models.Model):
@@ -62,7 +62,7 @@ class SoldVoucher(models.Model):
         return self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:sold_voucher_detail", kwargs={"pk": self.pk})
+        return reverse("voucher:sold_voucher_details", kwargs={"pk": self.pk})
 
 
 
@@ -89,4 +89,4 @@ class UsedVoucher(models.Model):
         return self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:used_voucher_detail", kwargs={"pk": self.pk})
+        return reverse("voucher:used_voucher_details", kwargs={"pk": self.pk})
