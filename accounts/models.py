@@ -158,7 +158,7 @@ class Service(models.Model):
     def get_absolute_url(self):
         return reverse('accounts:service_detail', kwargs={'pk':self.pk})
 
-
+'''
 class StaffAccount(models.Model):
     ACCOUNT_TYPE = (
         ('A', 'Admin'),
@@ -184,7 +184,7 @@ class StaffAccount(models.Model):
     email_validated = models.BooleanField(default=False, blank=True, null=True)
     created_by = models.ForeignKey(User, related_name="created_accounts", null=True,blank=True, on_delete=models.SET_NULL)
     #reset_token = models.CharField(max_length=8, blank=True, null=True)
-
+'''
 
 class Account(models.Model):
     """
