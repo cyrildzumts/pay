@@ -733,6 +733,9 @@ $('.js-user-search').on('keyup', function(event){
     var $target = $($result.data('target'));
     console.log("user search has changed %s", query);
     console.log("Send API request now ");
+    if(query.length == 0){
+        return;
+    }
     /*
     type - string
     * url - string
