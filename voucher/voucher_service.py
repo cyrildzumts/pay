@@ -208,6 +208,7 @@ class VoucherService:
         count = queryset.count()
         if count != 3:
             logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
+            logger.error("[processing_service_request] Error : queryset result %s instance", count)
             logger.error(queryset)
             result['errors'] = "Recharge account not found. The service request cannot be processed"
             return result
