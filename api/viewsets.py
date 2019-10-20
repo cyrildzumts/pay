@@ -12,17 +12,6 @@ from api.serializers import ( AvailableServiceSerializer, AvailableService, Acco
  )
 
 
-class UserSearchViewSet(viewsets.ReadOnlyModelViewSet):
-     permission_classes = [IsAuthenticated]
-     serializer_class = UserSerializer
-
-     def get_queryset(self):
-          user_search = self.request.POST.get('user-search', "")
-          if len(user_search) > 0 :
-               return UserSerializer.Meta.model.objects.filter(last_name__icontains=user_search)
-          return UserSerializer.Meta.model.objects.none()
-
-
 class AccountViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = AccountSerializer.Meta.model.objects.all()
      serializer_class = AccountSerializer

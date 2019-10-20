@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import filters
 from rest_framework.generics import (
     ListCreateAPIView,
     ListAPIView,
@@ -7,12 +8,28 @@ from rest_framework.generics import (
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ( AvailableServiceSerializer, AvailableService, Account, AccountSerializer,
     Transfer, TransferSerializer, Payment, PaymentSerializer,CaseIssue, CaseIssueSerializer,
-    CategorySerializer, ServiceCategory, Policy, PolicySerializer, Service, ServiceSerializer
+    CategorySerializer, ServiceCategory, Policy, PolicySerializer, Service, ServiceSerializer, UserSerializer
  )
 
 
 # Create your views here.
 # REST API Views
+
+class UserSearchView(ListAPIView):
+     permission_classes = [IsAuthenticated]
+     serializer_class = UserSerializer
+     search_fields = ['last_name']
+     filter_backends = [filters.SearchFilter]
+     queryset = UserSerializer.Meta.model.objects.all()
+     """
+     def get_queryset(self):
+          user_search = self.request.POST.get('user-search', "")
+          if len(user_search) > 0 :
+               return UserSerializer.Meta.model.objects.filter(last_name__icontains=user_search)
+          return UserSerializer.Meta.model.objects.none()
+     """
+
+
 class AvailableServiceListAPIView(ListAPIView):
     queryset =  AvailableService.objects.all()
     serializer_class =  AvailableServiceSerializer

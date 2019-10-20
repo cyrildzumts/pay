@@ -17,9 +17,10 @@ router.register(r'categories', viewsets.ServiceCategoryViewSet)
 router.register(r'vouchers', viewsets.VoucherViewSet)
 router.register(r'used_vouchers', viewsets.UsedVoucherViewSet)
 router.register(r'sold_vouchers', viewsets.SoldVoucherViewSet)
-router.register(r'user-search', viewsets.UserSearchViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('user-search', views.UserSearchView.as_view(), name="user-search"),
     
 ]
