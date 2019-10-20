@@ -716,7 +716,23 @@ function fetchTransaction(){
     });
 }
 
-function userSearch(options){
+
+
+$(document).ready(function(){
+let account = new Account();
+account.init();
+let tabs = new Tabs();
+tabs.init();
+
+var filter = new TableFilter();
+filter.init();
+
+var scheduled_query = false;
+var query_delay = 700;
+var $user_search_result = $('#user-search-result');
+var $user_search_target = $($user_search_result.data('target'));
+
+var userSearch = function(options){
 
     var promise = ajax(options).then(function(response){
         console.log("User Search succeed");
@@ -737,21 +753,6 @@ function userSearch(options){
         console.log(error);
     });
 }
-
-$(document).ready(function(){
-let account = new Account();
-account.init();
-let tabs = new Tabs();
-tabs.init();
-
-var filter = new TableFilter();
-filter.init();
-
-var scheduled_query = false;
-var query_delay = 700;
-var $user_search_result = $('#user-search-result');
-var $user_search_target = $($user_search_result.data('target'));
-
 
 $('.js-user-search').on('keyup', function(event){
     event.stopPropagation();
