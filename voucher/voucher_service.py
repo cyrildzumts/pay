@@ -225,7 +225,7 @@ class VoucherService:
                     activated_at=now, used_at=now, sold_at=now)
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
             queryset.update(solde=F('solde') + amount)
-            UsedVoucher.objects.create(customer=customer, voucher=v)
+            UsedVoucher.objects.create(customer=queryset.get(user=customer), voucher=v)
             
             logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).get_full_name(), queryset.get(user=seller).get_full_name(), amount)
             result['succeed'] = True
