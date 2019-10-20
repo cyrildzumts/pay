@@ -716,6 +716,28 @@ function fetchTransaction(){
     });
 }
 
+function userSearch(options){
+
+    var promise = ajax(options).then(function(response){
+        console.log("User Search succeed");
+        console.log(response);
+        response.forEach(function(user, index){
+            $('<li>').data('user-id', user.id).html(user.first_name + " " +  user.last_name).
+            on('click', function(event){
+                event.stopPropagation();
+                var user_id = $(this).data('user-id');
+                $user_search_target.val(user_id);
+                $user_search_result.hide();
+            }).appendTo($user_search_result);
+            $user_search_result.show();
+        });
+
+    }, function(error){
+        console.log("User Search failed");
+        console.log(error);
+    });
+}
+
 $(document).ready(function(){
 let account = new Account();
 account.init();
@@ -725,50 +747,33 @@ tabs.init();
 var filter = new TableFilter();
 filter.init();
 
+var scheduled_query = false;
+var query_delay = 700;
+var $user_search_result = $('#user-search-result');
+var $user_search_target = $($user_search_result.data('target'));
+
 
 $('.js-user-search').on('keyup', function(event){
     event.stopPropagation();
     var query = $(this).val();
-    var $result = $('#user-search-result');
-    var $target = $($result.data('target'));
     console.log("user search has changed %s", query);
     console.log("Send API request now ");
     query = query.trim()
     if(query.length == 0 ){
-
         return;
     }
-    /*
-    type - string
-    * url - string
-    * data - json
-    * dataType - string
-    * Example : 
-    * type: 'POST',
-      url : '/cart/add_to_cart/',
-      data: {product_id: 102, quantity: 4},
-      dataType: 'json'
-      */
-    var promise = ajax({
+    var options = {
         url:'/api/user-search/',
         type: 'GET',
         data : {'search': query},
         dataType: 'json'
-    });
-    promise.then(function(response){
-        console.log("User Search succeed");
-        console.log(response);
-    }, function(error){
-        console.log("User Search failed");
-        console.log(error);
-    });
-    $('li', $result).on('click', function(event){
-        event.stopPropagation();
-        var user_id = $(this).data('id');
-
-        $target.val(user_id);
-    });
+    };
+    if(scheduled_query){
+        clearTimeout(scheduled_query);
+    }
+    scheduled_query = setTimeout(userSearch, query_delay, options);
 });
+
 $('.js-table-update').on('click', function(event){
     console.log("Updating the Table");
 });
