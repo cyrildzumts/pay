@@ -39,7 +39,7 @@
                   {% for v in sold_vouchers  %}
                   <tr>
                   <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
-                  <td>{{v.name}}</td>
+                  <td>{{v.voucher.name}}</td>
                   <td>{{v.voucher.amount}} {% trans "XAF" %}</td>
                   <td>{{v.voucher.voucher_code}}</td>
                   <td>{{v.sold_at}}</td>
