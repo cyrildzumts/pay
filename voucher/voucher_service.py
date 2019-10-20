@@ -204,6 +204,7 @@ class VoucherService:
             'errors': ''
         }
         Account = utils.get_model("accounts", "Account")
+        Recharge = utils.get_model("voucher", "Recharge")
         queryset = Account.objects.filter(Q(account_type='R') | (Q(user=seller) | Q(user=customer)))
         count = queryset.count()
         if count != 3:
@@ -226,7 +227,7 @@ class VoucherService:
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
             queryset.update(solde=F('solde') + amount)
             UsedVoucher.objects.create(customer=queryset.get(user=customer).user, voucher=v)
-            
+            Recharge.objects.create(voucher=v, customer=queryset.get(user=customer).user, seller=queryset.get(user=seller).user, amount=amount)
             logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).full_name(), queryset.get(user=seller).full_name(), amount)
             result['succeed'] = True
         else:

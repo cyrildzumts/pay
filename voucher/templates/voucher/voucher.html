@@ -12,26 +12,37 @@
         <nav class="nav responsive">
             <ul class="listview">
                 <li class="list-item"> 
-                    <a class="link" href="{%url 'voucher:vouchers'%}">
+                    <a class="mat-button mat-button-text" href="{%url 'voucher:vouchers'%}">
                         {% trans "Generated Voucher List" %}
                     </a> 
                 </li>
                 <li class="list-item"> 
-                    <a class="link" href="{%url 'voucher:used_vouchers'%}"> 
+                    <a class="mat-button mat-button-text" href="{%url 'voucher:recharge'%}">
+                        {% trans "Recharge Customer Account" %} 
+                     </a> 
+                </li>
+                <li class="list-item"> 
+                    <a class="mat-button mat-button-text" href="{%url 'voucher:recharges'%}">
+                        {% trans "Recharges" %} 
+                     </a> 
+                </li>
+                <li class="list-item"> 
+                    <a class="mat-button mat-button-text" href="{%url 'voucher:used_vouchers'%}"> 
                         {% trans "Used Voucher List" %} 
                     </a> 
                 </li>
                 <li class="list-item"> 
-                    <a class="link" href="{%url 'voucher:sold_vouchers'%}">
+                    <a class="mat-button mat-button-text" href="{%url 'voucher:sold_vouchers'%}">
                         {% trans "Sold Voucher List" %} 
                      </a> 
                 </li>
 
                 <li class="list-item"> 
-                    <a class="link" href="{%url 'voucher:voucher_generate'%}">
+                    <a class="mat-button mat-button-text" href="{%url 'voucher:voucher_generate'%}">
                         {% trans "Generate new Voucher cards" %} 
                      </a> 
                 </li>
+                
 
             </ul>
         </nav>

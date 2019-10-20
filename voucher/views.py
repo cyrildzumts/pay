@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from voucher.models import Voucher, SoldVoucher, UsedVoucher
+from django.views.generic import ListView, DetailView
+from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
@@ -220,3 +221,14 @@ def voucher_generate(request):
         'template_name': template_name,
     }
     return render(request, template_name, context)
+
+
+class RechargeView(ListView):
+    queryset = Recharge.objects.order_by('-created_at')
+    context_object_name = "recharge_list"
+    template_name = 'voucher/recharge_list.html'
+
+class RechargeDetailView(DetailView):
+    queryset = Recharge.objects.all()
+    context_object_name = "recharge"
+    template_name = 'tags/recharge_details.html'

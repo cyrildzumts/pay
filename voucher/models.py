@@ -100,3 +100,24 @@ class UsedVoucher(models.Model):
 
     def get_absolute_url(self):
         return reverse("voucher:used_voucher_details", kwargs={"pk": self.pk})
+
+
+class Recharge(models.Model):
+    voucher = models.ForeignKey(Voucher, related_name="recharges", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(User, related_name='customer_recharges', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    seller = models.ForeignKey(User, related_name='recharges', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    amount = models.IntegerField(blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = (
+            ('can_view_recharge', 'Can view a recharge'),
+            ('api_view_recharge', 'Can view a recharge through a rest api'),
+        )
+
+    def __str__(self):
+        return "Recharge " + self.voucher.name
+
+    def get_absolute_url(self):
+        return reverse("voucher:recharge_details", kwargs={"pk": self.pk})
+    

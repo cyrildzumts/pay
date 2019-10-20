@@ -1,0 +1,31 @@
+{% extends "account_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+         <div class="card">
+            <div class="card__title">
+                <h3> {% trans Recharge   %} </h3>
+            </div>
+            <div class="card__body">
+
+                <p> {% trans "Customer" %} : {{recharge.customer.get_full_name}} </p>
+                <p> {% trans "Seller" %} : {{recharge.seller.get_full_name}} </p>
+                <p> {% trans "Balance" %} : {{recharge.amount}} FCFA </p>
+                <p> {% trans "Voucher Code" %} : {{recharge.voucher.voucher_code}} </p>
+                <p> {% trans "Creation Date" %} : {{recharge.created_at}} </p>
+                
+            </div>
+
+            <div class="card__actions">
+                  <a class="mat-button mat-button-text" href="{% url 'voucher:recharges' %}"> {% trans "Recharge List" %} </a>
+                  <a class="mat-button mat-button-text" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
+                  <a class="mat-button mat-button-text" href="{% url 'accounts:account' %}"> {% trans "PAY Home" %} </a>
+            </div>
+          
+        </div>
+    
+    
+</div>
+{% endblock MAIN %}
