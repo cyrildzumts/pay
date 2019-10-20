@@ -82,10 +82,10 @@ def recharge_user_account_view(request):
         logger.info("Received new Recharge request for user account")
         postdata = utils.get_postdata(request)
         form = RechargeCustomerAccountByStaff(postdata)
-        if form.is_valid:
-            seller = form['seller']
-            customer = form['customer']
-            amount = form['amount']
+        if form.is_valid():
+            seller = form.cleaned_data['seller']
+            customer = form.cleaned_data['customer']
+            amount = form.cleaned_data['amount']
             logger.info("recharge_user_account_view() : Received form is valid. Customer = %s - Seller = %s - Amount = %s .", customer, seller, amount)
             result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
             if result['succeed']:
