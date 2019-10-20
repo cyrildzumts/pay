@@ -739,11 +739,13 @@ var userSearch = function(options){
         console.log(response);
         $user_search_result.empty();
         response.forEach(function(user, index){
-            $('<li>').data('user-id', user.id).html(user.first_name + " " +  user.last_name).
+            var full_name = user.first_name + " " +  user.last_name;
+            $('<li>').data('user-id', user.id).html(full_name).
             on('click', function(event){
                 event.stopPropagation();
                 var user_id = $(this).data('user-id');
                 $user_search_target.val(user_id);
+                $user_search_target.sibblings('#customer-name').val(full_name);
                 $user_search_result.hide();
                 $user_search_result.empty();
             }).appendTo($user_search_result);
