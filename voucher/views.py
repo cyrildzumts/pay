@@ -79,24 +79,29 @@ def recharge_user_account_view(request):
     context = {}
     logger.info("User Recharge Account view requested by user %s", request.user.get_full_name())
     if request.method == "POST":
-        logger.debug("Received new Recharge request for user account")
+        logger.info("Received new Recharge request for user account")
         postdata = utils.get_postdata(request)
         form = RechargeCustomerAccountByStaff(postdata)
         if form.is_valid:
-            seller = form.cleaned_data['seller']
-            customer = form.cleaned_data['customer']
-            amount = form.cleaned_data['amount']
+            seller = form['seller']
+            customer = form['customer']
+            amount = int(form['amount'])
+            logger.info("recharge_user_account_view() : Received form is valid. Customer = %s - Seller = %s - Amount = %s .", customer, seller, amount)
             result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
             if result['succeed']:
                 messages.success(request, _("The customer account has been successfuly recharged"))
                 context['succeed'] = True
+                logger.info("recharge_user_account_view() : Customer %s was successfully recharge with the Amount = %s .", customer, amount)
             else :
                 messages.error(request, _("Your request could not processed. You might need to check that the submitted data are correct."))
                 context['succeed'] = True
+                logger.info("recharge_user_account_view() : Customer = %s could not be recharge with the  Amount = %s .", customer, amount)
         else :
+
             context['errors'] = _("The submitted form is not valid. Verify the form fields")
             context['form'] = form
             messages.error(request, _("The submitted form is not valid. Verify the form fields"))
+            logger.info("recharge_user_account_view() : Received form is invalid")
     elif request.method == "GET":
         form = RechargeCustomerAccountByStaff()
         context['form'] = form,
