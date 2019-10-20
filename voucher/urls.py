@@ -20,7 +20,7 @@ urlpatterns = [
     path('generate/', views.voucher_generate, name='voucher_generate'),
     path('recharge/', views.recharge_user_account_view, name='recharge'),
     path('recharges/', views.RechargeView.as_view(), name='recharges'),
-    path('recharges/<int:pk>', views.RechargeDetailView.as_view(), name='recharge_detail'),
+    path('recharges/<int:pk>/', views.RechargeDetailView.as_view(), name='recharge_details'),
 
     
 ]
