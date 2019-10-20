@@ -225,9 +225,9 @@ class VoucherService:
                     activated_at=now, used_at=now, sold_at=now)
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
             queryset.update(solde=F('solde') + amount)
-            UsedVoucher.objects.create(customer=queryset.get(user=customer), voucher=v)
+            UsedVoucher.objects.create(customer=queryset.get(user=customer).user, voucher=v)
             
-            logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).get_full_name(), queryset.get(user=seller).get_full_name(), amount)
+            logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).full_name(), queryset.get(user=seller).full_name(), amount)
             result['succeed'] = True
         else:
             logger.info("[processing_service_request] Error : Amount is negativ (%s). The service request cannot be processed", amount)
