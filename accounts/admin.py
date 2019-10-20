@@ -42,6 +42,7 @@ class AccountAdmin(admin.ModelAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User ,AccountAdmin)
+admin.site.register(Account)
 admin.site.register( Policy)
 admin.site.register(ServiceCategory)
 admin.site.register(AvailableService)
