@@ -37,7 +37,7 @@ class PolicySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fiels = ['id', 'username', 'first_name', 'last_name']
+        fields = ['id', 'username', 'first_name', 'last_name']
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
