@@ -88,7 +88,7 @@ def recharge_user_account_view(request):
             amount = form.cleaned_data['amount']
             logger.info("recharge_user_account_view() : Received form is valid. Customer = %s - Seller = %s - Amount = %s .", customer, seller, amount)
             result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
-            if result['succeed']:
+            if result.get('succeed', False):
                 messages.success(request, _("The customer account has been successfuly recharged"))
                 context['succeed'] = True
                 logger.info("recharge_user_account_view() : Customer %s was successfully recharge with the Amount = %s .", customer, amount)

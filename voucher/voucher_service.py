@@ -199,12 +199,15 @@ class VoucherService:
     @classmethod
     def process_recharge_user_account(cls, seller=None, customer=None, amount=-1):
         now = datetime.now()
-        result = {}
+        result = {
+            'succeed': False,
+            'errors': ''
+        }
         Account = utils.get_model("accounts", "Account")
         queryset = Account.objects.filter(Q(account_type='R') | (Q(user=seller) | Q(user=customer)))
         count = queryset.count()
         if count != 3:
-            logger.debug("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
+            logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
             result['errors'] = "Recharge account not found. The service request cannot be processed"
             return result
         if  amount > 0 :
@@ -225,10 +228,11 @@ class VoucherService:
             logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).get_full_name(), queryset.get(user=seller).get_full_name(), amount)
             result['succeed'] = True
         else:
-            logger.debug("[processing_service_request] Error : Amount is negativ (%s). The service request cannot be processed", amount)
+            logger.info("[processing_service_request] Error : Amount is negativ (%s). The service request cannot be processed", amount)
             result['errors'] = "Amount is negativ {}. The service request cannot be processed".format(amount)
             return result
         return result
+
 
     @classmethod
     def activate_voucher(cls,voucher, seller_pk=None):
