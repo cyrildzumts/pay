@@ -3,30 +3,76 @@
 
 {% block MAIN %}
 
-<div class="container">
-    {% for sold_voucher in sold_vouchers %}
-        <div class="card">
-          <p> {% trans "Name" %} : {{sold_voucher.voucher.name}} </p>
-          <p> {% trans "Credit" %} : {{sold_voucher.voucher.amount}} FCFA </p>
-          <p> {% trans "Voucher Code" %} : {{sold_voucher.voucher_code}} </p>
-          <p> {% trans "Sold Date" %} : {{sold_voucher.sold_at}} </p>
-          
 
-          <a class="button link" href="{{sold_voucher.get_absolute_url}}"> {% trans "More" %} ...</a>
-        </div>
-    {% empty %}
-    <p> {% trans "There is currently no sold voucher." %} ...</p>
-    <ul class="listview">
-        <li class="list-item"><a class="button link" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a></li>
-        <li class="list-item"><a class="button link" href="{%url 'voucher:voucher_generate'%}">
-        {% trans "Generate new Voucher cards" %} 
-        </a> </li>
-        <li class="list-item"><a class="button link" href="{% url 'home' %}"> {% trans "PAY Home" %} </a></li>
-        
-        
-        
-    </ul>
-    
-    {% endfor %}
+<div class="row">
+  <div class="nav">
+    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    <a class="mat-button mat-button-default" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
+  </div>
+</div>
+
+<div class="container">
+
+    <div class="mat-table-wrapper">
+        <div class="row">
+            <div class="mat-table-title">
+                {% trans "Sold Voucher Page" %}
+            </div>
+        </div><!--End of Row-->
+        <div class="row">
+              <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
+              <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
+              <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
+        </div><!--End of Row-->
+        <table id="voucher-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <th>{% trans "Voucher Name" %}</th>
+                          <th>{% trans "Credit" %}</th>
+                          <th>{% trans "Voucher Code" %}</th>
+                          <th>{% trans "Usage Date" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for v in sold_vouchers  %}
+                  <tr>
+                  <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
+                  <td>{{v.name}}</td>
+                  <td>{{v.voucher.amount}} {% trans "XAF" %}</td>
+                  <td>{{v.voucher.voucher_code}}</td>
+                  <td>{{v.sold_at}}</td>
+                  <td><a class="mat-button mat-button-default" href="{{v.get_absolute_url}}"> {% trans "Details" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    <div class="row">
+          <div class="table-select-wrapper">
+                  <label for="table-step">{% trans "Row per page" %}</label>
+                  <select class="mat-select" name="step" id="table-step">
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="30">30</option>
+                  </select>
+          </div>
+          <div class="table-pagination">
+                  <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
+                  <div class="controls">
+                  <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
+                  <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
+                  </div>
+          </div>
+
+    </div><!--End of Row-->
+    </div><!--End of Table Wrapper-->
+
 </div>
 {% endblock MAIN %}

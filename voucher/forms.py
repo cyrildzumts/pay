@@ -18,5 +18,23 @@ class VoucherCreationForm(forms.Form):
     name = forms.CharField(max_length=32, label="Voucher Card Name")
     amount = forms.IntegerField(label="Voucher Credit value")
     number = forms.IntegerField(label="Number of voucher to generate")
+
+
+
+class SellVoucherForm(forms.Form):
+    seller = forms.CharField(max_length=32, label="Voucher Card Seller")
+    amount = forms.IntegerField(label="Voucher Credit value")
+
+
+class RechargeCustomerAccountByStaff(forms.Form):
+    seller = forms.IntegerField(label="Seller Name")
+    custormer = forms.IntegerField(label="Customer")
+    amount = forms.IntegerField(label="Voucher Credit value")
+
+class RechargeCustomerAccount(forms.Form):
+    seller = forms.IntegerField(label="Seller Name")
+    custormer = forms.IntegerField(label="Customer")
+    recharged_by = forms.IntegerField()
+    amount = forms.IntegerField(label="Voucher Credit value")
     
 

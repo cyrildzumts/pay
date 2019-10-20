@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.db.models import F, Q
 from pay import utils
@@ -193,6 +194,41 @@ class VoucherService:
             logger.info("Voucher %s could not be used. Verify that the voucher is activated", voucher)
             
         return succeed,amount
+
+
+    @classmethod
+    def process_recharge_user_account(cls, seller=None, customer=None, amount=-1):
+        now = datetime.now()
+        result = {}
+        seller_user = None
+        customer_user = None
+        if seller and customer and amount > 0 :
+            try:
+                seller_user = User.objects.get(pk=seller)
+                customer_user = User.objects.get(pk=customer)
+            except ObjectDoesNotExist as e:
+                result['error'] = e
+                result['succeed'] = False
+                logger.warning(e)
+                return result
+            Voucher = utils.get_model("voucher", "Voucher")
+            v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
+            if v is None :
+                code = cls.get_voucher()
+                v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = code, 
+                    activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer_user, sold_by=seller_user, recharge_by=seller_user,
+                    activated_at=now, used_at=now, sold_at=now)
+            else :
+                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer_user, sold_by=seller, recharge_by=seller_user,
+                    activated_at=now, used_at=now, sold_at=now)
+            Account = utils.get_model("accounts", "Account")
+            UsedVoucher = utils.get_model("voucher", "UsedVoucher")
+            Account.objects.filter(user=customer_user).update(solde=F('solde') + amount)
+            UsedVoucher.objects.create(customer=customer_user, voucher=v)
+            
+            logger.info("User Account %s has been recharge by the User %s with the amount of %s", customer_user.get_full_name(),seller_user.get_full_name(), amount)
+            result['succeed'] = True
+        return result
 
 
     @classmethod

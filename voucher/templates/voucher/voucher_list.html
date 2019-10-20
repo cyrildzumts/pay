@@ -3,45 +3,81 @@
 
 {% block MAIN %}
 
-<div class="scrollable grid">
-    {% for voucher in vouchers %}
-        <div class="card bordered">
+<div class="row">
+  <div class="nav">
+    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    <a class="mat-button mat-button-default" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
+  </div>
+</div>
 
-            <div class="card__title">
-                <p>{{voucher.name}} </p>
-            </div>
-            <div class="card__body">
-                <p> {% trans "Credit" %} : {{voucher.amount}} FCFA </p>
-                <p> {% trans "Voucher Code" %} : {{voucher.voucher_code}} </p>
-                <p> {% trans "Creation Date" %} : {{voucher.created_at}} </p>
-                {% if voucher.activated is True %}
-                <p> {% trans "Activated" %} :  {% trans "Yes" %}</p>
-                <p> {% trans "Activation Date" %} : {{voucher.activated_at}} </p>
-                {% else %}
-                <p> {% trans "Activated" %} :  {% trans "No" %}</p>
-                {% endif %}
+<div class="container">
 
+    <div class="mat-table-wrapper">
+        <div class="row">
+            <div class="mat-table-title">
+                {% trans "Voucher Page" %}
             </div>
+        </div><!--End of Row-->
+        <div class="row">
+              <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
+              <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
+              <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
+        </div><!--End of Row-->
+        <table id="voucher-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <th>{% trans "Voucher Name" %}</th>
+                          <th>{% trans "Amount" %}</th>
+                          <th>{% trans "Voucher Code" %}</th>
+                          <th>{% trans "Activated" %}</th>
+                          <th>{% trans "Creation Date" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for v in vouchers  %}
+                  <tr>
+                  <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
+                  <td>{{v.name}}</td>
+                  <td>{{v.amount}} {% trans "XAF" %}</td>
+                  <td>{{v.voucher_code}}</td>
+                  {% if v.activated %}
+                  <td>{% trans "Yes" %}</td>
+                  {% else %}
+                  <td>{% trans "No" %}</td>
+                  {% endif %}
+                  <td>{{v.created_at}}</td>
+                  <td><a class="mat-button mat-button-default" href="{{v.get_absolute_url}}"> {% trans "Details" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
 
-            <div class="card__actions">
-                <a class="button link" href="{{voucher.get_absolute_url}}"> {% trans "More" %} ...</a>
-            </div>
-        </div>
-    {% empty %}
-    <div class="card">
-        <div class="card__title">
-            <p> {% trans "There are currently no voucher generated." %} ...</p>
-        </div>
-        <div class="card__actions">
-            <a class="button link" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
-            <a class="link" href="{%url 'voucher:voucher_generate'%}">
-                {% trans "Generate new Voucher cards" %} 
-            </a> 
-            <a class="button link" href="{% url 'home' %}"> {% trans "PAY Home" %} </a>
-        </div>
-    </div>
-    
-    
-    {% endfor %}
+    </table>
+    <div class="row">
+          <div class="table-select-wrapper">
+                  <label for="table-step">{% trans "Row per page" %}</label>
+                  <select class="mat-select" name="step" id="table-step">
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="30">30</option>
+                  </select>
+          </div>
+          <div class="table-pagination">
+                  <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
+                  <div class="controls">
+                  <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
+                  <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
+                  </div>
+          </div>
+
+    </div><!--End of Row-->
+    </div><!--End of Table Wrapper-->
+
 </div>
 {% endblock MAIN %}

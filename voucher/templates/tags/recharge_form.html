@@ -1,0 +1,28 @@
+{% load i18n %} 
+
+<div class="responsive">
+
+    <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'voucher:recharge' %}" method="POST">{% csrf_token %}
+        
+        <input type="hidden" name="seller" value="{{request.user}}">
+
+        
+        <div class="form-group">
+            <label for="user-search">{% trans "Customer" %} : </label>
+            <input class="js-user-search" type="text" name="user-search" id="user-search">
+            <ul class="js-user-search-result user-search-result" id="user-search-result" data-target="#customer">
+
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="customer">{% trans "Customer" %} : </label>
+            <input id="customer" type="text" name="customer">
+        </div>
+        
+        <div class="form-group row">
+            <button class="button" type="submit">{% trans "Recharge" %}</button>
+            <a class="button link" href="{%url 'voucher:voucher_home'%}">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+
+</div>

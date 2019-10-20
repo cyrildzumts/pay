@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from accounts.models import AvailableService, ServiceCategory, Service, Policy, Account
 from payments.models import Transfer, Payment, CaseIssue
 from voucher.models import (
@@ -32,6 +33,11 @@ class PolicySerializer(serializers.ModelSerializer):
         fields = ["daily_limit","weekly_limit", "monthly_limit",'created_at', "commission"]
 
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fiels = ['id', 'username', 'first_name', 'last_name']
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:

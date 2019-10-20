@@ -15,7 +15,13 @@ class Voucher(models.Model):
     activated = models.BooleanField(default=False)
     activated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     is_used = models.BooleanField(default=False)
-        
+    is_sold = models.BooleanField(default=False)
+    activated_by = models.ForeignKey(User, related_name='acticatedvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    used_by = models.ForeignKey(User, related_name='usedvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    sold_by = models.ForeignKey(User, related_name='soldvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    used_at = models.DateTimeField(blank=True, null=True)
+    sold_at = models.DateTimeField(blank=True, null=True)
+
     class Meta:
         verbose_name = _("Voucher")
         verbose_name_plural = _("Vouchers")
@@ -24,10 +30,14 @@ class Voucher(models.Model):
             ('can_view_voucher', "Can read  an voucher"),
             ('can_change_voucher', "Can change  an voucher"),
             ('can_delete_voucher', "Can delete an voucher"),
+            ('can_activate_voucher', 'Can activate voucher'),
+            ('can_sell_voucher', 'Can sell voucher'),
             ('api_add_voucher', "Can add  an voucher through rest api"),
             ('api_view_voucher', 'Can read through a rest api'),
             ('api_change_voucher', 'Can edit through a rest api'),
             ('api_delete_voucher', 'Can delete through a rest api'),
+            ('api_activate_voucher', 'Can activate voucher through rest api'),
+            ('api_sell_voucher', 'Can sell voucher through rest api'),
         )
 
 
@@ -42,7 +52,7 @@ class SoldVoucher(models.Model):
 
     seller = models.ForeignKey(User, related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="sold_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    sold_at = models.DateTimeField(auto_now=True)
+    sold_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _("SoldVoucher")
