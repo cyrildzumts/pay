@@ -728,7 +728,7 @@ var filter = new TableFilter();
 filter.init();
 
 var scheduled_query = false;
-var query_delay = 500;
+var query_delay = 800;
 var $user_search_result = $('#user-search-result');
 var $user_search_target = $($user_search_result.data('target'));
 
