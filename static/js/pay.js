@@ -757,7 +757,6 @@ $('.js-user-search').on('change', function(event){
     }, function(error){
         console.log("User Search failed");
         console.log(error);
-        console.log(JSON.parse(error));
     });
     $('li', $result).on('click', function(event){
         event.stopPropagation();
