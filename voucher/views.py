@@ -97,11 +97,12 @@ def recharge_user_account_view(request):
                 context['succeed'] = True
                 logger.info("recharge_user_account_view() : Customer = %s could not be recharge with the  Amount = %s .", customer, amount)
         else :
-
+            
             context['errors'] = _("The submitted form is not valid. Verify the form fields")
             context['form'] = form
             messages.error(request, _("The submitted form is not valid. Verify the form fields"))
             logger.info("recharge_user_account_view() : Received form is invalid")
+            logger.error(form.errors)
     elif request.method == "GET":
         form = RechargeCustomerAccountByStaff()
         context['form'] = form,
