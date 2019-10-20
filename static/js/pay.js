@@ -731,7 +731,7 @@ $('.js-user-search').on('change', function(event){
     var query = $(this).val();
     var $result = $('#user-search-result');
     var $target = $($result.data('target'));
-    console.log("user search has changed %s", val);
+    console.log("user search has changed %s", query);
     console.log("Send API request now ");
     /*
     type - string
