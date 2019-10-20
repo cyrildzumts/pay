@@ -21,6 +21,6 @@ router.register(r'sold_vouchers', viewsets.SoldVoucherViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('user-search', views.UserSearchView.as_view(), name="user-search"),
+    path('user-search/', views.UserSearchView.as_view(), name="user-search"),
     
 ]
