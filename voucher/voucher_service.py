@@ -216,10 +216,10 @@ class VoucherService:
             if v is None :
                 code = cls.get_voucher()
                 v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = code, 
-                    activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer_user, sold_by=seller_user, recharge_by=seller_user,
+                    activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer_user, sold_by=seller_user,
                     activated_at=now, used_at=now, sold_at=now)
             else :
-                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer_user, sold_by=seller, recharge_by=seller_user,
+                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer_user, sold_by=seller,
                     activated_at=now, used_at=now, sold_at=now)
             Account = utils.get_model("accounts", "Account")
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
