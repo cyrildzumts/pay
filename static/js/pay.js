@@ -731,6 +731,7 @@ var scheduled_query = false;
 var query_delay = 800;
 var $user_search_result = $('#user-search-result');
 var $user_search_target = $($user_search_result.data('target'));
+var $user_search_target_name = $($user_search_result.data('target-name'));
 
 var userSearch = function(options){
 
@@ -740,12 +741,13 @@ var userSearch = function(options){
         $user_search_result.empty();
         response.forEach(function(user, index){
             var full_name = user.first_name + " " +  user.last_name;
-            $('<li>').data('user-id', user.id).html(full_name).
+            $('<li>').data('user-id', user.id).data('user-name', full_name).html(full_name).
             on('click', function(event){
                 event.stopPropagation();
                 var user_id = $(this).data('user-id');
+                var user_name = $(this).data('user-name');
                 $user_search_target.val(user_id);
-                $user_search_target.sibblings('#customer-name').val(full_name);
+                $user_search_target_name.val(user_name);
                 $user_search_result.hide();
                 $user_search_result.empty();
             }).appendTo($user_search_result);
