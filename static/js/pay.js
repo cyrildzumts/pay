@@ -746,7 +746,7 @@ $('.js-user-search').on('change', function(event){
       */
     var promise = ajax({
         url:'/api/user-search/',
-        type: 'POST',
+        type: 'GET',
         data : {'search': query},
         dataType: 'json'
     });
