@@ -15,12 +15,26 @@ from api.serializers import ( AvailableServiceSerializer, AvailableService, Acco
 # Create your views here.
 # REST API Views
 
+class UserSearchByNameView(ListAPIView):
+     permission_classes = [IsAuthenticated]
+     serializer_class = UserSerializer
+     search_fields = ['last_name', 'first_name','username']
+     filter_backends = [filters.SearchFilter]
+     queryset = UserSerializer.Meta.model.objects.filter(is_superuser=False)
+     """
+     def get_queryset(self):
+          user_search = self.request.POST.get('user-search', "")
+          if len(user_search) > 0 :
+               return UserSerializer.Meta.model.objects.filter(last_name__icontains=user_search)
+          return UserSerializer.Meta.model.objects.none()
+     """
+
 class UserSearchView(ListAPIView):
      permission_classes = [IsAuthenticated]
      serializer_class = UserSerializer
-     search_fields = ['last_name']
+     search_fields = ['last_name', 'first_name', 'username']
      filter_backends = [filters.SearchFilter]
-     queryset = UserSerializer.Meta.model.objects.all()
+     queryset = UserSerializer.Meta.model.objects.filter(is_superuser=False)
      """
      def get_queryset(self):
           user_search = self.request.POST.get('user-search', "")
