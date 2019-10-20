@@ -753,7 +753,6 @@ $('.js-user-search').on('change', function(event){
     promise.then(function(response){
         console.log("User Search succeed");
         console.log(response);
-        console.log(JSON.parse(response));
     }, function(error){
         console.log("User Search failed");
         console.log(error);
