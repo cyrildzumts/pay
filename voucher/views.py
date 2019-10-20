@@ -77,7 +77,9 @@ def recharge_user_account_view(request):
     page_title = _("Recharge User Account") + ' | ' + settings.SITE_NAME
     template_name = "voucher/recharge.html"
     context = {}
+    
     if request.method == "POST":
+        logger.debug("Received new Recharge request for user account")
         postdata = utils.get_postdata(request)
         form = RechargeCustomerAccountByStaff(postdata)
         if form.is_valid:

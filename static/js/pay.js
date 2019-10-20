@@ -320,6 +320,40 @@ var Transaction = (function(){
     return Transaction;
 })();
 
+var UserRechargeAccount = (function(){
+    function UserRechargeAccount(){
+        this.form = $("voucher-recharge-form");
+        if(this.form.length == 0){
+            console.log("no voucher recharge form found on this page");
+            return;
+        }
+        this.amount = $("#amount", this.form);
+        this.customer = $("#customer", this.form);
+    }
+
+    UserRechargeAccount.prototype.init = function(){
+        this.re = RegExp('^[0-9]+$');
+        regex = this.re;
+        var that = this;
+        this.form.on('submit', function(event){
+            event.preventDefault();
+            var flag = false;
+            flag = regex.test(that.amount.val());
+            if(!flag){
+                $('#amount-error').show();
+            }
+            else{
+                $('#amount-error').hide();
+            }
+            return flag;
+        });
+    }
+
+
+
+    return UserRechargeAccount;
+});
+
 var CaseIssue = (function(){
     function CaseIssue(options){
         console.log("Issue construction...");

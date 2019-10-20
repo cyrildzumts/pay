@@ -19,6 +19,12 @@
             <input id="customer-name" type="text" name="customer-name">
             <input id="customer" type="text" name="customer">
         </div>
+
+        <div class="form-group">
+            <label for="amount">{% trans "Amount" %} : </label>
+            <input id="amount" type="text" name="amount">
+            <span id="amount-error" class="validation-error error">{% trans "The amount must be a number" %}</span>
+        </div>
         
         <div class="form-group row">
             <a class="mat-button mat-button-outlined" href="{%url 'voucher:voucher_home'%}">{% trans "Cancel" %}</a>
