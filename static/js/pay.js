@@ -726,7 +726,7 @@ var filter = new TableFilter();
 filter.init();
 
 
-$('.js-user-search').on('change', function(event){
+$('.js-user-search').on('keyup', function(event){
     event.stopPropagation();
     var query = $(this).val();
     var $result = $('#user-search-result');
