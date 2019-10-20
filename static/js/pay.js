@@ -744,7 +744,8 @@ var userSearch = function(options){
                 event.stopPropagation();
                 var user_id = $(this).data('user-id');
                 $user_search_target.val(user_id);
-                //$user_search_result.empty();
+                $user_search_result.hide();
+                $user_search_result.empty();
             }).appendTo($user_search_result);
             $user_search_result.show();
         });
