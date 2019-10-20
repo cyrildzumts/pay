@@ -726,6 +726,46 @@ var filter = new TableFilter();
 filter.init();
 
 
+$('.js-user-search').on('change', function(event){
+    event.stopPropagation();
+    var query = $(this).val();
+    var $result = $('#user-search-result');
+    var $target = $($result.data('target'));
+    console.log("user search has changed %s", val);
+    console.log("Send API request now ");
+    /*
+    type - string
+    * url - string
+    * data - json
+    * dataType - string
+    * Example : 
+    * type: 'POST',
+      url : '/cart/add_to_cart/',
+      data: {product_id: 102, quantity: 4},
+      dataType: 'json'
+      */
+    var promise = ajax({
+        url:'/api/user-search/',
+        type: 'POST',
+        data : {'search': query},
+        dataType: 'json'
+    });
+    promise.then(function(response){
+        console.log("User Search succeed");
+        console.log(response);
+        console.log(JSON.parse(response));
+    }, function(error){
+        console.log("User Search failed");
+        console.log(error);
+        console.log(JSON.parse(error));
+    });
+    $('li', $result).on('click', function(event){
+        event.stopPropagation();
+        var user_id = $(this).data('id');
+
+        $target.val(user_id);
+    });
+});
 $('.js-table-update').on('click', function(event){
     console.log("Updating the Table");
 });
