@@ -159,6 +159,32 @@ class Service(models.Model):
         return reverse('accounts:service_detail', kwargs={'pk':self.pk})
 
 
+class StaffAccount(models.Model):
+    ACCOUNT_TYPE = (
+        ('A', 'Admin'),
+        ('M', 'Manager'),
+        ('D', 'Developer'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    date_of_birth = models.DateField(blank=True, null=True)
+    country = models.CharField(default='', max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    province = models.CharField(default='', max_length=50, blank=True, null=True)
+    address = models.CharField(default='', max_length=50,null=True)
+    zip_code = models.CharField(default='', max_length=15, blank=True, null=True)
+    telefon = models.CharField(default='', max_length=15, null=True, blank=True)
+    newsletter = models.BooleanField(default=False)
+    is_active_account = models.BooleanField(default=True, blank=True, null=True)
+    recharge_amount = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)
+    policy = models.ForeignKey(Policy, related_name="accounts", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    account_uuid = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)
+    email_validated = models.BooleanField(default=False, blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name="created_accounts", null=True,blank=True, on_delete=models.SET_NULL)
+    #reset_token = models.CharField(max_length=8, blank=True, null=True)
+
 
 class Account(models.Model):
     """
@@ -166,9 +192,16 @@ class Account(models.Model):
     This model provides extra information to identify a user.
     """
     ACCOUNT_TYPE = (
-        ('P', 'Privé'),
+        ('A', 'Admin'),
         ('B', 'Business'),
+        ('D', 'Developer'),
+        ('M', 'Manager'),
+        ('P', 'Privé'),
+        ('S', 'Staff'),
+        ('R', 'Recharge'),
+        ('X', 'PAY ACCOUNT'),
     )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
     country = models.CharField(default='', max_length=50, blank=True, null=True)
@@ -196,10 +229,13 @@ class Account(models.Model):
             ('can_view_account', "Can read  an account"),
             ('can_change_account', "Can change  an account"),
             ('can_delete_account', "Can delete an account"),
+            ('can_recharge_customer_account', 'can recharge customer account'),
             ('api_add_account', "Can add  an account through rest api"),
             ('api_view_account', 'Can read through a rest api'),
             ('api_change_account', 'Can edit through a rest api'),
             ('api_delete_account', 'Can delete through a rest api'),
+            ('api_recharge_customer_account', 'can recharge customer account through api'),
+
         )
 
     def __str__(self):

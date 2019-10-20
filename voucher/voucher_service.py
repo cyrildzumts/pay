@@ -200,36 +200,35 @@ class VoucherService:
     def process_recharge_user_account(cls, seller=None, customer=None, amount=-1):
         now = datetime.now()
         result = {}
-        seller_user = None
-        customer_user = None
-        if seller and customer and amount > 0 :
-            try:
-                seller_user = User.objects.get(pk=seller)
-                customer_user = User.objects.get(pk=customer)
-            except ObjectDoesNotExist as e:
-                result['error'] = e
-                result['succeed'] = False
-                logger.warning(e)
-                return result
+        Account = utils.get_model("accounts", "Account")
+        queryset = Account.objects.filter(Q(account_type='R') | (Q(user=seller) | Q(user=customer)))
+        count = queryset.count()
+        if count != 3:
+            logger.debug("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
+            result['errors'] = "Recharge account not found. The service request cannot be processed"
+            return result
+        if  amount > 0 :
             Voucher = utils.get_model("voucher", "Voucher")
             v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
             if v is None :
                 code = cls.get_voucher()
                 v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = code, 
-                    activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer_user, sold_by=seller_user,
+                    activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer, sold_by=seller,
                     activated_at=now, used_at=now, sold_at=now)
             else :
-                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer_user, sold_by=seller,
+                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, sold_by=seller,
                     activated_at=now, used_at=now, sold_at=now)
-            Account = utils.get_model("accounts", "Account")
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
-            Account.objects.filter(user=customer_user).update(solde=F('solde') + amount)
-            UsedVoucher.objects.create(customer=customer_user, voucher=v)
+            queryset.update(solde=F('solde') + amount)
+            UsedVoucher.objects.create(customer=customer, voucher=v)
             
-            logger.info("User Account %s has been recharge by the User %s with the amount of %s", customer_user.get_full_name(),seller_user.get_full_name(), amount)
+            logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).get_full_name(), queryset.get(user=seller).get_full_name(), amount)
             result['succeed'] = True
+        else:
+            logger.debug("[processing_service_request] Error : Amount is negativ (%s). The service request cannot be processed", amount)
+            result['errors'] = "Amount is negativ {}. The service request cannot be processed".format(amount)
+            return result
         return result
-
 
     @classmethod
     def activate_voucher(cls,voucher, seller_pk=None):
