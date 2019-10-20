@@ -28,13 +28,12 @@ class SellVoucherForm(forms.Form):
 
 class RechargeCustomerAccountByStaff(forms.Form):
     seller = forms.IntegerField(label="Seller Name")
-    custormer = forms.IntegerField(label="Customer")
+    customer = forms.IntegerField(label="Customer")
     amount = forms.IntegerField(label="Voucher Credit value")
 
 class RechargeCustomerAccount(forms.Form):
     seller = forms.IntegerField(label="Seller Name")
-    custormer = forms.IntegerField(label="Customer")
-    recharged_by = forms.IntegerField()
+    customer = forms.IntegerField(label="Customer")
     amount = forms.IntegerField(label="Voucher Credit value")
     
 
