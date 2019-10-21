@@ -48,7 +48,18 @@
                         DEFAULT HEADER BANNER
                         {% endblock HEADER_BANNER %}
                 </div>
+                {% block MESSAGES %}
+                {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+                {% endfor %}
                 
+                </ul>
+                
+                {% endif %}
+                
+                {% endblock MESSAGES %}
 
                  {% block SIGNUP_DIALOG %}
                 

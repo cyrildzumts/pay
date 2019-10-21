@@ -196,6 +196,8 @@ def user_account(request):
     }
     if hasattr(request.user, 'idcard'):
         context['has_idcard'] = True
+    
+    messages.warning(request, _("You have not identify yourself with an ID card. You will not be able to make transactions."))
 
     return render(request, template_name, context)
 
@@ -225,9 +227,11 @@ def account_update(request, pk=None):
         if form.is_valid():
             logger.info("Edit Account form is valid. newsletter : %s", form.cleaned_data['newsletter'])
             form.save()
+            messages.success(request, _("You account has been successfuly updated."))
             return redirect('accounts:account')
         else:
             logger.info("Edit Account form is not valid. Errors : %s", form.errors)
+            messages.success(request, _("You account could not be updated. Please check the form and try again."))
     
     form = UpdateAccountForm(instance=instance)
     context = {

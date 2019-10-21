@@ -28,6 +28,7 @@ def voucher_home(request):
     page_title = _("Voucher Dashboard") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
+    messages.info(request, _("Welcome back to voucher page"))
     return render(request, template_name, context)
 
 
