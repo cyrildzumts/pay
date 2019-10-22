@@ -194,9 +194,9 @@
 
 .info, .success, .debug, .warn, .warning, .error{
     width: 100%;
-    height: 48px;
-    padding: 8px;
-    margin: 8px ;
+    height: 32px;
+    padding: 4px;
+    margin: 4px ;
 }
 
 .info{
@@ -206,8 +206,8 @@
 }
 .success{
     background-color: #fff;
-    border: 2px solid #66FCF1;
-    color: #66FCF1;
+    border: 2px solid #388e3c;
+    color: #388e3c;
 }
 
 .warning, .warn{
