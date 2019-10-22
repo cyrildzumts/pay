@@ -196,8 +196,8 @@ def user_account(request):
     }
     if request.user.idcard:
         context['has_idcard'] = True
-    
-    messages.warning(request, _("You have not identify yourself with an ID card. You will not be able to make transactions."))
+    else:
+        messages.warning(request, _("You have not identify yourself with an ID card. You will not be able to make transactions."))
 
     return render(request, template_name, context)
 
