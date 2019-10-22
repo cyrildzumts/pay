@@ -194,7 +194,7 @@ def user_account(request):
         'has_idcard'    : False,
         'favorites'     : None
     }
-    if hasattr(request.user, 'idcard'):
+    if request.user.idcard:
         context['has_idcard'] = True
     
     messages.warning(request, _("You have not identify yourself with an ID card. You will not be able to make transactions."))
