@@ -10,7 +10,9 @@
 <div class="row">
         
         <nav class="nav responsive">
-            <ul class="listview">
+            <ul class="listview dock">
+                <li class="docklet"><a class="link" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
+                <li class="docklet"><a class="link" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
                 <li class="list-item"> 
                     <a class="mat-button mat-button-text" href="{%url 'voucher:vouchers'%}">
                         {% trans "Generated Voucher List" %}
@@ -23,7 +25,7 @@
                 </li>
                 <li class="list-item"> 
                     <a class="mat-button mat-button-text" href="{%url 'voucher:recharges'%}">
-                        {% trans "Recharges" %} 
+                        {% trans "Recharges History" %} 
                      </a> 
                 </li>
                 <li class="list-item"> 
