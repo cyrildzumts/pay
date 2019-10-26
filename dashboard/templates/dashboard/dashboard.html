@@ -1,20 +1,12 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
+{% block HEADER_BANNER %}
 {% if not is_allowed %}
-        {% block HEADER_BANNER %}
-        <div class="container">
+         <div class="container">
                 <span class="warning">{% trans "The requested Page was not found." %}</span>
         </div>
-        {% endblock HEADER_BANNER %}
-
-        {% block MAIN %}
-        
-        {% endblock MAIN %}
 {% else %}
-
-
-{% block HEADER_BANNER %}
 
   <div class="container">
         <div class="row">
@@ -73,8 +65,16 @@
                 </div>
         </div>
   </div>
+  {% endif %}
 {% endblock HEADER_BANNER %}
+
 {% block MAIN %}
+{% if not is_allowed %}
+        <div class="warning">
+                <a class="mat-button mat-button-text" href="{% url 'home' %}">{% trans "Go back to PAY HOME PAGE" %}</a>
+        </div>
+{% else %}
+
 <div class="container row">
         <div class="col col-2">
                 <aside class="panel panel-align-left">
@@ -229,7 +229,5 @@
 
 </div>
 
-
-{% endblock MAIN %}
-
 {% endif %}
+{% endblock MAIN %}
