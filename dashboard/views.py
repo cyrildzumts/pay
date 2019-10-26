@@ -19,29 +19,29 @@ logger = logging.getLogger(__name__)
 @login_required
 def dashboard(request):
     template_name = "dashboard/dashboard.html"
+    allowed = request.user.groups.filter(Q(name='Administartion') | Q(name='Manager') | Q(name='Marketing')).exists()
     page_title = _('Dashboard') + '| ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
-    #current_account = Account.objects.get(user=request.user)
-    #current_balance = current_account.balance
-    #model = AccountService.get_transfer_model()
-    #activities = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-    #active_cat = ServiceCategory.objects.select_related().exclude(available_services__isnull=True)
-    #available_services = AvailableService.objects.select_related().all()
-
-
-    context = {
+    if not allowed:
+        context = {
         'name'          : name,
         'page_title'    : page_title,
         'site_name'     : settings.SITE_NAME,
-        'summary' : analytics.dashboard_summary(),
-        'recent_transfers' : analytics.get_recent_transfers(),
-        'recent_services' : analytics.get_recent_services()
-       # 'activities'    : activities,
-       # 'active_cats'   : active_cat,
-       # 'account'       : current_account,
-       # 'services'      : available_services,
-    }
+        'is_allowed'     : allowed
+        }  
+        logger.warning("Access Denied : A user %s with no appropriate permission has requested the Dashboard Page", name)
+    else : 
+        context = {
+            'name'          : name,
+            'page_title'    : page_title,
+            'site_name'     : settings.SITE_NAME,
+            'summary' : analytics.dashboard_summary(),
+            'recent_transfers' : analytics.get_recent_transfers(),
+            'recent_services' : analytics.get_recent_services(),
+            'is_allowed'     : allowed
+        }
+        logger.info("Authorized Access : User %s has requested the Dashboard Page", name)
 
     return render(request, template_name, context)
 

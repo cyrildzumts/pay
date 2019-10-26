@@ -1,7 +1,21 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
+{% if not is_allowed %}
+        {% block HEADER_BANNER %}
+        <div class="container">
+                <span class="warning">{% trans "The requested Page was not found." %}</span>
+        </div>
+        {% endblock HEADER_BANNER %}
+
+        {% block MAIN %}
+        
+        {% endblock MAIN %}
+{% else %}
+
+
 {% block HEADER_BANNER %}
+
   <div class="container">
         <div class="row">
                 <h3>Dashboard</h3>
@@ -217,3 +231,5 @@
 
 
 {% endblock MAIN %}
+
+{% endif %}
