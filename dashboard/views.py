@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 @login_required
 def dashboard(request):
     template_name = "dashboard/dashboard.html"
-    allowed = request.user.groups.filter(Q(name='Administartion') | Q(name='Manager') | Q(name='Marketing')).exists()
+    allowed = request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
     page_title = _('Dashboard') + '| ' + settings.SITE_NAME
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
