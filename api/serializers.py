@@ -43,7 +43,7 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ["user","date_of_birth","country", "city","province","address","zip_code","telefon",
-                  "newsletter","is_active_account","solde","account_type","policy","email_validated"]
+                  "newsletter","is_active_account","balance","account_type","policy","email_validated"]
 
 
 

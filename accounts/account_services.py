@@ -269,21 +269,21 @@ class AccountService(ABC):
         if request.method == 'POST':
             print("[account_service.py] process_transaction_request entering : POST REQUEST")
             current_account = Account.objects.get(user=request.user)
-            current_solde = current_account.solde
+            current_balance = current_account.balance
             postdata = utils.get_postdata(request)
             transaction_form = this.TransactionForm(postdata)
             if transaction_form.is_valid():
-                print("[account_service.py] process_transaction_request entering : Transaction Form is Valid")
+                logger.debug("[account_service.py] process_transaction_request entering : Transaction Form is Valid")
                 recipient = postdata['recipient']
                 amount = int(postdata['amount'])
-                if(current_solde >=  amount):
+                if(current_balance >=  amount):
                     recipient_exist = Account.objects.filter(user_email=recipient).exists()
                     if recipient_exist:
-                        Account.objects.all().filter(user_email=recipient).update(solde=F('solde') + amount)
-                        Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
+                        Account.objects.all().filter(user_email=recipient).update(balance=F('balance') + amount)
+                        Account.objects.all().filter(pk=current_account.pk).update(balance=F('balance') - amount)
                         transaction_form.save()
                         context['success'] = True
-                        context['solde'] = current_account - amount
+                        context['balance'] = current_account.balance - amount
                     else:
                         context['errors'] = "The recipient could not be found."
                         print("[account_service.py]There was an error with the transaction request : ")
@@ -292,11 +292,11 @@ class AccountService(ABC):
                     
                 else :
                     context['success'] = False
-                    context['solde'] = current_account
+                    context['balance'] = current_account.balance
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
                     return context
         else:
-            context['solde'] = current_account
+            context['balance'] = current_account.balance
             context['errors'] = "Verifiez les champs du formulaire."
         return context
 
@@ -313,21 +313,21 @@ class AccountService(ABC):
         if request.method == 'POST':
             logger.info("processing new transfer request : POST REQUEST")
             current_account = Account.objects.get(user=request.user)
-            current_solde = current_account.solde
+            current_balance = current_account.balance
             postdata = utils.get_postdata(request)
             transfer_form = form(postdata)
             if transfer_form.is_valid():
                 logger.info(" Transfer Form is Valid")
                 recipient = postdata['recipient']
                 amount = int(postdata['amount'])
-                if(current_solde - amount) >= 0:
+                if(current_balance - amount) >= 0:
                     recipient_exist = Account.objects.filter(user=recipient).exists()
                     if recipient_exist:
-                        Account.objects.all().filter(user=recipient).update(solde=F('solde') + amount)
-                        Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - amount)
+                        Account.objects.all().filter(user=recipient).update(balance=F('balance') + amount)
+                        Account.objects.all().filter(pk=current_account.pk).update(balance=F('balance') - amount)
                         transfer_form.save()
                         context['success'] = True
-                        context['solde'] = current_solde - amount
+                        context['balance'] = current_balance - amount
                         logger.info("Transfer was succefull")
                     else:
                         context['errors'] = "The recipient could not be found."
@@ -337,11 +337,11 @@ class AccountService(ABC):
                     
                 else :
                     context['success'] = False
-                    context['solde'] = current_account
+                    context['balance'] = current_account.balance
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
                     return context
         else:
-            context['solde'] = current_account
+            context['balance'] = current_account.balance
             context['errors'] = "Verifiez les champs du formulaire."
         return context
 
@@ -373,17 +373,17 @@ class AccountService(ABC):
                 pay_account = Account.objects.get(user__username="pay")
                 current_account = Account.objects.get(user=request.user)
                 operator_account = Account.objects.select_related().get(user=user_operator)
-                current_solde = current_account.solde
-                if(current_solde - price) >= 0:
+                current_balance = current_account.balance
+                if(current_balance - price) >= 0:
                     operator_exist = Account.objects.filter(user=user_operator).exists()
                     if operator_exist:
                         commission = operator_account.policy.commission
                         pay_fee, operator_amount, succeed = AccountService.get_commission(price,commission)
                         if succeed :
                             
-                            Account.objects.all().filter(user=user_operator).update(solde=F('solde') + operator_amount)
-                            Account.objects.all().filter(pk=current_account.pk).update(solde=F('solde') - price)
-                            Account.objects.all().filter(pk=pay_account.pk).update(solde=F('solde') + pay_fee)
+                            Account.objects.all().filter(user=user_operator).update(balance=F('balance') + operator_amount)
+                            Account.objects.all().filter(pk=current_account.pk).update(balance=F('balance') - price)
+                            Account.objects.all().filter(pk=pay_account.pk).update(balance=F('balance') + pay_fee)
                             postdata['commission'] = commission
                             service_form = form(postdata)
                             service = service_form.save()
@@ -409,7 +409,7 @@ class AccountService(ABC):
                             }
                             context['success'] = True
                             context['email_context'] = email_context
-                            context['solde'] = current_solde - price
+                            context['balance'] = current_balance - price
                             logger.info("Service Operation was succefull")
                             return context
                         else:
@@ -422,17 +422,17 @@ class AccountService(ABC):
                     
                 else :
                     context['success'] = False
-                    context['solde'] = current_solde
+                    context['balance'] = current_balance
                     context['errors'] = "You don't have enough money on your account."
 
                     return context
             else :
-                #context['solde'] = current_solde
+                #context['balance'] = current_balance
                 print("Form is Invalid : See the errors fields below")
                 print(service_form.errors)
                 context['errors'] = "Form invalide : Check your Form fields please."
         else:
-            #context['solde'] = current_solde
+            #context['balance'] = current_balance
             context['errors'] = "Your request could not be process. Please Check the Form fields."
         return context
 

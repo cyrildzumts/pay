@@ -23,7 +23,7 @@ def dashboard(request):
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
     #current_account = Account.objects.get(user=request.user)
-    #current_solde = current_account.solde
+    #current_balance = current_account.balance
     #model = AccountService.get_transfer_model()
     #activities = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     #active_cat = ServiceCategory.objects.select_related().exclude(available_services__isnull=True)

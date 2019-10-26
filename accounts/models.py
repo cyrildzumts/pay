@@ -212,7 +212,7 @@ class Account(models.Model):
     telefon = models.CharField(default='', max_length=15, null=True, blank=True)
     newsletter = models.BooleanField(default=False)
     is_active_account = models.BooleanField(default=True, blank=True, null=True)
-    solde = models.IntegerField(default=0)
+    balance = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     account_type = models.CharField(max_length=1, default='P', blank=False, null=False, choices=ACCOUNT_TYPE)

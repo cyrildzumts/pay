@@ -184,7 +184,7 @@ class VoucherService:
             voucher_queryset.update(is_used=True)
             v = voucher_queryset.get()
             amount = v.amount
-            Account.objects.filter(user=user).update(solde=F('solde') + amount)
+            Account.objects.filter(user=user).update(balance=F('balance') + amount)
             UsedVoucher.objects.create(customer=user, voucher=v)
 
             logger.info("Voucher %s used by user %s", voucher, user.get_full_name())
@@ -225,7 +225,7 @@ class VoucherService:
                 Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, sold_by=seller,
                     activated_at=now, used_at=now, sold_at=now)
             UsedVoucher = utils.get_model("voucher", "UsedVoucher")
-            queryset.update(solde=F('solde') + amount)
+            queryset.update(balance=F('balance') + amount)
             UsedVoucher.objects.create(customer=queryset.get(user=customer).user, voucher=v)
             Recharge.objects.create(voucher=v, customer=queryset.get(user=customer).user, seller=queryset.get(user=seller).user, amount=amount)
             logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).full_name(), queryset.get(user=seller).full_name(), amount)

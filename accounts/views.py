@@ -166,7 +166,7 @@ def user_account(request):
      user's infos ...  So this method have to provide these
      informations to the template.
      This view must provide a context providing the following informations :
-     *current solde
+     *current balance
      *transaction history
      *list of available services
      *a list of favoris
@@ -176,7 +176,7 @@ def user_account(request):
     #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
     current_account = Account.objects.get(user=request.user)
-    current_solde = current_account.solde
+    current_balance = current_account.balance
     model = AccountService.get_transfer_model()
     activities = model.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     active_cat = ServiceCategory.objects.select_related().exclude(available_services__isnull=True)
@@ -186,7 +186,7 @@ def user_account(request):
         'name'          : name,
         'page_title'    : page_title,
         'site_name'     : settings.SITE_NAME,
-        'solde'         : current_solde,
+        'balance'       : current_balance,
         'activities'    : activities,
         'active_cats'   : active_cat,
         'account'       : current_account,
@@ -239,7 +239,7 @@ def account_update(request, pk=None):
             'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'account' : instance,
-            'solde'     : instance.solde,
+            'balance'     : instance.balance,
             'form': form
         }
     
@@ -337,9 +337,9 @@ def api_get_transactions(request, pk=None):
     context = {}
     if request.is_ajax:
         current_account = Account.objects.get(user=request.user)
-        current_solde = current_account.solde
+        current_balance = current_account.balance
         user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-        context['solde'] = current_solde
+        context['balance'] = current_balance
         context['transactions'] = user_transactions
     return JsonResponse(context)
 
@@ -380,7 +380,7 @@ def new_transfer(request):
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,
                 'form': form,
-                'solde': account.solde,
+                'balance': account.balance,
                 'contacts': User.objects.filter(is_staff=False)
             }
     return render(request, template_name, context)
@@ -402,13 +402,13 @@ def transfer_details(request, pk=None):
     model = utils.get_model('payments', 'Transfer')
     user_services = model.objects.filter(Q(sender__user=request.user) | Q(recipient__user=request.user) )
     transfer = get_object_or_404(user_services, pk=pk)
-    solde = Account.objects.get(user=request.user).solde
+    balance = Account.objects.get(user=request.user).balance
     template_name = "accounts/transfer_detail.html"
     page_title = _("Transfer Details") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['site_name'] = settings.SITE_NAME
     context['transfer'] = transfer
-    context['solde'] = solde
+    context['balance'] = balance
     return render(request,template_name, context)
 
 @login_required
@@ -806,7 +806,7 @@ def update_idcard(request, pk=None):
             'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'idcard' : instance,
-            'solde'     : account.solde,
+            'balance'     : account.balance,
             'form': form
         }
     
