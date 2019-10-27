@@ -1,0 +1,138 @@
+{% extends "base_flat.html"%}
+{% load i18n %} 
+{% block META_REDIRECT %}
+        
+{% endblock META_REDIRECT %}
+
+{% block HEADER_BANNER %}
+<div class="banner">
+    <div class="banner--title">
+      <h1> {%trans 'Welcome to PAY'%} </h1>
+      <h3>{% trans 'Your Payment Solution' %}</h3>
+    </div><!--End of Banner Titlte-->
+    <div class="banner--content">
+        <h3>{% trans "Advantages for individuals" %}</h3>
+        <div class="content">
+          <p>{% trans "Do not waste your time queuing to pay your bill." %}</p>
+          <p>{% trans "No need to move." %}</p>
+          <p>{% trans "Pay your bills from your chair." %}</p>
+        </div>
+    </div><!--End of Banner Content-->
+      
+  
+</div><!--End of Banner-->
+{% endblock HEADER_BANNER %}
+
+{% block MAIN %}
+<div class="container">
+    <div class="row">
+        <div class="">
+            {% trans "No more petite monaies problems, wherever you are, pay in a simple click" %}
+        </div>
+    </div>
+    <div class="grid">
+        <div class="flex responsive column">
+            <div id="discover" class="mat-card">
+                <div class="card__image adapt-color">
+                    <img class="contain" src="images/businessman.svg" alt="">
+                </div>
+
+                <div class="mat-card__body">
+                    <div class="title center">
+                    {% trans "Discover PAY" %}
+                    </div>
+                    <div class="secondary--text">
+                    <p class="center">
+                        {%trans "Charge your PAY account and enjoy simplified payment." %}
+                    </p>
+                    </div>
+                </div>
+
+
+                <div class="mat-card__footer">
+                    <div class="card__actions">
+                    <button class="button">
+                        {% trans "More..." %}
+                    </button>
+                    </div>
+                </div>
+            </div>    <!--End of card-->
+        </div>     <!--End of Responsive-->
+
+        <div class="flex responsive column">
+            <div id="customer" class="mat-card">
+                <div class="card__image">
+                    <object class="contain" data="images/customer.svg" type="image/svg+xml"></object>
+                    <!-- <img class="contain" src="images/customer.svg" alt=""> -->
+                </div>
+
+                <div class="mat-card__body">
+                    <div class="title center">
+                    {% trans "For individuals" %}
+                    </div>
+                    <div class="secondary--text">
+                    <p class="center">
+                        {%trans "As a user, just reload your account at one of our offices."%}
+                    </p>
+                    </div>
+                </div>
+
+
+                <div class="mat-card__footer">
+                    <div class="card__actions">
+                    <button class="button">
+                        {% trans "Learn more" %}
+                    </button>
+                    </div>
+                </div>
+            </div><!--End of card-->
+    
+         </div><!--End of Responsive-->
+    </div>    <!--End of Grid-->
+    <div class="container">
+        <div id="customer-usage" class="tab-content grid">
+        <div class="usage-step responsive column">
+          <div class="image">
+            <img src="" alt="">
+          </div>
+          <div class="row">
+            <div class="circle">1</div>
+            <div class="usage-description">
+              <p> <a href="#"> {%trans "Create your PAY account for free"%} </a> 
+               {%trans "with your e-mail address and a password"%}
+              </p>
+            </div>
+          </div>
+
+        </div> <!--End of usage-step-->
+        <div class="usage-step responsive column">
+          <div class="image">
+            <img src="" alt="">
+          </div>
+          <div class="row">
+            <div class="circle">2</div>
+            <div class="usage-description">
+              <p> {%trans "Charge your PAY account at one of our offices"%} </p>
+            </div>
+          </div>
+
+        </div> <!--End of usage-step-->
+        <div class="usage-step responsive column">
+          <div class="image">
+            <img src="" alt="">
+          </div>
+          <div class="row">
+            <div class="circle">3</div>
+            <div class="usage-description">
+              <p> {%trans "Make your purchases or pay your bills with your PAY account"%} </p>
+            </div>
+          </div>
+
+        </div> <!--End of usage-step-->
+
+      </div> <!--End of Customer-usage-->
+    </div> <!--End of Container-->
+
+</div>
+
+{% endblock MAIN %}

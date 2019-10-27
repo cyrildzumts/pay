@@ -23,6 +23,7 @@ from pay import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('customer-usage/',views.customer_usage ,name='customer-usage'),
     path('about/', views.about, name='about'),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),

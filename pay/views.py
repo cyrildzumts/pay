@@ -107,3 +107,13 @@ def faq(request):
         'page_title': page_title,
     }
     return render(request, template_name,context)
+
+
+def customer_usage(request):
+    template_name = "customer_usage.html"
+    page_title =  "Customer Usage | " + settings.SITE_NAME
+    context = {
+        'page_title': page_title,
+        'site_name' : settings.SITE_NAME
+    }
+    return render(request, template_name,context)
