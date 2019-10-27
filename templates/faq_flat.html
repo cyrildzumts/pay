@@ -1,7 +1,163 @@
-{% extends "flat_minimal_base.html" %}
+{% extends "base_flat.html"%}
+{% load i18n %} 
+{% block META_REDIRECT %}
+        
+{% endblock META_REDIRECT %}
+{% block HEADER_PANEL %}
+  <div class="row">
+       <div class="col col-1">
+              <div class="logo">
+                <a href="{% url 'home' %}">{{site_name}}</a>
+              </div>
+        </div>
+        <div class="col col-11">
+              <div class="row">
+                  <ul class="panel panel-align-rigth">
+                        <li class="entry"><a href="{% url 'accounts:account' %}">{{user.username}}</a></li>
+                        <li class="entry"><a href="#" ><i class="far fa-bell"></i></a></li> 
+                        {% for lang in LANGUAGES %}
+                              {% if lang.0 == LANGUAGE_CODE %}
+                              <li class="entry"><span class="lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
+                              {% else %}
+                              <li class="entry"><span class="lang" title="{{lang.1}}"> {{lang.0}} </span></li>
+                              {% endif %} 
+                        {% endfor %}
+                        
+                  </ul>
+              </div>
+        </div>                 
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+  <div class="row">
+        <div class="col col-6">
+          <div class="row">
+                <h3>{% trans "Knowledge Base" %}</h3>
+          </div>
+        </div> 
+  </div>
+{% endblock HEADER_BANNER %}
 
+{% block MAIN %}
+<div class="container">
+<ul class="mat-list">
+    <li class="mat-item">
+        <div class="collapsible">
+            <div class="title">
+                <h3>{% trans "What is a Transfer ?" %}</h3>
+            </div>
+            <div class="content collapsible-content">
+                <p>
+                    {% blocktrans %}
+                    A Transfer is transaction where a user A sends money to a User B. 
+                    The User A is debited with the amount to send while the User B Account is augmented with the received amount. 
+                    This Operation is not cancelable.
+                    {% endblocktrans %}
+                </p>
+            </div>
+        </div>
+    </li>
+    <li class="mat-item">
+        <div class="collapsible">
+            <div class="title">
+                <h3>{% trans "What is a Payment ?" %}</h3>
+            </div>
+            <div class="content collapsible-content">
+                <p>
+                    {% blocktrans %}
+                    A Payment is a trade of values from one party to another for goods or services. 
+                    The mean of payment is money. The user receiving the payment must have a business account.
+                    {% endblocktrans %}
+                </p>
+            </div>
+        </div>
+    </li>
+    <li class="mat-item">
+        <div class="collapsible">
+            <div class="title">
+                <h3>{% trans "What is a Service ?" %}</h3>
+            </div>
+            <div class="content collapsible-content">
+                <p>
+                    {% blocktrans %}
+                    A service is offered by one or more entities in exchange for money.
+                    A service is a transaction in which no physical good is transferred from the seller to the buyer. 
+                    To offer a service the seller must have a business account.
+                    
+                    {% endblocktrans %}
+                </p>
+            </div>
+        </div>
+    </li>
+    <li class="mat-item">
+        <div class="collapsible">
+            <div class="title">
+                <h3>{% trans "How do I find the available services ?" %}</h3>
+            </div>
+            <div class="content collapsible-content">
+                <p>
+                    {% blocktrans %}
+                    From the home Page it is possible to navigate to list of available services that can be consumed by the users. 
+                    On the main top bar header, click on the Available Services link.
+                    {% endblocktrans %}
+                </p>
+            </div>
+        </div>
+    </li>
+    <li class="mat-item">
+        <div class="collapsible">
+            <div class="title">
+                <h3>{% trans "How do I recharge my Account with credit ?" %}</h3>
+            </div>
+            <div class="content collapsible-content">
+                <p>
+                    {% blocktrans trimmed %}
+                    To recharge your Account Balance you can buy Voucher Code from our sell points in Douala. 
+                Once you get your Voucher Code, you log in your Account and click to "RECHARGE MY BALANCE" link. 
+                From there now enter your Voucher Code and validate.If the code is valid your Balance will be updated to the new amount. 
+                A confirmation message is sent your registered email.
+                    {% endblocktrans %}
+                </p>
+                <p>{% trans "You also have the possibility to let one of our Agent to recharge your account directly." %}</p>
+            </div>
+        </div>
+    </li>
+    <li class="mat-item">
+        <div class="collapsible">
+            <div class="title">
+                <h3>{% trans "Where can I buy voucher ?" %}</h3>
+            </div>
+            <div class="content collapsible-content">
+                <p>{% trans "You can buy Voucher Code from our sell points in Douala." %}</p>
+                <ul>
+                    <li>Akwa</li>
+                    <li>Bonaberi</li>
+                    <li>Bonadjo</li>
+                    <li>Deido</li>
+                    <li>Madagascar</li>
+                    
+                </ul>
+            </div>
+        </div>
+    </li>
+    <li class="mat-item">
+        <div class="collapsible">
+            <div class="title">
+                <h3>{% trans "Who can make Transfer ?" %}</h3>
+            </div>
+            <div class="content collapsible-content">
+                <p>
+                    {% blocktrans trimmed %}
+                    Only user with private account can make Transfer. 
+                    Transfer Transactions are not allowed for business Account.
+                    {% endblocktrans %}
+                </p>
+            </div>
+        </div>
+    </li>
 
+</ul>
 
-{% block CONTENT %}
- <p> FAQ </p>
-{% endblock CONTENT %}
+</div>
+
+{% endblock MAIN %}
