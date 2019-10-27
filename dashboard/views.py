@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
 from django.db.models import F, Q
+from rest_framework.authtoken.models import Token
 from pay import utils, settings
 from dashboard import forms
 from dashboard import analytics
@@ -46,6 +48,36 @@ def dashboard(request):
 
     return render(request, template_name, context)
 
+
+@login_required
+def generate_token(request):
+    allowed = request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
+    template_name = "dashboard/token_generate.html"
+    context = {
+        'page_title' :_('User Token Generation') + ' - ' + settings.SITE_NAME,
+        'site_name': settings.SITE_NAME,
+        'is_allowed' : allowed,
+    }
+    
+    if allowed:
+        if request.method == 'POST':
+            form = forms.TokenForm(utils.get_postdata(request))
+            if form.is_valid():
+                user_id = form.cleaned_data['user']
+                username = form.cleaned_data['username']
+                user = User.objects.get(pk=user_id)
+                t = Token.objects.get_or_create(user=user)
+                context['generated_token'] = t
+                messages.add_message(request, messages.SUCCESS, _('Token successfully generated for user {}'.format(username)) )
+                return redirect('dashboard:home')
+            else :
+                messages.add_message(request, messages.ERROR, _('The submitted form is not valid') )
+        else :
+            context['form'] = forms.TokenForm()
+
+    return render(request, template_name, context)
+        
+    
 
 @login_required
 def service_details(request, pk=None):

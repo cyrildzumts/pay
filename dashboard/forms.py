@@ -49,3 +49,8 @@ class AccountForm(forms.ModelForm):
                   "newsletter","is_active_account","balance","account_type",
                   "policy","email_validated", )
         
+
+
+class TokenForm(forms.Form):
+    user = forms.IntegerField()
+    username = forms.CharField(max_length=32)

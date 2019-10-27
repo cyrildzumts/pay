@@ -14,7 +14,7 @@ urlpatterns = [
     path('cases/', views.cases, name='cases'),
     path('cases/detail/<int:pk>/', views.case_details, name='case_detail'),
     path('cases/close/<int:pk>/', views.case_close, name='case_close'),
-
+    path('generate-token/', views.generate_token, name='generate-token'),
     path('services/', views.services, name='services'),
     path('services/detail/<int:pk>/', views.service_details, name='service_detail'),
     path('transfers/', views.transfers, name='transfers'),
