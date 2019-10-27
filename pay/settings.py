@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'payments.apps.PaymentsConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'api.apps.ApiConfig',
     'voucher.apps.VoucherConfig',
     'dashboard.apps.DashboardConfig',
@@ -88,11 +89,12 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    #'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': [
         #'rest_framework.permissions.IsAdminUser',
         #'rest_framework.permission.IsAuthenticated',
         #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #]
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 
