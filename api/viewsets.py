@@ -15,38 +15,38 @@ from api.serializers import ( AvailableServiceSerializer, AvailableService, Acco
 class AccountViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = AccountSerializer.Meta.model.objects.all()
      serializer_class = AccountSerializer
-     permission_classes = [IsAuthenticated]
+     #permission_classes = [IsAuthenticated]
 
 
 class BusinessAccountViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = AccountSerializer.Meta.model.objects.filter(account_type='B')
      serializer_class = AccountSerializer
-     permission_classes = [IsAuthenticated]
+     #permission_classes = [IsAuthenticated]
 
 
 class ActiveAccountViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = AccountSerializer.Meta.model.objects.filter(is_active_account=True)
      serializer_class = AccountSerializer
-     permission_classes = [IsAuthenticated]
+     #permission_classes = [IsAuthenticated]
 
 
 class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = ServiceSerializer.Meta.model.objects.all()
      serializer_class = ServiceSerializer
-     permission_classes = [IsAuthenticated]
+     #permission_classes = [IsAuthenticated]
 
 
 
 class TransferViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = TransferSerializer.Meta.model.objects.all()
      serializer_class = TransferSerializer
-     permission_classes = [IsAuthenticated]
+     #permission_classes = [IsAuthenticated]
 
 
 class PaymentViewSet(viewsets.ReadOnlyModelViewSet):
      queryset = PaymentSerializer.Meta.model.objects.all()
      serializer_class = PaymentSerializer
-     permission_classes = [IsAuthenticated]
+     #permission_classes = [IsAuthenticated]
 
 
 
