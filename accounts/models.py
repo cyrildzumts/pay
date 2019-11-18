@@ -1,5 +1,6 @@
 from django.db import models
 from pay import settings
+from django.conf import settings as default_settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -191,16 +192,7 @@ class Account(models.Model):
     The Account Model extends the User Model with a profile.
     This model provides extra information to identify a user.
     """
-    ACCOUNT_TYPE = (
-        ('A', 'Admin'),
-        ('B', 'Business'),
-        ('D', 'Developer'),
-        ('M', 'Manager'),
-        ('P', 'Privé'),
-        ('S', 'Staff'),
-        ('R', 'Recharge'),
-        ('X', 'PAY ACCOUNT'),
-    )
+    ACCOUNT_TYPE = settings.ACCOUNTS.get('ACCOUNT_TYPE', ())
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)

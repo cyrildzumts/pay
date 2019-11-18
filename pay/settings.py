@@ -52,7 +52,7 @@ CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
 
 CELERY_NAMESPACE = 'CELERY'
 
-ALLOWED_HOSTS = ['localhost',os.environ['PAY_ALLOWED_HOST']]
+ALLOWED_HOSTS = ['localhost','http://pay-atalaku.com', 'www.pay-atalaku.com', 'pay-atalaku.com', os.environ['PAY_ALLOWED_HOST']]
 
 #EMAIL SETTINGS
 EMAIL_HOST = os.environ['PAY_EMAIL_HOST']
@@ -64,7 +64,18 @@ EMAIL_USE_SSL = True
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
+ACCOUNTS = {
+    'ACCOUNT_TYPE' :  (
+        ('A', 'Admin'),
+        ('B', 'Business'),
+        ('D', 'Developer'),
+        ('M', 'Manager'),
+        ('P', 'Privé'),
+        ('S', 'Staff'),
+        ('R', 'Recharge'),
+        ('X', 'PAY ACCOUNT'),
+    )
+}
 
 
 # Application definition
