@@ -162,7 +162,7 @@ DATABASES = {
 	'HOST'	:  os.environ['PAY_DATABASE_HOST'] ,
 	'PORT' 	:  os.environ['PAY_DATABASE_PORT'],
     'OPTIONS' : {
-        'sslmode': 'required'
+        'sslmode': 'require'
     },
     'TEST'  :{
         'NAME': 'test_db',
