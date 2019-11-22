@@ -10,6 +10,8 @@ static_root/*
 .vscode
 */migrations/*
 */__pycache__/*
+log
+logs
 *.log
 __pycache__
 XDG_CACHE_HOME
