@@ -82,7 +82,7 @@ def generate_token(request):
 @login_required
 def service_details(request, pk=None):
     context = {}
-    model = utils.get_model('accounts', 'Service')
+    model = utils.get_model('payments', 'Service')
     user_services = model.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
     service = get_object_or_404(user_services, pk=pk)
     template_name = "dashboard/service_detail.html"
@@ -97,7 +97,7 @@ def service_details(request, pk=None):
 @login_required
 def services(request):
     context = {}
-    model = utils.get_model('accounts', 'Service')
+    model = utils.get_model('payments', 'Service')
     services = model.objects.select_related('category').all()
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
@@ -112,7 +112,7 @@ def services(request):
 @login_required
 def available_services(request):
     context = {}
-    model = utils.get_model('accounts', 'AvailableService')
+    model = utils.get_model('payments', 'AvailableService')
     available_services = model.objects.all()
     template_name = "dashboard/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
@@ -175,7 +175,7 @@ def available_service_create(request):
 @login_required
 def available_service_remove(request, pk=None):
     page_title = _("Edit Available Service")+ ' | ' + settings.SITE_NAME
-    template_name = "dashboard/available_serive_remove.html"
+    template_name = "dashboard/available_service_remove.html"
     if request.method =="POST":
         form = forms.AvailableServiceForm(request.POST)
         if form.is_valid() and forms.AvailableService.objects.filter(pk=pk).exists() :
@@ -200,7 +200,7 @@ def available_service_remove(request, pk=None):
 @login_required
 def available_service_details(request, pk=None):
     context = {}
-    model = utils.get_model('accounts', 'AvailableService')
+    model = utils.get_model('payments', 'AvailableService')
     service= get_object_or_404(model, pk=pk)
     template_name = "dashboard/available_service_detail.html"
     page_title = "Available Service Details - " + settings.SITE_NAME
@@ -212,7 +212,7 @@ def available_service_details(request, pk=None):
 @login_required
 def category_services(request):
     context = {}
-    model = utils.get_model('accounts', 'ServiceCategory')
+    model = utils.get_model('payments', 'ServiceCategory')
     categories = model.objects.filter(is_active=True)
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
@@ -305,8 +305,8 @@ def category_service_create(request):
 @login_required
 def category_service_details(request, pk=None):
     context = {}
-    model = utils.get_model('accounts', 'ServiceCategory')
-    avs_model = utils.get_model('accounts', 'AvailableService')
+    model = utils.get_model('payments', 'ServiceCategory')
+    avs_model = utils.get_model('payments', 'AvailableService')
     category = get_object_or_404(model, pk=pk)
     avs = avs_model.objects.filter(category=category)
     template_name = "dashboard/category_service_detail.html"
@@ -322,7 +322,7 @@ def category_service_details(request, pk=None):
 @login_required
 def policies(request):
     context = {}
-    model = utils.get_model(app_name='accounts', modelName='Policy')
+    model = utils.get_model(app_name='payments', modelName='Policy')
     #current_account = Account.objects.get(user=request.user)
     current_policies = model.objects.all()
     template_name = "dashboard/policy_list.html"
@@ -418,7 +418,7 @@ def policy_create(request):
 @login_required
 def policy_details(request, pk=None):
     context = {}
-    model = utils.get_model(app_name='accounts', modelName='Policy')
+    model = utils.get_model(app_name='payments', modelName='Policy')
     #current_account = Account.objects.get(user=request.user)
     policy = get_object_or_404(model, pk=pk)
     template_name = "dashboard/policy_detail.html"

@@ -220,7 +220,7 @@ def get_recent_services(limit=5):
     None is returned when no Service
     '''
     amount_field = 'amount'
-    appName = 'accounts'
+    appName = 'payments'
     modelName = 'Service'
     order_field = '-created_at'
 
@@ -229,7 +229,7 @@ def get_recent_services(limit=5):
 
 
 def get_service_usage_summary():
-    appName ='accounts'
+    appName ='payments'
     modelName = 'Service'
     price_field = 'price'
     pk_field = 'pk'
@@ -284,36 +284,36 @@ def get_number_of_account_filter_by(**kwargs):
     return utils.get_model('accounts', 'Account').objects.filter(**kwargs).count()
 
 def get_idcards_filter_by(**kwargs):
-    return utils.get_model('accounts', 'IDCard').objects.filter(**kwargs)
+    return utils.get_model('payments', 'IDCard').objects.filter(**kwargs)
 
 def get_nomber_of_idcards_filter_by(**kwargs):
-    return utils.get_model('accounts', 'IDCard').objects.filter(**kwargs).count()
+    return utils.get_model('payments', 'IDCard').objects.filter(**kwargs).count()
 
 def get_services_filter_by(**kwargs):
-    return utils.get_model('accounts', 'Service').objects.filter(**kwargs)
+    return utils.get_model('payments', 'Service').objects.filter(**kwargs)
 
 def get_number_of_services_filter_by(**kwargs):
-    return utils.get_model('accounts', 'Service').objects.filter(**kwargs).count()
+    return utils.get_model('payments', 'Service').objects.filter(**kwargs).count()
 
 def get_available_services_filter_by(**kwargs):
-    return utils.get_model('accounts', 'AvailableService').objects.filter(**kwargs)
+    return utils.get_model('payments', 'AvailableService').objects.filter(**kwargs)
 
 
 def get_number_available_services_filter_by(**kwargs):
-    return utils.get_model('accounts', 'AvailableService').objects.filter(**kwargs).count()
+    return utils.get_model('payments', 'AvailableService').objects.filter(**kwargs).count()
 
 
 def get_category_services_filter_by(**kwargs):
-    return utils.get_model('accounts', 'ServiceCategory').objects.filter(**kwargs)
+    return utils.get_model('payments', 'ServiceCategory').objects.filter(**kwargs)
 
 
 def get_number_category_services_filter_by(**kwargs):
-    return utils.get_model('accounts', 'ServiceCategory').objects.filter(**kwargs).count()
+    return utils.get_model('payments', 'ServiceCategory').objects.filter(**kwargs).count()
 
 
 def get_policies_filter_by(**kwargs):
-    return utils.get_model('accounts', 'Policy').objects.filter(**kwargs)
+    return utils.get_model('payments', 'Policy').objects.filter(**kwargs)
 
 
 def get_number_of_policies_filter_by(**kwargs):
-    return utils.get_model('accounts', 'Policy').objects.filter(**kwargs).count()
+    return utils.get_model('payments', 'Policy').objects.filter(**kwargs).count()

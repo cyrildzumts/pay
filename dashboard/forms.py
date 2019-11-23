@@ -1,5 +1,9 @@
 from django import forms
-from accounts.models import Account, Service,Policy, AvailableService,ServiceCategory, IDCard
+from accounts.models import Account
+from payments.models import (
+    Service, ServiceCategory, Policy, AvailableService, IDCard, Payment, Transaction,
+    Transfer, Reduction
+)
 
 
 

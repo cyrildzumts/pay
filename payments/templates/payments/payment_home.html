@@ -1,0 +1,148 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block MAIN %}
+
+<div class="row">
+        <div class="tabs">
+                <div class="tabs--title">
+                        <div class="full welcome-text center">
+                                <p> {% trans "Welcome" %} {{name}}</p>
+                        </div>
+                </div>
+                <div class="row">
+                        <ul  class="action-list listview">
+                                <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a> </li>
+                                <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a> </li>
+
+                                {% if has_idcard is True %}
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a> </li>
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' request.user.idcard.pk %}"> {% trans "Update my ID Card" %}</a> </li>
+
+                                {% else %}
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{% url 'payments:upload-idcard'%}"> {% trans "Add an ID Card" %}</a> </li>
+                                {% endif %}
+                                
+                                
+                        </ul>
+                </div>
+                <div class="tab-bar">
+                        <div class="row">
+                                <span class="tab active" data-toggle="#activities-view"
+                                        data-index="0">{% trans "Activities" %}</span>
+                                <span class="tab" data-toggle="#services-view"
+                                        data-index="1">{% trans "Services" %}</span>
+                                <span class="tab" data-toggle="#favorite-view"
+                                        data-index="2">{% trans "Favories" %}</span>
+                        </div>
+                </div>
+                <!--End of Tab-bar-->
+
+                <div class="tab-container container full">
+                        <div id="activities-view" class="tab-content grid">
+                                <div class="list">
+                                        <div class="list-header">
+                                                <span class="header-title" title="{% trans 'Your transactions' %}">{% trans "Your transactions" %}</span>
+                                        </div>
+                                        <div class="list-cards js-card">
+                                        {% for activity in activities  %}
+                                                <a class="list-card js-list-card" href="{{activity.get_absolute_url}}">
+                                                        <div class="list-card-cover js-card-cover">
+                                                        </div>
+                                                        <span class="icon-sm icon-edit list-card-operation"></span>
+                                                        <div class="list-card-stickers-area js-card-stickers-area hide">
+                                                                <div class="stickers js-card-stickers">
+                                                
+                                                                </div>
+                                                        </div>
+                                                        <div class="list-card-details js-card-details">
+                                                                <div class="list-card-labels js-card-labels">
+                                                                {% if activity.sender.user == request.user %}
+                                                                        <span class="card-label card-front outgoing" title="{% trans 'Outgoing' %}"> {% trans "Sending" %}</span>
+                                                                {% else %}
+                                                                        <span class="card-label card-front incoming" title="{% trans 'Incoming' %}">{% trans "Receiving" %}</span>
+                                                                {% endif %}
+                                                                        
+                                                                </div>
+                                                                <span class="list-card-title js-card-name">{{activity.sender.full_name}}</span>
+                                                                <div class="badges">
+                                                                        <span class="js-badges">
+                                                                                <div class="badge is-icon-only">
+                                                                                        <span class="badge-icon date">{{activity.created_at}}</span>
+                                                                                </div>
+                                                                                {% comment "" %}
+                                                                                <div class="badge is-icon-only">
+                                                                                        <span class="badge-icon icon-sm icon-description">{{activity.state}}</span>
+                                                                                </div>
+                                                                                {% endcomment %}
+                                                                                
+                                                                                <div class="badge is-icon-only">
+                                                                                        <span class="badge-icon icon-money-text amount">{{activity.amount}}FCFA</span>
+                                                                                </div>
+                                                                        </span>
+                                                                </div>
+                                                                <div class="list-card-members js-list-card-members">
+                                                                        <div class="member js-member-on-card-menu" data-idref="2145abfce">
+                                                                                <span class="member-initials" title="{{activity.sender.full_name}}">{{activity.sender.initial}}</span>
+                                                                                <span class="undefined-avatar"></span>
+                                                                                {% if activity.sender.account_type == "B" %}
+                                                                                <span class="member-is-a-seller"
+                                                                                        title="Ce membre est un prestataire de services"></span>
+                                                                                {% else %}
+                                                                                {% endif %}
+                                                                                
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </a>
+                                        {% empty %}
+                                        <p>
+                                        {% blocktrans %} You have done no transactions yet.
+Your transactions will be displayed here.
+                                        {% endblocktrans %}
+                                        </p>
+                                        <a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Send Money" %} </a>
+                                        {% endfor %}
+                                        </div>
+
+                                </div>
+
+                                
+                        </div>
+                        <div id="services-view" class="tab-content">
+                                <p> {% trans "Service type" %} :</p>
+                                <div class="gridview">
+                                        {% for cat in active_cats %}
+                                        <div class="column responsive-3">
+                                                <div class="action collapsible">
+                                                        <div class="open data-caption"> {% trans cat.category_name %}</div>
+                                                        
+                                                        <div class="listview collapse-content">
+                                                                {% for service in cat.available_services.all %}
+                                                                        <a class="mat-button mat-button-text list-item" href="{{service.get_link}}">
+                                                                        <div class=""> {% trans service.name %}</div>
+                                                                        </a>
+                                                                        
+                                                                {% empty %}
+                                                        
+                                                                {% endfor %}
+                                                                <button class="mat-button mat-button-default close">{% trans "Close" %}</button>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        {% empty %}
+                                                <p>
+                                                        {% blocktrans %}
+                                                        There is service available yet. New services will be listed here.
+                                                        {% endblocktrans %}
+                                                </p>
+                                        {% endfor %}
+                                </div>
+                                
+                        </div>
+                        
+                </div>
+        </div>
+        <!--End of tabs-->
+</div>
+
+{% endblock MAIN %}

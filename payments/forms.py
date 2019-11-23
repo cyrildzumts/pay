@@ -1,10 +1,52 @@
 from django import forms
 from django.contrib.auth.models import User
 from accounts.models import Account, IDCard
-from payments.models import Payment, Transaction,Transfer, CaseIssue
+from payments.models import Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
+
+class PolicyForm(forms.ModelForm):
+    class Meta:
+        model = Policy
+        exclude = ['policy_id']
+
+
+class UpdateIDCardForm(forms.ModelForm):
+    
+    class Meta:
+        model = IDCard
+        fields = ("card_number", "image", "delivery_at", "delivery_place", "expire_at",)
+
+
+class IDCardForm(forms.ModelForm):
+    class Meta:
+        model = IDCard
+        fields = ['card_number', 'image', 'user']
+
+
+class ServiceCategoryCreationForm(forms.ModelForm):
+    class Meta:
+        model = ServiceCategory
+        exclude = ['created_at','is_active']
+
+
+class AvailableServiceCreationForm(forms.ModelForm):
+    class Meta:
+        model = AvailableService
+        exclude = ['created_at','is_active']
+
+
+class ServiceCreationForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = ['name', 'operator', 'customer', 'customer_reference', 'reference_number', 'category', 'service_instance',
+        'price', 'description', 'issued_at', 'commission']
+
+
+
+class RechargeForm(forms.Form):
+    voucher = forms.CharField(max_length=32, label="Voucher Code")
 
 class PaymentForm(forms.ModelForm):
 

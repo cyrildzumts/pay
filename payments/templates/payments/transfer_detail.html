@@ -1,0 +1,34 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+        <div class="card">
+          <div class="card__title">
+            {% trans "Transfer Details" %}
+          </div>
+
+          <div class="card__body">
+              <p> {% trans "Recipient" %} : {{transfer.recipient.full_name}} </p>
+              <p> {% trans "Sender" %} : {{transfer.sender.full_name}} </p>
+              <p> {% trans "Amount" %} : {{transfer.amount}} FCFA </p>
+              <div>  
+                <p> {% trans "Desciption" %} : </p>
+                <p>{{transfer.details}}</p>
+              </div>
+              <p> {% trans "Date of transfer" %} : {{transfer.created_at}} </p>
+          </div>
+          
+          <div class="card__actions">
+                <ul class="listview">
+                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a new transfer" %} </a></li>
+                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:payment-home' %}"> {% trans "Payment Home" %} </a></li>
+                </ul>
+                
+                
+          </div>
+        </div>
+    
+</div>
+{% endblock MAIN %}

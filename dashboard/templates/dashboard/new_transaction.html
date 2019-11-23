@@ -22,8 +22,8 @@
           {% endcomment %}
           
           <div class="form-group row">
-            <button class="button" type="submit">{% trans "Send Money" %}</button>
-            <span class="button">{% trans "Annuler" %}</span>
+            <button class="mat-button mat-button-text" type="submit">{% trans "Send Money" %}</button>
+            <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
           </div>
     </form>
 </div>
