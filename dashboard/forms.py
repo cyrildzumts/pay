@@ -51,7 +51,7 @@ class AccountForm(forms.ModelForm):
         fields = ("user","date_of_birth","country",
                   "city","province","address","zip_code","telefon",
                   "newsletter","is_active_account","balance","account_type",
-                  "policy","email_validated", )
+                  "email_validated", )
         
 
 
