@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from accounts.models import AvailableService, ServiceCategory, Service, Policy, Account
-from payments.models import Transfer, Payment, CaseIssue
+from accounts.models import Account
+from payments.models import (
+    Transfer, Payment, CaseIssue, AvailableService, ServiceCategory, Service, Policy
+)
 from voucher.models import (
     Voucher, SoldVoucher, UsedVoucher
 )
