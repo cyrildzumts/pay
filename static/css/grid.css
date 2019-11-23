@@ -67,7 +67,14 @@
   align-items: center;
   justify-content: center;
 	width: 100%;
+}
 
+.row-left{
+  justify-content: flex-start !important;
+}
+
+.row-right{
+  justify-content: flex-end !important;
 }
 
 .flex-wrap{
@@ -145,13 +152,11 @@
   --width-mobile: 12;
   --width-tablet: 6;
   --width-desktop: 3;
-  /*height: 64rem;*/
 }
 .responsive-3 {
   --width-mobile: 12;
   --width-tablet: 6;
   --width-desktop: 4;
-  /*height: 64rem;*/
 }
 
 @media (min-width: 576px) {

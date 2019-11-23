@@ -13,8 +13,8 @@
   --card-color : #616161;
   --btn-border : 1px solid #66FCF1;
   --btn-color: #66FCF1;
-
-  --btn-hover-border : 1px solid #454545;
+  --input-border : 2px solid #242424;
+  --btn-hover-border : 2px solid #454545;
   --btn-hover-color: #454545;
   --box-shadow: 0 1px 0 rgba(9,45,66,.25);
   --in-bg : #4caf50;
@@ -40,6 +40,11 @@
   border: #ccc 2px solid;
 }
 
+.state{
+	padding: 0 8px;
+	margin: 8px 4px;
+}
+
 .padded-wrapper-top{
 	top: 12rem;
 	width: 100%;
@@ -54,6 +59,25 @@ ul, nav, .nav{
 	margin: 0;
 	overflow: hidden;
 }
+
+.nav-vertical{
+	display: flex !important;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	list-style-type: none;
+	padding: 0 16px;
+}
+
+.nav-horizontal{
+	display: flex !important;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	list-style-type: none;
+	padding: 0 16px;
+}
+
 
 li a{
 	display: block;
@@ -103,7 +127,6 @@ li a{
 }
 .page--banner{
   min-width: 100%;
-  height: 100%;
   font-family: 'Monserrat';
   background-color: var(--banner-bg);
   color: var(--banner-color);
@@ -112,10 +135,12 @@ li a{
 
 .banner{
 	display: flex;
+	width: 100%;
 	flex-direction: column;
 	align-content: center;
 	align-items: center;
 	justify-content: center;
+	height: 400px;
 	padding : 10px 5px;
 }
 
@@ -132,6 +157,14 @@ li a{
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+
+}
+
+.banner .item{
+	width: 100%;
+	text-align: left;
+	padding: 4px 16px;
+	font-size: 1rem;
 
 }
 
@@ -179,28 +212,16 @@ h6{
 	font-size: 0.8rem;
 }
 
-.button, .link{
-	text-align: center;
-	cursor: pointer;
-}
-.button{
-	padding: 2px;
-}
 input{
+	height: 36px;
+	border: var(--input-border);
 	padding: 10px 20px;
 }
-.button, input{
-  border: var(--btn-border);
-  outline: none;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 22px;
-  border-radius: 50px;
-  color: var(--btn-color);
-  background: transparent;
 
-  /*box-shadow: 0 3px 20px 0 #0000003b;*/
-  margin: 4px 8px ;
+label{
+	padding: 8px 16px;
+	width: 250px;
+	text-align: left;
 }
 
 a.button{
@@ -209,7 +230,7 @@ a.button{
 .button:hover{
   cursor: pointer;
   color: var(--btn-hover-color);
-  border : 1px solid var(--btn-hover-border);
+  border : var(--btn-hover-border);
 }
 
 .in{
@@ -502,7 +523,7 @@ a.button{
   height: 100%;
   object-fit: cover;
 }
-
+/*
 .mat-card{
   display: flex;
   flex-direction: row;
@@ -514,9 +535,9 @@ a.button{
   width: 344px;
   max-height: 510px;
   padding: 0;
-}
+}*/
 
-.mat-card .card__image{
+.mat-card .card__image, .mat-card .card--image{
   min-width: 100%;
   height: 194px;
   padding: 0;
@@ -531,7 +552,7 @@ a.button{
   margin: 0 auto;
 }
 
-.mat-card__body{
+.mat-card__body, .mat-card--body{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -540,7 +561,7 @@ a.button{
   margin: 0 auto;
 }
 
-.mat-card__body .title{
+.mat-card__body .title, .mat-card--body .title{
 
   font-size: 1.33rem;
   font-family: 'Montserrat', sans-serif;
@@ -553,7 +574,7 @@ a.button{
 
 }
 
-.mat-card__body .secondary--text{
+.mat-card__body .secondary--text, .mat-card--body .secondary--text{
 
   font-size: 16px;
   font-size: 1rem;
@@ -562,7 +583,7 @@ a.button{
   
 }
 
-.mat-card__body .subtitle{
+.mat-card__body .subtitle, .mat-card--body .subtitle{
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -576,7 +597,7 @@ a.button{
   padding: 16px;
 }
 
-.mat-card__footer{
+.mat-card__footer, .mat-card--footer{
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -749,11 +770,16 @@ form .form-group{
 .languages{
   padding: 0 16px;
 }
+.languages .mat-button{
+	width:auto !important;
+}
 
-.lang{
+.lang, .mat-button.lang{
+  width: 32px !important;
   font-size: 1.25em;
   font-weight: 500;
-  padding: 0 16px;
+  padding: 0 8px;
+  margin : 8px -8px !important;
 }
 
 .lang.active{
@@ -775,9 +801,16 @@ body.header-not-at-top .site-header{
 }
 
 .page{
+	display: flex;
+	flex-direction: column;
 	position: relative;
-	overflow: hidden;
-	margin-top: 40px;
+	/*overflow: hidden;*/
+	padding-top: 40px;
+	height: 100%;
+}
+
+.footer-list{
+	align-self: flex-end;
 }
 
 .hide{
@@ -858,7 +891,6 @@ form{
 
 .site-header .search-form input[type="search"]{
 	background: #201c29;
-	border: 0;
 	min-width: 0;
 	flex: 1;
 	color: #fff;
@@ -870,12 +902,12 @@ input[type="email"],
 input[type="password"],
 input[type="search"],
 input[type="text"],
-input[type="url"]{
+input[type="url"], select{
 	font-family: inherit;
 	outline: 0;
-	border: 0;
+
 	padding: 5px 1rem;
-	border-radius: 16px;
+	border-radius: 4px;
 }
 
 textarea{
@@ -885,26 +917,10 @@ textarea{
 	padding: 5px 1rem;
 	border-radius: 6px;
 }
-input, button{
+input, button, select{
 	line-height: normal;
 }
 
-button{
-	background-color: #fff;
-	color: #1a1a1a;
-	font-size: 1.8em;
-	font-weight: 400;
-	text-transform: uppercase;
-	cursor: pointer;
-	padding: 10px 40px 10px 40px;
-	/*box-shadow: 0 4px 5px 0 rgba(50, 50, 50, 0.75);*/
-	border: 2px solid #4caf50;
-
-}
-button:hover, button:focus{
-	background-color: #4caf50;
-	color: #fafafa;
-}
 
 button, input, select, textarea{
 	font-size: 100%;
@@ -1247,40 +1263,38 @@ a {
 }
 
 .form-group{
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
 	width: 100%;
 	padding: 4px 8px;
 	margin-bottom: 4px;
 }
 
-.form-group input, .form-group textarea{
+.form-group input, .form-group textarea, .form-group select{
 	width: 100%;
 	padding: 4px 8px;
-	margin-bottom: 4px;
+	margin : 4px 8px;
 	color: var(--btn-color);
-	border: var(--btn-border);
+	border: var(--input-border);
 }
 
-.form-group button{
-	font-family: inherit;
-	outline: 0;
-	border: 0;
-	padding: 5px 1rem;
-	border-radius: 16px;
-	margin: 0 2px;
+.field-wrapper{
+	display: flex;
+	width: 100%;
+	flex-direction: column;
 }
 
-button.submit{
-	background-color: #00e676;
-	color: #fafafa;
-}
-button.cancel{
-	background-color: #252525;
-	color: #ccc;
-}
-button:hover{
-	cursor: pointer;
-}
+.errorlist{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 
+}
+.errorlist li{
+	text-align: center;
+	color: #d32f2f;
+}
 /** Errors Field **/
 .error{
 	color: #d32f2f;
@@ -1400,6 +1414,7 @@ input[type=text]:focus, textarea:focus{
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	background-color: #fafafa;
+	padding : 8px 16px;
 }
 .mat-card .card-header-wrapper{
 	padding: 8px 16px;
@@ -1500,7 +1515,7 @@ input[type=text]:focus, textarea:focus{
 	color: #1976d2;
 	border-radius: 4px;
 }
-.mat-button{
+.mat-button, button{
 	display: flex;
 	position: relative;
 	flex-wrap: nowrap;
@@ -1542,6 +1557,28 @@ input[type=text]:focus, textarea:focus{
 	padding: 0;
 	margin: 0;
 }
+
+.list-links{
+	position: relative;
+	width: 100%;
+	font-size: 1em;
+	font-weight: 400;
+	letter-spacing: 0.00875em;
+	list-style-type: none;
+	text-decoration: inherit;
+	text-transform: inherit;
+	line-height: 1em;
+	margin: 0;
+	padding: 8px 0;
+}
+
+.list-links .list-item{
+	padding: 8px 16px;
+	margin: 2px 0;
+}
+
+
+
 
 .mat-list{
 	display: block;

@@ -1,5 +1,10 @@
 /* global styles */
 
+html{
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background-color: var(--body-bg);
   color: Teal;
@@ -7,6 +12,7 @@ body {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   line-height: 1.5;
   margin: 0;
+  height: 100%;
 }
 
 *, ::after, ::before {
