@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from accounts.models import Account, IDCard
-from payments.models import Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService
+from accounts.models import Account
+from payments.models import (
+    Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard
+)
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
