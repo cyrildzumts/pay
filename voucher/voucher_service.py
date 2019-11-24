@@ -197,8 +197,17 @@ class VoucherService:
 
 
     @staticmethod
-    def get_vouchers(start=None, end=None, **filters):       
+    def get_voucher_set(start=None, end=None, **filters):       
         return Voucher.objects.filter(**filters)[start:end]
+
+    @staticmethod
+    def get_used_voucher_set(start=None, end=None, **filters):       
+        return UsedVoucher.objects.filter(**filters)[start:end]
+
+
+    @staticmethod
+    def get_sold_voucher_set(start=None, end=None, **filters):       
+        return SoldVoucher.objects.filter(**filters)[start:end]
 
     @classmethod
     def process_recharge_user_account(cls, seller=None, customer=None, amount=-1):

@@ -38,24 +38,20 @@ def vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_vouchers()
+    voucher_list = voucher_service.VoucherService.get_voucher_set()
 
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
-    logger.debug("Vouchers requested page : %s", page)
-    logger.debug("Voucher List - Number of Pages  : %s", paginator.num_pages)
     try:
         voucher_set = paginator.page(page)
     except PageNotAnInteger:
         voucher_set = paginator.page(1)
-        logger.debug("Events requested page not an Integer : %s", page)
     except EmptyPage:
         voucher_set = None
-        logger.debug("Events requested page : %s - Empty page resulted -", page)
     context['page_title'] = page_title
-    context['vouchers'] = voucher_set
+    context['voucher_list'] = voucher_set
     return render(request, template_name, context)
 
 
@@ -152,11 +148,19 @@ def used_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    used_vouchers = UsedVoucher.objects.all()
+    voucher_list = voucher_service.VoucherService.get_used_voucher_set()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(voucher_list, 10)
+    try:
+        voucher_set = paginator.page(page)
+    except PageNotAnInteger:
+        voucher_set = paginator.page(1)
+    except EmptyPage:
+        voucher_set = None
     template_name = "voucher/used_voucher_list.html"
     page_title = _("Used Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['used_vouchers'] = used_vouchers
+    context['voucher_list'] = voucher_list
     return render(request, template_name, context)
 
 
@@ -179,11 +183,19 @@ def sold_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    sold_vouchers = SoldVoucher.objects.all()
+    voucher_list = voucher_service.VoucherService.get_sold_voucher_set()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(voucher_list, 10)
+    try:
+        voucher_set = paginator.page(page)
+    except PageNotAnInteger:
+        voucher_set = paginator.page(1)
+    except EmptyPage:
+        voucher_set = None
     template_name = "voucher/sold_voucher_list.html"
     page_title = _("Sold Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['sold_vouchers'] = sold_vouchers
+    context['voucher_list'] = voucher_list
     return render(request, template_name, context)
 
 
