@@ -19,8 +19,11 @@
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li>
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> </li>      
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a> </li>
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' idcard_idcard_uuid %}"> {% trans "Update my ID" %}</a> </li>
+                                {% if has_idcard is True %}
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' idcard.idcard_uuid %}"> {% trans "Update my ID" %}</a> </li>
+                                {% else %}
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:upload-idcard' %}"> {% trans "Upload my ID" %}</a> </li>
+                                {% endif %}
                         </ul>
                 </div>
         </div>
