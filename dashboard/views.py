@@ -21,12 +21,11 @@ logger = logging.getLogger(__name__)
 @login_required
 def dashboard(request):
     template_name = "dashboard/dashboard.html"
-    allowed = request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
+    allowed =request.user.is_superuser or request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
     logger.debug("Dashboard Current User Groups Logs :", request.user.groups.all())
     page_title = _('Dashboard') + '| ' + settings.SITE_NAME
-    #user = User.objects.get(username=request.user.username)
     name = request.user.get_full_name()
-    if not allowed:
+    if not allowed :
         context = {
         'name'          : name,
         'page_title'    : page_title,
