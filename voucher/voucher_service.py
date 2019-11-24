@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.db.models import F, Q
 from pay import utils
+from voucher.models import Voucher, SoldVoucher, UsedVoucher
 import codecs
 import random
 import hashlib
@@ -176,9 +177,8 @@ class VoucherService:
         succeed = False
         amount = 0
         if cls.can_be_used(voucher):
-            Voucher = utils.get_model("voucher", "Voucher")
+
             Account = utils.get_model("accounts", "Account")
-            UsedVoucher = utils.get_model("voucher", "UsedVoucher")
             user = User.objects.get(pk=user_pk)
             voucher_queryset = Voucher.objects.filter(voucher_code=voucher)
             voucher_queryset.update(is_used=True)
@@ -195,6 +195,10 @@ class VoucherService:
             
         return succeed,amount
 
+
+    @staticmethod
+    def get_vouchers(start=None, end=None, **filters):       
+        return Voucher.objects.filter(**filters)[start:end]
 
     @classmethod
     def process_recharge_user_account(cls, seller=None, customer=None, amount=-1):
@@ -214,7 +218,6 @@ class VoucherService:
             result['errors'] = "Recharge account not found. The service request cannot be processed"
             return result
         if  amount > 0 :
-            Voucher = utils.get_model("voucher", "Voucher")
             v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
             if v is None :
                 code = cls.get_voucher()
@@ -224,7 +227,6 @@ class VoucherService:
             else :
                 Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, sold_by=seller,
                     activated_at=now, used_at=now, sold_at=now)
-            UsedVoucher = utils.get_model("voucher", "UsedVoucher")
             queryset.update(balance=F('balance') + amount)
             UsedVoucher.objects.create(customer=queryset.get(user=customer).user, voucher=v)
             Recharge.objects.create(voucher=v, customer=queryset.get(user=customer).user, seller=queryset.get(user=seller).user, amount=amount)
@@ -240,8 +242,6 @@ class VoucherService:
     @classmethod
     def activate_voucher(cls,voucher, seller_pk=None):
         succeed = False
-        Voucher = utils.get_model("voucher", "Voucher")
-        SoldVoucher = utils.get_model("voucher", "SoldVoucher")
         if cls.is_valide(voucher):
             queryset = Voucher.objects.filter(voucher_code=voucher, activated=False, is_used=False)
         if queryset.exists():

@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
 from pay import settings, utils
 from voucher.forms import VoucherCreationForm, RechargeCustomerAccount, RechargeCustomerAccountByStaff
 from voucher.tasks import generate_voucher
 from voucher import voucher_service
+from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
 from django.utils.translation import gettext as _
 import logging
 from datetime import datetime
@@ -37,11 +38,24 @@ def vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    vouchers = Voucher.objects.order_by('pk').all()
+    voucher_list = voucher_service.VoucherService.get_vouchers()
+
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(voucher_list, 10)
+    logger.debug("Vouchers requested page : %s", page)
+    logger.debug("Voucher List - Number of Pages  : %s", paginator.num_pages)
+    try:
+        voucher_set = paginator.page(page)
+    except PageNotAnInteger:
+        voucher_set = paginator.page(1)
+        logger.debug("Events requested page not an Integer : %s", page)
+    except EmptyPage:
+        voucher_set = None
+        logger.debug("Events requested page : %s - Empty page resulted -", page)
     context['page_title'] = page_title
-    context['vouchers'] = vouchers
+    context['vouchers'] = voucher_set
     return render(request, template_name, context)
 
 

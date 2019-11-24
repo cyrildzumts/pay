@@ -1,0 +1,24 @@
+{% load i18n %} 
+
+{% if page_set.has_other_pages %}
+
+<ul class="pagination">
+    {% if page_set.has_previous %}
+    <li class="page"><a href="?page={{page_set.previous_page_number}}">&laquo;</a></li>
+    {% else %}
+    <li class="page disabled">&laquo;</li>
+    {% endif %}
+    {% for i in page_set.paginator.page_range  %}
+    {% if i == page_set.number %}
+    <li class="page active"><span>{{i}} <span class="sr-only">({% trans "current" %})</span> </span></li>
+    {% else %}
+    <li class="page"><a href="?page={{i}}">{{i}}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if page_set.has_next %}
+    <li class="page"><a href="?page={{page_set.next_page_number}}">&raquo;</a></li>
+    {% else %}
+    <li class="page disabled">&raquo;</li>
+    {% endif %}
+</ul>
+{% endif %}

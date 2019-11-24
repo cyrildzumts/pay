@@ -58,6 +58,7 @@
           </tfoot>
 
     </table>
+    {% include "tags/pagination.html" with vouchers as page_set %} 
     <div class="row">
           <div class="table-select-wrapper">
                   <label for="table-step">{% trans "Row per page" %}</label>
