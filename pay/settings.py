@@ -28,6 +28,9 @@ SECRET_KEY = os.environ['PAY_SECRET_KEY']
 # SITE NAME SETTING
 SITE_NAME =  os.environ['PAY_SITE_NAME']
 
+META_KEYWORDS = "Pay, payment, buy, online-pay, africa-pay, payment solution"
+META_DESCRIPTION = "Pay Atalaku is your african solution for online payments"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 CELERY_BROKER_URL = os.environ['PAY_CELERY_BROKER_URL']
