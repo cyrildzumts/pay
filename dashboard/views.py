@@ -157,7 +157,7 @@ def available_service_create(request):
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
     elif request.method == "GET":
         form = forms.AvailableServiceForm()
-        categories = analytics.get_category_services_filter_by(None)
+        categories = analytics.get_category_services_filter_by({})
         operators = analytics.get_model_all_instance_filter_by('django.contrib.auth', 'User', {'is_superuser': False, 'is_active': True, 'account__account_type': 'B'})
 
     context = {
