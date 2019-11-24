@@ -24,18 +24,18 @@ def dashboard(request):
     allowed =request.user.is_superuser or request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
     logger.debug("Dashboard Current User Groups Logs :", request.user.groups.all())
     page_title = _('Dashboard') + '| ' + settings.SITE_NAME
-    name = request.user.get_full_name()
+    username = request.user.username
     if not allowed :
         context = {
-        'name'          : name,
+        'name'          : username,
         'page_title'    : page_title,
         'site_name'     : settings.SITE_NAME,
         'is_allowed'     : allowed
         }  
-        logger.warning("Access Denied : A user %s with no appropriate permission has requested the Dashboard Page", name)
+        logger.warning("Access Denied : A user %s with no appropriate permission has requested the Dashboard Page", username)
     else : 
         context = {
-            'name'          : name,
+            'name'          : username,
             'page_title'    : page_title,
             'site_name'     : settings.SITE_NAME,
             'summary' : analytics.dashboard_summary(),
@@ -43,7 +43,7 @@ def dashboard(request):
             'recent_services' : analytics.get_recent_services(),
             'is_allowed'     : allowed
         }
-        logger.info("Authorized Access : User %s has requested the Dashboard Page", name)
+        logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
 
     return render(request, template_name, context)
 
