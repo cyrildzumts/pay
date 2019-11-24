@@ -129,7 +129,7 @@ class PaymentService :
             postdata = utils.get_postdata(request)
             transfer_form = TransferForm(postdata)
             if transfer_form.is_valid():
-                logger.info(" Transfer Form is Valid")
+                logger.debug(" Transfer Form is Valid")
                 recipient = postdata['recipient']
                 amount = int(postdata['amount'])
                 if(current_balance - amount) >= 0:
@@ -140,7 +140,7 @@ class PaymentService :
                         transfer_form.save()
                         context['success'] = True
                         context['balance'] = current_balance - amount
-                        logger.info("Transfer was succefull")
+                        logger.debug("Transfer was succefull")
                     else:
                         context['errors'] = "The recipient could not be found."
                         logger.error("There was an error with the transfer request : %s", context['errors'])
@@ -148,13 +148,13 @@ class PaymentService :
                         return context
                     
                 else :
-                    context['success'] = False
                     context['balance'] = current_account.balance
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
                     return context
         else:
             context['balance'] = current_account.balance
             context['errors'] = "Verifiez les champs du formulaire."
+            logger.error("Transfer Form is not valid")
         return context
 
 
