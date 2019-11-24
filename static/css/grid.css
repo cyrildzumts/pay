@@ -6,7 +6,9 @@
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  align-items: baseline;
   justify-content: center;
+
 }
 
 .flex{
@@ -27,7 +29,7 @@
 	position: relative;
   /*border: #fff 2px solid;*/
   /*border-radius: 8px;*/
-	margin: auto;
+	margin: ;
 }
 
 
