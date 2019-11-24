@@ -144,6 +144,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'pay.context_processors.site_context',
+                'accounts.context_processors.account_context'
             ],
         },
     },
