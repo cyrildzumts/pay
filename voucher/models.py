@@ -22,7 +22,7 @@ class Voucher(models.Model):
     sold_by = models.ForeignKey(User, related_name='soldvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateTimeField(blank=True, null=True)
     sold_at = models.DateTimeField(blank=True, null=True)
-    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
+    voucher_uuid = models.UUIDField(default=uuid.uuid4())
 
     class Meta:
         verbose_name = _("Voucher")
@@ -55,7 +55,7 @@ class SoldVoucher(models.Model):
     seller = models.ForeignKey(User, related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="sold_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     sold_at = models.DateTimeField(auto_now_add=True)
-    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
+    voucher_uuid = models.UUIDField(default=uuid.uuid4())
 
     class Meta:
         verbose_name = _("SoldVoucher")
@@ -84,7 +84,7 @@ class UsedVoucher(models.Model):
     customer = models.ForeignKey(User, related_name='used_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="used_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateTimeField(auto_now_add=True)
-    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
+    voucher_uuid = models.UUIDField(default=uuid.uuid4())
     class Meta:
         verbose_name = _("UsedVoucher")
         verbose_name_plural = _("UsedVouchers")
@@ -112,7 +112,7 @@ class Recharge(models.Model):
     seller = models.ForeignKey(User, related_name='recharges', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     amount = models.IntegerField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
+    recharge_uuid = models.UUIDField(default=uuid.uuid4())
 
     class Meta:
         permissions = (
@@ -124,5 +124,5 @@ class Recharge(models.Model):
         return "Recharge " + self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:recharge-detail", kwargs={"voucher_uuid": self.voucher_uuid})
+        return reverse("voucher:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})
     
