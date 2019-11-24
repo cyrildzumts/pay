@@ -18,6 +18,9 @@
                         <a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a>
                         <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
                         <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:transfers' %}"> {% trans "Transfer History" %}</a>
+                        
+                        <a class="mat-button mat-button-text" href="{%url 'payments:services' %}"> {% trans "Service Usage History" %}</a>
                 </div><!--End of Banner-Actions-->
             </div><!--End of Responsive-->
         
@@ -29,11 +32,7 @@
 
 <div class="row">
         <div class="tabs">
-                <div class="tabs--title">
-                        <div class="full welcome-text center">
-                                <p> {% trans "Welcome" %} {{name}}</p>
-                        </div>
-                </div>
+                
                 <div class="row">
                         <ul  class="action-list listview">
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a> </li>

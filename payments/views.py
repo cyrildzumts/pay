@@ -44,7 +44,6 @@ def payment_home(request):
     
     context = {
         'page_title' : page_title,
-        'account' : account
     }
 
 
@@ -87,7 +86,7 @@ def ajax_validate_payment(request):
 def transactions(request):
     context = {}
     current_account = Account.objects.get(user=request.user)
-    user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
+    user_transactions = Transaction.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
     template_name = "payments/transaction_list.html"
     page_title = "Your Transactions" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -161,7 +160,13 @@ def transaction_details(request, transaction_uuid=None):
 
 @login_required
 def transfers(request):
-    pass
+    context = {}
+    transfer_list = Transfer.objects.filter(Q(sender=request.user) | Q(recipient=request.user))
+    template_name = "payments/transfer_list.html"
+    page_title = "My Transers" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['transfer_list'] = transfer_list
+    return render(request,template_name, context)
 
 @login_required
 def new_transfer(request):
@@ -211,14 +216,11 @@ def transfer_done(request):
 @login_required
 def transfer_details(request, transfer_uuid=None):
     context = {}
-    user_services = Transfer.objects.filter(Q(sender__user=request.user) | Q(recipient__user=request.user) )
-    transfer = get_object_or_404(user_services, transfer_uuid=transfer_uuid)
-    balance = Account.objects.get(user=request.user).balance
+    transfer = get_object_or_404(Transfer, transfer_uuid=transfer_uuid)
     template_name = "payments/transfer_detail.html"
     page_title = "Transfer Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['transfer'] = transfer
-    context['balance'] = balance
     return render(request,template_name, context)
 
 @login_required
