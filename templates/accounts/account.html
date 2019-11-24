@@ -2,7 +2,24 @@
 {% load i18n %}
 
 {% block HEADER_BANNER %}
-
+    <div class="banner banner-align-left">
+        <div class="container">
+            <div class="col col-9">
+                <div class="banner--content flex-column">
+                    <div class="row row-left"><span class="item"><h4>{% trans "Balance" %}</h4></span></div>
+                    <div class="row row-left subtitle"><span class="item"><i class="fas fa-map-marked"></i> <span>{{account.balance}} {% trans "XAFs" %} </span></span></div>
+                    
+                </div><!--End of Banner-Content-->
+                <div class="banner--actions">
+                        <a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
+                        <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
 {% endblock HEADER_BANNER %}
 {% block MAIN %}
 
