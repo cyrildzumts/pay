@@ -68,7 +68,7 @@
 
 .box{
     display: flex;
-
+    flex-wrap: wrap;
     padding:16px 8px;
     margin: 16px 4px;
     text-align: center;
