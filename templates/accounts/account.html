@@ -30,7 +30,17 @@
         <!--End of tabs-->
 </div>
 <div class="container">
-    {% include "tags/event_list_snippet.html" %}
+    {% if has_payments %}
+         {% include "tags/payment_list_snippet.html" %}
+    {% endif %}
+    {% if has_transfers %}
+         {% include "tags/transfer_list_snippet.html" %}
+    {% endif %}
+    {% if has_recharges %}
+         {% include "tags/recharge_list_snippet.html" %}
+    {% endif %}
+
+   
 </div>
 
 {% endblock MAIN %}
