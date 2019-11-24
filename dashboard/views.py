@@ -128,8 +128,8 @@ def available_service_update(request, available_uuid=None):
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
     
     form = forms.AvailableServiceForm(instance=instance)
-    categories = analytics.get_category_services_filter_by(None)
-    operators = analytics.get_model_all_instance_filter_by('django.contrib.auth', 'User', {'is_superuser': False, 'is_active': True, 'account__account_type': 'B'})
+    categories = analytics.get_categories()
+    operators = analytics.get_operators()
     context = {
             'page_title':page_title,
             'template_name':template_name,
@@ -157,8 +157,8 @@ def available_service_create(request):
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
     elif request.method == "GET":
         form = forms.AvailableServiceForm()
-        categories = analytics.get_category_services_filter_by(kwargs={})
-        operators = analytics.get_model_all_instance_filter_by('django.contrib.auth', 'User', {'is_superuser': False, 'is_active': True, 'account__account_type': 'B'})
+        categories = analytics.get_categories()
+        operators = analytics.get_operators()
 
     context = {
             'page_title':page_title,

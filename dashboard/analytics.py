@@ -303,6 +303,12 @@ def get_number_available_services_filter_by(**kwargs):
     return utils.get_model('payments', 'AvailableService').objects.filter(**kwargs).count()
 
 
+def get_categories():
+    return utils.get_model('payments', 'ServiceCategory').objects.filter(is_active=True)
+
+def get_operators():
+    return User.objects.filter(is_superuser=False, is_active=True, account__account_type='B')
+
 def get_category_services_filter_by(**kwargs):
     return utils.get_model('payments', 'ServiceCategory').objects.filter(**kwargs)
 
