@@ -27,7 +27,6 @@ def voucher_home(request):
     template_name = "voucher/voucher.html"
     page_title = _("Voucher Dashboard") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     messages.info(request, _("Welcome back to voucher page"))
     return render(request, template_name, context)
 
@@ -42,7 +41,6 @@ def vouchers(request):
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['vouchers'] = vouchers
     return render(request, template_name, context)
 
@@ -55,7 +53,6 @@ def voucher_details(request, pk=None):
 
     context = {
         'page_title': page_title,
-        'site_name': settings.SITE_NAME,
         'template_name': template_name,
         'voucher': instance
     }
@@ -145,7 +142,6 @@ def used_vouchers(request):
     template_name = "voucher/used_voucher_list.html"
     page_title = _("Used Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['used_vouchers'] = used_vouchers
     return render(request, template_name, context)
 
@@ -157,7 +153,6 @@ def used_voucher_details(request, pk=None):
     template_name = "voucher/used_voucher_details.html"
     context = {
         'page_title': page_title,
-        'site_name': settings.SITE_NAME,
         'template_name': template_name,
         'used_voucher': instance
     }
@@ -174,7 +169,6 @@ def sold_vouchers(request):
     template_name = "voucher/sold_voucher_list.html"
     page_title = _("Sold Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['sold_vouchers'] = sold_vouchers
     return render(request, template_name, context)
 
@@ -186,7 +180,6 @@ def sold_voucher_details(request, pk=None):
     template_name = "voucher/sold_voucher_details.html"
     context = {
         'page_title': page_title,
-        'site_name': settings.SITE_NAME,
         'template_name': template_name,
         'sold_voucher': instance
     }
@@ -220,7 +213,6 @@ def voucher_generate(request):
             return redirect('voucher:voucher_home')
     context = {
         'page_title': page_title,
-        'site_name': settings.SITE_NAME,
         'template_name': template_name,
     }
     return render(request, template_name, context)

@@ -29,7 +29,6 @@ def dashboard(request):
         context = {
         'name'          : username,
         'page_title'    : page_title,
-        'site_name'     : settings.SITE_NAME,
         'is_allowed'     : allowed
         }  
         logger.warning("Access Denied : A user %s with no appropriate permission has requested the Dashboard Page", username)
@@ -37,7 +36,6 @@ def dashboard(request):
         context = {
             'name'          : username,
             'page_title'    : page_title,
-            'site_name'     : settings.SITE_NAME,
             'summary' : analytics.dashboard_summary(),
             'recent_transfers' : analytics.get_recent_transfers(),
             'recent_services' : analytics.get_recent_services(),
@@ -54,7 +52,6 @@ def generate_token(request):
     template_name = "dashboard/token_generate.html"
     context = {
         'page_title' :_('User Token Generation') + ' - ' + settings.SITE_NAME,
-        'site_name': settings.SITE_NAME,
         'is_allowed' : allowed,
     }
     
@@ -87,7 +84,6 @@ def service_details(request, pk=None):
     template_name = "dashboard/service_detail.html"
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['service'] = service
     context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
@@ -101,7 +97,6 @@ def services(request):
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['services'] = services
     context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
@@ -116,7 +111,6 @@ def available_services(request):
     template_name = "dashboard/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['available_services'] = available_services
     return render(request,template_name, context)
 
@@ -136,7 +130,6 @@ def available_service_update(request, pk=None):
     form = forms.AvailableServiceForm(instance=instance)
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'service' : instance,
             'form': form
@@ -163,7 +156,6 @@ def available_service_create(request):
 
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'form': form
         }
@@ -188,7 +180,6 @@ def available_service_remove(request, pk=None):
     form = forms.AvailableServiceForm(instance=instance)
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'service' : instance,
             'form': form
@@ -204,7 +195,6 @@ def available_service_details(request, pk=None):
     template_name = "dashboard/available_service_detail.html"
     page_title = "Available Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['service'] = service
     return render(request,template_name, context)
 
@@ -216,7 +206,6 @@ def category_services(request):
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['categories'] = categories
     return render(request,template_name, context)
 
@@ -238,7 +227,6 @@ def category_service_update(request, pk=None):
     form = forms.ServiceCategoryForm(instance=instance)
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'category' : instance,
             'form': form
@@ -264,7 +252,6 @@ def category_service_remove(request, pk=None):
     form = forms.AvailableServiceForm(instance=instance)
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'category' : instance,
             'form': form
@@ -292,7 +279,6 @@ def category_service_create(request):
 
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'form': form
         }
@@ -311,7 +297,6 @@ def category_service_details(request, pk=None):
     template_name = "dashboard/category_service_detail.html"
     page_title = "Service Category Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['category'] = category
     context['has_services'] = category.available_services.exists()
     context['available_services'] = category.available_services.all()
@@ -327,7 +312,6 @@ def policies(request):
     template_name = "dashboard/policy_list.html"
     page_title = "Policies - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['policies'] = current_policies
     return render(request,template_name, context)
 
@@ -349,7 +333,6 @@ def policy_update(request, pk=None):
     form = forms.PolicyForm(instance=instance)
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'policy' : instance,
             'form': form
@@ -376,7 +359,6 @@ def policy_remove(request, pk=None):
     form = forms.PolicyForm(instance=instance)
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'policy' : instance,
             'form': form
@@ -405,7 +387,6 @@ def policy_create(request):
 
     context = {
             'page_title':page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name':template_name,
             'form': form
         }
@@ -423,7 +404,6 @@ def policy_details(request, pk=None):
     template_name = "dashboard/policy_detail.html"
     page_title = "Policy Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['policy'] = policy
     return render(request,template_name, context)
 
@@ -440,7 +420,6 @@ def transfers(request):
     template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['transfers'] = queryset
     return render(request,template_name, context)
 
@@ -453,7 +432,6 @@ def transfer_details(request, pk=None):
     template_name = "dashboard/transfer_detail.html"
     page_title = "Transfer Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['transfer'] = transfer
     return render(request,template_name, context)
 
@@ -466,7 +444,6 @@ def payments(request):
     template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['payments'] = queryset
     return render(request,template_name, context)
 
@@ -479,7 +456,6 @@ def payment_details(request, pk=None):
     template_name = "dashboard/payment_detail.html"
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['payment'] = payment
     return render(request,template_name, context)
 
@@ -492,7 +468,6 @@ def cases(request):
     template_name = "dashboard/cases.html"
     page_title = "Cases - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['cases'] = queryset
     return render(request,template_name, context)
 
@@ -505,7 +480,6 @@ def case_details(request, pk=None):
     template_name = "dashboard/case_detail.html"
     page_title = "Claim Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['claim'] = claim
     return render(request,template_name, context)
 
@@ -519,7 +493,6 @@ def case_close(request, pk=None):
     template_name = "dashboard/case_close.html"
     page_title = "Claim Closing - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['claim'] = claim
     return render(request,template_name, context)
 

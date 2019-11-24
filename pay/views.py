@@ -34,8 +34,7 @@ def home(request):
     page_title = settings.SITE_NAME + " - Paiement en ligne"
     context = {
         'page_title': page_title,
-        'user_is_authenticated' : request.user.is_authenticated,
-        'site_name': settings.SITE_NAME
+        'user_is_authenticated' : request.user.is_authenticated
     }
     return render(request, template_name,context)
 
@@ -68,7 +67,6 @@ def customer_usage(request):
     template_name = "customer_usage.html"
     page_title =  "Customer Usage | " + settings.SITE_NAME
     context = {
-        'page_title': page_title,
-        'site_name' : settings.SITE_NAME
+        'page_title': page_title
     }
     return render(request, template_name,context)

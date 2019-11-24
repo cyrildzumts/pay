@@ -91,7 +91,6 @@ def transactions(request):
     template_name = "payments/transaction_list.html"
     page_title = "Your Transactions" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['transactions'] = user_transactions
     logger.debug("%s requested transactions list", current_account.full_name())
     return render(request,template_name, context)
@@ -131,7 +130,6 @@ def new_transaction(request):
         
         context = {
                 'page_title': page_title,
-                'site_name' : settings.SITE_NAME,
                 'form': TransactionForm()
         }
     return render(request, template_name, context)
@@ -143,7 +141,6 @@ def transaction_done(request, redirected_from = None):
     template_name = "payments/transaction_done.html"
     page_title = "Transaction Done - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     return render(request,template_name, context)
 
 
@@ -157,7 +154,6 @@ def transaction_details(request, pk=None):
     template_name = "payments/transaction_detail.html"
     page_title = "Transaction Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['transaction'] = transaction
     return render(request,template_name, context)
 
@@ -196,7 +192,6 @@ def new_transfer(request):
             form = TransferForm()
             context = {
                 'page_title':page_title,
-                'site_name' : settings.SITE_NAME,
                 'form': form,
                 'balance': account.balance,
                 'contacts': User.objects.filter(is_staff=False)
@@ -210,7 +205,6 @@ def transfer_done(request):
     template_name = "payments/transfer_done.html"
     page_title = "Confirmation" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     return render(request,template_name, context)
 
 
@@ -223,7 +217,6 @@ def transfer_details(request, pk=None):
     template_name = "payments/transfer_detail.html"
     page_title = "Transfer Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['transfer'] = transfer
     context['balance'] = balance
     return render(request,template_name, context)
@@ -235,7 +228,6 @@ def services(request):
     template_name = "payments/service_list.html"
     page_title = "Services" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['services'] = services
     return render(request,template_name, context)
 
@@ -288,7 +280,6 @@ def new_service(request, pk=None):
             service = get_object_or_404(AvailableService, pk=pk)
             context = {
                 'page_title':page_title,
-                'site_name' : settings.SITE_NAME,
                 'service' : service,
                 'form': form()
             }
@@ -308,7 +299,6 @@ def service_details(request, pk=None):
     template_name = "payments/service_detail.html"
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['service'] = service
     return render(request,template_name, context)
 
@@ -320,7 +310,6 @@ def service_categories(request):
     template_name = "payments/service_category_list.html"
     page_title = "Service Categories" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['categories'] = categories
     return render(request,template_name, context)
 
@@ -332,7 +321,6 @@ def service_category_details(request, pk=None):
     template_name = "payments/service_category_detail.html"
     page_title = "Service Category Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['category'] = category
     return render(request,template_name, context)
 
@@ -343,7 +331,6 @@ def available_services(request):
     template_name = "payments/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['available_services'] = available_services
     return render(request,template_name, context)
 
@@ -355,7 +342,6 @@ def available_service_details(request, pk=None):
     template_name = "payments/available_service_detail.html"
     page_title = "Available Service Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['service'] = service
     return render(request,template_name, context)
 
@@ -376,7 +362,6 @@ def payments(request):
     template_name = "payments/payment_list.html"
     page_title = "Payments" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['payments'] = user_payments
     context['account'] = current_account
     return render(request,template_name, context)
@@ -391,7 +376,6 @@ def payment_details(request, pk=None):
     template_name = "payments/payment_detail.html"
     page_title = "Payment Details" + " + " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['payment'] = payment
     context['account'] = current_account
     return render(request,template_name, context)
@@ -404,7 +388,6 @@ def policies(request):
     template_name = "payments/policy_list.html"
     page_title = "Policies" + " + " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['policies'] = current_policies
     return render(request,template_name, context)
 
@@ -416,7 +399,6 @@ def policy_details(request, pk=None):
     template_name = "payments/policy_detail.html"
     page_title = "Policy Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['policy'] = policy
     return render(request,template_name, context)
 
@@ -427,7 +409,6 @@ def cases(request):
     template_name = "payments/claim_list.html"
     page_title = "Claims" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['claims'] = user_claims
     return render(request,template_name, context)
 
@@ -440,7 +421,6 @@ def case_details(request, pk=None):
     template_name = "payments/claim_detail.html"
     page_title = "Claim Details"+ " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['claim'] = claim
     return render(request,template_name, context)
 
@@ -452,7 +432,6 @@ def reductions(request):
     template_name = "payments/reduction_list.html"
     page_title = "Reductions" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['reductions'] = current_reductions
     return render(request,template_name, context)
 
@@ -464,7 +443,6 @@ def reduction_details(request, pk=None):
     template_name = "payments/reduction_detail.html"
     page_title = "Reduction Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['reduction'] = reduction
     return render(request,template_name, context)
 
@@ -507,7 +485,6 @@ def recharge(request):
             form = RechargeForm(request.POST.copy())
             context = {
                 'page_title':page_title,
-                'site_name' : settings.SITE_NAME,
                 'form': form
             }
 
@@ -515,7 +492,6 @@ def recharge(request):
             form = RechargeForm()
             context = {
                 'page_title':page_title,
-                'site_name' : settings.SITE_NAME,
                 'form': form
             }
     return render(request, template_name, context)
@@ -528,7 +504,6 @@ def idcards(request):
     template_name = "payments/idcard_list.html"
     page_title = "ID Cards" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     context['idcards'] = current_idcards
     return render(request,template_name, context)
 
@@ -546,7 +521,6 @@ def idcard_details(request, pk=None):
     template_name = "payments/idcard_detail.html"
     page_title = "My ID Card" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     return render(request,template_name, context)
 
 
@@ -557,7 +531,6 @@ def upload_idcard(request):
     template_name = "payments/upload_idcard.html"
     page_title = "Identification Solution" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     
     if request.method == "POST":
         postdata = utils.get_postdata(request)
@@ -599,7 +572,6 @@ def update_idcard(request, pk=None):
     account = get_object_or_404(Account, user=request.user)
     context = {
             'page_title': page_title,
-            'site_name' : settings.SITE_NAME,
             'template_name': template_name,
             'idcard'  : instance,
             'balance' : account.balance,
@@ -615,7 +587,6 @@ def upload_idcard_done(request):
     template_name = "payments/upload_idcard_done.html"
     page_title = "ID Card uploaded" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['site_name'] = settings.SITE_NAME
     return render(request,template_name, context)
 
 @login_required
