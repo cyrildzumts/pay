@@ -35,10 +35,9 @@
                 
                 <div class="row">
                         <ul  class="action-list listview">
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a> </li>
+                                
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li>
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> </li>      
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a> </li>
+                                
                                 {% if has_idcard is True %}
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' idcard.idcard_uuid %}"> {% trans "Update my ID" %}</a> </li>
                                 {% else %}
