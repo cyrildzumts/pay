@@ -9,6 +9,7 @@
   align-items: baseline !important;
   justify-content: center !important;
 
+
 }
 
 .flex{
@@ -27,8 +28,7 @@
 
 .col {
 	position: relative;
-  /*border: #fff 2px solid;*/
-  /*border-radius: 8px;*/
+  align-self: stretch;
 	margin: 0;
 }
 
