@@ -76,11 +76,11 @@ def generate_token(request):
     
 
 @login_required
-def service_details(request, pk=None):
+def service_details(request, service_uuid=None):
     context = {}
     model = utils.get_model('payments', 'Service')
     user_services = model.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
-    service = get_object_or_404(user_services, pk=pk)
+    service = get_object_or_404(user_services, service_uuid=service_uuid)
     template_name = "dashboard/service_detail.html"
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -114,9 +114,9 @@ def available_services(request):
     context['available_services'] = available_services
     return render(request,template_name, context)
 
-def available_service_update(request, pk=None):
+def available_service_update(request, available_uuid=None):
     page_title = _("Edit Available Service")+ ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(forms.AvailableService, pk=pk)
+    instance = get_object_or_404(forms.AvailableService, available_uuid=available_uuid)
     template_name = "dashboard/available_service_update.html"
     if request.method =="POST":
         form = forms.AvailableServiceForm(request.POST, instance=instance)
@@ -128,11 +128,15 @@ def available_service_update(request, pk=None):
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
     
     form = forms.AvailableServiceForm(instance=instance)
+    categories = analytics.get_category_services_filter_by(None)
+    operators = analytics.get_model_all_instance_filter_by('django.contrib.auth', 'User', {'is_superuser': False, 'is_active': True, 'account__account_type': 'B'})
     context = {
             'page_title':page_title,
             'template_name':template_name,
             'service' : instance,
-            'form': form
+            'form': form,
+            'categories': categories,
+            'operators': operators
         }
     
     return render(request, template_name,context )
@@ -153,24 +157,28 @@ def available_service_create(request):
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
     elif request.method == "GET":
         form = forms.AvailableServiceForm()
+        categories = analytics.get_category_services_filter_by(None)
+        operators = analytics.get_model_all_instance_filter_by('django.contrib.auth', 'User', {'is_superuser': False, 'is_active': True, 'account__account_type': 'B'})
 
     context = {
             'page_title':page_title,
             'template_name':template_name,
-            'form': form
+            'form': form,
+            'categories': categories,
+            'operators': operators
         }
     
     
     return render(request, template_name,context )
 
 @login_required
-def available_service_remove(request, pk=None):
+def available_service_remove(request, available_uuid=None):
     page_title = _("Edit Available Service")+ ' | ' + settings.SITE_NAME
     template_name = "dashboard/available_service_remove.html"
     if request.method =="POST":
         form = forms.AvailableServiceForm(request.POST)
-        if form.is_valid() and forms.AvailableService.objects.filter(pk=pk).exists() :
-            forms.AvailableService.objects.filter(pk=pk).delete()
+        if form.is_valid() and forms.AvailableService.objects.filter(available_uuid=available_uuid).exists() :
+            forms.AvailableService.objects.filter(available_uuid=available_uuid).delete()
             logger.info("AvailableServiceForm for instance %s is valid", form.cleaned_data['name'])
             return redirect('dashboard:available_services')
         else:
@@ -188,10 +196,10 @@ def available_service_remove(request, pk=None):
     return render(request, template_name,context )
 
 @login_required
-def available_service_details(request, pk=None):
+def available_service_details(request, available_uuid=None):
     context = {}
     model = utils.get_model('payments', 'AvailableService')
-    service= get_object_or_404(model, pk=pk)
+    service= get_object_or_404(model, available_uuid=available_uuid)
     template_name = "dashboard/available_service_detail.html"
     page_title = "Available Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -211,9 +219,9 @@ def category_services(request):
 
 
 @login_required
-def category_service_update(request, pk=None):
+def category_service_update(request, category_uuid=None):
     page_title = _("Edit Category Service")+ ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(forms.ServiceCategory, pk=pk)
+    instance = get_object_or_404(forms.ServiceCategory, category_uuid=category_uuid)
     template_name = "dashboard/category_service_update.html"
     if request.method =="POST":
         form = forms.ServiceCategoryForm(request.POST, instance=instance)
@@ -236,19 +244,19 @@ def category_service_update(request, pk=None):
 
 
 @login_required
-def category_service_remove(request, pk=None):
+def category_service_remove(request, category_uuid=None):
     page_title = _("Removing Category Service")+ ' | ' + settings.SITE_NAME
     template_name = "dashboard/category_service_remove.html"
     if request.method =="POST":
         form = forms.ServiceCategoryForm(request.POST)
-        if form.is_valid() and forms.ServiceCategory.objects.filter(pk=pk).exists() :
-            forms.ServiceCategory.objects.filter(pk=pk).delete()
+        if form.is_valid() and forms.ServiceCategory.objects.filter(category_uuid=category_uuid).exists() :
+            forms.ServiceCategory.objects.filter(category_uuid=category_uuid).delete()
             logger.info("ServiceCategoryForm for instance %s is valid", form.cleaned_data['category_name'])
             return redirect('dashboard:category_services')
         else:
             logger.info("Edit ServiceCategoryForm is not valid. Errors : %s", form.errors)
     
-    instance = get_object_or_404(forms.AvailableService, pk=pk)
+    instance = get_object_or_404(forms.AvailableService, category_uuid=category_uuid)
     form = forms.AvailableServiceForm(instance=instance)
     context = {
             'page_title':page_title,
@@ -288,11 +296,11 @@ def category_service_create(request):
 
 
 @login_required
-def category_service_details(request, pk=None):
+def category_service_details(request, category_uuid=None):
     context = {}
     model = utils.get_model('payments', 'ServiceCategory')
     avs_model = utils.get_model('payments', 'AvailableService')
-    category = get_object_or_404(model, pk=pk)
+    category = get_object_or_404(model, category_uuid=category_uuid)
     avs = avs_model.objects.filter(category=category)
     template_name = "dashboard/category_service_detail.html"
     page_title = "Service Category Details - " + settings.SITE_NAME
@@ -317,16 +325,16 @@ def policies(request):
 
 
 @login_required
-def policy_update(request, pk=None):
+def policy_update(request, policy_uuid=None):
     page_title = _("Edit Policy")+ ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(forms.Policy, pk=pk)
+    instance = get_object_or_404(forms.Policy, policy_uuid=policy_uuid)
     template_name = "dashboard/policy_update.html"
     if request.method =="POST":
         form = forms.PolicyForm(request.POST, instance=instance)
         if form.is_valid():
             logger.info("PolicyForm for instance %s is valid", form.cleaned_data['commission'])
             form.save()
-            return redirect('dashboard:policy')
+            return redirect('dashboard:policies')
         else:
             logger.info("Edit PolicyForm is not valid. Errors : %s", form.errors)
     
@@ -343,19 +351,19 @@ def policy_update(request, pk=None):
 
 
 @login_required
-def policy_remove(request, pk=None):
+def policy_remove(request, policy_uuid=None):
     page_title = _("Removing Policy")+ ' | ' + settings.SITE_NAME
     template_name = "dashboard/policy_remove.html"
     if request.method =="POST":
         form = forms.PolicyForm(request.POST)
-        if form.is_valid() and forms.Policy.objects.filter(pk=pk).exists() :
-            forms.Policy.objects.filter(pk=pk).delete()
+        if form.is_valid() and forms.Policy.objects.filter(policy_uuid=policy_uuid).exists() :
+            forms.Policy.objects.filter(policy_uuid=policy_uuid).delete()
             logger.info("PolicyForm for instance %s is valid", form.cleaned_data['commission'])
             return redirect('dashboard:policies')
         else:
             logger.info("Edit PolicyForm is not valid. Errors : %s", form.errors)
     
-    instance = get_object_or_404(forms.Policy, pk=pk)
+    instance = get_object_or_404(forms.Policy, policy_uuid=policy_uuid)
     form = forms.PolicyForm(instance=instance)
     context = {
             'page_title':page_title,
@@ -396,11 +404,11 @@ def policy_create(request):
 
 
 @login_required
-def policy_details(request, pk=None):
+def policy_details(request, policy_uuid=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Policy')
     #current_account = Account.objects.get(user=request.user)
-    policy = get_object_or_404(model, pk=pk)
+    policy = get_object_or_404(model, policy_uuid=policy_uuid)
     template_name = "dashboard/policy_detail.html"
     page_title = "Policy Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -449,10 +457,10 @@ def payments(request):
 
 
 @login_required
-def payment_details(request, pk=None):
+def payment_details(request, payment_uuid=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Payment')
-    payment = get_object_or_404(model, pk=pk)
+    payment = get_object_or_404(model, payment_uuid=payment_uuid)
     template_name = "dashboard/payment_detail.html"
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -473,10 +481,10 @@ def cases(request):
 
 
 @login_required
-def case_details(request, pk=None):
+def case_details(request, issue_uuid=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
-    claim = get_object_or_404(model, pk=pk)
+    claim = get_object_or_404(model, issue_uuid=issue_uuid)
     template_name = "dashboard/case_detail.html"
     page_title = "Claim Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -486,10 +494,10 @@ def case_details(request, pk=None):
 
 
 @login_required
-def case_close(request, pk=None):
+def case_close(request, issue_uuid=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
-    claim = get_object_or_404(model, pk=pk)
+    claim = get_object_or_404(model, issue_uuid=issue_uuid)
     template_name = "dashboard/case_close.html"
     page_title = "Claim Closing - " + settings.SITE_NAME
     context['page_title'] = page_title
