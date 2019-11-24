@@ -257,10 +257,6 @@ a.button{
   /*height: 64rem;*/
 }
 
-.footer {
-  --width-mobile: 12;
-  height: auto;
-}
 
 .footer .copyright span{
   padding: 10px;

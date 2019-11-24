@@ -24,51 +24,6 @@ def bad_request(request):
     return render(request, template_name)
 
 
-def login_view(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
-    print("login_view called")
-    if user is not None and user.is_active:
-        # correct password, and the user is marked "active"
-        auth.login(request, user)
-        # Redirect to a success page
-        return HttpResponseRedirect("/account/loggedin/")
-    else:
-        # show an error page
-        return HttpResponseRedirect("/account/invalid/")
-
-
-def logout_view(request):
-    auth.logout(request)
-    # Redirect to a succes page
-    return HttpResponseRedirect("/account/loggedout/")
-
-
-def register(request):
-    f = None
-    template_name="registration/register.html"
-    page_title = settings.SITE_NAME + " - Creation de Compte"
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        print_form(form)
-        if form.is_valid():
-            new_user = form.save()
-            return HttpResponseRedirect("/")
-        else:
-            f = UserCreationForm()
-    else:
-        f = UserCreationForm()
-    context = {
-        'page_title': page_title,
-        'form' : f,
-        'site_name': settings.SITE_NAME
-    }
-    return render(request,template_name, context)
-
-
-
-
 def home(request):
     """
     This function serves the About Page.

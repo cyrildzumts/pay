@@ -108,10 +108,13 @@
                 {% block FOOTER %}
                 
                 {% endblock FOOTER %}
-                <div class="row">
+                <div class="footer-list">
                         {% now "Y" as current_year %}
-                        <div class="copyright">Copyright <i class="fa fa-copyright"></i><span class="copyright-year">{{current_year}}</span> </div>
-                        <div class="site">{{site_name}} - {%trans 'Online Payment' %} </div>
+                        <ul class="flex">
+                                <li class="list-item flex"><div class="copyright">Copyright <i class="fa fa-copyright"></i><span class="copyright-year">{{current_year}}</span> </div> <div class="site">{{site_name}} - {%trans 'Payment Solutions' %} </div></li>
+                                <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'about' %}">{% trans "About us" %}</a></li>
+                                <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'faq' %}">{% trans "FAQ" %}</a></li>
+                        </ul>
                 </div>
                 </footer>
         </div>
