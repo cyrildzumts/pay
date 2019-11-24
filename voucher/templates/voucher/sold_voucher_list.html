@@ -12,6 +12,9 @@
 </div>
 
 <div class="container">
+  {% if voucher_list %}
+  
+
 
     <div class="mat-table-wrapper">
         <div class="row">
@@ -51,6 +54,15 @@
     </table>
     {% include "tags/pagination.html" with page_set=voucher_list %} 
     </div><!--End of Table Wrapper-->
-
+  {% else %}
+    <div class="">
+      <p>{% trans "There are no Voucher sold now." %}</p>
+      <ul class="mat-list">
+        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">Dashboard</a></li>
+        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher_home' %}">Voucher Board</a></li>
+        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
+      </ul>
+    </div>
+  {% endif %}
 </div>
 {% endblock MAIN %}
