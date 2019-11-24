@@ -5,38 +5,50 @@
 
 <div class="container">
          <div class="box">
-            <div class="card__title title">
-                <h3> {% trans voucher.name  %} </h3>
+
+            <div class="row">
+                <div class="col col-3">
+                    <div class="title">
+                        <h3> {% trans voucher.name  %} </h3>
+                    </div>
+                </div>
+                <div class="col col-9">
+                    <ul class="content">
+                        <li><span>{% trans "Credit" %} :</span> <span>{{voucher.amount}} {% trans "XAF" %}</span></li>
+
+                        <li><span>{% trans "Voucher Code" %} :</span> <span>{{voucher.voucher_code}}</span></li>
+                        <li><span>{% trans "Creation Date" %} :</span> <span>{{voucher.created_at}}</span></li>
+     
+                        {% if voucher.activated is True %}
+                        <li><span>{% trans "Activated" %} :</span> <span>{% trans "Yes" %}</span></li>
+                        <li><span>{% trans "Activation Date" %} :</span> <span>{{voucher.activated_at}}</span></li>
+                        {% else %}
+                        <li><span>{% trans "Activated" %} :</span> <span>{% trans "No" %}</span></li>
+                        {% endif %}
+
+                        {% if voucher.is_used is True %}
+                        <li><span>{% trans "Is already used " %} :</span> <span>{% trans "Yes" %}</span></li>
+
+                        {% else %}
+                        <li><span>{% trans "Is already used " %} :</span> <span>{% trans "No" %}</span></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-            <div class="box-content content">
-                
-                <p> {% trans "Credit" %} : {{voucher.amount}} {% trans "XAF" %} </p>
-                <p> {% trans "Voucher Code" %} : {{voucher.voucher_code}} </p>
-                <p> {% trans "Creation Date" %} : {{voucher.created_at}} </p>
-                {% if voucher.activated is True %}
-                <p> {% trans "Activated" %} :  {% trans "Yes" %}</p>
-                <p> {% trans "Activation Date" %} : {{voucher.activated_at}} </p>
-                {% else %}
-                <p> {% trans "Activated" %} :  {% trans "No" %}</p>
-                {% endif %}
-
-                {% if voucher.is_used is True %}
-                <p> {% trans "Is already used " %} :  {% trans "Yes" %}</p>
-
-                {% else %}
-                <p> {% trans "Is already used " %} :  {% trans "No" %}</p>
-                {% endif %}
-            </div>
-
-            <div class="actions">
-              {% if voucher.activated is False %}
+            <div class="row">
+                <div class="row">
+                {% if voucher.activated is False %}
                   <a class="mat-button mat-button-default" href="{% url 'voucher:activate' voucher.voucher_uuid %} "> {% trans "Activate this Voucher" %} </a>
-              {% endif %}
+                {% endif %}
                   
                   <a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
                   <a class="mat-button mat-button-text" href="{% url 'accounts:account' %}"> {% trans "PAY Home" %} </a>
+                </div>
             </div>
-          
+            
+            
+
+            
         </div>
     
     
