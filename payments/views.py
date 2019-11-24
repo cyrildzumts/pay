@@ -145,12 +145,12 @@ def transaction_done(request, redirected_from = None):
 
 
 @login_required
-def transaction_details(request, pk=None):
+def transaction_details(request, transaction_uuid=None):
 
     context = {}
     current_account = Account.objects.get(user=request.user)
     user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
-    transaction = get_object_or_404(user_transactions, pk=pk)
+    transaction = get_object_or_404(user_transactions, transaction_uuid=transaction_uuid)
     template_name = "payments/transaction_detail.html"
     page_title = "Transaction Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -209,10 +209,10 @@ def transfer_done(request):
 
 
 @login_required
-def transfer_details(request, pk=None):
+def transfer_details(request, transfer_uuid=None):
     context = {}
     user_services = Transfer.objects.filter(Q(sender__user=request.user) | Q(recipient__user=request.user) )
-    transfer = get_object_or_404(user_services, pk=pk)
+    transfer = get_object_or_404(user_services, transfer_uuid=transfer_uuid)
     balance = Account.objects.get(user=request.user).balance
     template_name = "payments/transfer_detail.html"
     page_title = "Transfer Details" + " - " + settings.SITE_NAME
@@ -233,7 +233,7 @@ def services(request):
 
 
 @login_required
-def new_service(request, pk=None):
+def new_service(request, available_service_uuid=None):
     '''
     This view is responsible for processing a service.
     To process a transaction : 
@@ -255,7 +255,7 @@ def new_service(request, pk=None):
     template_name = "payments/new_service.html"
     page_title = "Service Usage"
     if request.method == "POST":
-        context = PaymentService.process_service_request(request, service_pk=pk)
+        context = PaymentService.process_service_request(request)
         if context['success']:
             messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
             send_mail_task.apply_async(args=[context['email_context']],
@@ -267,7 +267,7 @@ def new_service(request, pk=None):
         else : 
             logger.debug("There was an error with the service request : {}".format(context['errors']))
             form = ServiceCreationForm(request.POST.copy())
-            service = get_object_or_404(AvailableService, pk=pk)
+            service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
             context = {
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,
@@ -277,7 +277,7 @@ def new_service(request, pk=None):
 
     elif request.method == "GET":
             form = ServiceCreationForm()
-            service = get_object_or_404(AvailableService, pk=pk)
+            service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
             context = {
                 'page_title':page_title,
                 'service' : service,
@@ -291,11 +291,11 @@ def service_done(request):
     pass
 
 @login_required
-def service_details(request, pk=None):
+def service_details(request, service_uuid=None):
     context = {}
     
     user_services = Service.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
-    service = get_object_or_404(user_services, pk=pk)
+    service = get_object_or_404(user_services, service_uuid=service_uuid)
     template_name = "payments/service_detail.html"
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -315,9 +315,9 @@ def service_categories(request):
 
 
 @login_required
-def service_category_details(request, pk=None):
+def service_category_details(request, category_uuid=None):
     context = {}
-    category = get_object_or_404(ServiceCategory, pk=pk)
+    category = get_object_or_404(ServiceCategory, category_uuid=category_uuid)
     template_name = "payments/service_category_detail.html"
     page_title = "Service Category Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -336,9 +336,9 @@ def available_services(request):
 
 
 @login_required
-def available_service_details(request, pk=None):
+def available_service_details(request, available_uuid=None):
     context = {}
-    service= get_object_or_404(AvailableService, pk=pk)
+    service= get_object_or_404(AvailableService, available_uuid=available_uuid)
     template_name = "payments/available_service_detail.html"
     page_title = "Available Service Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -368,11 +368,11 @@ def payments(request):
 
 
 @login_required
-def payment_details(request, pk=None):
+def payment_details(request, payment_uuid=None):
     context = {}
     current_account = Account.objects.get(user=request.user)
     user_payments = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
-    payment = get_object_or_404(user_payments, pk=pk)
+    payment = get_object_or_404(user_payments, payment_uuid=payment_uuid)
     template_name = "payments/payment_detail.html"
     page_title = "Payment Details" + " + " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -393,9 +393,9 @@ def policies(request):
 
 
 @login_required
-def policy_details(request, pk=None):
+def policy_details(request, policy_uuid=None):
     context = {}
-    policy = get_object_or_404(Policy, pk=pk)
+    policy = get_object_or_404(Policy, policy_uuid=policy_uuid)
     template_name = "payments/policy_detail.html"
     page_title = "Policy Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -413,11 +413,11 @@ def cases(request):
     return render(request,template_name, context)
 
 @login_required
-def case_details(request, pk=None):
+def case_details(request, issue_uuid=None):
     context = {}
     current_account = Account.objects.get(user=request.user)
     user_claims = CaseIssue.objects.filter(Q(participant_1=request.user) | Q(participant_2=request.user))
-    claim = get_object_or_404(user_claims, pk=pk)
+    claim = get_object_or_404(user_claims, issue_uuid=issue_uuid)
     template_name = "payments/claim_detail.html"
     page_title = "Claim Details"+ " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -437,9 +437,9 @@ def reductions(request):
 
 
 @login_required
-def reduction_details(request, pk=None):
+def reduction_details(request, reduction_uuid=None):
     context = {} 
-    reduction = get_object_or_404(Reduction, pk=pk)
+    reduction = get_object_or_404(Reduction, reduction_uuid=reduction_uuid)
     template_name = "payments/reduction_detail.html"
     page_title = "Reduction Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -509,12 +509,12 @@ def idcards(request):
 
 
 @login_required
-def idcard_details(request, pk=None):
+def idcard_details(request, idcard_uuid=None):
     context = {}
     context['has_idcard'] = False
     if hasattr(request.user, 'idcard'):
         context['has_idcard'] = True
-        if request.user.idcard.pk == int(pk):
+        if request.user.idcard.idcard_uuid == idcard_uuid:
             context['idcard'] = request.user.idcard
         else:
             context['has_idcard'] = False
@@ -554,9 +554,9 @@ def upload_idcard(request):
 
 
 @login_required
-def update_idcard(request, pk=None):
+def update_idcard(request, idcard_uuid=None):
     page_title = "Edit my account" + ' - ' + settings.SITE_NAME
-    instance = get_object_or_404(IDCard, pk=pk)
+    instance = get_object_or_404(IDCard, idcard_uuid=idcard_uuid)
     template_name = "payments/idcard_update.html"
     if request.method =="POST":
         form = UpdateIDCardForm(request.POST, request.FILES, instance=instance)

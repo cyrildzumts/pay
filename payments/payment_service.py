@@ -166,7 +166,7 @@ class PaymentService :
 
     
     @staticmethod
-    def process_service_request(request, service_pk=None):
+    def process_service_request(request):
         #TODO : when a user registers itself, for bussiness users it should be checked
         # that all the necessary fields are present : policy, id card and email is verified
         context = {}
@@ -205,7 +205,7 @@ class PaymentService :
                             Account.objects.all().filter(pk=current_account.pk).update(balance=F('balance') - price)
                             Account.objects.all().filter(pk=pay_account.pk).update(balance=F('balance') + pay_fee)
                             postdata['commission'] = commission
-                            service_form = form(postdata)
+                            service_form = ServiceCreationForm(postdata)
                             service = service_form.save()
                             email_context = {
                                 'title'             : 'Payment Confirmation',

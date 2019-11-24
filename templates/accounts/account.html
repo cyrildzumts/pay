@@ -1,0 +1,33 @@
+{% extends "base_flat.html"%}
+{% load i18n %}
+
+{% block HEADER_BANNER %}
+
+{% endblock HEADER_BANNER %}
+{% block MAIN %}
+
+<div class="row">
+        <div class="tabs">
+                <div class="tabs--title">
+                        <div class="full welcome-text center">
+                                <p> {% trans "Welcome" %} {{name}}</p>
+                        </div>
+                </div>
+                <div class="row">
+                        <ul  class="action-list listview">
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a> </li>
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li>
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> </li>      
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:make-transfer' %}"> {% trans "Send Money" %}</a> </li>
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' idcard_idcard_uuid %}"> {% trans "Update my ID" %}</a> </li>
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:upload-idcard' %}"> {% trans "Upload my ID" %}</a> </li>
+                        </ul>
+                </div>
+        </div>
+        <!--End of tabs-->
+</div>
+<div class="container">
+    {% include "tags/event_list_snippet.html" %}
+</div>
+
+{% endblock MAIN %}

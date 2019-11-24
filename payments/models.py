@@ -35,10 +35,10 @@ class IDCard(models.Model):
         return "Card id : {} User : {}".format(self.pk, self.user)
     
     def get_absolute_url(self):
-        return reverse('payments:idcard-detail', kwargs={'pk':self.pk})
+        return reverse('payments:idcard-detail', kwargs={'idcard_uuid':self.idcard_uuid})
     
     def get_update_url(self):
-        return reverse('payments:idcard-update', kwargs={'pk':self.pk})
+        return reverse('payments:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
    
 
 
@@ -129,7 +129,7 @@ class AvailableService(models.Model):
         """
         This method returns the url that is used to query the details of this models.
         """
-        return reverse('payments:available-service-detail', kwargs={'pk':self.pk})
+        return reverse('payments:available-service-detail', kwargs={'available_uuid':self.available_uuid})
     
     def get_link(self):
         """
