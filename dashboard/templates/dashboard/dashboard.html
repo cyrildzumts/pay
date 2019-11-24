@@ -118,7 +118,7 @@
                                                                                 {% for xfer in recent_transfers  %}
                                                                                 <tr>
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-transfer"></td>-->
-                                                                                <td>{{xfer.sender.full_name}}</td>
+                                                                                <td>{{xfer.sender.username}}</td>
                                                                                 <td>{{xfer.amount}} {% trans "XAF" %}</td>
                                                                                 <td>{{xfer.created_at}}</td>
                                                                                 </tr>
