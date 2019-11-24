@@ -16,12 +16,6 @@ import numbers
 
 logger = logging.getLogger(__name__)
 
-this = sys.modules[__name__]
-this.TransactionModel = utils.get_model('payments', 'Transaction')
-this.TransactionForm = None
-this.TransferModel = utils.get_model('payments', 'Transfer')
-this.TransferForm = None
-this.ServiceForm = ServiceCreationForm
 
 
 class PaymentService :

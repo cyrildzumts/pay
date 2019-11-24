@@ -184,7 +184,6 @@ def new_transfer(request):
     email_template_name = "payments/transfer_done_email.html"
     template_name = "payments/new_transfer.html"
     page_title = "New Transfer" + " - " + settings.SITE_NAME
-    account = Account.objects.get(user=request.user)
     
     if request.method == "POST":
         context = PaymentService.process_transfer_request(request)
@@ -198,7 +197,6 @@ def new_transfer(request):
             context = {
                 'page_title':page_title,
                 'form': form,
-                'balance': account.balance,
                 'contacts': User.objects.filter(is_staff=False)
             }
     return render(request, template_name, context)
