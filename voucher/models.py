@@ -22,7 +22,7 @@ class Voucher(models.Model):
     sold_by = models.ForeignKey(User, related_name='soldvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateTimeField(blank=True, null=True)
     sold_at = models.DateTimeField(blank=True, null=True)
-    voucher_uuid = models.UUIDField(default=uuid.uuid4())
+    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=True, null=True)
 
     class Meta:
         verbose_name = _("Voucher")
