@@ -1,7 +1,19 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from pay.models import  Policy, Account, IDCard, Transaction, CaseIssue, Reduction
+from pay.forms import CustomGroupForm
+
+
+
+# Create a new Group admin.
+class GroupAdmin(admin.ModelAdmin):
+    # Use our custom form.
+    form = CustomGroupForm
+    # Filter permissions horizontal as well.
+    filter_horizontal = ['permissions']
+
+
 
 
 class AccountInline(admin.StackedInline):
@@ -35,5 +47,9 @@ class UserAdmin(BaseUserAdmin):
     inlines = (AccountInline, PolicyInline,
     IDCardInline,TransactionInline, ReductionInline)
 
+    
+
 admin.site.unregister(User)
+admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
+admin.site.register(Group, GroupAdmin)
