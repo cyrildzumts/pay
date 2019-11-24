@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext as _
 from django.urls import reverse
+import uuid
 
 # Create your models here.
 
@@ -21,6 +22,7 @@ class Voucher(models.Model):
     sold_by = models.ForeignKey(User, related_name='soldvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateTimeField(blank=True, null=True)
     sold_at = models.DateTimeField(blank=True, null=True)
+    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
 
     class Meta:
         verbose_name = _("Voucher")
@@ -45,7 +47,7 @@ class Voucher(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("voucher:voucher_details", kwargs={"pk": self.pk})
+        return reverse("voucher:voucher-detail", kwargs={"voucher_uuid": self.voucher_uuid})
 
 
 class SoldVoucher(models.Model):
@@ -53,6 +55,7 @@ class SoldVoucher(models.Model):
     seller = models.ForeignKey(User, related_name='sold_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="sold_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     sold_at = models.DateTimeField(auto_now_add=True)
+    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
 
     class Meta:
         verbose_name = _("SoldVoucher")
@@ -72,7 +75,7 @@ class SoldVoucher(models.Model):
         return self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:sold_voucher_details", kwargs={"pk": self.pk})
+        return reverse("voucher:sold-voucher-detail", kwargs={"voucher_uuid": self.voucher_uuid})
 
 
 
@@ -81,6 +84,7 @@ class UsedVoucher(models.Model):
     customer = models.ForeignKey(User, related_name='used_vouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey(Voucher, related_name="used_vouchers", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateTimeField(auto_now_add=True)
+    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
     class Meta:
         verbose_name = _("UsedVoucher")
         verbose_name_plural = _("UsedVouchers")
@@ -99,7 +103,7 @@ class UsedVoucher(models.Model):
         return self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:used_voucher_details", kwargs={"pk": self.pk})
+        return reverse("voucher:used-voucher-detail", kwargs={"voucher_uuid": self.voucher_uuid})
 
 
 class Recharge(models.Model):
@@ -108,6 +112,7 @@ class Recharge(models.Model):
     seller = models.ForeignKey(User, related_name='recharges', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     amount = models.IntegerField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    voucher_uuid = models.UUIDField(default=uuid.uuid4(), blank=False, null=False)
 
     class Meta:
         permissions = (
@@ -119,5 +124,5 @@ class Recharge(models.Model):
         return "Recharge " + self.voucher.name
 
     def get_absolute_url(self):
-        return reverse("voucher:recharge_details", kwargs={"pk": self.pk})
+        return reverse("voucher:recharge-detail", kwargs={"voucher_uuid": self.voucher_uuid})
     

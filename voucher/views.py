@@ -56,9 +56,9 @@ def vouchers(request):
 
 
 @login_required
-def voucher_details(request, pk=None):
+def voucher_details(request, voucher_uuid=None):
     page_title = _("Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(Voucher, pk=pk)
+    instance = get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/voucher_details.html"
 
     context = {
@@ -70,13 +70,13 @@ def voucher_details(request, pk=None):
 
 
 @login_required
-def voucher_activate(request, pk=None):
-    c = Voucher.objects.filter(pk=pk, activated=False, is_used=False).update(
+def voucher_activate(request, voucher_uuid=None):
+    c = Voucher.objects.filter(voucher_uuid=voucher_uuid, activated=False, is_used=False).update(
         activated=True, activated_at=datetime.now(), activated_by=request.user)
     if c > 0:
         return redirect('voucher:vouchers')
     else:
-        return redirect('voucher:voucher_details', pk=pk)
+        return redirect('voucher:voucher-detail', voucher_uuid=voucher_uuid)
 
 
 @login_required
@@ -165,9 +165,9 @@ def used_vouchers(request):
 
 
 @login_required
-def used_voucher_details(request, pk=None):
+def used_voucher_details(request, voucher_uuid=None):
     page_title = _("Used Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(UsedVoucher, pk=pk)
+    instance = get_object_or_404(UsedVoucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/used_voucher_details.html"
     context = {
         'page_title': page_title,
@@ -200,9 +200,9 @@ def sold_vouchers(request):
 
 
 @login_required
-def sold_voucher_details(request, pk=None):
+def sold_voucher_details(request, voucher_uuid=None):
     page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(SoldVoucher, pk=pk)
+    instance = get_object_or_404(SoldVoucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/sold_voucher_details.html"
     context = {
         'page_title': page_title,
@@ -236,13 +236,48 @@ def voucher_generate(request):
                 routing_key=settings.CELERY_VOUCHER_ROUTING_KEY
             )
             logger.info("Voucher Creation pushed in the Queue")
-            return redirect('voucher:voucher_home')
+            return redirect('voucher:voucher-home')
     context = {
         'page_title': page_title,
         'template_name': template_name,
     }
     return render(request, template_name, context)
 
+
+
+@login_required
+def recharges(request):
+    context = {}
+    #model = utils.get_model('voucher', 'Voucher')
+    # TODO Must be fixed : The users visiting this must have the appropiatre
+    # permission
+    recharge_list = voucher_service.VoucherService.get_recharge_set()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(recharge_list, 10)
+    try:
+        voucher_set = paginator.page(page)
+    except PageNotAnInteger:
+        voucher_set = paginator.page(1)
+    except EmptyPage:
+        voucher_set = None
+    template_name = "voucher/recharge_list.html"
+    page_title = _("Recharge List") + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['recharge_list'] = recharge_list
+    return render(request, template_name, context)
+
+
+@login_required
+def recharge_details(request, recharge_uuid=None):
+    page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
+    instance = get_object_or_404(Recharge, recharge_uuid=recharge_uuid)
+    template_name = "voucher/recharge_details.html"
+    context = {
+        'page_title': page_title,
+        'template_name': template_name,
+        'recharge': instance
+    }
+    return render(request, template_name, context)
 
 class RechargeView(ListView):
     queryset = Recharge.objects.order_by('-created_at')

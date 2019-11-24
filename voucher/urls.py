@@ -7,20 +7,20 @@ from voucher import views
 app_name = 'voucher'
 
 urlpatterns = [
-    path('', views.voucher_home, name='voucher_home'),
-    path('activate/<int:pk>/', views.voucher_activate, name='activate'),
+    path('', views.voucher_home, name='voucher-home'),
+    path('activate/<uuid:voucher_uuid>/', views.voucher_activate, name='activate'),
     path('vouchers/', views.vouchers, name='vouchers'),
-    path('voucher_details/<int:pk>/', views.voucher_details, name='voucher_details'),
+    path('voucher-detail/<uuid:voucher_uuid>/', views.voucher_details, name='voucher-detail'),
 
-    path('used_vouchers/', views.used_vouchers, name='used_vouchers'),
-    path('used_voucher_details/<int:pk>/', views.used_voucher_details, name='used_voucher_details'),
+    path('used-vouchers/', views.used_vouchers, name='used-vouchers'),
+    path('used-voucher-detail/<uuid:voucher_uuid>/', views.used_voucher_details, name='used-voucher-detail'),
 
-    path('sold_vouchers/', views.sold_vouchers, name='sold_vouchers'),
-    path('sold_voucher_details/<int:pk>/', views.sold_voucher_details, name='sold_voucher_details'),
-    path('generate/', views.voucher_generate, name='voucher_generate'),
+    path('sold-vouchers/', views.sold_vouchers, name='sold-vouchers'),
+    path('sold-voucher-detail/<uuid:voucher_uuid>/', views.sold_voucher_details, name='sold-voucher-detail'),
+    path('generate/', views.voucher_generate, name='voucher-generate'),
     path('recharge/', views.recharge_user_account_view, name='recharge'),
-    path('recharges/', views.RechargeView.as_view(), name='recharges'),
-    path('recharges/<int:pk>/', views.RechargeDetailView.as_view(), name='recharge_details'),
+    path('recharges/', views.recharges, name='recharges'),
+    path('recharges/<uuid:recharge_uuid>/', views.recharge_details, name='recharge-detail'),
 
     
 ]

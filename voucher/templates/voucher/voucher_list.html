@@ -6,7 +6,7 @@
 <div class="row">
   <div class="nav">
     <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    <a class="mat-button mat-button-default" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
+    <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
   </div>
 </div>
 
@@ -46,7 +46,7 @@
                   <td>{% trans "No" %}</td>
                   {% endif %}
                   <td>{{v.created_at}}</td>
-                  <td><a class="mat-button mat-button-default" href="{{v.get_absolute_url}}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -63,7 +63,7 @@
       <p>{% trans "There are no Voucher sold now." %}</p>
       <ul class="mat-list">
         <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">Dashboard</a></li>
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher_home' %}">Voucher Board</a></li>
+        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}">Voucher Board</a></li>
         <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
       </ul>
     </div>

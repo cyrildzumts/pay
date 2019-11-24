@@ -2,7 +2,7 @@
 
 <div class="responsive">
 
-    <form id="voucher-generate-form" class="voucher-generate-form form" name="voucher-generate" action="{% url 'voucher:voucher_generate' %}" method="POST">{% csrf_token %}
+    <form id="voucher-generate-form" class="voucher-generate-form form" name="voucher-generate" action="{% url 'voucher:voucher-generate' %}" method="POST">{% csrf_token %}
         <div class="form-group">
             <label for="name">{% trans "Voucher Card Name" %} : </label>
             <input id="name" type="text" name="name">
@@ -20,7 +20,7 @@
         
         <div class="form-group row">
             <button class="mat-button mat-button-default" type="submit">{% trans "Generate" %}</button>
-            <a class="mat-button mat-button-outlined" href="{%url 'voucher:voucher_home'%}">{% trans "Cancel" %}</a>
+            <a class="mat-button mat-button-outlined" href="{%url 'voucher:voucher-home'%}">{% trans "Cancel" %}</a>
         </div>
     </form>
 

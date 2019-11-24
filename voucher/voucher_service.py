@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.db.models import F, Q
 from pay import utils
-from voucher.models import Voucher, SoldVoucher, UsedVoucher
+from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
 import codecs
 import random
 import hashlib
@@ -208,6 +208,10 @@ class VoucherService:
     @staticmethod
     def get_sold_voucher_set(start=None, end=None, **filters):       
         return SoldVoucher.objects.filter(**filters)[start:end]
+
+    @staticmethod
+    def get_recharge_set(start=None, end=None, **filters):       
+        return Recharge.objects.filter(**filters)[start:end]
 
     @classmethod
     def process_recharge_user_account(cls, seller=None, customer=None, amount=-1):

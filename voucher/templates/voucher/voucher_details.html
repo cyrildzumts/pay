@@ -30,10 +30,10 @@
 
             <div class="card__actions">
               {% if voucher.activated is False %}
-                  <a class="mat-button mat-button-default" href="{% url 'voucher:activate' voucher.pk %} "> {% trans "Activate this Voucher" %} </a>
+                  <a class="mat-button mat-button-default" href="{% url 'voucher:activate' voucher.voucher_uuid %} "> {% trans "Activate this Voucher" %} </a>
               {% endif %}
                   
-                  <a class="mat-button mat-button-text" href="{% url 'voucher:voucher_home' %}"> {% trans "Voucher Home" %} </a>
+                  <a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
                   <a class="mat-button mat-button-text" href="{% url 'accounts:account' %}"> {% trans "PAY Home" %} </a>
             </div>
           
