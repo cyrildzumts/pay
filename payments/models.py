@@ -195,7 +195,7 @@ class Service(models.Model):
 class Reduction(models.Model):
     code = models.TextField(max_length=8)
     percent =  models.DecimalField(max_digits=10, decimal_places=5)
-    account = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
+    user = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     used_at = models.DateTimeField()
     reduction_uuid = models.UUIDField(default=uuid.uuid4(), null=False, blank=False)

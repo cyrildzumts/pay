@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from accounts.models import Account
 from payments.models import (
-    Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard
+    Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard,
+    Reduction
 )
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
@@ -11,7 +12,7 @@ import datetime
 class PolicyForm(forms.ModelForm):
     class Meta:
         model = Policy
-        exclude = ['policy_id']
+        fields = ['daily_limit', 'weekly_limit', 'monthly_limit', 'commission']
 
 
 class UpdateIDCardForm(forms.ModelForm):
@@ -30,13 +31,13 @@ class IDCardForm(forms.ModelForm):
 class ServiceCategoryCreationForm(forms.ModelForm):
     class Meta:
         model = ServiceCategory
-        exclude = ['created_at','is_active']
+        fields = ['category_name', 'category_code', 'is_active']
 
 
 class AvailableServiceCreationForm(forms.ModelForm):
     class Meta:
         model = AvailableService
-        exclude = ['created_at','is_active']
+        fields = ['service_code', 'name', 'operator', 'category', 'is_active', 'description']
 
 
 class ServiceCreationForm(forms.ModelForm):
@@ -54,7 +55,7 @@ class PaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
-        exclude = [ 'created_at', 'validated_at']
+        fields = ['amount', 'sender', 'recipient', 'details']
 
 
 
@@ -62,19 +63,24 @@ class TransactionForm(forms.ModelForm):
 
     class Meta:
         model = Transaction
-        exclude = [ 'created_at', 'validated_at']
+        fields = ['amount', 'sender', 'recipient', 'details', 'transaction_type', 'reduction', 'policy']
 
 
 class TransferForm(forms.ModelForm):
 
     class Meta:
         model = Transfer
-        exclude = [ 'created_at']
+        fields = ['amount', 'sender', 'recipient', 'details']
 
 
 class CaseIssueForm(forms.ModelForm):
 
     class Meta:
         model = CaseIssue
-        exclude = [ 'created_at', 'closed_at', 'is_closed' ]
+        fields = ['participant_1', 'participant_2','amount', 'subject', 'description', 'is_closed']
 
+class ReductionForm(forms.ModelForm):
+
+    class Meta:
+        model = Reduction
+        fields = ['code', 'percent', 'user']
