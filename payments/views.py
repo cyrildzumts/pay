@@ -190,7 +190,7 @@ def new_transfer(request):
         if context['success']:
             return redirect('payments:transfer-done')
         else : 
-            logger.error("There was an error with the transfer request : %s", context['errors'])
+            logger.error("There was an error with the transfer request")
 
     elif request.method == "GET":
             form = TransferForm()

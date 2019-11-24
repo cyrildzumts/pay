@@ -151,10 +151,10 @@ class PaymentService :
                     context['balance'] = current_account.balance
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
                     return context
-        else:
-            context['balance'] = current_account.balance
-            context['errors'] = "Verifiez les champs du formulaire."
-            logger.error("Transfer Form is not valid")
+            else:
+                context['errors'] = "Verifiez les champs du formulaire."
+                logger.error("Transfer Form is not valid ")
+                logger.error(transfer_form.errors)
         return context
 
 
