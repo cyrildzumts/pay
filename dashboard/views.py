@@ -210,7 +210,7 @@ def available_service_details(request, available_uuid=None):
 def category_services(request):
     context = {}
     model = utils.get_model('payments', 'ServiceCategory')
-    categories = model.objects.filter(is_active=True)
+    categories = model.objects.filter()
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     context['page_title'] = page_title
