@@ -20,11 +20,7 @@
                 {% trans "Policies" %}
             </div>
         </div><!--End of Row-->
-        <div class="row">
-              <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
-              <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
-              <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
-        </div><!--End of Row-->
+        
         <table id="policy-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
@@ -44,7 +40,7 @@
                   <td>{{policy.daily_limit}} {% trans "XAF" %}</td>
                   <td>{{policy.weekly_limit}} {% trans "XAF" %}</td>
                   <td>{{policy.monthly_limit}} {% trans "XAF" %}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:policy_detail' policy.pk %}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:policy_detail' policy.policy_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -54,25 +50,7 @@
           </tfoot>
 
     </table>
-    <div class="row">
-          <div class="table-select-wrapper">
-                  <label for="table-step">{% trans "Row per page" %}</label>
-                  <select class="mat-select" name="step" id="table-step">
-                  <option value="3">3</option>
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="30">30</option>
-                  </select>
-          </div>
-          <div class="table-pagination">
-                  <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
-                  <div class="controls">
-                  <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
-                  <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
-                  </div>
-          </div>
-
-    </div><!--End of Row-->
+    
     </div><!--End of Table Wrapper-->
 
 </div>

@@ -11,7 +11,7 @@
         <div class="card__body">
         
         
-                <form class="form card" name="category_service" action="{% url 'dashboard:category_service_update'  category.pk %}" method="POST">{% csrf_token %}
+                <form class="form card" name="category_service" action="{% url 'dashboard:category_service_update'  category.category_uuid %}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     
                     <div class="form-group">

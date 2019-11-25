@@ -9,7 +9,7 @@
           <p> {% trans "Sender" %} : {{transaction.sender.get_full_name}} </p>
           <p> {% trans "Amount" %} : {{transaction.amount}} FCFA </p>
           <p> {% trans "Date" %} : {{transaction.created_at}} </p>
-          <a class="mat-button mat-button-text" href="{% url 'payments:transaction-detail' transaction.pk %}">More ...</a>
+          <a class="mat-button mat-button-text" href="{% url 'payments:transaction-detail' transaction.transaction_uuid %}">More ...</a>
         </div>
     {% empty %}
     <p> You haven't done any transaction yet.</p>

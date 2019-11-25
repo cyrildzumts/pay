@@ -25,7 +25,7 @@
                   <h5>{% trans "Services Available in this category" %} :</h5>
                   <ul class="listview">
                     {% for service in available_services %}
-                     <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'dashboard:available_service_detail' service.pk %}">{{service.name}}</a></li>
+                     <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'dashboard:available_service_detail' service.available_uuid %}">{{service.name}}</a></li>
                     {% endfor %}
                   </ul>
               </div>
@@ -36,8 +36,8 @@
           </div>
           <div class="card__actions">
               <ul class="listview nav" role="navigation">
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:category_service_remove' category.pk %}"> {% trans "Remove" %} </a> </li>
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:category_service_update' category.pk %}"> {% trans "Edit" %} </a> </li>
+                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:category_service_remove' category.category_uuid %}"> {% trans "Remove" %} </a> </li>
+                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:category_service_update' category.category_uuid %}"> {% trans "Edit" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:category_service_create' %}"> {% trans "Add new Category Service" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:category_services' %}"> {% trans "Category Services" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
