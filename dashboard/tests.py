@@ -1,6 +1,7 @@
 from django.urls import resolve
 from django.test import TestCase
 import unittest
+import uuid
 #from django.contrib.auth import views as auth_views
 from dashboard import views
 

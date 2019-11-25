@@ -433,10 +433,10 @@ def transfers(request):
 
 
 @login_required
-def transfer_details(request, pk=None):
+def transfer_details(request, transfer_uuid=None):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Transfer')
-    transfer = get_object_or_404(model, pk=pk)
+    transfer = get_object_or_404(model, transfer_uuid=transfer_uuid)
     template_name = "dashboard/transfer_detail.html"
     page_title = "Transfer Details - " + settings.SITE_NAME
     context['page_title'] = page_title
