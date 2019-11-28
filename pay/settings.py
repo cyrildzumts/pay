@@ -71,10 +71,11 @@ ACCOUNTS = {
     'ACCOUNT_TYPE' :  (
         ('A', 'Admin'),
         ('B', 'Business'),
-        ('D', 'Developer'),
-        ('M', 'Manager'),
-        ('P', 'Privé'),
-        ('S', 'Staff'),
+        ('D', 'Developer'), # create a group Developer instead
+        ('I', 'Individual'),
+        ('M', 'Manager'), # create a group Manager instead
+        ('P', 'Partner'), # create a group Partner instead
+        ('S', 'Staff'), # create a group Staff instead
         ('R', 'Recharge'),
         ('X', 'PAY ACCOUNT'),
     )
@@ -91,7 +92,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    #'accounts.apps.AccountsConfig',
     'payments.apps.PaymentsConfig',
     'rest_framework',
     'rest_framework.authtoken',
