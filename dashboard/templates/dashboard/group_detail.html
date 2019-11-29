@@ -1,0 +1,39 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+    <div class="box">
+            <div class="title">
+                <h3>{{group.name}}</h3>
+             </div>
+             <div class="content">
+                {% if group.permissions %}
+                    <ul class="mat-list">
+                        <li><h4>{% trans "Permissions" %}</h4></li>
+                        {% for p in group.permissions %}
+                            <li class="list-item"><span>{% trans p.name %}</span> - <span>{{p.codename}}</span></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if group.user_set %}
+                    <ul class="mat-list">
+                        <li><h4>{% trans "Users members" %}</h4></li>
+                        {% for u in group.user_set %}
+                            <li class="list-item"><span>{% trans u.get_full_name %}</span> - <span>{{u.username}}</span></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+             </div>
+             <div class="actions">
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:groups' %}">{% trans "Back" %}</a>
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:groups' %}">{% trans "Delete" %}</a>
+             </div>
+                
+           
+    </div>
+</div>
+{% endblock MAIN %}

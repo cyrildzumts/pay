@@ -516,6 +516,29 @@ def model_usage(request, appName=None, modelName=None):
 
 
 @login_required
+def groups(request):
+    context = {}
+    
+    #current_account = Account.objects.get(user=request.user)
+    group_list = Group.objects.all()
+    template_name = "dashboard/group_list.html"
+    page_title = "Groups" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['groups'] = group_list
+    return render(request,template_name, context)
+
+@login_required
+def group_detail(request, pk=None):
+    context = {}
+    group = get_object_or_404(Group, pk=pk)
+    template_name = "dashboard/group_detail.html"
+    page_title = "Group Detail" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['group'] = group
+    return render(request,template_name, context)
+
+
+@login_required
 def group_create(request):
     context = None
     page_title = 'Group Creation'
