@@ -23,18 +23,18 @@ IDENTIFICATION_DOC_NAME_PREFIX = "pay_ident"
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['PAY_SECRET_KEY']
+SECRET_KEY          =  os.environ['PAY_SECRET_KEY']
 
 # SITE NAME SETTING
-SITE_NAME =  os.environ['PAY_SITE_NAME']
+SITE_NAME           =  os.environ['PAY_SITE_NAME']
 
-META_KEYWORDS = "Pay, payment, buy, online-pay, africa-pay, payment solution"
-META_DESCRIPTION = "Pay Atalaku is your african solution for online payments"
+META_KEYWORDS       = "Pay, payment, buy, online-pay, africa-pay, payment solution"
+META_DESCRIPTION    = "Pay Atalaku is your african solution for online payments"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-CELERY_BROKER_URL = os.environ['PAY_CELERY_BROKER_URL']
-CELERY_BACKEND = os.environ['PAY_CELERY_BACKEND']
+DEBUG               = True
+CELERY_BROKER_URL   = os.environ['PAY_CELERY_BROKER_URL']
+CELERY_BACKEND      = os.environ['PAY_CELERY_BACKEND']
 
 CELERY_DEFAULT_QUEUE = "pay-default"
 CELERY_DEFAULT_EXCHANGE = "pay-default"

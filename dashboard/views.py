@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext as _
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 from django.db.models import F, Q
 from rest_framework.authtoken.models import Token
 from pay import utils, settings
@@ -515,3 +515,28 @@ def model_usage(request, appName=None, modelName=None):
     pass
 
 
+@login_required
+def group_create(request):
+    context = None
+    page_title = 'Group Creation'
+    template_name = 'dashboard/group_create.html'
+    form = forms.GroupFormCreation()
+    if request.method == 'POST':
+        form = forms.GroupFormCreation(request.POST)
+        users = request.POST.getlist('users')
+        if form.is_valid() and users:
+            logger.debug("Group Create : Form is Valid")
+            group = form.save()
+            group.user_set.set(users)
+            logger.debug("Added users into the group %s",users)
+            return redirect('dashboard:groups')
+        else :
+            logger.error("Error on adding  users %s into the group",users)
+    
+    context = {
+            'page_title' : page_title,
+            'form': form,
+            'users' : User.objects.all(),
+            'permissions': Permission.objects.all()
+    }
+    return render(request, template_name, context)

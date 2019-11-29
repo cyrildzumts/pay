@@ -15,6 +15,7 @@ urlpatterns = [
     path('cases/detail/<issue_uuid>/', views.case_details, name='case_detail'),
     path('cases/close/<issue_uuid>/', views.case_close, name='case_close'),
     path('generate-token/', views.generate_token, name='generate-token'),
+    path('groups/',views.group_create, name='groups'),
     path('services/', views.services, name='services'),
     path('services/detail/<service_uuid>/', views.service_details, name='service_detail'),
     path('transfers/', views.transfers, name='transfers'),
