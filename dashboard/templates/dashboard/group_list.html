@@ -11,7 +11,7 @@
                 {% if group.permissions %}
                     <ul class="mat-list">
                         <li><h4>{% trans "Permissions" %}</h4></li>
-                        {% for p in group.permissions %}
+                        {% for p in group.permissions.all %}
                             <li class="list-item"><span>{% trans p.name %}</span> - <span>{{p.codename}}</span></li>
                         {% endfor %}
                     </ul>
