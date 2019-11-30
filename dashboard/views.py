@@ -618,16 +618,18 @@ def group_update(request, pk=None):
     if request.method == 'POST':
         form = forms.GroupFormCreation(request.POST, instance=group)
         users = request.POST.getlist('users')
-        if form.is_valid() and users:
+        if form.is_valid() :
             logger.debug("Group form for update is valid")
             if form.has_changed():
                 logger.debug("Group has changed")
-                group = form.save()
-            group.user_set.set(users)
+            group = form.save()
+            if users:
+                logger.debug("adding %s users [%s] into the group", len(users), users)
+                group.user_set.set(users)
             logger.debug("Saved users into the group %s",users)
             return redirect('dashboard:groups')
         else :
-            logger.error("Error on adding  users %s into the group",users)
+            logger.error("Error on editing the group. The form is invalid")
     
     context = {
             'page_title' : page_title,
