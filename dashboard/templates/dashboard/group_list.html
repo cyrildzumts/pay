@@ -37,7 +37,7 @@
                   <td>{{g.name}}</td>
                   <td>{{group.permissions.count}}</td>
                   <td>{{group.user_set.count}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:group_detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
+                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
                   <td><a class="mat-button mat-button-default danger" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
                   </tr>
                   {% endfor %}
