@@ -567,6 +567,7 @@ def group_update(request, pk=None):
     context = {
             'page_title' : page_title,
             'form': form,
+            'group': group,
             'users' : group_users,
             'available_users' : available_users,
             'permissions': permissions,
