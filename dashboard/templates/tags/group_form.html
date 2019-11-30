@@ -13,7 +13,7 @@
             <label for="permissions">{% trans "Add Permissions" %}</label>
             <select name="permissions" id="permissions" multiple>
                 {% for p in permissions  %}
-                    <option value="{{p.pk}}">{{p.name}}</option>
+                    <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
                 {% endfor %}
             </select>
         </div>
