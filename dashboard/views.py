@@ -540,15 +540,16 @@ def group_detail(request, pk=None):
 
 @login_required
 def group_update(request, pk=None):
+    # TODO CHECK if the requesting User has the permission to update a group
     context = None
     page_title = 'Group Update'
     template_name = 'dashboard/group_create.html'
     group = get_object_or_404(Group, pk=pk)
     form = forms.GroupFormCreation(instance=group)
     group_users = group.user_set.all()
-    available_users = User.objects.exclude()
-    permissions = group.permissions
-    available_permissions = Permission.objects.exclude()
+    available_users = User.objects.exclude(pk__in=group_users.values_list('pk'))
+    permissions = group.permissions.all()
+    available_permissions = Permission.objects.exclude(pk__in=permissions.values_list('pk'))
     if request.method == 'POST':
         form = forms.GroupFormCreation(request.POST, instance=group)
         users = request.POST.getlist('users')
