@@ -55,31 +55,5 @@
     {% endif %}
 </div>
 
-<div class="container">
-    {% for group in groups %}
-        <div class="box">
-            <div class="title">
-                <h3>{{group.name}}</h3>
-            </div>
-            <div class="content">
-                {% if group.permissions %}
-                    <h4>{% trans "Permissions" %}</h4>
-                    <span class="badge">{{group.permissions.count}}</span>
-                {% endif %}
 
-                {% if group.user_set %}
-                    <h4>{% trans "Users members" %}</h4>
-                    <span class="badge">{{group.user_set.count}}</span>
-                {% endif %}
-            </div>
-            <div class="actions">
-                <a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' group.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a>
-                <a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' group.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a>
-            </div>
-        </div>
-    {% empty %}
-    <p> {% trans "There is currently no Group" %} ...</p>
-    
-    {% endfor %}
-</div>
 {% endblock MAIN %}
