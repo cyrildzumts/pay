@@ -7,14 +7,14 @@
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
         <div class="form-group">
             <label for="name">{% trans "Name" %} :</label>
-            <input type="text" name="name" id="name" value="{{form.name.value}}"> 
+            <input type="text" name="name" id="name"> 
         </div>
         
         <div class="row">
             <div class="responsive">
                 <div class="form-group">
                     <label for="available-permissions">{% trans "Select Permissions to add" %}</label>
-                    <select name="available_permissions" id="available-permissions" multiple>
+                    <select  id="available-permissions" multiple data-target="#selected-permissions">
                         {% for p in available_permissions  %}
                             <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
                         {% endfor %}
@@ -23,10 +23,10 @@
             </div>
             <div class="responsive">
                 <div class="flex flex-column">
-                    <button class="mat-button mat-button-default" type="button" id="add-selected-permisions">
+                    <button class="mat-button mat-button-default" type="button" id="add-selected-permissions" data-target="#selected-permissions" data-source="#available-permissions">
                         <i class="fas fa-angle-double-right"></i><span>{% trans "Add" %}</span>
                     </button>
-                    <button class="mat-button mat-button-default" type="button" id="remove-selected-permisions">
+                    <button class="mat-button mat-button-default" type="button" id="remove-selected-permissions" data-source="#selected-permissions" data-target="#available-permissions">
                         <i class="fas fa-angle-double-left"></i><span>{% trans "Remove" %}</span>
                     </button>
                 </div>
@@ -35,9 +35,9 @@
                 <div class="form-group">
                     <label for="selected-permissions">{% trans "Selected Permissions" %}</label>
                     <select id="selected-permissions" class="mat-list selected" name="permissions" multiple>
-                    {% for p in permissions %}
-                        <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
-                    {% endfor %}
+                        {% for p in permissions  %}
+                            <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="responsive">
                 <div class="form-group">
                     <label for="available-users">{% trans "Select Users to Add" %}</label>
-                    <select name="available_users" id="available-users" multiple>
+                    <select name="available_users" id="available-users" multiple data-target="#selected-users">
                         {% for u in available_users  %}
                             <option value="{{u.pk}}">{{u.get_full_name}} ({{u.username}})</option>
                         {% endfor %}
@@ -55,10 +55,10 @@
             </div><!--End of Responsive-->
             <div class="responsive">
                 <div class="flex flex-column">
-                    <button class="mat-button mat-button-default" type="button" id="add-selected-users">
+                    <button class="mat-button mat-button-default" type="button" id="add-selected-users" data-source="#available-users" data-target="#selected-users">
                         <i class="fas fa-angle-double-right"></i><span>{% trans "Add" %}</span>
                     </button>
-                    <button class="mat-button mat-button-default" type="button" id="remove-selected-users">
+                    <button class="mat-button mat-button-default" type="button" id="remove-selected-users" data-target="#available-users" data-source="#selected-users">
                         <i class="fas fa-angle-double-left"></i><span>{% trans "Remove" %}</span>
                     </button>
                 </div>
@@ -66,7 +66,7 @@
             <div class="responsive">
                 <div class="form-group">
                     <label for="users">{% trans "Selected Users.(Select Users to remove" %}</label>
-                    <select name="users" id="users" multiple>
+                    <select name="users" id="selected-users" multiple>
                         {% for u in users  %}
                             <option value="{{u.pk}}">{{u.get_full_name}} ({{u.username}})</option>
                         {% endfor %}
