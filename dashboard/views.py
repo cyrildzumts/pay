@@ -543,7 +543,7 @@ def group_update(request, pk=None):
     # TODO CHECK if the requesting User has the permission to update a group
     context = None
     page_title = 'Group Update'
-    template_name = 'dashboard/group_create.html'
+    template_name = 'dashboard/group_update.html'
     group = get_object_or_404(Group, pk=pk)
     form = forms.GroupFormCreation(instance=group)
     group_users = group.user_set.all()
