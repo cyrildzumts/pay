@@ -765,7 +765,7 @@ var Group = (function(){
     Group.prototype.init = function(){
         this.available_permissions = $('#available-permissions');
         $('#add-selected-users').on('click', function(){
-            console.log("Add Users Button clicked");
+            console.log("Add Users Button clicked", this);
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option:selected', $target).each(function(el){
