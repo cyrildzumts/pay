@@ -548,7 +548,7 @@ def group_update(request, pk=None):
     form = forms.GroupFormCreation(instance=group)
     group_users = group.user_set.all()
     available_users = User.objects.exclude(pk__in=group_users.values_list('pk'))
-    permissions = group.permissions_set.all()
+    permissions = group.permissions.all()
     available_permissions = Permission.objects.exclude(pk__in=permissions.values_list('pk'))
     if request.method == 'POST':
         form = forms.GroupFormCreation(request.POST, instance=group)
