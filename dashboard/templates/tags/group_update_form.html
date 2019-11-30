@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="available-permissions">{% trans "Select Permissions to add" %}</label>
                     <select name="available_permissions" id="available-permissions" multiple>
-                        {% for p in permissions  %}
+                        {% for p in available_permissions  %}
                             <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
                         {% endfor %}
                     </select>
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="selected-permissions">{% trans "Selected Permissions" %}</label>
                     <select id="selected-permissions" class="mat-list selected" name="permissions" multiple>
-                    {% for p in selected_permissions %}
+                    {% for p in permissions %}
                         <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
                     {% endfor %}
                     </select>
