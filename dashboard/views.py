@@ -652,14 +652,18 @@ def group_create(request):
     if request.method == 'POST':
         form = forms.GroupFormCreation(request.POST)
         users = request.POST.getlist('users')
-        if form.is_valid() and users:
+        if form.is_valid():
             logger.debug("Group Create : Form is Valid")
-            group = form.save()
-            group.user_set.set(users)
-            logger.debug("Added users into the group %s",users)
-            return redirect('dashboard:groups')
+            if users:
+                group = form.save()
+                group.user_set.set(users)
+                logger.debug("Added users into the group %s",users)
+                return redirect('dashboard:groups')
+            else :
+                logger.error("Error on adding  users %s into the group", users)
+            
         else :
-            logger.error("Error on adding  users %s into the group",users)
+            logger.error("Error on creating new Group Errors : ", form.errors)
     
     context = {
             'page_title' : page_title,
