@@ -13,7 +13,7 @@
         <div class="row">
             <div class="responsive">
                 <div class="form-group">
-                    <label for="available-permissions">{% trans "Add Permissions to add" %}</label>
+                    <label for="available-permissions">{% trans "Select Permissions to add" %}</label>
                     <select name="available_permissions" id="available-permissions" multiple>
                         {% for p in permissions  %}
                             <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
@@ -65,7 +65,7 @@
             </div><!--End of Responsive-->
             <div class="responsive">
                 <div class="form-group">
-                    <label for="users">{% trans "Selected Users" %}</label>
+                    <label for="users">{% trans "Selected Users.(Select Users to remove" %}</label>
                     <select name="users" id="users" multiple>
                         {% for u in users  %}
                             <option value="{{u.pk}}">{{u.get_full_name}} ({{u.username}})</option>
@@ -76,7 +76,7 @@
         </div><!--End of Row-->
         
         
-        <div class="form-group row">
+        <div class="row">
             <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
             <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
             <a class="mat-button mat-button-text" href="{%url 'dashboard:group-detail' group.pk%}">{% trans "Cancel" %}</a>
