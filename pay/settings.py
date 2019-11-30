@@ -250,9 +250,9 @@ LOGGING = {
     },
     'loggers': {
         '' : {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'handlers': ['console', 'file'],
-            'propagate': True,
+            'propagate': False,
         },
         'django': {
             'level': 'INFO',
