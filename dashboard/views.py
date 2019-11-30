@@ -539,6 +539,42 @@ def group_detail(request, pk=None):
 
 
 @login_required
+def group_update(request, pk=None):
+    context = None
+    page_title = 'Group Update'
+    template_name = 'dashboard/group_create.html'
+    group = get_object_or_404(Group, pk=pk)
+    form = forms.GroupFormCreation(instance=group)
+    group_users = group.user_set.all()
+    available_users = User.objects.exclude()
+    permissions = group.permissions
+    available_permissions = Permission.objects.exclude()
+    if request.method == 'POST':
+        form = forms.GroupFormCreation(request.POST, instance=group)
+        users = request.POST.getlist('users')
+        if form.is_valid() and users:
+            logger.debug("Group form for update is valid")
+            if form.has_changed():
+                logger.debug("Group has changed")
+                group = form.save()
+            group.user_set.set(users)
+            logger.debug("Saved users into the group %s",users)
+            return redirect('dashboard:groups')
+        else :
+            logger.error("Error on adding  users %s into the group",users)
+    
+    context = {
+            'page_title' : page_title,
+            'form': form,
+            'users' : group_users,
+            'available_users' : available_users,
+            'permissions': permissions,
+            'available_permissions' : available_permissions
+    }
+    return render(request, template_name, context)
+
+
+@login_required
 def group_create(request):
     context = None
     page_title = 'Group Creation'
@@ -563,3 +599,20 @@ def group_create(request):
             'permissions': Permission.objects.all()
     }
     return render(request, template_name, context)
+
+
+@login_required
+def group_delete(request, pk=None):
+    # TODO Check if the user requesting the deletion has the Group Delete permission
+    try:
+        group = Group.objects.get(pk=pk)
+        name = group.name
+        messages.add_message(request, messages.SUCCESS, 'Group {} has been deleted'.format(name))
+        group.delete()
+        logger.debug("Group {} deleted by User {} ({})", name, request.user.username, request.user.get_full_name())
+        return redirect('dashboard:groups')
+    except Group.DoesNotExist:
+        messages.add_message(request, messages.ERROR, 'Group could not be found. Group not deleted')
+        logger.error("Group Delete : Group not found. Action requested by User {} ({})",request.user.username, request.user.get_full_name())
+        return redirect('dashboard:groups')
+    
