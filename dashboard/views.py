@@ -646,6 +646,8 @@ def group_create(request):
     context = None
     page_title = 'Group Creation'
     template_name = 'dashboard/group_create.html'
+    available_permissions = Permission.objects.all()
+    available_users = User.objects.all()
     form = forms.GroupFormCreation()
     if request.method == 'POST':
         form = forms.GroupFormCreation(request.POST)
@@ -662,8 +664,8 @@ def group_create(request):
     context = {
             'page_title' : page_title,
             'form': form,
-            'users' : User.objects.all(),
-            'permissions': Permission.objects.all()
+            'available_users' : available_users,
+            'available_permissions': available_permissions
     }
     return render(request, template_name, context)
 
