@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User, Group, Permission
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Q
 from rest_framework.authtoken.models import Token
 from pay import utils, settings
@@ -93,11 +94,19 @@ def service_details(request, service_uuid=None):
 def services(request):
     context = {}
     model = utils.get_model('payments', 'Service')
-    services = model.objects.select_related('category').all()
+    queryset = model.objects.select_related('category').all()
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['services'] = services
+    context['services'] = list_set
     context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
 
@@ -107,11 +116,19 @@ def services(request):
 def available_services(request):
     context = {}
     model = utils.get_model('payments', 'AvailableService')
-    available_services = model.objects.all()
+    queryset = model.objects.all()
     template_name = "dashboard/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['available_services'] = available_services
+    context['available_services'] = list_set
     return render(request,template_name, context)
 
 def available_service_update(request, available_uuid=None):
@@ -210,11 +227,19 @@ def available_service_details(request, available_uuid=None):
 def category_services(request):
     context = {}
     model = utils.get_model('payments', 'ServiceCategory')
-    categories = model.objects.filter()
+    queryset = model.objects.all()
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['categories'] = categories
+    context['categories'] = list_set
     return render(request,template_name, context)
 
 
@@ -316,11 +341,19 @@ def policies(request):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Policy')
     #current_account = Account.objects.get(user=request.user)
-    current_policies = model.objects.all()
+    queryset = model.objects.all()
     template_name = "dashboard/policy_list.html"
     page_title = "Policies - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['policies'] = current_policies
+    context['policies'] = list_set
     return render(request,template_name, context)
 
 
@@ -427,8 +460,16 @@ def transfers(request):
     queryset = model.objects.all()
     template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['transfers'] = queryset
+    context['transfers'] = list_set
     return render(request,template_name, context)
 
 
@@ -451,8 +492,16 @@ def payments(request):
     queryset = model.objects.all()
     template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        payment_set = paginator.page(page)
+    except PageNotAnInteger:
+        payment_set = paginator.page(1)
+    except EmptyPage:
+        payment_set = None
     context['page_title'] = page_title
-    context['payments'] = queryset
+    context['payments'] = payment_set
     return render(request,template_name, context)
 
 
@@ -475,8 +524,16 @@ def cases(request):
     queryset = model.objects.all()
     template_name = "dashboard/cases.html"
     page_title = "Cases - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['cases'] = queryset
+    context['cases'] = list_set
     return render(request,template_name, context)
 
 
@@ -523,8 +580,16 @@ def groups(request):
     group_list = Group.objects.all()
     template_name = "dashboard/group_list.html"
     page_title = "Groups" + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(group_list, 10)
+    try:
+        group_set = paginator.page(page)
+    except PageNotAnInteger:
+        group_set = paginator.page(1)
+    except EmptyPage:
+        group_set = None
     context['page_title'] = page_title
-    context['groups'] = group_list
+    context['groups'] = group_set
     return render(request,template_name, context)
 
 @login_required
