@@ -4,6 +4,13 @@
 {% block MAIN %}
 
 <div class="container">
+    <ul class="mat-list horizontal-list">
+        <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span>  </a></li>
+        <li class="list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus"></i> <span>{% trans "{% trans "Create A Group" %}" %}</span> </a></li>
+    </ul>
+</div>
+
+<div class="container">
     {% for group in groups %}
         <div class="box">
             <div class="title">
@@ -21,12 +28,13 @@
                 {% endif %}
             </div>
             <div class="actions">
-                <a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' group.pk %}">{% trans "Detail" %}</a>
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' group.pk %}"><i class="fas fa-info"></i><span>{% trans "{% trans "Detail" %}" %}</span></a>
+                <a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' group.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "{% trans "Delete" %}" %}</span></a>
             </div>
         </div>
     {% empty %}
     <p> {% trans "There is currently no Group" %} ...</p>
-    <a class="mat-button mat-button-text" href="{% url 'dashboard:group-create' %}"> {% trans "Create A Group" %} </a>
+    
     {% endfor %}
 </div>
 {% endblock MAIN %}
