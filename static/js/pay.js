@@ -765,6 +765,7 @@ var Group = (function(){
     Group.prototype.init = function(){
         this.available_permissions = $('#available-permissions');
         $('#add-selected-users').on('click', function(){
+            console.log("Add Users Button clicked");
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option', $target).each(function(el){
@@ -774,6 +775,7 @@ var Group = (function(){
         });
 
         $('#add-selected-permissions').on('click', function(){
+            console.log("Add Permissions Button clicked");
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option', $target).each(function(el){
@@ -783,6 +785,7 @@ var Group = (function(){
         });
 
         $('#remove-selected-users').on('click', function(){
+            console.log("Remove User Button clicked");
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option', $target).each(function(el){
@@ -792,6 +795,7 @@ var Group = (function(){
         });
 
         $('#remove-selected-permissions').on('click', function(){
+            console.log("Remove Users Button clicked");
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option', $target).each(function(el){
