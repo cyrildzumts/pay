@@ -24,8 +24,8 @@
                   <tr>
                           <!-- <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                           <th>{% trans "Group Name" %}</th>
-                          <th>{% trans "Permission Count" %}</th>
-                          <th>{% trans "Member Count" %}</th>
+                          <th>{% trans "Permissions" %}</th>
+                          <th>{% trans "Members" %}</th>
                           <th>{% trans "Details" %}</th>
                           <th>{% trans "Action" %}</th>
                   </tr>
@@ -37,8 +37,8 @@
                   <td>{{g.name}}</td>
                   <td>{{g.permissions.count}}</td>
                   <td>{{g.user_set.count}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
-                  <td><a class="mat-button mat-button-default danger" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
+                  <td><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
+                  <td><a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
                   </tr>
                   {% endfor %}
                   
