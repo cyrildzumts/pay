@@ -768,10 +768,7 @@ var Group = (function(){
             console.log("Add Users Button clicked", this);
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
-            $('option:selected', $source).each(function(el){
-
-                $target.append(el)
-            });
+            $('option:selected', $source).appendTo($target);
 
         });
 
@@ -779,10 +776,7 @@ var Group = (function(){
             console.log("Add Permissions Button clicked");
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
-            $('option:selected', $source).each(function(el){
-
-                $target.append(el)
-            });
+            $('option:selected', $source).appendTo($target);
 
         });
 
@@ -790,10 +784,7 @@ var Group = (function(){
             console.log("Remove User Button clicked");
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
-            $('option:selected', $source).each(function(el){
-
-                $target.append(el)
-            });
+            $('option:selected', $source).appendTo($target);
 
         });
 
@@ -801,10 +792,7 @@ var Group = (function(){
             console.log("Remove Users Button clicked");
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
-            $('option:selected', $source).each(function(el){
-
-                $target.append(el)
-            });
+            $('option:selected', $source).appendTo($target);
 
         });
     };
