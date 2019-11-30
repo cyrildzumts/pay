@@ -751,6 +751,59 @@ function fetchTransaction(){
 }
 
 
+var Group = (function(){
+    function Group(){
+        this.selected_permissions = {};
+        this.group_users = {}
+        this.add_selected_permissions_btn = {};
+        this.add_selected_users_btn = {};
+        this.remove_selected_permissions_btn = {};
+        this.remove_selected_users_btn = {};
+        
+    };
+
+    Group.prototype.init = function(){
+        this.available_permissions = $('#available-permissions');
+        $('#add-selected-users').on('click', function(){
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option', $target).each(function(el){
+                $source.append(el)
+            });
+
+        });
+
+        $('#add-selected-permissions').on('click', function(){
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option', $target).each(function(el){
+                $source.append(el)
+            });
+
+        });
+
+        $('#remove-selected-users').on('click', function(){
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option', $target).each(function(el){
+                $source.append(el)
+            });
+
+        });
+
+        $('#remove-selected-permissions').on('click', function(){
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option', $target).each(function(el){
+                $source.append(el)
+            });
+
+        });
+    };
+
+
+    return Group;
+})();
 
 $(document).ready(function(){
 let account = new Account();
@@ -760,6 +813,9 @@ tabs.init();
 
 var filter = new TableFilter();
 filter.init();
+
+var group = new Group();
+group.init();
 
 var scheduled_query = false;
 var query_delay = 800;
