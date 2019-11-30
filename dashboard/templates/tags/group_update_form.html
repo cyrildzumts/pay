@@ -4,7 +4,7 @@
     <div class="form-group">
             
     </div>
-    <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-create' %}" method="POST">{% csrf_token %}
+    <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
         <div class="form-group">
             <label for="name">{% trans "Name" %} :</label>
             <input type="text" name="name" id="name" value="{{form.name.value}}"> 
