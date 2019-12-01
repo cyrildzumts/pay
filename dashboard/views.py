@@ -190,7 +190,7 @@ def available_service_create(request):
 
 @login_required
 def available_service_remove(request, available_uuid=None):
-    # TODO Check if the user requesting the deletion has the Group Delete permission
+    # TODO Check if the user requesting the deletion has the permission
     deleted_count, extras = forms.AvailableService.objects.filter(available_uuid=available_uuid).delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'AvailableService has been deleted')
@@ -204,7 +204,7 @@ def available_service_remove(request, available_uuid=None):
     
 @login_required
 def available_service_remove_all(request):
-    # TODO Check if the user requesting the deletion has the Group Delete permission
+    # TODO Check if the user requesting the deletion has the permission
     deleted_count, extras = forms.AvailableService.objects.all().delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'All AvailableService has been deleted')
@@ -272,29 +272,36 @@ def category_service_update(request, category_uuid=None):
     return render(request, template_name,context )
 
 
+
+
 @login_required
 def category_service_remove(request, category_uuid=None):
-    page_title = _("Removing Category Service")+ ' | ' + settings.SITE_NAME
-    template_name = "dashboard/category_service_remove.html"
-    if request.method =="POST":
-        form = forms.ServiceCategoryForm(request.POST)
-        if form.is_valid() and forms.ServiceCategory.objects.filter(category_uuid=category_uuid).exists() :
-            forms.ServiceCategory.objects.filter(category_uuid=category_uuid).delete()
-            logger.info("ServiceCategoryForm for instance %s is valid", form.cleaned_data['category_name'])
-            return redirect('dashboard:category_services')
-        else:
-            logger.info("Edit ServiceCategoryForm is not valid. Errors : %s", form.errors)
+    # TODO Check if the user requesting the deletion has the permission
+    deleted_count, extras = forms.ServiceCategory.objects.filter(category_uuid=category_uuid).delete()
+    if deleted_count > 0 :
+        messages.add_message(request, messages.SUCCESS, 'Service Category has been deleted')
+        logger.debug("Service Category deleted by User {}", request.user.username)
     
-    instance = get_object_or_404(forms.AvailableService, category_uuid=category_uuid)
-    form = forms.AvailableServiceForm(instance=instance)
-    context = {
-            'page_title':page_title,
-            'template_name':template_name,
-            'category' : instance,
-            'form': form
-        }
+    else:
+        messages.add_message(request, messages.ERROR, 'Service Category could not be deleted')
+        logger.error("Service Category Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:category_services')
+
+
+@login_required
+def category_service_remove_all(request):
+    # TODO Check if the user requesting the deletion has the permission
+    deleted_count, extras = forms.ServiceCategory.objects.all().delete()
+    if deleted_count > 0 :
+        messages.add_message(request, messages.SUCCESS, 'All ServiceCategory has been deleted')
+        logger.debug("All ServiceCategory deleted by User {}", request.user.username)
     
-    return render(request, template_name,context )
+    else:
+        messages.add_message(request, messages.ERROR, 'All ServiceCategory could not be deleted')
+        logger.error("All ServiceCategory Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:home')
 
 
 @login_required
@@ -389,29 +396,32 @@ def policy_update(request, policy_uuid=None):
 
 @login_required
 def policy_remove(request, policy_uuid=None):
-    page_title = _("Removing Policy")+ ' | ' + settings.SITE_NAME
-    template_name = "dashboard/policy_remove.html"
-    if request.method =="POST":
-        form = forms.PolicyForm(request.POST)
-        if form.is_valid() and forms.Policy.objects.filter(policy_uuid=policy_uuid).exists() :
-            forms.Policy.objects.filter(policy_uuid=policy_uuid).delete()
-            logger.info("PolicyForm for instance %s is valid", form.cleaned_data['commission'])
-            return redirect('dashboard:policies')
-        else:
-            logger.info("Edit PolicyForm is not valid. Errors : %s", form.errors)
+    # TODO Check if the user requesting the deletion has the permission
+    deleted_count, extras = forms.Policy.objects.filter(policy_uuid=policy_uuid).delete()
+    if deleted_count > 0 :
+        messages.add_message(request, messages.SUCCESS, 'Policy has been deleted')
+        logger.debug("Policy deleted by User {}", request.user.username)
     
-    instance = get_object_or_404(forms.Policy, policy_uuid=policy_uuid)
-    form = forms.PolicyForm(instance=instance)
-    context = {
-            'page_title':page_title,
-            'template_name':template_name,
-            'policy' : instance,
-            'form': form
-        }
-    
-    return render(request, template_name,context )
+    else:
+        messages.add_message(request, messages.ERROR, 'Policy could not be deleted')
+        logger.error("Policy Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:policies')
 
 
+@login_required
+def policy_remove_all(request):
+    # TODO Check if the user requesting the deletion has the permission
+    deleted_count, extras = forms.Policy.objects.all().delete()
+    if deleted_count > 0 :
+        messages.add_message(request, messages.SUCCESS, 'All Policies has been deleted')
+        logger.debug("All Policies deleted by User {}", request.user.username)
+    
+    else:
+        messages.add_message(request, messages.ERROR, 'All Policies could not be deleted')
+        logger.error("All Policies Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:home')
 
 @login_required
 def policy_create(request):

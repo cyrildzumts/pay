@@ -30,11 +30,13 @@ urlpatterns = [
     path('policies/', views.policies, name='policies'),
     path('policies/detail/<uuid:policy_uuid>/', views.policy_details, name='policy_detail'),
     path('policies/remove/<uuid:policy_uuid>/', views.policy_remove, name='policy_remove'),
+    path('policies/remove-all/', views.policy_remove_all, name='policy-remove-all'),
     path('policies/update/<uuid:policy_uuid>/', views.policy_update, name='policy_update'),
     path('policies/create/', views.policy_create, name='policy_create'),
     path('category_services/', views.category_services, name='category_services'),
     path('category_services/detail/<uuid:category_uuid>/', views.category_service_details, name='category_service_detail'),
     path('category_services/remove/<uuid:category_uuid>/', views.category_service_remove, name='category_service_remove'),
+    path('category_services/remove-all/', views.category_service_remove_all, name='category-service-remove-all'),
     path('category_services/update/<uuid:category_uuid/', views.category_service_update, name='category_service_update'),
     path('category_services/create/', views.category_service_create, name='category_service_create'),
     
