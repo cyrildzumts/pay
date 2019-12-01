@@ -663,7 +663,7 @@ def group_create(request):
                 logger.debug("Added users into the group %s",users)
             else :
                 logger.debug("Group %s created without users", group.name)
-                
+
             return redirect('dashboard:groups')
             
         else :
@@ -687,10 +687,11 @@ def group_delete(request, pk=None):
         name = group.name
         messages.add_message(request, messages.SUCCESS, 'Group {} has been deleted'.format(name))
         group.delete()
-        logger.debug("Group {} deleted by User {} ({})", name, request.user.username, request.user.get_full_name())
-        return redirect('dashboard:groups')
+        logger.debug("Group {} deleted by User {}", name, request.user.username)
+        
     except Group.DoesNotExist:
         messages.add_message(request, messages.ERROR, 'Group could not be found. Group not deleted')
-        logger.error("Group Delete : Group not found. Action requested by User {} ({})",request.user.username, request.user.get_full_name())
-        return redirect('dashboard:groups')
+        logger.error("Group Delete : Group not found. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:groups')
     
