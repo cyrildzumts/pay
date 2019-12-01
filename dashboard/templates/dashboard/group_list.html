@@ -10,6 +10,23 @@
     </ul>
 </div>
 
+<div id="group-delete-dialog" class="dialog">
+    <div class="dialog-content">
+        <div class="title warning">
+            <h4>{% trans "Group Delete Confirmation" %}</h4>
+        </div>
+        <div class="content">
+                <span> {% trans "Do you really want to delete this Group ? " %}</span>
+                <span> {% trans "This action is irreversible." %}</span>
+        </div>
+        <div class="row">
+            <button class="mat-button mat-button-outlined js-close" type="button">{% trans "Cancel" %}</button>
+            <button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>
+        </div>
+    </div><!--End of Dialog Content-->
+    
+</div><!--End of Dialog-->
+
 <div class="container">
     {% if groups %}
     <div class="mat-table-wrapper">
@@ -38,7 +55,7 @@
                   <td>{{g.permissions.count}}</td>
                   <td>{{g.user_set.count}}</td>
                   <td><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
-                  <td><a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
+                  <td><a class="mat-button mat-button-text danger js-need-confirmation" data-target="#group-delete-dialog" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
                   </tr>
                   {% endfor %}
                   

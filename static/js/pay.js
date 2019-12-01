@@ -910,6 +910,10 @@ slider.init();
         $('body').toggleClass('baseline-16');
         console.log("toggling Class on grid element");
     });
+
+    $('.js-need-confirmation').on('click', function(event){
+        return confirm("This action is irreversible. Do you to want proceed ?");
+    });
 });
 
 
