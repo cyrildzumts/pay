@@ -8,6 +8,12 @@
             <div class="title">
                 <h3><span>{% trans "Group" %}</span> - <span>{{group.name}}</span></h3>
              </div>
+             <div class="row actions">
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:groups' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span></a>
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                <a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' group.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a>
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:group-update' group.pk %}"><i class="far fa-edit"></i><span>{% trans "Edit" %}</span></a>
+             </div>
              <div class="content">
                 {% if group.permissions %}
                     <ul class="mat-list">
@@ -27,12 +33,7 @@
                     </ul>
                 {% endif %}
              </div>
-             <div class="row actions">
-                <a class="mat-button mat-button-text" href="{% url 'dashboard:groups' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span></a>
-                <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
-                <a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' group.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a>
-                <a class="mat-button mat-button-text" href="{% url 'dashboard:group-update' group.pk %}"><i class="far fa-edit"></i><span>{% trans "Edit" %}</span></a>
-             </div>
+             
                 
            
     </div>
