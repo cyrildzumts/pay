@@ -1,13 +1,20 @@
 from django.contrib import admin
-from payments.models import Reduction, Transaction, Transfer, Payment, CaseIssue
+from payments.models import Reduction, Transaction, Transfer, Payment, CaseIssue, Service ,AvailableService, ServiceCategory
 
 # Register your models here.
 
 
+class AvailableServiceInline(admin.StackedInline):
+    model = AvailableService
+
+class ServiceCategoryInline(admin.StackedInline):
+    model = ServiceCategory
 
 class ReductionInline(admin.StackedInline):
     model = Reduction
 
+class ServiceInline(admin.StackedInline):
+    model = Service
 
 class TransactionInline(admin.StackedInline):
     model = Transaction
@@ -26,6 +33,9 @@ class CaseIssueInline(admin.StackedInline):
 
 
 
+admin.site.register(ServiceCategory)
+admin.site.register(AvailableService)
+admin.site.register(Service)
 admin.site.register(Reduction)
 admin.site.register(Transaction)
 admin.site.register(Transfer)
