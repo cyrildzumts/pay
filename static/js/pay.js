@@ -776,6 +776,7 @@ var Group = (function(){
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true);
 
         });
 
@@ -783,6 +784,7 @@ var Group = (function(){
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true);
 
         });
 
@@ -790,6 +792,7 @@ var Group = (function(){
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
             $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true);
 
         });
     };
