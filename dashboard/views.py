@@ -656,15 +656,21 @@ def group_create(request):
         users = request.POST.getlist('users')
         if form.is_valid():
             logger.debug("Group Create : Form is Valid")
-            group = form.save()
-            messages.add_message(request, messages.SUCCESS, "The Group has been succesfully created")
-            if users:
-                group.user_set.set(users)
-                logger.debug("Added users into the group %s",users)
-            else :
-                logger.debug("Group %s created without users", group.name)
+            group_name = form.cleaned_data.get('name', None)
+            if not Group.objects.filter(name=group_name).exists():
+                group = form.save()
+                messages.add_message(request, messages.SUCCESS, "The Group has been succesfully created")
+                if users:
+                    group.user_set.set(users)
+                    logger.debug("Added users into the group %s",users)
+                else :
+                    logger.debug("Group %s created without users", group_name)
 
-            return redirect('dashboard:groups')
+                return redirect('dashboard:groups')
+            else:
+                msg = "A Group with the given name {} already exists".format(group_name)
+                messages.add_message(request, messages.ERROR, msg)
+                logger.error(msg)
             
         else :
             messages.add_message(request, messages.ERROR, "The Group could not be created. Please correct the form")
