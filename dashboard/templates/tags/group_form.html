@@ -5,7 +5,8 @@
             
     </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-create' %}" method="POST">{% csrf_token %}
-        <div class="form-group">
+        
+        <div class="row">
             {% if form.errors %}
                 <ul class="errorlist">
                     {% for error in form.name.errors %}
@@ -13,9 +14,12 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <label for="name">{% trans "Name" %} :</label>
-            <input type="text" name="name" id="name"> 
+            <div class="form-group">
+                <label for="name">{% trans "Name" %} :</label>
+                <input type="text" name="name" id="name"> 
+            </div>
         </div>
+        
         
         <div class="row">
             <div class="responsive">
