@@ -663,7 +663,7 @@ def group_create(request):
                 logger.debug("Added users into the group %s",users)
             else :
                 logger.debug("Group %s created without users", group.name)
-            
+                
             return redirect('dashboard:groups')
             
         else :
