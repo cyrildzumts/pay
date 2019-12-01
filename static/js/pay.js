@@ -763,10 +763,12 @@ var Group = (function(){
     };
 
     Group.prototype.init = function(){
-        $('#add-selected-users').on('click', function(){
+        $('#add-selected-users').on('click', function(event){
+            event.preventDefault();
             var $target = $($(this).data('target'));
             var $source = $($(this).data('source'));
-            $('option:selected', $source).prop('selected', true).appendTo($target);
+            $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true);
 
         });
 
