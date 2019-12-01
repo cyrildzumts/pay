@@ -36,7 +36,7 @@
                     <label for="selected-permissions">{% trans "Selected Permissions" %}</label>
                     <select id="selected-permissions" class="mat-list selected" name="permissions" multiple>
                         {% for p in permissions  %}
-                            <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
+                            <option value="{{p.pk}}" selected>{{p.name}} - {{p.codename}}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -68,7 +68,7 @@
                     <label for="users">{% trans "Selected Users.(Select Users to remove" %}</label>
                     <select name="users" id="selected-users" multiple>
                         {% for u in users  %}
-                            <option value="{{u.pk}}">{{u.get_full_name}} ({{u.username}})</option>
+                            <option value="{{u.pk}}" selected>{{u.get_full_name}} ({{u.username}})</option>
                         {% endfor %}
                     </select>
                 </div><!--End of form-group-->
