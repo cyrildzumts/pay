@@ -16,7 +16,7 @@
                     <label for="is_active">{% trans "Activated" %} : </label>
                     <input type="checkbox" name="is_active" id="is_active" {% if category.is_active %}checked{% endif %} disabled>
                  </li>
-                <li class="list-item"> {% trans "Created by" %}: {{category.created_by.get_full_name}} </li>
+                <li class="list-item"> {% trans "Created by" %}: {{category.created_by.username}} </li>
                 <li class="list-item"> {% trans "Created at" %} : {{category.created_at}} </li>
               </ul>
               {% if has_services %}

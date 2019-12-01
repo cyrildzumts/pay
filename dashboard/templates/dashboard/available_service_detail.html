@@ -13,7 +13,7 @@
               <ul class="listview" role="navigation">
                 <li class="list-item"> {% trans "Operator" %} : {{service.operator.get_full_name}} </li>
                 <li class="list-item"> {% trans "Category" %}: {{service.category.category_name}} </li>
-                <li class="list-item"> {% trans "Created by" %}: {{service.created_by.get_full_name}} </li>
+                <li class="list-item"> {% trans "Created by" %}: {{service.created_by.username}} </li>
                 <li class="list-item"> {% trans "Date" %} : {{service.created_at}} </li>
                 <li class="list-item"> 
                     <label for="is_active">{% trans "Activated" %} : </label>
