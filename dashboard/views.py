@@ -189,27 +189,19 @@ def available_service_create(request):
 
 @login_required
 def available_service_remove(request, available_uuid=None):
-    page_title = _("Edit Available Service")+ ' | ' + settings.SITE_NAME
-    template_name = "dashboard/available_service_remove.html"
-    if request.method =="POST":
-        form = forms.AvailableServiceForm(request.POST)
-        if form.is_valid() and forms.AvailableService.objects.filter(available_uuid=available_uuid).exists() :
-            forms.AvailableService.objects.filter(available_uuid=available_uuid).delete()
-            logger.info("AvailableServiceForm for instance %s is valid", form.cleaned_data['name'])
-            return redirect('dashboard:available_services')
-        else:
-            logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
+    # TODO Check if the user requesting the deletion has the Group Delete permission
+    deleted_count, extras = forms.AvailableService.objects.filter(available_uuid=available_uuid).delete()
+    if deleted_count > 0 :
+        messages.add_message(request, messages.SUCCESS, 'AvailableService has been deleted')
+        logger.debug("AvailableService deleted by User {}", request.user.username)
     
-    instance = get_object_or_404(forms.AvailableService, pk=pk)
-    form = forms.AvailableServiceForm(instance=instance)
-    context = {
-            'page_title':page_title,
-            'template_name':template_name,
-            'service' : instance,
-            'form': form
-        }
+    else:
+        messages.add_message(request, messages.ERROR, 'AvailableService could not be deleted')
+        logger.error("AvailableService Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:available_services')
     
-    return render(request, template_name,context )
+
 
 @login_required
 def available_service_details(request, available_uuid=None):
