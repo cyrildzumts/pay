@@ -23,13 +23,7 @@ class IDCard(models.Model):
     delivery_place = models.CharField(max_length=32, blank=True, null=True)
     is_valid = models.BooleanField(default=False, blank=True, null=True)
     idcard_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    
-    class Meta:
-        permissions = (
-            ('api_view_idcard', 'Can read through a rest api'),
-            ('api_change_idcard', 'Can edit through a rest api'),
-            ('api_delete_idcard', 'Can delete through a rest api'),
-        )
+
 
     def __str__(self):
         return "Card id : {} User : {}".format(self.pk, self.user)
@@ -110,17 +104,6 @@ class AvailableService(models.Model):
     description = models.CharField(max_length=80, blank=True, null=True)
     available_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
-    class Meta:
-        permissions = (
-            ('can_add_availableservice', "Can add an availableservice"),
-            ('can_view_availableservice', "Can read an availableservice"),
-            ('can_change_availableservice', "Can change an availableservice"),
-            ('can_delete_availableservice', "Can delete an availableservice"),
-            ('api_add_availableservice', "Can add  an availableservice through rest api"),
-            ('api_view_availableservice', 'Can read through a rest api'),
-            ('api_change_availableservice', 'Can edit through a rest api'),
-            ('api_delete_availableservice', 'Can delete through a rest api'),
-        )
 
     def __str__(self):
         return self.name
@@ -173,17 +156,6 @@ class Service(models.Model):
     description = models.CharField(max_length=80, blank=True, null=True)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
-    class Meta:
-        permissions = (
-            ('can_add_service', "Can add an service"),
-            ('can_view_service', "Can read an service"),
-            ('can_change_service', "Can change an service"),
-            ('can_delete_service', "Can delete an service"),
-            ('api_add_service', "Can add  an service through rest api"),
-            ('api_view_service', 'Can read through a rest api'),
-            ('api_change_service', 'Can edit through a rest api'),
-            ('api_delete_service', 'Can delete through a rest api'),
-        )
 
     def __str__(self):
         return self.name

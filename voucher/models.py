@@ -27,20 +27,6 @@ class Voucher(models.Model):
     class Meta:
         verbose_name = _("Voucher")
         verbose_name_plural = _("Vouchers")
-        permissions = (
-            ('can_add_voucher', "Can add  an voucher"),
-            ('can_view_voucher', "Can read  an voucher"),
-            ('can_change_voucher', "Can change  an voucher"),
-            ('can_delete_voucher', "Can delete an voucher"),
-            ('can_activate_voucher', 'Can activate voucher'),
-            ('can_sell_voucher', 'Can sell voucher'),
-            ('api_add_voucher', "Can add  an voucher through rest api"),
-            ('api_view_voucher', 'Can read through a rest api'),
-            ('api_change_voucher', 'Can edit through a rest api'),
-            ('api_delete_voucher', 'Can delete through a rest api'),
-            ('api_activate_voucher', 'Can activate voucher through rest api'),
-            ('api_sell_voucher', 'Can sell voucher through rest api'),
-        )
 
 
     def __str__(self):
@@ -60,16 +46,7 @@ class SoldVoucher(models.Model):
     class Meta:
         verbose_name = _("SoldVoucher")
         verbose_name_plural = _("SoldVouchers")
-        permissions = (
-            ('can_add_soldevoucher', "Can add  an soldevoucher"),
-            ('can_view_soldevoucher', "Can read  an soldevoucher"),
-            ('can_change_soldevoucher', "Can change  an soldevoucher"),
-            ('can_delete_soldevoucher', "Can delete an soldevoucher"),
-            ('api_add_soldevoucher', "Can add  an soldevoucher through rest api"),
-            ('api_view_soldevoucher', 'Can read through a rest api'),
-            ('api_change_soldevoucher', 'Can edit through a rest api'),
-            ('api_delete_soldevoucher', 'Can delete through a rest api'),
-        )
+        
 
     def __str__(self):
         return self.voucher.name
@@ -88,16 +65,7 @@ class UsedVoucher(models.Model):
     class Meta:
         verbose_name = _("UsedVoucher")
         verbose_name_plural = _("UsedVouchers")
-        permissions = (
-            ('can_add_usedvoucher', "Can add  an usedvoucher"),
-            ('can_view_usedvoucher', "Can read  an usedvoucher"),
-            ('can_change_usedvoucher', "Can change  an usedvoucher"),
-            ('can_delete_usedvoucher', "Can delete an usedvoucher"),
-            ('api_add_usedvoucher', "Can add  an usedvoucher through rest api"),
-            ('api_view_usedvoucher', 'Can read through a rest api'),
-            ('api_change_usedvoucher', 'Can edit through a rest api'),
-            ('api_delete_usedvoucher', 'Can delete through a rest api'),
-        )
+        
 
     def __str__(self):
         return self.voucher.name
@@ -113,12 +81,6 @@ class Recharge(models.Model):
     amount = models.IntegerField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     recharge_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-
-    class Meta:
-        permissions = (
-            ('can_view_recharge', 'Can view a recharge'),
-            ('api_view_recharge', 'Can view a recharge through a rest api'),
-        )
 
     def __str__(self):
         return "Recharge " + self.voucher.name
