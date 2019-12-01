@@ -6,7 +6,7 @@
     </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-create' %}" method="POST">{% csrf_token %}
         
-        <div class="row">
+        <div class="grid">
             {% if form.errors %}
                 <ul class="errorlist">
                     {% for error in form.name.errors %}
