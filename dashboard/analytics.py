@@ -144,7 +144,7 @@ def get_max_transfered_amount_pro_user():
     recipient_field = 'recipient'
     recipient_name_field = 'recipient__user__username'
     created_at_field = 'created_at'
-    queryset = get_model_all_instance_filter_by(appName, modelName, {})
+    queryset = get_model_all_instance_filter_by(appName, modelName, **{})
     if queryset is not None:
         queryset.values(recipient_field, recipient_name_field).annotate(number_of_transfers=Count(recipient_field)).annotate(max_transferred_amount=Max(amount_field))
     return queryset
@@ -161,7 +161,7 @@ def get_max_transfered_amount():
     appName = 'payments'
     modelName = 'Transfer'
 
-    queryset = get_model_all_instance_filter_by(appName, modelName, {})
+    queryset = get_model_all_instance_filter_by(appName, modelName, **{})
     if queryset is not None:
         queryset.aggregate(max_transferred_amount=Max(amount_field))
     return queryset
