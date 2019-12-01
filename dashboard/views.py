@@ -166,7 +166,8 @@ def available_service_create(request):
         form = forms.AvailableServiceForm(request.POST)
         if form.is_valid():
             logger.info("AvailableServiceForm for instance %s is valid", form.cleaned_data['name'])
-            form.save()
+            avs = form.save()
+            forms.AvailableService.objects.filter(pk=avs.pk).update(created_by=request.user)
             return redirect('dashboard:available_services')
         else:
             form = forms.AvailableServiceForm()

@@ -22,7 +22,7 @@ class IDCard(models.Model):
     expire_at = models.DateField(blank=True, null=True)
     delivery_place = models.CharField(max_length=32, blank=True, null=True)
     is_valid = models.BooleanField(default=False, blank=True, null=True)
-    idcard_uuid = models.UUIDField(default=uuid.uuid4())
+    idcard_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     
     class Meta:
         permissions = (
@@ -61,7 +61,7 @@ class Policy(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    policy_uuid = models.UUIDField(default=uuid.uuid4())
+    policy_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
 
@@ -78,7 +78,7 @@ class ServiceCategory(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    category_uuid = models.UUIDField(default=uuid.uuid4())
+    category_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
     def __str__(self):
@@ -108,7 +108,7 @@ class AvailableService(models.Model):
     modified_by = models.ForeignKey(User, related_name="modified_available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)
     description = models.CharField(max_length=80, blank=True, null=True)
-    available_uuid = models.UUIDField(default=uuid.uuid4())
+    available_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     class Meta:
         permissions = (
@@ -171,7 +171,7 @@ class Service(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     issued_at = models.DateField()
     description = models.CharField(max_length=80, blank=True, null=True)
-    service_uuid = models.UUIDField(default=uuid.uuid4())
+    service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     class Meta:
         permissions = (
@@ -198,7 +198,7 @@ class Reduction(models.Model):
     user = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     used_at = models.DateTimeField()
-    reduction_uuid = models.UUIDField(default=uuid.uuid4())
+    reduction_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return "Reduction {}".format( self.percent)
@@ -222,7 +222,7 @@ class Transaction(models.Model):
     transaction_type = models.CharField(max_length=1, choices=TRANSACTION_TYPES)
     policy = models.ForeignKey(Policy, blank=True, null=True, on_delete=models.SET_NULL)
     reduction = models.ForeignKey(Reduction, blank=True, null=True, on_delete=models.SET_NULL)
-    transaction_uuid = models.UUIDField(default=uuid.uuid4())
+    transaction_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return "Transaction id : {0} - Amount : {1}".format(self.pk, self.amount)
@@ -239,7 +239,7 @@ class Payment(models.Model):
     is_validated = models.BooleanField(default=False)
     validated_at = models.DateTimeField(auto_now=True)
     details = models.TextField(max_length=256)
-    payment_uuid = models.UUIDField(default=uuid.uuid4())
+    payment_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return "Payment id : {0} - Amount : {1}".format(self.pk, self.amount)
@@ -254,7 +254,7 @@ class Transfer(models.Model):
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_transfers')
     created_at = models.DateTimeField(auto_now_add=True)
     details = models.TextField(max_length=256)
-    transfer_uuid = models.UUIDField(default=uuid.uuid4())
+    transfer_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return "Transfer id : {0} - Amount : {1}".format(self.pk, self.amount)
@@ -271,7 +271,7 @@ class CaseIssue(models.Model):
     is_closed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     closed_at = models.DateTimeField(auto_now=True)
-    issue_uuid = models.UUIDField(default=uuid.uuid4())
+    issue_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.pk, self.participant_1, self.participant_2)
