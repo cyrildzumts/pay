@@ -65,7 +65,7 @@
             </div><!--End of Responsive-->
             <div class="responsive">
                 <div class="form-group">
-                    <label for="users">{% trans "Selected Users.(Select Users to remove" %}</label>
+                    <label for="users">{% trans "Selected Users.(Select Users to remove)" %}</label>
                     <select name="users" id="selected-users" multiple>
                         {% for u in users  %}
                             <option value="{{u.pk}}" selected>{{u.get_full_name}} ({{u.username}})</option>
