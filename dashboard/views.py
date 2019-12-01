@@ -657,15 +657,17 @@ def group_create(request):
         if form.is_valid():
             logger.debug("Group Create : Form is Valid")
             group = form.save()
+            messages.add_message(request, messages.SUCCESS, "The Group has been succesfully created")
             if users:
                 group.user_set.set(users)
                 logger.debug("Added users into the group %s",users)
             else :
-                logger.error("Error on adding  users %s into the group", users)
+                logger.debug("Group %s created without users", group.name)
             
             return redirect('dashboard:groups')
             
         else :
+            messages.add_message(request, messages.ERROR, "The Group could not be created. Please correct the form")
             logger.error("Error on creating new Group Errors : %s", form.errors)
     
     context = {
