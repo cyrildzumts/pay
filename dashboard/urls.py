@@ -10,6 +10,7 @@ urlpatterns = [
     path('available_services/create/', views.available_service_create, name='available_service_create'),
     path('available_services/update/<uuid:available_uuid>/', views.available_service_update, name='available_service_update'),
     path('available_services/remove/<uuid:available_uuid>/', views.available_service_remove, name='available_service_remove'),
+    path('available-services/remove-all/', views.available_service_remove_all, name='available-service-remove-all'),
     path('available_services/detail/<uuid:available_uuid>/', views.available_service_details, name='available_service_detail'),
     path('cases/', views.cases, name='cases'),
     path('cases/detail/<issue_uuid>/', views.case_details, name='case_detail'),

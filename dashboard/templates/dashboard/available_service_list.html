@@ -7,6 +7,7 @@
   <div class="nav">
     <a class="mat-button mat-button-outlined" href="{% url 'dashboard:available_service_create'%}"> {% trans "Add new Service" %}</a>
     <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    <a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:available_service_remove_all' %}"> {% trans "Delete All Available Service" %} </a>
   </div>
 </div>
 <div class="container">
@@ -24,6 +25,7 @@
                           <th>{% trans "Service Name" %}</th>
                           <th>{% trans "Category" %}</th>
                           <th>{% trans "Details" %}</th>
+                          <th>{% trans "Delete Action" %}</th>
                   </tr>
           </thead>
           <tbody>
@@ -33,6 +35,7 @@
                   <td>{{avs.name}}</td>
                   <td>{{avs.category.category_name}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'dashboard:available_service_detail' avs.available_uuid %}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default warning danger js-need-confirmation" href="{% url 'dashboard:available_service_remove' avs.available_uuid %}"> {% trans "Delete" %}</a></td>
                   </tr>
                   {% endfor %}
                   

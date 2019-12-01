@@ -201,7 +201,19 @@ def available_service_remove(request, available_uuid=None):
         
     return redirect('dashboard:available_services')
     
-
+@login_required
+def available_service_remove_all(request):
+    # TODO Check if the user requesting the deletion has the Group Delete permission
+    deleted_count, extras = forms.AvailableService.objects.all().delete()
+    if deleted_count > 0 :
+        messages.add_message(request, messages.SUCCESS, 'All AvailableService has been deleted')
+        logger.debug("All AvailableService deleted by User {}", request.user.username)
+    
+    else:
+        messages.add_message(request, messages.ERROR, 'All AvailableService could not be deleted')
+        logger.error("All AvailableService Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:home')
 
 @login_required
 def available_service_details(request, available_uuid=None):
