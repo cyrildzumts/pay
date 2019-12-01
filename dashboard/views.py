@@ -665,7 +665,7 @@ def group_create(request):
                 logger.error("Error on adding  users %s into the group", users)
             
         else :
-            logger.error("Error on creating new Group Errors : {}", form.errors)
+            logger.error("Error on creating new Group Errors : %s", form.errors)
     
     context = {
             'page_title' : page_title,
