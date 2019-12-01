@@ -657,6 +657,7 @@ def group_create(request):
         if form.is_valid():
             logger.debug("Group Create : Form is Valid")
             group_name = form.cleaned_data.get('name', None)
+            logger.debug('Creating a Group with the name {}'.format(group_name))
             if not Group.objects.filter(name=group_name).exists():
                 group = form.save()
                 messages.add_message(request, messages.SUCCESS, "The Group has been succesfully created")
