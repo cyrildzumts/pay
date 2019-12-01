@@ -60,7 +60,7 @@ def get_recent_model_instance(appName, modelName, limit=5):
 
     order_field = '-created_at'
 
-    queryset = get_model_all_instance_filter_by(appName, modelName,{})
+    queryset = get_model_all_instance_filter_by(appName, modelName,**{})
     if queryset is not None:
         queryset = queryset.order_by(order_field)[:limit]
     return queryset
