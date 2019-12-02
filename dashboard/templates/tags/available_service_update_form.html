@@ -11,7 +11,7 @@
         <div class="card__body">
         
         
-                <form class="form card" name="available_service" action="{% url 'dashboard:available_service_update'  service.available_uuid %}" method="POST">{% csrf_token %}
+                <form class="form card" name="available_service" action="{{service.get_dashboard_update_url}}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     
                     <div class="form-group">

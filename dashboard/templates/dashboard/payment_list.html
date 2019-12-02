@@ -10,7 +10,7 @@
           <p> {% trans "Recipient" %} : {{payment.recipient.full_name}} </p>
           <p> {% trans "Price" %} : {{payment.amount}} FCFA </p>
           <p> {% trans "Date" %} : {{payment.created_at}} </p>
-          <a class="mat-button mat-button-text" href="{% url 'payments:payment-detail' payment.payment_uuid %}">{% trans "More" %} ...</a>
+          <a class="mat-button mat-button-text" href="{{payment.get_dashboard_absolute_url}}">{% trans "Detail" %}</a>
         </div>
     {% empty %}
     <p> {% trans "You haven't made any Payments" %} ...</p>

@@ -60,8 +60,19 @@ class Policy(models.Model):
 
 
     def __str__(self):
-        return "{0}".format(self.commission)
+        return "Policy {0}".format(self.commission)
+
+    def get_absolute_url(self):
+        return reverse("payments:policy-detail", kwargs={"policy_uuid": self.policy_uuid})
     
+    def get_dashboard_absolute_url(self):
+        return reverse("dashboard:policy-detail", kwargs={"policy_uuid": self.policy_uuid})
+    
+    def get_dashboard_remove_url(self):
+        return reverse("dashboard:policy-remove", kwargs={"policy_uuid": self.policy_uuid})
+    
+    def get_dashboard_update_url(self):
+        return reverse("dashboard:policy-update", kwargs={"policy_uuid": self.policy_uuid})
 
 
 class ServiceCategory(models.Model):
@@ -76,7 +87,20 @@ class ServiceCategory(models.Model):
 
 
     def __str__(self):
-        return self.category_name
+        return "ServiceCategory " + self.category_name
+    
+    def get_absolute_url(self):
+        return reverse("payments:service-categories-detail", kwargs={"category_uuid": self.category_uuid})
+    
+    def get_dashboard_absolute_url(self):
+        return reverse("dashboard:category-service-detail", kwargs={"category_uuid": self.category_uuid})
+
+    def get_dashboard_update_url(self):
+        return reverse("dashboard:category-service-update", kwargs={"category_uuid": self.category_uuid})
+    
+    def get_dashboard_remove_url(self):
+        return reverse("dashboard:category-service-remove", kwargs={"category_uuid": self.category_uuid})
+    
 
 
 class AvailableService(models.Model):
@@ -106,19 +130,32 @@ class AvailableService(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return "AvailableService " + self.name
     
     def get_absolute_url(self):
         """
         This method returns the url that is used to query the details of this models.
         """
         return reverse('payments:available-service-detail', kwargs={'available_uuid':self.available_uuid})
+
+    def get_dashboard_absolute_url(self):
+        """
+        This method returns the url that is used to query the details of this models.
+        """
+        return reverse('dashboard:available-service-detail', kwargs={'available_uuid':self.available_uuid})
+
+    def get_dashboard_remove_url(self):
+        return reverse('dashboard:available-service-remove', kwargs={'available_uuid':self.available_uuid})
+
+    def get_dashboard_update_url(self):
+        return reverse('dashboard:available-service-update', kwargs={'available_uuid':self.available_uuid})
+    
     
     def get_link(self):
         """
         This method returns the link that let the user use this services.
         """
-        return reverse('payments:new-service', kwargs={'pk':self.pk})
+        return reverse('payments:new-service', kwargs={'available_uuid':self.available_uuid})
     
 
 
@@ -158,11 +195,13 @@ class Service(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return "Service " + self.name
     
     def get_absolute_url(self):
-        return reverse('payments:service_detail', kwargs={'pk':self.pk})
+        return reverse('payments:service-detail', kwargs={'service_uuid':self.service_uuid})
 
+    def get_dashboard_absolute_url(self):
+        return reverse('dashboard:service-detail', kwargs={'service_uuid':self.service_uuid})
 
 class Reduction(models.Model):
     code = models.TextField(max_length=8)
@@ -176,7 +215,7 @@ class Reduction(models.Model):
         return "Reduction {}".format( self.percent)
     
     def get_absolute_url(self):
-        return reverse('payments:reduction-detail', kwargs={'pk':self.pk})
+        return reverse('payments:reduction-detail', kwargs={'reduction_uuid':self.reduction_uuid})
 
 
 class Transaction(models.Model):
@@ -200,7 +239,7 @@ class Transaction(models.Model):
         return "Transaction id : {0} - Amount : {1}".format(self.pk, self.amount)
     
     def get_absolute_url(self):
-        return reverse('payments:transaction-detail', kwargs={'pk':self.pk})
+        return reverse('payments:transaction-detail', kwargs={'transaction_uuid':self.transaction_uuid})
 
 
 class Payment(models.Model):
@@ -217,8 +256,10 @@ class Payment(models.Model):
         return "Payment id : {0} - Amount : {1}".format(self.pk, self.amount)
     
     def get_absolute_url(self):
-        return reverse('payments:payment-detail', kwargs={'pk':self.pk})
+        return reverse('payments:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
 
+    def get_dashboard_absolute_url(self):
+        return reverse('dashboard:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
 
 class Transfer(models.Model):
     amount = models.IntegerField(blank=False)
@@ -232,7 +273,10 @@ class Transfer(models.Model):
         return "Transfer id : {0} - Amount : {1}".format(self.pk, self.amount)
 
     def get_absolute_url(self):
-        return reverse('payments:transfer-detail', kwargs={'pk':self.pk})
+        return reverse('payments:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
+
+    def get_dashboard_absolute_url(self):
+        return reverse('dashboard:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
 
 class CaseIssue(models.Model):
     participant_1 = models.ForeignKey(User, null=True , on_delete = models.CASCADE, related_name='created_issues')
@@ -249,7 +293,13 @@ class CaseIssue(models.Model):
         return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.pk, self.participant_1, self.participant_2)
 
     def get_absolute_url(self):
-        return reverse('payments:case-detail', kwargs={'pk':self.pk})
+        return reverse('payments:case-detail', kwargs={'issue_uuid':self.issue_uuid})
+
+    def get_dashboard_absolute_url(self):
+        return reverse('dashboard:case-detail', kwargs={'issue_uuid':self.issue_uuid})
+
+    def get_dashboard_close_url(self):
+        return reverse('dashboard:case-close', kwargs={'issue_uuid':self.issue_uuid})
 
 
 

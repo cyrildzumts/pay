@@ -41,7 +41,7 @@
                   <td>{{policy.daily_limit}} {% trans "XAF" %}</td>
                   <td>{{policy.weekly_limit}} {% trans "XAF" %}</td>
                   <td>{{policy.monthly_limit}} {% trans "XAF" %}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:policy_detail' policy.policy_uuid %}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default" href="{{policy.get_dashboard_absolute_url}}"> {% trans "Detail" %}</a></td>
                   </tr>
                   {% endfor %}
                   
