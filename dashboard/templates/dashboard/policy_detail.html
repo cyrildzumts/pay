@@ -16,7 +16,7 @@
           </div>
           <div class="card__actions">
             <ul class="listview nav" role="navigation">
-                <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy_update' policy.policy_uuid %}"><span class="pen"></span>{% trans "Edit" %}</a></li>
+                <li class="list-item"><a class="mat-button mat-button-text" href="{{policy.get_dashboard_update_url}}"><span class="pen"></span>{% trans "Edit" %}</a></li>
                 <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy_create'%}"><span class="add"></span>{% trans "New Policy" %}</a></li>
                 <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}"><span class="back"></span>{% trans "Policies" %}</a></li>
                 <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a></li>

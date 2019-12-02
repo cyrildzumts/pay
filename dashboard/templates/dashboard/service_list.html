@@ -90,7 +90,7 @@
                   <td>{{s.price}} {% trans "XAF" %}</td>
                   <td>{{s.category.category_name}}</td>
                   <td>{{s.created_at}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:service_detail' s.service_uuid %}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default" href="{{s.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
                   
