@@ -86,16 +86,16 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.group_create)
     
     def test_group_update_url(self):
-        found = resolve('/dashboard/group-update/{}/'.format(uuid_param))
+        found = resolve('/dashboard/group-update/10/')
         self.assertEqual(found.func, views.group_update)
 
 
     def test_group_detail_url(self):
-        found = resolve('/dashboard/group-detail/{}/'.format(uuid_param))
+        found = resolve('/dashboard/group-detail/10/')
         self.assertEqual(found.func, views.group_detail)
 
     def test_group_delete_url(self):
-        found = resolve('/dashboard/group-delete/{}/'.format(uuid_param))
+        found = resolve('/dashboard/group-delete/10/')
         self.assertEqual(found.func, views.group_delete)
 
     def test_policies_url(self):
