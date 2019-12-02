@@ -1,11 +1,11 @@
-{% extends "dashboard_base.html"%}
+{% extends "payment_base.html"%}
 {% load i18n %}
 
 {% block MAIN %}
 <div class="row">
   <div class="nav">
-    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:available_services' %}"> {% trans "Available services" %} </a>
-    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    <a class="mat-button mat-button-outlined" href="{% url 'payments:available-services' %}"> {% trans "Available services" %} </a>
+    <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a>
   </div>
 </div>
 
@@ -30,14 +30,14 @@
                   </tr>
           </thead>
           <tbody>
-                  {% for xfer in transfers  %}
+                  {% for xfer in transfer_list  %}
                   <tr>
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                     <td>{{xfer.sender.username}}</td>
                     <td>{{xfer.recipient.username}}</td>
                     <td>{{xfer.amount}} {% trans "XAF" %}</td>
                     <td>{{xfer.created_at}}</td>
-                    <td><a class="mat-button mat-button-default" href="{{xfer.get_dashboard_absolute_url}}">{% trans "More" %} ...</a></td>
+                    <td><a class="mat-button mat-button-default" href="{% url 'payments:transfer-detail' xfer.transfer_uuid %}">{% trans "More" %} ...</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -47,7 +47,7 @@
           </tfoot>
 
     </table>
-    {% include "tags/pagination.html" with page_set=transfers %}
+    
     </div><!--End of Table Wrapper-->
 
 </div>

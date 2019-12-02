@@ -16,6 +16,7 @@
   <div class="nav">
     <a class="mat-button mat-button-outlined" href="{% url 'dashboard:category_service_create'%}"> {% trans "Add new Category" %}</a>
     <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    <a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:category-service-remove-all' %}"> {% trans "Delete All Service Categories" %} </a>
   </div>
 </div>
 <div class="container">
@@ -26,11 +27,7 @@
                 {% trans "Available Categories" %}
             </div>
         </div><!--End of Row-->
-        <div class="row">
-              <span class="hidden js-table-previous mat-button mat-button-default">{% trans "Previous" %}</span>
-              <span class="hidden js-table-next mat-button mat-button-default">{% trans "Next" %}</span>
-              <span class="js-table-update mat-button mat-button-default">{% trans "Update" %}</span>
-        </div><!--End of Row-->
+        
         <table id="available-category-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
@@ -46,7 +43,7 @@
                   <!--<td class="checkbox"><input type="checkbox" name="selected-category"></td>-->
                   <td>{{category.category_name}}</td>
                   <td>{{category.category_code}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:category_service_detail' category.pk %}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default" href="{{category.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -56,25 +53,7 @@
           </tfoot>
 
     </table>
-    <div class="row">
-          <div class="table-select-wrapper">
-                  <label for="table-step">{% trans "Row per page" %}</label>
-                  <select class="mat-select" name="step" id="table-step">
-                  <option value="3">3</option>
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="30">30</option>
-                  </select>
-          </div>
-          <div class="table-pagination">
-                  <div><span class="js-table-interval-start"></span> <span class="text-separator">-</span> <span class="js-table-interval-end"></span> {% trans "of" %} <span class="js-table-rows-number bold">100</span> </div>
-                  <div class="controls">
-                  <span class="control js-table-previous"><i class="fas fa-chevron-left"></i></span>
-                  <span class="control js-table-next"><i class="fas fa-chevron-right"></i></span>
-                  </div>
-          </div>
-
-    </div><!--End of Row-->
+    {% include "tags/pagination.html" with page_set=categories %}
     </div><!--End of Table Wrapper-->
 
 </div>

@@ -16,15 +16,15 @@ def get_model_instance_filter_by(appName=None, modelName=None, **kwargs):
     model = utils.get_model(appName, modelName)
     instance = None
     if model is None:
-        logger.debug('No model %s found in the app %s')
+        logger.warning('No model %s found in the app %s', modelName, appName)
         return None
     try:
         instance = model.objects.get(**kwargs)
     except ObjectDoesNotExist as e:
-        logger.error("No model entry found with the following attribut : %s", **kwargs)
+        logger.error("No model %s entry found", modelName)
     
     except MultipleObjectsReturned as e:
-        logger.error("Multiple entry found with the following attribut : %s. Only one entry is expected", **kwargs)
+        logger.error("Multiple entry found with the following attribut. Only one entry is expected")
 
     return instance
 
@@ -32,9 +32,9 @@ def get_model_all_instance_filter_by(appName=None, modelName=None, **kwargs):
     model = utils.get_model(appName, modelName)
     queryset = None
     if model is None:
-        logger.warning('No model %s found in the app %s')
+        logger.warning('No model %s found in the app %s', modelName, appName)
     else :
-        logger.debug("analytics query from the app %s and model %s with parameters %s", appName, modelName, **kwargs)
+        logger.debug("analytics query from the app %s and model %s ", appName, modelName)
         queryset = model.objects.filter(**kwargs)
 
     return queryset
@@ -44,9 +44,9 @@ def get_number_model_instance_filter_by(appName=None, modelName=None, **kwargs):
     model = utils.get_model(appName, modelName)
     count = None
     if model is None:
-        logger.warning('No model %s found in the app %s')
+        logger.warning('No model %s found in the app %s', modelName, appName)
     else :
-        logger.debug("analytics query number of instance from the app %s and model %s with parameters %s", appName, modelName, **kwargs)
+        logger.debug("analytics query number of instance from the app %s and model %s ", appName, modelName)
         count = model.objects.filter(**kwargs).count()
 
     return count
@@ -60,7 +60,7 @@ def get_recent_model_instance(appName, modelName, limit=5):
 
     order_field = '-created_at'
 
-    queryset = get_model_all_instance_filter_by(appName, modelName, **{})
+    queryset = get_model_all_instance_filter_by(appName, modelName,**{})
     if queryset is not None:
         queryset = queryset.order_by(order_field)[:limit]
     return queryset
@@ -302,6 +302,12 @@ def get_available_services_filter_by(**kwargs):
 def get_number_available_services_filter_by(**kwargs):
     return utils.get_model('payments', 'AvailableService').objects.filter(**kwargs).count()
 
+
+def get_categories():
+    return utils.get_model('payments', 'ServiceCategory').objects.filter(is_active=True)
+
+def get_operators():
+    return User.objects.filter(is_superuser=False, is_active=True, account__account_type='B')
 
 def get_category_services_filter_by(**kwargs):
     return utils.get_model('payments', 'ServiceCategory').objects.filter(**kwargs)

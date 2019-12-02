@@ -23,18 +23,18 @@ IDENTIFICATION_DOC_NAME_PREFIX = "pay_ident"
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['PAY_SECRET_KEY']
+SECRET_KEY          =  os.environ['PAY_SECRET_KEY']
 
 # SITE NAME SETTING
-SITE_NAME =  os.environ['PAY_SITE_NAME']
+SITE_NAME           =  os.environ['PAY_SITE_NAME']
 
-META_KEYWORDS = "Pay, payment, buy, online-pay, africa-pay, payment solution"
-META_DESCRIPTION = "Pay Atalaku is your african solution for online payments"
+META_KEYWORDS       = "Pay, payment, buy, online-pay, africa-pay, payment solution"
+META_DESCRIPTION    = "Pay Atalaku is your african solution for online payments"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-CELERY_BROKER_URL = os.environ['PAY_CELERY_BROKER_URL']
-CELERY_BACKEND = os.environ['PAY_CELERY_BACKEND']
+DEBUG               = True
+CELERY_BROKER_URL   = os.environ['PAY_CELERY_BROKER_URL']
+CELERY_BACKEND      = os.environ['PAY_CELERY_BACKEND']
 
 CELERY_DEFAULT_QUEUE = "pay-default"
 CELERY_DEFAULT_EXCHANGE = "pay-default"
@@ -71,10 +71,11 @@ ACCOUNTS = {
     'ACCOUNT_TYPE' :  (
         ('A', 'Admin'),
         ('B', 'Business'),
-        ('D', 'Developer'),
-        ('M', 'Manager'),
-        ('P', 'Privé'),
-        ('S', 'Staff'),
+        ('D', 'Developer'), # create a group Developer instead
+        ('I', 'Individual'),
+        ('M', 'Manager'), # create a group Manager instead
+        ('P', 'Partner'), # create a group Partner instead
+        ('S', 'Staff'), # create a group Staff instead
         ('R', 'Recharge'),
         ('X', 'PAY ACCOUNT'),
     )
@@ -91,7 +92,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    #'accounts.apps.AccountsConfig',
     'payments.apps.PaymentsConfig',
     'rest_framework',
     'rest_framework.authtoken',
@@ -250,8 +250,9 @@ LOGGING = {
     },
     'loggers': {
         '' : {
-            'level': 'INFO',
-            'handlers': ['console', 'file']
+            'level': 'DEBUG',
+            'handlers': ['console', 'file'],
+            'propagate': False,
         },
         'django': {
             'level': 'INFO',

@@ -79,6 +79,8 @@
                         <ul class="dock dock-left">
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
+                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:group-create'%}">{% trans "Create Group" %}</a></li>
+                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>
@@ -118,7 +120,7 @@
                                                                                 {% for xfer in recent_transfers  %}
                                                                                 <tr>
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-transfer"></td>-->
-                                                                                <td>{{xfer.sender.full_name}}</td>
+                                                                                <td>{{xfer.sender.username}}</td>
                                                                                 <td>{{xfer.amount}} {% trans "XAF" %}</td>
                                                                                 <td>{{xfer.created_at}}</td>
                                                                                 </tr>

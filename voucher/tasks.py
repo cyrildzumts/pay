@@ -26,7 +26,7 @@ def generate_voucher(context={}):
     }
     voucher_codes = [ voucher_service.voucher_generate() for i in range(number)]
     logger.info("Gener")
-    vouchers = (Voucher(name=name, amount=amount, voucher_code=code, voucher_uuid=uuid.uuid4()) for code in voucher_codes)
+    vouchers = (Voucher(name=name, amount=amount, voucher_code=code) for code in voucher_codes)
     while True:
         batch = list(islice(vouchers, batch_size))
         if not batch:

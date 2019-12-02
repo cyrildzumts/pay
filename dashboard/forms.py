@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import Group, Permission
 from accounts.models import Account
 from payments.models import (
     Service, ServiceCategory, Policy, AvailableService, IDCard, Payment, Transaction,
@@ -58,3 +59,9 @@ class AccountForm(forms.ModelForm):
 class TokenForm(forms.Form):
     user = forms.IntegerField()
     username = forms.CharField(max_length=32)
+
+
+class GroupFormCreation(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'permissions']

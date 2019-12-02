@@ -1,0 +1,76 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+    <ul class="mat-list horizontal-list">
+        <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span>  </a></li>
+        <li class="list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus"></i> <span>{% trans "Create A Group" %}</span> </a></li>
+    </ul>
+</div>
+
+<div id="group-delete-dialog" class="dialog">
+    <div class="dialog-content">
+        <div class="title warning">
+            <h4>{% trans "Group Delete Confirmation" %}</h4>
+        </div>
+        <div class="content">
+                <span> {% trans "Do you really want to delete this Group ? " %}</span>
+                <span> {% trans "This action is irreversible." %}</span>
+        </div>
+        <div class="row">
+            <button class="mat-button mat-button-outlined js-close" type="button">{% trans "Cancel" %}</button>
+            <button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>
+        </div>
+    </div><!--End of Dialog Content-->
+    
+</div><!--End of Dialog-->
+
+<div class="container">
+    {% if groups %}
+    <div class="mat-table-wrapper">
+        <div class="row">
+            <div class="mat-table-title">
+                {% trans "Groups" %}
+            </div>
+        </div><!--End of Row-->
+       
+        <table id="group-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <!-- <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          <th>{% trans "Group Name" %}</th>
+                          <th>{% trans "Permissions" %}</th>
+                          <th>{% trans "Members" %}</th>
+                          <th>{% trans "Details" %}</th>
+                          <th>{% trans "Action" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for g in groups  %}
+                  <tr>
+                  <!-- <td class="checkbox hidden"><input type="checkbox" name="selected-service"></td>-->
+                  <td>{{g.name}}</td>
+                  <td>{{g.permissions.count}}</td>
+                  <td>{{g.user_set.count}}</td>
+                  <td><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
+                  <td><a class="mat-button mat-button-text danger js-need-confirmation" data-target="#group-delete-dialog" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+        </table>
+        {% include "tags/pagination.html" with page_set=groups %} 
+    </div><!--End of Table Wrapper-->
+    {% else %}
+    <p> {% trans "There is currently no Group" %} ...</p>
+    {% endif %}
+</div>
+
+
+{% endblock MAIN %}

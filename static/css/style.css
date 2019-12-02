@@ -259,3 +259,13 @@
     border: 2px solid #d32f2f !important;
     color: #d32f2f !important;
 }
+
+.danger, .danger *{
+    color: #e64a19 !important;
+}
+
+.selected{
+    background-color: #fafafa;
+    color: #e64a19;
+    border-left: 2px solid #e64a19;
+}

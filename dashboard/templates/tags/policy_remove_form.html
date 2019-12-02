@@ -11,7 +11,7 @@
         <div class="card__body">
         
         
-                <form class="form card" name="policy" action="{% url 'dashboard:policy_remove'  policy.pk %}" method="POST">{% csrf_token %}
+                <form class="form card" name="policy" action="{{policy.get_dashboard_remove_url}}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     
                     <div class="form-group">

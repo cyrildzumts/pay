@@ -6,9 +6,6 @@ from django.http import HttpResponse
 from django.urls import reverse, resolve
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.contrib import messages
-
-# from cart.models import Cart, CartItem
-
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required

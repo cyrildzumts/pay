@@ -13,7 +13,7 @@
               <ul class="listview" role="navigation">
                 <li class="list-item"> {% trans "Operator" %} : {{service.operator.get_full_name}} </li>
                 <li class="list-item"> {% trans "Category" %}: {{service.category.category_name}} </li>
-                <li class="list-item"> {% trans "Created by" %}: {{service.created_by.get_full_name}} </li>
+                <li class="list-item"> {% trans "Created by" %}: {{service.created_by.username}} </li>
                 <li class="list-item"> {% trans "Date" %} : {{service.created_at}} </li>
                 <li class="list-item"> 
                     <label for="is_active">{% trans "Activated" %} : </label>
@@ -30,8 +30,8 @@
           </div>
           <div class="card__actions">
               <ul class="listview nav" role="navigation">
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:available_service_remove' service.pk %}"> {% trans "Remove" %} </a> </li>
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:available_service_update' service.pk %}"> {% trans "Edit" %} </a> </li>
+                  <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_remove_url}}"> {% trans "Remove" %} </a> </li>
+                  <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_update_url}}"> {% trans "Edit" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:available_service_create' %}"> {% trans "Add new Service" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:available_services' %}"> {% trans "Available Services" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>

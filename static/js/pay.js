@@ -751,6 +751,55 @@ function fetchTransaction(){
 }
 
 
+var Group = (function(){
+    function Group(){
+        this.selected_permissions = {};
+        this.group_users = {}
+        this.add_selected_permissions_btn = {};
+        this.add_selected_users_btn = {};
+        this.remove_selected_permissions_btn = {};
+        this.remove_selected_users_btn = {};
+        
+    };
+
+    Group.prototype.init = function(){
+        $('#add-selected-users').on('click', function(event){
+            event.preventDefault();
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true).addClass('selected');
+
+        });
+
+        $('#add-selected-permissions').on('click', function(){
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true);
+
+        });
+
+        $('#remove-selected-users').on('click', function(){
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true).addClass('selected');
+
+        });
+
+        $('#remove-selected-permissions').on('click', function(){
+            var $target = $($(this).data('target'));
+            var $source = $($(this).data('source'));
+            $('option:selected', $source).appendTo($target);
+            $('option', $target).prop('selected', true).addClass('selected');
+
+        });
+    };
+
+
+    return Group;
+})();
 
 $(document).ready(function(){
 let account = new Account();
@@ -760,6 +809,9 @@ tabs.init();
 
 var filter = new TableFilter();
 filter.init();
+
+var group = new Group();
+group.init();
 
 var scheduled_query = false;
 var query_delay = 800;
@@ -857,6 +909,10 @@ slider.init();
         $(this).toggleClass('active');
         $('body').toggleClass('baseline-16');
         console.log("toggling Class on grid element");
+    });
+
+    $('.js-need-confirmation').on('click', function(event){
+        return confirm("This action is irreversible. Do you to want proceed ?");
     });
 });
 
