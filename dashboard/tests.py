@@ -5,6 +5,7 @@ import uuid
 #from django.contrib.auth import views as auth_views
 from dashboard import views
 
+uuid_param = uuid.uuid4()
 
 class DashboardViewsUrlTest(TestCase):
 
@@ -21,11 +22,11 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.available_service_create)
     
     def test_available_service_update_url(self):
-        found = resolve('/dashboard/available-services/update/10/')
+        found = resolve('/dashboard/available-services/update/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.available_service_update)
 
     def test_available_service_remove_url(self):
-        found = resolve('/dashboard/available-services/remove/10/')
+        found = resolve('/dashboard/available-services/remove/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.available_service_remove) 
     
     def test_available_service_remove_all_url(self):
@@ -34,7 +35,7 @@ class DashboardViewsUrlTest(TestCase):
 
 
     def test_available_service_details_url(self):
-        found = resolve('/dashboard/available-services/detail/10/')
+        found = resolve('/dashboard/available-services/detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.available_service_details) 
 
     def test_cases_url(self):
@@ -43,11 +44,11 @@ class DashboardViewsUrlTest(TestCase):
 
 
     def test_cases_details_url(self):
-        found = resolve('/dashboard/cases/detail/10/')
+        found = resolve('/dashboard/cases/detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.case_details)  
 
     def test_cases_close_url(self):
-        found = resolve('/dashboard/cases/close/10/')
+        found = resolve('/dashboard/cases/close/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.case_close) 
 
     def test_service_categories_url(self):
@@ -55,7 +56,7 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.category_services)
 
     def test_service_categories_details_url(self):
-        found = resolve('/dashboard/category-services/detail/10/')
+        found = resolve('/dashboard/category-services/detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.category_service_details)
 
 
@@ -64,11 +65,11 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.category_service_create)
 
     def test_service_categories_update_url(self):
-        found = resolve('/dashboard/category-services/update/10/')
+        found = resolve('/dashboard/category-services/update/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.category_service_update)
 
     def test_service_categories_remove_url(self):
-        found = resolve('/dashboard/category-services/remove/10/')
+        found = resolve('/dashboard/category-services/remove/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.category_service_remove)
     
     def test_service_categories_remove_all_url(self):
@@ -85,16 +86,16 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.group_create)
     
     def test_group_update_url(self):
-        found = resolve('/dashboard/group-update/10/')
+        found = resolve('/dashboard/group-update/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.group_update)
 
 
     def test_group_detail_url(self):
-        found = resolve('/dashboard/group-detail/10/')
+        found = resolve('/dashboard/group-detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.group_detail)
 
     def test_group_delete_url(self):
-        found = resolve('/dashboard/group-delete/10/')
+        found = resolve('/dashboard/group-delete/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.group_delete)
 
     def test_policies_url(self):
@@ -102,11 +103,11 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.policies)
     
     def test_policy_details_url(self):
-        found = resolve('/dashboard/policies/detail/10/')
+        found = resolve('/dashboard/policies/detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.policy_details)
 
     def test_policy_remove_url(self):
-        found = resolve('/dashboard/policies/remove/10/')
+        found = resolve('/dashboard/policies/remove/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.policy_remove)
 
     def test_policy_remove_all_url(self):
@@ -114,7 +115,7 @@ class DashboardViewsUrlTest(TestCase):
         self.assertEqual(found.func, views.policy_remove_all)
 
     def test_policy_update_url(self):
-        found = resolve('/dashboard/policies/update/10/')
+        found = resolve('/dashboard/policies/update/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.policy_update)
 
 
@@ -130,7 +131,7 @@ class DashboardViewsUrlTest(TestCase):
 
     
     def test_service_details_url(self):
-        found = resolve('/dashboard/services/detail/10/')
+        found = resolve('/dashboard/services/detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.service_details)
 
     def test_payments_url(self):
@@ -139,7 +140,7 @@ class DashboardViewsUrlTest(TestCase):
 
     
     def test_payment_details_url(self):
-        found = resolve('/dashboard/payments/detail/10/')
+        found = resolve('/dashboard/payments/detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.payment_details)
     
     def test_transfers_url(self):
@@ -148,5 +149,5 @@ class DashboardViewsUrlTest(TestCase):
     
         
     def test_transfers_details_url(self):
-        found = resolve('/dashboard/transfers/detail/10/')
+        found = resolve('/dashboard/transfers/detail/{}/'.format(uuid_param))
         self.assertEqual(found.func, views.transfer_details)
