@@ -33,6 +33,12 @@ class IDCard(models.Model):
     
     def get_update_url(self):
         return reverse('payments:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
+    
+    def get_dashboard_update_url(self):
+        return reverse('dashboard:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
+    
+    def get_dashboard_update_url(self):
+        return reverse('dashboard:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
    
 
 

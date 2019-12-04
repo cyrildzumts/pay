@@ -17,7 +17,7 @@
                     <img class="full js-zoom" src="{{idcard.image.url}}"/>
                 </div>
                 <div class="card__actions">
-                    <a class="mat-button mat-button-text" href="{%url 'dashboard:idcard_update' idcard.idcard_uuid %}"> {% trans "Update" %}</a>
+                    <a class="mat-button mat-button-text" href="{{idcard.get_dashboard_update_url}}"> {% trans "Update" %}</a>
                     <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
                 </div>
 

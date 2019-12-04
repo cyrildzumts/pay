@@ -5,7 +5,7 @@
     <div class="form-group">
             <h3>{% trans "Close this case" %}</h3>
     </div>
-    <form id="case-form" class="case-form form" name="case" action="{% url 'dashboard:case_close' case.issue_uuid %}" method="POST">{% csrf_token %}
+    <form id="case-form" class="case-form form" name="case" action="{{case.get_dashboard_close_url}}" method="POST">{% csrf_token %}
         <div class="form-group">
             <label for="participant_1">{% trans "Participant" %} 1</label>
             <input id="participant_1" type="text" name="participant_1" value="{{case.participant_1.pk}}">
