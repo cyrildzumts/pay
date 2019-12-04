@@ -37,7 +37,7 @@
                     <td>{{xfer.recipient.username}}</td>
                     <td>{{xfer.amount}} {% trans "XAF" %}</td>
                     <td>{{xfer.created_at}}</td>
-                    <td><a class="mat-button mat-button-default" href="{% url 'payments:transfer-detail' xfer.transfer_uuid %}">{% trans "More" %} ...</a></td>
+                    <td><a class="mat-button mat-button-default" href="{{xfer.get_absolute_url}}">{% trans "More" %} ...</a></td>
                   </tr>
                   {% endfor %}
                   

@@ -10,7 +10,7 @@
           <p> {% trans "Price" %} : {{service.price}} FCFA </p>
           <p> {% trans "Category" %} : {{service.category.category_name}} </p>
           <p> {% trans "Date" %} : {{service.created_at}} </p>
-          <a class="mat-button mat-button-text" href="{% url 'payments:service-detail' service.pk %}"> {% trans "More" %} ...</a>
+          <a class="mat-button mat-button-text" href="{{service.get_absolute_url}}"> {% trans "More" %} ...</a>
         </div>
     {% empty %}
     <p> {% trans "You haven't used any services" %} ...</p>

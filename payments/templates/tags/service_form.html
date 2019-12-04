@@ -2,7 +2,7 @@
 
 <div class="responsive">
 
-    <form name="transaction" action="{% url 'payments:new-service'  service.pk %}" method="POST">{% csrf_token %}
+    <form name="transaction" action="{% url 'payments:new-service'  service.available_uuid %}" method="POST">{% csrf_token %}
         <div class="form-group">
             
         </div>

@@ -14,7 +14,7 @@
            {% else %}
            <p class="is-opened"> {% trans "Opened" %} </p> 
            {% endif %} 
-          <a class="mat-button mat-button-text" href="{% url 'payments:claim_detail' claim.pk %}">{% trans "More" %} ...</a>
+          <a class="mat-button mat-button-text" href="{{claim.get_absolute_url}}">{% trans "More" %} ...</a>
         </div>
     {% empty %}
     <p> {% trans "There is no claims now." %} ...</p>
