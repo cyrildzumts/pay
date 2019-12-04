@@ -715,4 +715,133 @@ def group_delete(request, pk=None):
         logger.error("Group Delete : Group not found. Action requested by User {}",request.user.username)
         
     return redirect('dashboard:groups')
+
+
+#######################################################
+########            Permissions 
+
+@login_required
+def permissions(request):
+    context = {}
+    permission_list = Permission.objects.all()
+    template_name = "dashboard/permission_list.html"
+    page_title = "Permissions" + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(permission_list, 10)
+    try:
+        permission_set = paginator.page(page)
+    except PageNotAnInteger:
+        permission_set = paginator.page(1)
+    except EmptyPage:
+        permission_set = None
+    context['page_title'] = page_title
+    context['permissions'] = permission_set
+    return render(request,template_name, context)
+
+@login_required
+def permission_detail(request, pk=None):
+    context = {}
+    permission = get_object_or_404(Permission, pk=pk)
+    template_name = "dashboard/permission_detail.html"
+    page_title = "Permission Detail" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['permission'] = permission
+    return render(request,template_name, context)
+
+
+@login_required
+def permission_update(request, pk=None):
+    # TODO CHECK if the requesting User has the permission to update a permission
+    context = None
+    page_title = 'Permission Update'
+    template_name = 'dashboard/permission_update.html'
+    permission = get_object_or_404(Permission, pk=pk)
+    form = forms.GroupFormCreation(instance=permission)
+    permission_users = permission.user_set.all()
+    available_users = User.objects.exclude(pk__in=permission_users.values_list('pk'))
+
+    if request.method == 'POST':
+        form = forms.GroupFormCreation(request.POST, instance=permission)
+        users = request.POST.getlist('users')
+        if form.is_valid() :
+            logger.debug("Permission form for update is valid")
+            if form.has_changed():
+                logger.debug("Permission has changed")
+            permission = form.save()
+            if users:
+                logger.debug("adding %s users [%s] into the permission", len(users), users)
+                permission.user_set.set(users)
+            logger.debug("Added permissions to users %s",users)
+            return redirect('dashboard:permissions')
+        else :
+            logger.error("Error on editing the perssion. The form is invalid")
     
+    context = {
+            'page_title' : page_title,
+            'form': form,
+            'users' : permission_users,
+            'available_users' : available_users,
+            'permission': permission,
+    }
+    return render(request, template_name, context)
+
+
+@login_required
+def permission_create(request):
+    context = None
+    page_title = 'Permission Creation'
+    template_name = 'dashboard/permission_create.html'
+    available_groups = Group.objects.all()
+    available_users = User.objects.all()
+    form = forms.GroupFormCreation()
+    if request.method == 'POST':
+        form = forms.GroupFormCreation(request.POST)
+        users = request.POST.getlist('users')
+        if form.is_valid():
+            logger.debug("Permission Create : Form is Valid")
+            perm_name = form.cleaned_data.get('name', None)
+            perm_codename = form.cleaned_data.get('codename', None)
+            logger.debug('Creating a Permission with the name {}'.format(perm_name))
+            if not Permission.objects.filter(Q(name=perm_name) | Q(codename=perm_codename)).exists():
+                perm = form.save()
+                messages.add_message(request, messages.SUCCESS, "The Permission has been succesfully created")
+                if users:
+                    perm.user_set.set(users)
+                    logger.debug("Permission %s given to users  %s",perm_name, users)
+                else :
+                    logger.debug("Permission %s created without users", perm_name)
+
+                return redirect('dashboard:permissions')
+            else:
+                msg = "A Permission with the given name {} already exists".format(perm_name)
+                messages.add_message(request, messages.ERROR, msg)
+                logger.error(msg)
+            
+        else :
+            messages.add_message(request, messages.ERROR, "The Permission could not be created. Please correct the form")
+            logger.error("Error on creating new Permission : %s", form.errors)
+    
+    context = {
+            'page_title' : page_title,
+            'form': form,
+            'available_users' : available_users,
+            'available_groups': available_groups
+    }
+    return render(request, template_name, context)
+
+
+@login_required
+def permission_delete(request, pk=None):
+    # TODO Check if the user requesting the deletion has the Group Delete permission
+    try:
+        perm = Permission.objects.get(pk=pk)
+        name = perm.name
+        messages.add_message(request, messages.SUCCESS, 'Permission {} has been deleted'.format(name))
+        perm.delete()
+        logger.debug("Permission {} deleted by User {}", name, request.user.username)
+        
+    except Permission.DoesNotExist:
+        messages.add_message(request, messages.ERROR, 'Permission could not be found. Permission not deleted')
+        logger.error("Permission Delete : Permission not found. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:permissions')
