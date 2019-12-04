@@ -139,7 +139,7 @@ def available_service_update(request, available_uuid=None):
         if form.is_valid():
             logger.info("AvailableServiceForm for instance %s is valid", form.cleaned_data['name'])
             form.save()
-            return redirect('dashboard:available_services')
+            return redirect('dashboard:available-services')
         else:
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
     
@@ -168,7 +168,7 @@ def available_service_create(request):
             logger.info("AvailableServiceForm for instance %s is valid", form.cleaned_data['name'])
             avs = form.save()
             forms.AvailableService.objects.filter(pk=avs.pk).update(created_by=request.user)
-            return redirect('dashboard:available_services')
+            return redirect('dashboard:available-services')
         else:
             form = forms.AvailableServiceForm()
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
@@ -200,7 +200,7 @@ def available_service_remove(request, available_uuid=None):
         messages.add_message(request, messages.ERROR, 'AvailableService could not be deleted')
         logger.error("AvailableService Delete failed. Action requested by User {}",request.user.username)
         
-    return redirect('dashboard:available_services')
+    return redirect('dashboard:available-services')
     
 @login_required
 def available_service_remove_all(request):
@@ -257,7 +257,7 @@ def category_service_update(request, category_uuid=None):
         if form.is_valid():
             logger.info("ServiceCategoryForm for instance %s is valid", form.cleaned_data['category_name'])
             form.save()
-            return redirect('dashboard:category_services')
+            return redirect('dashboard:category-services')
         else:
             logger.info("Edit ServiceCategoryForm is not valid. Errors : %s", form.errors)
     
@@ -286,7 +286,7 @@ def category_service_remove(request, category_uuid=None):
         messages.add_message(request, messages.ERROR, 'Service Category could not be deleted')
         logger.error("Service Category Delete failed. Action requested by User {}",request.user.username)
         
-    return redirect('dashboard:category_services')
+    return redirect('dashboard:category-services')
 
 
 @login_required
@@ -314,7 +314,7 @@ def category_service_create(request):
         if form.is_valid():
             logger.info("ServiceCategoryForm for instance %s is valid", form.cleaned_data['category_name'])
             form.save()
-            return redirect('dashboard:category_services')
+            return redirect('dashboard:category-services')
         else:
             form = forms.ServiceCategoryForm()
             logger.info("Edit ServiceCategoryForm is not valid. Errors : %s", form.errors)
