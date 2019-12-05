@@ -812,8 +812,12 @@ var JSFilter = (function(){
         console.log("JSFilter instance initializing");
         $('.js-jsfilter-input').on('keyup', function(event){
             event.stopPropagation();
-            console.log("filter changed");
-            console.log("filter changed to %s", this.value);
+            var value = this.value.trim();
+            var target_container = this.getAttribute('data-target');
+            var el = this.getAttribute('data-element');
+            $(target_container + " " +  el).filter(function(){
+                $(this).toggle($(this).val().includes(value));
+            });
         });
 
         console.log("JSFilter instance initialized");
