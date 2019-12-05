@@ -813,11 +813,9 @@ var JSFilter = (function(){
         $('.js-jsfilter-input').on('keyup', function(event){
             event.stopPropagation();
             var value = this.value.trim();
-            console.log("filter value %s", value);
             var target_container = this.getAttribute('data-target');
             var el = this.getAttribute('data-element');
             $(target_container + " " +  el).filter(function(){
-                console.log("%s content : %s", el, this.innerHTML);
                 $(this).toggle(this.innerHTML.includes(value));
             });
         });
