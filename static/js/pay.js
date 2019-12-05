@@ -817,8 +817,8 @@ var JSFilter = (function(){
             var target_container = this.getAttribute('data-target');
             var el = this.getAttribute('data-element');
             $(target_container + " " +  el).filter(function(){
-                console.log("%s content : %s", el, this.value);
-                $(this).toggle(this.value.includes(value));
+                console.log("%s content : %s", el, this.innerHTML);
+                $(this).toggle(this.innerHTML.includes(value));
             });
         });
 
