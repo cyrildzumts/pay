@@ -12,14 +12,20 @@
         
         <div class="row">
             <div class="responsive">
-                <div class="form-group">
-                    <label for="available-permissions">{% trans "Select Permissions to add" %}</label>
-                    <select  id="available-permissions" multiple data-target="#selected-permissions">
-                        {% for p in available_permissions  %}
-                            <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
-                        {% endfor %}
-                    </select>
+                <div class="flex flex-column">
+                    <div class="form-group">
+                        <input class="js-jsfilter-input" data-target="#available-permissions" data-element="option" type="text" placeholder="{% trans 'Search for permissions' %}">
+                    </div>
+                    <div class="form-group">
+                        <label for="available-permissions">{% trans "Select Permissions to add" %}</label>
+                        <select  id="available-permissions" multiple data-target="#selected-permissions">
+                            {% for p in available_permissions  %}
+                                <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
+                
             </div>
             <div class="responsive">
                 <div class="flex flex-column">

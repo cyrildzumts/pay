@@ -801,11 +801,33 @@ var Group = (function(){
     return Group;
 })();
 
+var JSFilter = (function(){
+    function JSFilter(){
+        console.log("creating JSFilter instance");
+        this.init();
+        console.log("JSFilter instance created");
+    };
+
+    JSFilter.prototype.init = function(){
+        console.log("JSFilter instance initializing");
+        $('.js-jsfilter-input').on('change', function(event){
+            console.log("filter changed to %s", this.value);
+        });
+
+        console.log("JSFilter instance initialized");
+    };
+
+
+    return JSFilter;
+})();
+
 $(document).ready(function(){
 let account = new Account();
 account.init();
 let tabs = new Tabs();
 tabs.init();
+
+var jsfilter = new JSFilter();
 
 var filter = new TableFilter();
 filter.init();
