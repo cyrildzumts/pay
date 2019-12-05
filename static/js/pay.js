@@ -810,7 +810,9 @@ var JSFilter = (function(){
 
     JSFilter.prototype.init = function(){
         console.log("JSFilter instance initializing");
-        $('.js-jsfilter-input').on('change', function(event){
+        $('.js-jsfilter-input').on('keyup', function(event){
+            event.stopPropagation();
+            console.log("filter changed");
             console.log("filter changed to %s", this.value);
         });
 
