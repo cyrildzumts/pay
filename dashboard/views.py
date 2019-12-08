@@ -57,15 +57,22 @@ def dashboard(request):
 
 @login_required
 def generate_token(request):
-    allowed = request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
+    username = request.user.username
+    can_view_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_view_dashboard :
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_generate_token = PermissionManager.user_can_generate_token(request.user)
+    if not can_generate_token:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     template_name = "dashboard/token_generate.html"
     context = {
         'page_title' :_('User Token Generation') + ' - ' + settings.SITE_NAME,
-        'is_allowed' : allowed,
+        'can_generate_token' : can_generate_token,
     }
-    
-    if allowed:
-        if request.method == 'POST':
+    if request.method == 'POST':
             form = forms.TokenForm(utils.get_postdata(request))
             if form.is_valid():
                 user_id = form.cleaned_data['user']
@@ -77,8 +84,9 @@ def generate_token(request):
                 return redirect('dashboard:home')
             else :
                 messages.add_message(request, messages.ERROR, _('The submitted form is not valid') )
-        else :
+    else :
             context['form'] = forms.TokenForm()
+        
 
     return render(request, template_name, context)
         
