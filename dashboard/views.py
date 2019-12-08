@@ -39,7 +39,7 @@ def dashboard(request):
             'recent_transfers' : analytics.get_recent_transfers(),
             'recent_services' : analytics.get_recent_services(),
             'is_allowed'     : can_view_dashboard,
-            'can_view_dashboard' : can_view_dashboard,
+            'can_access_dashboard' : can_view_dashboard,
             'can_view_available_service': PermissionManager.user_can_view_available_service(request.user),
             'can_view_service': PermissionManager.user_can_view_service(request.user),
             'can_view_category': PermissionManager.user_can_view_category(request.user),
