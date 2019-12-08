@@ -52,7 +52,6 @@ def dashboard(request):
         }
 
         logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
-        logger.info("Context Data : %s",context)
 
     return render(request, template_name, context)
 
