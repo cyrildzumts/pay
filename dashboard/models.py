@@ -1,7 +1,7 @@
 from django.db import models
 
 
-DASHBOARD_VIEW_PERM                 = 'can_view_dashboard'
+DASHBOARD_VIEW_PERM                 = 'dashboard.can_view_dashboard'
 TOKEN_GENERATE_PERM                 = 'can_generate_token'
 ACCOUNT_VIEW_PERM                     = 'can_view_account'
 ACCOUNT_CREATE_PERM                   = 'can_add_account'
