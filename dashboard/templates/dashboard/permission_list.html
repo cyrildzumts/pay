@@ -2,6 +2,8 @@
 {% load i18n %}
 
 {% block MAIN %}
+{% if can_view_permission %}
+
 
 <div class="container">
     <ul class="mat-list horizontal-list">
@@ -74,5 +76,10 @@
     {% endif %}
 </div>
 
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 
 {% endblock MAIN %}

@@ -1,6 +1,8 @@
 {% load i18n %} 
 
 
+{% if can_add_category %}
+
 
 <div class="responsive">
 
@@ -39,3 +41,9 @@
             </div>
     </div>          
 </div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}

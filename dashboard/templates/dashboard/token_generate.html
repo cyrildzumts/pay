@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block MAIN %}
-{% if not is_allowed %}
+{% if not can_generate_tocken %}
  {% include "tags/unauthorized.html" %}
 {% else %}
 <div class="container">

@@ -12,11 +12,14 @@
             </ul>
     </div>
 {% endcomment %}
+{% if can_view_category  %}
+
+
 <div class="row">
   <div class="nav">
-    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:category-service-create'%}"> {% trans "Add new Category" %}</a>
+    {% if can_add_category %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:category-service-create'%}"> {% trans "Add new Category" %}</a>{% endif %}
     <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    <a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:category-service-remove-all' %}"> {% trans "Delete All Service Categories" %} </a>
+    {% if can_delete_category %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:category-service-remove-all' %}"> {% trans "Delete All Service Categories" %} </a>{% endif %}
   </div>
 </div>
 <div class="container">
@@ -57,4 +60,9 @@
     </div><!--End of Table Wrapper-->
 
 </div>
+{% else %}
+<div class="error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 {% endblock MAIN %}

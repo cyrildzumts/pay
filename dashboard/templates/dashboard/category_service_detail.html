@@ -3,6 +3,10 @@
 
 {% block MAIN %}
 
+{% if can_view_category %}
+
+
+
 <div class="container flex column">
         <div class="card">
           <div class="card__title">
@@ -36,13 +40,19 @@
           </div>
           <div class="card__actions">
               <ul class="listview nav" role="navigation">
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{{category.get_dashboard_remove_url}}"> {% trans "Remove" %} </a> </li>
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{{category.get_dashboard_update_url}}"> {% trans "Edit" %} </a> </li>
-                  <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "Add new Category Service" %} </a> </li>
+                  {% if can_delete_category %}<li class="list-item"><a class="mat-button mat-button-text" href="{{category.get_dashboard_remove_url}}"> {% trans "Remove" %} </a> </li>{% endif %}
+                  {% if can_change_category %}<li class="list-item"><a class="mat-button mat-button-text" href="{{category.get_dashboard_update_url}}"> {% trans "Edit" %} </a> </li>{% endif %}
+                  {% if can_add_category %}<li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "Add new Category Service" %} </a> </li>{% endif %}
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}"> {% trans "Category Services" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
               </ul>
           </div>
         </div>
 </div>
+
+{% else %}
+<div class="error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 {% endblock MAIN %}

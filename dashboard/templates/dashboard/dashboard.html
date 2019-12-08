@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block HEADER_BANNER %}
-{% if not is_allowed %}
+{% if not can_access_dashboard %}
          {% include "tags/unauthorized.html" %}
 {% else %}
 
@@ -67,10 +67,10 @@
 {% endblock HEADER_BANNER %}
 
 {% block MAIN %}
-{% if not is_allowed %}
-        <div class="warning">
-                <a class="mat-button mat-button-text" href="{% url 'home' %}">{% trans "Go back to PAY HOME PAGE" %}</a>
-        </div>
+{% if not can_access_dashboard %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
 {% else %}
 
 <div class="container row">
@@ -79,15 +79,15 @@
                         <ul class="dock dock-left">
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:group-create'%}">{% trans "Create Group" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}">{% trans "Categories" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>
+                                {% if can_add_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:group-create'%}">{% trans "Create Group" %}</a></li>{% endif %}
+                                {% if can_view_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>{% endif %}
+                                {% if can_view_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>{% endif %}
+                                {% if can_view_transfer %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>{% endif %}
+                                {% if can_view_voucher %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>{% endif %}
+                                {% if can_view_available_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>{% endif %}
+                                {% if can_view_policy %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>{% endif %}
+                                {% if can_view_category %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}">{% trans "Categories" %}</a></li>{% endif %}
+                                {% if can_generate_token %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>{% endif %}
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
                         </ul>
                 </aside>
@@ -98,6 +98,8 @@
                         <div class="row">
                                 <div class="col col-9">
                                         <div class="row">
+                                                {% if can_view_transfer %}
+                                                
                                                 <div class="col col-6">
                                                         <div class="row">
                                                            <div class="mat-table-wrapper">
@@ -136,7 +138,10 @@
                                                            </div> <!--End of Table Wrapper-->
                                                         </div> <!--End of Row-->
                                                 </div> <!--End of Col-6-->
-
+                                                {% endif %}
+                                                {% if  %}
+                                                
+                                                
                                                 <div class="col col-6">
 
                                                         <div class="row">
@@ -178,6 +183,7 @@
                                                         
                                                 
                                                 </div><!--End of Col-6-->
+                                                {% endif %}
                                         </div><!--End of Row-->
                                 </div><!--End of Col-9-->
                         </div><!--End of Row-->

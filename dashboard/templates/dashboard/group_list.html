@@ -3,6 +3,9 @@
 
 {% block MAIN %}
 
+{% if can_view_group %}
+
+
 <div class="container">
     <ul class="mat-list horizontal-list">
         <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span>  </a></li>
@@ -71,6 +74,9 @@
     <p> {% trans "There is currently no Group" %} ...</p>
     {% endif %}
 </div>
-
-
+{% else %}
+{% endif %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
 {% endblock MAIN %}

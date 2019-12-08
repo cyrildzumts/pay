@@ -3,6 +3,7 @@
 
 {% block MAIN %}
 
+{% if can_view_idcard %}
 <div class="container flex column">
         {% if has_idcard %}
             <div class="card">
@@ -17,7 +18,7 @@
                     <img class="full js-zoom" src="{{idcard.image.url}}"/>
                 </div>
                 <div class="card__actions">
-                    <a class="mat-button mat-button-text" href="{{idcard.get_dashboard_update_url}}"> {% trans "Update" %}</a>
+                    {% if can_change_idcard %}<a class="mat-button mat-button-text" href="{{idcard.get_dashboard_update_url}}"> {% trans "Update" %}</a>{% endif %}
                     <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
                 </div>
 
@@ -31,4 +32,9 @@
         </div>
         
 </div>
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 {% endblock MAIN %}

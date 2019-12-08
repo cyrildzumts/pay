@@ -2,6 +2,8 @@
 {% load i18n %}
 
 {% block MAIN %}
+{% if can_view_service %}
+
 
 <div class="container">
   <div class="row">
@@ -83,4 +85,10 @@
         </div>
     
 </div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 {% endblock MAIN %}
