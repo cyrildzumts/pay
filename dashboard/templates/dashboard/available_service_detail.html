@@ -33,8 +33,8 @@
           <div class="card__actions">
               <ul class="listview nav" role="navigation">
                   <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_remove_url}}"> {% trans "Remove" %} </a> </li>
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_update_url}}"> {% trans "Edit" %} </a> </li>
-                  <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:available-service-create' %}"> {% trans "Add new Service" %} </a> </li>
+                  {% if can_change_available_service %}<li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_update_url}}"> {% trans "Edit" %} </a> </li>{% endif %}
+                  {% if can_add_available_service %}<li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:available-service-create' %}"> {% trans "Add new Service" %} </a> </li>{% endif %}
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:available-services' %}"> {% trans "Available Services" %} </a> </li>
                   <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
               </ul>

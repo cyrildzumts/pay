@@ -995,6 +995,7 @@ def groups(request):
     context['can_view_group'] = can_view_group
     context['can_delete_group'] = PermissionManager.user_can_delete_group(request.user)
     context['can_update_group'] = PermissionManager.user_can_change_group(request.user)
+    context['can_add_group'] = PermissionManager.user_can_add_group(request.user)
     return render(request,template_name, context)
 
 @login_required

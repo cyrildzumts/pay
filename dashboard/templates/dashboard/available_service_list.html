@@ -5,9 +5,9 @@
 
 <div class="row">
   <div class="nav">
-    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a>
+    {% if can_add_available_service %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a>{% endif %}
     <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    <a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:available-service-remove-all' %}"> {% trans "Delete All Available Service" %} </a>
+    {% if can_delete_available_service %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:available-service-remove-all' %}"> {% trans "Delete All Available Service" %} </a>{% endif %}
   </div>
 </div>
 <div class="container">
@@ -35,7 +35,7 @@
                   <td>{{avs.name}}</td>
                   <td>{{avs.category.category_name}}</td>
                   <td><a class="mat-button mat-button-default" href="{{avs.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
-                  <td><a class="mat-button mat-button-default warning danger js-need-confirmation" href="{{avs.get_dashboard_remove_url}}"> {% trans "Delete" %}</a></td>
+                  {% if can_delete_available_service %}<td><a class="mat-button mat-button-default warning danger js-need-confirmation" href="{{avs.get_dashboard_remove_url}}"> {% trans "Delete" %}</a></td>{% endif %}
                   </tr>
                   {% endfor %}
                   

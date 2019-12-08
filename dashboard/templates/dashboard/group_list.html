@@ -9,7 +9,7 @@
 <div class="container">
     <ul class="mat-list horizontal-list">
         <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span>  </a></li>
-        <li class="list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus"></i> <span>{% trans "Create A Group" %}</span> </a></li>
+        {% if can_add_group %}<li class="list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus"></i> <span>{% trans "Create A Group" %}</span> </a></li>{% endif %}
     </ul>
 </div>
 
@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <button class="mat-button mat-button-outlined js-close" type="button">{% trans "Cancel" %}</button>
-            <button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>
+            {% if can_delete_group %}<button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>{% endif %}
         </div>
     </div><!--End of Dialog Content-->
     
@@ -58,7 +58,7 @@
                   <td>{{g.permissions.count}}</td>
                   <td>{{g.user_set.count}}</td>
                   <td><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
-                  <td><a class="mat-button mat-button-text danger js-need-confirmation" data-target="#group-delete-dialog" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
+                  {% if can_delete_group %}<td><a class="mat-button mat-button-text danger js-need-confirmation" data-target="#group-delete-dialog" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>{% endif %}
                   </tr>
                   {% endfor %}
                   
