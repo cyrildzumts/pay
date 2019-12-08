@@ -1,4 +1,4 @@
-import dashboard.models as Constants
+from dashboard import Constants
 
 
 
@@ -10,8 +10,8 @@ class PermissionManager :
     @staticmethod
     def user_has_perm(user=None, perm=None):
         flag = False
-        if user and perm and hasattr(user, 'has_perm') and hasattr(user, 'get_all_permissions'):
-            flag = user.has_perm(perm)
+        if user and perm and hasattr(user, 'has_perm'):
+            flag = user.has_perm(Constants.APP_PREFIX + perm)
         return flag
 
 
