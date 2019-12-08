@@ -79,7 +79,6 @@
                         <ul class="dock dock-left">
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
                                 <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-                                {% if can_add_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:group-create'%}">{% trans "Create Group" %}</a></li>{% endif %}
                                 {% if can_view_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>{% endif %}
                                 {% if can_view_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>{% endif %}
                                 {% if can_view_transfer %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>{% endif %}

@@ -50,7 +50,9 @@ def dashboard(request):
             'can_add_group' : PermissionManager.user_can_add_group(request.user),
             'can_generate_token': PermissionManager.user_can_generate_token(request.user)
         }
+
         logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
+        logger.info("Context Data : %s",context)
 
     return render(request, template_name, context)
 
