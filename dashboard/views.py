@@ -39,7 +39,16 @@ def dashboard(request):
             'recent_transfers' : analytics.get_recent_transfers(),
             'recent_services' : analytics.get_recent_services(),
             'is_allowed'     : can_view_dashboard,
-            'can_view_dashboard' : can_view_dashboard
+            'can_view_dashboard' : can_view_dashboard,
+            'can_view_available_service': PermissionManager.user_can_view_available_service(request.user),
+            'can_view_service': PermissionManager.user_can_view_service(request.user),
+            'can_view_category': PermissionManager.user_can_view_category(request.user),
+            'can_view_group' : PermissionManager.user_can_view_group(request.user),
+            'can_view_policy': PermissionManager.user_can_view_policy(request.user),
+            'can_view_transfer': PermissionManager.user_can_view_transfer(request.user),
+            'can_view_voucher': PermissionManager.user_can_view_voucher(request.user),
+            'can_add_group' : PermissionManager.user_can_add_group(request.user),
+            'can_generate_token': PermissionManager.user_can_generate_token(request.user)
         }
         logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
 

@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class AccessPermissions(models.Model):
     DASHBOARD_VIEW_PERM                 = 'can_view_dashboard'
-
+    TOKEN_GENERATE_PERM                 = 'can_generate_token'
     ACCOUNT_VIEW_PERM                     = 'can_view_account'
     ACCOUNT_CREATE_PERM                   = 'can_add_account'
     ACCOUNT_CHANGE_PERM                   = 'can_change_account'
@@ -16,7 +16,7 @@ class AccessPermissions(models.Model):
     CASE_ISSUE_CLOSE_PERM                    = 'can_close_claim'
 
     GROUP_VIEW_PERM                     = 'can_view_group'
-    GROUP_CREATE_PERM                   = 'can_add_group'
+    GROUP_ADD_PERM                   = 'can_add_group'
     GROUP_CHANGE_PERM                   = 'can_change_group'
     GROUP_DELETE_PERM                   = 'can_delete_group'
 
@@ -71,15 +71,17 @@ class AccessPermissions(models.Model):
     class Meta:
         managed = False
         permissions = {
-            ('can_view_dashboard', 'Can view Dashboard'),
-            ('can_add_group', 'Can create a Group'),
-            ('can_change_group', 'Can change a Group'),
-            ('can_delete_group', 'Can delete a Group'),
-            ('can_view_voucher', 'Can view Voucher'),
-            ('can_delete_voucher', 'Can delete Voucher'),
-            ('can_change_voucher', 'Can change Voucher'),
-            ('can_add_voucher', 'Can create Voucher'),
-            ('can_activate_voucher', 'Can activate Voucher'),
-            ('can_recharge_account', 'Can recharge an Account'),
+            (AccessPermissions.DASHBOARD_VIEW_PERM, 'Can view Dashboard'),
+            (AccessPermissions.GROUP_ADD_PERM, 'Can create a Group'),
+            (AccessPermissions.GROUP_CHANGE_PERM, 'Can change a Group'),
+            (AccessPermissions.GROUP_DELETE_PERM, 'Can delete a Group'),
+            (AccessPermissions.GROUP_VIEW_PERM, 'Can view Group'),
+            (AccessPermissions.VOUCHER_VIEW_PERM, 'Can view Voucher'),
+            (AccessPermissions.VOUCHER_DELETE_PERM, 'Can delete Voucher'),
+            (AccessPermissions.VOUCHER_CHANGE_PERM, 'Can change Voucher'),
+            (AccessPermissions.VOUCHER_ADD_PERM, 'Can create Voucher'),
+            (AccessPermissions.TOKEN_GENERATE_PERM, 'Can generate Token'),
+            (AccessPermissions.VOUCHER_ACTIVATE_PERM, 'Can activate Voucher'),
+            (AccessPermissions.VOUCHER_RECHARGE_ACCOUNT_PERM, 'Can recharge an Account'),
 
         }

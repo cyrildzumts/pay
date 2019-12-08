@@ -16,6 +16,10 @@ class PermissionManager :
 
 
     @staticmethod
+    def user_can_generate_token(user=None):
+        return PermissionManager.user_has_perm(user=user, perm=AccessPermissions.TOKEN_GENERATE_PERM)
+
+    @staticmethod
     def user_can_access_dashboard(user=None):
         return PermissionManager.user_has_perm(user=user, perm=AccessPermissions.DASHBOARD_VIEW_PERM)
 
@@ -47,7 +51,7 @@ class PermissionManager :
 
     @staticmethod
     def user_can_add_group(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=AccessPermissions.GROUP_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=AccessPermissions.GROUP_ADD_PERM)
     
     @staticmethod
     def user_can_delete_group(user=None):
