@@ -74,7 +74,7 @@ class AccessPermissions(models.Model):
 
     class Meta:
         managed = False
-        permissions = {
+        permissions = [
             (DASHBOARD_VIEW_PERM, 'Can view Dashboard'),
             (GROUP_ADD_PERM, 'Can create a Group'),
             (GROUP_CHANGE_PERM, 'Can change a Group'),
@@ -88,4 +88,4 @@ class AccessPermissions(models.Model):
             (VOUCHER_ACTIVATE_PERM, 'Can activate Voucher'),
             (VOUCHER_RECHARGE_ACCOUNT_PERM, 'Can recharge an Account')
 
-        }
+        ]
