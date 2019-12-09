@@ -39,8 +39,8 @@
     </ul>
   </div>
   <div class="col col-11">
-    <ul class="nav site-panel">
-      <li><a class="mat-buton mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
+    <ul class="row site-panel">
+      <li><a class="mat-button mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
       {% if is_dashboard_allowed %}
        <li><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
       {% endif %}
