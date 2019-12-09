@@ -48,6 +48,11 @@ class AccessPermissions(models.Model):
             (Constants.POLICY_ADD_PERM, 'Dashboard Can Add Policy'),
             (Constants.POLICY_DELETE_PERM, 'Dashboard Can Delete Policy'),
 
+            (Constants.PAYMENT_VIEW_PERM, 'Dashboard Can View Payment'),
+            (Constants.PAYMENT_CHANGE_PERM, 'Dashboard Can Change Payment'),
+            (Constants.PAYMENT_ADD_PERM, 'Dashboard Can Add Payment'),
+            (Constants.PAYMENT_DELETE_PERM, 'Dashboard Can Delete Payment'),
+
 
 
         ]

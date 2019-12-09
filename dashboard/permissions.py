@@ -34,7 +34,7 @@ class PermissionManager :
 
     @staticmethod
     def user_can_add_account(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.ACCOUNT_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.ACCOUNT_ADD_PERM)
     
     @staticmethod
     def user_can_delete_account(user=None):
@@ -68,7 +68,7 @@ class PermissionManager :
 
     @staticmethod
     def user_can_add_policy(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.POLICY_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.POLICY_ADD_PERM)
 
     @staticmethod
     def user_can_delete_policy(user=None):
@@ -86,7 +86,7 @@ class PermissionManager :
 
     @staticmethod
     def user_can_add_available_service(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.AVAILABLE_SERVICE_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.AVAILABLE_SERVICE_ADD_PERM)
 
     @staticmethod
     def user_can_delete_available_service(user=None):
@@ -99,7 +99,7 @@ class PermissionManager :
     
     @staticmethod
     def user_can_add_service(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.SERVICE_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.SERVICE_ADD_PERM)
     
     @staticmethod
     def user_can_delete_service(user=None):
@@ -118,7 +118,7 @@ class PermissionManager :
     
     @staticmethod
     def user_can_add_payment(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.PAYMENT_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.PAYMENT_ADD_PERM)
     
     @staticmethod
     def user_can_delete_payment(user=None):
@@ -137,7 +137,7 @@ class PermissionManager :
     
     @staticmethod
     def user_can_add_category(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.CATEGORY_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.CATEGORY_ADD_PERM)
     
     @staticmethod
     def user_can_delete_category(user=None):
@@ -155,7 +155,7 @@ class PermissionManager :
     
     @staticmethod
     def user_can_add_transfer(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.TRANSFER_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.TRANSFER_ADD_PERM)
     
     @staticmethod
     def user_can_delete_transfer(user=None):
@@ -193,7 +193,7 @@ class PermissionManager :
     
     @staticmethod
     def user_can_add_idcard(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.IDCARD_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.IDCARD_ADD_PERM)
     
     @staticmethod
     def user_can_delete_idcard(user=None):
@@ -211,7 +211,7 @@ class PermissionManager :
     
     @staticmethod
     def user_can_add_claim(user=None):
-        return PermissionManager.user_has_perm(user=user, perm=Constants.CASE_ISSUE_CREATE_PERM)
+        return PermissionManager.user_has_perm(user=user, perm=Constants.CASE_ISSUE_ADD_PERM)
     
     @staticmethod
     def user_can_delete_claim(user=None):
