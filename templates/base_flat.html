@@ -34,41 +34,40 @@
 {% block HEADER_PANEL %}
 <div class="header--panel row">
   <div class="col col-1">
-    <div class="logo">
-      <a class="mat-button mat-button-text link-logo" href="{%url 'home'%}"> PAY </a>
-    </div>
+    <ul class="logo">
+      <li><a class="mat-button mat-button-text link-logo" href="{%url 'home'%}">{{site_name}}</a></li>
+    </ul>
   </div>
   <div class="col col-11">
-    <nav class="nav">
-      <a href="#discover">{% trans 'Discover our services'%}</a>
+    <ul class="nav site-panel">
+      <li><a class="mat-buton mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
       {% if is_dashboard_allowed %}
-       <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">Dashboard</a>
+       <li><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
       {% endif %}
-      <a class="mat-button mat-button-text" href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a>
-      <a href="#enterprise">{% trans 'For Businesses'%}</a>
+      <li><a class="mat-button mat-button-text" href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a></li>
+      <li><a href="#enterprise">{% trans 'For Businesses'%}</a></li>
       {% if request.user.is_authenticated %}
-      <a class="mat-button mat-button-text" href="{% url 'accounts:account' %}">{% trans 'My Account' %}</a>
-      <a class="signout-btn mat-button mat-button-text signout" href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a>
+      <li><a class="mat-button mat-button-text" href="{% url 'accounts:account' %}">{% trans 'My Account' %}</a></li>
+      <li><a class="signout-btn mat-button mat-button-text signout" href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a></li>
       {% else %}
-      <a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:register' %}" data-tab="1" data-target="#signup-dialog">{% trans 'Create an Account' %}</a>
-      <a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Login' %}</a>
+      <li><a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:register' %}" data-tab="1" data-target="#signup-dialog">{% trans 'Create an Account' %}</a></li>
+      <li><a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Login' %}</a></li>
       
-
       {% endif %}
-      <div class="languages">
+      <ul class="languages">
       <form id="lang-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
         <input name="next" type="hidden" value="{{redirect_to}}">
         <input id="current-lang" type="hidden" name="language" value="">
       </form>
       {% for lang in LANGUAGES %}
         {% if lang.0 == LANGUAGE_CODE %}
-        <span class="js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span>
+        <li><span class="js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
          {% else %}
-         <span class="js-lang lang" title="{{lang.1}}"> {{lang.0}} </span>
+        <li><span class="js-lang lang" title="{{lang.1}}"> {{lang.0}} </span></li>
         {% endif %}
       {% endfor %}
-      </div>
-    </nav>
+      </ul>
+    </ul>
   </div>
 </div>
 {% endblock HEADER_PANEL %}
