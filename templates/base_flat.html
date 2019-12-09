@@ -45,7 +45,7 @@
        <li><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
       {% endif %}
       <li><a class="mat-button mat-button-text" href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a></li>
-      <li><a href="#enterprise">{% trans 'For Businesses'%}</a></li>
+      <li><a class="mat-button mat-button-text" href="#enterprise">{% trans 'For Businesses'%}</a></li>
       {% if request.user.is_authenticated %}
       <li><a class="mat-button mat-button-text" href="{% url 'accounts:account' %}">{% trans 'My Account' %}</a></li>
       <li><a class="signout-btn mat-button mat-button-text signout" href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a></li>
