@@ -181,8 +181,9 @@ def available_services(request):
     context['available_services'] = list_set
     context['can_access_dashboard'] = can_access_dashboard
     context['can_view_available_service'] = can_view_available_service
-    context['can_delete'] = PermissionManager.user_can_delete_available_service(request.user)
-    context['can_update'] = PermissionManager.user_can_change_available_service(request.user)
+    context['can_delete_available_service'] = PermissionManager.user_can_delete_available_service(request.user)
+    context['can_change_available_service'] = PermissionManager.user_can_change_available_service(request.user)
+    context['can_add_available_service'] = PermissionManager.user_can_add_available_service(request.user)
     return render(request,template_name, context)
 
 def available_service_update(request, available_uuid=None):
