@@ -54,19 +54,21 @@
       <li><a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Login' %}</a></li>
       
       {% endif %}
-      <ul class="languages">
-      <form id="lang-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
-        <input name="next" type="hidden" value="{{redirect_to}}">
-        <input id="current-lang" type="hidden" name="language" value="">
-      </form>
-      {% for lang in LANGUAGES %}
-        {% if lang.0 == LANGUAGE_CODE %}
-        <li><span class="js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
-         {% else %}
-        <li><span class="js-lang lang" title="{{lang.1}}"> {{lang.0}} </span></li>
-        {% endif %}
-      {% endfor %}
-      </ul>
+      <li>
+        <ul class="languages">
+        <form id="lang-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
+                <input name="next" type="hidden" value="{{redirect_to}}">
+                <input id="current-lang" type="hidden" name="language" value="">
+        </form>
+        {% for lang in LANGUAGES %}
+                {% if lang.0 == LANGUAGE_CODE %}
+                <li><span class="js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
+                {% else %}
+                <li><span class="js-lang lang" title="{{lang.1}}"> {{lang.0}} </span></li>
+                {% endif %}
+        {% endfor %}
+        </ul>
+      </li>
     </ul>
   </div>
 </div>
