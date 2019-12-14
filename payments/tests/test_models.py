@@ -1,9 +1,10 @@
 from django.test import TestCase
-
+import logging
 from payments.models import (
     Policy, AvailableService, CaseIssue, Service, ServiceCategory, Payment, Transfer
 )
 
+logger = logging.getLogger(__name__)
 
 POLICY_DATA = {
     'daily_limit' : 15000,
@@ -29,7 +30,8 @@ class PolicyModelTest(TestCase):
         policy_2.save()
 
         policies = Policy.objects.all()
-
-        self.assertEqual(policies.count(), 2)
+        count = policies.count()
+        logger.info("Policy Model Test :  policies count \"{}\" ", count)
+        self.assertEqual(count, 2)
         self.assertTrue(Policy.objects.filter(policy_uuid=policy.policy_uuid).exists())
         self.assertTrue(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
