@@ -172,7 +172,7 @@ DATABASES = {
         'sslmode': 'require'
     },
     'TEST'  :{
-        'NAME': 'pay_test_db',
+        'NAME': 'test_db',
     },
    },
 
