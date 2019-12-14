@@ -31,7 +31,7 @@ class PolicyModelTest(TestCase):
 
         policies = Policy.objects.all()
         count = policies.count()
-        logger.info("Policy Model Test :  policies count \"{}\" ", count)
+        logger.info("Policy Model Test :  policies count = \"%s\" ", count)
         self.assertEqual(count, 2)
         self.assertTrue(Policy.objects.filter(policy_uuid=policy.policy_uuid).exists())
         self.assertTrue(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
