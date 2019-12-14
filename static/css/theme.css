@@ -120,7 +120,7 @@ button:hover{
 .new-header{
     color: var(--site-header-color);
     background-color: var(--site-header-bg);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -195,7 +195,7 @@ button:hover{
 
     color: var(--grid-header-color);
     background-color: var(--grid-header-bg);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 
 }
@@ -245,7 +245,7 @@ button:hover{
 .flat-link{
     text-decoration: none;
     color: var(--link-color);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     
 }
@@ -386,13 +386,13 @@ button:hover{
     color: var(--product-name);
 }
 .product--price{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: var(--product-price);
 }
 
 .product-infos .header .product--name{
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     color: var(--main-color);
 }
@@ -497,7 +497,7 @@ button:hover{
     /*font-weight: bold;*/
 }
 .flat-icon-label{
-    font-size: 10px;
+    font-size: 8px;
     font-weight: normal;
 }
 
@@ -506,7 +506,7 @@ button:hover{
     color: var(--main-color);
 }
 .banner-text{
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--main-color);
 }
@@ -563,7 +563,7 @@ button:hover{
 
 .number{
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
     color: var(--dashboard-number-color);
 }
 
@@ -582,7 +582,7 @@ button:hover{
 
 
 .product--price-details{
-    font-size: 10px;
+    font-size: 8px;
     font-weight: bold;
     color: #999;
     vertical-align: baseline;

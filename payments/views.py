@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponse
@@ -8,6 +9,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidde
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import F, Q
@@ -17,7 +19,10 @@ from payments.models import (
     Service, ServiceCategory, Policy, CaseIssue, Reduction,
     IDCard
 )
-from payments.forms import TransactionForm, TransferForm, ServiceCreationForm, RechargeForm, IDCardForm, UpdateIDCardForm
+from payments.forms import (
+    TransactionForm, TransferForm, ServiceCreationForm, 
+    RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm
+)
 from payments.payment_service import PaymentService
 from pay import settings, utils
 from pay.tasks import send_mail_task
@@ -28,17 +33,13 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
+## NOTE : Every views here query model that belongs to the user makink the request
 
 
 @login_required
 def payment_home(request):
     template_name = "payments/payment_home.html"
-    page_title = "Payment" + " - " + settings.SITE_NAME
-    try:
-        account = Account.objects.get(user=request.user)
-    except Account.DoesNotExists :
-        account = None
-    
+    page_title = "Payment" + " - " + settings.SITE_NAME    
     context = {
         'page_title' : page_title,
     }
@@ -158,11 +159,19 @@ def transaction_details(request, transaction_uuid=None):
 @login_required
 def transfers(request):
     context = {}
-    transfer_list = Transfer.objects.filter(Q(sender=request.user) | Q(recipient=request.user))
+    queryset = Transfer.objects.filter(Q(sender=request.user) | Q(recipient=request.user))
     template_name = "payments/transfer_list.html"
     page_title = "My Transers" + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['transfer_list'] = transfer_list
+    context['transfer_list'] = list_set
     return render(request,template_name, context)
 
 @login_required
@@ -200,10 +209,10 @@ def new_transfer(request):
 
 @login_required
 def transfer_done(request):
-    print("Transfer Done")
+    logger.info("Transfer Done")
     context = {}
     template_name = "payments/transfer_done.html"
-    page_title = "Confirmation" + " - " + settings.SITE_NAME
+    page_title = "Transfer Confirmation" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     return render(request,template_name, context)
 
@@ -211,7 +220,14 @@ def transfer_done(request):
 @login_required
 def transfer_details(request, transfer_uuid=None):
     context = {}
-    transfer = get_object_or_404(Transfer, transfer_uuid=transfer_uuid)
+    transfer = None
+
+    try:
+        transfer = Transfer.objects.get(Q(sender=request.user)|Q(recipient=request.user),transfer_uuid=transfer_uuid)
+    except Transfer.DoesNotExist as e:
+        logger.warning("user %s requested transfer with uuid %s not found", request.user.username, transfer_uuid)
+        logger.exception(e)
+        raise Http404('Transfer not found')
     template_name = "payments/transfer_detail.html"
     page_title = "Transfer Details" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -221,11 +237,19 @@ def transfer_details(request, transfer_uuid=None):
 @login_required
 def services(request):
     context = {}
-    services = Service.objects.select_related('category').filter(customer=request.user)
+    queryset = Service.objects.select_related('category').filter(Q(customer=request.user) | Q(operator=request.user))
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     template_name = "payments/service_list.html"
     page_title = "Services" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['services'] = services
+    context['services'] = list_set
     return render(request,template_name, context)
 
 
@@ -233,13 +257,10 @@ def services(request):
 def new_service(request, available_service_uuid=None):
     '''
     This view is responsible for processing a service.
-    To process a transaction : 
+    To process a transaction service : 
     The user must provide the following informations :
         * recipient ID
         * the amount of money to send
-        * the type of transaction : TRANSFER, INVOICE PAYMENT, SERVICE CONSUMER
-    For TRANSFER no more information data are needed.
-    For INVOICE PAYMENT, the following extra informations are needed :
         * Invoice Reference Number
         * Invoice Date
         * Customer ID of as used by the recipient
@@ -285,7 +306,12 @@ def new_service(request, available_service_uuid=None):
 
 @login_required
 def service_done(request):
-    pass
+    logger.info("Transfer Done")
+    context = {}
+    template_name = "payments/service_done.html"
+    page_title = "Service Payment Confirmation" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    return render(request,template_name, context)
 
 @login_required
 def service_details(request, service_uuid=None):
@@ -345,47 +371,88 @@ def available_service_details(request, available_uuid=None):
 
 @login_required
 def new_payment(request):
-    pass
+    context = {}
+    email_template_name = "payments/payment_done_email.html"
+    template_name = "payments/new_payment.html"
+    page_title = "Payment"
+    if request.method == "POST":
+        context = PaymentService.process_service_request(request)
+        if context['success']:
+            messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
+            send_mail_task.apply_async(args=[context['email_context']],
+                queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+            )
+            logger.info("Payment request successful")
+            return redirect('payments:payment-done')
+        else : 
+            logger.debug("There was an error with the service request : {}".format(context['errors']))
+            form = PaymentForm(request.POST.copy())
+
+    elif request.method == "GET":
+            form = PaymentForm()
+    context = {
+        'page_title':page_title,
+        'form': form
+    }
+    return render(request, template_name, context)
 
 @login_required
 def payment_done(request):
-    pass
+    logger.info("Payment Done")
+    context = {}
+    template_name = "payments/payment_done.html"
+    page_title = "Payment Confirmation" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    return render(request,template_name, context)
 
 @login_required
 def payments(request):
     context = {}
-    current_account = Account.objects.get(user=request.user)
-    user_payments = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    queryset = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     template_name = "payments/payment_list.html"
     page_title = "Payments" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['payments'] = user_payments
-    context['account'] = current_account
+    context['payments'] = list_set
     return render(request,template_name, context)
 
 
 @login_required
 def payment_details(request, payment_uuid=None):
     context = {}
-    current_account = Account.objects.get(user=request.user)
     user_payments = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
     payment = get_object_or_404(user_payments, payment_uuid=payment_uuid)
     template_name = "payments/payment_detail.html"
     page_title = "Payment Details" + " + " + settings.SITE_NAME
     context['page_title'] = page_title
     context['payment'] = payment
-    context['account'] = current_account
     return render(request,template_name, context)
 
 
 @login_required
 def policies(request):
     context = {}
-    current_policies = Policy.objects.all()
+    queryset = Policy.objects.all()
     template_name = "payments/policy_list.html"
     page_title = "Policies" + " + " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['policies'] = current_policies
+    context['policies'] = list_set
     return render(request,template_name, context)
 
 
@@ -412,7 +479,6 @@ def cases(request):
 @login_required
 def case_details(request, issue_uuid=None):
     context = {}
-    current_account = Account.objects.get(user=request.user)
     user_claims = CaseIssue.objects.filter(Q(participant_1=request.user) | Q(participant_2=request.user))
     claim = get_object_or_404(user_claims, issue_uuid=issue_uuid)
     template_name = "payments/claim_detail.html"
@@ -496,28 +562,36 @@ def recharge(request):
 @login_required
 def idcards(request):
     context = {}
-    #current_account = Account.objects.get(user=request.user)
-    current_idcards = IDCard.objects.filter(user=request.user)
+    queryset = IDCard.objects.filter(user=request.user)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     template_name = "payments/idcard_list.html"
     page_title = "ID Cards" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['idcards'] = current_idcards
+    context['idcards'] = list_set
     return render(request,template_name, context)
 
 
 @login_required
 def idcard_details(request, idcard_uuid=None):
     context = {}
-    context['has_idcard'] = False
-    if hasattr(request.user, 'idcard'):
-        context['has_idcard'] = True
-        if request.user.idcard.idcard_uuid == idcard_uuid:
-            context['idcard'] = request.user.idcard
-        else:
-            context['has_idcard'] = False
+    idcard = None
+    try:
+        idcard = IDCard.objects.get(user=request.user, idcard_uuid=idcard_uuid)
+    except IDCard.DoesNotExist as e:
+        logger.exception(e)
+        raise Http404('IDCard not found')
+
     template_name = "payments/idcard_detail.html"
     page_title = "My ID Card" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
+    context['idcard'] = idcard
     return render(request,template_name, context)
 
 
@@ -553,10 +627,16 @@ def upload_idcard(request):
 @login_required
 def update_idcard(request, idcard_uuid=None):
     page_title = "Edit my account" + ' - ' + settings.SITE_NAME
-    instance = get_object_or_404(IDCard, idcard_uuid=idcard_uuid)
+    idcard = None
+    try:
+        idcard = IDCard.objects.get(user=request.user, idcard_uuid=idcard_uuid)
+    except IDCard.DoesNotExist as e:
+        logger.exception(e)
+        raise Http404('IDCard not found')
+
     template_name = "payments/idcard_update.html"
     if request.method =="POST":
-        form = UpdateIDCardForm(request.POST, request.FILES, instance=instance)
+        form = UpdateIDCardForm(request.POST, request.FILES, instance=idcard)
         if form.is_valid():
             logger.info("Update IDCard form is valid")
             form.save()
@@ -564,14 +644,12 @@ def update_idcard(request, idcard_uuid=None):
         else:
             logger.info("Edit Account form is not valid. Errors : %s", form.errors)
             logger.info("Form clean data : %s", form.cleaned_data)
-    
-    form = UpdateIDCardForm(instance=instance)
-    account = get_object_or_404(Account, user=request.user)
+    elif request.method == 'GET':
+        form = UpdateIDCardForm(instance=idcard)
     context = {
             'page_title': page_title,
             'template_name': template_name,
-            'idcard'  : instance,
-            'balance' : account.balance,
+            'idcard'  : idcard,
             'form': form
         }
     
@@ -586,7 +664,5 @@ def upload_idcard_done(request):
     context['page_title'] = page_title
     return render(request,template_name, context)
 
-@login_required
-def validate_idcard(request):
-    pass
+
 

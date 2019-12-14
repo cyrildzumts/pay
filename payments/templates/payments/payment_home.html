@@ -96,8 +96,8 @@
                                                 </a>
                                         {% empty %}
                                         <p>
-                                        {% blocktrans %} You have done no transactions yet.
-Your transactions will be displayed here.
+                                        {% blocktrans trimmed%} You have done no transactions yet.
+                                        Your transactions will be displayed here.
                                         {% endblocktrans %}
                                         </p>
                                         <a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Send Money" %} </a>
