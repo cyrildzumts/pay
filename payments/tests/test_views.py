@@ -44,7 +44,7 @@ class PaymentHomeTest(TestCase):
         request.session.save()
 
         response = views.payment_home(request)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         
     def test_transfer_detail(self):
         
@@ -74,4 +74,4 @@ class PaymentHomeTest(TestCase):
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
