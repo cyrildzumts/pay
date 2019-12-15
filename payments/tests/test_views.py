@@ -87,6 +87,13 @@ class PaymentTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         request =  self.factory.get(transfer_url)
+        request.user = recipient
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.transfer_details(request, transfer.transfer_uuid )
+        self.assertEqual(response.status_code, 200)
+
+        request =  self.factory.get(transfer_url)
         request.user = no_transfer_user
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
