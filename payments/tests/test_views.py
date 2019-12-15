@@ -30,6 +30,12 @@ USER_TEST2 = {
     'email'    : 'testuser2@example.com'
 }
 
+USER_TEST3 = {
+    'username' : 'test_user3',
+    'password' : 'Electronique0',
+    'email'    : 'testuser3@example.com'
+}
+
 class PaymentHomeTest(TestCase):
 
     def setUp(self):
@@ -50,6 +56,7 @@ class PaymentHomeTest(TestCase):
         
         sender = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
         recipient = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
+        no_transfer_user = User.objects.create_user(username=USER_TEST3['username'], email=USER_TEST3['email'], password=USER_TEST3['password'])
         TEST_TRANSFER_DATA = {
             'amount' : 25000,
             'details': 'Transfer Description',
@@ -75,3 +82,10 @@ class PaymentHomeTest(TestCase):
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
         self.assertEqual(response.status_code, 200)
+
+        request =  self.factory.get(transfer.get_absolute_url())
+        request.user = no_transfer_user
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.transfer_details(request, transfer.transfer_uuid )
+        self.assertEqual(response.status_code, 404)
