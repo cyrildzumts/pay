@@ -101,7 +101,7 @@ class PolicyModelTest(TestCase):
         payment = Payment(**TEST_PAYMENT_DATA)
         payment.save()
         self.assertTrue(Payment.objects.count() == 1)
-        self.assertTrue(Payment.objects.get(payment_uuid=payment.payment_uuid, is_validated=False).exists())
+        self.assertTrue(Payment.objects.filter(payment_uuid=payment.payment_uuid, is_validated=False).exists())
 
     def test_delete_payment(self):
         sender = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
@@ -116,10 +116,10 @@ class PolicyModelTest(TestCase):
         payment = Payment(**TEST_PAYMENT_DATA)
         payment.save()
         self.assertTrue(Payment.objects.count() == 1)
-        self.assertTrue(Payment.objects.get(payment_uuid=payment.payment_uuid, is_validated=False).exists())
+        self.assertTrue(Payment.objects.filter(payment_uuid=payment.payment_uuid, is_validated=False).exists())
         payment.delete()
         self.assertTrue(Payment.objects.count() == 0)
-        self.assertFalse(Payment.objects.get(payment_uuid=payment.payment_uuid, is_validated=False).exists())
+        self.assertFalse(Payment.objects.filter(payment_uuid=payment.payment_uuid, is_validated=False).exists())
     
         
     def test_saving_transfer(self):
@@ -135,7 +135,7 @@ class PolicyModelTest(TestCase):
         transfer = Transfer(**TEST_TRANSFER_DATA)
         transfer.save()
         self.assertTrue(Transfer.objects.count() == 1)
-        self.assertTrue(Transfer.objects.get(transfer_uuid=transfer.transfer_uuid, is_validated=False).exists())
+        self.assertTrue(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
 
     def test_delete_transfer(self):
         sender = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
@@ -150,9 +150,9 @@ class PolicyModelTest(TestCase):
         transfer = Transfer(**TEST_TRANSFER_DATA)
         transfer.save()
         self.assertTrue(Transfer.objects.count() == 1)
-        self.assertTrue(Transfer.objects.get(transfer_uuid=transfer.transfer_uuid).exists())
+        self.assertTrue(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
         transfer.delete()
         self.assertTrue(Transfer.objects.count() == 0)
-        self.assertFalse(Transfer.objects.get(transfer_uuid=transfer.transfer_uuid, is_validated=False).exists())
+        self.assertFalse(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
 
 
