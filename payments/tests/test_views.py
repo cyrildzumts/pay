@@ -1,5 +1,6 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
+from django.http.response import Http404
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.sessions.middleware import SessionMiddleware
 from payments.models import Transfer, Payment
@@ -69,23 +70,24 @@ class PaymentHomeTest(TestCase):
         self.assertTrue(Transfer.objects.count() == 1)
         self.assertTrue(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
 
-        request =  self.factory.get(transfer.get_absolute_url())
+        transfer_url = transfer.get_absolute_url()
+
+        request =  self.factory.get(transfer_url)
         request.user = AnonymousUser()
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
         self.assertEqual(response.status_code, 302)
 
-        request =  self.factory.get(transfer.get_absolute_url())
+        request =  self.factory.get(transfer_url)
         request.user = sender
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
         self.assertEqual(response.status_code, 200)
 
-        request =  self.factory.get(transfer.get_absolute_url())
+        request =  self.factory.get(transfer_url)
         request.user = no_transfer_user
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
-        response = views.transfer_details(request, transfer.transfer_uuid )
-        self.assertEqual(response.status_code, 404)
+        self.assertRaises(Http404, views.transaction_details, request=request, transfer_uuid=transfer.transfer_uuid)
