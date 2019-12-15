@@ -2,6 +2,7 @@ from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.sessions.middleware import SessionMiddleware
+from payments.models import Transfer, Payment
 from payments import views
 
 
@@ -17,6 +18,17 @@ def add_middledware_to_response(request, middleware_class):
     return request
 
 
+USER_TEST1 = {
+    'username' : 'test_user1',
+    'password' : 'Electronique0',
+    'email'    : 'testuser1@example.com'
+}
+
+USER_TEST2 = {
+    'username' : 'test_user2',
+    'password' : 'Electronique0',
+    'email'    : 'testuser2@example.com'
+}
 
 class PaymentHomeTest(TestCase):
 
@@ -32,3 +44,36 @@ class PaymentHomeTest(TestCase):
         request.session.save()
 
         response = views.payment_home(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_transfer_detail(self):
+        
+        sender = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
+        recipient = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
+        TEST_TRANSFER_DATA = {
+            'amount' : 25000,
+            'details': 'Transfer Description',
+            'sender' : sender,
+            'recipient': recipient
+        }
+        self.assertTrue(Transfer.objects.count() == 0)
+        transfer = Transfer(**TEST_TRANSFER_DATA)
+        transfer.save()
+        self.assertTrue(Transfer.objects.count() == 1)
+        self.assertTrue(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
+
+        request =  self.factory.get(transfer.get_absolute_url())
+
+        request.user = AnonymousUser()
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.transfer_details(request, transfer.transfer_uuid )
+        self.assertEqual(response.status_code, 404)
+
+        request =  self.factory.get(transfer.get_absolute_url())
+
+        request.user = sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.transfer_details(request, transfer.transfer_uuid )
+        self.assertEqual(response.status_code, 200)
