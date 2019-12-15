@@ -37,7 +37,7 @@ USER_TEST3 = {
     'email'    : 'testuser3@example.com'
 }
 
-class PaymentHomeTest(TestCase):
+class PaymentTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -90,4 +90,4 @@ class PaymentHomeTest(TestCase):
         request.user = no_transfer_user
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
-        self.assertRaises(Http404, views.transaction_details, request=request, transfer_uuid=transfer.transfer_uuid)
+        self.assertRaises(Http404, views.transfer_details, request=request, transfer_uuid=transfer.transfer_uuid)
