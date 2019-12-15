@@ -31,7 +31,23 @@ class PolicyModelTest(TestCase):
 
         policies = Policy.objects.all()
         count = policies.count()
-        logger.info("Policy Model Test :  policies count = \"%s\" ", count)
         self.assertEqual(count, 2)
         self.assertTrue(Policy.objects.filter(policy_uuid=policy.policy_uuid).exists())
         self.assertTrue(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
+    
+    def test_delete_policy(self):
+        policy = Policy(**POLICY_DATA)
+        policy.save()
+
+        policy_2 = Policy(**POLICY_DATA2)
+        policy_2.save()
+
+        policies = Policy.objects.all()
+        count = policies.count()
+        self.assertEqual(count, 2)
+        self.assertTrue(Policy.objects.filter(policy_uuid=policy.policy_uuid).exists())
+        self.assertTrue(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
+        policy.delete()
+        policy_2.delete()
+        self.assertFalse(Policy.objects.filter(policy_uuid=policy.policy_uuid).exists())
+        self.assertFalse(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
