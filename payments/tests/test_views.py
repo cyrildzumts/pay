@@ -63,17 +63,15 @@ class PaymentHomeTest(TestCase):
         self.assertTrue(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
 
         request =  self.factory.get(transfer.get_absolute_url())
-
         request.user = AnonymousUser()
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
 
         request =  self.factory.get(transfer.get_absolute_url())
-
         request.user = sender
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)

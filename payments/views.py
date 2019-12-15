@@ -221,11 +221,11 @@ def transfer_done(request):
 def transfer_details(request, transfer_uuid=None):
     context = {}
     transfer = None
-
+    logger.info("transfer_detail() called with request.user = \"%s\" - transfer_uuid = \"%s\" ", request.user, transfer_uuid)
     try:
         transfer = Transfer.objects.get(Q(sender=request.user)|Q(recipient=request.user),transfer_uuid=transfer_uuid)
     except Transfer.DoesNotExist as e:
-        logger.warning("user %s requested transfer with uuid %s not found", request.user.username, transfer_uuid)
+        logger.warning("user %s requested transfer with uuid %s not found", request.user, transfer_uuid)
         logger.exception(e)
         raise Http404('Transfer not found')
     template_name = "payments/transfer_detail.html"
