@@ -161,7 +161,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-    'default': {
+    'production': {
 	'ENGINE': 'django.db.backends.postgresql',
 	'NAME'	:  os.environ['PAY_DATABASE_NAME'],
 	'USER'	:  os.environ['PAY_DATABASE_USERNAME'],
@@ -177,6 +177,9 @@ DATABASES = {
    },
 
 }
+
+DEFAULT_DATABASE = os.environ.get('DJANGO_DATABASE', 'dev')
+DATABASES['default'] = DATABASES[DEFAULT_DATABASE]
 
 
 # Password validation
