@@ -36,18 +36,21 @@ class PolicyModelTest(TestCase):
         self.assertTrue(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
     
     def test_delete_policy(self):
+        count = Policy.objects.all().count()
+        self.assertEqual(count, 2)
         policy = Policy(**POLICY_DATA)
         policy.save()
 
         policy_2 = Policy(**POLICY_DATA2)
         policy_2.save()
 
-        policies = Policy.objects.all()
-        count = policies.count()
-        self.assertEqual(count, 2)
+        new_count = Policy.objects.all().count()
+        self.assertEqual(new_count - count, 2)
         self.assertTrue(Policy.objects.filter(policy_uuid=policy.policy_uuid).exists())
         self.assertTrue(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
         policy.delete()
         policy_2.delete()
+        new_count = Policy.objects.all().count()
+        self.assertEqual(new_count, 2)
         self.assertFalse(Policy.objects.filter(policy_uuid=policy.policy_uuid).exists())
         self.assertFalse(Policy.objects.filter(policy_uuid=policy_2.policy_uuid).exists())
