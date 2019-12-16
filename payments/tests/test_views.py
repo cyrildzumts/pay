@@ -151,7 +151,7 @@ class PaymentTest(TestCase):
     def test_transfer_detail(self):
         
         TEST_TRANSFER_DATA = {
-            'amount' : 25000,
+            'amount' : TRANSFER_AMOUNT,
             'details': 'Transfer Description',
             'sender' : self.sender,
             'recipient': self.recipient
@@ -166,28 +166,28 @@ class PaymentTest(TestCase):
         transfer_url = transfer.get_absolute_url()
 
         request =  self.factory.get(transfer_url)
-        request.user = AnonymousUser()
+        request.user = self.anonymeUser
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
         self.assertEqual(response.status_code, 302)
 
         request =  self.factory.get(transfer_url)
-        request.user = sender
+        request.user = self.sender
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
         self.assertEqual(response.status_code, 200)
 
         request =  self.factory.get(transfer_url)
-        request.user = recipient
+        request.user = self.recipient
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.transfer_details(request, transfer.transfer_uuid )
         self.assertEqual(response.status_code, 200)
 
         request =  self.factory.get(transfer_url)
-        request.user = no_transfer_user
+        request.user = self.no_transfer_user
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         self.assertRaises(Http404, views.transfer_details, request=request, transfer_uuid=transfer.transfer_uuid)
