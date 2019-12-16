@@ -142,6 +142,7 @@ class PaymentService :
                         context['balance'] = current_balance - amount
                         logger.debug("Transfer was succefull")
                     else:
+                    
                         context['errors'] = "The recipient could not be found."
                         logger.error("There was an error with the transfer request : %s", context['errors'])
                         
@@ -152,6 +153,7 @@ class PaymentService :
                     context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
                     return context
             else:
+                context['form_errors'] = transfer_form.errors
                 context['errors'] = "Verifiez les champs du formulaire."
                 logger.error("Transfer Form is not valid ")
                 logger.error(transfer_form.errors)
