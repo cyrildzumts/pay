@@ -125,7 +125,7 @@ class PaymentTest(TestCase):
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.new_transfer(request=request)
-        self.assertEqual(response.status_code, STATUS_CODE_302) # failed to create the transfer. redirect to same view
+        self.assertEqual(response.status_code, STATUS_CODE_200) # failed to create the transfer. redirect to same view
     
     def test_transfer_create_transfer(self):
         TEST_TRANSFER_DATA = {
