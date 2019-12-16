@@ -66,6 +66,7 @@ class PaymentTest(TestCase):
         }
         self.assertTrue(Transfer.objects.count() == 0)
         transfer = Transfer(**TEST_TRANSFER_DATA)
+        transfer.full_clean()
         transfer.save()
         self.assertTrue(Transfer.objects.count() == 1)
         self.assertTrue(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
