@@ -26,6 +26,7 @@ STATUS_CODE_302 = 302
 STATUS_CODE_403 = 403
 STATUS_CODE_404 = 404
 
+USER_NOT_FOUND_PK = 100
 
 
 USER_TEST1 = {
@@ -99,6 +100,20 @@ class TransferTest(TestCase):
             'details': 'Transfer Description',
             'sender' : self.sender.pk,
             'recipient': self.recipient.pk
+        }
+
+        self.TEST_TRANSFER_DATA_SENDER_NOT_FOUND = {
+            'amount' : TRANSFER_AMOUNT,
+            'details': 'Transfer Description',
+            'sender' : USER_NOT_FOUND_PK,
+            'recipient': self.recipient.pk
+        }
+
+        self.TEST_TRANSFER_DATA_RECIPIENT_NOT_FOUND = {
+            'amount' : TRANSFER_AMOUNT,
+            'details': 'Transfer Description',
+            'sender' : self.sender.pk,
+            'recipient': USER_NOT_FOUND_PK
         }
 
         self.TEST_INSUFFICIENT_TRANSFER_DATA = {
@@ -213,6 +228,43 @@ class TransferTest(TestCase):
     def test_transfer_cannot_create_transfer_sender_insufficient_balance(self):
 
         request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_INSUFFICIENT_TRANSFER_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
+        response = views.new_transfer(request=request)
+        
+        
+        account_sender = Account.objects.get(user=self.sender)
+        account_recipient = Account.objects.get(user=self.recipient)
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Transfer.objects.exists())
+        self.assertEqual(account_recipient.balance, 0)
+        self.assertEqual(account_sender.balance, ACCOUNT_BALANCE)
+
+    def test_transfer_cannot_create_transfer_sender_not_found(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_TRANSFER_DATA_SENDER_NOT_FOUND)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
+        response = views.new_transfer(request=request)
+        
+        
+        account_sender = Account.objects.get(user=self.sender)
+        account_recipient = Account.objects.get(user=self.recipient)
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Transfer.objects.exists())
+        self.assertEqual(account_recipient.balance, 0)
+        self.assertEqual(account_sender.balance, ACCOUNT_BALANCE)
+
+    
+    def test_transfer_cannot_create_transfer_recipient_not_found(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_TRANSFER_DATA_RECIPIENT_NOT_FOUND)
 
         request.user = self.sender
         request = add_middledware_to_request(request, SessionMiddleware)
