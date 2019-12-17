@@ -18,6 +18,7 @@ Account = utils.get_model('accounts', 'Account')
 
 ACCOUNT_BALANCE = 100000
 TRANSFER_AMOUNT = 25000
+TRANSFER_AMOUNT_BIGGER_THAN_ACCOUNT_BALANCE = ACCOUNT_BALANCE + 1
 PAYMENT_HOME_URL = reverse('payments:payment-home')
 PAYMENT_NEW_TRANSFER_URL = reverse('payments:new-transfer')
 STATUS_CODE_200 = 200
@@ -95,6 +96,13 @@ class TransferTest(TestCase):
         self.anonymeUser = AnonymousUser()
         self.TEST_TRANSFER_DATA = {
             'amount' : TRANSFER_AMOUNT,
+            'details': 'Transfer Description',
+            'sender' : self.sender.pk,
+            'recipient': self.recipient.pk
+        }
+
+        self.TEST_INSUFFICIENT_TRANSFER_DATA = {
+            'amount' : TRANSFER_AMOUNT_BIGGER_THAN_ACCOUNT_BALANCE,
             'details': 'Transfer Description',
             'sender' : self.sender.pk,
             'recipient': self.recipient.pk
@@ -200,6 +208,26 @@ class TransferTest(TestCase):
         
         self.assertEqual(response.status_code, STATUS_CODE_200)
         self.assertFalse(Transfer.objects.exists())
+
+    
+    def test_transfer_cannot_create_transfer_sender_insufficient_balance(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_INSUFFICIENT_TRANSFER_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_transfer(request=request)
+        
+        
+        account_sender = Account.objects.get(user=self.sender)
+        account_recipient = Account.objects.get(user=self.recipient)
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertTrue(Transfer.objects.exists())
+        self.assertEqual(account_recipient.balance, 0)
+        self.assertEqual(account_sender.balance, ACCOUNT_BALANCE)
+        
     
     def test_transfer_create_transfer(self):
         request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_TRANSFER_DATA)
