@@ -224,7 +224,7 @@ class TransferTest(TestCase):
         account_sender = Account.objects.get(user=self.sender)
         account_recipient = Account.objects.get(user=self.recipient)
         self.assertEqual(response.status_code, STATUS_CODE_200)
-        self.assertTrue(Transfer.objects.exists())
+        self.assertFalse(Transfer.objects.exists())
         self.assertEqual(account_recipient.balance, 0)
         self.assertEqual(account_sender.balance, ACCOUNT_BALANCE)
         
