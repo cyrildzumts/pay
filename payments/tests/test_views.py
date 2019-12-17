@@ -179,6 +179,7 @@ class TransferTest(TestCase):
         
         self.assertEqual(response.status_code, STATUS_CODE_200)
         self.assertFalse(Transfer.objects.exists())
+        self.assertIn('errors', response, 'Errors not found in response')
 
     def test_transfer_cannot_create_transfer_no_recipient(self):
         request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_NO_RECIPIENT_TRANSFER_DATA)
