@@ -8,6 +8,10 @@ from payments.models import Transfer, Payment
 from payments.forms import TransferForm
 from payments import views
 from pay import utils
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 Account = utils.get_model('accounts', 'Account')
@@ -176,10 +180,9 @@ class TransferTest(TestCase):
 
         response = views.new_transfer(request=request)
         
-        
+        logger.info("test response = [\"%s\"]", response.items)
         self.assertEqual(response.status_code, STATUS_CODE_200)
         self.assertFalse(Transfer.objects.exists())
-        self.assertIn('errors', response, 'Errors not found in response')
 
     def test_transfer_cannot_create_transfer_no_recipient(self):
         request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_NO_RECIPIENT_TRANSFER_DATA)
