@@ -100,6 +100,13 @@ class TransferTest(TestCase):
             'recipient': self.recipient.pk
         }
 
+        self.TEST_DETAIL_TRANSFER_DATA = {
+            'amount' : TRANSFER_AMOUNT,
+            'details': 'Transfer Description',
+            'sender' : self.sender,
+            'recipient': self.recipient
+        }
+
         self.TEST_SENDER_IS_RECIPIENT_TRANSFER_DATA = {
             'amount' : TRANSFER_AMOUNT,
             'details': 'Transfer Description',
@@ -139,7 +146,7 @@ class TransferTest(TestCase):
 
         response = views.new_transfer(request=request)
         
-        
+        self.assertFalse(Transfer.objects.exists())
         self.assertEqual(response.status_code, STATUS_CODE_302) # redirect to login view
 
     def test_transfer_cannot_create_transfer_no_sender(self):
@@ -152,7 +159,7 @@ class TransferTest(TestCase):
 
         response = views.new_transfer(request=request)
         
-        
+        self.assertFalse(Transfer.objects.exists())
         self.assertEqual(response.status_code, STATUS_CODE_200) # failed to create the transfer. redirect to the same current view Page
 
 
@@ -192,6 +199,7 @@ class TransferTest(TestCase):
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         response = views.new_transfer(request=request)
+        self.assertFalse(Transfer.objects.exists())
         self.assertEqual(response.status_code, STATUS_CODE_200) # failed to create the transfer. redirect to same view
     
     def test_transfer_create_transfer(self):
@@ -208,14 +216,15 @@ class TransferTest(TestCase):
         account_recipient = Account.objects.get(user=self.recipient)
         self.assertEqual(account_recipient.balance, TRANSFER_AMOUNT)
         self.assertEqual(account_sender.balance, ACCOUNT_BALANCE - TRANSFER_AMOUNT)
+        self.assertTrue(Transfer.objects.exists())
         
     def test_transfer_detail(self):
         
-        self.assertTrue(Transfer.objects.count() == 0)
-        transfer = Transfer(**self.TEST_TRANSFER_DATA)
+        self.assertFalse(Transfer.objects.exists())
+        transfer = Transfer(**self.TEST_DETAIL_TRANSFER_DATA)
         transfer.full_clean()
         transfer.save()
-        self.assertTrue(Transfer.objects.count() == 1)
+        self.assertTrue(Transfer.objects.exists())
         self.assertTrue(Transfer.objects.filter(transfer_uuid=transfer.transfer_uuid).exists())
 
         transfer_url = transfer.get_absolute_url()
