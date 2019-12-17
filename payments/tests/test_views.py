@@ -180,8 +180,8 @@ class TransferTest(TestCase):
 
         response = views.new_transfer(request=request)
         
-        logger.info("test response = [\"%s\"]", response.items)
-        [logger.info(x) for x in response.items]
+        logger.info("test response = [\"%s\"]", response.items())
+        [logger.info(x) for x in response.items()]
         self.assertEqual(response.status_code, STATUS_CODE_200)
         self.assertFalse(Transfer.objects.exists())
 
