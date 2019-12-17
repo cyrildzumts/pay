@@ -71,19 +71,63 @@ class PaymentTest(TestCase):
         response = views.payment_home(request)
         self.assertEqual(response.status_code, STATUS_CODE_302)
 
+    
+    
+
+
+class TransferTest(TestCase):
     # status code = 200 --> the request failed and the the same page is shown.
     # status code = 302 (request.user = self.sender--> the request succeed and 
     # the view made a redirection to reverse('payments:transfer-done').
     # status code = 302 (request.user = self.anonymeUser--> the request failed because of the required_login decorator 
     # applied on the view new_transfer. status code 302 is the redirection to the login view.
-    def test_transfer_cannot_create_transfer_anonyme(self):
-        TEST_TRANSFER_DATA = {
+
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.sender = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
+        self.recipient = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
+        self.no_transfer_user = User.objects.create_user(username=USER_TEST3['username'], email=USER_TEST3['email'], password=USER_TEST3['password'])
+        self.anonymeUser = AnonymousUser()
+        self.TEST_TRANSFER_DATA = {
             'amount' : TRANSFER_AMOUNT,
             'details': 'Transfer Description',
-            'sender': self.sender.pk,
+            'sender' : self.sender.pk,
             'recipient': self.recipient.pk
         }
-        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=TEST_TRANSFER_DATA)
+
+        self.TEST_SENDER_IS_RECIPIENT_TRANSFER_DATA = {
+            'amount' : TRANSFER_AMOUNT,
+            'details': 'Transfer Description',
+            'sender' : self.sender.pk,
+            'recipient': self.sender.pk
+        }
+
+        self.TEST_NO_SENDER_TRANSFER_DATA = {
+            'amount' : TRANSFER_AMOUNT,
+            'details': 'Transfer Description',
+            'recipient': self.recipient.pk
+        }
+        self.TEST_NO_RECIPIENT_TRANSFER_DATA = {
+            'amount' : TRANSFER_AMOUNT,
+            'details': 'Transfer Description',
+            'sender' : self.sender.pk
+        }
+        self.TEST__NO_AMOUNT_TRANSFER_DATA = {
+            'details': 'Transfer Description',
+            'sender' : self.sender.pk,
+            'recipient': self.recipient.pk
+        }
+        self.TEST_NO_DESCRIPTION_TRANSFER_DATA = {
+            'amount' : TRANSFER_AMOUNT,
+            'sender' : self.sender.pk,
+            'recipient': self.recipient.pk
+        }
+    
+
+    def test_transfer_cannot_create_transfer_anonyme(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_TRANSFER_DATA)
 
         request.user = self.anonymeUser
         request = add_middledware_to_request(request, SessionMiddleware)
@@ -95,12 +139,8 @@ class PaymentTest(TestCase):
         self.assertEqual(response.status_code, STATUS_CODE_302) # redirect to login view
 
     def test_transfer_cannot_create_transfer_no_sender(self):
-        TEST_TRANSFER_DATA = {
-            'amount' : TRANSFER_AMOUNT,
-            'details': 'Transfer Description',
-            'recipient': self.recipient.pk
-        }
-        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=TEST_TRANSFER_DATA)
+
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_NO_SENDER_TRANSFER_DATA)
 
         request.user = self.sender
         request = add_middledware_to_request(request, SessionMiddleware)
@@ -111,15 +151,37 @@ class PaymentTest(TestCase):
         
         self.assertEqual(response.status_code, STATUS_CODE_200) # failed to create the transfer. redirect to the same current view Page
 
+
+    def test_transfer_cannot_create_transfer_recipient_is_sender(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_SENDER_IS_RECIPIENT_TRANSFER_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_transfer(request=request)
         
+        
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Transfer.objects.exists())
+
+    def test_transfer_cannot_create_transfer_recipient_is_sender(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_SENDER_IS_RECIPIENT_TRANSFER_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_transfer(request=request)
+        
+        
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Transfer.objects.exists())
 
     def test_transfer_cannot_create_transfer_no_recipient(self):
-        TEST_TRANSFER_DATA = {
-            'amount' : TRANSFER_AMOUNT,
-            'details': 'Transfer Description',
-            'sender': self.sender
-        }
-        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=TEST_TRANSFER_DATA)
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_NO_RECIPIENT_TRANSFER_DATA)
 
         request.user = self.sender
         request = add_middledware_to_request(request, SessionMiddleware)
@@ -128,13 +190,7 @@ class PaymentTest(TestCase):
         self.assertEqual(response.status_code, STATUS_CODE_200) # failed to create the transfer. redirect to same view
     
     def test_transfer_create_transfer(self):
-        TEST_TRANSFER_DATA = {
-            'amount' : TRANSFER_AMOUNT,
-            'details': 'Transfer Description',
-            'sender': self.sender.pk,
-            'recipient': self.recipient.pk
-        }
-        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=TEST_TRANSFER_DATA)
+        request = self.factory.post(path=PAYMENT_NEW_TRANSFER_URL, data=self.TEST_TRANSFER_DATA)
         request.user = self.sender
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
@@ -150,14 +206,8 @@ class PaymentTest(TestCase):
         
     def test_transfer_detail(self):
         
-        TEST_TRANSFER_DATA = {
-            'amount' : TRANSFER_AMOUNT,
-            'details': 'Transfer Description',
-            'sender' : self.sender,
-            'recipient': self.recipient
-        }
         self.assertTrue(Transfer.objects.count() == 0)
-        transfer = Transfer(**TEST_TRANSFER_DATA)
+        transfer = Transfer(**self.TEST_TRANSFER_DATA)
         transfer.full_clean()
         transfer.save()
         self.assertTrue(Transfer.objects.count() == 1)

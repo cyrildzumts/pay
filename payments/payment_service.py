@@ -124,14 +124,32 @@ class PaymentService :
 
         if request.method == 'POST':
             logger.info("processing new transfer request : POST REQUEST")
-            current_account = Account.objects.get(user=request.user)
-            current_balance = current_account.balance
+            
             postdata = utils.get_postdata(request)
             transfer_form = TransferForm(postdata)
             if transfer_form.is_valid():
                 logger.debug(" Transfer Form is Valid")
-                recipient = postdata['recipient']
-                amount = int(postdata['amount'])
+                sender = transfer_form.cleaned_data['sender']
+                recipient =  transfer_form.cleaned_data['recipient']
+                amount = transfer_form.cleaned_data['amount']
+                if sender != request.user:
+                    context['errors'] = "Sender must be the user sending the request"
+                    logger.error("Sender must be the user sending the request")
+                    return context
+                    
+                if recipient == request.user:
+                    context['errors'] = "Recipient can not be the user sending the request"
+                    logger.error("Recipient can not be the user sending the request")
+                    return context
+
+                if sender == recipient:
+                    context['errors'] = "User can not make transfer to itself"
+                    logger.error("User can not make transfer to itself")
+                    return context
+
+                current_account = Account.objects.get(user=request.user)
+                current_balance = current_account.balance
+
                 if(current_balance - amount) >= 0:
                     recipient_exist = Account.objects.filter(user=recipient).exists()
                     if recipient_exist:
@@ -150,11 +168,11 @@ class PaymentService :
                     
                 else :
                     context['balance'] = current_account.balance
-                    context['errors'] = "Vous n'avez pas assez d'argent dans votre compte"
+                    context['errors'] = "You do not have enough money in your account to complete the transfer"
                     return context
             else:
                 context['form_errors'] = transfer_form.errors
-                context['errors'] = "Verifiez les champs du formulaire."
+                context['errors'] = "Form data error."
                 logger.error("Transfer Form is not valid ")
                 logger.error(transfer_form.errors)
         return context
