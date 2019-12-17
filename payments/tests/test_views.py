@@ -217,7 +217,7 @@ class TransferTest(TestCase):
         request.user = self.sender
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
-
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
         response = views.new_transfer(request=request)
         
         
