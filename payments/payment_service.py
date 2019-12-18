@@ -197,8 +197,8 @@ class PaymentService :
             service_form = ServiceCreationForm(postdata)
             if service_form.is_valid():
                 logger.info(" Service Form is Valid")
-                user_operator = postdata['operator']
-                price = int(postdata['price'])
+                user_operator = service_form.cleaned_data['operator']
+                price = service_form.cleaned_data['price']
                 pay_account_exist= Account.objects.filter(user__username="pay").exists()
                 if not pay_account_exist:
                     logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")

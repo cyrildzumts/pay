@@ -4,7 +4,7 @@ from django.http.response import Http404
 from django.db.models import F, Q
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.sessions.middleware import SessionMiddleware
-from payments.models import Transfer, Payment
+from payments.models import Transfer, Payment, Service, ServiceCategory, AvailableService
 from payments.forms import TransferForm
 from payments import views
 from pay import utils
@@ -21,6 +21,38 @@ TRANSFER_AMOUNT = 25000
 TRANSFER_AMOUNT_BIGGER_THAN_ACCOUNT_BALANCE = ACCOUNT_BALANCE + 1
 PAYMENT_HOME_URL = reverse('payments:payment-home')
 PAYMENT_NEW_TRANSFER_URL = reverse('payments:new-transfer')
+
+#SERVICE CONSTANTS
+EMPTY_STRING = ''
+
+SERVICE_PRICE = 25000
+SERVICE_PRICE_STR = '234KD0'
+SERVICE_COMMISSION = 0.29
+SERVICE_NAME = "TEST SERVICE"
+SERVICE_NAME_EMPTY = ''
+SERVICE_CUSTOMER_REFERENCE = '14587AF2514'
+SERVICE_REFERENCE_NUMBER   = '14781254'
+SERVICE_ISSUED_AT          = '2019-07-23'
+SERVICE_DESCRIPTION        = 'TEST SERVICE DESCRIPTION'
+PAYMENT_NEW_SERVICE_URL    = reverse('payments:new-service')
+
+# CATEGORY CONSTANTS
+
+CATEGORY_NAME      = 'TEST CAT'
+CATEGORY_CODE      = 150
+
+CATEGORY_DATA = {
+    'category_name' : CATEGORY_NAME,
+    'category_code' : CATEGORY_CODE,
+    'is_active'     : True
+}
+
+# AVAILABLESERVICE
+
+AVAILABLE_SERVICE_NAME = 'TEST AVAILABLE SERVICE'
+SERVICE_CODE       = 175
+AVAILABLE_SERVICE_DESCRIPTION        = 'TEST AVAILABLE SERVICE DESCRIPTION'
+
 STATUS_CODE_200 = 200
 STATUS_CODE_302 = 302
 STATUS_CODE_403 = 403
@@ -45,6 +77,12 @@ USER_TEST3 = {
     'username' : 'test_user3',
     'password' : 'Electronique0',
     'email'    : 'testuser3@example.com'
+}
+
+PAY_USER_TEST = {
+    'username' : 'pay',
+    'password' : 'Electronique0',
+    'email'    : 'pay@example.com'
 }
 
 def add_middledware_to_request(request, middleware_class):
@@ -334,3 +372,162 @@ class TransferTest(TestCase):
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
         self.assertRaises(Http404, views.transfer_details, request=request, transfer_uuid=transfer.transfer_uuid)
+
+
+class ServiceTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.customer = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
+        self.operator = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
+        self.pay_user = User.objects.create_user(username=PAY_USER_TEST['username'], email=PAY_USER_TEST['email'], password=PAY_USER_TEST['password'])
+        self.dummy_user = User.objects.create_user(username=USER_TEST3['username'], email=USER_TEST3['email'], password=USER_TEST3['password'])
+        self.category = ServiceCategory.objects.create(**CATEGORY_DATA)
+        fields = ['name', 'operator', 'customer', 'customer_reference', 'reference_number', 'category', 'service_instance',
+        'price', 'description', 'issued_at', 'commission']
+
+        self.AVAILABLE_SERVICE_DATA = {
+                'name': AVAILABLE_SERVICE_NAME, 
+                'service_code': SERVICE_CODE, 
+                'description': AVAILABLE_SERVICE_DESCRIPTION,
+                'category' : self.category,
+                'operator' : self.operator,
+                'is_active': True
+        }
+        self.available_service = AvailableService.objects.create(**self.AVAILABLE_SERVICE_DATA)
+
+        self.anonymeUser = AnonymousUser()
+        self.TEST_SERVICE_DATA = {
+            'name'   : SERVICE_NAME,
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': self.operator.pk,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+
+        self.TEST_SERVICE_DATA_EMPTY_NAME = {
+            'name'   : EMPTY_STRING,
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': self.operator.pk,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+
+        self.TEST_SERVICE_DATA_NO_NAME = {
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': self.operator.pk,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+
+
+        self.TEST_SERVICE_DATA_NO_CUSTOMER_REFERENCE = {
+            'name'   : SERVICE_NAME,
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': self.operator.pk,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+
+        self.TEST_SERVICE_DATA_NO_COMMISSION = {
+            'name'   : SERVICE_NAME,
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': self.operator.pk,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+        }
+
+
+        self.TEST_SERVICE_DATA_NO_PRICE = {
+            'name'   : SERVICE_NAME,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': self.operator.pk,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+
+        self.TEST_SERVICE_DATA_NO_OPERATOR_NOT_FOUND = {
+            'name'   : SERVICE_NAME,
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': USER_NOT_FOUND_PK,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+
+        self.TEST_SERVICE_DATA_CUSTOMER_NOT_FOUND = {
+            'name'   : SERVICE_NAME,
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : USER_NOT_FOUND_PK,
+            'operator': self.operator.pk,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'reference_number' : SERVICE_REFERENCE_NUMBER,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+        # reference_number must be present
+        self.TEST_SERVICE_DATA_NO_REFERENCE_NUMBER = {
+            'name'   : SERVICE_NAME,
+            'price' : SERVICE_PRICE,
+            'description': SERVICE_DESCRIPTION,
+            'customer' : self.customer.pk,
+            'operator': self.operator.pk,
+            'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
+            'category' : self.category.pk,
+            'service_instance' : self.available_service.pk,
+            'issued_at' : SERVICE_ISSUED_AT,
+            'commission' : SERVICE_COMMISSION
+        }
+
+    
+    def test_cannot_create_service_no_reference_number(self):
+        request = self.factory.post(path=PAYMENT_NEW_SERVICE_URL, data=self.TEST_SERVICE_DATA_NO_REFERENCE_NUMBER)
+
+        request.user = self.customer
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_service(request=request)
+        
+        self.assertFalse(Service.objects.exists())
+        self.assertEqual(response.status_code, STATUS_CODE_200) # redirect to login view
