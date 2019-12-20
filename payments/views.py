@@ -280,8 +280,8 @@ def new_service(request, available_service_uuid=None):
                 queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
                 routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
             )
-            logger.info("Service request successful. Redirecting now to transaction_done")
-            return redirect('payments:transaction-done', redirected_from="service_request")
+            logger.info("Service request successful. Redirecting now to payments:service-done")
+            return redirect('payments:service-done')
         else : 
             logger.debug("There was an error with the service request : {}".format(context['errors']))
             form = ServiceCreationForm(request.POST.copy())
@@ -290,7 +290,7 @@ def new_service(request, available_service_uuid=None):
                 'page_title':page_title,
                 'site_name' : settings.SITE_NAME,
                 'service' : service,
-                'form': form()
+                'form': form
             }
 
     elif request.method == "GET":
@@ -299,7 +299,7 @@ def new_service(request, available_service_uuid=None):
             context = {
                 'page_title':page_title,
                 'service' : service,
-                'form': form()
+                'form': form
             }
     return render(request, template_name, context)
 
