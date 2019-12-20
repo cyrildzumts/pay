@@ -41,7 +41,7 @@ SERVICE_CUSTOMER_REFERENCE = '14587AF2514'
 SERVICE_REFERENCE_NUMBER   = '14781254'
 SERVICE_ISSUED_AT          = '2019-07-23'
 SERVICE_DESCRIPTION        = 'TEST SERVICE DESCRIPTION'
-PAYMENT_NEW_SERVICE_URL    = reverse('payments:new-service')
+PAYMENT_NEW_SERVICE_URL    = 'payments:new-service'
 
 # CATEGORY CONSTANTS
 
@@ -534,7 +534,7 @@ class ServiceTest(TestCase):
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
 
-        response = views.new_service(request=request)
+        response = views.new_service(request=request, available_service_uuid=self.available_service.available_uuid)
         
         self.assertFalse(Service.objects.exists())
         self.assertEqual(response.status_code, STATUS_CODE_200) # redirect to login view
