@@ -4,7 +4,7 @@ from django.http.response import Http404
 from django.db.models import F, Q
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.sessions.middleware import SessionMiddleware
-from payments.models import Transfer, Payment, Service, ServiceCategory, AvailableService
+from payments.models import Transfer, Payment, Service, ServiceCategory, AvailableService, Policy
 from payments.forms import TransferForm
 from payments import views
 from pay import utils
@@ -15,6 +15,13 @@ logger = logging.getLogger(__name__)
 
 
 Account = utils.get_model('accounts', 'Account')
+
+POLICY_DATA = {
+    'daily_limit' : 150000,
+    'weeklyly_limit' : 350000,
+    'monthly_limit' : 550000,
+    'commission' : 0.03
+}
 
 ACCOUNT_BALANCE = 100000
 TRANSFER_AMOUNT = 25000
@@ -381,9 +388,9 @@ class ServiceTest(TestCase):
         self.operator = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
         self.pay_user = User.objects.create_user(username=PAY_USER_TEST['username'], email=PAY_USER_TEST['email'], password=PAY_USER_TEST['password'])
         self.dummy_user = User.objects.create_user(username=USER_TEST3['username'], email=USER_TEST3['email'], password=USER_TEST3['password'])
+        self.policy = Policy.objects.create(**POLICY_DATA)
         self.category = ServiceCategory.objects.create(**CATEGORY_DATA)
-        fields = ['name', 'operator', 'customer', 'customer_reference', 'reference_number', 'category', 'service_instance',
-        'price', 'description', 'issued_at', 'commission']
+        
 
         self.AVAILABLE_SERVICE_DATA = {
                 'name': AVAILABLE_SERVICE_NAME, 

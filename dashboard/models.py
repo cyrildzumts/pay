@@ -3,6 +3,7 @@ from dashboard import Constants
 
 
 # Create your models here.
+
 class AccessPermissions(models.Model):
    
 
@@ -47,6 +48,16 @@ class AccessPermissions(models.Model):
             (Constants.POLICY_CHANGE_PERM, 'Dashboard Can Change Policy'),
             (Constants.POLICY_ADD_PERM, 'Dashboard Can Add Policy'),
             (Constants.POLICY_DELETE_PERM, 'Dashboard Can Delete Policy'),
+
+            (Constants.POLICY_GROUP_VIEW_PERM, 'Dashboard Can View Policy Group'),
+            (Constants.POLICY_GROUP_CHANGE_PERM, 'Dashboard Can Change Policy Group'),
+            (Constants.POLICY_GROUP_ADD_PERM, 'Dashboard Can Add Policy Group'),
+            (Constants.POLICY_GROUP_DELETE_PERM, 'Dashboard Can Delete Policy Group'),
+
+            (Constants.POLICY_MEMBERSHIP_VIEW_PERM, 'Dashboard Can View Policy Membership'),
+            (Constants.POLICY_MEMBERSHIP_CHANGE_PERM, 'Dashboard Can Change Policy Membership'),
+            (Constants.POLICY_MEMBERSHIP_ADD_PERM, 'Dashboard Can Add Policy Membership'),
+            (Constants.POLICY_MEMBERSHIP_DELETE_PERM, 'Dashboard Can Delete Policy Membership'),
 
             (Constants.PAYMENT_VIEW_PERM, 'Dashboard Can View Payment'),
             (Constants.PAYMENT_CHANGE_PERM, 'Dashboard Can Change Payment'),

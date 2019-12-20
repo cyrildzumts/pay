@@ -57,6 +57,7 @@ class Policy(models.Model):
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
+    users = models.ForeignKey(User, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=0.03)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -79,6 +80,22 @@ class Policy(models.Model):
     
     def get_dashboard_update_url(self):
         return reverse("dashboard:policy-update", kwargs={"policy_uuid": self.policy_uuid})
+
+
+class PolicyGroup(models.Model):
+    name = models.CharField(max_length=80)
+    policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
+    members = models.ManyToManyField(User, through='PolicyMembership')
+    policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return self.name
+
+
+class PolicyMembership(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    policy_group = models.ForeignKey(PolicyGroup, on_delete=models.CASCADE)
+    policy_membership_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
 class ServiceCategory(models.Model):
