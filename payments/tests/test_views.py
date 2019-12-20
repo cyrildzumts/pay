@@ -18,7 +18,7 @@ Account = utils.get_model('accounts', 'Account')
 
 POLICY_DATA = {
     'daily_limit' : 150000,
-    'weeklyly_limit' : 350000,
+    'weekly_limit' : 350000,
     'monthly_limit' : 550000,
     'commission' : 0.03
 }
