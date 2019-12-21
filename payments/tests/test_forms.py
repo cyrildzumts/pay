@@ -124,8 +124,8 @@ class AvailableServiceFormTest(TestCase):
 
     
     def test_can_save_available_service(self):
-        self.AVAILABLE_SERVICE_DATA['category'] = self.category
-        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertTrue(form.is_valid())
 
