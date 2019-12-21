@@ -4,7 +4,7 @@ from payments.forms import (
     PaymentForm, PolicyForm, ServiceCategoryCreationForm, ServiceCreationForm, AvailableServiceCreationForm,
     TransferForm, CaseIssueForm
 )
-from payments.tests import policy_test_data, category_test_data
+from payments.tests import policy_test_data, category_test_data, user_test_data, available_service_test_data
 
 
 
@@ -75,3 +75,61 @@ class CategoryFormTest(TestCase):
         # duplicate is now allowed.
         # unique field is category name
         self.assertFalse(form.is_valid()) 
+
+
+class AvailableServiceFormTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.customer = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
+        self.operator = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.pay_user = User.objects.create_user(username=user_test_data.PAY_USER_TEST['username'], email=user_test_data.PAY_USER_TEST['email'], password=user_test_data.PAY_USER_TEST['password'])
+        self.dummy_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
+        self.category = ServiceCategoryCreationForm.Meta.model.objects.create(category_test_data.CATEGORY_DATA_NO_ACTIVE)
+        self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL
+        self.anonymeUser = AnonymousUser()
+
+    def test_cannot_save_available_service_no_operator_no_category(self):
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
+    # operator entry is set to None
+    def test_cannot_save_available_service_no_operator(self):
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
+    # category entry is set to None
+    def test_cannot_save_available_service_no_category(self):
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
+    # operator entry is missing. That is, there is no operator entry at all
+    def test_cannot_save_available_service_missing_operator(self):
+        self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_MISSING_OPERATOR
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
+    # category entry is missing. That is, there is no category entry at all
+    def test_cannot_save_available_service_missing_category(self):
+        self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_MISSING_CATEGORY
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_available_service_anonyme_operator(self):
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.anonymeUser
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
+    
+    def test_can_save_available_service(self):
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertTrue(form.is_valid())
+
+    

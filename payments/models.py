@@ -7,6 +7,13 @@ from pay import settings
 import uuid
 
 
+HELP_TEXT_FOR_DATE ="Please use the following format: <em>YYYY-MM-DD</em>."
+HELP_TEXT_FOR_SERVICE_REF_NUMBER = 'Please enter the reference number issued by the operation.'
+HELP_TEXT_FOR_OPERATOR = 'Please enter the operator who is offering this service'
+help_text=HELP_TEXT_FOR_CUSTOMER = 'Please enter the customer who is using this service'
+help_text=HELP_TEXT_FOR_CUSTOMER_REF = 'Please enter the customer reference number used by the operator of this service'
+help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT = 'Please enter the date when this bill was issued (following format: <em>YYYY-MM-DD</em>.)'
+
 def ident_file_path(instance, filename):
     file_ext = filename.split(".")[-1]
     name = settings.IDENTIFICATION_DOC_NAME_PREFIX + "." + file_ext
@@ -138,7 +145,7 @@ class AvailableService(models.Model):
     """
     service_code = models.IntegerField(blank=False)
     name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_OPERATOR)
     category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     template_name = models.CharField(max_length=50, blank=True, null=True)
     form_class = models.CharField(max_length=50, blank=True, null=True)
@@ -203,16 +210,16 @@ class Service(models.Model):
 
     """
     name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="offered_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    customer = models.ForeignKey(User, related_name="used_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    reference_number = models.IntegerField(blank=False)
-    customer_reference = models.CharField(max_length=50, blank=True, null=True)
+    operator = models.ForeignKey(User, related_name="offered_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_OPERATOR)
+    customer = models.ForeignKey(User, related_name="used_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_CUSTOMER)
+    reference_number = models.IntegerField(blank=False, help_text=HELP_TEXT_FOR_SERVICE_REF_NUMBER)
+    customer_reference = models.CharField(max_length=50, blank=True, null=True, help_text=HELP_TEXT_FOR_CUSTOMER_REF)
     category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     service_instance = models.ForeignKey(AvailableService, related_name="executed_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     price = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
     created_at = models.DateTimeField(auto_now_add=True)
-    issued_at = models.DateField()
+    issued_at = models.DateField(help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT)
     description = models.CharField(max_length=80, blank=True, null=True)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 

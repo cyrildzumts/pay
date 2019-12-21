@@ -7,6 +7,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from payments.models import Transfer, Payment, Service, ServiceCategory, AvailableService, Policy
 from payments.forms import TransferForm
 from payments import views
+from payments.tests import user_test_data
 from pay import utils
 import logging
 
@@ -65,32 +66,6 @@ STATUS_CODE_302 = 302
 STATUS_CODE_403 = 403
 STATUS_CODE_404 = 404
 
-USER_NOT_FOUND_PK = 100
-
-
-USER_TEST1 = {
-    'username' : 'test_user1',
-    'password' : 'Electronique0',
-    'email'    : 'testuser1@example.com'
-}
-
-USER_TEST2 = {
-    'username' : 'test_user2',
-    'password' : 'Electronique0',
-    'email'    : 'testuser2@example.com'
-}
-
-USER_TEST3 = {
-    'username' : 'test_user3',
-    'password' : 'Electronique0',
-    'email'    : 'testuser3@example.com'
-}
-
-PAY_USER_TEST = {
-    'username' : 'pay',
-    'password' : 'Electronique0',
-    'email'    : 'pay@example.com'
-}
 
 def add_middledware_to_request(request, middleware_class):
     middleware = middleware_class()
@@ -107,9 +82,9 @@ class PaymentTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.sender = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
-        self.recipient = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
-        self.no_transfer_user = User.objects.create_user(username=USER_TEST3['username'], email=USER_TEST3['email'], password=USER_TEST3['password'])
+        self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
+        self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.no_transfer_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
         self.anonymeUser = AnonymousUser()
 
     
@@ -136,9 +111,9 @@ class TransferTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.sender = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
-        self.recipient = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
-        self.no_transfer_user = User.objects.create_user(username=USER_TEST3['username'], email=USER_TEST3['email'], password=USER_TEST3['password'])
+        self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
+        self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.no_transfer_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
         self.anonymeUser = AnonymousUser()
         self.TEST_TRANSFER_DATA = {
             'amount' : TRANSFER_AMOUNT,
@@ -150,7 +125,7 @@ class TransferTest(TestCase):
         self.TEST_TRANSFER_DATA_SENDER_NOT_FOUND = {
             'amount' : TRANSFER_AMOUNT,
             'details': 'Transfer Description',
-            'sender' : USER_NOT_FOUND_PK,
+            'sender' : user_test_data.USER_NOT_FOUND_PK,
             'recipient': self.recipient.pk
         }
 
@@ -158,7 +133,7 @@ class TransferTest(TestCase):
             'amount' : TRANSFER_AMOUNT,
             'details': 'Transfer Description',
             'sender' : self.sender.pk,
-            'recipient': USER_NOT_FOUND_PK
+            'recipient': user_test_data.USER_NOT_FOUND_PK
         }
 
         self.TEST_INSUFFICIENT_TRANSFER_DATA = {
@@ -384,10 +359,10 @@ class TransferTest(TestCase):
 class ServiceTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.customer = User.objects.create_user(username=USER_TEST1['username'], email=USER_TEST1['email'], password=USER_TEST1['password'])
-        self.operator = User.objects.create_user(username=USER_TEST2['username'], email=USER_TEST2['email'], password=USER_TEST2['password'])
-        self.pay_user = User.objects.create_user(username=PAY_USER_TEST['username'], email=PAY_USER_TEST['email'], password=PAY_USER_TEST['password'])
-        self.dummy_user = User.objects.create_user(username=USER_TEST3['username'], email=USER_TEST3['email'], password=USER_TEST3['password'])
+        self.customer = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
+        self.operator = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.pay_user = User.objects.create_user(username=user_test_data.PAY_USER_TEST['username'], email=user_test_data.PAY_USER_TEST['email'], password=user_test_data.PAY_USER_TEST['password'])
+        self.dummy_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
         self.policy = Policy.objects.create(**POLICY_DATA)
         self.category = ServiceCategory.objects.create(**CATEGORY_DATA)
         
@@ -490,7 +465,7 @@ class ServiceTest(TestCase):
             'price' : SERVICE_PRICE,
             'description': SERVICE_DESCRIPTION,
             'customer' : self.customer.pk,
-            'operator': USER_NOT_FOUND_PK,
+            'operator': user_test_data.USER_NOT_FOUND_PK,
             'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
             'reference_number' : SERVICE_REFERENCE_NUMBER,
             'category' : self.category.pk,
@@ -503,7 +478,7 @@ class ServiceTest(TestCase):
             'name'   : SERVICE_NAME,
             'price' : SERVICE_PRICE,
             'description': SERVICE_DESCRIPTION,
-            'customer' : USER_NOT_FOUND_PK,
+            'customer' : user_test_data.USER_NOT_FOUND_PK,
             'operator': self.operator.pk,
             'customer_reference' : SERVICE_CUSTOMER_REFERENCE,
             'reference_number' : SERVICE_REFERENCE_NUMBER,
@@ -528,7 +503,7 @@ class ServiceTest(TestCase):
 
     
     def test_cannot_create_service_no_reference_number(self):
-        request = self.factory.post(path=PAYMENT_NEW_SERVICE_URL, data=self.TEST_SERVICE_DATA_NO_REFERENCE_NUMBER)
+        request = self.factory.post(path=reverse(PAYMENT_NEW_SERVICE_URL, available_service_uuid=self.available_service.available_uuid), data=self.TEST_SERVICE_DATA_NO_REFERENCE_NUMBER)
 
         request.user = self.customer
         request = add_middledware_to_request(request, SessionMiddleware)

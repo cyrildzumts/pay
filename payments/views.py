@@ -280,7 +280,7 @@ def new_service(request, available_service_uuid=None):
                 queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
                 routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
             )
-            logger.info("Service request successful. Redirecting now to payments:service-done")
+            logger.info("Service request successful. Redirecting now to service-done")
             return redirect('payments:service-done')
         else : 
             logger.debug("There was an error with the service request : {}".format(context['errors']))
