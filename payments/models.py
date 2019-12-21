@@ -110,8 +110,8 @@ class PolicyMembership(models.Model):
 
 
 class ServiceCategory(models.Model):
-    category_name = models.CharField(max_length=50, unique=True, null=False,blank=False)
-    category_code = models.IntegerField(blank=False, unique=True)
+    category_name = models.CharField(max_length=50, unique=True)
+    category_code = models.IntegerField(unique=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -211,18 +211,18 @@ class Service(models.Model):
 
 
     """
-    name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="offered_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_OPERATOR)
-    customer = models.ForeignKey(User, related_name="used_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_CUSTOMER)
-    reference_number = models.IntegerField(blank=False, help_text=HELP_TEXT_FOR_SERVICE_REF_NUMBER)
-    customer_reference = models.CharField(max_length=50, blank=True, null=True, help_text=HELP_TEXT_FOR_CUSTOMER_REF)
-    category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    service_instance = models.ForeignKey(AvailableService, related_name="executed_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=50, null=True)
+    operator = models.ForeignKey(User, related_name="offered_services", unique=False, null=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_OPERATOR)
+    customer = models.ForeignKey(User, related_name="used_services", unique=False, null=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_CUSTOMER)
+    reference_number = models.IntegerField(help_text=HELP_TEXT_FOR_SERVICE_REF_NUMBER)
+    customer_reference = models.CharField(max_length=50, null=True, help_text=HELP_TEXT_FOR_CUSTOMER_REF)
+    category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True, on_delete=models.SET_NULL)
+    service_instance = models.ForeignKey(AvailableService, related_name="executed_services", unique=False, null=True, on_delete=models.SET_NULL)
     price = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
     issued_at = models.DateField(help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT)
-    description = models.CharField(max_length=80, blank=True, null=True)
+    description = models.CharField(max_length=80, null=True)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
