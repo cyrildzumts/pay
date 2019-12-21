@@ -4,7 +4,10 @@ from payments.forms import (
     PaymentForm, PolicyForm, ServiceCategoryCreationForm, ServiceCreationForm, AvailableServiceCreationForm,
     TransferForm, CaseIssueForm
 )
-from payments.tests import policy_test_data, category_test_data, user_test_data, available_service_test_data
+from payments.tests import (
+    policy_test_data, category_test_data, user_test_data, available_service_test_data, payments_test_data
+
+)
 
 
 
@@ -80,7 +83,6 @@ class CategoryFormTest(TestCase):
 class AvailableServiceFormTest(TestCase):
 
     def setUp(self):
-        self.factory = RequestFactory()
         self.operator = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
         self.category = ServiceCategoryCreationForm.Meta.model.objects.create(**category_test_data.CATEGORY_DATA_NO_ACTIVE)
         self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL
@@ -143,3 +145,82 @@ class AvailableServiceFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     
+class PaymentFormTest(TestCase):
+
+    def setUp(self):
+        self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
+        self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.anonymeUser = AnonymousUser()
+
+    def test_cannot_save_no_amount(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_NO_AMOUNT
+        PAYMENT_DATA['sender'] = self.sender.pk
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_missing_amount(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_AMOUNT
+        PAYMENT_DATA['sender'] = self.sender.pk
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+    
+    def test_cannot_save_no_sender(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_no_recipient(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_NO_AMOUNT
+        PAYMENT_DATA['sender'] = self.sender.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_missing_sender(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_SENDER
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_missing_recipient(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_RECIPIENT
+        PAYMENT_DATA['sender'] = self.sender.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+    
+    def test_cannot_save_missing_detail(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_DETAIL
+        PAYMENT_DATA['sender'] = self.sender.pk
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_no_detail(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_NO_DETAIL
+        PAYMENT_DATA['sender'] = self.sender.pk
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_not_found_sender(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
+        PAYMENT_DATA['sender'] = user_test_data.USER_NOT_FOUND_PK
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_not_found_recipient(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
+        PAYMENT_DATA['sender'] = self.sender.pk
+        PAYMENT_DATA['recipient'] = user_test_data.USER_NOT_FOUND_PK
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_can_save(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
+        PAYMENT_DATA['sender'] = self.sender.pk
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertTrue(form.is_valid())
