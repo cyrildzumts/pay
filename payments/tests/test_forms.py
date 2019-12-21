@@ -81,11 +81,8 @@ class AvailableServiceFormTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.customer = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
         self.operator = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
-        self.pay_user = User.objects.create_user(username=user_test_data.PAY_USER_TEST['username'], email=user_test_data.PAY_USER_TEST['email'], password=user_test_data.PAY_USER_TEST['password'])
-        self.dummy_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
-        self.category = ServiceCategoryCreationForm.Meta.model.objects.create(category_test_data.CATEGORY_DATA_NO_ACTIVE)
+        self.category = ServiceCategoryCreationForm.Meta.model.objects.create(**category_test_data.CATEGORY_DATA_NO_ACTIVE)
         self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL
         self.anonymeUser = AnonymousUser()
 
