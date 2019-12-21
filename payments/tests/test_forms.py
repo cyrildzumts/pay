@@ -92,33 +92,34 @@ class AvailableServiceFormTest(TestCase):
 
     # operator entry is set to None
     def test_cannot_save_available_service_no_operator(self):
-        self.AVAILABLE_SERVICE_DATA['category'] = self.category
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # category entry is set to None
     def test_cannot_save_available_service_no_category(self):
-        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # operator entry is missing. That is, there is no operator entry at all
     def test_cannot_save_available_service_missing_operator(self):
         self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_MISSING_OPERATOR
-        self.AVAILABLE_SERVICE_DATA['category'] = self.category
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # category entry is missing. That is, there is no category entry at all
     def test_cannot_save_available_service_missing_category(self):
         self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_MISSING_CATEGORY
-        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
+    # anonymeUser pk is allways None. So this test the same no operator test
     def test_cannot_save_available_service_anonyme_operator(self):
-        self.AVAILABLE_SERVICE_DATA['category'] = self.category
-        self.AVAILABLE_SERVICE_DATA['operator'] = self.anonymeUser
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.anonymeUser.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
