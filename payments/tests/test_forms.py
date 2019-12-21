@@ -5,7 +5,7 @@ from payments.forms import (
     TransferForm, CaseIssueForm
 )
 from payments.tests import (
-    policy_test_data, category_test_data, user_test_data, available_service_test_data, payments_test_data
+    policy_test_data, category_test_data, user_test_data, available_service_test_data, payments_test_data, transfer_test_data
 
 )
 
@@ -223,4 +223,85 @@ class PaymentFormTest(TestCase):
         PAYMENT_DATA['sender'] = self.sender.pk
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
+        self.assertTrue(form.is_valid())
+
+
+class TransferFormTest(TestCase):
+
+    def setUp(self):
+        self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
+        self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.anonymeUser = AnonymousUser()
+
+    def test_cannot_save_no_amount(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_AMOUNT
+        TRANSFER_DATA['sender'] = self.sender.pk
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_missing_amount(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_AMOUNT
+        TRANSFER_DATA['sender'] = self.sender.pk
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+    
+    def test_cannot_save_no_sender(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_no_recipient(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_AMOUNT
+        TRANSFER_DATA['sender'] = self.sender.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_missing_sender(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_SENDER
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_missing_recipient(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_RECIPIENT
+        TRANSFER_DATA['sender'] = self.sender.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+    
+    def test_cannot_save_missing_detail(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_DETAIL
+        TRANSFER_DATA['sender'] = self.sender.pk
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_no_detail(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_DETAIL
+        TRANSFER_DATA['sender'] = self.sender.pk
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_not_found_sender(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
+        TRANSFER_DATA['sender'] = user_test_data.USER_NOT_FOUND_PK
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_not_found_recipient(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
+        TRANSFER_DATA['sender'] = self.sender.pk
+        TRANSFER_DATA['recipient'] = user_test_data.USER_NOT_FOUND_PK
+        form = PaymentForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_can_save(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
+        TRANSFER_DATA['sender'] = self.sender.pk
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(TRANSFER_DATA)
         self.assertTrue(form.is_valid())
