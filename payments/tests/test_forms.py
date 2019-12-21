@@ -5,7 +5,8 @@ from payments.forms import (
     TransferForm, CaseIssueForm
 )
 from payments.tests import (
-    policy_test_data, category_test_data, user_test_data, available_service_test_data, payments_test_data, transfer_test_data
+    policy_test_data, category_test_data, user_test_data, available_service_test_data, payments_test_data, transfer_test_data,
+    service_test_data
 
 )
 
@@ -305,3 +306,21 @@ class TransferFormTest(TestCase):
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(TRANSFER_DATA)
         self.assertTrue(form.is_valid())
+
+
+
+class ServiceFormTest(TestCase):
+
+    def setUp(self):
+        self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
+        self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.anonymeUser = AnonymousUser()
+        self.category = ServiceCategoryCreationForm.Meta.model.objects.create(**category_test_data.CATEGORY_DATA_NO_ACTIVE)
+        AVAILABLE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL
+        AVAILABLE_DATA['category'] = self.category
+        AVAILABLE_DATA['operator'] = self.recipient
+        self.availabe_service = AvailableServiceCreationForm.Meta.model.objects.create(**AVAILABLE_DATA)
+    
+    def test_cannot_save_initial_data(self):
+        form = ServiceCreationForm(service_test_data.SERVICE_DATA_INITIAL)
+        self.assertFalse(form.is_valid())
