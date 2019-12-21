@@ -143,17 +143,15 @@ class AvailableService(models.Model):
     form_class contains the name of the Form used to interact with the service in html.
     operator_name is 
     """
-    service_code = models.IntegerField(blank=False)
-    name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_OPERATOR)
-    category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    template_name = models.CharField(max_length=50, blank=True, null=True)
-    form_class = models.CharField(max_length=50, blank=True, null=True)
+    service_code = models.IntegerField()
+    name = models.CharField(max_length=50)
+    operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_OPERATOR)
+    category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    modified_by = models.ForeignKey(User, related_name="modified_available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    modified_by = models.ForeignKey(User, related_name="modified_available_services", unique=False, null=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)
     description = models.CharField(max_length=80, blank=True, null=True)
     available_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
