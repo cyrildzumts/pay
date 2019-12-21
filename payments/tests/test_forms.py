@@ -123,6 +123,18 @@ class AvailableServiceFormTest(TestCase):
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
+    def test_cannot_save_available_service_not_found_operator(self):
+        self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
+        self.AVAILABLE_SERVICE_DATA['operator'] = user_test_data.USER_NOT_FOUND_PK
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_available_service_not_found_category(self):
+        self.AVAILABLE_SERVICE_DATA['category'] = category_test_data.CATEGORY_NOT_FOUND_PK
+        self.AVAILABLE_SERVICE_DATA['operator'] = self.operator.pk
+        form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
     
     def test_can_save_available_service(self):
         self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
