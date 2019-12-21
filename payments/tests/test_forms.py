@@ -416,6 +416,5 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
-        SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION_BAD
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
