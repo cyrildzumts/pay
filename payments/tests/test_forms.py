@@ -337,6 +337,15 @@ class ServiceFormTest(TestCase):
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
+    def test_cannot_save_not_found_operator(self):
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
+        SERVICE_DATA['operator'] = user_test_data.USER_NOT_FOUND_PK
+        SERVICE_DATA['customer'] = self.customer.pk
+        SERVICE_DATA['category'] = self.category.pk
+        SERVICE_DATA['service_instance'] = self.availabe_service.pk
+        form = ServiceCreationForm(SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
     def test_cannot_save_no_category(self):
         SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['customer'] = self.customer.pk
@@ -437,6 +446,7 @@ class ServiceFormTest(TestCase):
         logger.info("Service Test OPERATOR_NOT_AVS_OPERATOR : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         is_valid = form.is_valid()
+        """
         if not is_valid:
             logger.error("ServiceCreationForm is not valid.")            
             for field in form:
@@ -444,5 +454,16 @@ class ServiceFormTest(TestCase):
                 if field.errors:
                     for e in field.errors:
                         logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
-            
+        """
         self.assertFalse(is_valid)
+
+    def test_can_save(self):
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
+        SERVICE_DATA['operator'] = self.operator.pk
+        SERVICE_DATA['customer'] = self.customer.pk
+        SERVICE_DATA['category'] = self.category.pk
+        SERVICE_DATA['service_instance'] = self.availabe_service.pk
+        SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION
+        logger.info("Service Test BAD_3 COMMISSION : %s", SERVICE_DATA)
+        form = ServiceCreationForm(SERVICE_DATA)
+        self.assertFalse(form.is_valid())
