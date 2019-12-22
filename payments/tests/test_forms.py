@@ -586,3 +586,4 @@ class ServiceFormTest(TestCase):
 
         """
         self.assertTrue(is_valid)
+

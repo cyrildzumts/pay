@@ -48,6 +48,18 @@ class AvailableServiceCreationForm(forms.ModelForm):
     class Meta:
         model = AvailableService
         fields = ['service_code', 'name', 'operator', 'category', 'is_active', 'description']
+    
+    def clean_operator(self):
+        operator = self.cleaned_data.get('operator')
+        if not operator or not operator.is_active:
+            raise forms.ValidationError(message='You can not use a service offered by an inactive operator', code='invalid')
+        return operator
+    
+    def clean_category(self):
+        category = self.cleaned_data.get('category')
+        if not category or not category.is_active:
+            raise forms.ValidationError(message='You can not create this service. This service  category is deactivated', code='invalid')
+        return category
 
 
 class ServiceCreationForm(forms.ModelForm):
@@ -172,6 +184,12 @@ class CaseIssueForm(forms.ModelForm):
     class Meta:
         model = CaseIssue
         fields = ['participant_1', 'participant_2','amount', 'subject', 'description', 'is_closed']
+
+class ClaimForm(forms.ModelForm):
+
+    class Meta:
+        model = CaseIssue
+        fields = ['reporter', 'operator','amount', 'subject', 'description', 'is_closed']
 
 class ReductionForm(forms.ModelForm):
 
