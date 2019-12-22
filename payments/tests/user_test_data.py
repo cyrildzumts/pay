@@ -20,9 +20,9 @@ USER_TEST3 = {
 }
 
 USER_INACTIVE = {
-    'username' : 'test_user3',
+    'username' : 'test_user_inactive',
     'password' : 'Electronique0',
-    'email'    : 'testuser3@example.com',
+    'email'    : 'testuserinactive@example.com',
     'is_active': False
 }
 
