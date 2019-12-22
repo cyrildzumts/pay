@@ -360,6 +360,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         SERVICE_DATA['issued_at'] = service_test_data.SERVICE_ISSUED_AT_BAD
+        logger.info("Service Test BAD DATE : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
@@ -370,6 +371,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         SERVICE_DATA['issued_at'] = service_test_data.SERVICE_ISSUED_AT_BAD_DD_MM_YYYY
+        logger.info("Service Test BAD_2 DD_MM_YYYY DATE : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
@@ -380,6 +382,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         SERVICE_DATA['issued_at'] = service_test_data.SERVICE_ISSUED_AT_BAD_MM_DD_YYYY
+        logger.info("Service Test BAD_3 MM_DD_YYYY DATE : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
@@ -390,6 +393,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION_BAD
+        logger.info("Service Test BAD COMMISSION : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
@@ -400,6 +404,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION_BAD_2
+        logger.info("Service Test BAD_2 COMMISSION : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
@@ -410,6 +415,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION_BAD_3
+        logger.info("Service Test BAD_3 COMMISSION : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
@@ -419,6 +425,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
+        logger.info("Service Test OPERATOR_NOT_AVS_OPERATOR : %s", SERVICE_DATA)
         form = ServiceCreationForm(SERVICE_DATA)
         is_valid = form.is_valid()
         if not is_valid:
