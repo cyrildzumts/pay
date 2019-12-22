@@ -89,7 +89,7 @@ class AvailableServiceFormTest(TestCase):
     def setUp(self):
         self.operator = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
         self.category = ServiceCategoryCreationForm.Meta.model.objects.create(**category_test_data.CATEGORY_DATA_NO_ACTIVE)
-        self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL
+        self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL.copy()
         self.anonymeUser = AnonymousUser()
 
     def test_cannot_save_available_service_no_operator_no_category(self):
@@ -320,7 +320,7 @@ class ServiceFormTest(TestCase):
         self.dummy_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
         self.anonymeUser = AnonymousUser()
         self.category = ServiceCategoryCreationForm.Meta.model.objects.create(**category_test_data.CATEGORY_DATA_NO_ACTIVE)
-        AVAILABLE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL
+        AVAILABLE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL.copy()
         AVAILABLE_DATA['category'] = self.category
         AVAILABLE_DATA['operator'] = self.operator
         self.availabe_service = AvailableServiceCreationForm.Meta.model.objects.create(**AVAILABLE_DATA)
@@ -330,7 +330,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_no_operator(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
@@ -338,7 +338,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_no_category(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
@@ -346,7 +346,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_no_service_instance(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
@@ -354,7 +354,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_bad_issued_at(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
@@ -364,7 +364,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_bad2_issued_at(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
@@ -374,7 +374,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_bad3_issued_at(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
@@ -384,7 +384,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_bad_commission(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
@@ -394,7 +394,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_bad_2_commission(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
@@ -404,7 +404,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_bad_3_commission(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
@@ -414,7 +414,7 @@ class ServiceFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_operator_is_not_available_service_operator(self):
-        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.dummy_user.pk
         SERVICE_DATA['customer'] = self.customer.pk
         SERVICE_DATA['category'] = self.category.pk
