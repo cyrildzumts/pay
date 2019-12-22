@@ -84,17 +84,20 @@ class ServiceCreationForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         operator = cleaned_data.get('operator') # this is the pk value
-        avs = None
-        try:
-            avs = cleaned_data.get('service_instance')
+        avs = cleaned_data.get('service_instance')
+        if operator and avs:
             if operator.pk != avs.pk:
                 self.add_error('operator', 'This operator is offering this service')
                 self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
                 #raise forms.ValidationError(message='The submitted service operator is invalid', code='invalid')
-        except AvailableService.DoesNotExist as e:
-            self.add_error('operator', 'This operator is offering this service')
-            self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
-            #raise forms.ValidationError(message='The submitted service operator is invalid', code='invalid')
+        else:
+            if not operator:
+                self.add_error('operator', 'This operator is offering this service')
+            if not avs:
+                self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
+            
+            
+            
         
         
 
