@@ -10,6 +10,9 @@ from payments.tests import (
 
 )
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 
@@ -417,4 +420,7 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         form = ServiceCreationForm(SERVICE_DATA)
-        self.assertFalse(form.is_valid())
+        is_valid = form.is_valid()
+        if not is_valid:
+            logger.error("service form error : %s", form.errors)
+        self.assertFalse(is_valid)
