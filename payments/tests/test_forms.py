@@ -18,19 +18,19 @@ logger = logging.getLogger(__name__)
 
 class PolicyFormTest(TestCase):
     
-    def test_cannot_save_policy_no_daily_limit(self):
+    def test_cannot_save_policy_daily_limit_none(self):
         form = PolicyForm(policy_test_data.POLICY_DATA_NO_DAILY)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_policy_no_weelky_limit(self):
+    def test_cannot_save_policy_weelky_limit_none(self):
         form = PolicyForm(policy_test_data.POLICY_DATA_NO_WEEKLY)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_policy_no_monthly_limit(self):
+    def test_cannot_save_policy_monthly_limit_none(self):
         form = PolicyForm(policy_test_data.POLICY_DATA__NO_MONTHLY)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_policy_no_commission(self):
+    def test_cannot_save_policy_commission_none(self):
         form = PolicyForm(policy_test_data.POLICY_DATA_NO_COMMISSION)
         self.assertFalse(form.is_valid())
 
@@ -58,15 +58,15 @@ class PolicyFormTest(TestCase):
 
 class CategoryFormTest(TestCase):
 
-    def test_cannot_save_category_no_name(self):
+    def test_cannot_save_category_name_none(self):
         form = ServiceCategoryCreationForm(category_test_data.CATEGORY_DATA_NO_NAME)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_category_no_code(self):
+    def test_cannot_save_category_code_none(self):
         form = ServiceCategoryCreationForm(category_test_data.CATEGORY_DATA_NO_CODE)
         self.assertFalse(form.is_valid())
 
-    def test_can_save_category_no_active(self):
+    def test_can_save_category_active_none(self):
         form = ServiceCategoryCreationForm(category_test_data.CATEGORY_DATA_NO_ACTIVE)
         self.assertTrue(form.is_valid())
 
@@ -92,50 +92,50 @@ class AvailableServiceFormTest(TestCase):
         self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL.copy()
         self.anonymeUser = AnonymousUser()
 
-    def test_cannot_save_available_service_no_operator_no_category(self):
+    def test_cannot_save_available_service_operator_and_category_none(self):
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # operator entry is set to None
-    def test_cannot_save_available_service_no_operator(self):
+    def test_cannot_save_available_service_operator_none(self):
         self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # category entry is set to None
-    def test_cannot_save_available_service_no_category(self):
+    def test_cannot_save_available_service_category_none(self):
         self.AVAILABLE_SERVICE_DATA['operator'] = self.operator.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # operator entry is missing. That is, there is no operator entry at all
-    def test_cannot_save_available_service_missing_operator(self):
+    def test_cannot_save_available_service_operator_missing(self):
         self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_MISSING_OPERATOR
         self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # category entry is missing. That is, there is no category entry at all
-    def test_cannot_save_available_service_missing_category(self):
+    def test_cannot_save_available_service_category_missing(self):
         self.AVAILABLE_SERVICE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_MISSING_CATEGORY
         self.AVAILABLE_SERVICE_DATA['operator'] = self.operator.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
     # anonymeUser pk is allways None. So this test the same no operator test
-    def test_cannot_save_available_service_anonyme_operator(self):
+    def test_cannot_save_available_service_operator_anonyme(self):
         self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
         self.AVAILABLE_SERVICE_DATA['operator'] = self.anonymeUser.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_available_service_not_found_operator(self):
+    def test_cannot_save_available_service_operator_not_found(self):
         self.AVAILABLE_SERVICE_DATA['category'] = self.category.pk
         self.AVAILABLE_SERVICE_DATA['operator'] = user_test_data.USER_NOT_FOUND_PK
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_available_service_not_found_category(self):
+    def test_cannot_save_available_service_category_not_found(self):
         self.AVAILABLE_SERVICE_DATA['category'] = category_test_data.CATEGORY_NOT_FOUND_PK
         self.AVAILABLE_SERVICE_DATA['operator'] = self.operator.pk
         form = AvailableServiceCreationForm(self.AVAILABLE_SERVICE_DATA)
@@ -157,80 +157,80 @@ class PaymentFormTest(TestCase):
         self.inactive_user = User.objects.create_user(**user_test_data.USER_INACTIVE)
         self.anonymeUser = AnonymousUser()
 
-    def test_cannot_save_no_amount(self):
+    def test_cannot_save_amount_none(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_NO_AMOUNT
         PAYMENT_DATA['sender'] = self.sender.pk
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_missing_amount(self):
+    def test_cannot_save_amount_missing(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_AMOUNT
         PAYMENT_DATA['sender'] = self.sender.pk
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
     
-    def test_cannot_save_no_sender(self):
+    def test_cannot_save_sender_none(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_no_recipient(self):
+    def test_cannot_save_recipient_none(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_NO_AMOUNT
         PAYMENT_DATA['sender'] = self.sender.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_missing_sender(self):
+    def test_cannot_save_sender_missing(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_SENDER
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_missing_recipient(self):
+    def test_cannot_save_recipient_missing(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_RECIPIENT
         PAYMENT_DATA['sender'] = self.sender.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
     
-    def test_cannot_save_missing_detail(self):
+    def test_cannot_save_detail_missing(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_MISSING_DETAIL
         PAYMENT_DATA['sender'] = self.sender.pk
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_no_detail(self):
+    def test_cannot_save_detail_none(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_NO_DETAIL
         PAYMENT_DATA['sender'] = self.sender.pk
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_not_found_sender(self):
+    def test_cannot_save_sender_not_found(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
         PAYMENT_DATA['sender'] = user_test_data.USER_NOT_FOUND_PK
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_not_found_recipient(self):
+    def test_cannot_save_recipient_not_found(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
         PAYMENT_DATA['sender'] = self.sender.pk
         PAYMENT_DATA['recipient'] = user_test_data.USER_NOT_FOUND_PK
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_inactive_sender(self):
+    def test_cannot_save_sender_inactive(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
         PAYMENT_DATA['sender'] = self.inactive_user.pk
         PAYMENT_DATA['recipient'] = self.recipient.pk
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_inactive_recipient(self):
+    def test_cannot_save_recipient_inactive(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
         PAYMENT_DATA['sender'] = self.sender.pk
         PAYMENT_DATA['recipient'] = self.inactive_user.pk
@@ -253,80 +253,80 @@ class TransferFormTest(TestCase):
         self.anonymeUser = AnonymousUser()
         self.inactive_user = User.objects.create_user(**user_test_data.USER_INACTIVE)
 
-    def test_cannot_save_no_amount(self):
+    def test_cannot_save_amount_none(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_AMOUNT
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_missing_amount(self):
+    def test_cannot_save_amount_missing(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_AMOUNT
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
     
-    def test_cannot_save_no_sender(self):
+    def test_cannot_save_sender_none(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_no_recipient(self):
+    def test_cannot_save_recipient_none(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_AMOUNT
         TRANSFER_DATA['sender'] = self.sender.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_missing_sender(self):
+    def test_cannot_save_sender_missing(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_SENDER
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_missing_recipient(self):
+    def test_cannot_save_recipient_missing(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_RECIPIENT
         TRANSFER_DATA['sender'] = self.sender.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
     
-    def test_cannot_save_missing_detail(self):
+    def test_cannot_save_detail_missing(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_DETAIL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_no_detail(self):
+    def test_cannot_save_detail_none(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_DETAIL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_not_found_sender(self):
+    def test_cannot_save_sender_not_found(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['sender'] = user_test_data.USER_NOT_FOUND_PK
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_not_found_recipient(self):
+    def test_cannot_save_recipient_not_found(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = user_test_data.USER_NOT_FOUND_PK
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_inactive_sender(self):
+    def test_cannot_save_sender_inactive(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['sender'] = self.inactive_user.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
-    def test_cannot_save_inactive_recipient(self):
+    def test_cannot_save_recipient_inactive(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.inactive_user.pk
@@ -339,7 +339,6 @@ class TransferFormTest(TestCase):
         TRANSFER_DATA['recipient'] = self.recipient.pk
         form = TransferForm(TRANSFER_DATA)
         self.assertTrue(form.is_valid())
-
 
 
 class ServiceFormTest(TestCase):
