@@ -464,6 +464,17 @@ class ServiceFormTest(TestCase):
         SERVICE_DATA['category'] = self.category.pk
         SERVICE_DATA['service_instance'] = self.availabe_service.pk
         SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION
-        logger.info("Service Test BAD_3 COMMISSION : %s", SERVICE_DATA)
+        logger.info("Service Test CAN SAVE : %s", SERVICE_DATA)
+
         form = ServiceCreationForm(SERVICE_DATA)
-        self.assertFalse(form.is_valid())
+
+        is_valid = form.is_valid()
+        if not is_valid:
+            logger.error("ServiceCreationForm is not valid.")            
+            for field in form:
+                logger.error("\t\tServiceCreationForm Field %s", field)
+                if field.errors:
+                    for e in field.errors:
+                        logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
+        
+        self.assertFalse(is_valid)
