@@ -423,4 +423,9 @@ class ServiceFormTest(TestCase):
         is_valid = form.is_valid()
         if not is_valid:
             logger.error("service form error : %s", form.errors)
+            for f in form.fields:
+                logger.info("Field %s", f)
+                if f.errors:
+                    for e in f.errors:
+                        logger.info("Error : %s: ", e)
         self.assertFalse(is_valid)
