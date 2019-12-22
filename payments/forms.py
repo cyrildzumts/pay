@@ -63,6 +63,20 @@ class ServiceCreationForm(forms.ModelForm):
         return commission
     
 
+    def clean_operator(self):
+        try:
+            operator = self.cleaned_data['operator']
+            return operator
+        except KeyError as e:
+            raise forms.ValidationError(message="Operator field is invalid.", code='invalid')
+        
+    def clean_service_instance(self):
+        try:
+            service_instance = self.cleaned_data['service_instance']
+            return service_instance
+        except KeyError as e:
+            raise forms.ValidationError(message="service_instance field is invalid.", code='invalid')
+
     def clean(self):
         '''
             The operator must be the same as the operator found in service_instance.
