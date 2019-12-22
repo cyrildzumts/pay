@@ -469,6 +469,7 @@ class ServiceFormTest(TestCase):
         form = ServiceCreationForm(SERVICE_DATA)
 
         is_valid = form.is_valid()
+        """
         if not is_valid:
             logger.error("ServiceCreationForm is not valid.")            
             for field in form:
@@ -476,5 +477,6 @@ class ServiceFormTest(TestCase):
                 if field.errors:
                     for e in field.errors:
                         logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
-        
+
+        """
         self.assertTrue(is_valid)
