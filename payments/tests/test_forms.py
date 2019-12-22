@@ -154,6 +154,7 @@ class PaymentFormTest(TestCase):
     def setUp(self):
         self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
         self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
+        self.inactive_user = User.objects.create_user(**user_test_data.USER_INACTIVE)
         self.anonymeUser = AnonymousUser()
 
     def test_cannot_save_no_amount(self):
@@ -222,6 +223,20 @@ class PaymentFormTest(TestCase):
         form = PaymentForm(PAYMENT_DATA)
         self.assertFalse(form.is_valid())
 
+    def test_cannot_save_inactive_sender(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
+        PAYMENT_DATA['sender'] = self.inactive_user.pk
+        PAYMENT_DATA['recipient'] = self.recipient.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_inactive_recipient(self):
+        PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
+        PAYMENT_DATA['sender'] = self.sender.pk
+        PAYMENT_DATA['recipient'] = self.inactive_user.pk
+        form = PaymentForm(PAYMENT_DATA)
+        self.assertFalse(form.is_valid())
+
     def test_can_save(self):
         PAYMENT_DATA = payments_test_data.PAYMENT_DATA_INITIAL
         PAYMENT_DATA['sender'] = self.sender.pk
@@ -236,78 +251,93 @@ class TransferFormTest(TestCase):
         self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
         self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
         self.anonymeUser = AnonymousUser()
+        self.inactive_user = User.objects.create_user(**user_test_data.USER_INACTIVE)
 
     def test_cannot_save_no_amount(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_AMOUNT
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_missing_amount(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_AMOUNT
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
     
     def test_cannot_save_no_sender(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_no_recipient(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_AMOUNT
         TRANSFER_DATA['sender'] = self.sender.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_missing_sender(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_SENDER
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_missing_recipient(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_RECIPIENT
         TRANSFER_DATA['sender'] = self.sender.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
     
     def test_cannot_save_missing_detail(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_MISSING_DETAIL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_no_detail(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_NO_DETAIL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_not_found_sender(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['sender'] = user_test_data.USER_NOT_FOUND_PK
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_cannot_save_not_found_recipient(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = user_test_data.USER_NOT_FOUND_PK
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_inactive_sender(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
+        TRANSFER_DATA['sender'] = self.inactive_user.pk
+        TRANSFER_DATA['recipient'] = self.recipient.pk
+        form = TransferForm(TRANSFER_DATA)
+        self.assertFalse(form.is_valid())
+
+    def test_cannot_save_inactive_recipient(self):
+        TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
+        TRANSFER_DATA['sender'] = self.sender.pk
+        TRANSFER_DATA['recipient'] = self.inactive_user.pk
+        form = TransferForm(TRANSFER_DATA)
         self.assertFalse(form.is_valid())
 
     def test_can_save(self):
         TRANSFER_DATA = transfer_test_data.TRANSFER_DATA_INITIAL
         TRANSFER_DATA['sender'] = self.sender.pk
         TRANSFER_DATA['recipient'] = self.recipient.pk
-        form = PaymentForm(TRANSFER_DATA)
+        form = TransferForm(TRANSFER_DATA)
         self.assertTrue(form.is_valid())
 
 
@@ -318,12 +348,15 @@ class ServiceFormTest(TestCase):
         self.customer = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
         self.operator = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
         self.dummy_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
+        self.inactive_user = User.objects.create_user(**user_test_data.USER_INACTIVE)
         self.anonymeUser = AnonymousUser()
         self.category = ServiceCategoryCreationForm.Meta.model.objects.create(**category_test_data.CATEGORY_DATA_NO_ACTIVE)
         AVAILABLE_DATA = available_service_test_data.AVAILABLE_SERVICE_DATA_INITIAL.copy()
         AVAILABLE_DATA['category'] = self.category
         AVAILABLE_DATA['operator'] = self.operator
         self.availabe_service = AvailableServiceCreationForm.Meta.model.objects.create(**AVAILABLE_DATA)
+        AVAILABLE_DATA['is_active'] = False
+        self.inactive_avs = AvailableServiceCreationForm.Meta.model.objects.create(**AVAILABLE_DATA)
     
     def test_cannot_save_initial_data(self):
         form = ServiceCreationForm(service_test_data.SERVICE_DATA_INITIAL)
@@ -456,6 +489,80 @@ class ServiceFormTest(TestCase):
                         logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
         """
         self.assertFalse(is_valid)
+
+    
+    def test_cannot_save_inactive_operator(self):
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
+        SERVICE_DATA['operator'] = self.inactive_user.pk
+        SERVICE_DATA['customer'] = self.customer.pk
+        SERVICE_DATA['category'] = self.category.pk
+        SERVICE_DATA['service_instance'] = self.availabe_service.pk
+        SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION
+        logger.info("Service Test CAN SAVE : %s", SERVICE_DATA)
+
+        form = ServiceCreationForm(SERVICE_DATA)
+
+        is_valid = form.is_valid()
+        """
+        if not is_valid:
+            logger.error("ServiceCreationForm is not valid.")            
+            for field in form:
+                logger.error("\t\tServiceCreationForm Field %s", field)
+                if field.errors:
+                    for e in field.errors:
+                        logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
+
+        """
+        self.assertFalse(is_valid)
+    
+    def test_cannot_save_inactive_customer(self):
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
+        SERVICE_DATA['operator'] = self.operator.pk
+        SERVICE_DATA['customer'] = self.inactive_user.pk
+        SERVICE_DATA['category'] = self.category.pk
+        SERVICE_DATA['service_instance'] = self.availabe_service.pk
+        SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION
+        logger.info("Service Test CAN SAVE : %s", SERVICE_DATA)
+
+        form = ServiceCreationForm(SERVICE_DATA)
+
+        is_valid = form.is_valid()
+        """
+        if not is_valid:
+            logger.error("ServiceCreationForm is not valid.")            
+            for field in form:
+                logger.error("\t\tServiceCreationForm Field %s", field)
+                if field.errors:
+                    for e in field.errors:
+                        logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
+
+        """
+        self.assertFalse(is_valid)
+    
+    def test_cannot_save_inactive_available_service(self):
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
+        SERVICE_DATA['operator'] = self.inactive_user.pk
+        SERVICE_DATA['customer'] = self.customer.pk
+        SERVICE_DATA['category'] = self.category.pk
+        SERVICE_DATA['service_instance'] = self.inactive_avs.pk
+        SERVICE_DATA['commission'] = service_test_data.SERVICE_COMMISSION
+        logger.info("Service Test CAN SAVE : %s", SERVICE_DATA)
+
+        form = ServiceCreationForm(SERVICE_DATA)
+
+        is_valid = form.is_valid()
+        """
+        if not is_valid:
+            logger.error("ServiceCreationForm is not valid.")            
+            for field in form:
+                logger.error("\t\tServiceCreationForm Field %s", field)
+                if field.errors:
+                    for e in field.errors:
+                        logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
+
+        """
+        self.assertFalse(is_valid)
+
 
     def test_can_save(self):
         SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()

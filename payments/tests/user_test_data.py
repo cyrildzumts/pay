@@ -19,6 +19,13 @@ USER_TEST3 = {
     'email'    : 'testuser3@example.com'
 }
 
+USER_INACTIVE = {
+    'username' : 'test_user3',
+    'password' : 'Electronique0',
+    'email'    : 'testuser3@example.com',
+    'is_active': False
+}
+
 PAY_USER_TEST = {
     'username' : 'pay',
     'password' : 'Electronique0',
