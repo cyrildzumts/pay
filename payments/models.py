@@ -150,11 +150,10 @@ class AvailableService(models.Model):
     """
     service_code = models.IntegerField()
     name = models.CharField(max_length=50)
-    operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True, on_delete=models.SET_NULL, help_text=HELP_TEXT_FOR_OPERATOR)
-    category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, null=True, on_delete=models.SET_NULL)
+    operator = models.ForeignKey(User, related_name="available_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_OPERATOR)
+    category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True, on_delete=models.SET_NULL)
-    created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_available_services", unique=False, null=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)

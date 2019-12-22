@@ -62,7 +62,7 @@ class ServiceCreationForm(forms.ModelForm):
             raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
         return commission
     
-    
+
     def clean(self):
         '''
             The operator must be the same as the operator found in service_instance.
@@ -72,7 +72,7 @@ class ServiceCreationForm(forms.ModelForm):
         operator = cleaned_data.get('operator') # this is the pk value
         available_service_instance = cleaned_data.get('service_instance')
         if operator and available_service_instance:
-            if operator.pk != available_service_instance.pk:
+            if operator.pk != available_service_instance.operator.pk:
                 self.add_error('operator', 'This operator is offering this service')
                 self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
                 #raise forms.ValidationError(message='The submitted service operator is invalid', code='invalid')
