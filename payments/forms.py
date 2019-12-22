@@ -58,10 +58,37 @@ class ServiceCreationForm(forms.ModelForm):
 
     def clean_commission(self):
         commission = self.cleaned_data.get('commission')
-        if commission > COMMISSION_MAX_VALUE or commission < COMMISSION_MIN_VALUE:
+        if not commission or ( commission > COMMISSION_MAX_VALUE or commission < COMMISSION_MIN_VALUE):
             raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
         return commission
     
+
+    def clean_operator(self):
+        operator = self.cleaned_data.get('operator')
+        if not operator or not operator.is_active:
+            raise forms.ValidationError(message='You can not use a service of an inactive account', code='invalid')
+        return operator
+    
+    def clean_customer(self):
+        customer = self.cleaned_data.get('customer')
+        if not customer or not customer.is_active:
+            raise forms.ValidationError(message='You can not make use a service with an inactive account', code='invalid')
+        return customer
+
+    
+    def clean_service_instance(self):
+        service_instance = self.cleaned_data.get('service_instance')
+        if not service_instance or not service_instance.is_active:
+            raise forms.ValidationError(message='You can not make use a of this service. This service is deactivated', code='invalid')
+        return service_instance
+
+    def clean_category(self):
+        category = self.cleaned_data.get('category')
+        if not category or not category.is_active:
+            raise forms.ValidationError(message='You can not make use a of this service. This service  category is deactivated', code='invalid')
+        return category
+
+
 
     def clean(self):
         '''
@@ -98,6 +125,18 @@ class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
         fields = ['amount', 'sender', 'recipient', 'details']
+    
+    def clean_sender(self):
+        sender = self.cleaned_data.get('sender')
+        if not sender or not sender.is_active:
+            raise forms.ValidationError(message='You can not make a payment from an inactive account', code='invalid')
+        return sender
+    
+    def clean_recipient(self):
+        recipient = self.cleaned_data.get('recipient')
+        if not recipient or not recipient.is_active:
+            raise forms.ValidationError(message='You can not make a payment to an inactive account', code='invalid')
+        return recipient
 
 
 
@@ -113,6 +152,19 @@ class TransferForm(forms.ModelForm):
     class Meta:
         model = Transfer
         fields = ['amount', 'sender', 'recipient', 'details']
+
+    def clean_sender(self):
+        sender = self.cleaned_data.get('sender')
+        if not sender or not sender.is_active:
+            raise forms.ValidationError(message='You can not make a transfer from an inactive account', code='invalid')
+        return sender
+    
+    def clean_recipient(self):
+        recipient = self.cleaned_data.get('recipient')
+        if not recipient or not recipient.is_active:
+            raise forms.ValidationError(message='You can not make a transfer to an inactive account', code='invalid')
+        return recipient
+
 
 
 class CaseIssueForm(forms.ModelForm):
