@@ -12,6 +12,7 @@ COMMISSION_MAX_VALUE = 1.00
 COMMISSION_MIN_VALUE = 0.00
 COMMISSION_VALUE_ERROR_MSG = "Commission value must be in [0.00 - 1.00] interval."
 
+
 class PolicyForm(forms.ModelForm):
     class Meta:
         model = Policy
@@ -60,6 +61,27 @@ class ServiceCreationForm(forms.ModelForm):
         if commission > COMMISSION_MAX_VALUE or commission < COMMISSION_MIN_VALUE:
             raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
         return commission
+    
+
+    def clean(self):
+        '''
+            The operator must be the same as the operator found in service_instance.
+        '''
+        clean_data = super().clean()
+        operator = clean_data['operator'] # this is the pk value
+        avs = None
+        try:
+            avs = AvailableService.objects.get(clean_data['service_instance'])
+            if operator != avs.pk:
+                self.add_error('operator', 'This operator is offering this service')
+                self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
+                #raise forms.ValidationError(message='The submitted service operator is invalid', code='invalid')
+        except AvailableService.DoesNotExist as e:
+            self.add_error('operator', 'This operator is offering this service')
+            self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
+            #raise forms.ValidationError(message='The submitted service operator is invalid', code='invalid')
+        
+        
 
 
 
