@@ -345,6 +345,15 @@ class ServiceFormTest(TestCase):
         form = ServiceCreationForm(SERVICE_DATA)
         self.assertFalse(form.is_valid())
 
+    def test_cannot_save_not_found_category(self):
+        SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
+        SERVICE_DATA['customer'] = self.customer.pk
+        SERVICE_DATA['operator'] = self.operator.pk
+        SERVICE_DATA['service_instance'] = self.availabe_service.pk
+        SERVICE_DATA['category'] = category_test_data.CATEGORY_NOT_FOUND_PK
+        form = ServiceCreationForm(SERVICE_DATA)
+        self.assertFalse(form.is_valid())
+
     def test_cannot_save_no_service_instance(self):
         SERVICE_DATA = service_test_data.SERVICE_DATA_INITIAL.copy()
         SERVICE_DATA['operator'] = self.operator.pk

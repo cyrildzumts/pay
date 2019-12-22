@@ -62,25 +62,7 @@ class ServiceCreationForm(forms.ModelForm):
             raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
         return commission
     
-
-
-    """
-        def clean_operator(self):
-            try:
-                operator = self.cleaned_data['operator']
-                return operator
-            except KeyError as e:
-                raise forms.ValidationError(message="Operator field is invalid.", code='invalid')
-            
-        def clean_service_instance(self):
-            try:
-                service_instance = self.cleaned_data['service_instance']
-                return service_instance
-            except KeyError as e:
-                raise forms.ValidationError(message="service_instance field is invalid.", code='invalid')
-
-    """
-
+    
     def clean(self):
         '''
             The operator must be the same as the operator found in service_instance.
@@ -88,16 +70,16 @@ class ServiceCreationForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         operator = cleaned_data.get('operator') # this is the pk value
-        avs = cleaned_data.get('service_instance')
-        if operator and avs:
-            if operator.pk != avs.pk:
+        available_service_instance = cleaned_data.get('service_instance')
+        if operator and available_service_instance:
+            if operator.pk != available_service_instance.pk:
                 self.add_error('operator', 'This operator is offering this service')
                 self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
                 #raise forms.ValidationError(message='The submitted service operator is invalid', code='invalid')
         else:
             if not operator:
                 self.add_error('operator', 'This operator is offering this service')
-            if not avs:
+            if not available_service_instance:
                 self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
             
             
