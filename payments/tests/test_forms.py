@@ -477,4 +477,4 @@ class ServiceFormTest(TestCase):
                     for e in field.errors:
                         logger.error("\t\t\tServiceCreationForm Error  : %s: ", e)
         
-        self.assertFalse(is_valid)
+        self.assertTrue(is_valid)
