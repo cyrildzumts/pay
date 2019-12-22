@@ -71,7 +71,7 @@ class ServiceCreationForm(forms.ModelForm):
         operator = clean_data['operator'] # this is the pk value
         avs = None
         try:
-            avs = AvailableService.objects.get(clean_data['service_instance'])
+            avs = AvailableService.objects.get(pk=clean_data['service_instance'])
             if operator != avs.pk:
                 self.add_error('operator', 'This operator is offering this service')
                 self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
