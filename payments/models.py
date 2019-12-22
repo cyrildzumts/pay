@@ -17,8 +17,7 @@ help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT = 'Please enter the date when this bil
 COMMISSION_DEFAULT = 0.03
 COMMISSION_MAX_DIGITS = 3
 COMMISSION_DECIMAL_PLACES = 2
-COMMISSION_MAX_VALUE = 1.0
-COMMISSION_MIN_VALUE = 0
+
 
 def ident_file_path(instance, filename):
     file_ext = filename.split(".")[-1]
@@ -71,7 +70,7 @@ class Policy(models.Model):
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
     users = models.ForeignKey(User, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    commission = models.DecimalField(max_value=COMMISSION_MAX_VALUE, min_value=COMMISSION_MIN_VALUE, max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
+    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
@@ -221,7 +220,7 @@ class Service(models.Model):
     category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True, on_delete=models.SET_NULL)
     service_instance = models.ForeignKey(AvailableService, related_name="executed_services", unique=False, null=True, on_delete=models.SET_NULL)
     price = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_value=COMMISSION_MAX_VALUE, min_value=COMMISSION_MIN_VALUE,max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
+    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
     issued_at = models.DateField(help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT)
     description = models.CharField(max_length=80, null=True)

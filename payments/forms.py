@@ -8,11 +8,20 @@ from payments.models import (
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
+COMMISSION_MAX_VALUE = 1.00
+COMMISSION_MIN_VALUE = 0.00
+COMMISSION_VALUE_ERROR_MSG = "Commission value must be in [0.00 - 1.00] interval."
 
 class PolicyForm(forms.ModelForm):
     class Meta:
         model = Policy
         fields = ['daily_limit', 'weekly_limit', 'monthly_limit', 'commission']
+
+    def clean_commission(self):
+        commission = self.cleaned_data['commission']
+        if commission > COMMISSION_MAX_VALUE or commission < COMMISSION_MIN_VALUE:
+            raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
+        return commission
 
 
 class UpdateIDCardForm(forms.ModelForm):
@@ -45,6 +54,12 @@ class ServiceCreationForm(forms.ModelForm):
         model = Service
         fields = ['name', 'operator', 'customer', 'customer_reference', 'reference_number', 'category', 'service_instance',
         'price', 'description', 'issued_at', 'commission']
+
+    def clean_commission(self):
+        commission = self.cleaned_data['commission']
+        if commission > COMMISSION_MAX_VALUE or commission < COMMISSION_MIN_VALUE:
+            raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
+        return commission
 
 
 
