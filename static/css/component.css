@@ -130,7 +130,7 @@ li a{
   font-family: 'Monserrat';
   background-color: var(--banner-bg);
   color: var(--banner-color);
-  padding: 58px;
+  padding: 58px 0 0 0;
 }
 
 .banner{
@@ -141,7 +141,7 @@ li a{
 	align-items: center;
 	justify-content: center;
 	height: 400px;
-	padding : 10px 5px;
+	padding : 16px 0;
 }
 
 .banner--title{
