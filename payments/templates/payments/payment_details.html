@@ -9,8 +9,8 @@
 
 <div class="container">
         <div class="card">
-          <p> {% trans "Sender" %} : {{payment.sender.full_name}} </p>
-          <p> {% trans "Recipient" %} : {{payment.recipient.full_name}} </p>
+          <p> {% trans "Sender" %} : {{payment.sender.get_full_name}} </p>
+          <p> {% trans "Recipient" %} : {{payment.recipient.get_full_name}} </p>
           <p> {% trans "Price" %} : {{payment.amount}} FCFA </p>
           <p> {% trans "Date" %} : {{payment.created_at}} </p>
           <p> {% trans "Description" %} : {{payment.details}} </p>
