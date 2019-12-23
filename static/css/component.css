@@ -707,10 +707,6 @@ a.button{
 	border: var(--btn-border);
 }
 
-form .form-group{
-  padding: 5px 16px;
-  margin: 2px auto;
-}
 
  .error-login{
   display: none;
@@ -1247,15 +1243,15 @@ a {
 	display: flex;
 	justify-content: right;
 	width: 100%;
-	padding: 4px 8px;
-	margin-bottom: 4px;
+	padding: 0;
+	margin-bottom: 16px;
 }
 
 .form-group input, .form-group textarea, .form-group select{
 	width: 100%;
 	height: 32px;
-	padding: 0;
-	margin : 0  0 16px 0;
+	padding: 0 16px;
+	margin : 0  0 16px 8px;
 	color: var(--btn-color);
 	border: var(--input-border);
 }
