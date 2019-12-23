@@ -1250,15 +1250,14 @@ a {
 .form-group input, .form-group textarea, .form-group select{
 	width: 100%;
 	height: 32px;
-	padding: 0 16px;
-	margin : 0  0 16px 8px;
+	padding: 0 8px;
+	margin : 0  16px;
 	color: var(--btn-color);
 	border: var(--input-border);
 }
 
 .form-group input:last-child, .form-group select:last-child, 
 .form-group textarea:last-child, .form-group .mat-button:last-child{
-	padding: 0 16px;
 	margin : 0;
 }
 
