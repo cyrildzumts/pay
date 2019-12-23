@@ -185,11 +185,13 @@ class CaseIssueForm(forms.ModelForm):
         model = CaseIssue
         fields = ['participant_1', 'participant_2','amount', 'subject', 'description', 'is_closed']
 
+"""
 class ClaimForm(forms.ModelForm):
 
     class Meta:
         model = CaseIssue
         fields = ['reporter', 'operator','amount', 'subject', 'description', 'is_closed']
+"""
 
 class ReductionForm(forms.ModelForm):
 
