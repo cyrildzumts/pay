@@ -158,10 +158,10 @@ li a{
 }
 
 .banner .item{
-	width: 100%;
+	/*width: 100%;*/
 	text-align: left;
-	padding: 8px 16px;
-	font-size: 1rem;
+	padding: 8px;
+	/*font-size: 1rem;*/
 
 }
 
