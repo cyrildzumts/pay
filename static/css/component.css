@@ -13,8 +13,8 @@
   --card-color : #616161;
   --btn-border : 1px solid #66FCF1;
   --btn-color: #66FCF1;
-  --input-border : 2px solid #242424;
-  --btn-hover-border : 2px solid #454545;
+  --input-border : 1px solid #ccc;
+  --btn-hover-border : 1px solid #454545;
   --btn-hover-color: #454545;
   --box-shadow: 0 1px 0 rgba(9,45,66,.25);
   --in-bg : #4caf50;
@@ -37,7 +37,7 @@
 }
 
 .bordered{
-  border: #ccc 2px solid;
+  border: 1px solid #ccc;
 }
 
 .state{
@@ -172,7 +172,7 @@ li a{
 	width: 50%;
 	text-align: center;
 	font-size: 1.2rem;
-	line-height: 1.8;
+	line-height: 16px;
 
 }
 
