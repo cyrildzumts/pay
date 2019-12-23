@@ -1245,8 +1245,7 @@ a {
 
 .form-group{
 	display: flex;
-	align-items: baseline;
-	justify-content: center;
+	justify-content: right;
 	width: 100%;
 	padding: 4px 8px;
 	margin-bottom: 4px;
@@ -1254,10 +1253,17 @@ a {
 
 .form-group input, .form-group textarea, .form-group select{
 	width: 100%;
-	padding: 4px 8px;
-	margin : 4px 8px;
+	height: 32px;
+	padding: 0;
+	margin : 0  0 16px 0;
 	color: var(--btn-color);
 	border: var(--input-border);
+}
+
+.form-group input:last-child, .form-group select:last-child, 
+.form-group textarea:last-child, .form-group .mat-button:last-child{
+	padding: 0 16px;
+	margin : 0;
 }
 
 .field-wrapper{
