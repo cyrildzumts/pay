@@ -1247,7 +1247,7 @@ a {
 	margin-bottom: 16px;
 }
 
-.form-group input, .form-group textarea, .form-group select{
+.form-group input, .form-group textarea, .form-group select, .form-group .mat-button{
 	width: 100%;
 	height: 32px;
 	padding: 0 8px;
