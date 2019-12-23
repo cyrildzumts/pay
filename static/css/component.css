@@ -701,11 +701,6 @@ a.button{
 }
 
 /* Form */
-.form{
-	background-color: var(--form-bg);
-	color: var(--form-color);
-	border: var(--btn-border);
-}
 
 
  .error-login{
