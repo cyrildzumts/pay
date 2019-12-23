@@ -270,7 +270,7 @@
     border-left: 2px solid #e64a19;
 }
 
-#notifications-wraper{
+#notifications-wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -282,7 +282,7 @@
     border: 1px solid #ccc;
 }
 
-.notifications{
+.notification-list{
     display: flex;
     position: relative;
     
