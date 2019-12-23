@@ -1,4 +1,8 @@
 
+.strong{
+    font-weight: bold;
+}
+
 .link{
     color: #242424;
     text-decoration: none;
