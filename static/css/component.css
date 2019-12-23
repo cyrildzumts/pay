@@ -25,7 +25,7 @@
   --logo-color: #242424;
   --nav-link-color: #fff;
   --nav-link-hover-color: #242424;
-  --form-bg: #cecece;
+  --form-bg: transparent;
   --form-color: #242424;
 
 }
@@ -88,13 +88,11 @@ li a{
 .balance{
 	font-size: 1.5em;
 	font-weight: bold;
-	line-height: 1.5;
 }
 
 .balance-info{
 	font-size: 1em;
 	font-weight: bold;
-	line-height: 1.5;
 	height: 25px;
 	border-radius:50%;
 }
@@ -114,8 +112,7 @@ li a{
   background-color: var(--header-bg);
   color: var(--header-color);
   font-family: 'Montserrat';
-  line-height: 26px;
-  height: 40px;
+  height: 48px;
   padding: 0;
 }
 
@@ -130,7 +127,7 @@ li a{
   font-family: 'Monserrat';
   background-color: var(--banner-bg);
   color: var(--banner-color);
-  padding: 58px 0 0 0;
+  padding: 48px 0 0 0;
 }
 
 .banner{
@@ -140,7 +137,7 @@ li a{
 	align-content: center;
 	align-items: center;
 	justify-content: center;
-	height: 400px;
+	/*height: 400px;*/
 	padding : 16px 0;
 }
 
@@ -172,8 +169,6 @@ li a{
 	width: 50%;
 	text-align: center;
 	font-size: 1.2rem;
-	line-height: 16px;
-
 }
 
 .banner--actions{
@@ -185,7 +180,6 @@ li a{
 
 h1,h2,h3, h4, h5, h6{
 	font-family: 'Montserrat';
-	line-height: 1.5;
 }
 
 h1{
@@ -213,14 +207,14 @@ h6{
 }
 
 input{
-	height: 36px;
+	height: 32px;
 	border: var(--input-border);
-	padding: 10px 20px;
+	padding: 16px 8px;
 }
 
 label{
-	padding: 8px 16px;
-	width: 250px;
+	padding: 16px 8px;
+	/*width: 250px;*/
 	text-align: left;
 }
 
@@ -259,13 +253,13 @@ a.button{
 
 
 .footer .copyright span{
-  padding: 10px;
+  padding: 16px;
 }
 
 .divider {
   --columns: 12; /* number of columns in the grid system */
   --width: var(--width-mobile, 0); /* width of the element */
-  padding: 5px;
+  padding: 8px 0 ;
   flex-basis: calc(var(--width) / var(--columns) * 100%);
 }
 
@@ -275,13 +269,11 @@ a.button{
   flex-direction: row;
   position: relative;
   width: 100%;
-  height: 48px;
   padding: 0;
   margin: 0;
   background-color: var(--header-panel-bg);
   color: var(--header-panel-color);
   font-weight: 400;
-  line-height: 16px;
 }
 
 .logo{
@@ -563,7 +555,6 @@ a.button{
   font-size: 1.33rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  line-height: 1.5;
   color: var(--btn-color);
   /*font-weight: 700;*/
   width: 100%;
@@ -600,7 +591,7 @@ a.button{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 20px 16px;
+  padding: 16px;
   margin: 0;
 }
 
@@ -610,7 +601,6 @@ a.button{
   font-weight: 200;
   /*background-color: #fff;*/
   font-size: 1.25rem;
-  line-height: 1.6;
  }
 
  .welcome-text h3{
@@ -801,7 +791,7 @@ body.header-not-at-top .site-header{
 	flex-direction: column;
 	position: relative;
 	/*overflow: hidden;*/
-	padding-top: 40px;
+	padding-top: 48px;
 	height: 100%;
 }
 
@@ -902,7 +892,7 @@ input[type="url"], select{
 	font-family: inherit;
 	outline: 0;
 
-	padding: 5px 1rem;
+	padding: 8px 1rem;
 	border-radius: 4px;
 }
 
@@ -935,7 +925,6 @@ button, input, select, textarea{
 .balance-info{
 	font-size: 1em;
 	font-weight: bold;
-	line-height: 1.5;
 	height: 25px;
 	border-radius:50%;
 }
@@ -986,7 +975,6 @@ List Cards
 	display: inline-block;
 	color: #17394d;
 	font-size: 14px;
-	line-height: 20px;
 	font-weight: 400;
 }
 
@@ -1002,7 +990,7 @@ List Cards
 
 .list-header{
 	flex: 0 0 auto;
-	padding: 10px 8px 8px;
+	padding: 16px 8px 8px;
 	position: relative;
 	min-height: 22px;
 	max-height: 256px;
@@ -1103,7 +1091,6 @@ a {
 	width: auto;
 	max-width: 40px;
 	min-width: 40px;
-	line-height: 100px;
 	text-shadow: none;
 	padding: 0;
 	margin: 0 4px 4px 0;
@@ -1186,7 +1173,6 @@ a {
 .list-card-members .member .member-initials{
 	height: 28px;
 	width: 28px;
-	line-height: 28px;
 }
 
 .member-initials{
@@ -1245,14 +1231,13 @@ a {
 
 .transaction-form, .case-form{
 	max-width: 272px;
-	padding: 10px;
+	padding: 16px;
 }
 
 .form-title{
 	color: #252525;
 	font-size: 1.1em;
 	font-weight: 700;
-	line-height: 1.2em;
 	border-bottom: 1px solid #ccc;
 	padding: 4px 8px;
 	margin: 4px 2px;
@@ -1313,7 +1298,7 @@ a {
 }
 
 input[type=text]:focus, textarea:focus{
-	border: 3px solid #555;
+	border: 2px solid #555;
 }
 
 /**************************/
