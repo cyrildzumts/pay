@@ -30,7 +30,7 @@
 </head>
 
 <body>
-        <header class="header">
+<header class="header">
 {% block HEADER_PANEL %}
 <div class="header--panel row">
   <div class="col col-1">
@@ -56,7 +56,7 @@
       {% endif %}
       <li>
         <ul class="row languages">
-        <form id="lang-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
+        <form id="lang-form" name="localization-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
                 <input name="next" type="hidden" value="{{redirect_to}}">
                 <input id="current-lang" type="hidden" name="language" value="">
         </form>
@@ -69,15 +69,19 @@
         {% endfor %}
         </ul>
       </li>
+      {% if dev_mode %}
+        {% block GRID %}
+        <li><button class="js-grid-enable baseline-grid-btn mat-button mat-button-default">Enable Grid</button></li>
+        {% endblock GRID %}
+        {% endif %}
     </ul>
   </div>
 </div>
 {% endblock HEADER_PANEL %}
-                {% block GRID %}
-                <button class="js-grid-enable baseline-grid-btn">Enable Grid</button>
-                {% endblock GRID %}
+
+
                 
-        </header>
+</header>
         <div class="page">
                 
                 <div class="page--banner">
@@ -124,6 +128,24 @@
                 </div>
                 </footer>
         </div>
+        <div id="notifications-wrapper" class="flex-column notification-wrapper">
+          <div class="header row">
+                <button class="mat-button mat-button-default"><i class="button-icon icon"></i> <span class="button-text">{% trans "Close all" %}</span></button>
+          </div>
+          <div class="notifications-container">
+                <ul id="notifications" class="notification-list">
+                   {% for notification in notifications %}
+                   <li class="notification-contaner">
+                        <div class="notification">
+                                <span class="js-close"></span>
+                                <div class="title">{{notification.title}}</div>
+                                <div class="content">{{notification.content}}</div>
+                        </div>
+                   </li>
+                   {% endfor %}
+                </ul>
+          </div>
+        </div>
 
         {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
          
@@ -131,7 +153,7 @@
         
          <script  src="{% static "js/lib/pubsub.js" %}"></script>
          {% endcomment %}
-         <script  src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
+        <script  src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
         <script  type="application/javascript" src="{% static 'js/pay.js' %}"></script> 
 </body>
 
