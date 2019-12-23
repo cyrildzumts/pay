@@ -306,9 +306,7 @@ a.button{
 .nav a, .logo a{
   display: flex;
   color: var(--nav-link-color);
-
-  font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -1510,7 +1508,7 @@ input[type=text]:focus, textarea:focus{
 	text-align: center;
 	text-transform: uppercase;
 	text-decoration: none;
-	font-size: 0.875em;
+	font-size: 0.75em;
 	font-weight: 500;
 	padding: 0 16px;
 	margin: 8px;
