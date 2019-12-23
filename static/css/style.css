@@ -269,3 +269,41 @@
     color: #e64a19;
     border-left: 2px solid #e64a19;
 }
+
+#notifications-wraper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top : 48px;
+    right: 16px;
+    width: 344px;
+    border: 1px solid #ccc;
+}
+
+.notifications{
+    display: flex;
+    position: relative;
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    list-style-type: none;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 16px;
+    font-weight: 700;
+}
+
+.notification .title{
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.notification .content{
+    font-size: 1em;
+    font-weight: 400;
+
+}
