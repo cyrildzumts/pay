@@ -5,7 +5,7 @@
 
 <div class="container">
     {% for policy in policies %}
-        <div class="card">
+        <div class="box">
            <p> {% trans "Commission" %} : {{policy.commission}}</p>  
           <a class="mat-button mat-button-text" href="{{policy.get_absolute_url}}">{% trans "More" %} ...</a>
         </div>

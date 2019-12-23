@@ -7,7 +7,7 @@
 </div>
 <div class="container">
     {% for payment in payments %}
-        <div class="card">
+        <div class="box">
           <p> {% trans "Sender" %} : {{payment.sender.get_full_name}} </p>
           <p> {% trans "Recipient" %} : {{payment.recipient.get_full_name}} </p>
           <p> {% trans "Price" %} : {{payment.amount}} {% trans "FCFA" %} </p>
