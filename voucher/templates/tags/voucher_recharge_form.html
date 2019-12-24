@@ -10,6 +10,11 @@
             </ul>
         </div>
     </div>
+     <div class="form-group">
+            <label for="customer-name">{% trans "Customer" %} : </label>
+            <input id="customer-name" type="text" name="customer-name">
+            
+    </div>
 
     <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'voucher:recharge' %}" method="POST">{% csrf_token %}
         
