@@ -4,7 +4,7 @@
     <div class="form-group">
             
     </div>
-    <form id="available-services-form" class="available-services-form form" name="available_services" action="{% url 'payments:available-services' %}" method="POST">{% csrf_token %}
+    <form id="available-services-form"  name="available_services" action="{% url 'payments:available-services' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="created_by" value="{{request.user.pk}}">
         <div class="form-group">
             <input type="text" name="service_code" id="code" placeholder="{% trans 'Enter the service code' %}">

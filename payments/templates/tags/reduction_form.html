@@ -4,7 +4,7 @@
     <div class="form-group">
             
     </div>
-    <form id="reduction-form" class="reduction-form form" name="reduction" action="{% url 'payments:reductions' %}" method="POST">{% csrf_token %}
+    <form id="reduction-form" name="reduction" action="{% url 'payments:reductions' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="account" value="{{request.user.pk}}">
         <div class="form-group">
             <input type="text" name="code" id="code">

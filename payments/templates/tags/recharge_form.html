@@ -2,7 +2,7 @@
 
 <div class="responsive">
 
-    <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'payments:recharge' %}" method="POST">{% csrf_token %}
+    <form id="voucher-recharge-form" name="voucher-recharge" action="{% url 'payments:recharge' %}" method="POST">{% csrf_token %}
         <div class="form-group">
             <label for="voucher">{% trans "Voucher Code" %} : </label>
             <input id="voucher" type="text" name="voucher">

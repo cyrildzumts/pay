@@ -1,28 +1,23 @@
 {% load i18n %} 
 
 <div class="responsive">
-
-    <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'voucher:recharge' %}" method="POST">{% csrf_token %}
-        
-        <input type="hidden" name="seller" value="{{request.user.pk}}">
-
-        
-        <div class="form-group">
+    <div class="row">
+        <div class="row form-group">
             <label for="search">{% trans "Customer Search" %} : </label>
             <input class="js-user-search" type="text" name="search" id="search">
             <ul class="js-user-search-result user-search-result" id="user-search-result" data-target-name="#customer-name" data-target="#customer">
 
             </ul>
         </div>
-        <div class="form-group">
-            <label for="customer-name">{% trans "Customer" %} : </label>
-            <input id="customer-name" type="text" name="customer-name">
-            <input id="customer" type="text" name="customer">
-        </div>
+    </div>
 
+    <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'voucher:recharge' %}" method="POST">{% csrf_token %}
+        
+        <input type="hidden" name="seller" value="{{request.user.pk}}">
+        <input id="customer" type="hidden" name="customer">
         <div class="form-group">
             <label for="amount">{% trans "Amount" %} : </label>
-            <input id="amount" type="text" name="amount">
+            <input id="amount" type="text" name="amount" placeholder="{% trans 'Enter the amount here...' %}">
             <span id="amount-error" class="validation-error error">{% trans "The amount must be a number" %}</span>
         </div>
         

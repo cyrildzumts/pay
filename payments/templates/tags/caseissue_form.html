@@ -5,7 +5,7 @@
     <div class="form-group">
             <input id="participant_name" type="text" name="participant_name" placeholder="{% trans 'Enter the Operator name' %}">
     </div>
-    <form id="case-form" class="case-form form" name="case" action="{% url 'payments:cases' %}" method="POST">{% csrf_token %}
+    <form id="case-form" name="case" action="{% url 'payments:cases' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="participant_1" value="{{request.user.pk}}">
         <div class="form-group">
             <input type="hidden" name="participant_2" id="participant_2">
