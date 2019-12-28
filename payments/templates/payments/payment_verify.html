@@ -4,61 +4,99 @@
 {% block MAIN %}
 
 <div class="container">
-    <div class="responsive">
+    <div class="row">
 
-        <form  name="voucher-recharge" action="{% url 'payments:payment-verification' %}" method="POST">{% csrf_token %}
-            <div class="form-group">
-                {% if form and form.verification_code.errors %}
+        <form  name="payment_verification" action="{% url 'payments:payment-verification' %}" method="POST">{% csrf_token %}
+            
+             {% if form and form.errors %}
+                        <ul class="errorlist">
+                            {% for e in form.errors %}
+                            <li >{{e|escape}}</li>
+                            {% endfor %}
+                        </ul>
+            {% endif %}
+
+            {% comment %}{% if form and form.verification_code.errors %}
                     <ul class="errorlist">
                         {% for e in form.verification_code.errors %}
                         <li >{{e | escape}}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
+            {% endcomment %}
+            <div class="form-group">
                 <label for="verification-code">{% trans "Verification Code" %} : </label>
                 <input id="verification-code" type="text" name="verification_code">
                 
             </div>
-            <div class="form-group">
-                {% if form and form.operator_reference.errors %}
+
+            {% comment %}{% if form and form.operator_reference.errors %}
                     <ul class="errorlist">
                         {% for e in form.operator_reference.errors %}
                         <li >{{e|escape}}</li>
                         {% endfor %}
                     </ul>
-                {% endif %}
+            {% endif %}
+            {% endcomment %}
+            <div class="form-group">
+                
                 <label for="operator-reference">{% trans "Operator reference" %} : </label>
                 <input id="operator-reference" type="text" name="operator_reference">
             </div>
-                {% if form and form.errors %}
-                        <ul class="errorlist">
-                            {% for e in form.errors %}
-                            <li >{{e|escape}}</li>
-                            {% endfor %}
-                        </ul>
-                {% endif %}
             
             <div class="form-group row row-right">
                 <a class="mat-button mat-button-text" href="{% url 'payments:payment-home' %}"> {% trans "Cancel" %} </a>
                 <button class="mat-button mat-button-default" type="submit">{% trans "Verify" %}</button>
             </div>
         </form>
-
     </div>
-        
+
     {% if payment_verification_ready and payment_verification_ready is True %}
-    <div class="responsive">
+    <div class="row">
         {% if payment_is_valid %}
             <div class="box">
-                <p> {% trans "Sender" %} : {{payment.sender.get_full_name}} </p>
+                <div class="title">
+                    <span class="success">{% trans "Payment successdfully verified." %}</span>
+                </div>
+                <div class="content">
+                    <div class="entry">
+                        <span class="key">{% trans "Sender" %} :</span> <span class="value">{{payment.sender.get_full_name}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Recipient" %} :</span> <span class="value">{{payment.recipient.get_full_name}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Price" %} :</span> <span class="value">{{payment.amount}} {% trans "XAF" %}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{payment.created_at}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Verification Code" %} :</span> <span class="value">{{payment.verification_code}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Description" %} :</span> <span class="value">{{payment.details}}</span>
+                    </div>
+
+                </div>
+
+                {% comment %}<p> {% trans "Sender" %} : {{payment.sender.get_full_name}} </p>
                 <p> {% trans "Recipient" %} : {{payment.recipient.get_full_name}} </p>
                 <p> {% trans "Price" %} : {{payment.amount}} {% trans "XAF" %} </p>
                 <p> {% trans "Date" %} : {{payment.created_at}} </p>
+                <p> {% trans "Verification Code" %} : {{payment.verification_code}} </p>
                 <p> {% trans "Description" %} : {{payment.details}} </p>
+                {% endcomment %}
             </div>
         {% else %}
             <div class="box">
-                <p> {% trans "No payment found." %} </p>
+                <div class="title">
+                    <span class="error">{% trans "Payment could not be verified." %}</span>
+                </div>
+                <div class="content">
+                    <span> {% trans "No payment could be found." %} </span>
+                    <span>{% trans "Make sure that you entered the correct verification code or operator reference" %}</span>
+                </div>
             </div>
         {% endif %}
     </div>

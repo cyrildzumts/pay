@@ -128,8 +128,16 @@ class ServiceCreationForm(forms.ModelForm):
 
 class PaymentVerificationForm(forms.Form):
     #TODO Add clean code for verification code and operator reference
-    verification_code = forms.CharField(max_length=32, label="Verification Code")
-    operator_reference = forms.CharField(max_length=80, label="Operator Reference")
+    verification_code = forms.CharField(max_length=32, label="Verification Code", blank=True)
+    operator_reference = forms.CharField(max_length=80, label="Operator Reference", blank=True)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        verificaion_code = cleaned_data.get('verification_code')
+        operator_reference = cleaned_data.get('operator_reference')
+        if not (verificaion_code or operator_reference):
+            raise forms.ValidationError(message='Verification failed. You must fill at least one of the two fields.', code='invalid')
+
 
 
 

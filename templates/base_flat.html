@@ -132,8 +132,29 @@
           <div class="row notifications-controls">
                 <button class="mat-button mat-button-default"><i class="button-icon icon"></i> <span class="button-text">{% trans "Close all" %}</span></button>
           </div>
+          {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+                {% endfor %}
+                
+                </ul>
+                
+                {% endif %}
           <div class="notifications-container">
+
                 <ul id="notifications" class="notification-list">
+                   {% if messages %}
+                        {% for message in messages %}
+                        <li class="notification-contaner">
+                                <div class="notification box">
+                                        <span class="js-close"></span>
+                                        <div class="title">{{message.tags}}</div>
+                                        <div class="content">{{message}}</div>
+                                </div>
+                        </li>
+                        {% endfor %}
+                   {% endif %}
                    {% for notification in notifications %}
                    <li class="notification-contaner">
                         <div class="notification box">
