@@ -450,14 +450,19 @@ def payment_verify(request):
             flag = PaymentService.verify_payment(user=request.user, verification_code=verification_code, operator_reference=operator_reference)
             context['payment_is_valid'] = flag
             context['payment_verification_ready'] = True
-            msg = "Payment Verification successful. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
-            messages.add_message(request=request, level=messages.SUCCESS, message=msg)
-            logger.info(msg)
+            if flag:
+                msg = "Payment Verification successful. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
+                messages.add_message(request=request, level=messages.SUCCESS, message=msg)
+                logger.info(msg)
+            else :
+                msg = "Payment Verification failed. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
+                messages.add_message(request=request, level=messages.ERROR, message=msg)
+                logger.info(msg)
 
         else:
             context['payment_is_valid'] = False
             context['payment_verification_ready'] = False
-            msg = "Payment Verification failed "
+            msg = "Form is invalid"
             messages.add_message(request=request, level=messages.ERROR, message=msg)
             logger.error(msg)
     elif request.method == 'GET':
