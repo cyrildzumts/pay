@@ -127,7 +127,7 @@ class ServiceCreationForm(forms.ModelForm):
         
 
 class PaymentVerificationForm(forms.Form):
-    #TODO Add clean code for verification code and operator reference
+    
     verification_code = forms.CharField(max_length=80, label="Verification Code", strip=True, required=False)
     operator_reference = forms.CharField(max_length=80, label="Operator Reference", strip=True, required=False)
 

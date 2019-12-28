@@ -465,6 +465,7 @@ def payment_verify(request):
             msg = "Form is invalid"
             messages.add_message(request=request, level=messages.ERROR, message=msg)
             logger.error(msg)
+            logger.error(form.errors)
     elif request.method == 'GET':
         form = PaymentVerificationForm()
     context['page_title'] = page_title
