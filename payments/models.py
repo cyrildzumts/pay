@@ -213,12 +213,12 @@ class Service(models.Model):
 
     """
     name = models.CharField(max_length=50, null=True)
-    operator = models.ForeignKey(User, related_name="offered_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_OPERATOR)
-    customer = models.ForeignKey(User, related_name="used_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_CUSTOMER)
+    operator = models.ForeignKey(User,null=True, related_name="offered_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_OPERATOR)
+    customer = models.ForeignKey(User,null=True, related_name="used_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_CUSTOMER)
     reference_number = models.IntegerField(help_text=HELP_TEXT_FOR_SERVICE_REF_NUMBER)
     customer_reference = models.CharField(max_length=50, null=True, help_text=HELP_TEXT_FOR_CUSTOMER_REF)
     category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True, on_delete=models.SET_NULL)
-    service_instance = models.ForeignKey(AvailableService, related_name="executed_services", unique=False, on_delete=models.CASCADE)
+    service_instance = models.ForeignKey(AvailableService,null=True, related_name="executed_services", unique=False, on_delete=models.CASCADE)
     price = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
