@@ -21,6 +21,9 @@
                 <div class="entry">
                   <span class="key">{% trans "Amount" %} :</span><span class="value">{{service.price}} {% trans "XAF" %}</span>
                 </div>
+                <div class="entry">
+                  <span class="key">{% trans "Commission" %} :</span><span class="value">{{service.commission}}</span>
+                </div>
                 
                 <div class="entry">
                   <span class="key">{% trans "Date" %} :</span><span class="value">{{service.created_at}}</span>
@@ -33,6 +36,5 @@
                 </div>               
             </div>
         </div>
-    <a class="mat-button mat-button-text" href="{% url 'payments:new-transaction' %}"> {% trans "Pay a Bill" %} </a>
 </div>
 {% endblock MAIN %}

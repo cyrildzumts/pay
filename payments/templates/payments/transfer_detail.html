@@ -4,30 +4,32 @@
 {% block MAIN %}
 
 <div class="container">
-        <div class="card">
-          <div class="card__title">
-            {% trans "Transfer Details" %}
-          </div>
 
-          <div class="card__body">
-              <p> {% trans "Recipient" %} : {{transfer.recipient.get_full_name}} </p>
-              <p> {% trans "Sender" %} : {{transfer.sender.get_full_name}} </p>
-              <p> {% trans "Amount" %} : {{transfer.amount}} FCFA </p>
-              <div>  
-                <p> {% trans "Desciption" %} : </p>
-                <p>{{transfer.details}}</p>
-              </div>
-              <p> {% trans "Date of transfer" %} : {{transfer.created_at}} </p>
-          </div>
-          
-          <div class="card__actions">
-                <ul class="listview">
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a new transfer" %} </a></li>
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:payment-home' %}"> {% trans "Payment Home" %} </a></li>
-                </ul>
-                
-                
-          </div>
+        <div class="box">
+                <div class="title">
+                    <span class="success">{% trans "Transfer Detail" %}</span>
+                </div>
+                <div class="content">
+                    <div class="entry">
+                        <span class="key">{% trans "Sender" %} :</span> <span class="value">{{transfer.sender.get_full_name}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Recipient" %} :</span> <span class="value">{{transfer.recipient.get_full_name}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{transfer.amount}} {% trans "XAF" %}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{transfer.created_at}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Verification Code" %} :</span> <span class="value">{{transfer.verification_code}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Description" %} :</span> <span class="value">{{transfer.details}}</span>
+                    </div>
+
+                </div>
         </div>
     
 </div>

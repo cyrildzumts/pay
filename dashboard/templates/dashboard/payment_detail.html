@@ -5,13 +5,33 @@
 
 {% if can_view_payment  %}
 <div class="container">
-        <div class="card">
-          <p> {% trans "Sender" %} : {{payment.sender.full_name}} </p>
-          <p> {% trans "Recipient" %} : {{payment.recipient.full_name}} </p>
-          <p> {% trans "Price" %} : {{payment.amount}} FCFA </p>
-          <p> {% trans "Date" %} : {{payment.created_at}} </p>
-          <p> {% trans "Description" %} : {{payment.details}} </p>
-          
+
+
+        <div class="box">
+                <div class="title">
+                    <span class="success">{% trans "Payment successdfully verified." %}</span>
+                </div>
+                <div class="content">
+                    <div class="entry">
+                        <span class="key">{% trans "Sender" %} :</span> <span class="value">{{payment.sender.get_full_name}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Recipient" %} :</span> <span class="value">{{payment.recipient.get_full_name}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{payment.amount}} {% trans "XAF" %}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{payment.created_at}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Verification Code" %} :</span> <span class="value">{{payment.verification_code}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Description" %} :</span> <span class="value">{{payment.details}}</span>
+                    </div>
+
+                </div>
         </div>
 </div>
 {% else %}
