@@ -88,7 +88,7 @@
                         {% block HEADER_BANNER %}
                         {% endblock HEADER_BANNER %}
                 </div>
-                {% block MESSAGES %}
+                {% comment %}{% block MESSAGES %}
                 {% if messages %}
                 <ul class="messages">
                 {% for message in messages %}
@@ -100,6 +100,7 @@
                 {% endif %}
                 
                 {% endblock MESSAGES %}
+                {% endcomment %}
                 {% block DIALOGS %}
                 
                 {% endblock DIALOGS %}
@@ -140,32 +141,25 @@
                 
                 </ul>
                 
-                {% endif %}
+        {% endif %}
+        
           <div class="notifications-container">
 
                 <ul id="notifications" class="notification-list">
-                   {% if messages %}
-                        {% for message in messages %}
+                   {% if notifications %}
+                        {% for notification in notifications %}
                         <li class="notification-contaner">
                                 <div class="notification box">
                                         <span class="js-close"></span>
-                                        <div class="title">{{message.tags}}</div>
-                                        <div class="content">{{message}}</div>
+                                        <div class="title">{{notification.title}}</div>
+                                        <div class="content">{{notification.content}}</div>
                                 </div>
                         </li>
                         {% endfor %}
                    {% endif %}
-                   {% for notification in notifications %}
-                   <li class="notification-contaner">
-                        <div class="notification box">
-                                <span class="js-close"></span>
-                                <div class="title">{{notification.title}}</div>
-                                <div class="content">{{notification.content}}</div>
-                        </div>
-                   </li>
-                   {% endfor %}
                 </ul>
           </div>
+        
         </div>
 
         {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
