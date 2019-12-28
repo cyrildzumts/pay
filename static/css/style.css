@@ -78,7 +78,7 @@
     text-align: center;
     border: 1px solid #ccc;
 }
-.box .content{
+.box .box-content{
     display: flex;
     width: 100%;
     margin: 8px auto;
@@ -88,11 +88,41 @@
     flex-direction: column;
 }
 
+.box .content-left{
+
+    justify-content: ;
+}
+
 .entry{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ccc;
+
     width: 100%;
     font-size: 1.333em;
     text-align: center;
-    padding: 16px 8px;
+    padding: 8px 8px;
+}
+
+.entry:last-child{
+    border-bottom: none;
+}
+
+.entry .key, .entry .value{
+    display: block;
+    width: 50%;
+    padding: 0 16px;
+    height: 100%;
+    text-align: left;
+}
+
+.entry .key{
+    font-weight: 600;
+}
+
+.entry .value{
+    font-weight: 400;
 }
 
 .box .title{
@@ -105,6 +135,15 @@
 .box .subtitle{
     width: 100%;
     font-size: 0.8em;
+}
+
+.box .actions{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: end;
+    padding: 0;
 }
 
 .dock{
