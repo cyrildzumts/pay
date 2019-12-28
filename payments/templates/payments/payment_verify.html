@@ -9,11 +9,7 @@
         <form  name="payment_verification" action="{% url 'payments:payment-verification' %}" method="POST">{% csrf_token %}
             
              {% if form and form.errors %}
-                        <ul class="errorlist">
-                            {% for e in form.errors %}
-                            <li >{{e|escape}}</li>
-                            {% endfor %}
-                        </ul>
+                    {{ form.non_field_errors }} 
             {% endif %}
 
             {% comment %}{% if form and form.verification_code.errors %}
