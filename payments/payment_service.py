@@ -301,4 +301,15 @@ class PaymentService :
         return context
 
     
-    
+    @staticmethod
+    def verify_payment(user=None, verification_code=None, operator_reference=None):
+        flag = False
+        if user and (verification_code or operator_reference):
+            if verification_code and operator_reference:
+               queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user), verification_code=verification_code, operator_reference=operator_reference)
+            elif verification_code:
+                queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user), verification_code=verification_code)
+            elif operator_reference:
+                queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user), operator_reference=operator_reference)
+            flag = queryset.exists()
+        return flag

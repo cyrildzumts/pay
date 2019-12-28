@@ -1,5 +1,6 @@
 
 from django.apps import apps
+import secrets
 
 def get_postdata(request):
     return request.POST.copy()
@@ -41,3 +42,6 @@ def get_all_fields_from_form(instance):
         if field not in fields:
             fields.append(field)
     return fields
+
+def generate_token_10():
+    return secrets.token_urlsafe(10)

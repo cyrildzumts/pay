@@ -21,7 +21,7 @@ from payments.models import (
 )
 from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, 
-    RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm
+    RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm, PaymentVerificationForm
 )
 from payments.payment_service import PaymentService
 from pay import settings, utils
@@ -434,6 +434,29 @@ def payment_details(request, payment_uuid=None):
     page_title = "Payment Details" + " + " + settings.SITE_NAME
     context['page_title'] = page_title
     context['payment'] = payment
+    return render(request,template_name, context)
+
+
+@login_required
+def payment_verify(request):
+    context = {}
+    template_name = "payments/payment_verify.html"
+    page_title = "Payment Verification" + " + " + settings.SITE_NAME
+    if request.method == 'POST':
+        form = PaymentVerificationForm(request.POST)
+        if form.is_valid():
+            verification_code = form.cleaned_data.get('verification_code')
+            operator_reference = form.cleaned_data.get('operator_reference')
+            flag = PaymentService.verify_payment(user=request.user, verification_code=verification_code, operator_reference=operator_reference)
+            context['payment_is_valid'] = flag
+            context['payment_verification_ready'] = True
+        else:
+            context['payment_is_valid'] = False
+            context['payment_verification_ready'] = False
+    elif request.method == 'GET':
+        form = PaymentVerificationForm()
+    context['page_title'] = page_title
+    context['form'] = form
     return render(request,template_name, context)
 
 

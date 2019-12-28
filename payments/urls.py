@@ -35,6 +35,7 @@ urlpatterns = [
     path('payments/', views.payments, name='payments'),
     path('payment-done/', views.payment_done, name='payment-done'),
     path('payments/<uuid:payment_uuid>/', views.payment_details, name='payment-detail'),
+    path('payments/payment-verification/', views.payment_verify, name='payment-verification'),
     path('policies/', views.policies, name='policies'),
     path('policies/<uuid:policy_uuid>/', views.policy_details, name='policy-detail'),
     path('recharge/', views.recharge, name='recharge'),

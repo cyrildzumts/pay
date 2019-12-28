@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from pay import settings
+from pay import utils
 import uuid
 
 
@@ -223,6 +224,7 @@ class Service(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     issued_at = models.DateField(help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT)
     description = models.CharField(max_length=80, null=True)
+    verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
@@ -278,6 +280,7 @@ class Payment(models.Model):
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_payments')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_payments')
+    verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
     created_at = models.DateTimeField(auto_now_add=True)
     is_validated = models.BooleanField(default=False)
     validated_at = models.DateTimeField(auto_now=True)
@@ -299,6 +302,7 @@ class Transfer(models.Model):
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_transfers')
     created_at = models.DateTimeField(auto_now_add=True)
     details = models.TextField(max_length=256)
+    verification_code = models.TextField(max_length=80, default=utils.generate_token_10, editable=False)
     transfer_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
