@@ -457,7 +457,7 @@ def payment_verify(request):
         else:
             context['payment_is_valid'] = False
             context['payment_verification_ready'] = False
-            msg = "Payment Verification failed. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
+            msg = "Payment Verification failed "
             messages.add_message(request=request, level=messages.ERROR, message=msg)
             logger.error(msg)
     elif request.method == 'GET':
