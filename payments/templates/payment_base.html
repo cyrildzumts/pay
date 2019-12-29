@@ -7,7 +7,7 @@
 {% block HEADER_BANNER %}
     <div class="banner banner-align-left">
         <div class="full welcome-text center">
-                <h4> {% trans "Welcome" %} {{name}}</h4>
+                <h4> {% trans "Welcome" %} {{user.username}}</h4>
         </div>
         <div class="container">
 
@@ -22,6 +22,7 @@
                 <div class="banner--actions">
                         <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
                         <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
                         
                 </div><!--End of Banner-Actions-->
             </div><!--End of Responsive-->

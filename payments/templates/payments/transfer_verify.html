@@ -4,14 +4,7 @@
 {% block MAIN %}
 
 <div class="container">
-    <div class="actions">
-            <a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a>
-            <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
-            <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
-            <a class="mat-button mat-button-text" href="{%url 'payments:transfers' %}"> {% trans "Transfer History" %}</a>
-            <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-            <a class="mat-button mat-button-text" href="{%url 'payments:services' %}"> {% trans "Service Usage History" %}</a>
-    </div><!--End of Banner-Actions-->
+    
     <div class="row">
 
         <form  name="transfer_verification" action="{% url 'payments:transfer-verification' %}" method="POST">{% csrf_token %}
