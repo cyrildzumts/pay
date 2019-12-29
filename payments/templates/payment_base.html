@@ -7,7 +7,10 @@
 {% block HEADER_BANNER %}
     <div class="banner banner-align-left">
         <div class="full welcome-text center">
-                <h4> {% trans "Welcome" %} {{user.username}}</h4>
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Welcome" %} {{user.username}}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
         </div>
         <div class="container">
 
