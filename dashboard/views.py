@@ -1325,3 +1325,8 @@ def permission_delete(request, pk=None):
         raise Http404('Permission does not exist')
         
     return redirect('dashboard:permissions')
+
+
+@login_required
+def create_account(request):
+    pass

@@ -1,0 +1,10 @@
+{% load i18n %} 
+
+{% for field in form %}
+<div class="field-wrapper">
+    {{field.errors}}
+    <div class="form-group">
+        {{field.label_tag}} {{field}}
+    </div>
+</div>
+{% endfor %}
