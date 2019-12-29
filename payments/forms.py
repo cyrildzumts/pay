@@ -126,7 +126,7 @@ class ServiceCreationForm(forms.ModelForm):
         
         
 
-class PaymentVerificationForm(forms.Form):
+class TransactionVerificationForm(forms.Form):
     
     verification_code = forms.CharField(max_length=80, label="Verification Code", strip=True, required=False)
     operator_reference = forms.CharField(max_length=80, label="Operator Reference", strip=True, required=False)
@@ -139,7 +139,17 @@ class PaymentVerificationForm(forms.Form):
             raise forms.ValidationError(message='Verification failed. You must fill at least one of the two fields.', code='invalid')
 
 
+class PaymentVerificationForm(forms.Form):
+    
+    verification_code = forms.CharField(max_length=80, label="Verification Code", strip=True, required=False)
+    operator_reference = forms.CharField(max_length=80, label="Operator Reference", strip=True, required=False)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        verificaion_code = cleaned_data.get('verification_code')
+        operator_reference = cleaned_data.get('operator_reference')
+        if not (verificaion_code or operator_reference):
+            raise forms.ValidationError(message='Verification failed. You must fill at least one of the two fields.', code='invalid')
 
 class RechargeForm(forms.Form):
     voucher = forms.CharField(max_length=32, label="Voucher Code")

@@ -21,7 +21,7 @@ from payments.models import (
 )
 from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, 
-    RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm, PaymentVerificationForm
+    RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm,TransactionVerificationForm
 )
 from payments.payment_service import PaymentService
 from pay import settings, utils
@@ -253,6 +253,45 @@ def services(request):
     return render(request,template_name, context)
 
 
+
+@login_required
+def transfer_verify(request):
+    context = {}
+    template_name = "payments/transfer_verify.html"
+    page_title = "Transfer Verification" + " + " + settings.SITE_NAME
+    if request.method == 'POST':
+        form = TransactionVerificationForm(request.POST)
+        if form.is_valid():
+            verification_code = form.cleaned_data.get('verification_code')
+            operator_reference = form.cleaned_data.get('operator_reference')
+            flag , transfer = PaymentService.verify_transfer(user=request.user, verification_code=verification_code, operator_reference=operator_reference)
+            context['transfer_is_valid'] = flag
+            context['transfer_verification_ready'] = True
+            
+            if flag:
+                context['transfer'] = transfer
+                msg = "Transfer Verification successful. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
+                messages.add_message(request=request, level=messages.SUCCESS, message=msg)
+                logger.info(msg)
+            else :
+                msg = "Transfer Verification failed. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
+                messages.add_message(request=request, level=messages.ERROR, message=msg)
+                logger.info(msg)
+
+        else:
+            context['transfer_is_valid'] = False
+            context['transfer_verification_ready'] = False
+            msg = "Form is invalid"
+            messages.add_message(request=request, level=messages.ERROR, message=msg)
+            logger.error(msg)
+            logger.error(form.errors)
+    elif request.method == 'GET':
+        form = TransactionVerificationForm()
+    context['page_title'] = page_title
+    context['form'] = form
+    return render(request,template_name, context)
+
+
 @login_required
 def new_service(request, available_service_uuid=None):
     '''
@@ -323,6 +362,44 @@ def service_details(request, service_uuid=None):
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['service'] = service
+    return render(request,template_name, context)
+
+
+@login_required
+def service_verify(request):
+    context = {}
+    template_name = "payments/service_verify.html"
+    page_title = "Service Verification" + " + " + settings.SITE_NAME
+    if request.method == 'POST':
+        form = TransactionVerificationForm(request.POST)
+        if form.is_valid():
+            verification_code = form.cleaned_data.get('verification_code')
+            operator_reference = form.cleaned_data.get('operator_reference')
+            flag , service = PaymentService.verify_service(user=request.user, verification_code=verification_code, operator_reference=operator_reference)
+            context['service_is_valid'] = flag
+            context['service_verification_ready'] = True
+            
+            if flag:
+                context['service'] = service
+                msg = "Payment Verification successful. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
+                messages.add_message(request=request, level=messages.SUCCESS, message=msg)
+                logger.info(msg)
+            else :
+                msg = "Payment Verification failed. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
+                messages.add_message(request=request, level=messages.ERROR, message=msg)
+                logger.info(msg)
+
+        else:
+            context['service_is_valid'] = False
+            context['service_verification_ready'] = False
+            msg = "Form is invalid"
+            messages.add_message(request=request, level=messages.ERROR, message=msg)
+            logger.error(msg)
+            logger.error(form.errors)
+    elif request.method == 'GET':
+        form = TransactionVerificationForm()
+    context['page_title'] = page_title
+    context['form'] = form
     return render(request,template_name, context)
 
 
@@ -443,14 +520,15 @@ def payment_verify(request):
     template_name = "payments/payment_verify.html"
     page_title = "Payment Verification" + " + " + settings.SITE_NAME
     if request.method == 'POST':
-        form = PaymentVerificationForm(request.POST)
+        form = TransactionVerificationForm(request.POST)
         if form.is_valid():
             verification_code = form.cleaned_data.get('verification_code')
             operator_reference = form.cleaned_data.get('operator_reference')
-            flag = PaymentService.verify_payment(user=request.user, verification_code=verification_code, operator_reference=operator_reference)
+            flag, payment = PaymentService.verify_payment(user=request.user, verification_code=verification_code, operator_reference=operator_reference)
             context['payment_is_valid'] = flag
             context['payment_verification_ready'] = True
             if flag:
+                context['payment'] = payment
                 msg = "Payment Verification successful. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
                 messages.add_message(request=request, level=messages.SUCCESS, message=msg)
                 logger.info(msg)
@@ -467,7 +545,7 @@ def payment_verify(request):
             logger.error(msg)
             logger.error(form.errors)
     elif request.method == 'GET':
-        form = PaymentVerificationForm()
+        form = TransactionVerificationForm()
     context['page_title'] = page_title
     context['form'] = form
     return render(request,template_name, context)
@@ -702,3 +780,10 @@ def upload_idcard_done(request):
 
 
 
+@login_required
+def transaction_verification(request):
+    context = {}
+    template_name = "payments/transaction_verification.html"
+    page_title = "Transaction Verification" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    return render(request,template_name, context)

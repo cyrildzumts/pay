@@ -304,6 +304,7 @@ class PaymentService :
     @staticmethod
     def verify_payment(user=None, verification_code=None, operator_reference=None):
         flag = False
+        instance = None
         if user and (verification_code or operator_reference):
             if verification_code and operator_reference:
                queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user), verification_code=verification_code, details=operator_reference)
@@ -311,5 +312,40 @@ class PaymentService :
                 queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user), verification_code=verification_code)
             elif operator_reference:
                 queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user), details=operator_reference)
-            flag = queryset.exists()
-        return flag
+            flag = queryset.exists() and queryset.count() == 1
+            if flag:
+                instance = queryset.get()
+        return flag, instance
+    
+    @staticmethod
+    def verify_transfer(user=None, verification_code=None, operator_reference=None):
+        flag = False
+        instance = None
+        if user and (verification_code or operator_reference):
+            if verification_code and operator_reference:
+               queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user), verification_code=verification_code, details=operator_reference)
+            elif verification_code:
+                queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user), verification_code=verification_code)
+            elif operator_reference:
+                queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user), details=operator_reference)
+            flag = queryset.exists() and queryset.count() == 1
+            if flag:
+                instance = queryset.get()
+        return flag, instance
+
+    
+    @staticmethod
+    def verify_service(user=None, verification_code=None, operator_reference=None):
+        flag = False
+        instance = None
+        if user and (verification_code or operator_reference):
+            if verification_code and operator_reference:
+               queryset = Service.objects.filter(Q(operator=user) | Q(customer=user), verification_code=verification_code, description=operator_reference)
+            elif verification_code:
+                queryset = Service.objects.filter(Q(operator=user) | Q(customer=user), verification_code=verification_code)
+            elif operator_reference:
+                queryset = Service.objects.filter(Q(operator=user) | Q(customer=user), description=operator_reference)
+            flag = queryset.exists() and queryset.count() == 1
+            if flag:
+                instance = queryset.get()
+        return flag, instance

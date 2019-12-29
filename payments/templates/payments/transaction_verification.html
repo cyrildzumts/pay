@@ -1,0 +1,18 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+    <div class="row">
+        <p>{% trans "Select the type of transaction you want to verify" %}</p>
+    </div>
+    <nav class="nav">
+        <ul class="actions">
+            <li><a class="mat-button mat-button-text" href="{% url 'payments:transfer-verification' %}"></a>{% trans "Verify Transfer" %}</li>
+            <li><a class="mat-button mat-button-text" href="{% url 'payments:payment-verification' %}"></a>{% trans "Verify Payment" %}</li>
+            <li><a class="mat-button mat-button-text" href="{% url 'payments:service-verification' %}"></a>{% trans "Verify Service Payment" %}</li>
+        </ul>
+    </nav>
+</div>
+{% endblock MAIN %}

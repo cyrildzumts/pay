@@ -89,21 +89,23 @@
 }
 
 .box .content-left{
+    justify-content: start;
+}
 
-    justify-content: ;
+.box .content-right{
+    justify-content: end;
 }
 
 .entry{
     display: flex;
     align-items: center;
     justify-content: center;
-    
-
     width: 100%;
     font-size: 1.333em;
     text-align: center;
     padding: 8px 8px;
 }
+
 .box .entry{
     border-bottom: 1px solid #ccc;
 }

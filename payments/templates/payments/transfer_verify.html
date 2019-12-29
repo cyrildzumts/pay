@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
 
-        <form  name="payment_verification" action="{% url 'payments:payment-verification' %}" method="POST">{% csrf_token %}
+        <form  name="transfer_verification" action="{% url 'payments:transfer-verification' %}" method="POST">{% csrf_token %}
             
              {% if form and form.errors %}
                     {{ form.non_field_errors }} 
@@ -47,31 +47,31 @@
         </form>
     </div>
 
-    {% if payment_verification_ready and payment_verification_ready is True %}
+    {% if transfer_verification_ready and transfer_verification_ready is True %}
     <div class="row">
-        {% if payment_is_valid %}
+        {% if transfer_is_valid %}
             <div class="box">
                 <div class="title">
-                    <span class="success">{% trans "Payment successdfully verified." %}</span>
+                    <span class="success">{% trans "Transfer successdfully verified." %}</span>
                 </div>
                 <div class="content">
                     <div class="entry">
-                        <span class="key">{% trans "Sender" %} :</span> <span class="value">{{payment.sender.get_full_name}}</span>
+                        <span class="key">{% trans "Sender" %} :</span> <span class="value">{{transfer.sender.get_full_name}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Recipient" %} :</span> <span class="value">{{payment.recipient.get_full_name}}</span>
+                        <span class="key">{% trans "Recipient" %} :</span> <span class="value">{{transfer.recipient.get_full_name}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{payment.amount}} {% trans "XAF" %}</span>
+                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{transfer.amount}} {% trans "XAF" %}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{payment.created_at}}</span>
+                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{transfer.created_at}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Verification Code" %} :</span> <span class="value">{{payment.verification_code}}</span>
+                        <span class="key">{% trans "Verification Code" %} :</span> <span class="value">{{transfer.verification_code}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Description" %} :</span> <span class="value">{{payment.details}}</span>
+                        <span class="key">{% trans "Description" %} :</span> <span class="value">{{transfer.details}}</span>
                     </div>
 
                 </div>
@@ -79,10 +79,10 @@
         {% else %}
             <div class="box">
                 <div class="title">
-                    <span class="error">{% trans "Payment could not be verified." %}</span>
+                    <span class="error">{% trans "Transfer could not be verified." %}</span>
                 </div>
                 <div class="content">
-                    <span> {% trans "No payment could be found." %} </span>
+                    <span> {% trans "No transfer could be found." %} </span>
                     <span>{% trans "Make sure that you entered the correct verification code or operator reference" %}</span>
                 </div>
             </div>
