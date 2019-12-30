@@ -538,14 +538,14 @@ a.button{
 
 .mat-card .card__image, .mat-card .card--image{
   min-width: 100%;
-  height: 194px;
+  min-height: 240px;
   padding: 0;
-  margin: 0 auto;
+  margin: 0 0 16px 0;
 }
 
 .mat-card .card__image img, .mat-card .card__image object{
   min-width: 100%;
-  height: 194px;
+  height: 100%;
   object-fit: contain;
   padding: 0;
   margin: 0 auto;
@@ -556,7 +556,7 @@ a.button{
   flex-direction: column;
   justify-content: center;
   align-items: baseline;
-  /*padding: 20px 16px;*/
+  padding: 0 16px;
   margin: 0 auto;
 }
 
@@ -566,16 +566,14 @@ a.button{
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   color: var(--btn-color);
-  /*font-weight: 700;*/
   width: 100%;
-  /*height: 68px;*/
+  margin-bottom: 16px;
 
 }
 
 .mat-card__body .secondary--text, .mat-card--body .secondary--text{
 
-  font-size: 16px;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 700;
   /*height: 68px;*/
   
@@ -607,17 +605,10 @@ a.button{
 
 
  .welcome-text{
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 200;
   /*background-color: #fff;*/
-  font-size: 1.25rem;
+  font-size: 1em;
  }
 
- .welcome-text h3{
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2.6rem;
-  font-weight: 400;
-}
 
 .center{
   text-align: center;
@@ -1407,7 +1398,8 @@ input[type=text]:focus, textarea:focus{
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	background-color: #fafafa88;
-	padding : 8px 16px;
+	padding : 0;
+	margin: 0 16px;
 }
 .mat-card .card-header-wrapper{
 	padding: 8px 16px;
