@@ -539,6 +539,7 @@ a.button{
 .mat-card .card__image, .mat-card .card--image{
   min-width: 100%;
   min-height: 240px;
+  height: 240px;
   padding: 0;
   margin: 0 0 16px 0;
 }
