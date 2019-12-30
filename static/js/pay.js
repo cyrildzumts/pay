@@ -935,7 +935,7 @@ slider.init();
 
     $('.js-grid-enable').on('click', function(){
         $(this).toggleClass('active');
-        $('body').toggleClass('baseline-16');
+        $('body, body > header.header').toggleClass('baseline-16');
         console.log("toggling Class on grid element");
     });
 

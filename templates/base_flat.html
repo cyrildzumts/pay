@@ -59,7 +59,7 @@
         <form id="lang-form" name="localization-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
                 <input name="next" type="hidden" value="{{redirect_to}}">
                 <input id="current-lang" type="hidden" name="language" value="">
-        </form>
+        
         {% for lang in LANGUAGES %}
                 {% if lang.0 == LANGUAGE_CODE %}
                 <li><span class="mat-button js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
@@ -67,11 +67,12 @@
                 <li><span class="mat-button js-lang lang" title="{{lang.1}}"> {{lang.0}} </span></li>
                 {% endif %}
         {% endfor %}
+        </form>
         </ul>
       </li>
       {% if dev_mode %}
         {% block GRID %}
-        <li><button class="js-grid-enable baseline-grid-btn mat-button mat-button-text">Enable Grid</button></li>
+        <li><button class="js-grid-enable baseline-grid-btn mat-button mat-button-text">{% trans "Enable Grid" %}</button></li>
         {% endblock GRID %}
         {% endif %}
     </ul>
