@@ -625,8 +625,8 @@ a.button{
 
 .circle{
   display: flex;
-  width: 45px;
-  height: 45px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
@@ -655,8 +655,9 @@ a.button{
 
 /* Tab style */
 .tabs{
-  padding: 8px;
   width: 70%;
+  padding: 16px 0;
+  margin : 16px 0;
 }
 .tab-bar{
   position: relative;
@@ -664,23 +665,22 @@ a.button{
   justify-content: center;
   align-items: center;
   /*width: 100%;*/
-  padding: 8px 16px;
+  padding: 0 16px;
 
 }
 
 .tab-container{
-  padding : 8px 16px;
+  padding : 0 16px;
 }
 
 .tab-content{
-  min-height: 168px;
   padding: 8px;
 }
 
 .tab{
   font-weight: 700;
   text-align: center;
-  padding: 16px 22px;
+  padding: 16px;
 }
 
 /* SLIDER */
@@ -1287,7 +1287,7 @@ a {
 }
 
 .circle{
-	padding: 25px;
+	padding: 16px;
 	font-size: 30px;
 	/*width: 30px;*/
 	text-align: center;
@@ -1396,7 +1396,7 @@ input[type=text]:focus, textarea:focus{
 	box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
 				0px 1px 1px 0px rgba(0, 0, 0, 0.14),
 				0px 1px 3px 0px rgba(0,0,0,.12);
-	border: 1px solid #ccc;
+	/*border: 1px solid #ccc;*/
 	border-radius: 4px;
 	background-color: #fafafa88;
 	padding : 0;
