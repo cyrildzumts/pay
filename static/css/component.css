@@ -152,6 +152,7 @@ li a{
 .banner--content{
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	align-content: center;
 	align-items: center;
 	justify-content: center;
