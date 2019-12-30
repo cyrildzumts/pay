@@ -184,6 +184,10 @@ li a{
 	align-items: center;
 }
 
+.banner--actions .mat-button {
+	margin: 0 8px;
+}
+
 h1,h2,h3, h4, h5, h6{
 	font-family: 'Montserrat';
 	font-weight: 700;
