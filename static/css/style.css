@@ -26,7 +26,6 @@
 }
 
 .advantages{
-    background-color: #fff;
     color: #242424;
     min-height: 25rem;
     padding: 18px 20px;
@@ -45,7 +44,6 @@
 
 .advantage a{
     text-decoration: none;
-    color:#66FCF1;
     font-weight: 600;
     padding: 16px 18px;
 }
