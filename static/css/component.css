@@ -1406,7 +1406,7 @@ input[type=text]:focus, textarea:focus{
 				0px 1px 3px 0px rgba(0,0,0,.12);
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	background-color: #fafafa;
+	background-color: #fafafa88;
 	padding : 8px 16px;
 }
 .mat-card .card-header-wrapper{
