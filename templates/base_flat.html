@@ -55,20 +55,22 @@
       
       {% endif %}
       <li>
-        <ul class="row languages">
-        <form id="lang-form" name="localization-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
+        <form id="lang-form" name="localization-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
                 <input name="next" type="hidden" value="{{redirect_to}}">
                 <input id="current-lang" type="hidden" name="language" value="">
+        <ul class="row languages">
+        
         
         {% for lang in LANGUAGES %}
                 {% if lang.0 == LANGUAGE_CODE %}
                 <li><span class="mat-button js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
                 {% else %}
-                <li><span class="mat-button js-lang lang" title="{{lang.1}}"> {{lang.0}} </span></li>
+                <li><button type="submit" class="mat-button js-lang lang" title="{{lang.1}}"> {{lang.0}} </button></li>
                 {% endif %}
         {% endfor %}
-        </form>
+        
         </ul>
+        </form>
       </li>
       {% if dev_mode %}
         {% block GRID %}

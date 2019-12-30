@@ -150,6 +150,12 @@
     padding: 0;
 }
 
+.languages{
+    display: row;
+    align-items: center;
+    justify-content: end;
+}
+
 .dock{
 
     display: flex;
