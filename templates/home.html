@@ -5,204 +5,118 @@
 <div class="banner">
     <div class="banner--title">
       <h1> {%trans 'Welcome to PAY'%} </h1>
-      <h3>{% trans 'Your Payment Solution' %}</h3>
+      <h2>{% trans 'Your Payment Solution' %}</h2>
     </div><!--End of Banner Titlte-->
     <div class="banner--content">
-        <p class="banner--description">
-          {% blocktrans %}Ne perdez plus votre temps à faire la queue pour payer votre facture.
-    Plus besoin de vous deplacer. Payez vos factures depuis votre fauteuil.
-            {% endblocktrans %}
+        <p class="banner--description banner-entry">
+          {% blocktrans trimmed %}
+          Don't waste your time waiting in line to pay your bill.
+          {% endblocktrans %}
+        </p>
+        <p class="banner--description banner-entry">
+          {% blocktrans trimmed %}
+          Pay your bills from your chair.
+          {% endblocktrans %}
         </p>
     </div><!--End of Banner Content-->
       
   <div class="banner--actions">
-    <button class="button"> {% trans 'Discover PAY' %} </button>
+    <a class="mat-button mat-button-default" href="#"> {% trans 'Discover PAY' %} </a>
   </div><!--End of Banner Actions-->
   
 </div><!--End of Banner-->
 {% endblock HEADER_BANNER %}
 
 {% block SIGNUP_DIALOG %}
-{% if not request.user.is_authenticated %}
-<div id="signup-dialog" class="modal signup-dialog dialog">
-  <div class="tabs dialog-content box-shadow">
-    <div class="tab--title">
-      <div class="full welcome-text center">
-        <h4> {%trans 'Accedez à PAY'%} </h4>
-      </div>
-    </div>
-    <div class="tab-bar">
-      <div class="row">
-        <span class="tab active" data-toggle="#login" data-index="0"> 
-          {%trans "I have a PAY account"%}
-         </span>
-        <span class="tab" data-toggle="#register" data-index="1"> 
-          {% trans 'I want to create an PAY account'%}
-         </span>
 
-      </div>
-    </div>
-    <!--End of Tab-bar -->
-    <div class="tab-container container">
-      <div id="login" class="tab-content grid">
-        <form id="login-form" class="login-form" action="{% url 'accounts:login' %}" method="post"> {% csrf_token %}
-          <div id="error-login" class="error-login left">
-            <p></p>
-          </div>
-          <div class="form-group">
-
-            <input type="text" name="username" placeholder="{% trans 'Username'%}">
-            <input type="password" name="password" placeholder="{% trans 'Password'%}">
-          </div>
-          <div class="form-group">
-            <button id="login-submit" class="button"  name="submit" type="submit">{% trans "Login" %}</button>
-            <span class="button close" data-target="#signup-dialog">{% trans "Cancel" %}</span>
-          </div>
-
-        </form>
-      </div>
-      <!--End of Tab-content-->
-      <div id="register" class="tab-content grid">
-        <form id="signup-form" class="login-form" action="{% url 'accounts:register' %}" method="post"
-          autocomplete="off"> {% csrf_token %}
-          <input autocomplete="off" name="hidden" type="text" style="display:none;">
-          <div class="form-group">
-            <input autocomplete="off" name="hidden" type="text" style="display:none;">
-            <input type="text" name="username" placeholder="{% trans 'Username' %}" value="">
-            <input type="text" name="firstname" placeholder="{% trans 'Firstname' %}" value="">
-            <input type="text" name="lastname" placeholder=" {% trans 'Lastname' %}" value="">
-            <input type="password" name="password1" placeholder=" {% trans 'Your Password' %}" value="">
-            <input type="password" name="password1" placeholder=" {% trans 'Enter Your Password again' %}" value="">
-            <input type="email" name="email" placeholder=" {% trans 'E-Mail' %}" value="">
-            <input type="text" name="telefon" placeholder=" {% trans 'Phone-Number' %}" value="">
-          </div>
-          <div class="form-group">
-            <button id="signup-submit" class="button" name="submit" type="submit"> {% trans 'Create My PAY Account' %}</button>
-            <span class="button close" data-target="#signup-dialog"> {% trans 'Cancel' %} </span>
-          </div>
-        </form>
-      </div>
-      <!--End of Tab-content-->
-
-    </div>
-    <!--End of Tab-container-->
-  </div>
-  <!--End of tabs-->
-</div>
-<!--End of signup dialog-->
-{% endif %}
 {% endblock SIGNUP_DIALOG %}
 
 
 {% block MAIN %}
 <div class="row">
   <div class="full welcome-text center">
-    <h3> {%trans "PAY - Une solution de paiement idéale pour tout le monde"%} </h3>
+    <h3> PAY {% trans "An ideal payment solution for everyone" %} </h3>
     <p>
-      {% blocktrans %}Fini les problèmes de pétite monaies, où que vous soyez payez en un simple clique{% endblocktrans %}
+      {% blocktrans trimmed %}
+      No more money problems
+      {% endblocktrans %}
+    </p>
+    <p>
+      {% blocktrans trimmed %}
+      Wherever you are, pay with just one click
+      {% endblocktrans %}
     </p>
   </div>
 </div>
 <div class="grid">
-  <div class="flex responsive column">
-    <div id="discover" class="mat-card">
-      <div class="card__image adapt-color">
-        <img class="contain" src="images/businessman.svg" alt="">
-      </div>
+        <div class="flex responsive column">
+            <div id="discover" class="mat-card">
+                <div class="card__image adapt-color">
+                    <img class="contain" src="images/businessman.svg" alt="">
+                </div>
 
-      <div class="mat-card__body">
-        <div class="title center">
-          {% trans "Découvrir PAY" %}
-        </div>
-        <div class="secondary--text">
-          <p class="center">
-            {%trans "Chargez votre compte PAY et profitez du payement simplifié." %}
-          </p>
-        </div>
-      </div>
-
-
-      <div class="mat-card__footer">
-        <div class="card__actions">
-          <button class="button">
-            {% trans "En savoir plus" %}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!--End of card-->
-  </div>
-
-  <div class="flex responsive column">
-    <div id="customer" class="mat-card">
-      <div class="card__image">
-        <object class="contain" data="images/customer.svg" type="image/svg+xml"></object>
-        <!-- <img class="contain" src="images/customer.svg" alt=""> -->
-      </div>
-
-      <div class="mat-card__body">
-        <div class="title center">
-          {% trans "Pour les particuliers" %}
-        </div>
-        <div class="secondary--text">
-          <p class="center">
-            {%trans "En tant qu'utilisateur, rechargez juste votre compte auprès d'un de nos bureaux."%}
-          </p>
-        </div>
-      </div>
+                <div class="mat-card__body">
+                    <div class="title center">
+                    {% trans "Discover PAY" %}
+                    </div>
+                    <div class="secondary--text">
+                    <p class="center">
+                        {%trans "Charge your PAY account and enjoy simplified payment." %}
+                    </p>
+                    </div>
+                </div>
 
 
-      <div class="mat-card__footer">
-        <div class="card__actions">
-          <button class="button">
-            {% trans "En savoir plus" %}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!--End of card-->
-  </div>
-  <div class="flex responsive column">
-    <div id="enterprise" class="mat-card">
-      <div class="card__image adapt-color">
-        <img class="contain" src="images/businessman.svg" alt="">
-      </div>
+                <div class="mat-card__footer">
+                    <div class="card__actions">
+                      <button class="button">
+                          {% trans "More..." %}
+                      </button>
+                    </div>
+                </div><!--End of card footer-->
+            </div>    <!--End of card-->
+        </div>     <!--End of Responsive-->
 
-      <div class="mat-card__body">
-        <div class="title center">
-          {%trans "Pour les entreprises 2"%}
-        </div>
-        <div class="secondary--text">
-          <p class="center">
-            {%trans "En tant qu'entreprise recevez vos payements à tout moment"%}
-          </p>
-        </div>
-      </div>
+        <div class="flex responsive column">
+            <div id="customer" class="mat-card">
+                <div class="card__image">
+                    <object class="contain" data="images/customer.svg" type="image/svg+xml"></object>
+                    <!-- <img class="contain" src="images/customer.svg" alt=""> -->
+                </div>
+
+                <div class="mat-card__body">
+                    <div class="title center">
+                    {% trans "For individuals" %}
+                    </div>
+                    <div class="secondary--text">
+                    <p class="center">
+                        {%trans "As a user, just recharge your balance from your chair with a voucher card."%}
+                    </p>
+                    </div>
+                </div>
 
 
-      <div class="mat-card__footer">
-        <div class="card__actions">
-          <button class="button">
-            {% trans "En savoir plus" %}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!--End of card-->
-
-  </div>
-</div>
+                <div class="mat-card__footer">
+                    <div class="card__actions">
+                      <button class="mat-button mat-button-outlined">
+                          {% trans "Learn more" %}
+                      </button>
+                    </div>
+                </div><!--End of card footer-->
+          </div><!--End of card-->
+      </div><!--End of column-->
+    </div>    <!--End of Grid-->
 <div class="row">
   <div class="tabs">
     <div class="tabs--title">
       <div class="full welcome-text center">
-        <h3> {%trans "PAY - Utilisation"%} </h3>
+        <h3> {%trans "PAY - Usage"%} </h3>
       </div>
     </div>
     <div class="tab-bar">
       <div class="row">
-        <span class="tab active" data-toggle="#customer-usage" data-index="0">{% trans "Pour les particuliers" %}</span>
-        <span class="tab" data-toggle="#enterprise-usage" data-index="1">{% trans "Pour les entreprises" %}</span>
+        <span class="tab active" data-toggle="#customer-usage" data-index="0">{% trans "For individuals" %}</span>
+        <span class="tab" data-toggle="#enterprise-usage" data-index="1">{% trans "For Business" %}</span>
       </div>
 
     </div>
@@ -217,8 +131,7 @@
           <div class="row">
             <div class="circle">1</div>
             <div class="usage-description">
-              <p> <a href="#"> {%trans "Creer gratuitement votre compte PAY"%} </a> 
-               {%trans "avec votre adresse E-mail et un mot de passe"%}
+              <p> <a href="#"> {%trans "Create your free account"%} </a> 
               </p>
             </div>
           </div>
@@ -231,7 +144,7 @@
           <div class="row">
             <div class="circle">2</div>
             <div class="usage-description">
-              <p> {%trans "Chargez votre compte PAY auprès d'un de nos bureaux"%} </p>
+              <p> {%trans "Load your account from your sofa"%} </p>
             </div>
           </div>
 
@@ -243,7 +156,7 @@
           <div class="row">
             <div class="circle">3</div>
             <div class="usage-description">
-              <p> {%trans "Effectuez vos achats ou payez vos factures avec votre compte PAY"%} </p>
+              <p> {%trans "Make your purchases or pay your bills comfortably"%} </p>
             </div>
           </div>
 
@@ -259,7 +172,7 @@
           <div class="row">
             <div class="circle">1</div>
             <div class="usage-description">
-              <p> {%trans "Ouvrez gratuitement votre compte Business PAY"} </p>
+              <p> {%trans "Create your Business PAY account for free"} </p>
             </div>
           </div>
 
@@ -271,7 +184,7 @@
           <div class="row">
             <div class="circle">2</div>
             <div class="usage-description">
-              <p> {%trans "Choisissez l'option PAY qui vous convient"%} </p>
+              <p> {%trans "Choose the PAY option that suits your business"%} </p>
             </div>
           </div>
 
@@ -283,14 +196,14 @@
           <div class="row">
             <div class="circle">3</div>
             <div class="usage-description">
-              {%trans 'Generez un lien pour recevoir vos paiements'%}
+              {%trans 'Receive your payments while you are traveling'%}
             </div>
           </div>
 
         </div>
       </div>
       <div class="row">
-        <span class="button">{% trans "En savoir plus" %}</span>
+        <span class="mat-button mat-button-outlined">{% trans "Tell me More" %}</span>
       </div>
     </div>
   </div> <!--End of tabs-->
@@ -299,52 +212,27 @@
 <div class="advantages grid">
   <div class="responsive column">
     <div class="advantage">
-      <h3 class="left">{% trans "Plus de securité" %}</h3>
+      <h3 class="left">{% trans "More security" %}</h3>
       <p class="leftr">
-      {% blocktrans %}Vos paiements sont securisés.
-Si un vendeur ne vous livre pas votre commande payée à
-travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
+      {% blocktrans trimmed %}
+      Your payments are secure.
+In case of non-delivery, your payment will be refunded
+      {% endblocktrans %}
       </p>
-      <a class="link" href="#">{% trans "Protection du client" %}</a>
+      <a class="mat-button mat-button-outlined" href="#">{% trans "Customer protection" %}</a>
     </div>
     <!--End of advantage-->
   </div>
   <!--End of column-->
   <div class="responsive column">
     <div class="advantage">
-      <h3 class="left">{% trans "Plus de securité" %}</h3>
+      <h3 class="left">{% trans "More security for your business" %}</h3>
       <p class="left">
-      {% blocktrans %}Vos paiements sont securisés.
-Si un vendeur ne vous livre pas votre commande payée à
-travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
+      {% blocktrans trimmed%}
+        You can check the validity of each transaction
+      {% endblocktrans %}
       </p>
-      <a class="link" href="#">{% trans "Protection du client" %}</a>
-    </div>
-    <!--End of advantage-->
-  </div>
-  <!--End of column-->
-  <div class="responsive column">
-    <div class="advantage">
-      <h3 class="left">{% trans "Plus de securité" %}</h3>
-      <p class="left">
-      {% blocktrans %}Vos paiements sont securisés.
-Si un vendeur ne vous livre pas votre commande payée à
-travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
-      </p>
-      <a class="link" href="#">{% trans "Protection du client" %}</a>
-    </div>
-    <!--End of advantage-->
-  </div>
-  <!--End of column-->
-  <div class="responsive column">
-    <div class="advantage">
-      <h3 class="left">{% trans "Plus de securité" %}</h3>
-      <p class="left">
-      {% blocktrans %}Vos paiements sont securisés.
-Si un vendeur ne vous livre pas votre commande payée à
-travers PAY, PAY vous renboursera le payera.{% endblocktrans %}
-      </p>
-      <a class="link" href="#">{% trans "Protection du client" %}</a>
+      <a class="mat-button mat-button-outlined" href="#">{% trans "Protection for business" %}</a>
     </div>
     <!--End of advantage-->
   </div>

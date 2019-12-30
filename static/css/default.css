@@ -18,3 +18,8 @@ body {
 *, ::after, ::before {
   box-sizing: border-box;
 }
+
+p{
+  text-transform: capitalize;
+  margin-bottom: 16px;
+}

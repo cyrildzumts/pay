@@ -127,7 +127,9 @@ li a{
   font-family: 'Monserrat';
   background-color: var(--banner-bg);
   color: var(--banner-color);
-  padding: 48px 0 0 0;
+  padding: 0;
+  margin-bottom: 16px;
+
 }
 
 .banner{
@@ -168,7 +170,10 @@ li a{
 .banner--description{
 	width: 50%;
 	text-align: center;
-	font-size: 1.2rem;
+	font-size: 1.125em;
+}
+.banner-entry{
+	margin-bottom: 16px;
 }
 
 .banner--actions{
@@ -180,30 +185,32 @@ li a{
 
 h1,h2,h3, h4, h5, h6{
 	font-family: 'Montserrat';
+	font-weight: 700;
+	margin-bottom: 16px;
 }
 
 h1{
-  font-size: 2rem;
+  font-size: 1.75em;
 }
 
 h2{
-	font-size: 1.8rem;
+	font-size: 1.5em;
 }
 
 h3, .header p{
-  font-size: 1.6rem;
+  font-size: 1.125em;
 }
 
 h4{
-	font-size: 1.3rem;
+	font-size: 1em;
 }
 
 h5{
-	font-size: 1rem;
+	font-size: 0.875em;
 }
 
 h6{
-	font-size: 0.8rem;
+	font-size: 0.5em;
 }
 
 input{
