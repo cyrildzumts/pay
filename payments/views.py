@@ -720,21 +720,22 @@ def upload_idcard(request):
     if request.method == "POST":
         postdata = utils.get_postdata(request)
         
-        id_form = IDCardForm(postdata, request.FILES)
-        if id_form.is_valid():
+        form = IDCardForm(postdata, request.FILES)
+        if form.is_valid():
             logger.info("submitted idcard form is valide")
-            post_user = int(postdata['user'])
-            if post_user == request.user.pk:
+            post_user = form.cleaned_data.get('user')
+            if post_user.pk == request.user.pk:
                 logger.info("saving submitted idcard form")
-                id_form.save()
+                form.save()
                 logger.info("submitted idcard form saved")
                 return redirect('payments:upload-idcard-done')
             else :
-                logger.warning("User uploading ID card suspicious : submitted user %s is different than the request user %s ", post_user, request.user.pk )
+                logger.warning("User uploading ID card suspicious : submitted user %s is different than the request user %s ", post_user.username, request.user.username )
         else:
-            logger.error("The idcard form is not valide. Error : %s", id_form.errors)
-    
-    context['form'] = IDCardForm()
+            logger.error("The idcard form is not valide. Error : %s", form.non_field_errors)
+    else:
+        form = IDCardForm()
+    context['form'] = form
     return render(request,template_name, context)
 
 
