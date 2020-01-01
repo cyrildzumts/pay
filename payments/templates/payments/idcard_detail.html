@@ -10,25 +10,23 @@
 <div class="container flex column">
         {% if has_idcard %}
             <div class="box">
+                <div class="title">
+                    {% trans "ID CARD INFO" %}
+                </div>
                 <div class="box-content">
-                    <ul class="">
-                        <li class="entry"><span class="key">{% trans "ID number" %}</span><span class="value">{{idcard.card_number}}</span></li>
-                        <li class="entry"><span class="key">{% trans "Delivery Place " %}</span><span class="value">{{idcard.delivery_place}}</span></li>
-                        <li class="entry"><span class="key">{% trans "Delivered at " %}</span><span class="value">{{idcard.delivery_at}}</span></li>
-                        <li class="entry"><span class="key">{% trans "Valide until " %}</span><span class="value">{{idcard.expire_at}}</span></li>
-                        <li class="entry"><span class="key"></span><span class="value"></span></li>
-                        <li class="entry">
-                            <div class="col-4">
-                            </div>
-                            <div class="col-4">
-                                <div class="img-responsive">
-                                    <img class="img full js-zoom" src="{{idcard.image.url}}"/>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                            </div>
-                        </li>
-                    </ul>
+                    <div class="mat-list-wrapper">
+                        <ul class="mat-list">
+                            <li class="entry"><span class="key">{% trans "ID number" %}</span><span class="value">{{idcard.card_number}}</span></li>
+                            <li class="entry"><span class="key">{% trans "Delivery Place " %}</span><span class="value">{{idcard.delivery_place}}</span></li>
+                            <li class="entry"><span class="key">{% trans "Delivered at " %}</span><span class="value">{{idcard.delivery_at}}</span></li>
+                            <li class="entry"><span class="key">{% trans "Valide until " %}</span><span class="value">{{idcard.expire_at}}</span></li>
+                            <li class="entry"><span class="key"></span><span class="value"></span></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                <div class="image-wrapper">
+                    <img class="img-responsive js-zoom" src="{{idcard.image.url}}"/>
                 </div>
 
                 <div class="actions">
