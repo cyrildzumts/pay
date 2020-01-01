@@ -1959,12 +1959,19 @@ input[type=text]:focus, textarea:focus{
 }
 
 .image-wrapper{
+	display: flex;
+	position: relative;
 	width: 100%;
+	align-items: center;
+	justify-content: center;
 
+}
+.img-responsive{
+	width: 100%;
 }
 
 @media only screen and (min-width:40em){
 	.image-wrapper{
-		width: 50%;
+		width: 25%;
 	}
 }
