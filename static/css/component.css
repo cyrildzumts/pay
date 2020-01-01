@@ -303,13 +303,13 @@ a.button{
   text-align: center;
 }
 
-.logo .mat-button{
+.logo .mat-button, .header--panel .mat-button{
 	min-width: 0;
 	padding: 0;
 	margin: 0 8px 0 0;
 }
 
-.logo .mat-button:last-child{
+.header--panel .mat-button:last-child, .logo .mat-button:last-child{
 	padding: 0;
 	margin: 0 ;
 }
