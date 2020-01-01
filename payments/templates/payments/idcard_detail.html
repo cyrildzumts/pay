@@ -20,9 +20,7 @@
                     <a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID Card" %}</a>
                     <a class="mat-button mat-button-text" href="{% url 'payments:payment-home' %}"> {% trans "Payment Home" %} </a>
                 </div>
-
             </div>
-            
         {% else %}
             <p> {% trans "Wrong request" %} </p>
         {% endif %}
