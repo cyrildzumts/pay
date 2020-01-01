@@ -10,14 +10,14 @@
                     <p class="responsive"> {% trans "ID number" %} : {{idcard.card_number}} </p>
                     <p class="responsive"> {% trans "Delivery Place " %} : {{idcard.delivery_place}} </p>
                     <p class="responsive"> {% trans "Delivered at " %} : {{idcard.delivery_at}} </p>
-                    <p class="responsive"> {% trans "Expire at " %} : {{idcard.expire_at}} </p>
+                    <p class="responsive"> {% trans "Valide until " %} : {{idcard.expire_at}} </p>
                 </div>
                 <div class="card__image responsive idcard"> 
                     <p>{% trans "Image" %}: </p>
                     <img class="full js-zoom" src="{{idcard.image.url}}"/>
                 </div>
                 <div class="card__actions">
-                    <a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' idcard.pk %}"> {% trans "Update my ID Card" %}</a>
+                    <a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID Card" %}</a>
                     <a class="mat-button mat-button-text" href="{% url 'payments:payment-home' %}"> {% trans "Payment Home" %} </a>
                 </div>
 
