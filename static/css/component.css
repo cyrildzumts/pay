@@ -1612,13 +1612,19 @@ input[type=text]:focus, textarea:focus{
 	position: relative;
 	align-items: center;
 	justify-content: center;
-	padding: 8px 16px;
-	margin: 8px 0;
+	padding: 0;
+	margin: 0;
 	/*overflow: hidden;*/
-	height: 56px;
+	width: 100%;
+	/*height: 56px;*/
 	max-height: 72px;
-	border-bottom: 2px solid #ccc;
+	border-bottom: 1px solid #ccc;
 	cursor: pointer;
+}
+.mat-list-item .mat-button{
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
 .mat-list-item .entry{
@@ -1977,6 +1983,7 @@ input[type=text]:focus, textarea:focus{
 	justify-content: center;
 	position: absolute;
 	width: 350px;
+	background-color: #fafafa;
 	top: 48px;
 	left: -350px;
 }

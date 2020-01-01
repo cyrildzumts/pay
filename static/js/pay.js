@@ -952,7 +952,7 @@ slider.init();
     $('.js-menu-close').on('click', function(){
         console.log("closing site menu");
         var panel = $('.site-panel');
-        var left = '-' + panel.css('left');
+        var left = '-' + panel.css('width');
         panel.css('left', left );
         $('.js-menu').show();
         $(this).hide();
