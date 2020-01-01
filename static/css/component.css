@@ -303,6 +303,17 @@ a.button{
   text-align: center;
 }
 
+.logo .mat-button{
+	min-width: 0;
+	padding: 0;
+	margin: 0 8px 0 0;
+}
+
+.logo .mat-button:last-child{
+	padding: 0;
+	margin: 0 ;
+}
+
 
 
 .nav-container{
@@ -1542,8 +1553,7 @@ input[type=text]:focus, textarea:focus{
 }
 
 .mat-button .btn-icon, .mat-button .icon, button .btn-icon, button .icon{
-	width: 24px;
-	height: 24px;
+	font-size: x-large;
 	margin: 0 8px 0 0;
 }
 
