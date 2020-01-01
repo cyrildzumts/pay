@@ -16,7 +16,7 @@
 
                                 {% if has_idcard is True %}
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a> </li>
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' request.user.idcard.pk %}"> {% trans "Update my ID Card" %}</a> </li>
+                                <li class="action list-item"><a class="mat-button mat-button-text" href="{{request.user.idcard.get_update_url}}"> {% trans "Update my ID Card" %}</a> </li>
 
                                 {% else %}
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{% url 'payments:upload-idcard'%}"> {% trans "Add an ID Card" %}</a> </li>

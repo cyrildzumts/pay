@@ -1992,7 +1992,7 @@ input[type=text]:focus, textarea:focus{
   	align-items: center;
 	justify-content: center;
 	position: absolute;
-	width: 350px;
+	/*width: 350px;*/
 	background-color: #fafafa;
 	top: 48px;
 	left: -350px;
@@ -2026,6 +2026,8 @@ input[type=text]:focus, textarea:focus{
 
 	.header--panel .mat-list .mat-list-item{
 		border-bottom: none;
+		width: auto;
+		margin: 0 16px 0 0;
 	}
 
 }
