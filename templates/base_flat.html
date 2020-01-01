@@ -32,13 +32,16 @@
 <body>
 <header class="header">
 {% block HEADER_PANEL %}
-<div class="header--panel row">
+<div class="header--panel">
   <div class="col col-1">
-    <button class="js-menu menu-button mat-button"><i class="btn-icon fas fa-bars"></i> {% trans "Menu" %}</button>
-    <button class="js-menu-close menu-close menu-button mat-button"><i class="btn-icon fas fa-times"></i> {% trans "Close" %}</button>
-    <ul class="logo">
-      <li><a class="mat-button mat-button-text" href="{%url 'home'%}">{{site_name}}</a></li>
-    </ul>
+   <div class="row">
+        <button class="js-menu menu-button mat-button"><i class="btn-icon fas fa-bars"></i> {% trans "Menu" %}</button>
+        <button class="js-menu-close menu-close menu-button mat-button"><i class="btn-icon fas fa-times"></i> {% trans "Close" %}</button>
+        <ul class="logo">
+            <li><a class="mat-button mat-button-text" href="{%url 'home'%}">{{site_name}}</a></li>
+        </ul>
+   </div>
+    
   </div>
     <ul class="site-panel">
       <li><a class="mat-button mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
