@@ -34,12 +34,13 @@
 {% block HEADER_PANEL %}
 <div class="header--panel row">
   <div class="col col-1">
+    <button class="js-menu menu-button mat-button"><i class="btn-icon fas fa-bars"></i> {% trans "Menu" %}</button>
+    <button class="js-menu-close menu-close menu-button mat-button"><i class="btn-icon fas fa-times"></i> {% trans "Close" %}</button>
     <ul class="logo">
       <li><a class="mat-button mat-button-text" href="{%url 'home'%}">{{site_name}}</a></li>
     </ul>
   </div>
-  <div class="col col-11">
-    <ul class="row site-panel">
+    <ul class="site-panel">
       <li><a class="mat-button mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
       {% if is_dashboard_allowed %}
        <li><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
@@ -78,7 +79,6 @@
         {% endblock GRID %}
         {% endif %}
     </ul>
-  </div>
 </div>
 {% endblock HEADER_PANEL %}
 

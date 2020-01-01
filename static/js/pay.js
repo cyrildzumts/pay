@@ -942,6 +942,21 @@ slider.init();
     $('.js-need-confirmation').on('click', function(event){
         return confirm("This action is irreversible. Do you to want proceed ?");
     });
+    $('.js-menu').on('click', function(){
+        console.log("opening site menu");
+        $('.site-panel').css('left', 0);
+        $('.js-menu-close').show();
+        $(this).hide();
+
+    });
+    $('.js-menu-close').on('click', function(){
+        console.log("closing site menu");
+        var panel = $('.site-panel');
+        var left = '-' + panel.css('left');
+        panel.css('left', left );
+        $('.js-menu').show();
+        $(this).hide();
+    });
 });
 
 
