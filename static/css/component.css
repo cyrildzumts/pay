@@ -563,7 +563,8 @@ a.button{
   margin: 0 0 16px 0;
 }
 
-.mat-card .card__image img, .mat-card .card__image object{
+.mat-card .card__image img, .mat-card .card__image object,
+.mat-card .card--image img, .mat-card .card--image object{
   min-width: 100%;
   height: 100%;
   object-fit: contain;
@@ -608,7 +609,7 @@ a.button{
 }
 
 
-.mat-card .card__title{
+.mat-card .card__title, .mat-card .card--title{
   min-width: 100%;
   padding: 16px;
 }
@@ -693,6 +694,7 @@ a.button{
 
 .tab-content{
   padding: 16px;
+  justify-content: start;
 }
 
 .tab{

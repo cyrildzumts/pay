@@ -135,38 +135,39 @@
                 </div>
                 </footer>
         </div>
+{% block NOTIFICATIONS %}
         <div id="notifications-wrapper" class="flex-column notifications-wrapper">
-          <div class="row notifications-controls">
-                <button class="mat-button mat-button-default"><i class="button-icon icon"></i> <span class="button-text">{% trans "Close all" %}</span></button>
-          </div>
-          {% if messages %}
-                <ul class="messages">
-                {% for message in messages %}
-                        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
-                {% endfor %}
-                
-                </ul>
-                
-        {% endif %}
-        
-          <div class="notifications-container">
-
-                <ul id="notifications" class="notification-list">
-                   {% if notifications %}
-                        {% for notification in notifications %}
-                        <li class="notification-contaner">
-                                <div class="notification box">
-                                        <span class="js-close"></span>
-                                        <div class="title">{{notification.title}}</div>
-                                        <div class="content">{{notification.content}}</div>
-                                </div>
-                        </li>
+                <div class="row notifications-controls">
+                        <button class="mat-button mat-button-default"><i class="button-icon icon"></i> <span class="button-text">{% trans "Close all" %}</span></button>
+                </div>
+                {% if messages %}
+                        <ul class="messages">
+                        {% for message in messages %}
+                                <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
                         {% endfor %}
-                   {% endif %}
-                </ul>
-          </div>
-        
+                        
+                        </ul>
+                        
+                {% endif %}
+                
+                <div class="notifications-container">
+
+                        <ul id="notifications" class="notification-list">
+                        {% if notifications %}
+                                {% for notification in notifications %}
+                                <li class="notification-contaner">
+                                        <div class="notification box">
+                                                <span class="js-close"></span>
+                                                <div class="title">{{notification.title}}</div>
+                                                <div class="content">{{notification.content}}</div>
+                                        </div>
+                                </li>
+                                {% endfor %}
+                        {% endif %}
+                        </ul>
+                </div>
         </div>
+{% endblock NOTIFICATIONS %}
 
         {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
          

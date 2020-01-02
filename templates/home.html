@@ -27,26 +27,21 @@
 </div><!--End of Banner-->
 {% endblock HEADER_BANNER %}
 
-{% block SIGNUP_DIALOG %}
-
-{% endblock SIGNUP_DIALOG %}
-
-
 {% block MAIN %}
 <div class="row">
   <div class="home-leading">
       <div class="full welcome-text center">
           <h2> {% trans "An ideal payment solution for everyone" %} </h2>
-          <p>
+          <div>
             {% blocktrans trimmed %}
             No more change problems
             {% endblocktrans %}
-          </p>
-          <p>
+          </div>
+          <div>
             {% blocktrans trimmed %}
             Wherever you are, pay with just one click
             {% endblocktrans %}
-          </p>
+          </div>
       </div>
   </div>
 </div>
@@ -57,7 +52,7 @@
                     <img class="contain" src="images/businessman.svg" alt="">
                 </div>
 
-                <div class="mat-card__body">
+                <div class="mat-card--body">
                     <div class="title center">
                     {% trans "Discover PAY" %}
                     </div>
@@ -69,7 +64,7 @@
                 </div>
 
 
-                <div class="mat-card__footer">
+                <div class="mat-card--footer">
                     <div class="card__actions">
                       <button class="mat-button mat-button-outlined">
                           {% trans "Learn more..." %}
@@ -81,12 +76,12 @@
 
         <div class="flex responsive">
             <div id="customer" class="mat-card">
-                <div class="card__image">
+                <div class="card--image">
                     <object class="contain" data="images/customer.svg" type="image/svg+xml"></object>
                     <!-- <img class="contain" src="images/customer.svg" alt=""> -->
                 </div>
 
-                <div class="mat-card__body">
+                <div class="mat-card--body">
                     <div class="title center">
                     {% trans "For individuals" %}
                     </div>
@@ -98,8 +93,8 @@
                 </div>
 
 
-                <div class="mat-card__footer">
-                    <div class="card__actions">
+                <div class="mat-card--footer">
+                    <div class="actions">
                       <button class="mat-button mat-button-outlined">
                           {% trans "Learn more" %}
                       </button>
