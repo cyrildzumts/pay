@@ -85,7 +85,7 @@ def transactions(request):
     context = {}
     #current_account = Account.objects.get(user=request.user)
     #user_transactions = Transaction.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
-    template_name = "payments/transaction_home.html"
+    template_name = "payments/transactions_home.html"
     page_title = "Transactions" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     #context['transactions'] = user_transactions
