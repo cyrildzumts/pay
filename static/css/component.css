@@ -180,14 +180,15 @@ li a{
 	margin-bottom: 16px;
 }
 
-.banner--actions{
+.banner--actions, .actions{
 	display: flex;
 	width: 100%;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
 
-.banner--actions .mat-button {
+.banner--actions .mat-button, .actions .mat-button  {
 	margin: 0 8px;
 }
 
@@ -2068,6 +2069,10 @@ input[type=text]:focus, textarea:focus{
 		border-bottom: none;
 		width: auto;
 		margin: 0 16px 0 0;
+	}
+
+	.banner--actions, .actions{
+		flex-direction: row;
 	}
 
 	.mat-table{

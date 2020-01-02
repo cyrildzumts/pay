@@ -15,13 +15,16 @@
                     
                 </div><!--End of Banner-Content-->
                 <div class="banner--actions">
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a>
+                        <a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a>
+                        {% if has_idcard %}
+                        <a class="mat-button mat-button-text" href="{{idcard.get_absolute_url}}"> {% trans "IDCard Detail" %}</a>
+                        <a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID" %}</a>
+                        {% else %}
+                        <a class="mat-button mat-button-text" href="{%url 'payments:upload-idcard' %}"> {% trans "Upload my ID" %}</a>
+                        {% endif %}
                         <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
                         <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transfers' %}"> {% trans "Transfer History" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:services' %}"> {% trans "Service Usage History" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a>
                 </div><!--End of Banner-Actions-->
             </div><!--End of Responsive-->
         
@@ -39,12 +42,7 @@
                                 
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li>
                                 
-                                {% if has_idcard %}
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{{idcard.get_absolute_url}}"> {% trans "IDCard Detail" %}</a> </li>
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID" %}</a> </li>
-                                {% else %}
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:upload-idcard' %}"> {% trans "Upload my ID" %}</a> </li>
-                                {% endif %}
+                                
                         </ul>
                 </div>
         </div>

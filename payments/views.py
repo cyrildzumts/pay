@@ -83,13 +83,12 @@ def ajax_validate_payment(request):
 @login_required
 def transactions(request):
     context = {}
-    current_account = Account.objects.get(user=request.user)
-    user_transactions = Transaction.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
-    template_name = "payments/transaction_list.html"
-    page_title = "Your Transactions" + " - " + settings.SITE_NAME
+    #current_account = Account.objects.get(user=request.user)
+    #user_transactions = Transaction.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    template_name = "payments/transaction_home.html"
+    page_title = "Transactions" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['transactions'] = user_transactions
-    logger.debug("%s requested transactions list", current_account.full_name())
+    #context['transactions'] = user_transactions
     return render(request,template_name, context)
 
 
