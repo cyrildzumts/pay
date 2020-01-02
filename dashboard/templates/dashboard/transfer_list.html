@@ -22,25 +22,26 @@
         </div><!--End of Row-->
         
         <table id="service-list" class="mat-table js-filter-table">
+          <caption>{% trans "Transfer History" %}</caption>
           <thead>
                   <tr>
                           <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                          <th>{% trans "Sender" %}</th>
-                          <th>{% trans "Recipient" %}</th>
-                          <th>{% trans "Amount" %}</th>
-                          <th>{% trans "Date of usage" %}</th>
-                          <th>{% trans "Details" %}</th>
+                          <th scope="col">{% trans "Sender" %}</th>
+                          <th scope="col">{% trans "Recipient" %}</th>
+                          <th scope="col">{% trans "Amount" %}</th>
+                          <th scope="col">{% trans "Date" %}</th>
+                          <th scope="col">{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
                   {% for xfer in transfers  %}
                   <tr>
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                    <td>{{xfer.sender.username}}</td>
-                    <td>{{xfer.recipient.username}}</td>
-                    <td>{{xfer.amount}} {% trans "XAF" %}</td>
-                    <td>{{xfer.created_at}}</td>
-                    <td><a class="mat-button mat-button-default" href="{{xfer.get_dashboard_absolute_url}}">{% trans "More" %} ...</a></td>
+                    <td scope="row" data-label="Sender">{{xfer.sender.username}}</td>
+                    <td data-label="Recipient">{{xfer.recipient.username}}</td>
+                    <td data-label="Amount">{{xfer.amount}} {% trans "XAF" %}</td>
+                    <td data-label="Date">{{xfer.created_at}}</td>
+                    <td data-label="Details"><a class="mat-button mat-button-default" href="{{xfer.get_dashboard_absolute_url}}">{% trans "More" %} ...</a></td>
                   </tr>
                   {% endfor %}
                   

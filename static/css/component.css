@@ -1420,7 +1420,7 @@ input[type=text]:focus, textarea:focus{
 	/*border-radius: 4px;*/
 	background-color: #fafafa88;
 	padding : 0;
-	margin: 0 16px;
+	margin: 16px;
 }
 .mat-card .card-header-wrapper{
 	padding: 8px 16px;
@@ -1850,14 +1850,31 @@ input[type=text]:focus, textarea:focus{
 }
 
 .mat-table{
+
 	width: 100%;
-	
+	table-layout: fixed;
 	border-collapse: collapse;
+	border: 0;
 	
-	
-	padding: 16px;
+	padding: 0;
+	margin : 0;
 }
 
+.mat-table caption{
+	font-size: 1.3em;
+	margin: .5em 0 .75em;
+}
+
+
+.mat-table thead{
+	border: none;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+	position: absolute;
+}
 .mat-table .table-header{
 	width: 100%;
 	height: 56px;
@@ -1869,21 +1886,42 @@ input[type=text]:focus, textarea:focus{
 }
 
 .mat-table tr{
-	width: 100%;
-	height: 52px;
-	border-bottom: 1px solid #ccc;
-	text-align: left;
+	display: block;
+	/*height: 52px;*/
+	border-bottom: 2px solid #ddd;
+	padding: 0;
+	margin-bottom: 0.625em;
+}
+
+.mat-table td, .mat-table th{
+	padding: 0.625em;
+	text-align: center;
 }
 
 .mat-table td{
-	padding: 6px 16px;
-	text-align: left;
+	display: block;
+	font-size: 0.8em;
+	text-align: right;
+	border-bottom: 1px solid #ddd;
+}
+
+.mat-table td::before{
+	content: attr(data-label);
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.mat-table td:last-child{
+	border-bottom: 0;
 }
 
 .mat-table th{
-	height: 56px;
-	text-align: left;
-	padding: 6px 16px;
+	font-size: 0.85em;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	/*height: 56px;*/
+	/*text-align: left;*/
+	/*padding: 6px 16px;*/
 }
 .mat-table-filter {
 	display: flex;
@@ -2030,6 +2068,49 @@ input[type=text]:focus, textarea:focus{
 		border-bottom: none;
 		width: auto;
 		margin: 0 16px 0 0;
+	}
+
+	.mat-table{
+
+		border: 1px solid #ccc;
+	}
+	
+	.mat-table caption{
+		font-size: 1.5em;
+	}
+	
+	.mat-table .table-header{
+		width: 100%;
+		height: 56px;
+	}
+	
+	
+	.mat-table tr{
+		/*height: 52px;*/
+		border: 1px solid #ddd;
+		padding: .35em;
+	}
+	
+	.mat-table td, .mat-table th{
+		padding: 0.625em;
+		text-align: center;
+	}
+	
+	.mat-table td{
+		padding: 6px 16px;
+	}
+
+	.mat-table td::before{
+		content: unset;
+	}
+	
+	.mat-table th{
+		font-size: 0.85em;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		/*height: 56px;*/
+		/*text-align: left;*/
+		/*padding: 6px 16px;*/
 	}
 
 }
