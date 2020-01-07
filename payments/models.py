@@ -175,7 +175,7 @@ class AvailableService(models.Model):
         """
         This method returns the url that is used to query the details of this models.
         """
-        return reverse('payments:new-service', kwargs={'available_uuid':self.available_uuid})
+        return reverse('payments:new-service', kwargs={'available_service_uuid':self.available_uuid})
 
     def get_dashboard_absolute_url(self):
         """
