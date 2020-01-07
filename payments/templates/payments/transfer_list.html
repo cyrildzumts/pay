@@ -4,7 +4,9 @@
     <h4> {% trans "Transfer History"%}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
-
+<ul class="listview">
+  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a Transfer" %} </a></li>
+</ul>
 <div class="container">
 
     <div class="mat-table-wrapper">

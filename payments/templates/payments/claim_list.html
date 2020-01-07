@@ -4,9 +4,7 @@
     <h4> {% trans "Claim History"%}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
-<ul class="listview">
-  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-payment' %}"> {% trans "Make a Payment" %} </a></li>
-</ul>
+
 <div class="container">
 
     {% if claim_list %}
