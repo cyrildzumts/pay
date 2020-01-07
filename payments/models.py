@@ -170,6 +170,12 @@ class AvailableService(models.Model):
         This method returns the url that is used to query the details of this models.
         """
         return reverse('payments:available-service-detail', kwargs={'available_uuid':self.available_uuid})
+    
+    def get_usage_url(self):
+        """
+        This method returns the url that is used to query the details of this models.
+        """
+        return reverse('payments:new-service', kwargs={'available_uuid':self.available_uuid})
 
     def get_dashboard_absolute_url(self):
         """

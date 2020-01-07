@@ -248,7 +248,7 @@ def services(request):
     template_name = "payments/service_list.html"
     page_title = "Services" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['services'] = list_set
+    context['service_list'] = list_set
     return render(request,template_name, context)
 
 
@@ -497,7 +497,7 @@ def payments(request):
     template_name = "payments/payment_list.html"
     page_title = "Payments" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['payments'] = list_set
+    context['payment_list'] = list_set
     return render(request,template_name, context)
 
 

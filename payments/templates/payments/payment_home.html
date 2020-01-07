@@ -5,13 +5,12 @@
 <div class="row">
         <div class="tabs">
                 <div class="tabs--title">
-                        <div class="full welcome-text center">
-                                <p> {% trans "Welcome" %} {{name}}</p>
-                        </div>
+                        
                 </div>
                 <div class="row">
                         <ul  class="action-list listview">
                                 <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a> </li>
+                                <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a> </li>
                                 <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a> </li>
 
                                 {% if has_idcard is True %}

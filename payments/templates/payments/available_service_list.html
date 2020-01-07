@@ -1,18 +1,46 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
-
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Available Service"%}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
 
 <div class="container">
-    {% for service in available_services %}
-        <div class="box">
-          <p> {% trans "Name" %} : {{service.name}} </p>
-          <p> {% trans "Category" %} : {{service.category.category_name}} </p>
-          <p> {% trans "Date" %} : {{service.created_at}} </p>
-          <a class="mat-button mat-button-text link" href="{{service.get_absolute_url}}"> {% trans "More" %} ...</a>
-        </div>
-    {% empty %}
-    <p> {% trans "There are no  services available now" %} ...</p>
-    {% endfor %}
+{% if available_service_list %}
+
+    <div class="mat-table-wrapper">
+        <table id="service-list" class="mat-table js-filter-table">
+                  <caption>{% trans "Service List" %}</caption>
+                  <thead>
+                          <tr>
+                                  <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                                  <th>{% trans "Name" %}</th>
+                                  <th>{% trans "Category" %}</th>
+                                  <th>{% trans "Date" %}</th>
+                                  <th>{% trans "Details" %}</th>
+                          </tr>
+                  </thead>
+                  <tbody>
+                          {% for service in available_service_list  %}
+                          <tr>
+                            <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
+                            <td data-label="{% trans 'Name' %}">{{service.name}}</td>
+                            <td data-label="{% trans 'Category' %}">{{service.category.category_name}} </td>
+                            <td data-label="{% trans 'Date' %}">{{service.created_at}}</td>
+                            <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{service.get_absolute_url}}">{% trans "More" %} ...</a></td>
+                          </tr>
+                          {% endfor %}
+                          
+                  </tbody>
+                  <tfoot>
+                          
+                  </tfoot>
+
+        </table>
+    {% include "tags/pagination.html" with page_set=available_service_list %}
+    </div>
+{% else %}
+<p> {% trans "There is currently no service available" %}</p>
+{% endif %}
 </div>
 {% endblock MAIN %}
