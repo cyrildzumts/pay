@@ -426,11 +426,19 @@ def service_category_details(request, category_uuid=None):
 @login_required
 def available_services(request):
     context = {}
-    available_services = AvailableService.objects.all()
+    queryset = AvailableService.objects.all()
     template_name = "payments/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['available_services'] = available_services
+    context['available_service_list'] = list_set
     return render(request,template_name, context)
 
 
@@ -582,11 +590,19 @@ def policy_details(request, policy_uuid=None):
 @login_required
 def cases(request):
     context = {}
-    user_claims = CaseIssue.objects.filter(Q(participant_1=request.user) | Q(participant_2=request.user) )
+    queryset = CaseIssue.objects.filter(Q(participant_1=request.user) | Q(participant_2=request.user) )
     template_name = "payments/claim_list.html"
     page_title = "Claims" + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
     context['page_title'] = page_title
-    context['claims'] = user_claims
+    context['claim_list'] = list_set
     return render(request,template_name, context)
 
 @login_required
