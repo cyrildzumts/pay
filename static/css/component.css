@@ -1876,11 +1876,12 @@ input[type=text]:focus, textarea:focus{
 }
 
 .mat-table tr{
-	display: flex;
+	/*display: flex;*/
+	display: block;
 	/*height: 52px;*/
-	flex-direction: column;
-	align-items: center;
-	justify-content: start;
+	/*flex-direction: column;*/
+	/*align-items: center;*/
+	/*justify-content: start;*/
 	border-bottom: 2px solid #ddd;
 	padding: 0;
 	margin-bottom: 0.625em;
@@ -1899,11 +1900,11 @@ input[type=text]:focus, textarea:focus{
 }
 
 .mat-table td::before{
-	display: inline-block;
 	content: attr(data-label);
+	float: left;
 	font-weight: 600;
 	text-transform: uppercase;
-	width: 25%;
+	/*width: 25%;*/
 }
 
 .mat-table td:last-child{
@@ -2099,7 +2100,7 @@ input[type=text]:focus, textarea:focus{
 	
 	.mat-table tr{
 		/*height: 52px;*/
-		flex-direction: row;
+		/*flex-direction: row;*/
 		border: 1px solid #ddd;
 		padding: .35em;
 	}
