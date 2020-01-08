@@ -75,7 +75,7 @@
 .col-xs-10 { width: 83.333%; }
 .col-xs-11 { width: 91.666%; }
 .col-xs-12 { width: 100%; }
-
+.hidden-xs {display: none;}
 /**********************************/
 .col-flex-1 { flex-basis: 8.333%; }
 .col-flex-2 { flex-basis: 16.666%; }
@@ -233,7 +233,7 @@
 .col-11 { width: 91.666%; }
 .col-12 { width: 100%; }
 .hidden {display: none;}
-.hidden-xs {display: none;}
+
 }
 
 
