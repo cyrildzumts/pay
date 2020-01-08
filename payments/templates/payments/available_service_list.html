@@ -7,7 +7,7 @@
 
 <div class="container">
 {% if available_service_list %}
-
+<div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">
         <table id="service-list" class="mat-table js-filter-table">
                   <caption>{% trans "Service List" %}</caption>
@@ -39,8 +39,10 @@
         </table>
     {% include "tags/pagination.html" with page_set=available_service_list %}
     </div>
+
 {% else %}
-<p> {% trans "There is currently no service available" %}</p>
+    <p> {% trans "There is currently no service available" %}</p>
+</div>
 {% endif %}
 </div>
 {% endblock MAIN %}

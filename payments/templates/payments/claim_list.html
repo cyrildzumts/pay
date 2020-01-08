@@ -8,7 +8,7 @@
 <div class="container">
 
     {% if claim_list %}
-    
+  <div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">
         <table id="claim-list" class="mat-table js-filter-table">
           <caption>{% trans "Claim List" %}</caption>
@@ -48,6 +48,7 @@
     </div><!--End of Table Wrapper-->
     {% else %}
     <p> {% trans "There is no claim yet" %}.</p>
+    </div>
     {% endif %}
 </div>
 {% endblock MAIN %}

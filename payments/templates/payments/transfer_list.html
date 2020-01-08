@@ -8,7 +8,8 @@
   <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a Transfer" %} </a></li>
 </ul>
 <div class="container">
-
+    <div class="col-xs-12 col-6">
+    {% if transfer_list %}
     <div class="mat-table-wrapper">
 
         
@@ -44,6 +45,9 @@
     </table>
     {% include "tags/pagination.html" with page_set=transfer_list %}
     </div><!--End of Table Wrapper-->
-
+    {% else %}
+    <p> {% trans "You haven't made any transfer yet" %}</p>
+    {% endif %}
+  </div>
 </div>
 {% endblock MAIN %}

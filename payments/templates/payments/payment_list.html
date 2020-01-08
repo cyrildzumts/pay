@@ -10,7 +10,7 @@
 <div class="container">
 
     {% if payment_list %}
-    
+   <div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">
         <table id="payment-list" class="mat-table js-filter-table">
           <caption>{% trans "Payment List" %}</caption>
@@ -47,5 +47,6 @@
     {% else %}
     <p> {% trans "You haven't made any Payments" %}.</p>
     {% endif %}
+    </div>
 </div>
 {% endblock MAIN %}

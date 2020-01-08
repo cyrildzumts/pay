@@ -4,6 +4,7 @@
 {% block MAIN %}
 
 <div class="container">
+    <div class="col-xs-12 col-6">
     {% for policy in policies %}
         <div class="box">
            <p> {% trans "Commission" %} : {{policy.commission}}</p>  
@@ -12,5 +13,7 @@
     {% empty %}
     <p> {% trans "There is no policies now." %} ...</p>
     {% endfor %}
+
+    </div>
 </div>
 {% endblock MAIN %}
