@@ -8,7 +8,7 @@
     {% for policy in policies %}
         <div class="box">
            <p> {% trans "Commission" %} : {{policy.commission}}</p>  
-          <a class="mat-button mat-button-text" href="{{policy.get_absolute_url}}">{% trans "More" %} ...</a>
+          <a class="mat-button mat-button-text" href="{{policy.get_absolute_url}}">{% trans "More" %}</a>
         </div>
     {% empty %}
     <p> {% trans "There is no policies now." %} ...</p>

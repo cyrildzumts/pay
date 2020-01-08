@@ -34,7 +34,7 @@
                     <td data-label="{% trans 'Amount' %}">{{claim.amount}} {% trans "XAF" %}</td>
                     <td data-label="{% trans 'Status' %}">{% if claim.is_closed %}{% trans "Closed" %} {%else%}{% trans "Opened" %}{% endif %}</td>
                     <td data-label="{% trans 'Date' %}">{{claim.created_at}}</td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{claim.get_absolute_url}}">{% trans "More" %} ...</a></td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{claim.get_absolute_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}
                   

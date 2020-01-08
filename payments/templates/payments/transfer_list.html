@@ -33,7 +33,7 @@
                     <td data-label="{% trans 'Recipient' %}">{{xfer.recipient.username}}</td>
                     <td data-label="{% trans 'Amount' %}">{{xfer.amount}} {% trans "XAF" %}</td>
                     <td data-label="{% trans 'Date' %}">{{xfer.created_at}}</td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{xfer.get_absolute_url}}">{% trans "More" %} ...</a></td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{xfer.get_absolute_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}
                   
