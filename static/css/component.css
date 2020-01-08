@@ -1875,18 +1875,6 @@ input[type=text]:focus, textarea:focus{
 	height: 48px;
 }
 
-.mat-table tr{
-	/*display: flex;*/
-	display: block;
-	/*height: 52px;*/
-	/*flex-direction: column;*/
-	/*align-items: center;*/
-	/*justify-content: start;*/
-	border-bottom: 2px solid #ddd;
-	padding: 0;
-	margin-bottom: 0.625em;
-}
-
 .mat-table td, .mat-table th{
 	padding: 0.625em;
 	text-align: center;
@@ -2032,6 +2020,18 @@ input[type=text]:focus, textarea:focus{
 		clip: rect(0 0 0 0);
 		overflow: hidden;
 		position: absolute;
+	}
+
+	.mat-table tr{
+		/*display: flex;*/
+		display: block;
+		/*height: 52px;*/
+		/*flex-direction: column;*/
+		/*align-items: center;*/
+		/*justify-content: start;*/
+		border-bottom: 2px solid #ddd;
+		padding: 0;
+		margin-bottom: 0.625em;
 	}
 
 	.mat-table td{
