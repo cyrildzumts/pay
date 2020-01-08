@@ -8,6 +8,7 @@
 
 
 <div class="container">
+  <div class="col-xs-12 col-6">
     {% for claim in claims %}
         <div class="card">
            <p> {% trans "Subject" %} : {{claim.subject}}</p>
@@ -23,6 +24,7 @@
     {% empty %}
     <p> {% trans "There is no claims now." %} ...</p>
     {% endfor %}
+  </div>
 </div>
 
 {% else %}

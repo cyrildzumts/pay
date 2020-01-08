@@ -5,6 +5,7 @@
 
 {% if can_view_payment %}
 <div class="container">
+<div class="col-xs-12 col-6">
     {% for payment in payments %}
         <div class="card">
           <p> {% trans "Sender" %} : {{payment.sender.full_name}} </p>
@@ -17,6 +18,7 @@
     <p> {% trans "You haven't made any Payments" %} ...</p>
     <a class="mat-button mat-button-text" href="{% url 'payments:new-payment' %}"> {% trans "Make a Payment" %} </a>
     {% endfor %}
+  </div>
 </div>
 {% else %}
 <div class="access-error">

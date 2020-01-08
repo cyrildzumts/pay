@@ -32,6 +32,7 @@
 
 <div class="container">
     {% if groups %}
+    <div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">
         <div class="row">
             <div class="mat-table-title">
@@ -73,6 +74,7 @@
     {% else %}
     <p> {% trans "There is currently no Group" %} ...</p>
     {% endif %}
+    </div>
 </div>
 {% else %}
 <div class="access-error">
