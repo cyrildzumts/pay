@@ -403,7 +403,7 @@ def service_verify(request):
 @login_required
 def service_categories(request):
     context = {}
-    categories = ServiceCategory.objects.select_related("available_services").filter(is_active=True)
+    categories = ServiceCategory.objects.filter(is_active=True)
     template_name = "payments/service_category_list.html"
     page_title = "Service Categories" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
