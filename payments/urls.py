@@ -44,6 +44,5 @@ urlpatterns = [
     path('recharge/', views.recharge, name='recharge'),
     path('service-categories/', views.service_categories, name='service-categories'),
     path('service-categories/<uuid:category_uuid>/', views.service_category_details, name='service-categories-detail'),
-    
 
 ]

@@ -2,15 +2,21 @@
 {% load i18n %}
 
 {% block MAIN %}
-
-<div class="container">
-    {% for category in categories %}
-        <div class="box">
-          <p> {% trans "Name" %} : {{category.category_name}} </p>
-          <p> {% trans "Date" %} : {{category.created_at}} </p>
-        </div>
-    {% empty %}
-    <p> {% trans "There is no service categories" %} </p>
+<nav class="">
+  <ul class="mat-list">
+    {% for cat in category_list %}
+    <li class="mat-list-item">
+      {{cat.category_name}}
+      <ul class="mat-list">
+         {% for service in cat.available_services %}
+         <li class="mat-list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
+         {% empty %}
+         <li class="mat-list-item"><span class="mat-button mat-button-text">{% trans "No service available" %}</span></li>
+         {% endfor %}
+      </ul>
+    </li>
     {% endfor %}
-</div>
+  </ul>
+</nav>
+
 {% endblock MAIN %}

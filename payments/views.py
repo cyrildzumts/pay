@@ -43,8 +43,6 @@ def payment_home(request):
     context = {
         'page_title' : page_title,
     }
-
-
     return render(request=request, template_name=template_name, context=context)
 
 @csrf_protect
@@ -405,11 +403,11 @@ def service_verify(request):
 @login_required
 def service_categories(request):
     context = {}
-    categories = ServiceCategory.objects.filter(is_active=True)
+    categories = ServiceCategory.objects.select_related("available_services").filter(is_active=True)
     template_name = "payments/service_category_list.html"
     page_title = "Service Categories" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['categories'] = categories
+    context['category_list'] = categories
     return render(request,template_name, context)
 
 

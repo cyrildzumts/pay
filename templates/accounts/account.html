@@ -24,6 +24,7 @@
                         {% endif %}
                         <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
                         <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:payment-home' %}"> {% trans "Payments" %}</a>
                         <a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a>
                 </div><!--End of Banner-Actions-->
             </div><!--End of Responsive-->
@@ -35,18 +36,9 @@
 {% block MAIN %}
 
 <div class="row">
-        <div class="tabs">
-                
-                <div class="row">
-                        <ul  class="action-list listview">
-                                
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li>
-                                
-                                
-                        </ul>
-                </div>
-        </div>
-        <!--End of tabs-->
+        <ul class="listview">
+            <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li> 
+        </ul>
 </div>
 <div class="container">
     {% if has_payments %}
@@ -61,5 +53,4 @@
 
    
 </div>
-
 {% endblock MAIN %}
