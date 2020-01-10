@@ -2,21 +2,23 @@
 {% load i18n %}
 
 {% block MAIN %}
-<nav class="">
-  <ul class="mat-list">
-    {% for cat in category_list %}
-    <li class="mat-list-item">
-      {{cat.category_name}}
-      <ul class="mat-list">
-         {% for service in cat.available_services.all %}
-         <li class="mat-list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
-         {% empty %}
-         <li class="mat-list-item"><span class="mat-button mat-button-text">{% trans "No service available" %}</span></li>
-         {% endfor %}
-      </ul>
-    </li>
-    {% endfor %}
-  </ul>
-</nav>
+<div class="container">
+  <div class="col-xs-12 col-6">
+    <ul class="nav">
+      {% for cat in category_list %}
+      <li class="mat-list-item">
+        {{cat.category_name}}
+        <ul class="mat-list">
+          {% for service in cat.available_services.all %}
+          <li class="mat-list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
+          {% empty %}
+          <li class="mat-list-item"><span class="mat-button mat-button-text">{% trans "No service available" %}</span></li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 
 {% endblock MAIN %}

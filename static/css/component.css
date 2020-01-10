@@ -60,25 +60,6 @@ ul, nav, .nav{
 	overflow: hidden;
 }
 
-.nav-vertical{
-	display: flex !important;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	list-style-type: none;
-	padding: 0 16px;
-}
-
-.nav-horizontal{
-	display: flex !important;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	list-style-type: none;
-	padding: 0 16px;
-}
-
-
 li a{
 	display: block;
 	text-align: center;
@@ -326,13 +307,21 @@ a.button{
 .nav{
   display: flex;
   flex-wrap: nowrap;
-  align-content: center;
+  align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
   overflow: hidden;
   position: relative;
   width: 100%;
+}
+
+.nav-v{
+	flex-direction: column;
+}
+
+.nav-h{
+	flex-direction: row;
 }
 
 .nav a, .logo a{
@@ -383,16 +372,6 @@ a.button{
   text-align: center;
   font-size: 1.75em;
 }
-
-
-.nav-v{
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-items: center;
-  padding: 0;
-}
-
 
 /* Design Component */
 .wrapper{
