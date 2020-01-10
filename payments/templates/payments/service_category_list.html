@@ -7,14 +7,20 @@
     <ul class="nav">
       {% for cat in category_list %}
       <li class="mat-list-item">
-        {{cat.category_name}}
-        <ul class="mat-list">
-          {% for service in cat.available_services.all %}
-          <li class="mat-list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
-          {% empty %}
-          <li class="mat-list-item"><span class="mat-button mat-button-text">{% trans "No service available" %}</span></li>
-          {% endfor %}
-        </ul>
+        <div class="dropdown">
+            <span class="mat-button mat-button-text dropdown-toggle">{{cat.category_name}}</span>
+            <div class="dropdown-content">
+              <ul class="listview">
+                {% for service in cat.available_services.all %}
+                <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
+                {% empty %}
+                <li class="list-item"><span class="mat-button mat-button-text">{% trans "No service available" %}</span></li>
+                {% endfor %}
+              </ul>
+            </div>
+        </div>
+        
+        
       </li>
       {% endfor %}
     </ul>

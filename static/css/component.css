@@ -1921,6 +1921,10 @@ input[type=text]:focus, textarea:focus{
 
 }
 
+.dropdown .dropdown-toggle:hover .dropdown-content{
+	display: block;
+}
+
 .dropdown-content{
 	display: none;
 	position: absolute;
