@@ -27,6 +27,9 @@
   --nav-link-hover-color: #242424;
   --form-bg: transparent;
   --form-color: #242424;
+  --disabled-color: #ccc;
+  --disabled-bg-color: #fafafa;
+  --disabled-hover-bg-color: #aaaaaa;
 
 }
 
@@ -640,6 +643,16 @@ a.button{
 
 .active{
   border-bottom: 2px solid var(--btn-color);
+}
+
+.disabled{
+	color:var(--disabled-color);
+	background-color: var(--disabled-bg-color);
+	cursor: default;
+}
+
+.disabled:hover{
+	background-color: var(--disabled-hover-bg-color)
 }
 
 

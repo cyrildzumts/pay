@@ -14,7 +14,7 @@
                 {% for service in cat.available_services.all %}
                 <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
                 {% empty %}
-                <li class="list-item"><span class="mat-button mat-button-text">{% trans "No service available" %}</span></li>
+                <li class="list-item"><span class="mat-button mat-button-text disabled">{% trans "No service available" %}</span></li>
                 {% endfor %}
               </ul>
             </div>
