@@ -648,7 +648,7 @@ a.button{
 .disabled{
 	color:var(--disabled-color);
 	background-color: var(--disabled-bg-color);
-	cursor: default;
+	cursor: default !important;
 }
 
 .disabled:hover{
