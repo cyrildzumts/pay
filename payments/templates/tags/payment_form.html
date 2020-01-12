@@ -1,15 +1,17 @@
 {% load i18n %} 
 
-<div class="responsive">
+<div class="col-xs-12 col-6">
 
-    <div class="form-group">
-            <input id="recipient_name" type="text" name="recipient_name" placeholder="{% trans 'Enter the Seller name' %}">
-    </div>
+    {% include "tags/search_user_snipet.html" with target="#recipient" target_name="recipient" %}
     <form id="payment-form" name="payment" action="{% url 'payments:new-payment' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
+        <input type="hidden" name="recipient" id="recipient">
         <div class="form-group">
-            <input type="hidden" name="recipient" id="recipient">
+            <label for="amount">{% trans "Amount" %}</label>
             <input type="text" name="amount" placeholder="{% trans 'Enter the amount to be paid' %}">
+        </div>
+        <div class="form-group">
+            <label for="details">{% trans "Description" %}</label>
             <input type="text" name="details" placeholder="{% trans 'Payment description' %}">
         </div>
         <div class="form-group row">

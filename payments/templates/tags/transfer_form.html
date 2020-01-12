@@ -1,12 +1,13 @@
 {% load i18n %} 
 
-<div class="responsive">
+<div class="col-xs-12 col-6">
 
+    {% include "tags/search_user_snipet.html" with target="#recipient" target_name="recipient" %}
     <form name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
-        <div class="form-group">
-            <input type="hidden" name="sender" value="{{request.user.pk}}">
-        </div>
-        <div class="form-group">
+        <input type="hidden" name="sender" value="{{request.user.pk}}">
+        <input type="hidden" name="recipient" id="recipient">
+
+        {% comment %}<div class="form-group">
             <label for="recipient">{% trans "Recipient" %}</label>
             <select id="recipient" name="recipient" >
                 <option value="">{% trans "Select the Recipient" %}</option>
@@ -17,11 +18,15 @@
             </select>
         
         </div>
+        {% endcomment %}    
+    
         <div class="form-group">
-            <input type="text" name="amount" placeholder="{% trans 'Amout in XAF' %}">
+            <label for="amount">{% trans "Amount" %}</label>
+            <input id="amount" type="text" name="amount" placeholder="{% trans 'Amout in XAF' %}">
         </div>
         <div class="form-group">
-            <input type="text" name="details" placeholder="{% trans 'Details' %}">
+            <label for="details">{% trans "Description" %}</label>
+            <input id="details" type="text" name="details" placeholder="{% trans 'Details' %}">
         </div>
         <div class="form-group row row-right">
             <a class="mat-button mat-button-default" href="{% url 'home' %}"> {% trans "Cancel" %} </a>

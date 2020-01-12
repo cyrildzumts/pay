@@ -877,7 +877,6 @@ var userSearch = function(options){
 $('.js-user-search').on('keyup', function(event){
     event.stopPropagation();
     var query = $(this).val();
-    console.log("user search has changed %s", query);
     console.log("Send API request now ");
     query = query.trim()
     if(query.length == 0 ){

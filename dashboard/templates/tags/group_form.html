@@ -3,10 +3,8 @@
 {% if can_add_group %}
 
 
-<div class="responsive">
-    <div class="form-group">
-            
-    </div>
+<div class="col-xs-12 col-6">
+
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-create' %}" method="POST">{% csrf_token %}
         
         <div class="grid">
