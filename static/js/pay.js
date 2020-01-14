@@ -845,7 +845,7 @@ var scheduled_query = false;
 var query_delay = 800;
 var $user_search_result = $('#user-search-result');
 var $user_search_target = $($user_search_result.data('target'));
-var $user_search_target_name = $($user_search_result.data('target-name'));
+var $user_search_target_name = $("#" + $user_search_result.data('target-name'));
 
 var userSearch = function(options){
 
