@@ -2,7 +2,7 @@
 
 <div class="col-xs-12 col-6">
 
-    {% include "tags/search_user_snipet.html" with target="#recipient" target_name="recipient" %}
+    {% include "tags/search_user_snipet.html" with target="#recipient" target_name="recipient_name" %}
     <form id="payment-form" name="payment" action="{% url 'payments:new-payment' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">

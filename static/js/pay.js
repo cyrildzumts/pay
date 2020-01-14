@@ -855,7 +855,7 @@ var userSearch = function(options){
         $user_search_result.empty();
         response.forEach(function(user, index){
             var full_name = user.first_name + " " +  user.last_name;
-            $('<li>').data('user-id', user.id).data('user-name', full_name).html(full_name).
+            $('<li>').data('user-id', user.id).data('user-name', full_name).html(full_name + " [" + user.username + "]").
             on('click', function(event){
                 event.stopPropagation();
                 var user_id = $(this).data('user-id');
@@ -929,7 +929,6 @@ slider.init();
         else{
             console.log("Card not created");
         }
-        
     });
 
     $('.js-grid-enable').on('click', function(){
