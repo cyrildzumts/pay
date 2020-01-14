@@ -7,26 +7,15 @@
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">
 
-        {% comment %}<div class="form-group">
-            <label for="recipient">{% trans "Recipient" %}</label>
-            <select id="recipient" name="recipient" >
-                <option value="">{% trans "Select the Recipient" %}</option>
-            {% for user in contacts %}
-                <option value="{{user.pk}}">{{user.get_full_name}}</option>
-            {% endfor %}
-                
-            </select>
-        
-        </div>
-        {% endcomment %}    
-    
+        {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" %}
+
         <div class="form-group">
             <label for="amount">{% trans "Amount" %}</label>
             <input id="amount" type="text" name="amount" placeholder="{% trans 'Amout in XAF' %}">
         </div>
         <div class="form-group">
             <label for="details">{% trans "Description" %}</label>
-            <input id="details" type="text" name="details" placeholder="{% trans 'Details' %}">
+            <input id="details" type="text" name="details" placeholder="{% trans 'Description' %}">
         </div>
         <div class="form-group row row-right">
             <a class="mat-button mat-button-default" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
