@@ -845,7 +845,7 @@ var scheduled_query = false;
 var query_delay = 800;
 var $user_search_result = $('#user-search-result');
 var $user_search_target = $($user_search_result.data('target'));
-var $user_search_target_name = $("#" + $user_search_result.data('target-name'));
+var $user_search_target_name = $($user_search_result.data('target-name'));
 
 var userSearch = function(options){
 
@@ -861,6 +861,7 @@ var userSearch = function(options){
                 var user_id = $(this).data('user-id');
                 var user_name = $(this).data('user-name');
                 $user_search_target.val(user_id);
+                //$(".js-user-search").val(user_name);
                 $user_search_target_name.val(user_name);
                 $user_search_result.hide();
                 $user_search_result.empty();
