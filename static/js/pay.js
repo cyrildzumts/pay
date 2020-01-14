@@ -827,6 +827,22 @@ var JSFilter = (function(){
     return JSFilter;
 })();
 
+var isDirty = false;
+function prevent_leaving(){
+    isDirty = true;
+}
+function can_leave(){
+    isDirty = false;
+}
+
+function onbeforeunload(event){
+    event.preventDefault();
+    if(isDirty){
+        return undefined;
+    }
+    return true;
+}
+
 $(document).ready(function(){
 let account = new Account();
 account.init();
@@ -840,7 +856,7 @@ filter.init();
 
 var group = new Group();
 group.init();
-
+$(window).on('beforeunload', onbeforeunload);
 var scheduled_query = false;
 var query_delay = 800;
 var $user_search_result = $('#user-search-result');
@@ -956,6 +972,11 @@ slider.init();
         $('.js-menu').show();
         $(this).hide();
     });
+    $('form').on('change', function(event){
+        console.log("form changed");
+        prevent_leaving();
+    });
+    $('form .js-cancel').on('click', can_leave);
 });
 
 

@@ -88,7 +88,7 @@
         <div class="row">
             <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
             <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
-            <a class="mat-button mat-button-text" href="{%url 'dashboard:group-detail' group.pk%}">{% trans "Cancel" %}</a>
+            <a class="mat-button mat-button-text js-cancel" href="{%url 'dashboard:group-detail' group.pk%}">{% trans "Cancel" %}</a>
             <button class="mat-button mat-button-default" type="submit">{% trans "Update Group" %}</button>
         </div>
     </form>
