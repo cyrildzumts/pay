@@ -837,7 +837,7 @@ function can_leave(){
 
 function onbeforeunload(event){
     event.preventDefault();
-    if(isDirty){
+    if(!isDirty){
         return undefined;
     }
     return true;
