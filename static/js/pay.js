@@ -828,19 +828,24 @@ var JSFilter = (function(){
 })();
 
 var isDirty = false;
-function prevent_leaving(){
-    isDirty = true;
-}
+
 function can_leave(){
     isDirty = false;
+    window.onbeforeunload = null;
 }
 
 function onbeforeunload(event){
     event.preventDefault();
     if(!isDirty){
-        return undefined;
+        return null;
     }
+    event.returnValue = ""
     return true;
+}
+
+function prevent_leaving(){
+    isDirty = true;
+    window.onbeforeunload = onbeforeunload;
 }
 
 $(document).ready(function(){
