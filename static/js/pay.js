@@ -861,7 +861,7 @@ filter.init();
 
 var group = new Group();
 group.init();
-$(window).on('beforeunload', onbeforeunload);
+//$(window).on('beforeunload', onbeforeunload);
 var scheduled_query = false;
 var query_delay = 800;
 var $user_search_result = $('#user-search-result');
