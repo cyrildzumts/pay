@@ -831,21 +831,27 @@ var isDirty = false;
 
 function can_leave(){
     isDirty = false;
-    window.onbeforeunload = null;
+    //window.onbeforeunload = null;
 }
 
-function onbeforeunload(event){
-    event.preventDefault();
-    if(!isDirty){
-        return null;
+function askConfirmation(event){
+    var ret = undefined;
+    if(isDirty){
+        if(event){
+            event.preventDefault();
+            event.returnValue = "You have unsubmitted data. Leaving this page will lost the data."
+        }
+        ret =  "You have unsubmitted data. Leaving this page will lost the data.";
+    }else{
+        delete e['returnValue'];
     }
-    event.returnValue = ""
-    return true;
+    
+    return ret;
 }
 
 function prevent_leaving(){
     isDirty = true;
-    window.onbeforeunload = onbeforeunload;
+    //window.onbeforeunload = onbeforeunload;
 }
 
 $(document).ready(function(){
@@ -862,6 +868,7 @@ filter.init();
 var group = new Group();
 group.init();
 //$(window).on('beforeunload', onbeforeunload);
+window.addEventListener('beforeunload', askConfirmation);
 var scheduled_query = false;
 var query_delay = 800;
 var $user_search_result = $('#user-search-result');
