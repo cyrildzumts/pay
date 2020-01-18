@@ -12,6 +12,7 @@
                                 <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a> </li>
                                 <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a> </li>
                                 <li class="action list-item"> <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a> </li>
+                                
 
                                 {% if has_idcard is True %}
                                 <li class="action list-item"><a class="mat-button mat-button-text" href="{{request.user.idcard.get_absolute_url}}"> {% trans "My ID Card" %}</a> </li>

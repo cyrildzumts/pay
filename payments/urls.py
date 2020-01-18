@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.urls import path, reverse_lazy
-# from demosite import settings
+from django.views.generic.dates import ArchiveIndexView
 from django.contrib.auth import views as auth_views
 from payments import views
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('transfer-done/', views.transfer_done, name='transfer-done'),
     path('transactions/', views.transactions, name='transactions'),
     path('transfers/', views.transfers, name='transfers'),
+    path('transfers/archive/', ArchiveIndexView.as_view(model=views.Transfer,date_field="created_at"), name='transfer-archive'),
     path('transactions/<uuid:transaction_uuid>/', views.transaction_details, name='transaction-detail'),
     path('transfer/<uuid:transfer_uuid>/', views.transfer_details, name='transfer-detail'),
     path('upload-idcard/', views.upload_idcard, name='upload-idcard'),
@@ -35,6 +36,9 @@ urlpatterns = [
     path('payments/', views.payments, name='payments'),
     path('payment-done/', views.payment_done, name='payment-done'),
     path('payments/<uuid:payment_uuid>/', views.payment_details, name='payment-detail'),
+    path('payments/archive/<int:year>/', views.payments_year_archive, name='payment-year-archive'),
+    path('payments/archive/<int:year>/<int:month>/', views.payments_month_archive, name='payment-month-archive'),
+    path('payments/archive/<int:year>/<int:month>/<int:day>/', views.payments_day_archive, name='payment-day-archive'),
     path('payments/payment-verification/', views.payment_verify, name='payment-verification'),
     path('payments/service-verification/', views.service_verify, name='service-verification'),
     path('payments/transfer-verification/', views.transfer_verify, name='transfer-verification'),

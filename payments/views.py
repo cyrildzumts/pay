@@ -506,6 +506,59 @@ def payments(request):
     context['payment_list'] = list_set
     return render(request,template_name, context)
 
+@login_required
+def payments_year_archive(request, year):
+    context = {}
+    queryset = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    template_name = "payments/payment_list.html"
+    page_title = "Payments" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['payment_list'] = list_set
+    return render(request,template_name, context)
+
+@login_required
+def payments_month_archive(request, year, month):
+    context = {}
+    queryset = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    template_name = "payments/payment_list.html"
+    page_title = "Payments" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['payment_list'] = list_set
+    return render(request,template_name, context)
+
+@login_required
+def payments_day_archive(request, year, month, day):
+    context = {}
+    queryset = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    template_name = "payments/payment_list.html"
+    page_title = "Payments" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['payment_list'] = list_set
+    return render(request,template_name, context)
 
 @login_required
 def payment_details(request, payment_uuid=None):

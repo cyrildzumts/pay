@@ -1,0 +1,23 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Transfer Archive"%}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+{% block MAIN %}
+<ul class="listview">
+  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a Transfer" %} </a></li>
+</ul>
+<div class="container">
+    <div class="col-xs-12 col-6">
+    {% if latest %}
+    <ul class="mat-list">
+        {% for transfer in latest %}
+        <li class="mat-list-item">{{transfer.created_at}} : {{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p> {% trans "You haven't made any transfer yet" %}</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock MAIN %}

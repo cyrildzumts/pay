@@ -312,7 +312,7 @@ class Transfer(models.Model):
     transfer_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
-        return "Transfer id : {0} - Amount : {1}".format(self.pk, self.amount)
+        return "Transfer  - Amount : {}".format(self.amount)
 
     def get_absolute_url(self):
         return reverse('payments:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
