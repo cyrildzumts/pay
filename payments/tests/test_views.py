@@ -504,7 +504,7 @@ class ServiceTest(TestCase):
 
     
     def test_cannot_create_service_no_reference_number(self):
-        request = self.factory.post(path=reverse(PAYMENT_NEW_SERVICE_URL, available_service_uuid=self.available_service.available_uuid), data=self.TEST_SERVICE_DATA_NO_REFERENCE_NUMBER)
+        request = self.factory.post(path=reverse(PAYMENT_NEW_SERVICE_URL, kwargs={'available_service_uuid' : self.available_service.available_uuid}), data=self.TEST_SERVICE_DATA_NO_REFERENCE_NUMBER)
 
         request.user = self.customer
         request = add_middledware_to_request(request, SessionMiddleware)
