@@ -878,8 +878,8 @@ var $user_search_target_name = $($user_search_result.data('target-name'));
 var userSearch = function(options){
 
     var promise = ajax(options).then(function(response){
-        console.log("User Search succeed");
-        console.log(response);
+        //console.log("User Search succeed");
+        //console.log(response);
         $user_search_result.empty();
         response.forEach(function(user, index){
             var full_name = user.first_name + " " +  user.last_name;
@@ -906,7 +906,6 @@ var userSearch = function(options){
 $('.js-user-search').on('keyup', function(event){
     event.stopPropagation();
     var query = $(this).val();
-    console.log("Send API request now ");
     query = query.trim()
     if(query.length == 0 ){
         return;
@@ -963,21 +962,18 @@ slider.init();
     $('.js-grid-enable').on('click', function(){
         $(this).toggleClass('active');
         $('body, body > header.header').toggleClass('baseline-16');
-        console.log("toggling Class on grid element");
     });
 
     $('.js-need-confirmation').on('click', function(event){
         return confirm("This action is irreversible. Do you to want proceed ?");
     });
     $('.js-menu').on('click', function(){
-        console.log("opening site menu");
         $('.site-panel').css('left', 0);
         $('.js-menu-close').show();
         $(this).hide();
 
     });
     $('.js-menu-close').on('click', function(){
-        console.log("closing site menu");
         var panel = $('.site-panel');
         var left = '-' + panel.css('width');
         panel.css('left', left );
@@ -985,7 +981,6 @@ slider.init();
         $(this).hide();
     });
     $('form').on('change', function(event){
-        console.log("form changed");
         prevent_leaving();
     });
     $('form .js-cancel').on('click', can_leave);
