@@ -462,13 +462,15 @@ def new_payment(request):
     template_name = "payments/new_payment.html"
     page_title = "Payment"
     if request.method == "POST":
-        context = PaymentService.process_service_request(request)
+        context = PaymentService.process_payment_request(request)
         if context['success']:
             messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
+            """
             send_mail_task.apply_async(args=[context['email_context']],
                 queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
                 routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
             )
+            """
             logger.info("Payment request successful")
             return redirect('payments:payment-done')
         else : 

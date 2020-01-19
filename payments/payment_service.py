@@ -48,9 +48,38 @@ class PaymentService :
         created = False
         return created
 
-    @classmethod
-    def make_payment(cls, request):
-        pass
+    @staticmethod
+    def make_payment(sender=None, recipient=None, amount=0):
+        if amount <= 0:
+            logger.error("Making payment Error : Amount = %s. Amount must be a positive value", amount)
+            return False
+        Account = utils.get_model('accounts', 'Account')
+        
+        sender_account = None
+        recipient_account = None
+        pay_account = None
+        try:
+            sender_account = Account.objects.get(user=sender)
+            recipient_account = Account.objects.get(user=recipient)
+            pay_account = Account.objects.get(user__username="pay")
+        except Account.DoesNotExist as e:
+            logger.error("[Account Error] %s", e)
+            return False
+        sender_balance = sender_account.balance
+        if(sender_balance - amount) >= 0:
+            commission = recipient_account.policy.commission
+            pay_fee, recipient_amount, succeed = PaymentService.get_commission(amount,commission)
+            if succeed :
+                recipient_account.update(balance=F('balance') + recipient_amount)
+                sender_account.update(balance=F('balance') - amount)
+                pay_account.update(balance=F('balance') + pay_fee)
+                logger.info("Service Operation was succefull")
+                return True
+            else:
+                logger.info("Payment Operation was not succefull : there was an error on process the commission fee")
+        else:
+            logger.error("[unsufficient Balance] : The Sender balance is not sufficient to process the payment.")
+            return False
     
 
     @classmethod
@@ -119,12 +148,10 @@ class PaymentService :
     def process_transfer_request(request):
         context = {}
         context['success'] = False
-        logger.debug("[account_service.py] process_transaction_request entering")
+        logger.debug("processing transfer")
         Account = utils.get_model('accounts', 'Account')
 
         if request.method == 'POST':
-            logger.info("processing new transfer request : POST REQUEST")
-            
             postdata = utils.get_postdata(request)
             transfer_form = TransferForm(postdata)
             if transfer_form.is_valid():
@@ -177,6 +204,64 @@ class PaymentService :
                 logger.error(transfer_form.errors)
         return context
 
+
+    @staticmethod
+    def process_payment_request(request):
+        context = {}
+        context['success'] = False
+        logger.debug("[New Payment request]")
+        Account = utils.get_model('accounts', 'Account')
+        payment = None
+
+        if request.method == 'POST':
+            logger.info("processing new payment request : POST REQUEST")
+            postdata = utils.get_postdata(request)
+            payment_form = PaymentForm(postdata)
+            if payment_form.is_valid():
+                sender = payment_form.cleaned_data['sender']
+                recipient =  payment_form.cleaned_data['recipient']
+                amount = payment_form.cleaned_data['amount']
+                # TODO : remove these controls. There are already handled by the form
+                # validation
+                if sender != request.user:
+                    context['errors'] = "Sender must be the user sending the request"
+                    logger.error("Sender must be the user sending the request")
+                    return context
+                    
+                if recipient == request.user:
+                    context['errors'] = "Recipient can not be the user sending the request"
+                    logger.error("Recipient can not be the user sending the request")
+                    return context
+
+                if sender == recipient:
+                    context['errors'] = "User can not make payment to itself"
+                    logger.error("User can not make payment to itself")
+                    return context
+
+                succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
+                if succeed:
+                    payment = payment_form.save()
+                    email_context = {
+                                'title'             : 'Payment Confirmation',
+                                'recipient_name'    : recipient.get_full_name(),
+                                'sender_name'       : sender.get_full_name(),
+                                'amount'             : amount,
+                                'payment_date'      : payment.created_at,
+                                'description'       : payment.details,
+                                'verification_code' : payment.verification_code,
+                                'template_name'     : 'payments/payment_mail_confirmation_incoming.html',
+                                'recipient_email'   : recipient.email,
+                                'sender_email'      : sender.email,
+                                'has_image'         : False
+                    }
+                    context['email_context'] = email_context
+                    context['success'] = succeed
+            else:
+                context['form_errors'] = payment_form.errors
+                context['errors'] = "Form data error."
+                logger.error("Payment Form is not valid ")
+                logger.error(payment_form.errors)
+        return context
 
     
     @staticmethod
