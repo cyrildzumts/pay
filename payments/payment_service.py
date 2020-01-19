@@ -70,10 +70,14 @@ class PaymentService :
             commission = recipient.policy.first().commission
             pay_fee, recipient_amount, succeed = PaymentService.get_commission(amount,commission)
             if succeed :
-                recipient_account.update(balance=F('balance') + recipient_amount)
-                sender_account.update(balance=F('balance') - amount)
-                pay_account.update(balance=F('balance') + pay_fee)
-                logger.info("Service Operation was succefull")
+                #account_queryset = Account.objects.all()
+                Account.objects.filter(user=recipient).update(balance=F('balance') + recipient_amount)
+                #recipient_account.update(balance=F('balance') + recipient_amount)
+                Account.objects.filter(user=sender).update(balance=F('balance') - amount)
+                #sender_account.update(balance=F('balance') - amount)
+                Account.objects.filter(user=pay_account.user).update(balance=F('balance') + pay_fee)
+                #pay_account.update(balance=F('balance') + pay_fee)
+                logger.info("Payment Operation was succefull")
                 return True
             else:
                 logger.info("Payment Operation was not succefull : there was an error on process the commission fee")
