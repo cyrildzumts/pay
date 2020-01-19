@@ -1,7 +1,7 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Transfer Year Archive"%} : {{year}}</h4>
+    <h4> {% trans "Transfers for year "%} : {{year|date:"Y"}}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
 
@@ -17,9 +17,6 @@
   </div>
   <div class="col-xs-12 col-6">
     <div class="mat-card">
-      <div class="title">
-        <h2>{% trans "All Transfers for year " %} {{year|date:"Y"}}</h2>
-      </div>
       <div class="mat-card-content">
         {% for transfer in page_obj %}
          <p>{{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %} - {{transfer.created_at|date:"F j, Y"}}</p>
