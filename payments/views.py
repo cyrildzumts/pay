@@ -872,7 +872,7 @@ class PaymentYearArchiveView(YearArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Payment Archive of Year " + self.year
+        context["page_title"] = "Payment Year Archive"
         return context
 
 
@@ -886,7 +886,7 @@ class PaymentMonthArchiveView(MonthArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Payment Archive for Month" + self.month
+        context["page_title"] = "Payment Month Archive"
         return context
 
 class PaymentDayArchiveView(DayArchiveView):
@@ -899,7 +899,7 @@ class PaymentDayArchiveView(DayArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Payment Archive of Day" + self.day
+        context["page_title"] = "Payment Day Archive"
         return context
 
 class PaymentTodayArchiveView(TodayArchiveView):
@@ -928,7 +928,7 @@ class TransferYearArchiveView(YearArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Transfer Archive" + self.year
+        context["page_title"] = "Transfer Year Archive"
         return context
     
 @method_decorator(login_required, name='dispatch')
@@ -942,7 +942,7 @@ class TransferMonthArchiveView(MonthArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Transfer Archive Month" + self.month
+        context["page_title"] = "Transfer Month Archive"
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -957,7 +957,7 @@ class TransferDayArchiveView(DayArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Transfer Archive Day" + self.day
+        context["page_title"] = "Transfer Day Archive"
         return context
 
 
