@@ -134,7 +134,7 @@ def services(request):
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -170,7 +170,7 @@ def available_services(request):
     template_name = "dashboard/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -364,7 +364,7 @@ def category_services(request):
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -563,7 +563,7 @@ def policies(request):
     template_name = "dashboard/policy_list.html"
     page_title = "Policies - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -759,7 +759,7 @@ def transfers(request):
     template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -820,7 +820,7 @@ def payments(request):
     template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         payment_set = paginator.page(page)
     except PageNotAnInteger:
@@ -882,7 +882,7 @@ def cases(request):
     template_name = "dashboard/cases.html"
     page_title = "Cases - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -983,7 +983,7 @@ def groups(request):
     template_name = "dashboard/group_list.html"
     page_title = "Groups" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(group_list, 10)
+    paginator = Paginator(group_list, utils.PAGINATED_BY)
     try:
         group_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1178,7 +1178,7 @@ def permissions(request):
     template_name = "dashboard/permission_list.html"
     page_title = "Permissions" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(permission_list, 10)
+    paginator = Paginator(permission_list, utils.PAGINATED_BY)
     try:
         permission_set = paginator.page(page)
     except PageNotAnInteger:

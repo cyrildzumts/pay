@@ -7,10 +7,14 @@ from django.http import HttpResponse
 from django.urls import reverse, resolve
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.contrib import messages
+from django.views.generic.dates import (
+    YearArchiveView, MonthArchiveView, DayArchiveView, DateDetailView, TodayArchiveView
+)
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.db.models import F, Q
 from accounts.models import Account
@@ -854,3 +858,120 @@ def transaction_verification(request):
     page_title = "Transaction Verification" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     return render(request,template_name, context)
+
+
+
+
+class PaymentYearArchiveView(YearArchiveView):
+    queryset = Payment.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Payment.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Payment Archive of Year " + self.year
+        return context
+
+
+class PaymentMonthArchiveView(MonthArchiveView):
+    queryset = Payment.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Payment.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Payment Archive for Month" + self.month
+        return context
+
+class PaymentDayArchiveView(DayArchiveView):
+    queryset = Payment.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Payment.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Payment Archive of Day" + self.day
+        return context
+
+class PaymentTodayArchiveView(TodayArchiveView):
+    queryset = Payment.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+
+    def get_queryset(self):
+        return Payment.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Payment Archive from Today"
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class TransferYearArchiveView(YearArchiveView):
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+
+    def get_queryset(self):
+        return Transfer.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Transfer Archive" + self.year
+        return context
+    
+@method_decorator(login_required, name='dispatch')
+class TransferMonthArchiveView(MonthArchiveView):
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+
+    def get_queryset(self):
+        return Transfer.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Transfer Archive Month" + self.month
+        return context
+
+@method_decorator(login_required, name='dispatch')
+class TransferDayArchiveView(DayArchiveView):
+    queryset = Transfer.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+
+    def get_queryset(self):
+        return Transfer.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Transfer Archive Day" + self.day
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class TransferTodayArchiveView(TodayArchiveView):
+    queryset = Transfer.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+
+    def get_queryset(self):
+        return Transfer.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Transfer Archive of Today"
+        return context

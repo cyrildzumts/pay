@@ -1,0 +1,33 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Transfer Month Archive"%} : {{month|date:"M"}} - {{year}} </h4>
+{% endblock HEADER_BANNER_TITLE %}
+{% block MAIN %}
+<div class="container">
+  <div class="col-xs-12 col-6">
+    <div class="row">
+      <ul class="mat-list">
+        {% for date in date_list %}
+        <li class="mat-list-item">{{date|date}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-12 col-6">
+    <div class="mat-card">
+      <div class="title">
+        <h2>{% trans "All Transfers for the month " %} {{month}}</h2>
+      </div>
+      <div class="mat-card-content">
+        {% for transfer in page_obj %}
+         <p>{{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %} - {{transfer.created_at|date:"F j, Y"}}</p>
+        {% endfor %}
+      </div>
+      <div class="actions">
+        {% include "tags/pagination.html" with page_set=page_obj %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock MAIN %}

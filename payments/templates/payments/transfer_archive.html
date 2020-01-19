@@ -9,10 +9,23 @@
 </ul>
 <div class="container">
     <div class="col-xs-12 col-6">
+        <div class="row">
+            <ul class="mat-list">
+                {% for date in date_list %}
+                <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'payments:transfer-year-archive' date|date:'Y' %}">{{date|date:"Y"}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-12 col-6">
     {% if latest %}
     <ul class="mat-list">
         {% for transfer in latest %}
-        <li class="mat-list-item">{{transfer.created_at}} : {{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %}</li>
+        <li class="mat-list-item">
+            <a class="box" href="{{transfer.get_absolute_url}}">
+            <div class="box-content"> {{transfer.created_at}} : {{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %}</div>
+            </a>
+        </li>
         {% endfor %}
     </ul>
     {% else %}
