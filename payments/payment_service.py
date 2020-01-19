@@ -67,7 +67,7 @@ class PaymentService :
             return False
         sender_balance = sender_account.balance
         if(sender_balance - amount) >= 0:
-            commission = recipient.policy.commission
+            commission = recipient.policy.first().commission
             pay_fee, recipient_amount, succeed = PaymentService.get_commission(amount,commission)
             if succeed :
                 recipient_account.update(balance=F('balance') + recipient_amount)
