@@ -46,6 +46,7 @@ def dashboard(request):
             'can_view_group' : PermissionManager.user_can_view_group(request.user),
             'can_view_policy': PermissionManager.user_can_view_policy(request.user),
             'can_view_transfer': PermissionManager.user_can_view_transfer(request.user),
+            'can_view_payment': PermissionManager.user_can_view_payment(request.user),
             'can_view_voucher': PermissionManager.user_can_view_voucher(request.user),
             'can_add_group' : PermissionManager.user_can_add_group(request.user),
             'can_generate_token': PermissionManager.user_can_generate_token(request.user)

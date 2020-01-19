@@ -82,6 +82,7 @@
                                 {% if can_view_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>{% endif %}
                                 {% if can_view_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>{% endif %}
                                 {% if can_view_transfer %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>{% endif %}
+                                {% if can_view_payment %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}">{% trans "Payments" %}</a></li>{% endif %}
                                 {% if can_view_voucher %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>{% endif %}
                                 {% if can_view_available_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>{% endif %}
                                 {% if can_view_policy %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>{% endif %}
