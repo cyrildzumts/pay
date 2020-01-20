@@ -7,7 +7,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from payments.models import Transfer, Payment, Service, ServiceCategory, AvailableService, Policy
 from payments.forms import TransferForm
 from payments import views
-from payments.tests import user_test_data
+from payments.tests import user_test_data, policy_test_data
 from pay import utils
 import logging
 
@@ -96,6 +96,7 @@ class PaymentTest(TestCase):
         self.pay_user = User.objects.create_user(username=user_test_data.PAY_USER_TEST['username'], email=user_test_data.PAY_USER_TEST['email'], password=user_test_data.PAY_USER_TEST['password'])
         self.no_payment_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
         self.anonymeUser = AnonymousUser()
+        
         self.TEST_PAYMENT_DATA = {
             'amount' : PAYMENT_AMOUNT,
             'details': 'Payment Description',
@@ -300,7 +301,9 @@ class PaymentTest(TestCase):
 
         Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
         response = views.new_payment(request=request)
-        
+        policy = Policy(**policy_test_data.POLICY_DATA)
+        policy.save()
+        policy.users.add(self.pay_user)
         self.assertEqual(response.status_code, STATUS_CODE_302) # succeed to create the payment. redirect to 'payments:payment-done'
         account_sender = Account.objects.get(user=self.sender)
         account_recipient = Account.objects.get(user=self.recipient)

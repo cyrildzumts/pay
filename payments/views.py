@@ -571,7 +571,7 @@ def payment_details(request, payment_uuid=None):
     context = {}
     user_payments = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
     payment = get_object_or_404(user_payments, payment_uuid=payment_uuid)
-    template_name = "payments/payment_detail.html"
+    template_name = "payments/payment_details.html"
     page_title = "Payment Details" + " + " + settings.SITE_NAME
     context['page_title'] = page_title
     context['payment'] = payment
