@@ -25,12 +25,21 @@ POLICY_DATA = {
 }
 
 ACCOUNT_BALANCE = 100000
+
+# TRANSFER
+
 TRANSFER_AMOUNT = 25000
 TRANSFER_AMOUNT_BIGGER_THAN_ACCOUNT_BALANCE = ACCOUNT_BALANCE + 1
 PAYMENT_HOME_URL = reverse('payments:payment-home')
 PAYMENT_NEW_TRANSFER_URL = reverse('payments:new-transfer')
 
-#SERVICE CONSTANTS
+#PAYMENT
+PAYMENT_AMOUNT = 25000
+PAYMENT_AMOUNT_BIGGER_THAN_ACCOUNT_BALANCE = ACCOUNT_BALANCE + 1
+PAYMENT_HOME_URL = reverse('payments:payment-home')
+PAYMENT_NEW_PAYMENT_URL = reverse('payments:new-payment')
+
+# SERVICE CONSTANTS
 EMPTY_STRING = ''
 
 SERVICE_PRICE = 25000
@@ -84,8 +93,71 @@ class PaymentTest(TestCase):
         self.factory = RequestFactory()
         self.sender = User.objects.create_user(username=user_test_data.USER_TEST1['username'], email=user_test_data.USER_TEST1['email'], password=user_test_data.USER_TEST1['password'])
         self.recipient = User.objects.create_user(username=user_test_data.USER_TEST2['username'], email=user_test_data.USER_TEST2['email'], password=user_test_data.USER_TEST2['password'])
-        self.no_transfer_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
+        self.pay_user = User.objects.create_user(username=user_test_data.PAY_USER_TEST['username'], email=user_test_data.PAY_USER_TEST['email'], password=user_test_data.PAY_USER_TEST['password'])
+        self.no_payment_user = User.objects.create_user(username=user_test_data.USER_TEST3['username'], email=user_test_data.USER_TEST3['email'], password=user_test_data.USER_TEST3['password'])
         self.anonymeUser = AnonymousUser()
+        self.TEST_PAYMENT_DATA = {
+            'amount' : PAYMENT_AMOUNT,
+            'details': 'Payment Description',
+            'sender' : self.sender.pk,
+            'recipient': self.recipient.pk
+        }
+
+        self.TEST_PAYMENT_DATA_SENDER_NOT_FOUND = {
+            'amount' : PAYMENT_AMOUNT,
+            'details': 'Payment Description',
+            'sender' : user_test_data.USER_NOT_FOUND_PK,
+            'recipient': self.recipient.pk
+        }
+
+        self.TEST_PAYMENT_DATA_RECIPIENT_NOT_FOUND = {
+            'amount' : PAYMENT_AMOUNT,
+            'details': 'Payment Description',
+            'sender' : self.sender.pk,
+            'recipient': user_test_data.USER_NOT_FOUND_PK
+        }
+
+        self.TEST_INSUFFICIENT_PAYMENT_DATA = {
+            'amount' : PAYMENT_AMOUNT_BIGGER_THAN_ACCOUNT_BALANCE,
+            'details': 'Payment Description',
+            'sender' : self.sender.pk,
+            'recipient': self.recipient.pk
+        }
+
+        self.TEST_DETAIL_PAYMENT_DATA = {
+            'amount' : PAYMENT_AMOUNT,
+            'details': 'Payment Description',
+            'sender' : self.sender,
+            'recipient': self.recipient
+        }
+
+        self.TEST_SENDER_IS_RECIPIENT_PAYMENT_DATA = {
+            'amount' : PAYMENT_AMOUNT,
+            'details': 'Payment Description',
+            'sender' : self.sender.pk,
+            'recipient': self.sender.pk
+        }
+
+        self.TEST_NO_SENDER_PAYMENT_DATA = {
+            'amount' : PAYMENT_AMOUNT,
+            'details': 'Payment Description',
+            'recipient': self.recipient.pk
+        }
+        self.TEST_NO_RECIPIENT_PAYMENT_DATA = {
+            'amount' : PAYMENT_AMOUNT,
+            'details': 'Payment Description',
+            'sender' : self.sender.pk
+        }
+        self.TEST__NO_AMOUNT_PAYMENT_DATA = {
+            'details': 'Payment Description',
+            'sender' : self.sender.pk,
+            'recipient': self.recipient.pk
+        }
+        self.TEST_NO_DESCRIPTION_PAYMENT_DATA = {
+            'amount' : PAYMENT_AMOUNT,
+            'sender' : self.sender.pk,
+            'recipient': self.recipient.pk
+        }
 
     
     def test_payment_home(self):
@@ -97,6 +169,182 @@ class PaymentTest(TestCase):
         response = views.payment_home(request)
         #self.assertRedirects(response, expected_url=login_url)
         self.assertEqual(response.status_code, STATUS_CODE_302)
+    
+    def test_payment_cannot_create_payment_anonyme(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_PAYMENT_DATA)
+
+        request.user = self.anonymeUser
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_payment(request=request)
+        
+        self.assertFalse(Payment.objects.exists())
+        self.assertEqual(response.status_code, STATUS_CODE_302) # redirect to login view
+
+    def test_payment_cannot_create_payment_no_sender(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_NO_SENDER_PAYMENT_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_payment(request=request)
+        
+        self.assertFalse(Payment.objects.exists())
+        self.assertEqual(response.status_code, STATUS_CODE_200) # failed to create the payment. redirect to the same current view Page
+
+
+    
+    def test_payment_cannot_create_payment_no_recipient(self):
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_NO_RECIPIENT_PAYMENT_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.new_payment(request=request)
+        self.assertFalse(Payment.objects.exists())
+        self.assertEqual(response.status_code, STATUS_CODE_200) # failed to create the payment. redirect to same view
+    
+    def test_payment_cannot_create_payment_recipient_is_sender(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_SENDER_IS_RECIPIENT_PAYMENT_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_payment(request=request)
+        
+        
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Payment.objects.exists())
+
+    def test_payment_cannot_create_payment_recipient_is_request_user_is_not_sender(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_PAYMENT_DATA)
+
+        request.user = self.no_payment_user
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        response = views.new_payment(request=request)
+        
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Payment.objects.exists())
+
+    
+    def test_payment_cannot_create_payment_sender_insufficient_balance(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_INSUFFICIENT_PAYMENT_DATA)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
+        response = views.new_payment(request=request)
+        
+        
+        account_sender = Account.objects.get(user=self.sender)
+        account_recipient = Account.objects.get(user=self.recipient)
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Payment.objects.exists())
+        self.assertEqual(account_recipient.balance, 0)
+        self.assertEqual(account_sender.balance, ACCOUNT_BALANCE)
+
+    def test_payment_cannot_create_payment_sender_not_found(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_PAYMENT_DATA_SENDER_NOT_FOUND)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
+        response = views.new_payment(request=request)
+        
+        
+        account_sender = Account.objects.get(user=self.sender)
+        account_recipient = Account.objects.get(user=self.recipient)
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Payment.objects.exists())
+        self.assertEqual(account_recipient.balance, 0)
+        self.assertEqual(account_sender.balance, ACCOUNT_BALANCE)
+
+    
+    def test_payment_cannot_create_payment_recipient_not_found(self):
+
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_PAYMENT_DATA_RECIPIENT_NOT_FOUND)
+
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
+        response = views.new_payment(request=request)
+        
+        
+        account_sender = Account.objects.get(user=self.sender)
+        account_recipient = Account.objects.get(user=self.recipient)
+        self.assertEqual(response.status_code, STATUS_CODE_200)
+        self.assertFalse(Payment.objects.exists())
+        self.assertEqual(account_recipient.balance, 0)
+        self.assertEqual(account_sender.balance, ACCOUNT_BALANCE)
+        
+    
+    def test_payment_create_payment(self):
+        request = self.factory.post(path=PAYMENT_NEW_PAYMENT_URL, data=self.TEST_PAYMENT_DATA)
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
+        response = views.new_payment(request=request)
+        
+        self.assertEqual(response.status_code, STATUS_CODE_302) # succeed to create the payment. redirect to 'payments:payment-done'
+        account_sender = Account.objects.get(user=self.sender)
+        account_recipient = Account.objects.get(user=self.recipient)
+        #self.assertEqual(account_recipient.balance, PAYMENT_AMOUNT)
+        self.assertEqual(account_sender.balance, ACCOUNT_BALANCE - PAYMENT_AMOUNT)
+        self.assertTrue(Payment.objects.exists())
+        
+    def test_payment_detail(self):
+        
+        self.assertFalse(Payment.objects.exists())
+        payment = Payment(**self.TEST_DETAIL_PAYMENT_DATA)
+        payment.full_clean()
+        payment.save()
+        self.assertTrue(Payment.objects.exists())
+        self.assertTrue(Payment.objects.filter(payment_uuid=payment.payment_uuid).exists())
+
+        payment_url = payment.get_absolute_url()
+
+        request =  self.factory.get(payment_url)
+        request.user = self.anonymeUser
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.payment_details(request, payment.payment_uuid )
+        self.assertEqual(response.status_code, 302)
+
+        request =  self.factory.get(payment_url)
+        request.user = self.sender
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.payment_details(request, payment.payment_uuid )
+        self.assertEqual(response.status_code, 200)
+
+        request =  self.factory.get(payment_url)
+        request.user = self.recipient
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        response = views.payment_details(request, payment.payment_uuid )
+        self.assertEqual(response.status_code, 200)
+
+        request =  self.factory.get(payment_url)
+        request.user = self.no_payment_user
+        request = add_middledware_to_request(request, SessionMiddleware)
+        request.session.save()
+        self.assertRaises(Http404, views.payment_details, request=request, payment_uuid=payment.payment_uuid)
 
     
     

@@ -904,6 +904,7 @@ class PaymentDayArchiveView(DayArchiveView):
         context["page_title"] = "Payment Day Archive"
         return context
 
+
 class PaymentTodayArchiveView(TodayArchiveView):
     queryset = Payment.objects.all()
     date_field = "created_at"
@@ -919,6 +920,7 @@ class PaymentTodayArchiveView(TodayArchiveView):
         return context
 
 
+
 @method_decorator(login_required, name='dispatch')
 class TransferYearArchiveView(YearArchiveView):
     date_field = "created_at"
@@ -932,7 +934,8 @@ class TransferYearArchiveView(YearArchiveView):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Transfer Year Archive"
         return context
-    
+
+
 @method_decorator(login_required, name='dispatch')
 class TransferMonthArchiveView(MonthArchiveView):
     date_field = "created_at"
@@ -946,6 +949,7 @@ class TransferMonthArchiveView(MonthArchiveView):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Transfer Month Archive"
         return context
+
 
 @method_decorator(login_required, name='dispatch')
 class TransferDayArchiveView(DayArchiveView):
