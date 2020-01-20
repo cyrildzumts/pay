@@ -298,12 +298,12 @@ class PaymentTest(TestCase):
         request.user = self.sender
         request = add_middledware_to_request(request, SessionMiddleware)
         request.session.save()
-
-        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
-        response = views.new_payment(request=request)
         policy = Policy(**policy_test_data.POLICY_DATA)
         policy.save()
         policy.users.add(self.pay_user)
+        Account.objects.filter(user=self.sender).update(balance=ACCOUNT_BALANCE)
+        response = views.new_payment(request=request)
+        
         self.assertEqual(response.status_code, STATUS_CODE_302) # succeed to create the payment. redirect to 'payments:payment-done'
         account_sender = Account.objects.get(user=self.sender)
         account_recipient = Account.objects.get(user=self.recipient)
