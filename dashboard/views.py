@@ -899,7 +899,7 @@ def policy_group_remove(request, group_uuid=None):
         messages.add_message(request, messages.ERROR, 'Policy Group could not be deleted')
         logger.error("Policy Group Delete failed. Action requested by User {}",request.user.username)
         
-    return redirect('dashboard:policies')
+    return redirect('dashboard:policy-groups')
 
 
 @login_required
