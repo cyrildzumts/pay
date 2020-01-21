@@ -14,6 +14,7 @@
             <p> {% trans "Members" %} : {{group.members.count}} </p>
             <p> {% trans "Commission" %} : {{group.policy.commission}}</p>  
             <div class="mat-list-wrapper">
+              <h3>{% trans "Policy Group Members" %}</h3>
               <ul class="listview">
                 {% for user in group.members.all %}
                 <li class="list-item">{{user.username}} - {{user.get_full_name}}</li>
@@ -23,6 +24,7 @@
           </div>
           <div class="card__actions">
             <ul class="listview nav" role="navigation">
+
                 <li class="list-item"><a class="mat-button mat-button-text" href="{{group.get_dashboard_update_url}}"><span class="pen"></span>{% trans "Edit" %}</a></li>
                 <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-group-create'%}"><span class="add"></span>{% trans "New Policy Group" %}</a></li>
                 <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups' %}"><span class="back"></span>{% trans "Policy Groups" %}</a></li>
