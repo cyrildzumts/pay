@@ -793,7 +793,7 @@ def policy_group_create(request):
         form = forms.PolicyGroupForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('dashboard:policy-group')
+            return redirect('dashboard:policy-groups')
         else:
             logger.info("Edit PolicyGroupForm is not valid. Errors : %s", form.errors)
     elif request.method == "GET":
