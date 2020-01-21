@@ -70,7 +70,6 @@ class Policy(models.Model):
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
-    users = models.ForeignKey(User, related_name="policy", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -98,7 +97,7 @@ class Policy(models.Model):
 class PolicyGroup(models.Model):
     name = models.CharField(max_length=80)
     policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
-    members = models.ManyToManyField(User, through='PolicyMembership')
+    members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'))
     policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
@@ -107,8 +106,12 @@ class PolicyGroup(models.Model):
 
 class PolicyMembership(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    policy_group = models.ForeignKey(PolicyGroup, on_delete=models.CASCADE)
+    group = models.ForeignKey(PolicyGroup, on_delete=models.CASCADE)
     policy_membership_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_by = models.ForeignKey(User, related_name="modified_membership", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    added_by = models.ForeignKey(User, related_name="added_membership", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
 
 class ServiceCategory(models.Model):
