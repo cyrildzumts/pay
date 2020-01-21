@@ -8,7 +8,7 @@
 
 <div class="row">
   <div class="nav">
-    {% if can_add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "Add New Policy" %} </a>{% endif %}
+    {% if can_add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-group-create' %}"> {% trans "Add New Policy" %} </a>{% endif %}
     <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
     {% if can_delete_policy %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-groups' %}"> {% trans "Delete All Policies" %} </a>{% endif %}
   </div>
