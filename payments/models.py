@@ -16,8 +16,8 @@ help_text=HELP_TEXT_FOR_CUSTOMER_REF = 'Please enter the customer reference numb
 help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT = 'Please enter the date when this bill was issued (following format: <em>YYYY-MM-DD</em>.)'
 
 COMMISSION_DEFAULT = 0.03
-COMMISSION_MAX_DIGITS = 3
-COMMISSION_DECIMAL_PLACES = 2
+COMMISSION_MAX_DIGITS = 5
+COMMISSION_DECIMAL_PLACES = 4
 
 
 def ident_file_path(instance, filename):
