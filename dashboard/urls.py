@@ -34,6 +34,14 @@ urlpatterns = [
     path('policies/remove-all/', views.policy_remove_all, name='policy-remove-all'),
     path('policies/update/<uuid:policy_uuid>/', views.policy_update, name='policy-update'),
     path('policies/create/', views.policy_create, name='policy-create'),
+
+    path('policy-groups/', views.policy_groups, name='policy-groups'),
+    path('policy-groups/detail/<uuid:group_uuid>/', views.policy_group_details, name='policy-group-detail'),
+    path('policy-groups/remove/<uuid:group_uuid>/', views.policy_group_remove, name='policy-group-remove'),
+    #path('policy-groups/remove-all/', views.policy_remove_all, name='policy-group-remove-all'),
+    path('policy-groups/update/<uuid:group_uuid>/', views.policy_group_update, name='policy-group-update'),
+    path('policy-groups/create/', views.policy_group_create, name='policy-group-create'),
+
     path('category-services/', views.category_services, name='category-services'),
     path('category-services/detail/<uuid:category_uuid>/', views.category_service_details, name='category-service-detail'),
     path('category-services/remove/<uuid:category_uuid>/', views.category_service_remove, name='category-service-remove'),

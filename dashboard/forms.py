@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group, Permission
 from accounts.models import Account
 from payments.models import (
     Service, ServiceCategory, Policy, AvailableService, IDCard, Payment, Transaction,
-    Transfer, Reduction
+    Transfer, Reduction, PolicyGroup, PolicyMembership
 )
 
 
@@ -13,6 +13,18 @@ class PolicyForm(forms.ModelForm):
     class Meta:
         model = Policy
         fields = ("daily_limit","weekly_limit", "monthly_limit", "commission",)
+
+class PolicyGroupForm(forms.ModelForm):
+
+    class Meta:
+        model = PolicyGroup
+        fields = ('name', 'policy',)
+
+class PolicyGroupUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model = PolicyGroup
+        fields = ('name', 'policy', 'members',)
 
 
 class ServiceCategoryForm(forms.ModelForm):

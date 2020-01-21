@@ -737,7 +737,169 @@ def policy_details(request, policy_uuid=None):
     return render(request,template_name, context)
 
 
+@login_required
+def policy_groups(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
 
+    can_view_policy = PermissionManager.user_can_view_policy(request.user)
+    if not can_view_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='PolicyGroup')
+    #current_account = Account.objects.get(user=request.user)
+    queryset = model.objects.all()
+    template_name = "dashboard/policy_group_list.html"
+    page_title = "Policy Group - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    context['page_title'] = page_title
+    context['groups'] = list_set
+    context['can_access_dashboard'] = can_access_dashboard
+    context['can_view_policy'] = can_view_policy
+    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
+    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    return render(request,template_name, context)
+
+
+@login_required
+def policy_group_create(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_add_policy = PermissionManager.user_can_add_policy(request.user)
+    if not can_add_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    page_title = _("Create Policy Group") + ' | ' + settings.SITE_NAME
+    template_name = "dashboard/policy_group_create.html"
+    form = None
+    if request.method =="POST":
+        form = forms.PolicyGroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard:policy-group')
+        else:
+            logger.info("Edit PolicyGroupForm is not valid. Errors : %s", form.errors)
+    elif request.method == "GET":
+        form = forms.PolicyGroupForm()
+
+    context = {
+            'page_title':page_title,
+            'template_name':template_name,
+            'form': form,
+            'policies' : forms.Policy.objects.all(),
+            'can_access_dashboard' : can_access_dashboard,
+            'can_add_policy' : can_add_policy
+        }
+    
+    
+    return render(request, template_name,context )
+
+@login_required
+def policy_group_update(request, group_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_change_policy = PermissionManager.user_can_change_policy(request.user)
+    if not can_change_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    page_title = _("Edit Policy Group")+ ' | ' + settings.SITE_NAME
+    instance = get_object_or_404(forms.PolicyGroup, policy_group_uuid=group_uuid)
+    template_name = "dashboard/policy_group_update.html"
+    if request.method =="POST":
+        form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard:policy-groups')
+        else:
+            logger.info("Edit PolicyGroupUpdateForm is not valid. Errors : %s", form.errors)
+    
+    form = forms.PolicyGroupForm(instance=instance)
+    context = {
+            'page_title':page_title,
+            'template_name':template_name,
+            'policy_group' : instance,
+            'form': form,
+            'policies' : forms.Policy.objects.all(),
+            'can_change_policy' : can_change_policy,
+            'can_access_dashboard': can_access_dashboard
+        }
+    
+    return render(request, template_name,context )
+
+
+@login_required
+def policy_group_details(request, group_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_policy = PermissionManager.user_can_view_policy(request.user)
+    if not can_view_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='PolicyGroup')
+    #current_account = Account.objects.get(user=request.user)
+    group = get_object_or_404(model, policy_group_uuid=group_uuid)
+    template_name = "dashboard/policy_group_detail.html"
+    page_title = "Policy Group Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['group'] = group
+    context['can_access_dashboard'] = can_access_dashboard
+    context['can_view_policy'] = can_view_policy
+    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
+    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    return render(request,template_name, context)
+
+@login_required
+def policy_group_remove(request, group_uuid=None):
+    # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_policy = PermissionManager.user_can_delete_policy(request.user)
+    if not can_delete_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    deleted_count, extras = forms.PolicyGroup.objects.filter(policy_group_uuid=group_uuid).delete()
+    if deleted_count > 0 :
+        messages.add_message(request, messages.SUCCESS, 'PolicyGroup has been deleted')
+        logger.info("Policy Group deleted by User {}", request.user.username)
+    
+    else:
+        messages.add_message(request, messages.ERROR, 'Policy Group could not be deleted')
+        logger.error("Policy Group Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:policies')
 
 
 @login_required

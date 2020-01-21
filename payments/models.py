@@ -102,6 +102,19 @@ class PolicyGroup(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse("payments:policy-group", kwargs={"group_uuid": self.policy_group_uuid})
+    
+    def get_dashboard_absolute_url(self):
+        return reverse("dashboard:policy-group", kwargs={"group_uuid": self.policy_group_uuid})
+
+    def get_dashboard_update_url(self):
+        return reverse("dashboard:policy-group-update", kwargs={"group_uuid": self.policy_group_uuid})
+    
+    def get_dashboard_remove_url(self):
+        return reverse("dashboard:policy-group-remove", kwargs={"group_uuid": self.policy_group_uuid})
+
 
 
 class PolicyMembership(models.Model):
