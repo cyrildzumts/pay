@@ -603,6 +603,7 @@ def policy_update(request, policy_uuid=None):
             form.save()
             return redirect('dashboard:policies')
         else:
+            logger.info("[failed] Edit PolicyForm commission : %s", request.POST.copy()['commission'])
             logger.info("Edit PolicyForm is not valid. Errors : %s", form.errors)
     
     form = forms.PolicyForm(instance=instance)
