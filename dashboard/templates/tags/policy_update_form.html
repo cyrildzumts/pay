@@ -15,7 +15,13 @@
         
                 <form class="form card" name="policy" action="{{policy.get_dashboard_update_url}}" method="POST">{% csrf_token %}
                     <div class="card__body">
-                    
+                    {% if form.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.errors %}
+                                <li>{{error}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                     <div class="form-group">
                         <label for="daily_limit">{% trans "Daily Limit" %}</label>
                         <input id="daily_limit" type="text"  name="daily_limit" value="{{policy.daily_limit}}">
