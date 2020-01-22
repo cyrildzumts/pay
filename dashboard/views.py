@@ -851,6 +851,43 @@ def policy_group_update(request, group_uuid=None):
 
 
 @login_required
+def policy_group_add_user(request, group_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_change_policy = PermissionManager.user_can_change_policy(request.user)
+    if not can_change_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    page_title = _("Edit Policy Group")+ ' | ' + settings.SITE_NAME
+    instance = get_object_or_404(forms.PolicyGroup, policy_group_uuid=group_uuid)
+    template_name = "dashboard/policy_group_update.html"
+    if request.method =="POST":
+        form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard:policy-groups')
+        else:
+            logger.info("Edit PolicyGroupUpdateForm is not valid. Errors : %s", form.errors)
+    
+    form = forms.PolicyGroupForm(instance=instance)
+    context = {
+            'page_title':page_title,
+            'template_name':template_name,
+            'policy_group' : instance,
+            'form': form,
+            'policies' : forms.Policy.objects.all(),
+            'can_change_policy' : can_change_policy,
+            'can_access_dashboard': can_access_dashboard
+        }
+    
+    return render(request, template_name,context )
+
+@login_required
 def policy_group_details(request, group_uuid=None):
     username = request.user.username
     can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
