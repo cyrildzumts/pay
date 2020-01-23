@@ -42,7 +42,7 @@ def dashboard(request):
             'can_access_dashboard' : can_view_dashboard,
             'can_view_available_service': PermissionManager.user_can_view_available_service(request.user),
             'can_view_service': PermissionManager.user_can_view_service(request.user),
-            'can_view_users': PermissionManager.user_can_view_user(request.user),
+            'can_view_user': PermissionManager.user_can_view_user(request.user),
             'can_view_category': PermissionManager.user_can_view_category(request.user),
             'can_view_group' : PermissionManager.user_can_view_group(request.user),
             'can_view_policy': PermissionManager.user_can_view_policy(request.user),
