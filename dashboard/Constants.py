@@ -3,6 +3,12 @@ APP_PREFIX = 'dashboard.'
 
 DASHBOARD_VIEW_PERM = 'can_view_dashboard'
 TOKEN_GENERATE_PERM = 'can_generate_token'
+
+USER_VIEW_PERM = 'can_view_user'
+USER_ADD_PERM = 'can_add_user'
+USER_CHANGE_PERM = 'can_change_user'
+USER_DELETE_PERM = 'can_delete_user'
+
 ACCOUNT_VIEW_PERM = 'can_view_account'
 ACCOUNT_ADD_PERM = 'can_add_account'
 ACCOUNT_CHANGE_PERM = 'can_change_account'

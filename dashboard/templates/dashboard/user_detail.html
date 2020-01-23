@@ -1,0 +1,53 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{%block MAIN %}
+
+<div class="container">
+                <section class="row">
+                    <a href="{% url 'dashboard:home'%}" class="mat-button mat-button-default"> {% trans "Dashboard" %} </a>
+                </section>
+                <section class="card-flat-header">
+                        <h2 class="panel-title"> {% trans "User Information" %} : </h2>
+                </section>
+            
+                <section class="card-flat-body content-center">
+                    <table class="table table-responsive">
+                        
+                        <tbody>
+                            <tr>
+                                <td>{% trans "Username" %} : </td>
+                                <td> {{user.username}} </td>
+                            </tr>
+                            <tr>
+                                    <td>{% trans "Email" %} :</td>
+                                    <td> {{user.email}} </td>
+                            </tr>
+                            <tr>
+                                    <td>{% trans "Last Name" %} : </td>
+                                    <td> {{user.last_name}} </td>
+                            </tr>
+                            <tr>
+                                    <td>{% trans "Firstname" %} :</td>
+                                    <td> {{user.first_name}} </td>
+                            </tr>
+                            <tr>
+                                    <td> {% trans "Is Staff" %} :</td>
+                                    <td> {{user.is_staff}} </td>
+                            </tr>
+                            <tr>
+                                    <td> {% trans "Date joined" %} :</td>
+                                    <td> {{user.date_joined}} </td>
+                            </tr>
+                            <tr>
+                                    <td> {% trans "Last login" %} :</td>
+                                    <td> {{user.last_login}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                
+            </div>
+{% endblock MAIN %}
+
+

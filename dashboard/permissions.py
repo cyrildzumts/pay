@@ -23,6 +23,22 @@ class PermissionManager :
     def user_can_access_dashboard(user=None):
         return PermissionManager.user_has_perm(user=user, perm=Constants.DASHBOARD_VIEW_PERM)
 
+    @staticmethod
+    def user_can_view_user(user=None):
+        return PermissionManager.user_has_perm(user=user, perm=Constants.USER_VIEW_PERM)
+    
+    @staticmethod
+    def user_can_change_user(user=None):
+        return PermissionManager.user_has_perm(user=user, perm=Constants.USER_CHANGE_PERM)
+
+    @staticmethod
+    def user_can_add_user(user=None):
+        return PermissionManager.user_has_perm(user=user, perm=Constants.USER_ADD_PERM)
+    
+    @staticmethod
+    def user_can_delete_user(user=None):
+        return PermissionManager.user_has_perm(user=user, perm=Constants.USER_DELETE_PERM)
+
     ## ACCOUNT PERMISSION
     @staticmethod
     def user_can_view_account(user=None):

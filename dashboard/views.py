@@ -92,7 +92,56 @@ def generate_token(request):
 
     return render(request, template_name, context)
         
-    
+@login_required
+def users(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    if not can_view_user:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    queryset = User.objects.all()
+    template_name = "dashboard/user_list.html"
+    page_title = _("Dashboard Users") + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    context['page_title'] = page_title
+    context['users'] = list_set
+    context['can_access_dashboard'] = can_access_dashboard
+    context['can_view_user'] = can_view_user
+    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
+    context['can_update'] = PermissionManager.user_can_change_user(request.user)
+    return render(request,template_name, context)
+
+@login_required
+def user_details(request, pk=None):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    if not PermissionManager.user_can_view_user(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    context = {}
+    user = get_object_or_404(User, pk=pk)
+    template_name = "dashboard/user_detail.html"
+    page_title = "User Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['user'] = user
+    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
+    context['can_update'] = PermissionManager.user_can_change_user(request.user)
+    return render(request,template_name, context)
 
 @login_required
 def service_details(request, service_uuid=None):
@@ -840,7 +889,7 @@ def policy_group_update(request, group_uuid=None):
     context = {
             'page_title':page_title,
             'template_name':template_name,
-            'policy_group' : instance,
+            'group' : instance,
             'form': form,
             'policies' : forms.Policy.objects.all(),
             'can_change_policy' : can_change_policy,
