@@ -34,7 +34,7 @@
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                     <td scope="row" data-label="{% trans 'Username' %}">{{user.username}}</td>
                     <td data-label="{% trans 'Name' %}">{{user.get_full_name}}</td>
-                    <td data-label="{% trans 'Is Active' %}">{{user.is_active}} {% trans "XAF" %}</td>
+                    <td data-label="{% trans 'Is Active' %}">{% if user.is_active %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</td>
                     <td data-label="{% trans 'Date Joined' %}">{{user.date_joined}}</td>
                     <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% url 'dashboard:user-detail' user.pk %}">{% trans "More" %} </a></td>
                   </tr>
