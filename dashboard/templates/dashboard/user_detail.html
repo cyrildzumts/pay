@@ -37,11 +37,11 @@
                             </tr>
                             <tr>
                                     <td> {% trans "Date joined" %} :</td>
-                                    <td> {{user.date_joined}} </td>
+                                    <td> {{user.date_joined|date:"F j, Y"}} </td>
                             </tr>
                             <tr>
                                     <td> {% trans "Last login" %} :</td>
-                                    <td> {{user.last_login}} </td>
+                                    <td> {{user.last_login|date:"F j, Y"}} </td>
                             </tr>
                         </tbody>
                     </table>
