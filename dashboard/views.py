@@ -135,6 +135,7 @@ def user_details(request, pk=None):
         logger.warning("PermissionDenied to user %s for path %s", username, request.path)
         raise PermissionDenied
     context = {}
+    #queryset = User.objects.select_related('account')
     user = get_object_or_404(User, pk=pk)
     template_name = "dashboard/user_detail.html"
     page_title = "User Details - " + settings.SITE_NAME
