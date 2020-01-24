@@ -17,22 +17,22 @@
                 </div>
                 <div class="box-content">
                         <div class="entry">
-                                <span class="key">{% trans "Username" %} :</span> <span class="value">{{user.username}}</span>
+                                <span class="key">{% trans "Username" %} :</span> <span class="value">{{user_instance.username}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "Lastname" %} :</span> <span class="value">{{user.last_name}}</span>
+                                <span class="key">{% trans "Lastname" %} :</span> <span class="value">{{user_instance.last_name}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "Firstname" %} :</span> <span class="value">{{user.first_name}} {% trans "XAF" %}</span>
+                                <span class="key">{% trans "Firstname" %} :</span> <span class="value">{{user_instance.first_name}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "E-Mail" %} :</span> <span class="value">{{user.email}}</span>
+                                <span class="key">{% trans "E-Mail" %} :</span> <span class="value">{{user_instance.email}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "Date joined" %} :</span> <span class="value">{{user.date_joined|date:"F j, Y"}}</span>
+                                <span class="key">{% trans "Date joined" %} :</span> <span class="value">{{user_instance.date_joined|date:"F j, Y"}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "Last login" %} :</span> <span class="value">{{user.last_login|date:"F j, Y"}}</span>
+                                <span class="key">{% trans "Last login" %} :</span> <span class="value">{{user_instance.last_login|date:"F j, Y"}}</span>
                         </div>
                 </div>
                 
@@ -44,19 +44,19 @@
                 </div>
                 <div class="box-content">
                         <div class="entry">
-                                <span class="key">{% trans "Country" %} :</span> <span class="value">{{user.account.country}}</span>
+                                <span class="key">{% trans "Country" %} :</span> <span class="value">{{user_instance.account.country}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "City" %} :</span> <span class="value">{{user.account.city}}</span>
+                                <span class="key">{% trans "City" %} :</span> <span class="value">{{user_instance.account.city}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "Telefon" %} :</span> <span class="value">{{user.account.telefon}}</span>
+                                <span class="key">{% trans "Telefon" %} :</span> <span class="value">{{user_instance.account.telefon}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "Account Type" %} :</span> <span class="value">{{user.account.account_type}}</span>
+                                <span class="key">{% trans "Account Type" %} :</span> <span class="value">{{user_instance.account.account_type}}</span>
                         </div>
                         <div class="entry">
-                                <span class="key">{% trans "Balance" %} :</span> <span class="value">{{user.account.balance}} {% trans "XAF" %}</span>
+                                <span class="key">{% trans "Balance" %} :</span> <span class="value">{{user_instance.account.balance}} {% trans "XAF" %}</span>
                         </div>
                         
                 </div>

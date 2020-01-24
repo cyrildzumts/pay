@@ -140,7 +140,7 @@ def user_details(request, pk=None):
     template_name = "dashboard/user_detail.html"
     page_title = "User Details - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['user'] = user
+    context['user_instance'] = user
     context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
     context['can_update'] = PermissionManager.user_can_change_user(request.user)
     return render(request,template_name, context)
