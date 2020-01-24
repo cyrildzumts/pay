@@ -81,8 +81,6 @@
     width: 100%;
     margin: 8px auto;
     font-size: 1em;
-    align-items: baseline;
-    justify-content: start;
     flex-direction: column;
 }
 
@@ -113,8 +111,8 @@
 
 .entry .key, .entry .value{
     display: block;
+    min-width: 250px;
     padding: 0 16px;
-    height: 100%;
     text-align: left;
 }
 
