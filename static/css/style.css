@@ -99,7 +99,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    font-size: 1.333em;
+    font-size: 1em;
     text-align: center;
     padding: 8px 8px;
 }
@@ -113,7 +113,6 @@
 
 .entry .key, .entry .value{
     display: block;
-    width: 50%;
     padding: 0 16px;
     height: 100%;
     text-align: left;
@@ -121,6 +120,7 @@
 
 .entry .key{
     font-weight: 600;
+    width: 50%;
 }
 
 .key:after{
@@ -130,11 +130,12 @@
 
 .entry .value{
     font-weight: 400;
+    text-align: right;
 }
 
 .box .title{
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: bold;
     
 }
