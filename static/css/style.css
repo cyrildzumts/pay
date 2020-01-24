@@ -125,6 +125,7 @@
 
 .key:after{
     content: ":";
+    float: right;
 }
 
 .entry .value{
