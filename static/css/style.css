@@ -123,6 +123,10 @@
     font-weight: 600;
 }
 
+.entry .key::after{
+    content: ":";
+}
+
 .entry .value{
     font-weight: 400;
 }
