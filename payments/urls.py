@@ -25,6 +25,7 @@ urlpatterns = [
     path('services/<uuid:service_uuid>/', views.service_details, name='service-detail'),
     path('transaction-done/<redirected_from>/', views.transaction_done, name='transaction-done'),
     path('transfer-done/', views.transfer_done, name='transfer-done'),
+    path('transaction-done/', views.transaction_done, name='transaction-done'),
     path('transactions/', views.transactions, name='transactions'),
     path('transfers/', views.transfers, name='transfers'),
     path('transfers/archive/', ArchiveIndexView.as_view(model=views.Transfer,date_field="created_at"), name='transfer-archive'),

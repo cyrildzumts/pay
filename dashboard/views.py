@@ -929,13 +929,13 @@ def policy_group_update_members(request, group_uuid=None):
             
             instance.members.clear()
             form.save()
-            messages.add_message(request, messages.SUCCESS, "Policy Group %s updated".format(instance.name))
+            messages.success(request, "Policy Group {} updated".format(instance.name))
             return redirect('dashboard:policy-groups')
         else:
-            messages.add_message(request, messages.ERROR, "Policy Group %s could not updated. Invalid form".format(instance.name))
+            messages.error(request, "Policy Group {} could not updated. Invalid form".format(instance.name))
             logger.info("Edit PolicyGroupUpdateForm is not valid. Errors : %s", form.errors)
             return redirect(instance.get_dashboard_absolute_url())
-    messages.add_message(request, messages.ERROR, "Invalid request")
+    messages.error(request, "Invalid request")
     return redirect(instance.get_dashboard_absolute_url())
     """
     form = forms.PolicyGroupForm(instance=instance)
@@ -997,11 +997,11 @@ def policy_group_remove(request, group_uuid=None):
 
     deleted_count, extras = forms.PolicyGroup.objects.filter(policy_group_uuid=group_uuid).delete()
     if deleted_count > 0 :
-        messages.add_message(request, messages.SUCCESS, 'PolicyGroup has been deleted')
+        messages.success(request, 'PolicyGroup has been deleted')
         logger.info("Policy Group deleted by User {}", request.user.username)
     
     else:
-        messages.add_message(request, messages.ERROR, 'Policy Group could not be deleted')
+        messages.error(request, 'Policy Group could not be deleted')
         logger.error("Policy Group Delete failed. Action requested by User {}",request.user.username)
         
     return redirect('dashboard:policy-groups')
@@ -1212,11 +1212,11 @@ def case_close(request, issue_uuid=None):
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
     updated = model.objects.filter(issue_uuid=issue_uuid).update(is_closed=True)
     if updated :
-            messages.add_message(request, messages.SUCCESS, "Case closed")
+            messages.success(request, "Case closed")
             logger.info("User %s closed the Claim %s", username, issue_uuid)
             
     else :
-            messages.add_message(request, messages.ERROR, "Case not closed")
+            messages.error(request,"Case not closed")
             logger.warn("User %s failed to close the Claim %s", username, issue_uuid)
     return redirect('dashboard:caseissues')
 
@@ -1374,7 +1374,7 @@ def group_create(request):
             logger.debug('Creating a Group with the name {}'.format(group_name))
             if not Group.objects.filter(name=group_name).exists():
                 group = form.save()
-                messages.add_message(request, messages.SUCCESS, "The Group has been succesfully created")
+                messages.success(request, "The Group has been succesfully created")
                 if users:
                     group.user_set.set(users)
                     logger.debug("Added users into the group %s",users)
@@ -1384,11 +1384,11 @@ def group_create(request):
                 return redirect('dashboard:groups')
             else:
                 msg = "A Group with the given name {} already exists".format(group_name)
-                messages.add_message(request, messages.ERROR, msg)
+                messages.error(request, msg)
                 logger.error(msg)
             
         else :
-            messages.add_message(request, messages.ERROR, "The Group could not be created. Please correct the form")
+            messages.error(request, "The Group could not be created. Please correct the form")
             logger.error("Error on creating new Group Errors : %s", form.errors)
     
     context = {

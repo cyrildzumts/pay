@@ -133,11 +133,11 @@ def new_transaction(request):
     return render(request, template_name, context)
 
 
-def transaction_done(request, redirected_from = None):
+def transaction_done(request):
     
     context = {}
     template_name = "payments/transaction_done.html"
-    page_title = "Transaction Done - " + settings.SITE_NAME
+    page_title = "Transaction Confirmation" + ' - ' + settings.SITE_NAME
     context['page_title'] = page_title
     return render(request,template_name, context)
 
@@ -195,7 +195,7 @@ def new_transfer(request):
     if request.method == "POST":
         context = PaymentService.process_transfer_request(request)
         if context['success']:
-            return redirect('payments:transfer-done')
+            return redirect('payments:transaction-done')
         else : 
             logger.error("There was an error with the transfer request")
 
@@ -321,7 +321,7 @@ def new_service(request, available_service_uuid=None):
                 routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
             )
             logger.info("Service request successful. Redirecting now to service-done")
-            return redirect('payments:service-done')
+            return redirect('payments:transaction-done')
         else : 
             logger.debug("There was an error with the service request : {}".format(context['errors']))
             form = ServiceCreationForm(request.POST.copy())
@@ -472,7 +472,7 @@ def new_payment(request):
             )
             """
             logger.info("Payment request successful")
-            return redirect('payments:payment-done')
+            return redirect('payments:transaction-done')
         else : 
             logger.debug("There was an error with the service request : {}".format(context['errors']))
             form = PaymentForm(request.POST.copy())
