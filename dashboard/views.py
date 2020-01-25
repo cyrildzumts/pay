@@ -966,7 +966,7 @@ def policy_group_details(request, group_uuid=None):
     context['page_title'] = page_title
     context['group'] = group
     context['members'] = group.members.all()
-    context['users'] = User.objects.filter(is_active=True)
+    context['users'] = User.objects.filter(is_active=True, is_superuser=False)
     context['can_access_dashboard'] = can_access_dashboard
     context['can_view_policy'] = can_view_policy
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
