@@ -97,7 +97,7 @@ class Policy(models.Model):
 class PolicyGroup(models.Model):
     name = models.CharField(max_length=80)
     policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
-    members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'))
+    members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
     policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):

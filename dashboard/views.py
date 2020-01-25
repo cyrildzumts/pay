@@ -920,6 +920,8 @@ def policy_group_add_users(request, group_uuid=None):
     if request.method =="POST":
         form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
         if form.is_valid():
+            # user can not be members on more han one group at the same time.
+            #members = form.cleaned_data.get('members')
             form.save()
             messages.add_message(request, messages.SUCCESS, "Policy Group %s updated".format(instance.name))
             return redirect('dashboard:policy-groups')
