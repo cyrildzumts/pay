@@ -1,5 +1,5 @@
 {% load i18n %}
-<form action="{% url 'dashboard:policy-group-add-users' group.policy_group_uuid %}" method="post">{% csrf_token %}
+<form action="{% url 'dashboard:policy-group-update-members' group.policy_group_uuid %}" method="post">{% csrf_token %}
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-5">

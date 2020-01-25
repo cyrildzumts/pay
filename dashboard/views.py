@@ -902,7 +902,7 @@ def policy_group_update(request, group_uuid=None):
 
 
 @login_required
-def policy_group_add_users(request, group_uuid=None):
+def policy_group_update_members(request, group_uuid=None):
     username = request.user.username
     can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
     if not can_access_dashboard:
@@ -921,7 +921,7 @@ def policy_group_add_users(request, group_uuid=None):
         form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             # user can not be members on more han one group at the same time.
-            #members = form.cleaned_data.get('members')
+            instance.members.clear()
             form.save()
             messages.add_message(request, messages.SUCCESS, "Policy Group %s updated".format(instance.name))
             return redirect('dashboard:policy-groups')
