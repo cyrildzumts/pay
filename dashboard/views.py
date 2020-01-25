@@ -921,6 +921,12 @@ def policy_group_update_members(request, group_uuid=None):
         form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             # user can not be members on more han one group at the same time.
+            old_members = instance.members.all()
+            new_members = form.cleaned_data.get('members')
+            logger.info('new members : %s', new_members)
+            for u in new_members:
+                u.policygroup_set.clear()
+            
             instance.members.clear()
             form.save()
             messages.add_message(request, messages.SUCCESS, "Policy Group %s updated".format(instance.name))
