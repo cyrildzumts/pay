@@ -35,6 +35,10 @@
         </div>
     </div>
 </div>
+<div class="hide">
+    <input type="text" name="name" value="{{group.name}}">
+    <input type="text" name="policy" value="{{group.policy.pk}}">
+</div>
 <select class="hide" name="members" id="members" multiple>
 {% for u in members %}
     <option value="{{u.pk}}" selected>{{u.username}} - {{u.get_full_name}}</option>

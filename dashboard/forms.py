@@ -26,6 +26,11 @@ class PolicyGroupUpdateForm(forms.ModelForm):
         model = PolicyGroup
         fields = ('name', 'policy', 'members',)
 
+class PolicyGroupUpdateMembersForm(forms.ModelForm):
+    
+    class Meta:
+        model = PolicyGroup
+        fields = ('members',)
 
 class ServiceCategoryForm(forms.ModelForm):
     
