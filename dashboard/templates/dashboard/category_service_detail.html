@@ -1,6 +1,33 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Category" %} - {{category.category_name}}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col col-9">
+                <div class="banner--actions">
+                    {% if can_delete_category %}<a class="mat-button mat-button-text" href="{{category.get_dashboard_remove_url}}"> {% trans "Remove" %} </a>{% endif %}
+                    {% if can_change_category %}<a class="mat-button mat-button-text" href="{{category.get_dashboard_update_url}}"> {% trans "Edit" %} </a>{% endif %}
+                    {% if can_add_category %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "Add new Category Service" %} </a>{% endif %}
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}"> {% trans "Category Services" %} </a>
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+
 {% block MAIN %}
 
 {% if can_view_category %}
@@ -10,26 +37,30 @@
 <div class="container flex column">
         <div class="card">
           <div class="card__title">
-            <h3> {% trans "Service Category Name" %} : {{category.category_name}} </h3>
-            <h4> {% trans "Service Category Code" %} : {{category.category_code}}</h4>
+            <h4> {% trans "Service Category Name" %} : {{category.category_name}} </h4>
+            <i> {% trans "Service Category Code" %} : {{category.category_code}}</i>
           </div>
           <div class="card__body">
-              <ul class="listview" role="navigation">
+              <ul class="mat-list" role="navigation">
                 
-                <li class="list-item"> 
+                <li class="mat-list-item"> 
                     <label for="is_active">{% trans "Activated" %} : </label>
                     <input type="checkbox" name="is_active" id="is_active" {% if category.is_active %}checked{% endif %} disabled>
                  </li>
-                <li class="list-item"> {% trans "Created by" %}: {{category.created_by.username}} </li>
-                <li class="list-item"> {% trans "Created at" %} : {{category.created_at}} </li>
+                <li class="mat-list-item"> {% trans "Created by" %}: {{category.created_by.username}} </li>
+                <li class="at-list-item"> {% trans "Created at" %} : {{category.created_at|date:"F j, Y"}} </li>
               </ul>
               {% if has_services %}
               
-              <div class="container">
-                  <h5>{% trans "Services Available in this category" %} :</h5>
-                  <ul class="listview">
+              <div class="mat-list-wrapper">
+                  <div clas="mat-list-header">
+                    <div class="list-title">
+                      {% trans "Services Available in this category" %}
+                    </div>
+                  </div>
+                  <ul class="mat-list">
                     {% for service in available_services %}
-                     <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_absolute_url}}">{{service.name}}</a></li>
+                     <li class="mat-list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_absolute_url}}">{{service.name}}</a></li>
                     {% endfor %}
                   </ul>
               </div>
@@ -37,15 +68,6 @@
                   <p>{% trans "There are no services available for this category yet" %}</p>
               {% endif %}
               
-          </div>
-          <div class="card__actions">
-              <ul class="listview nav" role="navigation">
-                  {% if can_delete_category %}<li class="list-item"><a class="mat-button mat-button-text" href="{{category.get_dashboard_remove_url}}"> {% trans "Remove" %} </a> </li>{% endif %}
-                  {% if can_change_category %}<li class="list-item"><a class="mat-button mat-button-text" href="{{category.get_dashboard_update_url}}"> {% trans "Edit" %} </a> </li>{% endif %}
-                  {% if can_add_category %}<li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "Add new Category Service" %} </a> </li>{% endif %}
-                  <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}"> {% trans "Category Services" %} </a> </li>
-                  <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
-              </ul>
           </div>
         </div>
 </div>

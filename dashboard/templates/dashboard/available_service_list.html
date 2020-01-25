@@ -1,15 +1,36 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Available Services" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col col-9">
+                <div class="banner--actions">
+                    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+                    {% if can_add_available_service %}
+                    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a>
+                    {% endif %}
+                    {% if can_delete_available_service %}
+                    <a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:available-service-remove-all' %}"> {% trans "Delete All Available Service" %} </a>
+                    {% endif %}
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
 
 {% block MAIN %}
 
-<div class="row">
-  <div class="nav">
-    {% if can_add_available_service %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a>{% endif %}
-    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    {% if can_delete_available_service %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:available-service-remove-all' %}"> {% trans "Delete All Available Service" %} </a>{% endif %}
-  </div>
-</div>
 <div class="container">
 <div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">

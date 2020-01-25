@@ -1,18 +1,31 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Policies" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
 
+            <div class="col-xs-12 col-9">
+                <div class="banner--actions">
+                    {% if can_add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "Add New Policy" %} </a>{% endif %}
+                    {% if can_delete_policy %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-remove-all' %}"> {% trans "Delete All Policies" %} </a>{% endif %}
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>  
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        </div><!--End of Container-->
+    </div>
+{% endblock HEADER_BANNER %}
 {% block MAIN %}
 
 
 {% if can_view_policy %}
 
-<div class="row">
-  <div class="nav">
-    {% if can_add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "Add New Policy" %} </a>{% endif %}
-    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    {% if can_delete_policy %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-remove-all' %}"> {% trans "Delete All Policies" %} </a>{% endif %}
-  </div>
-</div>
 <div class="container">
   <div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">

@@ -1,5 +1,29 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Payment" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col col-9">
+                <div class="banner--actions">
+                    {% if can_view_payment %}<a class="mat-button mat-button-default" href="{% url 'dashboard:payments' %}"> <i class="fas fas-plus"></i> <span>{% trans "Payments" %}</span> </a>{% endif %}
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+
 
 {% block MAIN %}
 
