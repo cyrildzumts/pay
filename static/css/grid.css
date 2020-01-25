@@ -77,6 +77,10 @@
 .col-flex-12 { flex-basis: 100%; }
 
 
+.hide{
+  display: none;
+}
+
 .row{
 	display: flex;
   flex-direction: row;

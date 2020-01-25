@@ -902,7 +902,7 @@ def policy_group_update(request, group_uuid=None):
 
 
 @login_required
-def policy_group_add_user(request, group_uuid=None):
+def policy_group_add_users(request, group_uuid=None):
     username = request.user.username
     can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
     if not can_access_dashboard:
@@ -921,10 +921,15 @@ def policy_group_add_user(request, group_uuid=None):
         form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
+            messages.add_message(request=request, messages.SUCCESS, "Policy Group %s updated".format(instance.name))
             return redirect('dashboard:policy-groups')
         else:
+            messages.add_message(request=request, messages.ERROR, "Policy Group %s could not updated. Invalid form".format(instance.name))
             logger.info("Edit PolicyGroupUpdateForm is not valid. Errors : %s", form.errors)
-    
+            return redirect(instance.get_dashboard_absolute_url())
+    messages.add_message(request=request, messages.ERROR, "Invalid request")
+    return redirect(instance.get_dashboard_absolute_url())
+    """
     form = forms.PolicyGroupForm(instance=instance)
     context = {
             'page_title':page_title,
@@ -937,6 +942,7 @@ def policy_group_add_user(request, group_uuid=None):
         }
     
     return render(request, template_name,context )
+    """
 
 @login_required
 def policy_group_details(request, group_uuid=None):
@@ -959,6 +965,8 @@ def policy_group_details(request, group_uuid=None):
     page_title = "Policy Group Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['group'] = group
+    context['members'] = group.members.all()
+    context['users'] = User.objects.filter(is_active=True)
     context['can_access_dashboard'] = can_access_dashboard
     context['can_view_policy'] = can_view_policy
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)

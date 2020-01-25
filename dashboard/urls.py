@@ -37,6 +37,7 @@ urlpatterns = [
 
     path('policy-groups/', views.policy_groups, name='policy-groups'),
     path('policy-groups/detail/<uuid:group_uuid>/', views.policy_group_details, name='policy-group-detail'),
+    path('policy-groups/add-users/<uuid:group_uuid>/', views.policy_group_add_users, name='policy-group-add-users'),
     path('policy-groups/remove/<uuid:group_uuid>/', views.policy_group_remove, name='policy-group-remove'),
     #path('policy-groups/remove-all/', views.policy_remove_all, name='policy-group-remove-all'),
     path('policy-groups/update/<uuid:group_uuid>/', views.policy_group_update, name='policy-group-update'),

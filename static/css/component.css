@@ -1552,6 +1552,9 @@ input[type=text]:focus, textarea:focus{
 
 .mat-list-wrapper{
 	min-width: 344px;
+	box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+				0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+				0px 1px 3px 0px rgba(0,0,0,.12);
 	padding: 0;
 	margin: 0;
 }
@@ -1599,15 +1602,21 @@ input[type=text]:focus, textarea:focus{
 	position: relative;
 	width: 100%;
 	height: 64px;
-	box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-				0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-				0px 1px 3px 0px rgba(0,0,0,.12);
-	border: 1px solid #ccc;
-	z-index: 5000;
+	background-color: #fafafa;
+	z-index: 10;
 	align-items: center;
 	justify-content: center;
-	font-size: 1.25em;
-	font-weight: 700;
+	font-size: 1em;
+	font-weight: 600;
+}
+
+.mat-list-header .list-title{
+	margin: 16px auto;
+}
+
+.mat-list-header .hint{
+	padding: 0 16px;
+	font-size: 0.875em;
 }
 
 .mat-list-item{
@@ -1624,6 +1633,11 @@ input[type=text]:focus, textarea:focus{
 	border-bottom: 1px solid #ccc;
 	cursor: pointer;
 }
+
+.mat-list-item:last-child{
+	border-bottom: none;
+}
+
 .mat-list-item .mat-button{
 	width: 100%;
 	padding: 0 !important;

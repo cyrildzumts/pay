@@ -984,6 +984,19 @@ slider.init();
         prevent_leaving();
     });
     $('form .js-cancel').on('click', can_leave);
+    $('.js-user-selector').on('click', 'li', function(){
+        let target = $(this);
+        $('#members').append($('<option/>', {'value': target.data('id'), 'selected': true, 'text': target.text()}));
+        target.appendTo('#selected-users');
+    });
+    $('.js-users-selected').on('click', 'li', function(){
+        let target = $(this);
+        target.appendTo('.js-user-selector');
+        $('#members option').filter(function(){
+            return this.value == target.data('id');
+        }).remove();
+        
+    });
 });
 
 

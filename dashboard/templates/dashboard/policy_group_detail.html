@@ -14,10 +14,14 @@
             <p> {% trans "Members" %} : {{group.members.count}} </p>
             <p> {% trans "Commission" %} : {{group.policy.commission}}</p>  
             <div class="mat-list-wrapper">
-              <h3>{% trans "Policy Group Members" %}</h3>
-              <ul class="listview">
+              <div class="mat-list-header">
+                <div class="list-title">{% trans "Group Members" %}</div>
+                <button class="mat-button mat-button-default js-dialog-add-members" data-target="#add-group-members">{% trans "Add members" %}</div>
+              </div>
+              
+              <ul class="mat-list">
                 {% for user in group.members.all %}
-                <li class="list-item">{{user.username}} - {{user.get_full_name}}</li>
+                <li class="mat-list-item">{{user.username}} - {{user.get_full_name}}</li>
                 {% endfor %}
               </ul>
             </div>
@@ -34,6 +38,16 @@
           </div>
           
         </div>
+</div>
+<div class="mat-dialog" id="add-group-members">
+  <span class="dialog-close">{% trans "Close" %}</span>
+  <div  class="dialog-title">
+    {% trans "Add Members to policy group" %}
+  </div>
+  <div class="dialog-content">
+    {% include "tags/policy_group_add_users.html" %}
+  </div>
+  
 </div>
 {% else %}
 <div class="access-error">
