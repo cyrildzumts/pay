@@ -924,7 +924,7 @@ def policy_group_add_users(request, group_uuid=None):
             messages.add_message(request, messages.SUCCESS, "Policy Group %s updated".format(instance.name))
             return redirect('dashboard:policy-groups')
         else:
-            messages.add_message(request=request, messages.ERROR, "Policy Group %s could not updated. Invalid form".format(instance.name))
+            messages.add_message(request, messages.ERROR, "Policy Group %s could not updated. Invalid form".format(instance.name))
             logger.info("Edit PolicyGroupUpdateForm is not valid. Errors : %s", form.errors)
             return redirect(instance.get_dashboard_absolute_url())
     messages.add_message(request=request, messages.ERROR, "Invalid request")
