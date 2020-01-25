@@ -8,11 +8,11 @@
 
               <div class="card__body">
                   <p> {% trans "Name" %} : {{used_voucher.voucher.name}} </p>
-                  <p> {% trans "Credit" %} : {{used_voucher.voucher.amount}} FCFA </p>
+                  <p> {% trans "Credit" %} : {{used_voucher.voucher.amount}}  {% trans "XAF" %} </p>
                   <p> {% trans "Voucher Code" %} : {{used_voucher.voucher.voucher_code}} </p>
-                  <p> {% trans "Creation Date" %} : {{used_voucher.voucher.created_at}} </p>
-                  <p> {% trans "Activation Date" %} : {{used_voucher.voucher.activated_at}} </p>
-                  <p> {% trans "Usage Date" %} : {{used_voucher.used_at}} </p>
+                  <p> {% trans "Creation Date" %} : {{used_voucher.voucher.created_at|date:"F j, Y"}} </p>
+                  <p> {% trans "Activation Date" %} : {{used_voucher.voucher.activated_at|date:"F j, Y"}} </p>
+                  <p> {% trans "Usage Date" %} : {{used_voucher.used_at|date:"F j, Y"}} </p>
                   <p> {% trans "Customer" %} : {{used_voucher.customer.get_full_name}} </p>
               </div><!--End of card body-->
               <div class="card__actions">

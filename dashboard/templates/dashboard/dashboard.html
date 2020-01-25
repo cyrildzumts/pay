@@ -130,7 +130,7 @@
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-transfer"></td>-->
                                                                                 <td>{{xfer.sender.username}}</td>
                                                                                 <td>{{xfer.amount}} {% trans "XAF" %}</td>
-                                                                                <td>{{xfer.created_at}}</td>
+                                                                                <td>{{xfer.created_at|date:"F j, Y"}}</td>
                                                                                 </tr>
                                                                                 {% endfor %}
                                                                                 
@@ -173,7 +173,7 @@
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                                                                                 <td>{{s.name}}</td>
                                                                                 <td>{{s.price}} {% trans "XAF" %}</td>
-                                                                                <td>{{s.created_at}}</td>
+                                                                                <td>{{s.created_at|date:"F j, Y"}}</td>
                                                                                 </tr>
                                                                                 {% endfor %}
                                                                                 

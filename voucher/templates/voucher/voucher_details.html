@@ -19,11 +19,11 @@
                         <li><span>{% trans "Credit" %} :</span> <span>{{voucher.amount}} {% trans "XAF" %}</span></li>
 
                         <li><span>{% trans "Voucher Code" %} :</span> <span>{{voucher.voucher_code}}</span></li>
-                        <li><span>{% trans "Creation Date" %} :</span> <span>{{voucher.created_at}}</span></li>
+                        <li><span>{% trans "Creation Date" %} :</span> <span>{{voucher.created_at|date:"F j, Y"}}</span></li>
      
                         {% if voucher.activated is True %}
                         <li><span>{% trans "Activated" %} :</span> <span>{% trans "Yes" %}</span></li>
-                        <li><span>{% trans "Activation Date" %} :</span> <span>{{voucher.activated_at}}</span></li>
+                        <li><span>{% trans "Activation Date" %} :</span> <span>{{voucher.activated_at|date:"F j, Y"}}</span></li>
                         {% else %}
                         <li><span>{% trans "Activated" %} :</span> <span>{% trans "No" %}</span></li>
                         {% endif %}

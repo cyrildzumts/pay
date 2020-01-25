@@ -42,7 +42,7 @@
                   <td>{{v.voucher.name}}</td>
                   <td>{{v.voucher.amount}} {% trans "XAF" %}</td>
                   <td>{{v.voucher.voucher_code}}</td>
-                  <td>{{v.used_at}}</td>
+                  <td>{{v.used_at|date:"F j, Y"}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'voucher:used-voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}

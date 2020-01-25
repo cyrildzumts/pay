@@ -6,11 +6,11 @@
 <div class="container">
          <div class="card">
           <p> {% trans "Name" %} : {{sold_voucher.voucher.name}} </p>
-          <p> {% trans "Credit" %} : {{sold_voucher.voucher.amount}} FCFA </p>
+          <p> {% trans "Credit" %} : {{sold_voucher.voucher.amount}}  {% trans "XAF" %} </p>
           <p> {% trans "Voucher Code" %} : {{sold_voucher.voucher.voucher_code}} </p>
-          <p> {% trans "Creation Date" %} : {{sold_voucher.voucher.created_at}} </p>
-          <p> {% trans "Activation Date" %} : {{voucher.activated_at}} </p>
-          <p> {% trans "Sold Date" %} : {{sold_voucher.sold_at}} </p>
+          <p> {% trans "Creation Date" %} : {{sold_voucher.voucher.created_at|date:"F j, Y"}} </p>
+          <p> {% trans "Activation Date" %} : {{voucher.activated_at|date:"F j, Y"}} </p>
+          <p> {% trans "Sold Date" %} : {{sold_voucher.sold_at|date:"F j, Y"}} </p>
           <p> {% trans "Seller" %} : {{sold_voucher.seller.get_full_name}} </p>
 
         </div>
