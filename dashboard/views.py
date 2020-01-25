@@ -918,7 +918,7 @@ def policy_group_add_users(request, group_uuid=None):
     instance = get_object_or_404(forms.PolicyGroup, policy_group_uuid=group_uuid)
     template_name = "dashboard/policy_group_update.html"
     if request.method =="POST":
-        form = forms.PolicyGroupUpdateFormrequest.POST, instance=instance)
+        form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, "Policy Group %s updated".format(instance.name))
