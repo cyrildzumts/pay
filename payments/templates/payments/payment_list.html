@@ -31,7 +31,7 @@
                     <td data-label="{% trans 'Sender' %}">{{payment.sender.username}}</td>
                     <td data-label="{% trans 'Recipient' %}">{{payment.recipient.username}}</td>
                     <td data-label="{% trans 'Amount' %}">{{payment.amount}} {% trans "XAF" %}</td>
-                    <td data-label="{% trans 'Date' %}">{{payment.created_at}}</td>
+                    <td data-label="{% trans 'Date' %}">{{payment.created_at|date:"F j, Y"}}</td>
                     <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{payment.get_absolute_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}

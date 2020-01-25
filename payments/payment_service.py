@@ -58,6 +58,7 @@ class PaymentService :
         sender_account = None
         recipient_account = None
         pay_account = None
+        commission = None
         try:
             sender_account = Account.objects.get(user=sender)
             recipient_account = Account.objects.get(user=recipient)
@@ -67,7 +68,12 @@ class PaymentService :
             return False
         sender_balance = sender_account.balance
         if(sender_balance - amount) >= 0:
-            commission = recipient.policy.first().commission
+            try:
+                commission = recipient.policygroup_set.first().policy.commission
+            except Exception as e:
+                logger.error("[recipient Error] %s", e)
+                return False
+            
             pay_fee, recipient_amount, succeed = PaymentService.get_commission(amount,commission)
             if succeed :
                 #account_queryset = Account.objects.all()
