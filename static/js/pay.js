@@ -987,9 +987,9 @@ slider.init();
     $('.js-user-selector').on('click', 'li', function(){
         let target = $(this);
         $('#members').append($('<option/>', {'value': target.data('id'), 'selected': true, 'text': target.text()}));
-        target.appendTo('#selected-users');
+        target.appendTo('#selected-members');
     });
-    $('.js-users-selected').on('click', 'li', function(){
+    $('#selected-members').on('click', 'li', function(){
         let target = $(this);
         target.appendTo('.js-user-selector');
         $('#members option').filter(function(){
