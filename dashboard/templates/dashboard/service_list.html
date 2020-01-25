@@ -39,7 +39,7 @@
     <div class="responsive">
         <div class="box shadow flex-column">
           <div class="title">{% trans "Money transferred" %}</div>
-          <div class="subtitle highlight">{{service_summary.total_amount}} FCFA</div>
+          <div class="subtitle highlight">{{service_summary.total_amount}}  {% trans "XAF" %}</div>
         </div>
     </div>
     <div class="responsive">
@@ -52,14 +52,14 @@
     <div class="responsive">
         <div class="box shadow flex-column">
           <div class="title">{% trans "Max paid money" %}</div>
-          <div class="subtitle highlight">{{service_summary.max_paid_amount}} FCFA</div>
+          <div class="subtitle highlight">{{service_summary.max_paid_amount}}  {% trans "XAF" %}</div>
         </div>
     </div>
 
     <div class="responsive">
         <div class="box shadow flex-column">
           <div class="title">{% trans "Min paid money" %}</div>
-          <div class="subtitle highlight">{{service_summary.min_paid_amount}} FCFA</div>
+          <div class="subtitle highlight">{{service_summary.min_paid_amount}}  {% trans "XAF" %}</div>
         </div>
     </div>
 
@@ -108,7 +108,7 @@
                   <td>{{s.name}}</td>
                   <td>{{s.price}} {% trans "XAF" %}</td>
                   <td>{{s.category.category_name}}</td>
-                  <td>{{s.created_at}}</td>
+                  <td>{{s.created_at|date:"F j, Y"}}</td>
                   <td><a class="mat-button mat-button-default" href="{{s.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}

@@ -43,7 +43,7 @@
                         <span class="key">{% trans "Amount" %} :</span> <span class="value">{{transfer.amount}} {% trans "XAF" %}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{transfer.created_at}}</span>
+                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{transfer.created_at|date:"F j, Y"}}</span>
                     </div>
                     <div class="entry">
                         <span class="key">{% trans "Verification Code" %} :</span> <span class="value">{{transfer.verification_code}}</span>

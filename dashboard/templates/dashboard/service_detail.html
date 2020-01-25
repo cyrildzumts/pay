@@ -102,7 +102,7 @@
                   <span class="key">{% trans "Issue Date" %} :</span><span class="value">{{service.issued_at}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Date" %} :</span><span class="value">{{service.created_at}}</span>
+                  <span class="key">{% trans "Date" %} :</span><span class="value">{{service.created_at|date:"F j, Y"}}</span>
                 </div>
                 <div class="entry">
                   <span class="key">{% trans "Verification Code" %}</span><span class="value">{{service.verification_code}}</span>
