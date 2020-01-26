@@ -302,7 +302,7 @@ class PaymentService :
             logger.error("Service failed : Amount is negative : %s", amount)
             return False
         
-        if not (isinstance(customer, User) and isinstance(seller, User):
+        if not (isinstance(customer, User) and isinstance(seller, User)):
             logger.error("customer or seller are not instance of User class.")
             return False
         try:
