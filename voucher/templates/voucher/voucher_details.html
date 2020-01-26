@@ -23,9 +23,9 @@
      
                         {% if voucher.activated is True %}
                         <li><span>{% trans "Activated" %} :</span> <span>{% trans "Yes" %}</span></li>
-                        <li><span>{% trans "Activation Date" %} :</span> <span>{{voucher.activated_at|date:"F j, Y"}}</span></li>
                         <li><span>{% trans "Activated by" %} :</span> <span>{{voucher.activated_by.get_full_name}} - {{voucher.activated_by.username}}</span></li>
-                        <li><span>{% trans "Activated by" %} :</span> <span>{{voucher.sold_by.get_full_name}} - {{voucher.sold_by.username}}</span></li>
+                        <li><span>{% trans "Activation Date" %} :</span> <span>{{voucher.activated_at|date:"F j, Y"}}</span></li>
+                        <li><span>{% trans "Sold by" %} :</span> <span>{{voucher.sold_by.get_full_name}} - {{voucher.sold_by.username}}</span></li>
                         <li><span>{% trans "Sold Date" %} :</span> <span>{{voucher.sold_at|date:"F j, Y"}}</span></li>
                         {% else %}
                         <li><span>{% trans "Activated" %} :</span> <span>{% trans "No" %}</span></li>
