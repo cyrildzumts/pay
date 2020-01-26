@@ -23,6 +23,15 @@ urlpatterns = [
     path('service-done/', views.service_done, name='service-done'),
     path('services/', views.services, name='services'),
     path('services/<uuid:service_uuid>/', views.service_details, name='service-detail'),
+
+    path('services/archive/', views.ServiceArchiveIndexView.as_view(), name='service-archive'),
+    path('services/archive/<int:year>/', views.ServiceYearArchiveView.as_view(), name='service-year-archive'),
+    path('services/archive/<int:year>/<int:month>/', views.ServiceMonthArchiveView.as_view(month_format="%m"), name='service-month-archive'),
+    path('services/archive/<int:year>/<str:month>/', views.ServiceMonthArchiveView.as_view(), name='service-month-archive'),
+
+    path('services/archive/<int:year>/<int:month>/<int:day>/', views.ServiceDayArchiveView.as_view(month_format="%m"), name='service-day-archive'),
+    path('services/archive/<int:year>/<str:month>/<int:day>/', views.ServiceDayArchiveView.as_view(), name='service-day-archive'),
+
     path('transaction-done/<redirected_from>/', views.transaction_done, name='transaction-done'),
     path('transfer-done/', views.transfer_done, name='transfer-done'),
     path('transaction-done/', views.transaction_done, name='transaction-done'),
@@ -31,8 +40,12 @@ urlpatterns = [
     path('transfers/', views.transfers, name='transfers'),
     path('transfers/archive/', views.TransferArchiveIndexView.as_view(), name='transfer-archive'),
     path('transfers/archive/<int:year>/', views.TransferYearArchiveView.as_view(), name='transfer-year-archive'),
-    path('transfers/archive/<int:year>/<int:month>/', views.TransferMonthArchiveView.as_view(), name='transfer-month-archive'),
-    path('transfers/archive/<int:year>/<int:month>/', views.TransferDayArchiveView.as_view(), name='transfer-day-archive'),
+    path('transfers/archive/<int:year>/<int:month>/', views.TransferMonthArchiveView.as_view(month_format="%m"), name='transfer-month-archive'),
+    path('transfers/archive/<int:year>/<str:month>/', views.TransferMonthArchiveView.as_view(), name='transfer-month-archive'),
+
+    path('transfers/archive/<int:year>/<int:month>/<int:day>/', views.TransferDayArchiveView.as_view(month_format="%m"), name='transfer-day-archive'),
+    path('transfers/archive/<int:year>/<str:month>/<int:day>/', views.TransferDayArchiveView.as_view(), name='transfer-day-archive'),
+    
     path('transfers/archive/today/', views.TransferTodayArchiveView.as_view(), name='transfer-today-archive'),
     path('transactions/<uuid:transaction_uuid>/', views.transaction_details, name='transaction-detail'),
     path('transfer/<uuid:transfer_uuid>/', views.transfer_details, name='transfer-detail'),

@@ -1,0 +1,20 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Service Payments for year "%} {{year|date:"Y"}}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+{% block MAIN %}
+
+<div class="container">
+  <div class="col-xs-12 col-6">
+    <div class="mat-list-wrapper">
+      <div class="mat-list-header">{% trans "Month" %}</div>
+        <ul class="mat-list">
+            {% for date in date_list %}
+            <li class="mat-list-item"><a href="{% url 'payments:service-month-archive' year|date:'Y' date|date:'n' %}">{{date|date:"m, Y"}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+  </div>
+</div>
+{% endblock MAIN %}

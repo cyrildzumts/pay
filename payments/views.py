@@ -966,6 +966,8 @@ class PaymentTodayArchiveView(TodayArchiveView):
         context["page_title"] = _("Payment Archive from Today")
         return context
 
+    
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -1041,4 +1043,75 @@ class TransferTodayArchiveView(TodayArchiveView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = _("Transfer Archive of Today")
+        return context
+
+
+
+
+class ServiceYearArchiveView(YearArchiveView):
+    queryset = Service.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Service.objects.filter(Q(customer=self.request.user) | Q(operator=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Service Year Archive")
+        return context
+
+class ServiceArchiveIndexView(ArchiveIndexView):
+    queryset = Service.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Service.objects.filter(Q(customer=self.request.user) | Q(operator=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Service Month Archive")
+        return context
+
+
+class ServiceMonthArchiveView(MonthArchiveView):
+    queryset = Service.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Service.objects.filter(Q(customer=self.request.user) | Q(operator=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Service Month Archive")
+        return context
+
+class ServiceDayArchiveView(DayArchiveView):
+    queryset = Service.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Service.objects.filter(Q(customer=self.request.user) | Q(operator=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Service Day Archive")
+        return context
+
+
+class ServiceTodayArchiveView(TodayArchiveView):
+    queryset = Service.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+
+    def get_queryset(self):
+        return Service.objects.filter(Q(customer=self.request.user) | Q(operator=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Service Archive from Today")
         return context
