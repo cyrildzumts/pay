@@ -17,19 +17,39 @@
     </div>
   </div>
   <div class="col-xs-12 col-6">
-    <div class="mat-card">
-      <div class="title">
-        <h2>{% trans "All Transfers for the day " %} {{day}}</h2>
-      </div>
-      <div class="mat-card-content">
-        {% for transfer in page_obj %}
-         <p>{{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %} - {{transfer.created_at|date:"F j, Y"}}</p>
-        {% endfor %}
-      </div>
-      <div class="actions">
-        {% include "tags/pagination.html" with page_set=page_obj %}
-      </div>
-    </div>
+    <div class="mat-table-wrapper">
+        <table id="transaction-list" class="mat-table js-filter-table">
+          <caption>{% trans "Transfer List" %}</caption>
+          <thead>
+                  <tr>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          <th>{% trans "Sender" %}</th>
+                          <th>{% trans "Recipient" %}</th>
+                          <th>{% trans "Amount" %}</th>
+                          <th>{% trans "Date of usage" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for xfer in object_list  %}
+                  <tr>
+                    <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
+                    <td data-label="{% trans 'Sender' %}">{{xfer.sender.username}}</td>
+                    <td data-label="{% trans 'Recipient' %}">{{xfer.recipient.username}}</td>
+                    <td data-label="{% trans 'Amount' %}">{{xfer.amount}} {% trans "XAF" %}</td>
+                    <td data-label="{% trans 'Date' %}">{{xfer.created_at}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{xfer.get_absolute_url}}">{% trans "More" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    {% include "tags/pagination.html" with page_set=object_list %}
+    </div><!--End of Table Wrapper-->
   </div>
 </div>
 {% endblock MAIN %}

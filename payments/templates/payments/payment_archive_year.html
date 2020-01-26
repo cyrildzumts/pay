@@ -1,24 +1,25 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Transfer Month Archive"%} : {{month|date:"M"}} - {{year}} </h4>
+    <h4> {% trans "Payments for year "%} {{year|date:"Y"}}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
+
 <div class="container">
   <div class="col-xs-12 col-6">
     <div class="mat-list-wrapper">
-            <div class="mat-list-header"> {% trans "Month" %}</div>
-            <ul class="mat-list">
-                {% for date in date_list %}
-                <li class="mat-list-item">{{date|date}}</li>
-                {% endfor %}
-            </ul>
-        </div>
+      <div class="mat-list-header">{% trans "Date" %}</div>
+      <ul class="mat-list">
+        {% for date in date_list %}
+        <li class="mat-list-item">{{date|date:"Y"}}</li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
   <div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">
         <table id="transaction-list" class="mat-table js-filter-table">
-          <caption>{% trans "Transfer List" %}</caption>
+          <caption>{% trans "Payments List" %}</caption>
           <thead>
                   <tr>
                           <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
@@ -30,14 +31,14 @@
                   </tr>
           </thead>
           <tbody>
-                  {% for xfer in object_list  %}
+                  {% for payment in object_list  %}
                   <tr>
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                    <td data-label="{% trans 'Sender' %}">{{xfer.sender.username}}</td>
-                    <td data-label="{% trans 'Recipient' %}">{{xfer.recipient.username}}</td>
-                    <td data-label="{% trans 'Amount' %}">{{xfer.amount}} {% trans "XAF" %}</td>
-                    <td data-label="{% trans 'Date' %}">{{xfer.created_at}}</td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{xfer.get_absolute_url}}">{% trans "More" %}</a></td>
+                    <td data-label="{% trans 'Sender' %}">{{payment.sender.username}}</td>
+                    <td data-label="{% trans 'Recipient' %}">{{payment.recipient.username}}</td>
+                    <td data-label="{% trans 'Amount' %}">{{payment.amount}} {% trans "XAF" %}</td>
+                    <td data-label="{% trans 'Date' %}">{{payment.created_at}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{payment.get_absolute_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}
                   

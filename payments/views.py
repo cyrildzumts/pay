@@ -307,7 +307,7 @@ def transfer_verify(request):
 
 
 @login_required
-def new_service_refactoring(request, available_service_uuid=None):
+def new_service(request, available_service_uuid=None):
     '''
     This view is responsible for processing a service.
     To process a transaction service : 
@@ -369,57 +369,6 @@ def new_service_refactoring(request, available_service_uuid=None):
                 'page_title':page_title,
                 'service' : service,
                 'commission' : commission,
-                'form': form
-            }
-    return render(request, template_name, context)
-
-
-@login_required
-def new_service(request, available_service_uuid=None):
-    '''
-    This view is responsible for processing a service.
-    To process a transaction service : 
-    The user must provide the following informations :
-        * recipient ID
-        * the amount of money to send
-        * Invoice Reference Number
-        * Invoice Date
-        * Customer ID of as used by the recipient
-    For SERVICE CONSUMER, the following extra informations are needed :
-        The needed information are dependent of the type of service.
-        A service REF ID is needed to identify the actual data needed.
-    '''
-    context = {}
-    email_template_name = "payments/service_done_email.html"
-    template_name = "payments/new_service.html"
-    page_title = _("Service Usage")
-    if request.method == "POST":
-        context = PaymentService.process_service_request(request)
-        if context['success']:
-            messages.success(request, _('We have send you a confirmation E-Mail. You will receive it in an instant'))
-            #send_mail_task.apply_async(args=[context['email_context']],
-            #    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-            #    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-            #)
-            logger.info("Service request successful. Redirecting now to service-done")
-            return redirect('payments:transaction-done')
-        else : 
-            logger.debug("There was an error with the service request : {}".format(context['errors']))
-            form = ServiceCreationForm(request.POST.copy())
-            service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
-            context = {
-                'page_title':page_title,
-                'site_name' : settings.SITE_NAME,
-                'service' : service,
-                'form': form
-            }
-
-    elif request.method == "GET":
-            form = ServiceCreationForm()
-            service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
-            context = {
-                'page_title':page_title,
-                'service' : service,
                 'form': form
             }
     return render(request, template_name, context)
