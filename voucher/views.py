@@ -73,7 +73,7 @@ def voucher_details(request, voucher_uuid=None):
 @login_required
 def voucher_activate(request, voucher_uuid=None):
     c = Voucher.objects.filter(voucher_uuid=voucher_uuid, activated=False, is_used=False).update(
-        activated=True, activated_at=timezone.now(), activated_by=request.user, is_sold=True, sold_by=request.user)
+        activated=True, activated_at=timezone.now(), activated_by=request.user, is_sold=True, sold_by=request.user, sold_at=timezone.now())
     if c > 0:
         messages.success(request, _("Voucher activated"))
         return redirect('voucher:vouchers')

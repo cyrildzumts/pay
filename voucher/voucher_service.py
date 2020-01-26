@@ -260,7 +260,7 @@ class VoucherService:
         if cls.is_valide(voucher):
             queryset = Voucher.objects.filter(voucher_code=voucher, activated=False, is_used=False)
         if queryset.exists():
-            queryset.update(activated=True, activated_by=seller)
+            queryset.update(activated=True, activated_by=seller, activated_at=timezone.now(), is_sold=True, sold_by=seller, sold_at=timezone.now())
             succeed = True
             logger.info("Voucher %s is successfuly activated ",voucher)
 
