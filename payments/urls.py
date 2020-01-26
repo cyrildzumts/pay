@@ -28,7 +28,7 @@ urlpatterns = [
     path('transaction-done/', views.transaction_done, name='transaction-done'),
     path('transactions/', views.transactions, name='transactions'),
     path('transfers/', views.transfers, name='transfers'),
-    path('transfers/archive/', ArchiveIndexView.as_view(model=views.Transfer,date_field="created_at"), name='transfer-archive'),
+    path('transfers/archive/', views.TransferArchiveIndexView.as_view(), name='transfer-archive'),
     path('transfers/archive/<int:year>/', views.TransferYearArchiveView.as_view(), name='transfer-year-archive'),
     path('transfers/archive/<int:year>/<int:month>/', views.TransferMonthArchiveView.as_view(), name='transfer-month-archive'),
     path('transfers/archive/<int:year>/<int:month>/', views.TransferDayArchiveView.as_view(), name='transfer-day-archive'),

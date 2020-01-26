@@ -8,7 +8,8 @@ from django.urls import reverse, resolve
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.views.generic.dates import (
-    YearArchiveView, MonthArchiveView, DayArchiveView, DateDetailView, TodayArchiveView
+    YearArchiveView, MonthArchiveView, DayArchiveView, 
+    DateDetailView, TodayArchiveView, ArchiveIndexView
 )
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import csrf_exempt
@@ -862,7 +863,7 @@ def upload_idcard_done(request):
 def transaction_verification(request):
     context = {}
     template_name = "payments/transaction_verification.html"
-    page_title = "Transaction Verification" + " - " + settings.SITE_NAME
+    page_title = _("Transaction Verification" + " - " + settings.SITE_NAME)
     context['page_title'] = page_title
     return render(request,template_name, context)
 
@@ -879,7 +880,7 @@ class PaymentYearArchiveView(YearArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Payment Year Archive"
+        context["page_title"] = _("Payment Year Archive")
         return context
 
 
@@ -893,7 +894,7 @@ class PaymentMonthArchiveView(MonthArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Payment Month Archive"
+        context["page_title"] = _("Payment Month Archive")
         return context
 
 class PaymentDayArchiveView(DayArchiveView):
@@ -906,7 +907,7 @@ class PaymentDayArchiveView(DayArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Payment Day Archive"
+        context["page_title"] = _("Payment Day Archive")
         return context
 
 
@@ -921,10 +922,24 @@ class PaymentTodayArchiveView(TodayArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Payment Archive from Today"
+        context["page_title"] = _("Payment Archive from Today")
         return context
 
 
+
+@method_decorator(login_required, name='dispatch')
+class TransferArchiveIndexView(ArchiveIndexView):
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+
+    def get_queryset(self):
+        return Transfer.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Transfer Archive")
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class TransferYearArchiveView(YearArchiveView):
@@ -937,7 +952,7 @@ class TransferYearArchiveView(YearArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Transfer Year Archive"
+        context["page_title"] = _("Transfer Year Archive")
         return context
 
 
@@ -952,7 +967,7 @@ class TransferMonthArchiveView(MonthArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Transfer Month Archive"
+        context["page_title"] = _("Transfer Month Archive")
         return context
 
 
@@ -968,7 +983,7 @@ class TransferDayArchiveView(DayArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Transfer Day Archive"
+        context["page_title"] = _("Transfer Day Archive")
         return context
 
 
@@ -984,5 +999,5 @@ class TransferTodayArchiveView(TodayArchiveView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Transfer Archive of Today"
+        context["page_title"] = _("Transfer Archive of Today")
         return context
