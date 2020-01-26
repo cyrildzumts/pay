@@ -16,7 +16,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_VOUCHER_LIMIT = 1000
+DEFAULT_VOUCHER_LIMIT = 100
 
 VOUCHER_DEFAULT_PART_COUNT = 4
 VOUCHER_DEFAULT_PART_LENGTH = 4
@@ -245,7 +245,7 @@ class VoucherService:
             Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
             Account.objects.filter(user=customer).update(balance=F('balance') + amount)
             Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
-            logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).full_name(), queryset.get(user=seller).full_name(), amount)
+            logger.info("User Account %s has been recharge by the User %s with the amount of %s", customer.get_full_name(), seller.get_full_name(), amount)
             result['succeed'] = True
         else:
             logger.info("[processing_service_request] Error : Amount is negativ (%s). The service request cannot be processed", amount)
