@@ -63,7 +63,6 @@ def voucher_details(request, voucher_uuid=None):
 
     context = {
         'page_title': page_title,
-        'template_name': template_name,
         'voucher': instance
     }
     return render(request, template_name, context)
@@ -148,7 +147,7 @@ def used_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_used_voucher_set()
+    voucher_list = Voucher.objects.filter(is_used=True)
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
@@ -160,7 +159,7 @@ def used_vouchers(request):
     template_name = "voucher/used_voucher_list.html"
     page_title = _("Used Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['voucher_list'] = voucher_list
+    context['voucher_list'] = voucher_set
     return render(request, template_name, context)
 
 
@@ -168,11 +167,11 @@ def used_vouchers(request):
 def used_voucher_details(request, voucher_uuid=None):
     page_title = _("Used Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(UsedVoucher, voucher_uuid=voucher_uuid)
-    template_name = "voucher/used_voucher_details.html"
+    template_name = "voucher/voucher_details.html"
     context = {
         'page_title': page_title,
-        'template_name': template_name,
-        'used_voucher': instance
+        'used_voucher': instance,
+        'voucher' : instance
     }
     return render(request, template_name, context)
 
@@ -183,7 +182,7 @@ def sold_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_sold_voucher_set()
+    voucher_list = Voucher.objects.filter(is_sold=True)
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
@@ -195,19 +194,19 @@ def sold_vouchers(request):
     template_name = "voucher/sold_voucher_list.html"
     page_title = _("Sold Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['voucher_list'] = voucher_list
+    context['voucher_list'] = voucher_set
     return render(request, template_name, context)
 
 
 @login_required
 def sold_voucher_details(request, voucher_uuid=None):
     page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(SoldVoucher, voucher_uuid=voucher_uuid)
-    template_name = "voucher/sold_voucher_details.html"
+    instance = get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
+    template_name = "voucher/voucher_details.html"
     context = {
         'page_title': page_title,
-        'template_name': template_name,
-        'sold_voucher': instance
+        'sold_voucher': instance,
+        'voucher' : instance
     }
     return render(request, template_name, context)
 

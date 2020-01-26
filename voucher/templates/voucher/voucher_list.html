@@ -62,9 +62,9 @@
     <div class="">
       <p>{% trans "There are no Voucher sold now." %}</p>
       <ul class="mat-list">
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">Dashboard</a></li>
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}">Voucher Board</a></li>
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
+        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a></li>
+        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}">{% trans "Voucher Board" %}</a></li>
+        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
       </ul>
     </div>
     {% endif %}

@@ -2,11 +2,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.db.models import F, Q
+from django.utils import timezone
 from pay import utils
+from pay import settings
 from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
 import codecs
 import random
 import hashlib
+
 from datetime import datetime
 import logging
 
@@ -222,7 +225,7 @@ class VoucherService:
         }
         Account = utils.get_model("accounts", "Account")
         Recharge = utils.get_model("voucher", "Recharge")
-        queryset = Account.objects.filter(Q(account_type='R') | (Q(user=seller) | Q(user=customer)))
+        queryset = Account.objects.filter(Q(user__username=settings.PAY_RECHARGE_USER) | (Q(user=seller) | Q(user=customer)))
         count = queryset.count()
         if count != 3:
             logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
@@ -233,16 +236,14 @@ class VoucherService:
         if  amount > 0 :
             v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
             if v is None :
-                code = cls.get_voucher()
-                v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = code, 
+                v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = cls.get_voucher(seller), 
                     activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer, sold_by=seller,
-                    activated_at=now, used_at=now, sold_at=now)
+                    activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
             else :
                 Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, sold_by=seller,
-                    activated_at=now, used_at=now, sold_at=now)
+                    activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
             queryset.update(balance=F('balance') + amount)
-            UsedVoucher.objects.create(customer=queryset.get(user=customer).user, voucher=v)
-            Recharge.objects.create(voucher=v, customer=queryset.get(user=customer).user, seller=queryset.get(user=seller).user, amount=amount)
+            Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
             logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).full_name(), queryset.get(user=seller).full_name(), amount)
             result['succeed'] = True
         else:
@@ -253,14 +254,14 @@ class VoucherService:
 
 
     @classmethod
-    def activate_voucher(cls,voucher, seller_pk=None):
+    def activate_voucher(cls,voucher, seller=None):
         succeed = False
+        #TODO Add permission checking.User must have the permission to activate a voucher
         if cls.is_valide(voucher):
             queryset = Voucher.objects.filter(voucher_code=voucher, activated=False, is_used=False)
         if queryset.exists():
-            queryset.update(activated=True)
+            queryset.update(activated=True, activated_by=seller)
             succeed = True
-            #SoldVoucher.objects.create(seller=seller_pk, voucher=queryset.get())
             logger.info("Voucher %s is successfuly activated ",voucher)
 
         else :
@@ -278,13 +279,13 @@ class VoucherService:
     
 
     @classmethod
-    def get_voucher(cls):
+    def get_voucher(cls, user):
         voucher = None
         if cls.generated_voucher <= cls.used_voucher:
             logger.info("There are no voucher left. New voucher are now generated")
             cls.generate_new_code(number_of_code=DEFAULT_VOUCHER_LIMIT)
         voucher = cls.voucher_generated.pop()
-        cls.activate_voucher(voucher)
+        cls.activate_voucher(voucher, user)
         return voucher
 
 
@@ -306,7 +307,7 @@ class VoucherService:
                   Total number of vouchers created : {}\n
                   Number of used Voucher : {}\n
                   Number of active Voucher {} \n""".format(datetime.now(),cls.generated_voucher, cls.used_voucher, cls.activated_voucher)
-        print(summary_str)
+        logger.info(summary_str)
             
 
 

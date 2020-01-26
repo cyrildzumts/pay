@@ -38,11 +38,11 @@
                   {% for v in voucher_list  %}
                   <tr>
                   <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
-                  <td>{{v.voucher.name}}</td>
-                  <td>{{v.voucher.amount}} {% trans "XAF" %}</td>
-                  <td>{{v.voucher.voucher_code}}</td>
+                  <td>{{v.name}}</td>
+                  <td>{{v.amount}} {% trans "XAF" %}</td>
+                  <td>{{v.voucher_code}}</td>
                   <td>{{v.sold_at|date:"F j, Y"}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'voucher:sold-voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -58,9 +58,9 @@
     <div class="">
       <p>{% trans "There are no Voucher sold now." %}</p>
       <ul class="mat-list">
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">Dashboard</a></li>
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}">Voucher Board</a></li>
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
+        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a></li>
+        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}">{% trans "Voucher Board" %}</a></li>
+        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
       </ul>
     </div>
   {% endif %}

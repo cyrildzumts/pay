@@ -81,6 +81,8 @@ ACCOUNTS = {
     )
 }
 
+PAY_USER = 'pay'
+PAY_RECHARGE_USER = 'pay_recharge'
 
 # Application definition
 

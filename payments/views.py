@@ -720,6 +720,7 @@ def recharge(request):
             voucher = recharge_form.cleaned_data['voucher']
             succeed, amount = voucher_service.VoucherService.use_voucher(voucher, request.user.pk)
             if succeed:
+                Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
                 email_context = {
                     'title' : _('Recharge Confirmation'),
                     'customer_name': request.user.get_full_name(),
