@@ -28,6 +28,7 @@ urlpatterns = [
     path('transfer-done/', views.transfer_done, name='transfer-done'),
     path('transaction-done/', views.transaction_done, name='transaction-done'),
     path('transactions/', views.transactions, name='transactions'),
+    path('transactions/archive/', views.transaction_archive, name='transaction-archive'),
     path('transfers/', views.transfers, name='transfers'),
     path('transfers/archive/', views.TransferArchiveIndexView.as_view(), name='transfer-archive'),
     path('transfers/archive/<int:year>/', views.TransferYearArchiveView.as_view(), name='transfer-year-archive'),

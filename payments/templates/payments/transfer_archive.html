@@ -4,12 +4,13 @@
     <h4> {% trans "Transfer Archive"%}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
-<ul class="listview">
+<ul class="actions">
   <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a Transfer" %} </a></li>
 </ul>
 <div class="container">
     <div class="col-xs-12 col-6">
-        <div class="row">
+        <div class="mat-list-wrapper">
+            <div class="mat-list-header"> {% trans "Years" %}</div>
             <ul class="mat-list">
                 {% for date in date_list %}
                 <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'payments:transfer-year-archive' date|date:'Y' %}">{{date|date:"Y"}}</a></li>
@@ -17,20 +18,24 @@
             </ul>
         </div>
     </div>
-    <div class="col-xs-12 col-6">
     {% if latest %}
-    <ul class="mat-list">
-        {% for transfer in latest %}
-        <li class="mat-list-item">
-            <a class="box" href="{{transfer.get_absolute_url}}">
-            <div class="box-content"> {{transfer.created_at}} : {{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %}</div>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="col-xs-12 col-6">
+        <div class="mat-list-wrapper">
+            <div class="mat-list-header"> {% trans "Latest Transfers" %}</div>
+            <ul class="mat-list">
+                {% for transfer in latest %}
+                <li class="mat-list-item">
+                    <a class="mat-button mat-button-text" href="{{transfer.get_absolute_url}}">
+                        {{transfer.created_at}} : {{transfer.sender.get_full_name}} - {{transfer.amount}} {% trans "XAF" %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     {% else %}
     <p> {% trans "You haven't made any transfer yet" %}</p>
     {% endif %}
-  </div>
+  
 </div>
 {% endblock MAIN %}

@@ -97,6 +97,17 @@ def transactions(request):
 
 
 @login_required
+def transaction_archive(request):
+    context = {}
+    #current_account = Account.objects.get(user=request.user)
+    #user_transactions = Transaction.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    template_name = "payments/transaction_archive.html"
+    page_title = _("Transaction Archive" + " - " + settings.SITE_NAME)
+    context['page_title'] = page_title
+    #context['transactions'] = user_transactions
+    return render(request,template_name, context)
+
+@login_required
 def new_transaction(request):
     """
     This view is responsible for processing transactions.
