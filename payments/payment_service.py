@@ -311,7 +311,7 @@ class PaymentService :
             logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")
             return False
         
-        if PaymentService.is_service_data_valid(service_data) :
+        if not PaymentService.is_service_data_valid(service_data) :
             logger.error("Service data is not valid : %s", service_data)
             return False
 
