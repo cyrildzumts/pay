@@ -731,11 +731,11 @@ def recharge_refactoring(request):
                 msg = 'Your account has been recharged.We have send you a confirmation E-Mail. You will receive an E-Mail in an instant'
                 messages.success(request, _(msg))
                 send_mail_task.apply_async(args=[email_context],
-                queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-                routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-            )
-            logger.info("Recharge was succefull")
-            return redirect('accounts:account')
+                    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+                )
+                logger.info("Recharge was succefull")
+                return redirect('accounts:account')
             else :
                 messages.error(request, _("Voucher couldn't be used"))
                 logger.error("Error : Recharge failed")
