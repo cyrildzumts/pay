@@ -699,7 +699,7 @@ def reduction_details(request, reduction_uuid=None):
 
 
 @login_required
-def recharge_refactoring(request):
+def recharge(request):
     '''
     This view is responsible for recharging the user balance.
     To process a recharge : 
@@ -747,46 +747,6 @@ def recharge_refactoring(request):
 
     elif request.method == "GET":
             context['form'] = RechargeForm()
-    return render(request, template_name, context)
-
-
-@login_required
-def recharge(request):
-    '''
-    This view is responsible for recharging the user balance.
-    To process a recharge : 
-    The user must provide the following informations :
-        * voucher code ( string)
-
-    '''
-    context = {}
-    email_template_name = "payments/recharge_done_email.html"
-    template_name = "payments/recharge.html"
-    page_title = "Account Recharge"
-    if request.method == "POST":
-        context = PaymentService.process_recharge_request(request)
-        if context['success']:
-            messages.success(request, 'Your account has been recharged.We have send you a confirmation E-Mail. You will receive it in an instant')
-            #send_mail_task.apply_async(args=[context['email_context']],
-            #    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-            #    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-            #)
-            logger.info("Recharge request successful. Redirecting now to user account")
-            return redirect('accounts:account')
-        else : 
-            logger.debug("There was an error with the recharge request : {}".format(context['errors']))
-            form = RechargeForm(request.POST.copy())
-            context = {
-                'page_title':page_title,
-                'form': form
-            }
-
-    elif request.method == "GET":
-            form = RechargeForm()
-            context = {
-                'page_title':page_title,
-                'form': form
-            }
     return render(request, template_name, context)
 
 @login_required
