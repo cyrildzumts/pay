@@ -9,8 +9,8 @@ from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
 COMMISSION_MAX_VALUE = 1.00
-COMMISSION_MIN_VALUE = 0.00
-COMMISSION_VALUE_ERROR_MSG = "Commission value must be in [0.00 - 1.00] interval."
+COMMISSION_MIN_VALUE = 0.00000
+COMMISSION_VALUE_ERROR_MSG = "Commission value must be in [0.00000 - 1.00] interval."
 
 
 class PolicyForm(forms.ModelForm):

@@ -328,27 +328,32 @@ def new_service_refactoring(request, available_service_uuid=None):
             else : 
                 logger.error("There was an error with the service request ")
                 service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
+                commission = service.operator.policygroup_set.first().policy.commission
                 context = {
                     'page_title':page_title,
-                    'site_name' : settings.SITE_NAME,
                     'service' : service,
-                    'form': form,
+                    'commission' : commission,
+                    'form': form
                 }
         else:
             logger.error("Service Form is invalid : %s", form.errors)
             service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
+            commission = service.operator.policygroup_set.first().policy.commission
             context = {
                 'page_title':page_title,
                 'service' : service,
+                'commission' : commission,
                 'form': form
             }
 
     elif request.method == "GET":
             form = ServiceCreationForm()
             service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
+            commission = service.operator.policygroup_set.first().policy.commission
             context = {
                 'page_title':page_title,
                 'service' : service,
+                'commission' : commission,
                 'form': form
             }
     return render(request, template_name, context)

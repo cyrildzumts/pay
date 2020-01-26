@@ -7,6 +7,7 @@
         <input type="hidden" name="service_instance" value="{{service.pk}}">
         <input type="hidden" name="category" value="{{service.category.pk}}">
         <input type="hidden" name="customer" value="{{request.user.pk}}">
+        <input type="hidden" name="commission" value="{{commission}}">
 
         <div class="form-group">
             <label for="name">{% trans "Service Name" %}</label>
