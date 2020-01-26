@@ -86,9 +86,9 @@ def voucher_activate(request, voucher_uuid=None):
 def recharge_user_account_view(request):
     #TODO : Add permission check here if must be check if the user sending this request 
     # is allowed to recharge a user account
-    page_title = _("Recharge User Account") + ' | ' + settings.SITE_NAME
+    page_title = _("Recharge User Account") + ' - ' + settings.SITE_NAME
     template_name = "voucher/recharge.html"
-    context = {}
+    
     logger.info("User Recharge Account view requested by user %s", request.user.get_full_name())
     if request.method == "POST":
         logger.info("Received new Recharge request for user account")
@@ -106,6 +106,7 @@ def recharge_user_account_view(request):
                 messages.success(request, _("The customer account has been successfuly recharged"))
                 context['succeed'] = True
                 logger.info("recharge_user_account_view() : Customer %s was successfully recharge with the Amount = %s .", customer, amount)
+                return redirect('voucher:voucher-home')
             else :
                 messages.error(request, _("Your request could not processed. You might need to check that the submitted data are correct."))
                 context['succeed'] = True
@@ -119,7 +120,10 @@ def recharge_user_account_view(request):
             logger.error(form.errors)
     elif request.method == "GET":
         form = RechargeCustomerAccountByStaff()
-        context['form'] = form,
+    context = {
+        'form' : form,
+        'page_title' : page_title
+    }
     return render(request,template_name, context)
     
 
