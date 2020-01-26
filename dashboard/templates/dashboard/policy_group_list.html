@@ -13,7 +13,7 @@
             <div class="col-xs-12 col-9">
                 <div class="banner--actions">
                     {% if can_add_policy %}
-                    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-group-create' %}"> {% trans "Add New Policy" %} </a>
+                    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-group-create' %}"> {% trans "Add New Policy Group" %} </a>
                     {% endif %}
                     {% if can_delete_policy %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-groups' %}"> {% trans "Delete All Policies" %} </a>
                     {% endif %}
