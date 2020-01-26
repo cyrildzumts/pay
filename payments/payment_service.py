@@ -306,7 +306,7 @@ class PaymentService :
             logger.error("customer or seller are not instance of User class.")
             return False
         try:
-            pay_user = User.objects.get(user__username=settings.PAY_USER)
+            pay_user = User.objects.get(username=settings.PAY_USER)
         except User.DoesNotExist as e:
             logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")
             return False
