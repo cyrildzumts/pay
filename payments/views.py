@@ -296,6 +296,57 @@ def transfer_verify(request):
 
 
 @login_required
+def new_service_refactoring(request, available_service_uuid=None):
+    '''
+    This view is responsible for processing a service.
+    To process a transaction service : 
+    The user must provide the following informations :
+        * recipient ID
+        * the amount of money to send
+        * Invoice Reference Number
+        * Invoice Date
+        * Customer ID of as used by the recipient
+    For SERVICE CONSUMER, the following extra informations are needed :
+        The needed information are dependent of the type of service.
+        A service REF ID is needed to identify the actual data needed.
+    '''
+    context = {}
+    email_template_name = "payments/service_done_email.html"
+    template_name = "payments/new_service.html"
+    page_title = _("Service Usage")
+    if request.method == "POST":
+        form = ServiceCreationForm(utils.get_postdata(request))
+        if form.is_valid():
+            customer = request.user
+            seller = form.clean_data.get('operator')
+            amount = form.cleaned_data.get('price')
+            succeed = PaymentService.process_service(customer=customer, seller=seller, amount=amount, service_data=form.cleaned_data)
+            if succeed:
+                messages.success(request, _('We have send you a confirmation E-Mail. You will receive it in an instant'))
+                logger.info("Service request successful. Redirecting now to service-done")
+                return redirect('payments:transaction-done')
+            else : 
+                logger.error("There was an error with the service request ")
+                service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
+                context = {
+                    'page_title':page_title,
+                    'site_name' : settings.SITE_NAME,
+                    'service' : service,
+                    'form': form
+                }
+
+    elif request.method == "GET":
+            form = ServiceCreationForm()
+            service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
+            context = {
+                'page_title':page_title,
+                'service' : service,
+                'form': form
+            }
+    return render(request, template_name, context)
+
+
+@login_required
 def new_service(request, available_service_uuid=None):
     '''
     This view is responsible for processing a service.

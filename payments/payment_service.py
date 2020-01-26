@@ -273,7 +273,68 @@ class PaymentService :
                 logger.error(payment_form.errors)
         return context
 
-    
+    @staticmethod
+    def  is_service_data_valid(service_data={}):
+        return True
+
+    @staticmethod
+    def process_service(customer=None, seller=None, amount=None, service_data={}):
+        #TODO : when a user registers itself, for bussiness users it should be checked
+        # that all the necessary fields are present : policy, id card and email is verified
+        context = {}
+        policy = None
+        pay_user = None
+        context['success'] = False
+        logger.debug("[account_service.py] process_service_request entering")
+        Account = utils.get_model('accounts', 'Account')
+        
+        if not (customer and seller and amount and service_data)
+            return False
+        
+        try:
+            policy = seller_policygroup_set.first().policy
+            
+        except Exception as e:
+            logger.exception("Error: Exception on getting seller policy", e)
+            return False
+        
+        if amount <= 0 :
+            logger.error("Service failed : Amount is negative : %s", amount)
+            return False
+        
+        if not (isinstance(customer, User) and isinstance(seller, User):
+            logger.error("customer or seller are not instance of User class.")
+            return False
+        try:
+            pay_user = User.objects.get(user__username=settings.PAY_USER)
+        except User.DoesNotExist as e:
+            logger.debug("[processing_service_request] Error : Pay account not found. The service request cannot be processed")
+            return False
+        
+        if PaymentService.is_service_data_valid(service_data) :
+            logger.error("Service data is not valid : %s", service_data)
+            return False
+
+        current_balance = cutomer.account.balance
+        if(current_balance - amount) >= 0:
+            pay_fee, operator_amount, succeed = PaymentService.get_commission(amount, policy.commission)
+            if succeed :
+                service = Service.objects.create(**service_data)
+            
+                Account.objects.filter(user=seller).update(balance=F('balance') + operator_amount)
+                Account.objects.filter(user=customer).update(balance=F('balance') - amount)
+                Account.objects.filter(user=pay_user).update(balance=F('balance') + pay_fee)
+                logger.info("Service Operation was succefull")
+                return True
+            else:
+                logger.info("Service Operation was not succefull : there was an error on process the commission fee %s", (pay_fee, operator_amount, succeed))
+                return False
+                    
+        else :
+            logger.error("You don't have enough money on your account : %s.", current_balance)
+        return False
+
+
     @staticmethod
     def process_service_request(request):
         #TODO : when a user registers itself, for bussiness users it should be checked
@@ -356,12 +417,10 @@ class PaymentService :
 
                     return context
             else :
-                #context['balance'] = current_balance
                 logger.error("Form is Invalid : See the errors fields below")
                 logger.error(service_form.errors)
                 context['errors'] = "Form invalide : Check your Form fields please."
         else:
-            #context['balance'] = current_balance
             context['errors'] = "Your request could not be process. Please Check the Form fields."
         return context
 
