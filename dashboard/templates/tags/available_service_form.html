@@ -9,8 +9,8 @@
         <div class="form-group">
             <input type="text" name="service_code" id="code" placeholder="{% trans 'Enter the service code' %}">
             <input type="text" name="name" placeholder="{% trans 'Enter the service name' %}">
-            <input type="text" name="operator_name" id="operator_name" placeholder="{% trans 'Enter the operator name' %}">
             
+            {% include "tags/search_user_snipet.html" with target="#operator" target_name="#user-search" fieldname="Operator Name" %}
             <select name="category">
                 <option value="" selected>{% trans "Select a category please" %}</option>
                 {% for cat in available_cats %}

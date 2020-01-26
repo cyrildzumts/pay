@@ -7,7 +7,7 @@
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">
 
-        {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" %}
+        {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient Name" %}
 
         <div class="form-group">
             <label for="amount">{% trans "Amount" %}</label>
