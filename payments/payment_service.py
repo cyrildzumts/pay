@@ -288,7 +288,7 @@ class PaymentService :
         logger.debug("[account_service.py] process_service_request entering")
         Account = utils.get_model('accounts', 'Account')
         
-        if not (customer and seller and amount and service_data)
+        if not (customer and seller and amount and service_data):
             return False
         
         try:
