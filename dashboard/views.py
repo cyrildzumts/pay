@@ -798,6 +798,7 @@ def policy_groups(request):
         raise PermissionDenied
 
     can_view_policy = PermissionManager.user_can_view_policy(request.user)
+    can_add_policy = PermissionManager.user_can_add_policy(request.user)
     if not can_view_policy:
         logger.warning("PermissionDenied to user %s for path %s", username, request.path)
         raise PermissionDenied
@@ -819,6 +820,7 @@ def policy_groups(request):
     context['page_title'] = page_title
     context['groups'] = list_set
     context['can_access_dashboard'] = can_access_dashboard
+    context['can_add_policy'] = can_add_policy
     context['can_view_policy'] = can_view_policy
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
     context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
