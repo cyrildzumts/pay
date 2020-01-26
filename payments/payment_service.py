@@ -292,7 +292,7 @@ class PaymentService :
             return False
         
         try:
-            policy = seller_policygroup_set.first().policy
+            policy = seller.policygroup_set.first().policy
             
         except Exception as e:
             logger.exception("Error: Exception on getting seller policy", e)
