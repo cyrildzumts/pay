@@ -11,7 +11,7 @@
       <div class="mat-list-header">{% trans "Month" %}</div>
       <ul class="mat-list">
         {% for date in date_list %}
-        <li class="mat-list-item"><a href="{% url 'payments:payment-month-archive' year|date:'Y' date|:'n' %}">{{date|date:"m, Y"}}</a></li>
+        <li class="mat-list-item"><a href="{% url 'payments:payment-month-archive' year|date:'Y' date|date:'n' %}">{{date|date:"m, Y"}}</a></li>
         {% endfor %}
       </ul>
     </div>
