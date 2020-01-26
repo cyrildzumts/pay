@@ -242,7 +242,7 @@ class Service(models.Model):
     category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True, on_delete=models.SET_NULL)
     service_instance = models.ForeignKey(AvailableService,null=True, related_name="executed_services", unique=False, on_delete=models.CASCADE)
     price = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
+    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     issued_at = models.DateField(help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT, blank=True, null=True)
     description = models.CharField(max_length=80, null=True)

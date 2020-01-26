@@ -319,8 +319,8 @@ class PaymentService :
         if(current_balance - amount) >= 0:
             pay_fee, operator_amount, succeed = PaymentService.get_commission(amount, policy.commission)
             if succeed :
+                service_data['commission'] = policy.commission
                 service = Service.objects.create(**service_data)
-            
                 Account.objects.filter(user=seller).update(balance=F('balance') + operator_amount)
                 Account.objects.filter(user=customer).update(balance=F('balance') - amount)
                 Account.objects.filter(user=pay_user).update(balance=F('balance') + pay_fee)
