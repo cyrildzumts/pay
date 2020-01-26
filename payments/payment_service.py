@@ -394,7 +394,14 @@ class PaymentService :
                 else :
                     context['errors'] = "Voucher could'nt be use"
         return context
-
+    
+    @staticmethod
+    def recharge_user_balance(user=None, voucher=None):
+        if user == None or voucher == None:
+            logger.error("Error : user or voucher is None")
+            return False, 0
+        
+        return voucher_service.VoucherService.use_voucher(voucher, user.pk)
     
     @staticmethod
     def verify_payment(user=None, verification_code=None, operator_reference=None):

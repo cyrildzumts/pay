@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.db.models import F, Q
 from accounts.models import Account
@@ -27,7 +28,7 @@ from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, 
     RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm,TransactionVerificationForm
 )
-from payments.payment_service import PaymentService
+from payments.payment_service import PaymentService, voucher_service
 from pay import settings, utils
 from pay.tasks import send_mail_task
 import logging
@@ -43,7 +44,7 @@ logger = logging.getLogger(__name__)
 @login_required
 def payment_home(request):
     template_name = "payments/payment_home.html"
-    page_title = "Payment" + " - " + settings.SITE_NAME    
+    page_title = _("Payment" + " - " + settings.SITE_NAME)    
     context = {
         'page_title' : page_title,
     }
@@ -88,7 +89,7 @@ def transactions(request):
     #current_account = Account.objects.get(user=request.user)
     #user_transactions = Transaction.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
     template_name = "payments/transactions_home.html"
-    page_title = "Transactions" + " - " + settings.SITE_NAME
+    page_title = _("Transactions" + " - " + settings.SITE_NAME)
     context['page_title'] = page_title
     #context['transactions'] = user_transactions
     return render(request,template_name, context)
@@ -137,7 +138,7 @@ def transaction_done(request):
     
     context = {}
     template_name = "payments/transaction_done.html"
-    page_title = "Transaction Confirmation" + ' - ' + settings.SITE_NAME
+    page_title = _("Transaction Confirmation" + ' - ' + settings.SITE_NAME)
     context['page_title'] = page_title
     return render(request,template_name, context)
 
@@ -150,7 +151,7 @@ def transaction_details(request, transaction_uuid=None):
     user_transactions = Transaction.objects.filter(Q(sender=current_account) | Q(recipient=current_account) )
     transaction = get_object_or_404(user_transactions, transaction_uuid=transaction_uuid)
     template_name = "payments/transaction_detail.html"
-    page_title = "Transaction Details" + " - " + settings.SITE_NAME
+    page_title = _("Transaction Details" + " - " + settings.SITE_NAME)
     context['page_title'] = page_title
     context['transaction'] = transaction
     return render(request,template_name, context)
@@ -162,7 +163,7 @@ def transfers(request):
     context = {}
     queryset = Transfer.objects.filter(Q(sender=request.user) | Q(recipient=request.user))
     template_name = "payments/transfer_list.html"
-    page_title = "My Transers" + " - " + settings.SITE_NAME
+    page_title = _("My Transers" + " - " + settings.SITE_NAME)
     page = request.GET.get('page', 1)
     paginator = Paginator(queryset, 10)
     try:
@@ -190,7 +191,7 @@ def new_transfer(request):
     context = {}
     email_template_name = "payments/transfer_done_email.html"
     template_name = "payments/new_transfer.html"
-    page_title = "New Transfer" + " - " + settings.SITE_NAME
+    page_title = _("New Transfer" + " - " + settings.SITE_NAME)
     
     if request.method == "POST":
         context = PaymentService.process_transfer_request(request)
@@ -213,7 +214,7 @@ def transfer_done(request):
     logger.info("Transfer Done")
     context = {}
     template_name = "payments/transfer_done.html"
-    page_title = "Transfer Confirmation" + " - " + settings.SITE_NAME
+    page_title = _("Transfer Confirmation" + " - " + settings.SITE_NAME)
     context['page_title'] = page_title
     return render(request,template_name, context)
 
@@ -230,7 +231,7 @@ def transfer_details(request, transfer_uuid=None):
         logger.exception(e)
         raise Http404('Transfer not found')
     template_name = "payments/transfer_detail.html"
-    page_title = "Transfer Details" + " - " + settings.SITE_NAME
+    page_title = _("Transfer Details" + " - " + settings.SITE_NAME)
     context['page_title'] = page_title
     context['transfer'] = transfer
     return render(request,template_name, context)
@@ -248,7 +249,7 @@ def services(request):
     except EmptyPage:
         list_set = None
     template_name = "payments/service_list.html"
-    page_title = "Services" + " - " + settings.SITE_NAME
+    page_title = _("Services" + " - " + settings.SITE_NAME)
     context['page_title'] = page_title
     context['service_list'] = list_set
     return render(request,template_name, context)
@@ -259,7 +260,7 @@ def services(request):
 def transfer_verify(request):
     context = {}
     template_name = "payments/transfer_verify.html"
-    page_title = "Transfer Verification" + " + " + settings.SITE_NAME
+    page_title = _("Transfer Verification" + " + " + settings.SITE_NAME)
     if request.method == 'POST':
         form = TransactionVerificationForm(request.POST)
         if form.is_valid():
@@ -271,19 +272,19 @@ def transfer_verify(request):
             
             if flag:
                 context['transfer'] = transfer
-                msg = "Transfer Verification successful. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
-                messages.add_message(request=request, level=messages.SUCCESS, message=msg)
+                msg = "Transfer Verification successful. This transfer is valid"
+                messages.success(request, _(msg))
                 logger.info(msg)
             else :
-                msg = "Transfer Verification failed. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
-                messages.add_message(request=request, level=messages.ERROR, message=msg)
+                msg = "Transfer Verification failed. This transfer is not valid"
+                messages.error(request, _(msg))
                 logger.info(msg)
 
         else:
             context['transfer_is_valid'] = False
             context['transfer_verification_ready'] = False
             msg = "Form is invalid"
-            messages.add_message(request=request, level=messages.ERROR, message=msg)
+            messages.error(request, _(msg))
             logger.error(msg)
             logger.error(form.errors)
     elif request.method == 'GET':
@@ -311,11 +312,11 @@ def new_service(request, available_service_uuid=None):
     context = {}
     email_template_name = "payments/service_done_email.html"
     template_name = "payments/new_service.html"
-    page_title = "Service Usage"
+    page_title = _("Service Usage")
     if request.method == "POST":
         context = PaymentService.process_service_request(request)
         if context['success']:
-            messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
+            messages.success(request, _('We have send you a confirmation E-Mail. You will receive it in an instant'))
             send_mail_task.apply_async(args=[context['email_context']],
                 queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
                 routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
@@ -349,7 +350,7 @@ def service_done(request):
     logger.info("Transfer Done")
     context = {}
     template_name = "payments/service_done.html"
-    page_title = "Service Payment Confirmation" + " - " + settings.SITE_NAME
+    page_title = _("Service Payment Confirmation" + " - " + settings.SITE_NAME)
     context['page_title'] = page_title
     return render(request,template_name, context)
 
@@ -360,7 +361,7 @@ def service_details(request, service_uuid=None):
     user_services = Service.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
     service = get_object_or_404(user_services, service_uuid=service_uuid)
     template_name = "payments/service_detail.html"
-    page_title = "Service Details - " + settings.SITE_NAME
+    page_title = _("Service Details - " + settings.SITE_NAME)
     context['page_title'] = page_title
     context['service'] = service
     return render(request,template_name, context)
@@ -370,7 +371,7 @@ def service_details(request, service_uuid=None):
 def service_verify(request):
     context = {}
     template_name = "payments/service_verify.html"
-    page_title = "Service Verification" + " + " + settings.SITE_NAME
+    page_title = _("Service Verification" + " + " + settings.SITE_NAME)
     if request.method == 'POST':
         form = TransactionVerificationForm(request.POST)
         if form.is_valid():
@@ -382,19 +383,19 @@ def service_verify(request):
             
             if flag:
                 context['service'] = service
-                msg = "Payment Verification successful. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
-                messages.add_message(request=request, level=messages.SUCCESS, message=msg)
+                msg = "Payment Verification successful. This payment is valid"
+                messages.success(request, _(msg))
                 logger.info(msg)
             else :
-                msg = "Payment Verification failed. Verification code \"{}\" - Operator reference \"{}\" ".format(verification_code, operator_reference)
-                messages.add_message(request=request, level=messages.ERROR, message=msg)
+                msg = "Payment Verification failed. This payment is not valid"
+                messages.error(request, _(msg))
                 logger.info(msg)
 
         else:
             context['service_is_valid'] = False
             context['service_verification_ready'] = False
             msg = "Form is invalid"
-            messages.add_message(request=request, level=messages.ERROR, message=msg)
+            messages.error(request, _(msg))
             logger.error(msg)
             logger.error(form.errors)
     elif request.method == 'GET':
@@ -698,22 +699,65 @@ def reduction_details(request, reduction_uuid=None):
 
 
 @login_required
+def recharge_refactoring(request):
+    '''
+    This view is responsible for recharging the user balance.
+    To process a recharge : 
+    The user must provide the following informations :
+        * voucher code ( string)
+    
+    '''
+    email_template_name = "payments/recharge_done_email.html"
+    template_name = "payments/recharge.html"
+    page_title = _("Account Recharge")
+    context = {
+        'page_title':page_title
+    }
+    if request.method == "POST":
+        postdata = utils.get_postdata(request)
+        recharge_form = RechargeForm(postdata)
+        if recharge_form.is_valid():
+            voucher = recharge_form.cleaned_data['voucher']
+            succeed, amount = voucher_service.VoucherService.use_voucher(voucher, request.user.pk)
+            if succeed:
+                email_context = {
+                    'title' : _('Recharge Confirmation'),
+                    'customer_name': request.user.get_full_name(),
+                    'voucher': voucher,
+                    'amount' : amount,
+                    'recipient_email': request.user.email,
+                    'template_name': "accounts/account_recharge_done_email.html"
+                }
+                msg = 'Your account has been recharged.We have send you a confirmation E-Mail. You will receive an E-Mail in an instant'
+                messages.success(request, _(msg))
+                send_mail_task.apply_async(args=[email_context],
+                queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+            )
+            logger.info("Recharge was succefull")
+            return redirect('accounts:account')
+            else :
+                messages.error(request, _("Voucher couldn't be used"))
+                logger.error("Error : Recharge failed")
+                context['form'] = recharge_form
+            
+        else : 
+            logger.error("Form invalid: {}".format(context['errors']))
+            context['form'] = recharge_form
+
+    elif request.method == "GET":
+            context['form'] = RechargeForm()
+    return render(request, template_name, context)
+
+
+@login_required
 def recharge(request):
     '''
-    This view is responsible for processing a service.
-    To process a transaction : 
+    This view is responsible for recharging the user balance.
+    To process a recharge : 
     The user must provide the following informations :
-        * recipient ID
-        * the amount of money to send
-        * the type of transaction : TRANSFER, INVOICE PAYMENT, SERVICE CONSUMER
-    For TRANSFER no more information data are needed.
-    For INVOICE PAYMENT, the following extra informations are needed :
-        * Invoice Reference Number
-        * Invoice Date
-        * Customer ID of as used by the recipient
-    For SERVICE CONSUMER, the following extra informations are needed :
-        The needed information are dependent of the type of service.
-        A service REF ID is needed to identify the actual data needed.
+        * voucher code ( string)
+
     '''
     context = {}
     email_template_name = "payments/recharge_done_email.html"
