@@ -7,10 +7,10 @@
 <div class="container">
   <div class="col-xs-12 col-6">
     <div class="mat-list-wrapper">
-            <div class="mat-list-header"> {% trans "Month" %}</div>
+            <div class="mat-list-header"> {% trans "Days" %}</div>
             <ul class="mat-list">
                 {% for date in date_list %}
-                <li class="mat-list-item"><a href="{% url 'payments:payment-day-archive' date:date:'Y' date:date:'n' date:date:'j'  %}">{{date|date:"Y, d"}}</a></li>
+                <li class="mat-list-item"><a href="{% url 'payments:payment-day-archive' date|date:'Y' date|date:'n' date|date:'j'  %}">{{date|date:"Y, d"}}</a></li>
                 {% endfor %}
             </ul>
         </div>
