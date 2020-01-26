@@ -224,24 +224,26 @@ class VoucherService:
         }
         Account = utils.get_model("accounts", "Account")
         Recharge = utils.get_model("voucher", "Recharge")
-        queryset = Account.objects.filter(Q(user__username=settings.PAY_RECHARGE_USER) | (Q(user=seller) | Q(user=customer)))
-        count = queryset.count()
-        if count != 3:
+        recharge_account_exist = Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).exist()
+        customer_account_exist = Account.objects.filter(user=customer).exist()
+        seller_account_exist = Account.objects.get(user=seller).exist()
+        if not (recharge_account_exist and customer_account_exist and seller_account_exist):
             logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
             logger.error("[processing_service_request] Error : queryset result %s instance", count)
             logger.error(queryset)
-            result['errors'] = "Recharge account not found. The service request cannot be processed"
+            result['errors'] = "The service request cannot be processed"
             return result
         if  amount > 0 :
             v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
             if v is None :
                 v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = cls.get_voucher(seller), 
                     activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer, sold_by=seller,
-                    activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
+                    activated_at=timezone.now(), activated_by=seller, used_at=timezone.now(), sold_at=timezone.now())
             else :
-                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, sold_by=seller,
+                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, activated_by=seller, sold_by=seller,
                     activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
-            queryset.update(balance=F('balance') + amount)
+            Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
+            Account.objects.filter(user=customer).update(balance=F('balance') + amount)
             Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
             logger.info("User Account %s has been recharge by the User %s with the amount of %s", queryset.get(user=customer).full_name(), queryset.get(user=seller).full_name(), amount)
             result['succeed'] = True
