@@ -226,7 +226,7 @@ class VoucherService:
         Recharge = utils.get_model("voucher", "Recharge")
         recharge_account_exist = Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).exists()
         customer_account_exist = Account.objects.filter(user=customer).exists()
-        seller_account_exist = Account.objects.get(user=seller).exists()
+        seller_account_exist = Account.objects.filter(user=seller).exists()
         if not (recharge_account_exist and customer_account_exist and seller_account_exist):
             logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
             logger.error("[processing_service_request] Error : queryset result %s instance", count)
