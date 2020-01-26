@@ -911,6 +911,19 @@ class PaymentYearArchiveView(YearArchiveView):
         context["page_title"] = _("Payment Year Archive")
         return context
 
+class PaymentArchiveIndexView(ArchiveIndexView):
+    queryset = Payment.objects.all()
+    date_field = "created_at"
+    make_object_list = True
+    paginated_by = utils.PAGINATED_BY
+    def get_queryset(self):
+        return Payment.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Payment Month Archive")
+        return context
+
 
 class PaymentMonthArchiveView(MonthArchiveView):
     queryset = Payment.objects.all()
