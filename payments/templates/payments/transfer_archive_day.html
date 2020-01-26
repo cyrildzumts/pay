@@ -1,7 +1,7 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Transfer Day Archive"%} : {{day}} - {{month}} - {{year}} </h4>
+    <h4> {% trans "Transfers Day Archive"%} : {{day|date:"Y m, d"}} </h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
 
@@ -31,14 +31,14 @@
                   </tr>
           </thead>
           <tbody>
-                  {% for xfer in object_list  %}
+                  {% for transfer in object_list  %}
                   <tr>
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                    <td data-label="{% trans 'Sender' %}">{{xfer.sender.username}}</td>
-                    <td data-label="{% trans 'Recipient' %}">{{xfer.recipient.username}}</td>
-                    <td data-label="{% trans 'Amount' %}">{{xfer.amount}} {% trans "XAF" %}</td>
-                    <td data-label="{% trans 'Date' %}">{{xfer.created_at}}</td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{xfer.get_absolute_url}}">{% trans "More" %}</a></td>
+                    <td data-label="{% trans 'Sender' %}">{{transfer.sender.username}}</td>
+                    <td data-label="{% trans 'Recipient' %}">{{transfer.recipient.username}}</td>
+                    <td data-label="{% trans 'Amount' %}">{{transfer.amount}} {% trans "XAF" %}</td>
+                    <td data-label="{% trans 'Date' %}">{{transfer.created_at}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{transfer.get_absolute_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}
                   
