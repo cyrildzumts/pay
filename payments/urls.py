@@ -47,7 +47,8 @@ urlpatterns = [
     path('payments/archive/<int:year>/<int:month>/', views.PaymentMonthArchiveView.as_view(month_format="%m"), name='payment-month-archive'),
     path('payments/archive/<int:year>/<str:month>/', views.PaymentMonthArchiveView.as_view(), name='payment-month-archive'),
     
-    path('payments/archive/<int:year>/<int:month>/<int:day>/', views.PaymentDayArchiveView.as_view(), name='payment-day-archive'),
+    path('payments/archive/<int:year>/<int:month>/<int:day>/', views.PaymentDayArchiveView.as_view(month_format="%m"), name='payment-day-archive'),
+    path('payments/archive/<int:year>/<str:month>/<int:day>/', views.PaymentDayArchiveView.as_view(), name='payment-day-archive'),
     path('payments/payment-verification/', views.payment_verify, name='payment-verification'),
     path('payments/service-verification/', views.service_verify, name='service-verification'),
     path('payments/transfer-verification/', views.transfer_verify, name='transfer-verification'),
