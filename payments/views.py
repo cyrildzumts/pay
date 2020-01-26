@@ -315,7 +315,11 @@ def new_service_refactoring(request, available_service_uuid=None):
     template_name = "payments/new_service.html"
     page_title = _("Service Usage")
     if request.method == "POST":
-        form = ServiceCreationForm(utils.get_postdata(request))
+        postdata = utils.get_postdata(request)
+        commission = postdata.get('commission')
+        if commission :
+            postdata['commission'] = commission.replace(',', '.')
+        form = ServiceCreationForm(postdata)
         if form.is_valid():
             customer = request.user
             seller = form.clean_data.get('operator')
