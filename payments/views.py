@@ -334,6 +334,15 @@ def new_service_refactoring(request, available_service_uuid=None):
                     'service' : service,
                     'form': form
                 }
+        else:
+            logger.error("Service Form is invalid")
+            service = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
+            context = {
+                'page_title':page_title,
+                'site_name' : settings.SITE_NAME,
+                'service' : service,
+                'form': form
+            }
 
     elif request.method == "GET":
             form = ServiceCreationForm()
