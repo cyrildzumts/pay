@@ -322,7 +322,7 @@ def new_service_refactoring(request, available_service_uuid=None):
         form = ServiceCreationForm(postdata)
         if form.is_valid():
             customer = request.user
-            seller = form.clean_data.get('operator')
+            seller = form.cleaned_data.get('operator')
             amount = form.cleaned_data.get('price')
             succeed = PaymentService.process_service(customer=customer, seller=seller, amount=amount, service_data=form.cleaned_data)
             if succeed:
