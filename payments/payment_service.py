@@ -315,7 +315,7 @@ class PaymentService :
             logger.error("Service data is not valid : %s", service_data)
             return False
 
-        current_balance = cutomer.account.balance
+        current_balance = customer.account.balance
         if(current_balance - amount) >= 0:
             pay_fee, operator_amount, succeed = PaymentService.get_commission(amount, policy.commission)
             if succeed :
