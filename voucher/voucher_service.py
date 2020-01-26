@@ -184,11 +184,10 @@ class VoucherService:
             Account = utils.get_model("accounts", "Account")
             user = User.objects.get(pk=user_pk)
             voucher_queryset = Voucher.objects.filter(voucher_code=voucher)
-            voucher_queryset.update(is_used=True)
+            voucher_queryset.update(is_used=True, used_by=user, used_at=timezone.now())
             v = voucher_queryset.get()
             amount = v.amount
             Account.objects.filter(user=user).update(balance=F('balance') + amount)
-            UsedVoucher.objects.create(customer=user, voucher=v)
 
             logger.info("Voucher %s used by user %s", voucher, user.get_full_name())
             succeed = True
