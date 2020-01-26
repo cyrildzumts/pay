@@ -1,7 +1,7 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Payment Day Archive"%} : {{day}} - {{month}} - {{year}} </h4>
+    <h4> {% trans "Payment Day Archive"%} : {{day|date:"Y m, d"}} </h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
 
