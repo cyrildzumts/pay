@@ -317,10 +317,10 @@ def new_service(request, available_service_uuid=None):
         context = PaymentService.process_service_request(request)
         if context['success']:
             messages.success(request, _('We have send you a confirmation E-Mail. You will receive it in an instant'))
-            send_mail_task.apply_async(args=[context['email_context']],
-                queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-                routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-            )
+            #send_mail_task.apply_async(args=[context['email_context']],
+            #    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+            #    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+            #)
             logger.info("Service request successful. Redirecting now to service-done")
             return redirect('payments:transaction-done')
         else : 
@@ -730,10 +730,10 @@ def recharge_refactoring(request):
                 }
                 msg = 'Your account has been recharged.We have send you a confirmation E-Mail. You will receive an E-Mail in an instant'
                 messages.success(request, _(msg))
-                send_mail_task.apply_async(args=[email_context],
-                    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-                    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-                )
+                #send_mail_task.apply_async(args=[email_context],
+                #    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                #    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+                #)
                 logger.info("Recharge was succefull")
                 return redirect('accounts:account')
             else :
@@ -767,10 +767,10 @@ def recharge(request):
         context = PaymentService.process_recharge_request(request)
         if context['success']:
             messages.success(request, 'Your account has been recharged.We have send you a confirmation E-Mail. You will receive it in an instant')
-            send_mail_task.apply_async(args=[context['email_context']],
-                queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-                routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-            )
+            #send_mail_task.apply_async(args=[context['email_context']],
+            #    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+            #    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+            #)
             logger.info("Recharge request successful. Redirecting now to user account")
             return redirect('accounts:account')
         else : 
