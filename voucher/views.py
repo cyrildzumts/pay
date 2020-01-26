@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
+from django.db.models import F, Q
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,7 +12,8 @@ from voucher.forms import VoucherCreationForm, RechargeCustomerAccount, Recharge
 from voucher.tasks import generate_voucher
 from voucher import voucher_service
 from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 import logging
 from datetime import datetime
 # Create your views here.
@@ -71,10 +73,12 @@ def voucher_details(request, voucher_uuid=None):
 @login_required
 def voucher_activate(request, voucher_uuid=None):
     c = Voucher.objects.filter(voucher_uuid=voucher_uuid, activated=False, is_used=False).update(
-        activated=True, activated_at=datetime.now(), activated_by=request.user)
+        activated=True, activated_at=timezone.now(), activated_by=request.user, is_sold=True, sold_by=request.user)
     if c > 0:
+        messages.success(request, _("Voucher activated"))
         return redirect('voucher:vouchers')
     else:
+        messages.error(request, _("Voucher not activated"))
         return redirect('voucher:voucher-detail', voucher_uuid=voucher_uuid)
 
 
@@ -182,7 +186,7 @@ def sold_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = Voucher.objects.filter(is_sold=True)
+    voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(is_activated=True))
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
