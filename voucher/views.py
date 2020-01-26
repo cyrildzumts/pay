@@ -104,12 +104,10 @@ def recharge_user_account_view(request):
             result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
             if result.get('succeed', False):
                 messages.success(request, _("The customer account has been successfuly recharged"))
-                context['succeed'] = True
                 logger.info("recharge_user_account_view() : Customer %s was successfully recharge with the Amount = %s .", customer, amount)
                 return redirect('voucher:voucher-home')
             else :
                 messages.error(request, _("Your request could not processed. You might need to check that the submitted data are correct."))
-                context['succeed'] = True
                 logger.info("recharge_user_account_view() : Customer = %s could not be recharge with the  Amount = %s .", customer, amount)
         else :
             
