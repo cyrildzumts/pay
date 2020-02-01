@@ -16,11 +16,12 @@ def payment_context(request):
         try:
             idcard = IDCard.objects.get(user=request.user)
             has_idcard = True
-            latest_payments = Payment.get_user_payments(request.user)[:LATEST_LIMITS]
-            latest_transfers = Transfer.get_user_transfers(request.user)[:LATEST_LIMITS]
-            latest_services = Service.get_user_services(request.user)[:LATEST_LIMITS]
+            
         except IDCard.DoesNotExist:
             pass
+        latest_payments = Payment.get_user_payments(request.user)[:LATEST_LIMITS]
+        latest_transfers = Transfer.get_user_transfers(request.user)[:LATEST_LIMITS]
+        latest_services = Service.get_user_services(request.user)[:LATEST_LIMITS]
         
 
     context = {

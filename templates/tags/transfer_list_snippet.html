@@ -1,0 +1,36 @@
+{% load i18n %}
+
+{% if transfer_list %}
+   <div class="col-xs-12 col-6">
+    <div class="mat-table-wrapper">
+        <table id="transfer-list" class="mat-table js-filter-table">
+          <caption>{% trans "Transfer List" %}</caption>
+          <thead>
+                  <tr>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          <th>{% trans "Sender" %}</th>
+                          <th>{% trans "Recipient" %}</th>
+                          <th>{% trans "Amount" %}</th>
+                          <th>{% trans "Date of usage" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for transfer in transfer_list  %}
+                  <tr>
+                    <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
+                    <td data-label="{% trans 'Sender' %}">{{transfer.sender.username}}</td>
+                    <td data-label="{% trans 'Recipient' %}">{{transfer.recipient.username}}</td>
+                    <td data-label="{% trans 'Amount' %}">{{transfer.amount}} {% trans "XAF" %}</td>
+                    <td data-label="{% trans 'Date' %}">{{transfer.created_at|date:"F j, Y"}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{transfer.get_absolute_url}}">{% trans "More" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+    </table>
+    {% include "tags/pagination.html" with page_set=transfer_list %}
+    </div><!--End of Table Wrapper-->
+    {% else %}
+    <p> {% trans "You haven't made any Transfer" %}.</p>
+    {% endif %}
