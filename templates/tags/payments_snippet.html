@@ -6,22 +6,22 @@
             <div class="mat-list-header">
                 <span class="title">{% trans list_title %}</span>
             </div>
+            <ul class="mat-list">
+                {% for transaction in transaction_list %}
+                <li class="mat-list-item">
+                    <a class="mat-button mat-button-text" href="{{transaction.get_absolute_url}}">
+                        <div class="entry">
+                            {% if transaction.sender.pk == request.user.pk %}
+                            <span class="part">{{transaction.recipient.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount outgoing">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
+                            {% else %}
+                            <span class="part">{{transaction.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount incoming">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
+                            {% endif %}
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        <ul class="mat-list">
-            {% for transaction in transaction_list %}
-            <li class="mat-list-item">
-                <a class="mat-button mat-button-text" href="{{transaction.get_absolute_url}}">
-                    <div class="entry">
-                        {% if transaction.sender.pk == request.user.pk %}
-                        <span class="part">{{transaction.recipient.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount outgoing">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                        {% else %}
-                        <span class="part">{{transaction.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount incoming">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                        {% endif %}
-                    </div>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
     </div>
 
    <div class="col-xs-12 col-4">
