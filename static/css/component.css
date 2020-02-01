@@ -42,6 +42,17 @@
 .bordered{
   border: 1px solid #ccc;
 }
+.separator-ht{
+	margin: 0 16px;
+}
+
+.separator-vt{
+	margin: 16px 0;
+}
+
+.separator{
+	margin: 16px;
+}
 
 .state{
 	padding: 0 8px;
@@ -1206,12 +1217,10 @@ a {
 
 
 .entrant, .incoming{
-	background-color: #00e676;
-	color: #fafafa;
+	color: #00e676;
 }
 .outgoing{
-	background-color: #d32f2f;
-	color: #fafafa;
+	color: #d32f2f;
 }
  .date{
 	font-size: 1em;
@@ -1674,6 +1683,14 @@ input[type=text]:focus, textarea:focus{
 
 }
 
+.entry .part{
+	padding: 0 16px;
+	width: 25%;
+}
+
+.entry .emphasis{
+	font-weight: 600;
+}
 
 .entry .values .title{
 	font-weight: bold;
