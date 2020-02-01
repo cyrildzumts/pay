@@ -11,6 +11,7 @@
 <div class="container">
         {% if has_idcard %}
             {% if idcard.has_expired %}
+            {% now "DATE_FORMAT" as now %}
             <div class="box">
                 <span class="warning">{% trans "Your ID Card has expiered" %} {{idcard.expire_at|timesince:now}}}</span>
                 <ul class="actions">
