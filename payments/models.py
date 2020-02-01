@@ -268,7 +268,10 @@ class Service(models.Model):
     
     @staticmethod
     def get_user_services(user):
-        return Service.objects.filter(Q(customer=user) | Q(operator=user))
+        queryset = Service.objects.none()
+        if isinstance(user, User) and user.is_authenticated:
+            queryset = Service.objects.filter(Q(customer=user) | Q(operator=user))
+        return queryset
 
 class Reduction(models.Model):
     code = models.TextField(max_length=8)
@@ -331,7 +334,10 @@ class Payment(models.Model):
 
     @staticmethod
     def get_user_payments(user):
-        return Payment.objects.filter(Q(sender=user) | Q(recipient=user))
+        queryset = Payment.objects.none()
+        if user and user.is_authenticated:
+            queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user))
+        return queryset
 
 class Transfer(models.Model):
     amount = models.IntegerField(blank=False)
@@ -353,7 +359,10 @@ class Transfer(models.Model):
 
     @staticmethod
     def get_user_transfers(user):
-        return Transfer.objects.filter(Q(sender=user) | Q(recipient=user))
+        queryset = Transfer.objects.none()
+        if user and user.is_authenticated:
+            queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user))
+        return queryset
 
 
 class CaseIssue(models.Model):

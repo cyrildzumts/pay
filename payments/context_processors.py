@@ -9,10 +9,16 @@ def payment_context(request):
     has_payments = False
     has_transfers = False
     has_services = False
+    latest_payments = None
+    latest_transfers = None
+    latest_services = None
     if request.user.is_authenticated:
         try:
             idcard = IDCard.objects.get(user=request.user)
             has_idcard = True
+            latest_payments = Payment.get_user_payments(request.user)[:LATEST_LIMITS]
+            latest_transfers = Transfer.get_user_transfers(request.user)[:LATEST_LIMITS]
+            latest_services = Service.get_user_services(request.user)[:LATEST_LIMITS]
         except IDCard.DoesNotExist:
             pass
         
@@ -20,8 +26,8 @@ def payment_context(request):
     context = {
         'idcard' : idcard,
         'has_idcard': has_idcard,
-        'latest_payments' : Payment.get_user_payments(request.user)[:LATEST_LIMITS],
-        'latest_transfers' : Transfer.get_user_transfers(request.user)[:LATEST_LIMITS],
-        'latest_services' : Service.get_user_services(request.user)[:LATEST_LIMITS]
+        'latest_payments' : latest_payments,
+        'latest_transfers' : latest_transfers,
+        'latest_services' : latest_services
     }
     return context
