@@ -19,7 +19,7 @@
                                 <li class="mat-list-item">
                                         <a class="mat-button mat-button-text" href="{{transfer.get_absolute_url}}">
                                                 <div class="entry">
-                                                 <span>{{transfer.sender.first_name}}</span> - <span>{{transfer.created_at}}</span> - {% if transfer.sender.pk == request.user.pk %}<span class="outgoing">{{transfer.amount}} {% trans "XAF" %}</span>{% else %}<span class="incoming">{{transfer.amount}} {% trans "XAF" %}</span> {% endif %} 
+                                                 <span>{{transfer.sender.first_name}}</span> - <span>{{transfer.created_at|date:"F j, Y"}}</span> - {% if transfer.sender.pk == request.user.pk %}<span class="outgoing">{{transfer.amount}} {% trans "XAF" %}</span>{% else %}<span class="incoming">{{transfer.amount}} {% trans "XAF" %}</span> {% endif %} 
                                                 </div>
                                         </a>
                                 </li>
@@ -44,7 +44,7 @@
                                 <li class="mat-list-item">
                                         <a class="mat-button mat-button-text" href="{{p.get_absolute_url}}">
                                                 <div class="entry">
-                                                 <span>{{p.sender.first_name}}</span> - <span>{{p.created_at}}</span> - {% if p.sender.pk == request.user.pk %}<span class="outgoing">{{p.amount}} {% trans "XAF" %}</span>{% else %}<span class="incoming">{{p.amount}} {% trans "XAF" %}</span> {% endif %} 
+                                                 <span>{{p.sender.first_name}}</span> - <span>{{p.created_at|date:"F j, Y"}}</span> - {% if p.sender.pk == request.user.pk %}<span class="outgoing">{{p.amount}} {% trans "XAF" %}</span>{% else %}<span class="incoming">{{p.amount}} {% trans "XAF" %}</span> {% endif %} 
                                                 </div>
                                         </a>
                                 </li>
