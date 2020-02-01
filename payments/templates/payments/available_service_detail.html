@@ -16,7 +16,7 @@
         </div>
         <ul class="actions">
           {% if has_favorite_service_app %}
-          <li> <a class="mat-button mat-button-text" href="{{% url 'payments:add-to-favorite-service' service.available_uuid %}}"> {% trans "Add to my favorite" %}</a> </li>
+          <li> <a class="mat-button mat-button-text" href="{% url 'payments:add-to-favorite-service' service.available_uuid %}"> {% trans "Add to my favorite" %}</a> </li>
           {% endif %}
           <li> <a class="mat-button mat-button-text" href="{{service.get_usage_url}}"> {% trans "Use this service" %}</a> </li>
           <li> <a class="mat-button mat-button-text" href="{% url 'payments:available-services' %}"> {% trans "Available Services" %} </a></li>
