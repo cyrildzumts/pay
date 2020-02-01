@@ -19,7 +19,7 @@
                                 <li class="mat-list-item">
                                         <a class="mat-button mat-button-text" href="{{transfer.get_absolute_url}}">
                                                 <div class="entry">
-                                                 <span class="part">{{transfer.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transfer.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if transfer.sender.pk == request.user.pk %}<span class="part emphasis outgoing">[-]{{transfer.amount}}</span><span class="currency">{% trans "XAF" %}</span>{% else %}<span class="part emphasis incoming">[+]{{transfer.amount}}</span> <span class="currency">{% trans "XAF" %}</span>{% endif %} 
+                                                 <span class="part">{{transfer.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transfer.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if transfer.sender.pk == request.user.pk %}<span class="part emphasis outgoing">-{{transfer.amount}}</span><span class="currency">{% trans "XAF" %}</span>{% else %}<span class="part emphasis incoming">+{{transfer.amount}}</span> <span class="currency">{% trans "XAF" %}</span>{% endif %} 
                                                 </div>
                                         </a>
                                 </li>
@@ -44,7 +44,7 @@
                                 <li class="mat-list-item">
                                         <a class="mat-button mat-button-text" href="{{p.get_absolute_url}}">
                                                 <div class="entry">
-                                                 <span class="part">{{p.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{p.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if p.sender.pk == request.user.pk %}<span class="part emphasis outgoing">[-]{{p.amount}}</span><span class="currency">{% trans "XAF" %}</span>{% else %}<span class="part emphasis incoming">[+]{{p.amount}}</span> <span class="currency">{% trans "XAF" %}</span> {% endif %} 
+                                                 <span class="part">{{p.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{p.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if p.sender.pk == request.user.pk %}<span class="part emphasis outgoing">-{{p.amount}}</span><span class="currency">{% trans "XAF" %}</span>{% else %}<span class="part emphasis incoming">+{{p.amount}}</span> <span class="currency">{% trans "XAF" %}</span> {% endif %} 
                                                 </div>
                                         </a>
                                 </li>
