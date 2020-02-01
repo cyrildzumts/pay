@@ -11,9 +11,8 @@
 <div class="container">
         {% if has_idcard %}
             {% if idcard.has_expired %}
-            {% now "DATE_FORMAT" as now %}
             <div class="box">
-                <span class="warning">{% trans "Your ID Card has expiered" %} {{idcard.expire_at|timesince:now}}}</span>
+                <span class="warning">{% trans "Your ID Card has expiered" %} {{idcard.expire_at|timesince}}}</span>
                 <ul class="actions">
                     <li><a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID Card" %}</a></li>
                 </ul>
