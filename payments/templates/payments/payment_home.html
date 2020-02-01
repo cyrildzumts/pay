@@ -15,11 +15,11 @@
                                 <div class="title">{% trans "Latest Transfers" %} </div>
                         </div>
                         <ul class="mat-list">
-                                {% for transfer in latest_transfers %}
+                                {% for transaction in latest_transfers %}
                                 <li class="mat-list-item">
-                                        <a class="mat-button mat-button-text" href="{{transfer.get_absolute_url}}">
+                                        <a class="mat-button mat-button-text" href="{{transaction.get_absolute_url}}">
                                                 <div class="entry">
-                                                 <span class="part">{{transfer.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transfer.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if transfer.sender.pk == request.user.pk %}<span class="part emphasis outgoing">-{{transfer.amount}}</span><span class="currency">{% trans "XAF" %}</span>{% else %}<span class="part emphasis incoming">+{{transfer.amount}}</span> <span class="currency">{% trans "XAF" %}</span>{% endif %} 
+                                                 <span class="part">{{transaction.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if transaction.sender.pk == request.user.pk %}<div class="money"><span class="amount outgoing">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>{% else %} <div class="money"><span class="amount incoming">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div> {% endif %} 
                                                 </div>
                                         </a>
                                 </li>
@@ -40,11 +40,11 @@
                                 <div class="title">{% trans "Latest Payments" %} </div>
                         </div>
                         <ul class="mat-list">
-                                {% for p in latest_payments %}
+                                {% for transaction in latest_payments %}
                                 <li class="mat-list-item">
-                                        <a class="mat-button mat-button-text" href="{{p.get_absolute_url}}">
+                                        <a class="mat-button mat-button-text" href="{{transaction.get_absolute_url}}">
                                                 <div class="entry">
-                                                 <span class="part">{{p.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{p.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if p.sender.pk == request.user.pk %}<span class="part emphasis outgoing">-{{p.amount}}</span><span class="currency">{% trans "XAF" %}</span>{% else %}<span class="part emphasis incoming">+{{p.amount}}</span> <span class="currency">{% trans "XAF" %}</span> {% endif %} 
+                                                 <span class="part">{{transaction.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> {% if transaction.sender.pk == request.user.pk %}<div class="money"><span class="amount outgoing">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>{% else %} <div class="money"><span class="amount incoming">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div> {% endif %} 
                                                 </div>
                                         </a>
                                 </li>

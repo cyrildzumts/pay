@@ -1685,7 +1685,23 @@ input[type=text]:focus, textarea:focus{
 
 .entry .part{
 	padding: 0 16px;
-	width: 25%;
+	/*width: 25%;*/
+}
+
+.money{
+	padding: 0 16px;
+}
+
+.money .amount{
+	font-size: 1em;
+	font-weight: 700;
+	padding : 0 4px 0 16px;
+}
+
+.money .currency{
+	font-size: 1em;
+	font-weight: 700;
+	padding : 0;
 }
 
 .entry .emphasis{
