@@ -1,37 +1,31 @@
 {% load i18n %}
 
-{% if service_list %}
-<div class="col-xs-12 col-6">
-    <div class="mat-table-wrapper">
-        <table id="service-list" class="mat-table js-filter-table">
-                  <caption>{% trans "Service List" %}</caption>
-                  <thead>
-                          <tr>
-                                  <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                                  <th>{% trans "Name" %}</th>
-                                  <th>{% trans "Amount" %}</th>
-                                  <th>{% trans "Category" %}</th>
-                                  <th>{% trans "Date" %}</th>
-                                  <th>{% trans "Details" %}</th>
-                          </tr>
-                  </thead>
-                  <tbody>
-                          {% for service in service_list  %}
-                          <tr>
-                            <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                            <td data-label="{% trans 'Name' %}">{{service.name}}</td>
-                            <td data-label="{% trans 'Amount' %}">{{service.price}} {% trans "XAF" %}</td>
-                            <td data-label="{% trans 'Category' %}">{{service.category.category_name}} </td>
-                            <td data-label="{% trans 'Date' %}">{{service.created_at}}</td>
-                            <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{service.get_absolute_url}}">{% trans "More" %}</a></td>
-                          </tr>
-                          {% endfor %}
-                          
-                  </tbody>
-        </table>
-    {% include "tags/pagination.html" with page_set=service_list %}
+{% if transaction_list %}
+    <div class="col-m-12 col-6">
+        <div class="mat-list-wrapper">
+            <div class="mat-list-header">
+                <span class="title">{% trans list_title %}</span>
+            </div>
+            <ul class="mat-list">
+                {% for transaction in transaction_list %}
+                <li class="mat-list-item">
+                    <a class="mat-button mat-button-text" href="{{transaction.get_absolute_url}}">
+                        <div class="entry">
+                            {% if transaction.customer.pk == request.user.pk %}
+                            <span class="part">{{transaction.name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount outgoing">{{transaction.price}}</span> <span class="currency">{% trans "XAF" %}</span></div>
+                            {% else %}
+                            <span class="part">{{transaction.name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount incoming">{{transaction.price}}</span> <span class="currency">{% trans "XAF" %}</span></div>
+                            {% endif %}
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% include "tags/pagination.html" with page_set=transaction_list %}
+        </div>
     </div>
-    </div>
-{% else %}
-<p> {% trans "You haven't used any services" %} ...</p>
-{% endif %}
+
+    {% else %}
+    <p> {% trans "There is no transactions yet" %}.</p>
+
+    {% endif %}

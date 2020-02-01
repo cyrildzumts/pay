@@ -8,46 +8,6 @@
   <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a Transfer" %} </a></li>
 </ul>
 <div class="container">
-    <div class="col-xs-12 col-6">
-    {% if transfer_list %}
-    <div class="mat-table-wrapper">
-
-        
-        <table id="transaction-list" class="mat-table js-filter-table">
-          <caption>{% trans "Transfer List" %}</caption>
-          <thead>
-                  <tr>
-                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                          <th>{% trans "Sender" %}</th>
-                          <th>{% trans "Recipient" %}</th>
-                          <th>{% trans "Amount" %}</th>
-                          <th>{% trans "Date of usage" %}</th>
-                          <th>{% trans "Details" %}</th>
-                  </tr>
-          </thead>
-          <tbody>
-                  {% for xfer in transfer_list  %}
-                  <tr>
-                    <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                    <td data-label="{% trans 'Sender' %}">{{xfer.sender.username}}</td>
-                    <td data-label="{% trans 'Recipient' %}">{{xfer.recipient.username}}</td>
-                    <td data-label="{% trans 'Amount' %}">{{xfer.amount}} {% trans "XAF" %}</td>
-                    <td data-label="{% trans 'Date' %}">{{xfer.created_at}}</td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{xfer.get_absolute_url}}">{% trans "More" %}</a></td>
-                  </tr>
-                  {% endfor %}
-                  
-          </tbody>
-          <tfoot>
-                  
-          </tfoot>
-
-    </table>
-    {% include "tags/pagination.html" with page_set=transfer_list %}
-    </div><!--End of Table Wrapper-->
-    {% else %}
-    <p> {% trans "You haven't made any transfer yet" %}</p>
-    {% endif %}
-  </div>
+    {% include "tags/transfer_list_snippet.html" with transaction_list=transfer_list list_title="Transfers" %}
 </div>
 {% endblock MAIN %}

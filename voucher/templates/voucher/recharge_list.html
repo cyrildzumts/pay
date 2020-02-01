@@ -12,59 +12,7 @@
 </div>
 
 <div class="container">
-
-    {% if recharge_list %}
-
+    {% include "tags/recharge_list_snippet.html" with page_set=recharge_list list_title="My Recharge List" %}
     
-    <div class="mat-table-wrapper">
-        <div class="mat-list-header">
-            <div class="mat-table-title">
-                {% trans "List of Recharges" %}
-            </div>
-        </div><!--End of Row-->
-
-        <table id="recharge-list" class="mat-table js-filter-table">
-          <thead>
-                  <tr>
-                          <th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>
-                          <th>{% trans "Customer" %}</th>
-                          <th>{% trans "Seller" %}</th>
-                          <th>{% trans "Balance" %}</th>
-                          <th>{% trans "Voucher Code" %}</th>
-                          <th>{% trans "Date" %}</th>
-                          <th>{% trans "Details" %}</th>
-                  </tr>
-          </thead>
-          <tbody>
-                  {% for r in recharge_list  %}
-                  <tr>
-                  <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
-                  <td>{{r.customer.get_full_name}}</td>
-                  <td>{{r.seller.get_full_name}}</td>
-                  <td>{{r.amount}} {% trans "XAF" %}</td>
-                  <td>{{r.voucher.voucher_code}}</td>
-                  <td>{{r.created_at|date:"F j, Y"}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'voucher:recharge-detail' r.recharge_uuid %}"> {% trans "Details" %}</a></td>
-                  </tr>
-                  {% endfor %}
-                  
-          </tbody>
-          <tfoot>
-                  
-          </tfoot>
-
-    </table>
-    {% include "tags/pagination.html" with page_set=recharge_list %} 
-    </div><!--End of Table Wrapper-->
-{% else %}
-    <div class="">
-      <p>{% trans "There are no Voucher sold now." %}</p>
-      <ul class="mat-list">
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">Dashboard</a></li>
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}">Voucher Board</a></li>
-        <li class="list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
-      </ul>
-    </div>
-    {% endif %}
 </div>
 {% endblock MAIN %}

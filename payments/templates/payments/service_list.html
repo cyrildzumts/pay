@@ -10,45 +10,6 @@
   </div>
 </div>
 <div class="container">
-   <div class="col-xs-12 col-6">
-{% if service_list %}
-
-    <div class="mat-table-wrapper">
-        <table id="service-list" class="mat-table js-filter-table">
-                  <caption>{% trans "Service List" %}</caption>
-                  <thead>
-                          <tr>
-                                  <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                                  <th>{% trans "Name" %}</th>
-                                  <th>{% trans "Amount" %}</th>
-                                  <th>{% trans "Category" %}</th>
-                                  <th>{% trans "Date" %}</th>
-                                  <th>{% trans "Details" %}</th>
-                          </tr>
-                  </thead>
-                  <tbody>
-                          {% for service in service_list  %}
-                          <tr>
-                            <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                            <td data-label="{% trans 'Name' %}">{{service.name}}</td>
-                            <td data-label="{% trans 'Amount' %}">{{service.price}} {% trans "XAF" %}</td>
-                            <td data-label="{% trans 'Category' %}">{{service.category.category_name}} </td>
-                            <td data-label="{% trans 'Date' %}">{{service.created_at}}</td>
-                            <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{service.get_absolute_url}}">{% trans "More" %}</a></td>
-                          </tr>
-                          {% endfor %}
-                          
-                  </tbody>
-                  <tfoot>
-                          
-                  </tfoot>
-
-        </table>
-    {% include "tags/pagination.html" with page_set=service_list %}
-    </div>
-{% else %}
-<p> {% trans "You haven't used any services" %} ...</p>
-{% endif %}
- </div>
+   {% include "tags/service_list_snippet.html" with transaction_list=service_list list_title="Service Payments" %}
 </div>
 {% endblock MAIN %}
