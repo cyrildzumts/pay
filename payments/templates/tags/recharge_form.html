@@ -1,6 +1,6 @@
 {% load i18n %} 
 
-<div class="responsive">
+<div class="container flex-center">
 
     <form id="voucher-recharge-form" name="voucher-recharge" action="{% url 'payments:recharge' %}" method="POST">{% csrf_token %}
         <div class="form-group">

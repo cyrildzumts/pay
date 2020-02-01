@@ -84,6 +84,8 @@ ACCOUNTS = {
 PAY_USER = 'pay'
 PAY_RECHARGE_USER = 'pay_recharge'
 
+DEFAULT_LOCAL_CURRENCY = 'XAF'
+
 # Application definition
 
 INSTALLED_APPS = [

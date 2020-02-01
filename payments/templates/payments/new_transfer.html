@@ -2,12 +2,14 @@
 {% load i18n %}
 
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "MONEY TRANSFER" %}</h4>
+    <h4> {% trans "SEND MONEY" %}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 
 {% block MAIN %}
 
 <div class="container">
-    {% include "tags/transfer_form.html" %}
+   <div class="col-xs-12 col-8">
+     {% include "tags/transfer_form.html" %}
+   </div>
 </div>
 {% endblock MAIN %}

@@ -1,0 +1,56 @@
+{% extends "base_flat.html" %}
+{% load i18n %} 
+
+
+{% block HEADER_PANEL %}
+
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+
+{% endblock HEADER_BANNER %}
+
+
+{% block MAIN %}
+    <div class="hidden-xs col-6">
+        <div class="container">
+            <div class="welcome">
+            
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-6">
+        <div class="container">
+            <div class="col-6">
+                <div id="account-dialog" class="container">
+                    <section id="user-login" class="user-login flex">
+                        <form id="login-form" class="login-form" action="{% url 'accounts:login' %}" method="post"> {% csrf_token %}
+                            <div class="form-group">
+                            <div class="mat-input">
+                                <label for="username">{% trans "Username" %}</label>
+                                <input id="username" type="text" name="username">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="mat-input">
+                                    <label for="password">{% trans "Password" %}</label>
+                                    <input id="password" type="password" name="password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <a class="mat-button mat-button-text" href="{% url 'accounts:password-reset' %}">{% trans "Forgot your password ?" %}</a>
+                            </div>
+                            
+                            <div class="form-group">
+                            <button id="login-submit" class="mat-button mat-button-default"  name="submit" type="submit">{% trans "Login" %}</button>
+                            </div>
+                            <div class="form-group">
+                                <span class="hint">{% trans "New here ? " %}</span><a class="mat-button mat-button-default full" href="{% url 'accounts:register' %}">{% trans "Register instead" %}</a>
+                            </div>
+                        </form>
+                    </section> <!-- End of Section Login-->
+                </div><!--End of container -->
+            </div>
+        </div>
+    </div>
+    
+{% endblock MAIN %}

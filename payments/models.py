@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.db.models import Q
 from django.dispatch import receiver
 from django.urls import reverse
 from pay import settings
 from pay import utils
 import uuid
+import datetime
 
 
 HELP_TEXT_FOR_DATE ="Please use the following format: <em>YYYY-MM-DD</em>."
@@ -35,6 +37,7 @@ class IDCard(models.Model):
     expire_at = models.DateField(blank=True, null=True)
     delivery_place = models.CharField(max_length=32, blank=True, null=True)
     is_valid = models.BooleanField(default=False, blank=True, null=True)
+    validated_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL,related_name='validated_idcards')
     idcard_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
@@ -52,6 +55,10 @@ class IDCard(models.Model):
     
     def get_dashboard_update_url(self):
         return reverse('dashboard:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
+    
+    @property
+    def has_expired(self):
+        return self.expire_at < datetime.date.today()
    
 
 
@@ -258,6 +265,10 @@ class Service(models.Model):
 
     def get_dashboard_absolute_url(self):
         return reverse('dashboard:service-detail', kwargs={'service_uuid':self.service_uuid})
+    
+    @staticmethod
+    def get_user_services(user):
+        return Service.objects.filter(Q(customer=user) | Q(operator=user))
 
 class Reduction(models.Model):
     code = models.TextField(max_length=8)
@@ -318,6 +329,10 @@ class Payment(models.Model):
     def get_dashboard_absolute_url(self):
         return reverse('dashboard:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
 
+    @staticmethod
+    def get_user_payments(user):
+        return Payment.objects.filter(Q(sender=user) | Q(recipient=user))
+
 class Transfer(models.Model):
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_transfers')
@@ -335,6 +350,11 @@ class Transfer(models.Model):
 
     def get_dashboard_absolute_url(self):
         return reverse('dashboard:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
+
+    @staticmethod
+    def get_user_transfers(user):
+        return Transfer.objects.filter(Q(sender=user) | Q(recipient=user))
+
 
 class CaseIssue(models.Model):
     participant_1 = models.ForeignKey(User, null=True , on_delete = models.CASCADE, related_name='created_issues')

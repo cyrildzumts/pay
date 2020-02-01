@@ -1,8 +1,6 @@
 {% load i18n %} 
 
-<div class="col-xs-12 col-6">
-
-
+<div class="container">
     <form name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">

@@ -1,8 +1,6 @@
 {% load i18n %} 
 
-<div class="col-xs-12 col-6">
-
-    
+<div class="container">    
     <form id="payment-form" name="payment" action="{% url 'payments:new-payment' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">

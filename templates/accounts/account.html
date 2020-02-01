@@ -10,7 +10,7 @@
 
             <div class="col col-9">
                 <div class="banner--content flex-column">
-                    <div class="row row-left"><span class="item"><h4>{% trans "Balance" %}</h4></span></div>
+                    <div class="row row-left"><span class="item"><h4>{% trans "Current Balance" %}</h4></span></div>
                     <div class="row row-left subtitle"><span class="item"><span class="big strong">{{account.balance}} {% trans "XAF" %} </span></span></div>
                     
                 </div><!--End of Banner-Content-->
@@ -36,18 +36,16 @@
 {% block MAIN %}
 
 <div class="row">
-        <ul class="listview">
-            <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li> 
-        </ul>
+
 </div>
 <div class="container">
-    {% if has_payments %}
+    {% if latest_payments %}
          {% include "tags/payment_list_snippet.html" %}
     {% endif %}
-    {% if has_transfers %}
+    {% if latest_transfers %}
          {% include "tags/transfer_list_snippet.html" %}
     {% endif %}
-    {% if has_recharges %}
+    {% if latest_recharges %}
          {% include "tags/recharge_list_snippet.html" %}
     {% endif %}
 
