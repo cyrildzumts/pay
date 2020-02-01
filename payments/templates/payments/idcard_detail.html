@@ -12,7 +12,7 @@
         {% if has_idcard %}
             {% if idcard.has_expired %}
             <div class="box">
-                <div><span class="warning">{% trans "Your ID Card has expiered since" %}</span><span class="emphasis">{{idcard.expire_at|timesince}}</span></div>
+                <div class="warning"><span>{% trans "Your ID Card has expiered since" %}</span><span class="emphasis"> {{idcard.expire_at|timesince}}</span></div>
                 <ul class="actions">
                     <li><a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID Card" %}</a></li>
                 </ul>
