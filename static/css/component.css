@@ -1222,7 +1222,20 @@ a {
 .outgoing{
 	color: #d32f2f;
 }
- .date{
+
+.incoming::before, .outgoing::before{
+	font-weight: 600;
+}
+
+.incoming::before{
+	content: "+";
+}
+.outgoing::before{
+	content: "-";
+	
+}
+
+.date{
 	font-size: 1em;
 }
 .icon-money-text{
