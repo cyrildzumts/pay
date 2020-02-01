@@ -31,7 +31,8 @@
     </table>
     {% include "tags/pagination.html" with page_set=payment_list %}
     </div><!--End of Table Wrapper-->
+    </div>
     {% else %}
     <p> {% trans "You haven't made any Payments" %}.</p>
-</div>
+
     {% endif %}

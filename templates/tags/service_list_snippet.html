@@ -28,14 +28,10 @@
                           {% endfor %}
                           
                   </tbody>
-                  <tfoot>
-                          
-                  </tfoot>
-
         </table>
     {% include "tags/pagination.html" with page_set=service_list %}
     </div>
+    </div>
 {% else %}
 <p> {% trans "You haven't used any services" %} ...</p>
-</div>
 {% endif %}
