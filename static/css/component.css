@@ -1717,7 +1717,7 @@ input[type=text]:focus, textarea:focus{
 	padding : 0;
 }
 
-.entry .emphasis{
+.emphasis{
 	font-weight: 600;
 }
 
