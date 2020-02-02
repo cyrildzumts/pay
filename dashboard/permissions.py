@@ -240,3 +240,21 @@ class PermissionManager :
     @staticmethod
     def user_can_close_claim(user=None):
         return PermissionManager.user_has_perm(user=user, perm=Constants.CASE_ISSUE_CLOSE_PERM)
+    
+
+def get_view_permissions(user=None):
+    context = {
+        'can_access_dashboard' : PermissionManager.user_can_access_dashboard(user),
+        'can_view_available_service': PermissionManager.user_can_view_available_service(user),
+        'can_view_service': PermissionManager.user_can_view_service(user),
+        'can_view_user': PermissionManager.user_can_view_user(user),
+        'can_view_category': PermissionManager.user_can_view_category(user),
+        'can_view_group' : PermissionManager.user_can_view_group(user),
+        'can_view_policy': PermissionManager.user_can_view_policy(user),
+        'can_view_transfer': PermissionManager.user_can_view_transfer(user),
+        'can_view_payment': PermissionManager.user_can_view_payment(user),
+        'can_view_voucher': PermissionManager.user_can_view_voucher(user),
+        'can_add_group' : PermissionManager.user_can_add_group(user),
+        'can_generate_token': PermissionManager.user_can_generate_token(user)
+    }
+    return context

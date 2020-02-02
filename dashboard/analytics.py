@@ -323,3 +323,5 @@ def get_policies_filter_by(**kwargs):
 
 def get_number_of_policies_filter_by(**kwargs):
     return utils.get_model('payments', 'Policy').objects.filter(**kwargs).count()
+
+
