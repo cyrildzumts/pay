@@ -17,9 +17,6 @@
           <p> <span>{{payment.sender.get_full_name}}</span> </p>
           <p> <span>{% trans "Price" %}</span> <i class="separator"></i> <span class="amount incoming">{{payment.amount}}</span> <span>{% trans "XAF" %}</span> </p>
           {% endif %}
-          
-          
-          
           <p> <span>{% trans "Date" %}</span> <i class="separator"></i> <span>{{payment.created_at|date:"N j, Y"}}</span> </p>
           <p> <span>{% trans "Description" %}</span> <i class="separator"></i> <span>{{payment.details}}</span> </p>
         </div>

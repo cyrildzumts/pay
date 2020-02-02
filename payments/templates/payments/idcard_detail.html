@@ -11,7 +11,7 @@
 <div class="container">
         {% if has_idcard %}
             {% if idcard.has_expired %}
-            <div class="box">
+            <div class="mat-box">
                 <div class="warning"><span>{% trans "Your ID Card has expiered since" %}</span><span class="emphasis"> {{idcard.expire_at|timesince}}</span></div>
                 <ul class="actions">
                     <li><a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID Card" %}</a></li>
@@ -33,8 +33,10 @@
                     <li class="mat-list-item entry"><span class="key">{% trans "Delivered at " %}</span><span class="value">{{idcard.delivery_at|date:"F j, Y"}}</span></li>
                     <li class="mat-list-item entry"><span class="key">{% trans "Valide until " %}</span><span class="value">{{idcard.expire_at|date:"F j, Y"}}</span></li>
                     <li class="mat-list-item entry">
-                        <div class="image-wrapper">
-                            <img class="img-responsive js-zoom" src="{{idcard.image.url}}"/>
+                        <div class="col-m-12 col-4">
+                            <div class="image-wrapper">
+                                <img class="img-responsive js-zoom" src="{{idcard.image.url}}"/>
+                            </div>
                         </div>
                     </li>
                 </ul>
