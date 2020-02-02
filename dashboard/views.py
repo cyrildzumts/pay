@@ -415,6 +415,7 @@ def category_services(request):
     context['page_title'] = page_title
     context['categories'] = list_set
     context.update(get_view_permissions(request.user))
+    context['can_add_category'] = PermissionManager.user_can_add_category(request.user)
     context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
     context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
     return render(request,template_name, context)
@@ -575,6 +576,7 @@ def category_service_details(request, category_uuid=None):
     context['has_services'] = category.available_services.exists()
     context['available_services'] = category.available_services.all()
     context.update(get_view_permissions(request.user))
+    context['can_add_category'] = PermissionManager.user_can_add_category(request.user)
     context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
     context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
     return render(request,template_name, context)
