@@ -14,7 +14,7 @@
                 </div>
                 {% if user == service.operator %}
                 <div class="entry">
-                  <span class="key">{{service.customer.get_full_name}}</span>
+                  <span class="key">{% trans "Customer" %}</span><span class="value">{{service.customer.get_full_name}}</span>
                 </div>
                 <div class="entry">
                   <span class="key">{% trans "Amount" %} </span><span class="value incoming">{{service.price}} {% trans "XAF" %}</span>
@@ -24,7 +24,7 @@
                 </div>
                 {% else %}
                 <div class="entry">
-                  <span class="key">{{service.operator.get_full_name}}</span>
+                  <span class="key">{% trans "Operator" %}</span><span class="value">{{service.operator.get_full_name}}</span>
                 </div>
                 <div class="entry">
                   <span class="key">{% trans "Amount" %} </span><span class="value outgoing">{{service.price}} {% trans "XAF" %}</span>
