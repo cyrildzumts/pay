@@ -1,104 +1,15 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-
-{% block HEADER_BANNER %}
 {% if not can_access_dashboard %}
-         {% include "tags/unauthorized.html" %}
+{% include "tags/unauthorized.html" %}
 {% else %}
 
-  <div class="container">
-        <div class="row">
-                <h3>Dashboard</h3>
-        </div>
-        <div class="row flex-wrap">
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans 'Service Usage' %} </p>
-                                <p>{{summary.service_summary.usage_count}}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans 'Number of Transfer' %} </p>
-                                <p>{{summary.transfer_summary.number_of_transfers}}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Total Paid amount for this month" %} </p>
-                                <p>{{summary.service_summary.total_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Min Transferred amount" %}</p>
-                                <p>{{summary.transfer_summary.min_transferred_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans "Max Paid amount Service" %} </p>
-                                <p>{{summary.service_summary.max_paid_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                       
+{% block HEADER_BANNER %}
 
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Average Paid amount for Service this month" %} </p>
-                                <p>{{summary.service_summary.average_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Average Transferred amount this month" %} </p>
-                                <p class="subtitle">{{summary.transfer_summary.average_transferred_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
-                </div>
-        </div>
-  </div>
-  {% endif %}
 {% endblock HEADER_BANNER %}
 
 {% block MAIN %}
-{% if not can_access_dashboard %}
-<div class="access-error">
-  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
-</div>
-{% else %}
-
 <div class="container row">
-        <div class="col col-2">
-                <aside class="panel panel-align-left">
-                        <ul class="dock dock-left">
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-                                {% if can_view_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>{% endif %}
-                                {% if can_view_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>{% endif %}
-                                {% if can_view_transfer %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>{% endif %}
-                                {% if can_view_payment %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}">{% trans "Payments" %}</a></li>{% endif %}
-                                {% if can_view_voucher %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>{% endif %}
-                                {% if can_view_available_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>{% endif %}
-                                {% if can_view_policy %}
-                                        <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
-                                        <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups' %}">{% trans "Policy Groups" %}</a></li>
-                                {% endif %}
-                                {% if can_view_user %}
-                                        <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}">{% trans "Users" %}</a></li>
-                                {% endif %}
-                                {% if can_view_category %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}">{% trans "Categories" %}</a></li>{% endif %}
-                                {% if can_generate_token %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>{% endif %}
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
-                        </ul>
-                </aside>
-        </div>
-
         <div class="col col-10">
                 <div class="container">
                         <div class="row">
