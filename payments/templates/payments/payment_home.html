@@ -6,63 +6,8 @@
 
 {% block MAIN %}
 <div class="container">
-        {% if latest_transfers %}
-        
-        <div class="col-m-12 col-4">
-            <div class="container">
-                <div class="mat-list-wrapper">
-                        <div class="mat-list-header">
-                                <div class="title">{% trans "Latest Transfers" %} </div>
-                        </div>
-                        <ul class="mat-list">
-                                {% for transaction in latest_transfers %}
-                                <li class="mat-list-item">
-                                        <a class="mat-button mat-button-text" href="{{transaction.get_absolute_url}}">
-                                                <div class="entry">
-                                                 {% if transaction.sender.pk == request.user.pk %}
-                                                 <span class="part">{{transaction.recipient.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount outgoing">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                                                 {% else %}
-                                                 <span class="part">{{transaction.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount incoming">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                                                 {% endif %}
-                                                </div>
-                                        </a>
-                                </li>
-                                {% endfor %}
-                        </ul>
-                </div><!--End of wrapper-->
-            
-            </div><!--End of Container-->
-        </div><!--End of col-xs-12-->
-        {% endif %}
-
-        {% if latest_payments %}
-        
-        <div class="col-m-12 col-4">
-            <div class="container">
-                <div class="mat-list-wrapper">
-                        <div class="mat-list-header">
-                                <div class="title">{% trans "Latest Payments" %} </div>
-                        </div>
-                        <ul class="mat-list">
-                                {% for transaction in latest_payments %}
-                                <li class="mat-list-item">
-                                        <a class="mat-button mat-button-text" href="{{transaction.get_absolute_url}}">
-                                                <div class="entry">
-                                                  {% if transaction.sender.pk == request.user.pk %}
-                                                 <span class="part">{{transaction.recipient.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount outgoing">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                                                 {% else %}
-                                                 <span class="part">{{transaction.sender.first_name}}</span> <i class="separator"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator"></i> <div class="money"><span class="amount incoming">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                                                 {% endif %}
-                                                </div>
-                                        </a>
-                                </li>
-                                {% endfor %}
-                        </ul>
-                </div><!--End of wrapper-->
-            
-            </div><!--End of Container-->
-        </div><!--End of col-xs-12-->
-        {% endif %}
+        {% include "tags/transfer_list_snippet.html" with page_set=latest_transfers list_title="Latest Transfers" %}
+        {% include "tags/payment_list_snippet.html" with page_set=latest_payments list_title="Latest Payments" %}
 </div>
 
 {% endblock MAIN %}
