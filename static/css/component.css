@@ -952,9 +952,9 @@ button, input, select, textarea{
 	font-size: 0.75em;
 }
 .register-btn{
-	background-color: aquamarine;
-	color: #fafafa;
-	font-weight: 600;
+	background-color: aquamarine !important;
+	color: #fafafa !important;
+	font-weight: 600 !important;
 }
 .header {
   --width-mobile: 12;
