@@ -6,8 +6,8 @@
 
 {% block MAIN %}
 <div class="container">
-        {% include "tags/transfer_list_snippet.html" with page_set=latest_transfers list_title="Latest Transfers" %}
-        {% include "tags/payment_list_snippet.html" with page_set=latest_payments list_title="Latest Payments" %}
+        {% include "tags/transfer_list_snippet.html" with transaction_list=latest_transfers list_title="Latest Transfers" %}
+        {% include "tags/payment_list_snippet.html" with transaction_list=latest_payments list_title="Latest Payments" %}
 </div>
 
 {% endblock MAIN %}
