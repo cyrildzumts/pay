@@ -944,6 +944,18 @@ button, input, select, textarea{
 	border-radius:50%;
 }
 
+.register-hint{
+	min-width: 120px;
+	padding: 0 16px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 0.75em;
+}
+.register-btn{
+	background-color: aquamarine;
+	color: #fafafa;
+	font-weight: 600;
+}
 .header {
   --width-mobile: 12;
   /*height: 12rem;*/
