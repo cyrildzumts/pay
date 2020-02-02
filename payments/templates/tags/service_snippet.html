@@ -1,0 +1,49 @@
+{% load i18n %}
+
+<div class="mat-box">
+    <div class="title">
+        <span>{{service.name}}</span>
+    </div>
+    <div class="">
+        <div class="entry">
+            <span class="key">{% trans "Category" %}</span><span class="value">{{service.category.category_name}}</span>
+        </div>
+        {% if user == service.operator %}
+        <div class="entry">
+            <span class="key">{% trans "Customer" %}</span><span class="value">{{service.customer.get_full_name}}</span>
+        </div>
+        <div class="entry">
+            <span class="key">{% trans "Amount" %} </span><span class="value incoming">{{service.price}} {% trans "XAF" %}</span>
+        </div>
+        <div class="entry">
+            <span class="key">{% trans "Commission" %} </span><span class="value">{{service.commission}}</span>
+        </div>
+        {% else %}
+        <div class="entry">
+            <span class="key">{% trans "Operator" %}</span><span class="value">{{service.operator.get_full_name}}</span>
+        </div>
+        <div class="entry">
+            <span class="key">{% trans "Amount" %} </span><span class="value outgoing">{{service.price}} {% trans "XAF" %}</span>
+        </div>
+        {% endif %}
+        {% if service.reference_number %}
+        <div class="entry">
+            <span class="key">{% trans "Reference Number" %} </span><span class="value">{{service.reference_number}}</span>
+        </div>
+        {% endif %}
+        {% if service.customer_reference %}
+        <div class="entry">
+            <span class="key">{% trans "Customer Reference" %} </span><span class="value">{{service.customer_reference}}</span>
+        </div>
+        {% endif %}
+        <div class="entry">
+            <span class="key">{% trans "Date" %}</span><span class="value">{{service.created_at|date:"M j, Y"}}</span>
+        </div>
+        <div class="entry">
+            <span class="key">{% trans "Verification Code" %}</span><span class="value">{{service.verification_code}}</span>
+        </div>
+        <div class="entry">
+            <span class="key">{% trans "Description" %}</span><span class="value">{{service.description}}</span>
+        </div>               
+    </div>
+</div>

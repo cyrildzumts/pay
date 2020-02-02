@@ -50,41 +50,13 @@
         </form>
     </div>
 
-    {% if service_verification_ready and service_verification_ready is True %}
+    {% if service_verification_ready %}
     <div class="row">
+      <div class="col-m-12 col-6">
         {% if service_is_valid %}
-            <div class="box">
-            <div class="title">
-              <span>{{service.name}}</span>
-            </div>
-            <div class="content">
-                <div class="entry">
-                  <span class="key">{% trans "Category" %}</span><span class="value">{{service.category}}</span>
-                </div>
-                <div class="entry">
-                  <span class="key">{% trans "Operator" %} : </span><span class="value">{{service.operator.get_full_name}}</span>
-                </div>
-                <div class="entry">
-                  <span class="key">{% trans "Customer" %}</span><span class="value">{{service.customer.get_full_name}}</span>
-                </div>
-                <div class="entry">
-                  <span class="key">{% trans "Amount" %} :</span><span class="value">{{service.price}} {% trans "XAF" %}</span>
-                </div>
-                <div class="entry">
-                  <span class="key">{% trans "Commission" %} :</span><span class="value">{{service.commission}}</span>
-                </div>
-                
-                <div class="entry">
-                  <span class="key">{% trans "Date" %} :</span><span class="value">{{service.created_at}}</span>
-                </div>
-                <div class="entry">
-                  <span class="key">{% trans "Verification Code" %}</span><span class="value">{{service.verification_code}}</span>
-                </div>
-                <div class="entry">
-                  <span class="key">{% trans "Description" %} :</span><span class="value">{{service.description}}</span>
-                </div>               
-            </div>
-        </div>
+            
+            {% include "service_snippet.html" %}
+            
         {% else %}
             <div class="box">
                 <div class="title">
@@ -96,7 +68,8 @@
                 </div>
             </div>
         {% endif %}
-    </div>
+      </div>
+  </div>
 
     {% endif %}
 </div>
