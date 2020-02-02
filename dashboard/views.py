@@ -38,9 +38,9 @@ def dashboard(request):
             'summary' : analytics.dashboard_summary(),
             'recent_transfers' : analytics.get_recent_transfers(),
             'recent_services' : analytics.get_recent_services(),
-            'is_allowed'     : can_view_dashboard,
-            'dashboard'     : get_view_permissions(request.user)
+            'is_allowed'     : can_view_dashboard
         }
+        context.update(get_view_permissions(request.user))
 
         logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
 
@@ -78,7 +78,7 @@ def generate_token(request):
                 messages.add_message(request, messages.ERROR, _('The submitted form is not valid') )
     else :
             context['form'] = forms.TokenForm()
-            context['dashboard'] = get_view_permissions(request.user)
+            context.update(get_view_permissions(request.user))
         
 
     return render(request, template_name, context)
@@ -110,8 +110,7 @@ def users(request):
     context['page_title'] = page_title
     context['users'] = list_set
     context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
-    context['can_view_user'] = can_view_user
+    context.update(get_view_permissions(request.user))
     context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
     context['can_update'] = PermissionManager.user_can_change_user(request.user)
     return render(request,template_name, context)
@@ -132,7 +131,7 @@ def user_details(request, pk=None):
     page_title = "User Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['user_instance'] = user
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
     context['can_update'] = PermissionManager.user_can_change_user(request.user)
     return render(request,template_name, context)
@@ -154,7 +153,7 @@ def service_details(request, service_uuid=None):
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['service'] = service
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     context['can_delete'] = PermissionManager.user_can_delete_service(request.user)
     context['can_update'] = PermissionManager.user_can_change_service(request.user)
     context['service_summary'] = analytics.get_service_usage_summary()
@@ -189,8 +188,7 @@ def services(request):
     context['page_title'] = page_title
     context['services'] = list_set
     context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_service'] = can_view_service
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     context['can_delete'] = PermissionManager.user_can_delete_service(request.user)
     context['can_update'] = PermissionManager.user_can_change_service(request.user)
     context['service_summary'] = analytics.get_service_usage_summary()
@@ -225,9 +223,7 @@ def available_services(request):
         list_set = None
     context['page_title'] = page_title
     context['available_services'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
-    context['can_view_available_service'] = can_view_available_service
+    context.update(get_view_permissions(request.user))
     context['can_delete_available_service'] = PermissionManager.user_can_delete_available_service(request.user)
     context['can_change_available_service'] = PermissionManager.user_can_change_available_service(request.user)
     context['can_add_available_service'] = PermissionManager.user_can_add_available_service(request.user)
@@ -267,10 +263,9 @@ def available_service_update(request, available_uuid=None):
             'form': form,
             'categories': categories,
             'operators': operators,
-            'can_access_dashboard' : can_access_dashboard,
             'can_update_available_service': can_update_available_service
         }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
@@ -311,10 +306,9 @@ def available_service_create(request):
             'form': form,
             'categories': categories,
             'operators': operators,
-            'can_access_dashboard' : can_access_dashboard,
             'can_add_available_service': can_add_available_service
         }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
@@ -387,9 +381,7 @@ def available_service_details(request, available_uuid=None):
     page_title = "Available Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['service'] = service
-    context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
-    context['can_view_available_service'] = can_view_available_service
+    context.update(get_view_permissions(request.user))
     context['can_delete_available_service'] = PermissionManager.user_can_delete_available_service(request.user)
     context['can_update_available_service'] = PermissionManager.user_can_change_available_service(request.user)
     return render(request,template_name, context)
@@ -422,9 +414,7 @@ def category_services(request):
         list_set = None
     context['page_title'] = page_title
     context['categories'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
-    context['can_view_category'] = can_view_category
+    context.update(get_view_permissions(request.user))
     context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
     context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
     return render(request,template_name, context)
@@ -461,10 +451,9 @@ def category_service_update(request, category_uuid=None):
             'template_name':template_name,
             'category' : instance,
             'form': form,
-            'can_update_category' : can_change_category,
-            'can_access_dashboard': can_access_dashboard
+            'can_update_category' : can_change_category
         }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
 
 
@@ -554,10 +543,9 @@ def category_service_create(request):
             'page_title':page_title,
             'template_name':template_name,
             'form': form,
-            'can_add_category' : can_add_category,
-            'can_access_dashboard': can_access_dashboard
+            'can_add_category' : can_add_category
         }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
@@ -586,9 +574,7 @@ def category_service_details(request, category_uuid=None):
     context['category'] = category
     context['has_services'] = category.available_services.exists()
     context['available_services'] = category.available_services.all()
-    context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
-    context['can_view_category'] = can_view_category
+    context.update(get_view_permissions(request.user))
     context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
     context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
     return render(request,template_name, context)
@@ -623,9 +609,7 @@ def policies(request):
         list_set = None
     context['page_title'] = page_title
     context['policies'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_policy'] = can_view_policy
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
     context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
     return render(request,template_name, context)
@@ -663,10 +647,9 @@ def policy_update(request, policy_uuid=None):
             'template_name':template_name,
             'policy' : instance,
             'form': form,
-            'can_change_policy' : can_change_policy,
-            'can_access_dashboard': can_access_dashboard
+            'can_change_policy' : can_change_policy
         }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
 
 
@@ -753,11 +736,10 @@ def policy_create(request):
             'page_title':page_title,
             'template_name':template_name,
             'form': form,
-            'can_access_dashboard' : can_access_dashboard,
             'can_add_policy' : can_add_policy
         }
     
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
 
 
@@ -782,9 +764,7 @@ def policy_details(request, policy_uuid=None):
     page_title = "Policy Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['policy'] = policy
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_policy'] = can_view_policy
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
     context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
     return render(request,template_name, context)
@@ -820,10 +800,8 @@ def policy_groups(request):
         list_set = None
     context['page_title'] = page_title
     context['groups'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     context['can_add_policy'] = can_add_policy
-    context['can_view_policy'] = can_view_policy
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
     context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
     return render(request,template_name, context)
@@ -860,10 +838,9 @@ def policy_group_create(request):
             'template_name':template_name,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_access_dashboard' : can_access_dashboard,
             'can_add_policy' : can_add_policy
         }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
@@ -898,10 +875,9 @@ def policy_group_update(request, group_uuid=None):
             'group' : instance,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_change_policy' : can_change_policy,
-            'can_access_dashboard': can_access_dashboard
+            'can_change_policy' : can_change_policy
         }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
 
 
@@ -979,11 +955,9 @@ def policy_group_details(request, group_uuid=None):
     context['group'] = group
     context['members'] = group.members.all()
     context['users'] = User.objects.filter(is_active=True, is_superuser=False)
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_policy'] = can_view_policy
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
     context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
@@ -1041,11 +1015,9 @@ def transfers(request):
         list_set = None
     context['page_title'] = page_title
     context['transfers'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_transfer'] = can_view_transfer
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_transfer'] = PermissionManager.user_can_delete_transfer(request.user)
     context['can_update_transfer'] = PermissionManager.user_can_change_transfer(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
@@ -1068,11 +1040,9 @@ def transfer_details(request, transfer_uuid=None):
     page_title = "Transfer Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['transfer'] = transfer
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_transfer'] = can_view_transfer
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_transfer'] = PermissionManager.user_can_delete_transfer(request.user)
     context['can_update_transfer'] = PermissionManager.user_can_change_transfer(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
@@ -1104,11 +1074,9 @@ def payments(request):
         payment_set = None
     context['page_title'] = page_title
     context['payments'] = payment_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_payment'] = can_view_payment
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
     context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
@@ -1132,11 +1100,9 @@ def payment_details(request, payment_uuid=None):
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['payment'] = payment
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_payment'] = can_view_payment
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
     context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
@@ -1168,12 +1134,10 @@ def cases(request):
         list_set = None
     context['page_title'] = page_title
     context['cases'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_claim'] = can_view_claim
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_claim'] = PermissionManager.user_can_delete_claim(request.user)
     context['can_update_claim'] = PermissionManager.user_can_change_claim(request.user)
     context['can_close_claim'] = PermissionManager.user_can_close_claim(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
@@ -1197,12 +1161,10 @@ def case_details(request, issue_uuid=None):
     page_title = "Claim Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['claim'] = claim
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_claim'] = can_view_claim
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_claim'] = PermissionManager.user_can_delete_claim(request.user)
     context['can_update_claim'] = PermissionManager.user_can_change_claim(request.user)
     context['can_close_claim'] = PermissionManager.user_can_close_claim(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
@@ -1271,12 +1233,10 @@ def groups(request):
         group_set = None
     context['page_title'] = page_title
     context['groups'] = group_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_group'] = can_view_group
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_group'] = PermissionManager.user_can_delete_group(request.user)
     context['can_update_group'] = PermissionManager.user_can_change_group(request.user)
     context['can_add_group'] = PermissionManager.user_can_add_group(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
@@ -1298,11 +1258,9 @@ def group_detail(request, pk=None):
     page_title = "Group Detail" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['group'] = group
-    context['can_access_dashboard'] = can_access_dashboard
-    context['can_view_group'] = can_view_group
-    context['dashboard'] = get_view_permissions(request.user)
     context['can_delete_group'] = PermissionManager.user_can_delete_group(request.user)
     context['can_update_group'] = PermissionManager.user_can_change_group(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
@@ -1353,10 +1311,9 @@ def group_update(request, pk=None):
             'available_users' : available_users,
             'permissions': permissions,
             'available_permissions' : available_permissions,
-            'can_access_dashboard' : can_access_dashboard,
             'can_change_group' : can_change_group
     }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 
@@ -1410,10 +1367,9 @@ def group_create(request):
             'form': form,
             'available_users' : available_users,
             'available_permissions': available_permissions,
-            'can_add_group' : can_add_group,
-            'can_access_dashboard' : can_access_dashboard
+            'can_add_group' : can_add_group
     }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 
@@ -1470,8 +1426,7 @@ def permissions(request):
         permission_set = None
     context['page_title'] = page_title
     context['permissions'] = permission_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
@@ -1488,8 +1443,7 @@ def permission_detail(request, pk=None):
     page_title = "Permission Detail" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['permission'] = permission
-    context['can_access_dashboard'] = can_access_dashboard
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
@@ -1531,10 +1485,9 @@ def permission_update(request, pk=None):
             'form': form,
             'users' : permission_users,
             'available_users' : available_users,
-            'permission': permission,
-            'can_access_dashboard' : can_access_dashboard
+            'permission': permission
     }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 
@@ -1583,10 +1536,9 @@ def permission_create(request):
             'page_title' : page_title,
             'form': form,
             'available_users' : available_users,
-            'available_groups': available_groups,
-            'can_access_dashboard' : can_access_dashboard
+            'available_groups': available_groups
     }
-    context['dashboard'] = get_view_permissions(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 

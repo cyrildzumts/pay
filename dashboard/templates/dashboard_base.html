@@ -45,21 +45,21 @@
                   <ul class="dock dock-left">
                               <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
                               <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-                              {% if dashboard.can_view_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>{% endif %}
-                              {% if dashboard.can_view_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>{% endif %}
-                              {% if dashboard.can_view_transfer %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>{% endif %}
-                              {% if dashboard.can_view_payment %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}">{% trans "Payments" %}</a></li>{% endif %}
-                              {% if dashboard.can_view_voucher %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>{% endif %}
-                              {% if dashboard.can_view_available_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>{% endif %}
-                              {% if dashboard.can_view_policy %}
+                              {% if can_view_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>{% endif %}
+                              {% if can_view_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>{% endif %}
+                              {% if can_view_transfer %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>{% endif %}
+                              {% if can_view_payment %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}">{% trans "Payments" %}</a></li>{% endif %}
+                              {% if can_view_voucher %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>{% endif %}
+                              {% if can_view_available_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>{% endif %}
+                              {% if can_view_policy %}
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups' %}">{% trans "Policy Groups" %}</a></li>
                               {% endif %}
-                              {% if dashboard.can_view_user %}
+                              {% if can_view_user %}
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}">{% trans "Users" %}</a></li>
                               {% endif %}
-                              {% if dashboard.can_view_category %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}">{% trans "Categories" %}</a></li>{% endif %}
-                              {% if dashboard.can_generate_token %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>{% endif %}
+                              {% if can_view_category %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}">{% trans "Categories" %}</a></li>{% endif %}
+                              {% if can_generate_token %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>{% endif %}
                               <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
                   </ul>
             </aside>
