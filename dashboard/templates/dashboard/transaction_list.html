@@ -1,7 +1,7 @@
 {% extends "account_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
+{% block MAIN_CONTENT %}
 
 <div class="container">
     {% for transaction in transactions %}
@@ -16,4 +16,4 @@
     <a class="mat-button mat-button-text" href="{% url 'payments:new-transaction' %}"> New Transaction </a>
     {% endfor %}
 </div>
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}

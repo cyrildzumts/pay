@@ -25,7 +25,7 @@
     </div>
 {% endblock HEADER_BANNER %}
 
-{% block MAIN %}
+{% block MAIN_CONTENT %}
 {% if not can_generate_token %}
  {% include "tags/unauthorized.html" %}
 {% else %}
@@ -58,4 +58,4 @@
 
 
 {% endif %}
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}
