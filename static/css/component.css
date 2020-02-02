@@ -56,6 +56,11 @@
 	margin: 16px;
 }
 
+.separator-ht::after, .separator-vt::after, .separator::after{
+	content: "-";
+	padding: 0 16px;
+}
+
 .state{
 	padding: 0 8px;
 	margin: 8px 4px;
