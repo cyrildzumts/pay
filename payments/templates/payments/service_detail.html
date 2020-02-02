@@ -30,6 +30,16 @@
                   <span class="key">{% trans "Amount" %} </span><span class="value outgoing">{{service.price}} {% trans "XAF" %}</span>
                 </div>
                 {% endif %}
+                {% if service.reference_number %}
+                <div class="entry">
+                  <span class="key">{% trans "Reference Number" %} </span><span class="value">{{service.reference_number}}</span>
+                </div>
+                {% endif %}
+                {% if service.customer_reference %}
+                <div class="entry">
+                  <span class="key">{% trans "Customer Reference" %} </span><span class="value">{{service.customer_reference}}</span>
+                </div>
+                {% endif %}
                 <div class="entry">
                   <span class="key">{% trans "Date" %}</span><span class="value">{{service.created_at|date:"M j, Y"}}</span>
                 </div>
