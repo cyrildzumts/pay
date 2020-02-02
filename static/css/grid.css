@@ -2,6 +2,7 @@
 
 .container {
   min-width: 100% !important;
+  height: 100%;
   margin: 0 auto;
   display: flex !important;
   flex-wrap: wrap;
