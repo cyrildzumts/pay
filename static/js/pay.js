@@ -980,10 +980,12 @@ slider.init();
         $('.js-menu').show();
         $(this).hide();
     });
+    /*
     $('form').on('change', function(event){
         prevent_leaving();
     });
     $('form .js-cancel').on('click', can_leave);
+    */
     $('.js-user-selector').on('click', 'li', function(){
         let target = $(this);
         $('#members').append($('<option/>', {'value': target.data('id'), 'selected': true, 'text': target.text()}));
