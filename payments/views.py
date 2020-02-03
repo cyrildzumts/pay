@@ -485,6 +485,9 @@ def available_service_details(request, available_uuid=None):
     return render(request,template_name, context)
 
 
+def request_payment(request):
+    pass
+
 @login_required
 def new_payment(request):
     context = {}

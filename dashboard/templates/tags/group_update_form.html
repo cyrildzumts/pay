@@ -12,7 +12,71 @@
             <label for="name">{% trans "Name" %} :</label>
             <input type="text" name="name" id="name" value="{{group.name}}"> 
         </div>
+        {% comment "Permissions" %}
         
+        {% endcomment %}
+        <div class="container">
+            <div class="row">
+                <div class="col-m-12 col-6">
+                    <div class="container">
+                        <div class="mat-list-wrapper">
+                            <div class="mat-list-header">
+                                <span class="title">{% trans "Select Permissions to add" %}</span>
+                            </div>
+                            <ul class="mat-list">
+                                {% for p in available_permissions %}
+                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-m-12 col-6">
+                    <div class="container">
+                        <div class="mat-list-wrapper">
+                            <div class="mat-list-header">
+                                <span class="title">{% trans "Selected Permissions" %}</span>
+                            </div>
+                            <ul class="mat-list">
+                                {% for p in permissions %}
+                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-m-12 col-6">
+                    <div class="container">
+                        <div class="mat-list-wrapper">
+                            <div class="mat-list-header">
+                                <span class="title">{% trans "Select Users to add" %}</span>
+                            </div>
+                            <ul class="mat-list">
+                                {% for u in available_users %}
+                                <li class="mat-list-item" data-value="{{u.pk}}">{{u.get_full_name}}[{{u.username}}]</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-m-12 col-6">
+                    <div class="container">
+                        <div class="mat-list-wrapper">
+                            <div class="mat-list-header">
+                                <span class="title">{% trans "Selected Users" %}</span>
+                            </div>
+                            <ul class="mat-list">
+                                {% for u in selected_users %}
+                                <li class="mat-list-item" data-value="{{u.pk}}">{{u.get_full_name}}[{{u.username}}]</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="responsive">
                 <div class="flex flex-column">
