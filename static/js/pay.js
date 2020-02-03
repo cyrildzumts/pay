@@ -999,6 +999,10 @@ slider.init();
         }).remove();
         
     });
+
+    $('.mat-list').on('click', '.mat-list-item', function(){
+        $(this).toggleClass('active');
+    });
 });
 
 

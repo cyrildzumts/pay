@@ -32,6 +32,10 @@
   --disabled-color: #ccc;
   --disabled-bg-color: #fafafa;
   --disabled-hover-bg-color: #aaaaaa;
+  --mat-list-item-hover-bg : #ccc;
+  --mat-list-item-hover-color : #242424;
+  --mat-list-item-active-bg : #454545;
+  --mat-list-item-active-color : #fafafa;
 
 }
 
@@ -1686,6 +1690,16 @@ input[type=text]:focus, textarea:focus{
 	width: 100%;
 	padding: 0 !important;
 	margin: 0 !important;
+}
+
+.mat-list-item:hover{
+	background-color: var(--mat-list-item-hover-bg);
+	color: var(--mat-list-item-hover-color);
+}
+
+.mat-list-item.active{
+	background-color: var(--mat-list-item-active-bg);
+	color: var(--mat-list-item-active-color);
 }
 
 .mat-list-item .entry{

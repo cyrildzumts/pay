@@ -68,7 +68,7 @@
                                 <span class="list-title">{% trans "Selected Users" %}</span>
                             </div>
                             <ul class="mat-list">
-                                {% for u in selected_users %}
+                                {% for u in users %}
                                 <li class="mat-list-item" data-value="{{u.pk}}">{{u.get_full_name}}[{{u.username}}]</li>
                                 {% endfor %}
                             </ul>
