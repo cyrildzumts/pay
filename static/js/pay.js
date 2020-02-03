@@ -532,6 +532,7 @@ var Collapsible = (function(){
             console.log("No collapsible found on this page.");
             return;
         }
+        this.$collapsible.children('.collapse-content').hide()
         console.log("Found " + this.$collapsible.length + " collapsibles on this pages.");
         $(this.$collapsible).on("click", ".open", function(event){
             console.log(this);
