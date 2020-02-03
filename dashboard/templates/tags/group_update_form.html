@@ -23,7 +23,15 @@
                             <div class="mat-list-header">
                                 <span class="list-title">{% trans "Select Permissions to add" %}</span>
                             </div>
-                            <ul class="mat-list">
+                            <div class="collapsible">
+                                <div class="collapsible-toggle open">
+                                    <span>{% trans "Filter" %}<i class="fas fa-angle-down"></i></span>
+                                </div>
+                                <div class="collapsible-content">
+                                    <input type="text" data-target="#avaliable-permission-list" placeholder="{% url 'Enter the term to filter' %}">
+                                </div>
+                            </div>
+                            <ul class="mat-list" id="avaliable-permission-list">
                                 {% for p in available_permissions %}
                                 <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
                                 {% endfor %}
@@ -37,7 +45,15 @@
                             <div class="mat-list-header">
                                 <span class="list-title">{% trans "Selected Permissions" %}</span>
                             </div>
-                            <ul class="mat-list">
+                            <div class="collapsible">
+                                <div class="collapsible-toggle open">
+                                    <span>{% trans "Filter" %}<i class="fas fa-angle-down"></i></span>
+                                </div>
+                                <div class="collapsible-content">
+                                    <input type="text" class="js-list-filter" data-target="#selected-permission-list" data-element=".mat-list-item" placeholder="{% url 'Enter the term to filter' %}">
+                                </div>
+                            </div>
+                            <ul class="mat-list" id="selected-permission-list">
                                 {% for p in permissions %}
                                 <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
                                 {% endfor %}
@@ -53,7 +69,15 @@
                             <div class="mat-list-header">
                                 <span class="list-title">{% trans "Select Users to add" %}</span>
                             </div>
-                            <ul class="mat-list">
+                            <div class="collapsible">
+                                <div class="collapsible-toggle open">
+                                    <span>{% trans "Filter" %}<i class="fas fa-angle-down"></i></span>
+                                </div>
+                                <div class="collapsible-content">
+                                    <input type="text" data-target="#available-user-list" placeholder="{% url 'Enter the term to filter' %}">
+                                </div>
+                            </div>
+                            <ul class="mat-list" id="available-user-list">
                                 {% for u in available_users %}
                                 <li class="mat-list-item" data-value="{{u.pk}}">{{u.get_full_name}}[{{u.username}}]</li>
                                 {% endfor %}
@@ -67,7 +91,15 @@
                             <div class="mat-list-header">
                                 <span class="list-title">{% trans "Selected Users" %}</span>
                             </div>
-                            <ul class="mat-list">
+                            <div class="collapsible">
+                                <div class="collapsible-toggle open">
+                                    <span>{% trans "Filter" %}<i class="fas fa-angle-down"></i></span>
+                                </div>
+                                <div class="collapsible-content">
+                                    <input type="text" data-target="#selected-user-list" placeholder="{% url 'Enter the term to filter' %}">
+                                </div>
+                            </div>
+                            <ul class="mat-list" id="selected-user-list">
                                 {% for u in users %}
                                 <li class="mat-list-item" data-value="{{u.pk}}">{{u.get_full_name}}[{{u.username}}]</li>
                                 {% endfor %}

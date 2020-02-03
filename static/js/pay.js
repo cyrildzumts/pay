@@ -810,7 +810,7 @@ var JSFilter = (function(){
 
     JSFilter.prototype.init = function(){
         console.log("JSFilter instance initializing");
-        $('.js-jsfilter-input').on('keyup', function(event){
+        $('.js-jsfilter-input, .js-list-filter').on('keyup', function(event){
             event.stopPropagation();
             var value = this.value.trim();
             var target_container = this.getAttribute('data-target');
