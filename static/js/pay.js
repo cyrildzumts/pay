@@ -802,6 +802,64 @@ var Group = (function(){
     return Group;
 })();
 
+
+var PermissionGroupManager = (function(){
+    function PermissionGroupManager(){
+        this.selected_permissions = {};
+        this.group_users = {}
+        this.add_selected_permissions_btn = {};
+        this.add_selected_users_btn = {};
+        this.remove_selected_permissions_btn = {};
+        this.remove_selected_users_btn = {};
+        
+    };
+
+    PermissionGroupManager.prototype.init = function(){
+        $('#avaliable-permission-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#permission-list');
+            var self = $(this);
+            var $selected_permissions = $('#selected-permission-list');
+            $selected_permissions.append($('<option/>', {'value': self.data('value'), 'selected': true, 'text': self.text()}));
+            self.appendTo($target);
+        });
+
+        $('#permission-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#avaliable-permission-list');
+            var self = $(this);
+            $('#selected-permission-list option').filter(function(){
+                return this.value == self.data('value');
+            }).remove();
+            self.removeClass('active').appendTo($target);
+        });
+
+
+        $('#avaliable-user-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#user-list');
+            var self = $(this);
+            var $selected_users = $('#selected-user-list');
+            $selected_users.append($('<option/>', {'value': self.data('value'), 'selected': true, 'text': self.text()}));
+            self.appendTo($target);
+        });
+
+        $('#user-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#avaliable-user-list');
+            var self = $(this);
+            $('#selected-user-list option').filter(function(){
+                return this.value == self.data('value');
+            }).remove();
+            self.removeClass('active').appendTo($target);
+        });
+
+    };
+
+
+    return PermissionGroupManager;
+})();
+
 var JSFilter = (function(){
     function JSFilter(){
         console.log("creating JSFilter instance");
@@ -866,7 +924,10 @@ var jsfilter = new JSFilter();
 var filter = new TableFilter();
 filter.init();
 
+var permissionManager = new PermissionGroupManager();
+
 var group = new Group();
+permissionManager.init();
 group.init();
 //$(window).on('beforeunload', onbeforeunload);
 window.addEventListener('beforeunload', askConfirmation);

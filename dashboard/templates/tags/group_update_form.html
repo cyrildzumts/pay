@@ -8,10 +8,21 @@
             
     </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
+        <select id="selected-permission-list" name="permissions" type="hidden" multiple>
+            {% for p in permissions  %}
+                <option value="{{p.pk}}" selected>{{p.name}} - {{p.codename}}</option>
+            {% endfor %}
+        </select>
+        <select name="users" id="selected-user-list" type="hidden" multiple>
+            {% for u in users  %}
+                <option value="{{u.pk}}" selected>{{u.get_full_name}}[{{u.username}}]</option>
+            {% endfor %}
+        </select>
         <div class="form-group">
             <label for="name">{% trans "Name" %} :</label>
             <input type="text" name="name" id="name" value="{{group.name}}"> 
         </div>
+
         {% comment "Permissions" %}
         
         {% endcomment %}
@@ -31,7 +42,7 @@
                                     <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#avaliable-permission-list" placeholder="{% trans 'Enter the term to filter' %}">
                                 </div>
                             </div>
-                            <ul class="mat-list" id="avaliable-permission-list">
+                            <ul class="mat-list" id="avaliable-permission-list" data-target="#selected-permission-list" data-element="option">
                                 {% for p in available_permissions %}
                                 <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
                                 {% endfor %}
@@ -50,10 +61,10 @@
                                     <span>{% trans "Filter" %}<i class="fas fa-angle-down"></i></span>
                                 </div>
                                 <div class="collapse-content">
-                                    <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#selected-permission-list" placeholder="{% trans 'Enter the term to filter' %}">
+                                    <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#permission-list" placeholder="{% trans 'Enter the term to filter' %}">
                                 </div>
                             </div>
-                            <ul class="mat-list" id="selected-permission-list">
+                            <ul class="mat-list" id="permission-list">
                                 {% for p in permissions %}
                                 <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
                                 {% endfor %}
@@ -77,7 +88,7 @@
                                     <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#available-user-list" placeholder="{% trans 'Enter the term to filter' %}">
                                 </div>
                             </div>
-                            <ul class="mat-list" id="available-user-list">
+                            <ul class="mat-list" id="available-user-list" data-target="#user-list" data-element="option">
                                 {% for u in available_users %}
                                 <li class="mat-list-item" data-value="{{u.pk}}">{{u.get_full_name}}[{{u.username}}]</li>
                                 {% endfor %}
@@ -96,10 +107,10 @@
                                     <span>{% trans "Filter" %}<i class="fas fa-angle-down"></i></span>
                                 </div>
                                 <div class="collapse-content">
-                                    <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#selected-user-list" placeholder="{% trans 'Enter the term to filter' %}">
+                                    <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#user-list" placeholder="{% trans 'Enter the term to filter' %}">
                                 </div>
                             </div>
-                            <ul class="mat-list" id="selected-user-list">
+                            <ul class="mat-list" id="user-list" data-target="#available_user-list">
                                 {% for u in users %}
                                 <li class="mat-list-item" data-value="{{u.pk}}">{{u.get_full_name}}[{{u.username}}]</li>
                                 {% endfor %}
