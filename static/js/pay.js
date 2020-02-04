@@ -815,7 +815,7 @@ var PermissionGroupManager = (function(){
     };
 
     PermissionGroupManager.prototype.init = function(){
-        $('#avaliable-permission-list').on('click','li', function(event){
+        $('#available-permission-list').on('click','li', function(event){
             event.preventDefault();
             var $target = $('#permission-list');
             var self = $(this);
@@ -826,7 +826,7 @@ var PermissionGroupManager = (function(){
 
         $('#permission-list').on('click','li', function(event){
             event.preventDefault();
-            var $target = $('#avaliable-permission-list');
+            var $target = $('#available-permission-list');
             var self = $(this);
             $('#selected-permission-list option').filter(function(){
                 return this.value == self.data('value');
@@ -835,7 +835,7 @@ var PermissionGroupManager = (function(){
         });
 
 
-        $('#avaliable-user-list').on('click','li', function(event){
+        $('#available-user-list').on('click','li', function(event){
             event.preventDefault();
             var $target = $('#user-list');
             var self = $(this);
@@ -846,7 +846,7 @@ var PermissionGroupManager = (function(){
 
         $('#user-list').on('click','li', function(event){
             event.preventDefault();
-            var $target = $('#avaliable-user-list');
+            var $target = $('#available-user-list');
             var self = $(this);
             $('#selected-user-list option').filter(function(){
                 return this.value == self.data('value');

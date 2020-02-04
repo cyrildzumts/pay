@@ -39,10 +39,10 @@
                                     <span>{% trans "Filter" %}<i class="fas fa-angle-down"></i></span>
                                 </div>
                                 <div class="collapse-content">
-                                    <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#avaliable-permission-list" placeholder="{% trans 'Enter the term to filter' %}">
+                                    <input class="js-jsfilter-input" type="text" data-element=".mat-list-item" data-target="#available-permission-list" placeholder="{% trans 'Enter the term to filter' %}">
                                 </div>
                             </div>
-                            <ul class="mat-list" id="avaliable-permission-list" data-target="#selected-permission-list" data-element="option">
+                            <ul class="mat-list" id="available-permission-list" data-target="#selected-permission-list" data-element="option">
                                 {% for p in available_permissions %}
                                 <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
                                 {% endfor %}
