@@ -3,17 +3,20 @@
 {% if can_change_group %}
 
 
-<div class="responsive">
-    <div class="form-group">
-            
+<div class="container">
+     <div class="actions">
+        <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
+        <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
+        <a class="mat-button mat-button-text js-cancel" href="{%url 'dashboard:group-detail' group.pk%}">{% trans "Cancel" %}</a>
+        <button class="mat-button mat-button-default" type="submit">{% trans "Update Group" %}</button>
     </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
-        <select id="selected-permission-list" name="permissions" type="hidden" multiple>
+        <select id="selected-permission-list" name="permissions" class="hide" multiple>
             {% for p in permissions  %}
                 <option value="{{p.pk}}" selected>{{p.name}} - {{p.codename}}</option>
             {% endfor %}
         </select>
-        <select name="users" id="selected-user-list" type="hidden" multiple>
+        <select name="users" id="selected-user-list" class="hide" multiple>
             {% for u in users  %}
                 <option value="{{u.pk}}" selected>{{u.get_full_name}}[{{u.username}}]</option>
             {% endfor %}
@@ -119,84 +122,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="responsive">
-                <div class="flex flex-column">
-                    <div class="form-group">
-                        <input class="js-jsfilter-input" data-target="#available-permissions" data-element="option" type="text" placeholder="{% trans 'Search for permissions' %}">
-                    </div>
-                    <div class="form-group">
-                        <label for="available-permissions">{% trans "Select Permissions to add" %}</label>
-                        <select  id="available-permissions" multiple data-target="#selected-permissions">
-                            {% for p in available_permissions  %}
-                                <option value="{{p.pk}}">{{p.name}} - {{p.codename}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="responsive">
-                <div class="flex flex-column">
-                    <button class="mat-button mat-button-default" type="button" id="add-selected-permissions" data-target="#selected-permissions" data-source="#available-permissions">
-                        <i class="fas fa-angle-double-right"></i><span>{% trans "Add" %}</span>
-                    </button>
-                    <button class="mat-button mat-button-default" type="button" id="remove-selected-permissions" data-source="#selected-permissions" data-target="#available-permissions">
-                        <i class="fas fa-angle-double-left"></i><span>{% trans "Remove" %}</span>
-                    </button>
-                </div>
-            </div>
-            <div class="responsive">
-                <div class="form-group">
-                    <label for="selected-permissions">{% trans "Selected Permissions" %}</label>
-                    <select id="selected-permissions" class="mat-list selected" name="permissions" multiple>
-                        {% for p in permissions  %}
-                            <option value="{{p.pk}}" selected>{{p.name}} - {{p.codename}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div><!--End of Row-->
-        <div class="row">
-            <div class="responsive">
-                <div class="form-group">
-                    <label for="available-users">{% trans "Select Users to Add" %}</label>
-                    <select name="available_users" id="available-users" multiple data-target="#selected-users">
-                        {% for u in available_users  %}
-                            <option value="{{u.pk}}">{{u.get_full_name}} ({{u.username}})</option>
-                        {% endfor %}
-                    </select>
-                </div><!--End of form-group-->
-            </div><!--End of Responsive-->
-            <div class="responsive">
-                <div class="flex flex-column">
-                    <button class="mat-button mat-button-default" type="button" id="add-selected-users" data-source="#available-users" data-target="#selected-users">
-                        <i class="fas fa-angle-double-right"></i><span>{% trans "Add" %}</span>
-                    </button>
-                    <button class="mat-button mat-button-default" type="button" id="remove-selected-users" data-target="#available-users" data-source="#selected-users">
-                        <i class="fas fa-angle-double-left"></i><span>{% trans "Remove" %}</span>
-                    </button>
-                </div>
-            </div><!--End of Responsive-->
-            <div class="responsive">
-                <div class="form-group">
-                    <label for="users">{% trans "Selected Users.(Select Users to remove)" %}</label>
-                    <select name="users" id="selected-users" multiple>
-                        {% for u in users  %}
-                            <option value="{{u.pk}}" selected>{{u.get_full_name}} ({{u.username}})</option>
-                        {% endfor %}
-                    </select>
-                </div><!--End of form-group-->
-            </div><!--End of Responsive-->
-        </div><!--End of Row-->
-        
-        
-        <div class="row">
-            <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
-            <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
-            <a class="mat-button mat-button-text js-cancel" href="{%url 'dashboard:group-detail' group.pk%}">{% trans "Cancel" %}</a>
-            <button class="mat-button mat-button-default" type="submit">{% trans "Update Group" %}</button>
         </div>
     </form>
 </div>
