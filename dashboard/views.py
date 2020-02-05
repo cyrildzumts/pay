@@ -1222,7 +1222,7 @@ def groups(request):
     context = {}
     
     #current_account = Account.objects.get(user=request.user)
-    group_list = Group.objects.all()
+    group_list = Group.objects.order_by('-name')
     template_name = "dashboard/group_list.html"
     page_title = "Groups" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
