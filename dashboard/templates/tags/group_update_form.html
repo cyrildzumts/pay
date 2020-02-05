@@ -2,19 +2,19 @@
 
 {% if can_change_group %}
 
-
+<div class="col-m-12 col-8">
 <div class="container">
      <div class="actions">
         <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
         <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
     </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
-        <select id="selected-permission-list" name="permissions" class="hide" multiple>
+        <select id="selected-permission-list" name="permissions" class="hidden" multiple>
             {% for p in permissions  %}
                 <option value="{{p.pk}}" selected>{{p.name}} - {{p.codename}}</option>
             {% endfor %}
         </select>
-        <select name="users" id="selected-user-list" class="hide" multiple>
+        <select name="users" id="selected-user-list" class="hidden" multiple>
             {% for u in users  %}
                 <option value="{{u.pk}}" selected>{{u.get_full_name}}[{{u.username}}]</option>
             {% endfor %}
@@ -127,9 +127,9 @@
         </div>
     </form>
 </div>
-
+</div>
 {% else %}
-<div class="access-error">
+<div class="col-m-12 col-8 access-error">
   <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
 </div>
 {% endif %}

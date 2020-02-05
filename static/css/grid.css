@@ -78,7 +78,7 @@
 .col-flex-12 { flex-basis: 100%; }
 
 
-.hide{
+.hidden{
   display: none;
 }
 
@@ -237,7 +237,7 @@
 .col-10 { width: 83.333%; }
 .col-11 { width: 91.666%; }
 .col-12 { width: 100%; }
-.hidden {display: none;}
+.hidden-xl {display: none;}
 
 }
 

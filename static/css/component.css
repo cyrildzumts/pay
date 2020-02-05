@@ -825,10 +825,6 @@ body.header-not-at-top .site-header{
 	align-self: flex-end;
 }
 
-.hide{
-	display: none;
-}
-
 .site-header{
 	height: var(--nav-height);
 	width: 100%;
