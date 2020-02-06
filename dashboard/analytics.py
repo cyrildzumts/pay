@@ -6,11 +6,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 import logging
 from datetime import datetime
 
-
-
 logger = logging.getLogger(__name__)
-
-
 
 def get_model_instance_filter_by(appName=None, modelName=None, **kwargs):
     model = utils.get_model(appName, modelName)

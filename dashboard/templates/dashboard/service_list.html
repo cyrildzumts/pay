@@ -26,79 +26,73 @@
 {% block MAIN_CONTENT %}
 {% if can_view_service %}
 
-
-
-<div class="container shadow">
+<div class="mat-box">
+    <div class="row">
+        <div class ="panel">
+          <h3>{% trans "Summary" %}</h3>
+        </div>
+    </div>
   <div class="row">
-    <div class ="panel">
-      <h3>{% trans "Summary" %}</h3>
-    </div>
-    
-  </div>
-  <div class="row">
-    <div class="responsive">
-        <div class="box shadow flex-column">
-          <div class="title">{% trans "Money transferred" %}</div>
-          <div class="subtitle highlight">{{service_summary.total_amount}}  {% trans "XAF" %}</div>
-        </div>
-    </div>
-    <div class="responsive">
-        <div class="box shadow flex-column">
-          <div class="title">{% trans "Service usage" %}</div>
-          <div class="subtitle highlight">{{service_summary.usage_count}}</div>
-        </div>
-    </div>
+      <div class="responsive">
+          <div class="mat-box flex-column">
+            <div class="title">{% trans "Money transferred" %}</div>
+            <div class="subtitle highlight">{{service_summary.total_amount}}  {% trans "XAF" %}</div>
+          </div>
+      </div>
+      <div class="responsive">
+          <div class="mat-box flex-column">
+            <div class="title">{% trans "Service usage" %}</div>
+            <div class="subtitle highlight">{{service_summary.usage_count}}</div>
+          </div>
+      </div>
 
-    <div class="responsive">
-        <div class="box shadow flex-column">
-          <div class="title">{% trans "Max paid money" %}</div>
-          <div class="subtitle highlight">{{service_summary.max_paid_amount}}  {% trans "XAF" %}</div>
-        </div>
-    </div>
+      <div class="responsive">
+          <div class="mat-box flex-column">
+            <div class="title">{% trans "Max paid money" %}</div>
+            <div class="subtitle highlight">{{service_summary.max_paid_amount}}  {% trans "XAF" %}</div>
+          </div>
+      </div>
 
-    <div class="responsive">
-        <div class="box shadow flex-column">
-          <div class="title">{% trans "Min paid money" %}</div>
-          <div class="subtitle highlight">{{service_summary.min_paid_amount}}  {% trans "XAF" %}</div>
-        </div>
-    </div>
+      <div class="responsive">
+          <div class="box shadow flex-column">
+            <div class="title">{% trans "Min paid money" %}</div>
+            <div class="subtitle highlight">{{service_summary.min_paid_amount}}  {% trans "XAF" %}</div>
+          </div>
+      </div>
 
-    <div class="responsive">
-        <div class="box shadow flex-column">
-          <div class="title">{% trans "Number of user of the service" %}</div>
-          <div class="subtitle highlight">{{service_summary.number_of_customer}}</div>
-        </div>
-    </div> 
-    <div class="responsive">
-        <div class="box shadow flex-column">
-          <div class="title">{% trans "Number of operators" %}</div>
-          <div class="subtitle highlight">{{service_summary.number_of_operator}}</div>
-        </div>
-    </div>        
+      <div class="responsive">
+          <div class="box shadow flex-column">
+            <div class="title">{% trans "Number of user of the service" %}</div>
+            <div class="subtitle highlight">{{service_summary.number_of_customer}}</div>
+          </div>
+      </div> 
+      <div class="responsive">
+          <div class="box shadow flex-column">
+            <div class="title">{% trans "Number of operators" %}</div>
+            <div class="subtitle highlight">{{service_summary.number_of_operator}}</div>
+          </div>
+      </div>        
         
     </div> <!--End of row-->
-  </div><!--End of Container-->
-
 </div>
 
 <div class="container">
-<div class="col-xs-12 col-6">
+<div class="col-m-12 col-8">
     <div class="mat-table-wrapper">
         <div class="row">
             <div class="mat-table-title">
                 {% trans "Service History Page" %}
             </div>
         </div><!--End of Row-->
-       
         <table id="service-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <!-- <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                          <th>{% trans "Service Name" %}</th>
-                          <th>{% trans "Price" %}</th>
-                          <th>{% trans "Category" %}</th>
-                          <th>{% trans "Date of usage" %}</th>
-                          <th>{% trans "Details" %}</th>
+                      <!-- <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                      <th>{% trans "Service Name" %}</th>
+                      <th>{% trans "Price" %}</th>
+                      <th>{% trans "Category" %}</th>
+                      <th>{% trans "Date of usage" %}</th>
+                      <th>{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
@@ -112,12 +106,7 @@
                   <td><a class="mat-button mat-button-default" href="{{s.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
-                  
           </tbody>
-          <tfoot>
-                  
-          </tfoot>
-
     </table>
     {% include "tags/pagination.html" with page_set=services %}
     </div><!--End of Table Wrapper-->
