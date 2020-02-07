@@ -31,21 +31,13 @@
 {% else %}
 <div class="container">
         <div class="row">
-            <h3>{% trans "Token Generation For Users" %}</h3>
+            <h3>{% trans "Token Generation For User" %}</h3>
         </div>
         <div class="row">
             <form action="{% url 'dashboard:generate-token' %}" method="POST">{% csrf_token %}
+                {% include "tags/search_user_snipet.html" with target="#user" target_name="#user-search" fieldname="User Name" %}
                 <div class="form-group">
-                        <label for="search">{% trans "User Search" %} : </label>
-                        <input class="js-user-search" type="text" name="search" id="search">
-                        <ul class="js-user-search-result user-search-result" id="user-search-result" data-target-name="#username" data-target="#user">
-
-                        </ul>
-                </div>
-                <div class="form-group">
-                    <label for="username">{% trans "User" %} : </label>
-                    <input id="username" type="text" name="username">
-                    <input id="user" type="text" name="user">
+                    <input id="user" type="hidden" name="user">
                 </div>
                 <div class="form-group">
                     <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
