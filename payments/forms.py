@@ -176,7 +176,7 @@ class PaymentForm(forms.ModelForm):
 
 class PaymentRequestForm(forms.ModelForm):
 
-    token = forms.CharField(max_length=128, blank=False, null=True)
+    token = forms.CharField(max_length=128)
 
     class Meta:
         model = Payment
