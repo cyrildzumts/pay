@@ -53,6 +53,7 @@ urlpatterns = [
     path('idcard/update/<uuid:idcard_uuid>/', views.update_idcard, name='idcard-update'),
     path('upload-idcard/upload-idcard-done/', views.upload_idcard_done, name='upload-idcard-done'),
     path('payments/', views.payments, name='payments'),
+    path('payment-request/<str:token>/', views.authororize_payment_request, name='payment-request'),
     path('payment-done/', views.payment_done, name='payment-done'),
     path('payments/<uuid:payment_uuid>/', views.payment_details, name='payment-detail'),
     path('payments/archive/', ArchiveIndexView.as_view(model=views.Payment,date_field="created_at"), name='payment-archive'),

@@ -520,7 +520,7 @@ def new_payment(request):
     return render(request, template_name, context)
 
 @login_required
-def authororize_payment_request(request, seller_token):
+def authororize_payment_request(request, token):
     context = {}
     email_template_name = "payments/payment_done_email.html"
     template_name = "payments/payment_authorization.html"
@@ -534,7 +534,7 @@ def authororize_payment_request(request, seller_token):
             succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
             if succeed:
                 form.save()
-                messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
+                messages.success(request, _('We have send you a confirmation E-Mail. You will receive it in an instant'))
                 """
                 send_mail_task.apply_async(args=[context['email_context']],
                     queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
