@@ -24,6 +24,7 @@
                 <div id="account-dialog" class="container">
                     <section id="user-login" class="user-login flex">
                         <form id="login-form" class="login-form" action="{% url 'accounts:login' %}" method="post"> {% csrf_token %}
+                            <input type="hidden" name="next" value="{{next_url}}">
                             <div class="form-group">
                             <div class="mat-input">
                                 <label for="username">{% trans "Username" %}</label>
