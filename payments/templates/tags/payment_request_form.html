@@ -1,0 +1,26 @@
+{% load i18n %} 
+
+<div class="container">    
+    <form id="payment-form" name="payment" action="{% url 'payments:payment-request' seller_token %}" method="POST">{% csrf_token %}
+        <input type="hidden" name="sender" value="{{request.user.pk}}">
+        <input type="hidden" name="recipient" value="{{seller.pk}}">
+        <input type="hidden" name="token" id="token" value="{{seller_token}}">
+        <input type="hidden" name="amount" id="amount" value="{{amount}}">
+        <input type="hidden" name="details" id="description" value="{{description}}">
+
+        <div class="mat-box">
+            <div class="title">
+                <span>{% trans "Payment Request" %}</span>
+            </div>
+            <div class="mat-box-content">
+                <div><span>{% trans "Seller" %}</span> <i class="separator-ht"></i><span>{{seller.username}}</span></div>
+                <div><span>{% trans "Amount" %}</span> <i class="separator-ht"></i><span>{{amount}}</span></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
+            <button class="mat-button mat-button-default" type="submit">{% trans "PAY" %}</button>
+        </div>
+    </form>
+
+</div>

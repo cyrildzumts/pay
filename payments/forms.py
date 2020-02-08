@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 from accounts.models import Account
 from payments.models import (
     Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard,
@@ -171,6 +172,34 @@ class PaymentForm(forms.ModelForm):
         if not recipient or not recipient.is_active:
             raise forms.ValidationError(message='You can not make a payment to an inactive account', code='invalid')
         return recipient
+
+
+class PaymentRequestForm(forms.ModelForm):
+
+    token = forms.CharField(max_length=128, blank=False, null=True)
+
+    class Meta:
+        model = Payment
+        fields = ['amount', 'sender', 'recipient', 'details']
+    
+    def clean_sender(self):
+        sender = self.cleaned_data.get('sender')
+        if not sender or not sender.is_active:
+            raise forms.ValidationError(message='You can not make a payment from an inactive account', code='invalid')
+        return sender
+    
+    def clean_recipient(self):
+        recipient = self.cleaned_data.get('recipient')
+        if not recipient or not recipient.is_active:
+            raise forms.ValidationError(message='You can not make a payment to an inactive account', code='invalid')
+        return recipient
+    
+    def clean_token(self):
+        token = self.cleaned_data.get('token')
+        if not Token.objects.exists(key=token):
+            raise forms.ValidationError(message='Invalid Token', code='invalid')
+
+        return token
 
 
 

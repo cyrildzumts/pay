@@ -57,6 +57,7 @@
                               {% endif %}
                               {% if can_view_user %}
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}">{% trans "Users" %}</a></li>
+                                    <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:tokens' %}">{% trans "Token" %}</a></li>
                               {% endif %}
                               {% if can_view_category %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}">{% trans "Categories" %}</a></li>{% endif %}
                               {% if can_generate_token %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>{% endif %}

@@ -1,0 +1,16 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "PAYMENT EQUEST" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+
+{% block MAIN %}
+
+<div class="container">
+    <div class="col-xs-12 col-8">
+        <div class="mat-box">
+        {% include "tags/payment_request_form.html" %}
+        </div>
+    </div>
+</div>
+{% endblock MAIN %}

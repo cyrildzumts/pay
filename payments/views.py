@@ -19,6 +19,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.db.models import F, Q
+from rest_framework.authtoken.models import Token
 from accounts.models import Account
 from payments.models import (
     Transaction, Transfer, AvailableService, Payment, 
@@ -26,7 +27,7 @@ from payments.models import (
     IDCard
 )
 from payments.forms import (
-    TransactionForm, TransferForm, ServiceCreationForm, 
+    TransactionForm, TransferForm, ServiceCreationForm, PaymentRequestForm,
     RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm,TransactionVerificationForm
 )
 from payments.payment_service import PaymentService, voucher_service
@@ -517,6 +518,40 @@ def new_payment(request):
         'form': form
     }
     return render(request, template_name, context)
+
+@login_required
+def authororize_payment_request(request, seller_token):
+    context = {}
+    email_template_name = "payments/payment_done_email.html"
+    template_name = "payments/payment_authorization.html"
+    page_title = _("Payment Request")
+    if request.method == "POST":
+        form = PaymentRequestForm(request.POST.copy())
+        if form.is_valid():
+            sender = request.user
+            recipient = form.cleaned_data.get('recipient')
+            amount = form.cleaned_data.get('amount')
+            succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
+            if succeed:
+                form.save()
+                messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
+                """
+                send_mail_task.apply_async(args=[context['email_context']],
+                    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+                )
+                """
+                logger.info("Payment request successful")
+                return redirect('payments:transaction-done')
+        else :
+            logger.error("PaymentRequestForm is invalid : \" %s\". \n\"%s\"", form.errors, form.non_field_errors)
+            
+    context = {
+        'page_title':page_title,
+        'form': form
+    }
+    return render(request, template_name, context)
+
 
 @login_required
 def payment_done(request):

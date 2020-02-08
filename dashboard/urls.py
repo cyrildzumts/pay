@@ -42,6 +42,7 @@ urlpatterns = [
     #path('policy-groups/remove-all/', views.policy_remove_all, name='policy-group-remove-all'),
     path('policy-groups/update/<uuid:group_uuid>/', views.policy_group_update, name='policy-group-update'),
     path('policy-groups/create/', views.policy_group_create, name='policy-group-create'),
+    path('tokens/', views.tokens, name='tokens'),
     path('users/', views.users, name='users'),
     path('users/detail/<int:pk>', views.user_details, name='user-detail'),
     path('category-services/', views.category_services, name='category-services'),

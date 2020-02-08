@@ -48,6 +48,36 @@ def dashboard(request):
 
 
 @login_required
+def tokens(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    if not can_view_user:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    queryset = Token.objects.all()
+    template_name = "dashboard/token_list.html"
+    page_title = _("Dashboard Users Tokens") + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    context['page_title'] = page_title
+    context['token_list'] = list_set
+    context.update(get_view_permissions(request.user))
+    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
+    return render(request,template_name, context)
+
+@login_required
 def generate_token(request):
     username = request.user.username
     can_view_dashboard = PermissionManager.user_can_access_dashboard(request.user)
