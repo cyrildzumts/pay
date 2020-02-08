@@ -98,7 +98,6 @@ def generate_token(request):
             form = forms.TokenForm(utils.get_postdata(request))
             if form.is_valid():
                 user_id = form.cleaned_data.get('user')
-                username = form.cleaned_data.get('username')
                 user = User.objects.get(pk=user_id)
                 t = Token.objects.get_or_create(user=user)
                 context['generated_token'] = t

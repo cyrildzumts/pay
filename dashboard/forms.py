@@ -75,7 +75,6 @@ class AccountForm(forms.ModelForm):
 
 class TokenForm(forms.Form):
     user = forms.IntegerField()
-    username = forms.CharField(max_length=32)
 
 
 class GroupFormCreation(forms.ModelForm):
