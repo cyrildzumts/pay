@@ -29,7 +29,7 @@
 {% if can_view_user %}
 
 {% if token_list %}
-    <div class="col-m-12 col-4">
+    <div class="col-m-12 col-6">
         <div class="mat-list-wrapper">
             <div class="mat-list-header">
                 <span class="title">{% trans "Token List" %}</span>
@@ -38,7 +38,7 @@
                 {% for token in token_list %}
                 <li class="mat-list-item">
                         <div class="entry">
-                            <span class="part">{{token.key}}</span> <i class="separator"></i> <span class="part">{{token.user.username}}</span>
+                            <span>{{token.key}}</span> <i class="separator"></i> <span>{{token.user.username}}</span>
                         </div>
                 </li>
                 {% endfor %}
