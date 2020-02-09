@@ -1,7 +1,7 @@
 {% load i18n %} 
 
 <div class="container">    
-    <form id="payment-form" name="payment" action="{% url 'payments:payment-request' seller_token %}" method="POST">{% csrf_token %}
+    <form id="payment-form" name="payment" action="{% url 'payments:payment-request' token %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" value="{{seller.pk}}">
         <input type="hidden" name="token" id="token" value="{{seller_token}}">

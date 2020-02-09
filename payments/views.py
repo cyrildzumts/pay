@@ -551,7 +551,8 @@ def authororize_payment_request(request, token):
     form = PaymentRequestForm()
     context = {
         'page_title':page_title,
-        'form': form
+        'form': form,
+        'token': token
     }
     return render(request, template_name, context)
 
