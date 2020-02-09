@@ -558,7 +558,8 @@ def authororize_payment_request(request, token):
     context = {
         'page_title':page_title,
         'form': form,
-        'token': token
+        'token': token,
+        "seller": t.user
     }
     return render(request, template_name, context)
 
