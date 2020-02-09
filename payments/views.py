@@ -525,12 +525,15 @@ def authororize_payment_request(request, token):
     email_template_name = "payments/payment_done_email.html"
     template_name = "payments/payment_authorization.html"
     page_title = _("Payment Request")
+
     if request.method == "POST":
         form = PaymentRequestForm(request.POST.copy())
         if form.is_valid():
             sender = request.user
             recipient = form.cleaned_data.get('recipient')
             amount = form.cleaned_data.get('amount')
+            t = Token.objects.select_related('user').get(key=token)
+            logger.info("receive a valid external payment request with token : \"%s\" from user \"%s\"",t.key, t.user.username)
             succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
             if succeed:
                 form.save()
