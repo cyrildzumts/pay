@@ -525,14 +525,20 @@ def authororize_payment_request(request, token):
     email_template_name = "payments/payment_done_email.html"
     template_name = "payments/payment_request.html"
     page_title = _("Payment Request")
-
+    t = None
+    try:
+        t = Token.objects.select_related('user').get(key=token)
+    except Token.DoesNotExist as e:
+        logger.warning("External Request : Token \"%s\" not found", token)
+        raise HttpResponseBadRequest
+    
+    logger.info("External Payment Requested by user \"%s\"  directed to user \"%s\"", t.user.username, request.user.username)
     if request.method == "POST":
         form = PaymentRequestForm(request.POST.copy())
         if form.is_valid():
             sender = request.user
             recipient = form.cleaned_data.get('recipient')
             amount = form.cleaned_data.get('amount')
-            t = Token.objects.select_related('user').get(key=token)
             logger.info("receive a valid external payment request with token : \"%s\" from user \"%s\"",t.key, t.user.username)
             succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
             if succeed:
