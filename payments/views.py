@@ -548,7 +548,7 @@ def authororize_payment_request(request, token):
                 return redirect('payments:transaction-done')
         else :
             logger.error("PaymentRequestForm is invalid : \" %s\". \n\"%s\"", form.errors, form.non_field_errors)
-            
+    form = PaymentRequestForm()
     context = {
         'page_title':page_title,
         'form': form
