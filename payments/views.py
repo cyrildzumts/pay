@@ -523,7 +523,7 @@ def new_payment(request):
 def authororize_payment_request(request, token):
     context = {}
     email_template_name = "payments/payment_done_email.html"
-    template_name = "payments/payment_authorization.html"
+    template_name = "payments/payment_request.html"
     page_title = _("Payment Request")
 
     if request.method == "POST":
