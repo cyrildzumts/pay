@@ -376,7 +376,7 @@ class PaymentRequest(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=32, default=PR_CREATED, blank=False, null=False)
     product_name = models.CharField(max_length=255 ,blank=False, null=False)
-    customer_name = product_name = models.CharField(max_length=255 ,blank=False, null=False)
+    customer_name = models.CharField(max_length=255 ,blank=False, null=False)
     description = models.CharField(max_length=255 ,blank=False, null=False)
 
 
