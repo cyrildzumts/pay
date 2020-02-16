@@ -1,16 +1,25 @@
 from django.shortcuts import render
 from rest_framework import filters
+
 from rest_framework.generics import (
     ListCreateAPIView,
     ListAPIView,
     RetrieveUpdateDestroyAPIView
 )
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ( AvailableServiceSerializer, AvailableService, Account, AccountSerializer,
     Transfer, TransferSerializer, Payment, PaymentSerializer,CaseIssue, CaseIssueSerializer,
     CategorySerializer, ServiceCategory, Policy, PolicySerializer, Service, ServiceSerializer, UserSerializer
  )
+from payments.forms import PaymentRequestForm
+from pay import utils
 
+import logging
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 # REST API Views
@@ -92,3 +101,34 @@ class TransferRetrieveUpdateCreateAPIView(RetrieveUpdateDestroyAPIView):
     #permission_classes = (IsAuthenticated, )
     serializer_class =  TransferSerializer
     lookup_field = 'pk'
+
+
+@api_view(['GET', 'POST'])
+def payment_request(request, username, token):
+    p_token = None
+    if not username or not token :
+        logger.warning("PAYMENT REQUEST API : username or token missing")
+        return Response({'error': 'username or token missing'})
+    
+    is_authenticated = Token.objects.filter(key=token, user__username=username)
+    if not is_authenticated:
+        logger.info('PAYMENT REQUEST API : User not found')
+        return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'POST':
+        postdata = request.POST.copy()
+        form = PaymentRequestForm(postdata)
+        if form.is_valid(): 
+            p_token = utils.generate_token_10()
+            form.cleaned_data['token'] = p_token
+            p_request = form.save()
+            logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
+            return Response({'token':p_token}, status=status.HTTP_200_OK)
+        else:
+            logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" is invalid")
+            return Response({'error': 'Submitted data is invalid'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" rejected. Method not GET not allowed")
+        return Response({'error': 'Bad Request'}, tatus=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+

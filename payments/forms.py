@@ -4,7 +4,7 @@ from rest_framework.authtoken.models import Token
 from accounts.models import Account
 from payments.models import (
     Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard,
-    Reduction
+    Reduction, PaymentRequest
 )
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
@@ -174,25 +174,13 @@ class PaymentForm(forms.ModelForm):
         return recipient
 
 
-class PaymentRequestForm(forms.ModelForm):
-
-    token = forms.CharField(max_length=128)
-
+class PaymentRequestForm(forms.Form):
+    
     class Meta:
-        model = Payment
-        fields = ['amount', 'sender', 'recipient', 'details']
-    
-    def clean_sender(self):
-        sender = self.cleaned_data.get('sender')
-        if not sender or not sender.is_active:
-            raise forms.ValidationError(message='You can not make a payment from an inactive account', code='invalid')
-        return sender
-    
-    def clean_recipient(self):
-        recipient = self.cleaned_data.get('recipient')
-        if not recipient or not recipient.is_active:
-            raise forms.ValidationError(message='You can not make a payment to an inactive account', code='invalid')
-        return recipient
+        model = PaymentRequest
+        fields = ['token', 'seller', 'amount', 'unit_price','quantity', 'tva', 'commission',
+        'country', 'status', 'product_name', 'customer_name', 'description'
+        ]
     
     def clean_token(self):
         token = self.cleaned_data.get('token')
@@ -200,8 +188,6 @@ class PaymentRequestForm(forms.ModelForm):
             raise forms.ValidationError(message='Invalid Token', code='invalid')
 
         return token
-
-
 
 class TransactionForm(forms.ModelForm):
 

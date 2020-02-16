@@ -24,5 +24,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api-token-auth/', drf_api_views.obtain_auth_token, name='api-token-auth'),
     path('user-search/', views.UserSearchView.as_view(), name="user-search"),
-    
+    path('payment-request/<str:username>/<str:token>/')
 ]
