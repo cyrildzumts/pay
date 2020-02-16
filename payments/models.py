@@ -378,6 +378,23 @@ class PaymentRequest(models.Model):
     product_name = models.CharField(max_length=255 ,blank=False, null=False)
     customer_name = models.CharField(max_length=255 ,blank=False, null=False)
     description = models.CharField(max_length=255 ,blank=False, null=False)
+    request_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return "Payment Request id : {0} - Amount : {1}".format(self.pk, self.amount)
+    
+    #def get_absolute_url(self):
+    #    return reverse('payments:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
+
+    def get_dashboard_url(self):
+        return reverse('dashboard:payment-request-detail', kwargs={'request_uuid':self.request_uuid})
+
+    @staticmethod
+    def get_user_payments(user):
+        queryset = PaymentRequest.objects.none()
+        if user and user.is_authenticated:
+            queryset = PaymentRequest.objects.filter(Q(seller=user) | Q(payment__recipient=user))
+        return queryset
 
 
 
