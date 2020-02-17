@@ -127,7 +127,7 @@ def payment_request(request, username, token):
             logger.info("API POST : FORM UPDATED WITH TOKEN FOR P REQUEST")
             logger.info(form.cleaned_data)
             logger.info(postdata)
-            logger.info(form.errors)
+            logger.info("COUNTRY : %s", postdata['country'])
             try:
                 p_request = form.save()
             except Exception as e:
