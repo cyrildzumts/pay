@@ -363,7 +363,7 @@ class Payment(models.Model):
 
 class PaymentRequest(models.Model):
     token = models.CharField(max_length=32, blank=True, null=True)
-    payment = models.OneToOneField(Payment, on_delete=models.CASCADE, blank=True, null=True)
+    payment = models.OneToOneField(Payment, blank=True, null=True)
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE ,blank=False )
     amount = models.DecimalField(max_digits=10,decimal_places=2, blank=False, null=False)
