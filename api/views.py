@@ -122,7 +122,9 @@ def payment_request(request, username, token):
         if form.is_valid(): 
             logger.info("API POST : FORM IS VALID")
             p_token = utils.generate_token_10()
+            logger.info("API POST : TOKEN FOR P REQUEST CREATED")
             form.cleaned_data['token'] = p_token
+            logger.info("API POST : FORM UPDATED WITH TOKEN FOR P REQUEST")
             p_request = form.save()
             logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
             return Response({'token':p_token}, status=status.HTTP_200_OK)
