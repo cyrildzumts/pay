@@ -125,7 +125,12 @@ def payment_request(request, username, token):
             logger.info("API POST : TOKEN FOR P REQUEST CREATED")
             form.cleaned_data['token'] = p_token
             logger.info("API POST : FORM UPDATED WITH TOKEN FOR P REQUEST")
-            p_request = form.save()
+            try:
+                p_request = form.save()
+            except Exception as e:
+                logger.info(f"PAYMENT REQUEST API : ERROR ON form.save()")
+                return Response({'error': 'ERROR ON form.save()'}, status=status.HTTP_400_BAD_REQUEST)
+            
             logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
             return Response({'token':p_token}, status=status.HTTP_200_OK)
         else:
