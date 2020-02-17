@@ -181,13 +181,14 @@ class PaymentRequestForm(forms.Form):
         fields = ['token', 'seller', 'amount', 'unit_price','quantity', 'tva', 'commission',
         'country', 'status', 'product_name', 'customer_name', 'description'
         ]
-    
+    """
     def clean_token(self):
         token = self.cleaned_data.get('token')
         if not Token.objects.exists(key=token):
             raise forms.ValidationError(message='Invalid Token', code='invalid')
 
         return token
+    """
 
 class TransactionForm(forms.ModelForm):
 
