@@ -129,6 +129,6 @@ def payment_request(request, username, token):
             return Response({'error': 'Submitted data is invalid'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" rejected. Method not GET not allowed")
-        return Response({'error': 'Bad Request'}, tatus=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response({'error': 'Bad Request'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
