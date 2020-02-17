@@ -179,7 +179,7 @@ class PaymentRequestForm(forms.Form):
     class Meta:
         model = PaymentRequest
         fields = ['token', 'seller', 'amount', 'unit_price','quantity', 'tva', 'commission',
-        'country', 'status', 'product_name', 'customer_name', 'description', 'payment'
+        'country', 'status', 'product_name', 'customer_name', 'description'
         ]
     
     def clean_token(self):
