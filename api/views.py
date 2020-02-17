@@ -131,8 +131,10 @@ def payment_request(request, username, token):
             logger.info("API POST : TOKEN FOR P REQUEST CREATED")
             
             form.cleaned_data['token'] = p_token
+            logger.info("FORM CLEANED_DATA :")
+            for k,v in form.cleaned_data.items():
+                logger.info(f" FORM_CLEANED - Key: {k} - Value: {v}")
             logger.info("API POST : FORM UPDATED WITH TOKEN FOR P REQUEST")
-            logger.info(form.cleaned_data)
             
             try:
                 p_request = form.save()
