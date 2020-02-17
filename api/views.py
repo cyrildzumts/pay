@@ -123,7 +123,7 @@ def payment_request(request, username, token):
         
         for k,v in postdata:
             logger.info(f" P - Key: {k} - Value: {v}")
-            logger.info(" F - Key: %s - Value: %s", k, form[k].value() )
+            logger.info(" F - Form entry %s ",form[k])
             
         if form.is_valid(): 
             logger.info("API POST : FORM IS VALID")
