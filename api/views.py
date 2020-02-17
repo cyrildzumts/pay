@@ -121,7 +121,7 @@ def payment_request(request, username, token):
         form = PaymentRequestForm(postdata)
         logger.info("POSTDATA :")
         
-        for k,v in postdata:
+        for k,v in postdata.items():
             logger.info(f" P - Key: {k} - Value: {v}")
             #logger.info(" F - Form entry %s ",form[k])
             
