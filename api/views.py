@@ -116,9 +116,11 @@ def payment_request(request, username, token):
         return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'POST':
+        logger.info("API POST")
         postdata = request.POST.copy()
         form = PaymentRequestForm(postdata)
         if form.is_valid(): 
+            logger.info("API POST : FORM IS VALID")
             p_token = utils.generate_token_10()
             form.cleaned_data['token'] = p_token
             p_request = form.save()
