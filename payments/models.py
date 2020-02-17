@@ -363,7 +363,6 @@ class Payment(models.Model):
 
 class PaymentRequest(models.Model):
     token = models.CharField(max_length=32, blank=True, null=True)
-    payment = models.OneToOneField('Payment', on_delete=models.CASCADE, blank=True, null=True)
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE ,blank=False )
     amount = models.DecimalField(max_digits=10,decimal_places=2, blank=False, null=False)
@@ -396,6 +395,21 @@ class PaymentRequest(models.Model):
             queryset = PaymentRequest.objects.filter(Q(seller=user) | Q(payment__recipient=user))
         return queryset
 
+
+class ExternalPayment(models.Model):
+    payment_request = models.OneToOneField('PaymentRequest', on_delete=models.CASCADE)
+    payment = models.OneToOneField('Payment', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    request_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return "External Payment : {0} - Amount : {1}".format(self.pk, self.payment.amount)
+    
+    #def get_absolute_url(self):
+    #    return reverse('payments:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
+
+    #def get_dashboard_url(self):
+    #    return reverse('dashboard:external-payment-request-detail', kwargs={'request_uuid':self.request_uuid})
 
 
 class Transfer(models.Model):
