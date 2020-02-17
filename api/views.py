@@ -119,15 +119,21 @@ def payment_request(request, username, token):
         logger.info("API POST")
         postdata = request.POST.copy()
         form = PaymentRequestForm(postdata)
+        logger.info("POSTDATA :")
+        
+        for k,v in postdata:
+            logger.info(f" P - Key: {k} - Value: {v}")
+            logger.info(" F - Key: %s - Value: %s", form[k].value() )
+            
         if form.is_valid(): 
             logger.info("API POST : FORM IS VALID")
             p_token = utils.generate_token_10()
             logger.info("API POST : TOKEN FOR P REQUEST CREATED")
+            
             form.cleaned_data['token'] = p_token
             logger.info("API POST : FORM UPDATED WITH TOKEN FOR P REQUEST")
             logger.info(form.cleaned_data)
-            logger.info(postdata)
-            logger.info("COUNTRY : %s", postdata['country'])
+            
             try:
                 p_request = form.save()
             except Exception as e:
