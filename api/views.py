@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import filters
-
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.generics import (
     ListCreateAPIView,
     ListAPIView,
@@ -104,6 +104,7 @@ class TransferRetrieveUpdateCreateAPIView(RetrieveUpdateDestroyAPIView):
 
 
 @api_view(['GET', 'POST'])
+@csrf_exempt
 def payment_request(request, username, token):
     p_token = None
     if not username or not token :
