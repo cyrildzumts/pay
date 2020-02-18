@@ -107,18 +107,21 @@ class TransferRetrieveUpdateCreateAPIView(RetrieveUpdateDestroyAPIView):
 @csrf_exempt
 def payment_request(request, username, token):
     p_token = None
+    auth_token = None
     if not username or not token :
         logger.warning("PAYMENT REQUEST API : username or token missing")
         return Response({'error': 'username or token missing'})
-    
-    is_authenticated = Token.objects.filter(key=token, user__username=username)
-    if not is_authenticated:
+        
+    try:
+        auth_token = Token.objects.get(key=token, user__username=username)
+    except Token.DoesNotExist as e:
         logger.info('PAYMENT REQUEST API : User not found')
         return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'POST':
         logger.info("API POST")
         postdata = request.POST.copy()
+        postdata['seller'] = auth_token.user.pk
         form = PaymentRequestForm(postdata)
         logger.info("POSTDATA :")
         
