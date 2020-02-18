@@ -144,7 +144,7 @@ def payment_request(request, username, token):
             try:
                 p_request = form.save()
             except Exception as e:
-                logger.info(f"PAYMENT REQUEST API : ERROR ON form.save()")
+                logger.info(f"PAYMENT REQUEST API : ERROR ON form.save()", e)
                 return Response({'error': 'ERROR ON form.save()'}, status=status.HTTP_400_BAD_REQUEST)
             
             logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
