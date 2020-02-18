@@ -37,7 +37,7 @@
                 </div>
                 <div class="box-content">
                     <div class="entry">
-                        <span class="key">{% trans "Seller" %} :</span> <span class="value">{{payment_request.payment.seller.get_full_name}}</span>
+                        <span class="key">{% trans "Seller" %} :</span> <span class="value">{{payment_request.payment.seller.get_full_name}} - [{{payment_request.requester_name}}]</span>
                     </div>
                     <div class="entry">
                         <span class="key">{% trans "Status" %} :</span> <span class="value">{{payment_request.status}}</span>
@@ -50,6 +50,9 @@
                     </div>
                     <div class="entry">
                         <span class="key">{% trans "Description" %} :</span> <span class="value">{{payment_request.details}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "UUID" %} :</span> <span class="value">{{payment_request.request_uuid}}</span>
                     </div>
 
                 </div>
