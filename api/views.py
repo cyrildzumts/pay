@@ -151,6 +151,8 @@ def payment_request(request, username, token):
             return Response({'token':p_token}, status=status.HTTP_200_OK)
         else:
             logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" is invalid")
+            for k,v in form.errors.items():
+                logger.info(f" P - Key: {k} - Value: {v}")
             return Response({'error': 'Submitted data is invalid'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" rejected. Method not GET not allowed")
