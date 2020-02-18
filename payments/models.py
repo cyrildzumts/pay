@@ -372,7 +372,7 @@ class PaymentRequest(models.Model):
     payment = models.OneToOneField('Payment', on_delete=models.CASCADE, blank=True, null=True)
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE ,blank=False )
-    requester_name = models.CharField(max_length=32 ,blank=False, null=False)
+    requester_name = models.CharField(max_length=32 ,blank=True, null=True)
     amount = models.DecimalField(max_digits=10,decimal_places=2, blank=False, null=False)
     unit_price = models.IntegerField(blank=True, null=True)
     quantity = models.IntegerField(default=1, blank=True, null=True)
