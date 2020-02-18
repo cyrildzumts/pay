@@ -174,11 +174,11 @@ class PaymentForm(forms.ModelForm):
         return recipient
 
 
-class PaymentRequestForm(forms.Form):
+class PaymentRequestForm(forms.ModelForm):
     
     class Meta:
         model = PaymentRequest
-        fields = ['token', 'seller', 'amount', 'unit_price','quantity', 'tva', 'commission',
+        fields = ['token','payment', 'seller', 'amount', 'unit_price','quantity', 'tva', 'commission',
         'country', 'status', 'product_name', 'customer_name', 'description'
         ]
     """
