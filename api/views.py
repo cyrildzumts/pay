@@ -104,7 +104,6 @@ class TransferRetrieveUpdateCreateAPIView(RetrieveUpdateDestroyAPIView):
 
 
 @api_view(['GET', 'POST'])
-@csrf_exempt
 def payment_request(request, username, token):
     p_token = None
     auth_token = None
@@ -119,34 +118,15 @@ def payment_request(request, username, token):
         return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'POST':
-        logger.info("API POST")
+        p_token = utils.generate_token_10()
         postdata = request.POST.copy()
         postdata['seller'] = auth_token.user.pk
+        postdata['token'] = p_token
         form = PaymentRequestForm(postdata)
         logger.info("POSTDATA :")
-        
-        for k,v in postdata.items():
-            logger.info(f" P - Key: {k} - Value: {v}")
-            logger.info(" F - Form Key:%s - value : %s",k, form.data[k])
             
         if form.is_valid(): 
-            logger.info("API POST : FORM IS VALID")
-            p_token = utils.generate_token_10()
-            logger.info("API POST : TOKEN FOR P REQUEST CREATED")
-            for k,v in postdata.items():
-                form.cleaned_data[k] = v
-            form.cleaned_data['token'] = p_token
-            logger.info("FORM CLEANED_DATA :")
-            for k,v in form.cleaned_data.items():
-                logger.info(f" FORM_CLEANED - Key: {k} - Value: {v}")
-            logger.info("API POST : FORM UPDATED WITH TOKEN FOR P REQUEST")
-            
-            try:
-                p_request = form.save()
-            except Exception as e:
-                logger.info(f"PAYMENT REQUEST API : ERROR ON form.save()", e)
-                return Response({'error': 'ERROR ON form.save()'}, status=status.HTTP_400_BAD_REQUEST)
-            
+            p_request = form.save()
             logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
             return Response({'token':p_token}, status=status.HTTP_200_OK)
         else:
