@@ -24,7 +24,7 @@ from accounts.models import Account
 from payments.models import (
     Transaction, Transfer, AvailableService, Payment, 
     Service, ServiceCategory, Policy, CaseIssue, Reduction,
-    IDCard
+    IDCard, PaymentRequest
 )
 from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, PaymentRequestForm,
@@ -520,49 +520,75 @@ def new_payment(request):
     return render(request, template_name, context)
 
 @login_required
-def authororize_payment_request(request, token):
+def payment_request(request, request_uuid=None):
+    context = {}
+    template_name = "payments/payment_request.html"
+    page_title = "Payment Request" + " - " + settings.SITE_NAME
+    p_request = None
+    try:
+        p_request = PaymentRequest.objects.get(request_uuid=request_uuid)
+    except PaymentRequest.DoesNotExist as e:
+        logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
+        raise HttpResponseBadRequest
+    context['page_title'] = page_title
+    context['payment_request'] = p_request
+    return render(request,template_name, context)
+
+@login_required
+def accept_payment_request(request, request_uuid):
     context = {}
     email_template_name = "payments/payment_done_email.html"
     template_name = "payments/payment_request.html"
     page_title = _("Payment Request")
-    t = None
+    payment_request = None
     try:
-        t = Token.objects.select_related('user').get(key=token)
-    except Token.DoesNotExist as e:
-        logger.warning("External Request : Token \"%s\" not found", token)
+        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid)
+    except PaymentRequest.DoesNotExist as e:
+        logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
         raise HttpResponseBadRequest
     
-    logger.info("External Payment Requested by user \"%s\"  directed to user \"%s\"", t.user.username, request.user.username)
-    if request.method == "POST":
-        form = PaymentRequestForm(request.POST.copy())
-        if form.is_valid():
-            sender = request.user
-            recipient = form.cleaned_data.get('recipient')
-            amount = form.cleaned_data.get('amount')
-            logger.info("receive a valid external payment request with token : \"%s\" from user \"%s\"",t.key, t.user.username)
-            succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
-            if succeed:
-                form.save()
-                messages.success(request, _('We have send you a confirmation E-Mail. You will receive it in an instant'))
-                """
-                send_mail_task.apply_async(args=[context['email_context']],
-                    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-                    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-                )
-                """
-                logger.info("Payment request successful")
-                return redirect('payments:transaction-done')
-        else :
-            logger.error("PaymentRequestForm is invalid : \" %s\". \n\"%s\"", form.errors, form.non_field_errors)
-    form = PaymentRequestForm()
+    sender = request.user
+    recipient = payment_request.seller
+    amount = payment_request.amount
+    commission = 0.03
+    try:
+        commission = recipient.policygroup_set.first().policy.commission
+    except Exception as e:
+        logger.error("[recipient Error] %s", e)
+    succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
+    if succeed:
+        p = Payment.objects.create(sender=sender, recipient=recipient, amount=amount, details=payment_request.description)
+        PaymentRequest.objects.filter(pk=payment_request.pk).update(status='Paid', payment=p, commission=commission )
+        payment_request.payment = p
+        """
+        send_mail_task.apply_async(args=[context['email_context']],
+            queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+            routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+        )
+        """
+        logger.info("Payment request successful")
+        return redirect('payments:transaction-done')
+
     context = {
         'page_title':page_title,
-        'form': form,
-        'token': token,
-        "seller": t.user
+        'payment_request': payment_request
     }
-    return render(request, template_name, context)
+    return redirect('payments:payment-request', request_uuid=request_uuid)
 
+@login_required
+def decline_payment_request(request, request_uuid):
+    context = {}
+    page_title = _("Payment Request")
+    payment_request = None
+    try:
+        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid)
+    except PaymentRequest.DoesNotExist as e:
+        logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
+        raise HttpResponseBadRequest
+    logger.info(f"Payment request with uuid : \"{request_uuid}\" declined by user \"{request.user.username}\"")
+    PaymentRequest.objects.filter(pk=payment_request.pk).update(status='Declined')
+    logger.info("Payment request declined")
+    return redirect('payments:transaction-done')
 
 @login_required
 def payment_done(request):

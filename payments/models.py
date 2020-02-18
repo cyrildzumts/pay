@@ -361,11 +361,18 @@ class Payment(models.Model):
             queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user))
         return queryset
 
+
+
 class PaymentRequest(models.Model):
-    token = models.CharField(max_length=32, blank=True, null=True)
+    """
+    A PaymentRequest object is only used by partner and is created per REST request.
+    A payment request can be accepted and paid by the customer who is receiving this
+    payment request.
+    """
     payment = models.OneToOneField('Payment', on_delete=models.CASCADE, blank=True, null=True)
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE ,blank=False )
+    requester_name = models.CharField(max_length=32 ,blank=False, null=False)
     amount = models.DecimalField(max_digits=10,decimal_places=2, blank=False, null=False)
     unit_price = models.IntegerField(blank=True, null=True)
     quantity = models.IntegerField(default=1, blank=True, null=True)

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse, resolve
 from rest_framework import filters
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.generics import (
@@ -105,7 +106,6 @@ class TransferRetrieveUpdateCreateAPIView(RetrieveUpdateDestroyAPIView):
 
 @api_view(['GET', 'POST'])
 def payment_request(request, username, token):
-    p_token = None
     auth_token = None
     if not username or not token :
         logger.warning("PAYMENT REQUEST API : username or token missing")
@@ -118,17 +118,16 @@ def payment_request(request, username, token):
         return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'POST':
-        p_token = utils.generate_token_10()
         postdata = request.POST.copy()
         postdata['seller'] = auth_token.user.pk
-        postdata['token'] = p_token
         form = PaymentRequestForm(postdata)
         logger.info("POSTDATA :")
             
         if form.is_valid(): 
             p_request = form.save()
             logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
-            return Response({'token':p_token}, status=status.HTTP_200_OK)
+            url = reverse('payments:payment-request', kwargs={'request_uuid':p_request.request_uuid})
+            return Response({'token':p_request.request_uuid, 'url': url}, status=status.HTTP_200_OK)
         else:
             logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" is invalid")
             for k,v in form.errors.items():
