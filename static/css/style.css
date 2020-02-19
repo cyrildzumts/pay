@@ -76,6 +76,15 @@
     margin: 16px;
 }
 
+.mat-box-content{
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    margin: 16px;
+    font-size: 1em;
+    flex-direction: column;
+}
+
 .box{
     display: flex;
     flex-wrap: wrap;
