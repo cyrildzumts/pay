@@ -206,7 +206,7 @@ def services(request):
 
     context = {}
     model = utils.get_model('payments', 'Service')
-    queryset = model.objects.select_related('category').all()
+    queryset = model.objects.select_related('category').all().order_by('-created_at')
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
@@ -433,7 +433,7 @@ def category_services(request):
 
     context = {}
     model = utils.get_model('payments', 'ServiceCategory')
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
@@ -1036,7 +1036,7 @@ def transfers(request):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Transfer')
     #current_account = Account.objects.get(user=request.user)
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
@@ -1095,7 +1095,7 @@ def payments(request):
     context = {}
     model = utils.get_model(app_name='payments', modelName='Payment')
     #current_account = Account.objects.get(user=request.user)
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
@@ -1155,7 +1155,7 @@ def payment_requests(request):
 
     context = {}
     #current_account = Account.objects.get(user=request.user)
-    queryset = PaymentRequest.objects.all()
+    queryset = PaymentRequest.objects.all().order_by('-created_at')
     template_name = "dashboard/payment_request_list.html"
     page_title = "Payments Requests - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
@@ -1214,7 +1214,7 @@ def cases(request):
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
     #current_account = Account.objects.get(user=request.user)
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/cases.html"
     page_title = "Cases - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
