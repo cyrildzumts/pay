@@ -526,7 +526,7 @@ def payment_request(request, request_uuid=None):
     page_title = "Payment Request" + " - " + settings.SITE_NAME
     p_request = None
     try:
-        p_request = PaymentRequest.objects.get(request_uuid=request_uuid)
+        p_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
     except PaymentRequest.DoesNotExist as e:
         logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
         raise HttpResponseBadRequest
@@ -542,7 +542,7 @@ def accept_payment_request(request, request_uuid):
     page_title = _("Payment Request")
     payment_request = None
     try:
-        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid)
+        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
     except PaymentRequest.DoesNotExist as e:
         logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
         raise HttpResponseBadRequest
@@ -581,7 +581,7 @@ def decline_payment_request(request, request_uuid):
     page_title = _("Payment Request")
     payment_request = None
     try:
-        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid)
+        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
     except PaymentRequest.DoesNotExist as e:
         logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
         raise HttpResponseBadRequest
