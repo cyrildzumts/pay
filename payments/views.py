@@ -529,7 +529,7 @@ def payment_request(request, request_uuid=None):
         p_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
     except PaymentRequest.DoesNotExist as e:
         logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
-        raise HttpResponseBadRequest
+        raise Http404
     context['page_title'] = page_title
     context['payment_request'] = p_request
     return render(request,template_name, context)
@@ -545,7 +545,7 @@ def accept_payment_request(request, request_uuid):
         payment_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
     except PaymentRequest.DoesNotExist as e:
         logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
-        raise HttpResponseBadRequest
+        raise Http404
     
     sender = request.user
     recipient = payment_request.seller
@@ -584,7 +584,7 @@ def decline_payment_request(request, request_uuid):
         payment_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
     except PaymentRequest.DoesNotExist as e:
         logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
-        raise HttpResponseBadRequest
+        raise Http404
     logger.info(f"Payment request with uuid : \"{request_uuid}\" declined by user \"{request.user.username}\"")
     PaymentRequest.objects.filter(pk=payment_request.pk).update(status='Declined')
     logger.info("Payment request declined")
