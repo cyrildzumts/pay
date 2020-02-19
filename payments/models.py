@@ -292,7 +292,7 @@ class Service(models.Model):
     def get_user_services(user):
         queryset = Service.objects.none()
         if isinstance(user, User) and user.is_authenticated:
-            queryset = Service.objects.filter(Q(customer=user) | Q(operator=user))
+            queryset = Service.objects.filter(Q(customer=user) | Q(operator=user)).order_by('-created_at')
         return queryset
 
 class Reduction(models.Model):
@@ -358,7 +358,7 @@ class Payment(models.Model):
     def get_user_payments(user):
         queryset = Payment.objects.none()
         if user and user.is_authenticated:
-            queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user))
+            queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user)).order_by('-created_at')
         return queryset
 
 
@@ -442,7 +442,7 @@ class Transfer(models.Model):
     def get_user_transfers(user):
         queryset = Transfer.objects.none()
         if user and user.is_authenticated:
-            queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user))
+            queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user)).order_by('-created_at')
         return queryset
 
 
