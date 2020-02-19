@@ -3,13 +3,11 @@
 {% block HEADER_BANNER %}
     <div class="banner banner-align-left">
         <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Payment" %}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
+            {% block  HEADER_BANNER_TITLE %}
+                <h4> {% trans "Payment" %}</h4>
+            {% endblock HEADER_BANNER_TITLE %}
         </div>
         <div class="container">
-
             <div class="col col-9">
                 <div class="banner--actions">
                     {% if can_view_payment %}<a class="mat-button mat-button-default" href="{% url 'dashboard:payments' %}"> <i class="fas fas-plus"></i> <span>{% trans "Payments" %}</span> </a>{% endif %}
@@ -24,13 +22,10 @@
     </div>
 {% endblock HEADER_BANNER %}
 
-
 {% block MAIN_CONTENT %}
 
 {% if can_view_payment  %}
 <div class="container">
-
-
         <div class="box">
                 <div class="title">
                     <span class="success">{% trans "Payment Request" %}</span>
@@ -54,7 +49,6 @@
                     <div class="entry">
                         <span class="key">{% trans "UUID" %} :</span> <span class="value">{{payment_request.request_uuid}}</span>
                     </div>
-
                 </div>
         </div>
 </div>
