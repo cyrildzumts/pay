@@ -46,6 +46,7 @@ urlpatterns = [
     path('policy-groups/create/', views.policy_group_create, name='policy-group-create'),
     path('tokens/', views.tokens, name='tokens'),
     path('users/', views.users, name='users'),
+    path('users/create-user/', views.create_account, name='create-user'),
     path('users/detail/<int:pk>', views.user_details, name='user-detail'),
     path('category-services/', views.category_services, name='category-services'),
     path('category-services/detail/<uuid:category_uuid>/', views.category_service_details, name='category-service-detail'),

@@ -17,8 +17,9 @@ from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
 import logging
 from pay.tasks import send_mail_task
-
-
+from accounts.account_services import AccountService
+from accounts.forms import UserCreationForm
+from accounts.forms import AccountCreationForm
 logger = logging.getLogger(__name__)
 # Create your views here.
 
@@ -143,8 +144,9 @@ def users(request):
     context['users'] = list_set
     context['can_access_dashboard'] = can_access_dashboard
     context.update(get_view_permissions(request.user))
-    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
-    context['can_update'] = PermissionManager.user_can_change_user(request.user)
+    context['can_delete-user'] = PermissionManager.user_can_delete_user(request.user)
+    context['can_add-user'] = PermissionManager.user_can_add_user(request.user)
+    context['can_update_user'] = PermissionManager.user_can_change_user(request.user)
     return render(request,template_name, context)
 
 @login_required
@@ -1661,4 +1663,37 @@ def permission_delete(request, pk=None):
 
 @login_required
 def create_account(request):
-    pass
+    username = request.user.username
+    context = {}
+    page_title = _('New User')
+    template_name = 'dashboard/new_user.html'
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    can_add_user = PermissionManager.user_can_add_user(request.user)
+    if not (can_add_user and can_view_user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    if request.method == 'POST':
+        name = request.POST['username']
+        result = AccountService.process_registration_request(request)
+        if result['user_created']:
+            messages.success(request, _(f"User {name} created"))
+            return redirect('dashboard:users')
+        else:
+            user_form = UserCreationForm(request.POST)
+            account_form = AccountCreationForm(request.POST)
+            user_form.is_valid()
+            account_form.is_valid()
+    else:
+        user_form = UserCreationForm()
+        account_form = AccountCreationForm()
+    context.update(get_view_permissions(request.user))
+    context['can_add_user'] = can_add_user
+    context['user_form'] = user_form
+    context['account_form'] = account_form
+    return render(request, template_name, context)
+
+
