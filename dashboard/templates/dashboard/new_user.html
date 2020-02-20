@@ -28,7 +28,7 @@
 
 <div class="container">
     <div class="col-m-12 col-8">
-    <form class="signup-form flex-column" action="{% url 'dashboard:create-user'%}" method="POST">{% csrf_token %}
+    <form class="signup-form container" action="{% url 'dashboard:create-user'%}" method="POST">{% csrf_token %}
         {% include 'tags/registration_form.html' %}
         <div class="form-group">
             <a class="mat-button mat-button-outlined" href="{%url 'dashboard:home'%}"> {% trans "Cancel" %} </a>
