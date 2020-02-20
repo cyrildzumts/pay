@@ -142,10 +142,9 @@ def users(request):
         list_set = None
     context['page_title'] = page_title
     context['users'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
     context.update(get_view_permissions(request.user))
-    context['can_delete-user'] = PermissionManager.user_can_delete_user(request.user)
-    context['can_add-user'] = PermissionManager.user_can_add_user(request.user)
+    context['can_delete_user'] = PermissionManager.user_can_delete_user(request.user)
+    context['can_add_user'] = PermissionManager.user_can_add_user(request.user)
     context['can_update_user'] = PermissionManager.user_can_change_user(request.user)
     return render(request,template_name, context)
 
