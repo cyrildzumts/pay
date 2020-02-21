@@ -39,6 +39,18 @@
 
 }
 
+.diagram-wrapper{
+	width: 100%;
+}
+
+.diagram{
+	display: block;
+	width: 100%;
+	position: relative;
+	padding: 16px;
+	margin: 16px auto;
+}
+
 .adapt-color{
   color: #66FCF1;
   fill: var(--header-bg);
