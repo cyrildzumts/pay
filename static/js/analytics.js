@@ -11,6 +11,10 @@ function paymentCounts(){
     });
 }
 
+var payment_chart;
+var transfers_chart;
+var requests_chart;
+var user_chart;
 
 $(document).ready(function(){
 console.log("analytics ready");
@@ -34,8 +38,8 @@ var payment_diagram_options = {
     options:{}
 };
 
-var payment_chart = new Chart(ctx_payments, payment_diagram_options);
-var transfers_chart = new Chart(ctx_transfers, payment_diagram_options);
-var requests_chart = new Chart(ctx_requests, payment_diagram_options);
-var user_chart = new Chart(ctx_users, payment_diagram_options);
+payment_chart = new Chart(ctx_payments, payment_diagram_options);
+transfers_chart = new Chart(ctx_transfers, payment_diagram_options);
+requests_chart = new Chart(ctx_requests, payment_diagram_options);
+user_chart = new Chart(ctx_users, payment_diagram_options);
 });
