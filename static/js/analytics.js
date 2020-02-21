@@ -28,7 +28,7 @@ var payment_diagram_options = {
             label: 'Payments',
             borderColor: "#009688",
             borderWidth: 2,
-            data: [12,48,23,45,15,16,35,26,45,48,56,66]
+            data: [12,48,2,14,132,45,70,56,80,88,76,96]
         }],
     },
     options:{}
