@@ -230,6 +230,11 @@
     line-height: 16px;
     color: #242424;
 }
+.panel-left{
+    position: absolute;
+    top:0;
+    left:0;
+}
 
 .panel .entry{
     width: 100%;
