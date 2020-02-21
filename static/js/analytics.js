@@ -26,6 +26,7 @@ var payment_diagram_options = {
         labels : ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets : [{
             label: 'Payments',
+            borderColor: "#009688",
             data: [12,48,23,45,15,16,35,26,45,48,56,66]
         }],
     },
