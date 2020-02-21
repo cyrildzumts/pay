@@ -27,6 +27,7 @@ var payment_diagram_options = {
         datasets : [{
             label: 'Payments',
             borderColor: "#009688",
+            borderWidth: 2,
             data: [12,48,23,45,15,16,35,26,45,48,56,66]
         }],
     },
