@@ -35,4 +35,7 @@ var payment_diagram_options = {
 };
 
 var payment_chart = new Chart(ctx_payments, payment_diagram_options);
+var transfers_chart = new Chart(ctx_transfers, payment_diagram_options);
+var requests_chart = new Chart(ctx_requests, payment_diagram_options);
+var user_chart = new Chart(ctx_users, payment_diagram_options);
 });
