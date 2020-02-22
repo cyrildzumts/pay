@@ -902,7 +902,7 @@ function askConfirmation(event){
         }
         ret =  "You have unsubmitted data. Leaving this page will lost the data.";
     }else{
-        delete e['returnValue'];
+        delete event['returnValue'];
     }
     
     return ret;
