@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
+from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear
+from django.db.models import Count, Avg, F, Q
 from django.urls import reverse, resolve
 from rest_framework import filters
 from django.views.decorators.csrf import csrf_exempt
@@ -18,6 +21,7 @@ from api.serializers import ( AvailableServiceSerializer, AvailableService, Acco
  )
 from payments.forms import PaymentRequestForm
 from pay import utils
+from django.utils import timezone
 
 import logging
 logger = logging.getLogger(__name__)
@@ -138,3 +142,17 @@ def payment_request(request, username, token):
         return Response({'error': 'Bad Request'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+@api_view(['GET'])
+def analytics_data(request):
+    datefield = 'created_at'
+    yearfield = 'year'
+    monthfield = 'month'
+    dayfield = 'day'
+    payment_data = {
+        'label': _('Payments')
+    }
+    payment_set = Payment.objects.annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    datalist = payment_set.values(yearfield, monthfield).annotate(count=Count(monthfield))
+    payment_data['datasets'] = list(datalist)
+    return Response(payment_data, status=status.HTTP_200_OK)
+    
