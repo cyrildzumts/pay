@@ -63,20 +63,22 @@ function addMetric(container, data){
 }
 
 function updateMetrics(metrics_data){
-    console.log("Update Metrics : ", metrics_data);
     var container = $('#metrics');
+    var target = {};
     metrics_data.forEach(data =>{
         console.log("Metric Data :  %s", data.label);
-        addMetric(container, data);
         if (data.label == "Payments"){
-            
+            target = $('#payments', container);
         }else if(data.label == "Transfers"){
-
+            target = $('#transfers', container);
         }else if(data.label == "Payment Requests"){
-
+            target = $('#p_requests', container);
         }else if(data.label == "Users"){
-
+            target = $('#users', container);
+        }else if(data.label == "Services"){
+            target = $('#services', container);
         }
+        target.text(data.count);
     });
 }
 

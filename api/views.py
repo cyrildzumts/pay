@@ -158,6 +158,7 @@ def analytics_data(request):
     data.append({'label':_('Transfers'), 'count': transfer_count})
     data.append({'label':_('Payment Requests'), 'count': payment_request_count})
     data.append({'label':_('Users'), 'count': user_count})
+    data.append({'label':_('Services'), 'count': service_count})
     return Response(data, status=status.HTTP_200_OK)
     
 
