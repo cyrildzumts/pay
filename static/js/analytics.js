@@ -167,5 +167,5 @@ transfers_chart = new Chart(ctx_transfers, transfers_conf);
 requests_chart = new Chart(ctx_requests, requests_conf);
 user_chart = new Chart(ctx_users, users_conf);
 //dashboardUpdate();
-dashboardIntervalHandle = setInterval(dashboardUpdate,180000); // 1000*60*3 = 3min
+dashboardIntervalHandle = setInterval(dashboardUpdate,60000); // 1000*60*1 = 1min
 });
