@@ -56,8 +56,8 @@ function paymentCounts(chart, label, data){
 
 function addMetric(container, data){
     var el = $('<div/>').addClass('metric');
-    $('<span/>').addClass('metric-title').text(data.title).appendTo(el);
-    $('<span/>').addClass('metric-value').text(data.value).appendTo(el);
+    $('<span/>').addClass('metric-title').html(data.title).appendTo(el);
+    $('<span/>').addClass('metric-value').html(data.value).appendTo(el);
     container.append(el);
 
 }
