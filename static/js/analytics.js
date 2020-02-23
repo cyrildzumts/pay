@@ -64,8 +64,10 @@ function addMetric(container, data){
 
 function updateMetrics(metrics_data){
     console.log("Update Metrics : ", metrics_data);
+    var container = $('#metrics');
     metrics_data.forEach(data =>{
         console.log("Metric Data :  %s", data.label);
+        addMetric(container, data);
         if (data.label == "Payments"){
             
         }else if(data.label == "Transfers"){
