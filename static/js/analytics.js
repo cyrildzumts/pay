@@ -68,15 +68,15 @@ function updateMetrics(metrics_data){
     metrics_data.forEach(data =>{
         console.log("Metric Data :  %s", data.label);
         if (data.label == "Payments"){
-            target = $('#payments', container);
+            target = $('#payments .metric-value', container);
         }else if(data.label == "Transfers"){
-            target = $('#transfers', container);
+            target = $('#transfers .metric-value', container);
         }else if(data.label == "Payment Requests"){
-            target = $('#p_requests', container);
+            target = $('#p_requests .metric-value', container);
         }else if(data.label == "Users"){
-            target = $('#users', container);
+            target = $('#users .metric-value', container);
         }else if(data.label == "Services"){
-            target = $('#services', container);
+            target = $('#services .metric-value', container);
         }
         target.text(data.count);
     });
