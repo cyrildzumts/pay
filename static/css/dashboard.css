@@ -113,8 +113,13 @@
 }
 
 .metric{
-    padding: 16px;
-    margin: 16px;
+    width: 250px;
+    font-family: 'Montserrat';
+    text-align: center;
+    text-transform: uppercase;
+    padding: 8px !important;
+    margin: 8px !important;
+
 }
 
 .metric-title{
