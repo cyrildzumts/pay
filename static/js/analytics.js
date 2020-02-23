@@ -66,7 +66,6 @@ function updateMetrics(metrics_data){
     var container = $('#metrics');
     var target = {};
     metrics_data.forEach(data =>{
-        console.log("Metric Data :  %s", data.label);
         if (data.label == "Payments"){
             target = $('#payments .metric-value', container);
         }else if(data.label == "Transfers"){

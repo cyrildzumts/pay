@@ -114,6 +114,7 @@
 
 .metric{
     width: 250px;
+    background-color: #fafafa;
     font-family: 'Montserrat';
     text-align: center;
     text-transform: uppercase;
