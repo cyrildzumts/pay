@@ -1,15 +1,5 @@
 
-function paymentCounts(){
-    var options = {
 
-    }
-    var promise = ajax(options).then(function(response){
-
-    }, function(error){
-        console.log("payments fetch failed");
-        console.log(error);
-    });
-}
 
 var payment_chart;
 var transfers_chart;
@@ -20,31 +10,107 @@ var analytics_label = 'Payments';
 var analytics_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var chart_type = 'line';
 
+function updateChart(){
+    var options = {
+        url:'/api/analytics/',
+        type:'GET',
+        data:{},
+        dataType: 'json'
+    }
+    var promise = ajax(options).then(function(response){
+        dispatchChartUpdate(response)
+    }, function(error){
+        console.log("payments fetch failed");
+        console.log(error);
+    });
+}
+function dispatchChartUpdate(response){
+    var label = response.label;
+    var datasets = response.datasets;
+    console.log("Dispatching chart update to \"%s\"",label);
+    updatePaymentChart(payment_chart, label, datasets);
+}
 
+function updatePaymentChart(chart,label, datasets){
+    var payment_data = []
+    datasets.forEach(dataset => {
+        payment_data[dataset.month - 1] = dataset.count;
+    });
+    chart.data.datasets[0].data = payment_data;
+    chart.update();
+}
+
+function paymentCounts(chart, label, data){
+    if(!chart.data.labels.contains(label)){
+        chart.data.labels.push(label);
+        chart.data.datasets.push(data);
+    }else{
+        for(dataset in chart.data.datasets){
+            if (dataset.label == data.label){
+
+                break;
+            }
+        }
+    }
+}
 $(document).ready(function(){
 console.log("analytics ready");
+
+Chart.defaults.global.elements.line.fill = false;
+Chart.defaults.global.elements.line.borderWidth = 2;
 
 var ctx_payments = $('#payments-diagram');
 var ctx_transfers = $('#transfers-diagram');
 var ctx_requests = $('#payment-request-diagram');
 var ctx_users = $('#users-diagram');
 
-var payment_diagram_options = {
+var payments_conf = {
     type : chart_type,
     data : {
         labels : analytics_labels,
         datasets : [{
-            label: analytics_label,
-            borderColor: "#009688",
-            borderWidth: 2,
-            data: analytics_data
+            label: 'Payments',
+            data: []
         }],
     },
     options:{}
 };
-
-payment_chart = new Chart(ctx_payments, payment_diagram_options);
-transfers_chart = new Chart(ctx_transfers, payment_diagram_options);
-requests_chart = new Chart(ctx_requests, payment_diagram_options);
-user_chart = new Chart(ctx_users, payment_diagram_options);
+var transfers_conf = {
+    type : chart_type,
+    data : {
+        labels : analytics_labels,
+        datasets : [{
+            label: 'Transfers',
+            data: []
+        }],
+    },
+    options:{}
+};
+var requests_conf = {
+    type : chart_type,
+    data : {
+        labels : analytics_labels,
+        datasets : [{
+            label: 'Payment Requests',
+            data: []
+        }],
+    },
+    options:{}
+};
+var users_conf = {
+    type : chart_type,
+    data : {
+        labels : analytics_labels,
+        datasets : [{
+            label: 'Users Online',
+            data: []
+        }],
+    },
+    options:{}
+};
+var empty_conf = {};
+payment_chart = new Chart(ctx_payments, payments_conf);
+transfers_chart = new Chart(ctx_transfers, transfers_conf);
+requests_chart = new Chart(ctx_requests, requests_conf);
+user_chart = new Chart(ctx_users, users_conf);
 });
