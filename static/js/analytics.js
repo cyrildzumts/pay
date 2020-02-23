@@ -64,8 +64,7 @@ function addMetric(container, data){
 
 function updateMetrics(metrics_data){
     console.log("Update Metrics : ", metrics_data);
-
-    for (data in metrics_data){
+    metrics_data.forEach(data =>{
         console.log("Metric Data :  %s", data.label);
         if (data.label == "Payments"){
             
@@ -76,7 +75,7 @@ function updateMetrics(metrics_data){
         }else if(data.label == "Users"){
 
         }
-    }
+    });
 }
 
 function dashboardUpdate(){
