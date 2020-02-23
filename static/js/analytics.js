@@ -53,6 +53,47 @@ function paymentCounts(chart, label, data){
         }
     }
 }
+
+function addMetric(container, data){
+    var el = $('<div/>').addClass('metric');
+    $('<span/>').addClass('metric-title').text(data.title).appendTo(el);
+    $('<span/>').addClass('metric-value').text(data.value).appendTo(el);
+    container.append(el);
+
+}
+
+function updateMetrics(metrics_data){
+    console.log("Update Metrics : ", metrics_data);
+
+    for (data in metrics_data){
+        console.log("Metric Data :  %s", data.label);
+        if (data.label == "Payments"){
+            
+        }else if(data.label == "Transfers"){
+
+        }else if(data.label == "Payment Requests"){
+
+        }else if(data.label == "Users"){
+
+        }
+    }
+}
+
+function dashboardUpdate(){
+    var options = {
+        url:'/api/analytics/',
+        type:'GET',
+        data:{},
+        dataType: 'json'
+    }
+    var promise = ajax(options).then(function(response){
+        updateMetrics(response)
+    }, function(error){
+        console.log("analytics fetch failed");
+        console.log(error);
+    });
+
+}
 $(document).ready(function(){
 console.log("analytics ready");
 

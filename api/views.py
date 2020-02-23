@@ -15,14 +15,17 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from api.serializers import ( AvailableServiceSerializer, AvailableService, Account, AccountSerializer,
-    Transfer, TransferSerializer, Payment, PaymentSerializer,CaseIssue, CaseIssueSerializer,
-    CategorySerializer, ServiceCategory, Policy, PolicySerializer, Service, ServiceSerializer, UserSerializer
+from api.serializers import ( AvailableServiceSerializer, AccountSerializer,
+    TransferSerializer, PaymentSerializer, CaseIssueSerializer,
+    CategorySerializer, PolicySerializer, ServiceSerializer, UserSerializer
  )
+from django.contrib.auth.models import User
+from accounts.models import Account
+from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy
 from payments.forms import PaymentRequestForm
 from pay import utils
 from django.utils import timezone
-
+from operator import itemgetter
 import logging
 logger = logging.getLogger(__name__)
 
@@ -34,7 +37,7 @@ class UserSearchByNameView(ListAPIView):
      serializer_class = UserSerializer
      search_fields = ['last_name', 'first_name','username']
      filter_backends = [filters.SearchFilter]
-     queryset = UserSerializer.Meta.model.objects.filter(is_superuser=False)
+     queryset = User.objects.filter(is_superuser=False)
      """
      def get_queryset(self):
           user_search = self.request.POST.get('user-search', "")
@@ -48,7 +51,7 @@ class UserSearchView(ListAPIView):
      serializer_class = UserSerializer
      search_fields = ['last_name', 'first_name', 'username']
      filter_backends = [filters.SearchFilter]
-     queryset = UserSerializer.Meta.model.objects.filter(is_superuser=False)
+     queryset = User.objects.filter(is_superuser=False)
      """
      def get_queryset(self):
           user_search = self.request.POST.get('user-search', "")
@@ -144,15 +147,88 @@ def payment_request(request, username, token):
 
 @api_view(['GET'])
 def analytics_data(request):
+    data = []
+    payment_count = Payment.objects.count()
+    transfer_count = Transfer.objects.count()
+    payment_request_count = PaymentRequest.objects.count()
+    service_count = Service.objects.count()
+    user_count = User.objects.count()
+
+    data.append({'label':_('Payments'), 'count': payment_count})
+    data.append({'label':_('Transfers'), 'count': transfer_count})
+    data.append({'label':_('Payment Requests'), 'count': payment_request_count})
+    data.append({'label':_('Users'), 'count': user_count})
+    return Response(data, status=status.HTTP_200_OK)
+    
+
+@api_view(['GET'])
+def analytics_monthly_data(request,year=None, month=None):
+    year = year or timezone.now().year
+    month = month or timezone.now().month
+
     datefield = 'created_at'
+    user_datefield = 'date_joined'
     yearfield = 'year'
     monthfield = 'month'
     dayfield = 'day'
-    payment_data = {
-        'label': _('Payments')
-    }
-    payment_set = Payment.objects.annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
-    datalist = payment_set.values(yearfield, monthfield).annotate(count=Count(monthfield))
-    payment_data['datasets'] = list(datalist)
-    return Response(payment_data, status=status.HTTP_200_OK)
+
+    payment_set = Payment.objects.filter(created_at__year=year, created_at__month=month).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    transfer_set = Transfer.filter(created_at__year=year, created_at__month=month).objects.annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    payment_request_set = PaymentRequest.objects.filter(created_at__year=year, created_at__month=month).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    service_set = Service.objects.filter(created_at__year=year, created_at__month=month).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    user_set = User.objects.filter(date_joined__year=year, date_joined__month=month).annotate(year=ExtractYear(user_datefield), month=ExtractMonth(user_datefield), day=ExtractDay(user_datefield))
     
+    data = []
+    data.append({'label':_('Payments'), 'datasets': list(payment_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    data.append({'label':_('Transfers'), 'datasets': list(transfer_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    data.append({'label':_('Payments Request'), 'datasets': list(payment_request_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    data.append({'label':_('Users'), 'datasets': list(user_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    return Response(data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def analytics_yearly_data(request, year=None):
+    year = year or timezone.now().year
+    datefield = 'created_at'
+    user_datefield = 'date_joined'
+    yearfield = 'year'
+    monthfield = 'month'
+    dayfield = 'day'
+    data = []
+    payment_set = Payment.objects.filter(created_at__year=year).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    transfer_set = Transfer.filter(created_at__year=year).objects.annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    payment_request_set = PaymentRequest.objects.filter(created_at__year=year).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    service_set = Service.objects.filter(created_at__year=year).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    user_set = User.objects.filter(date_joined__year=year).annotate(year=ExtractYear(user_datefield), month=ExtractMonth(user_datefield), day=ExtractDay(user_datefield))
+    
+    data.append({'label':_('Payments'), 'datasets': list(payment_set.values(yearfield, monthfield).annotate(count=Count(yearfield)))})
+    data.append({'label':_('Transfers'), 'datasets': list(transfer_set.values(yearfield, monthfield).annotate(count=Count(yearfield)))})
+    data.append({'label':_('Payments Request'), 'datasets': list(payment_request_set.values(yearfield, monthfield).annotate(count=Count(yearfield)))})
+    data.append({'label':_('Users'), 'datasets': list(user_set.values(yearfield, monthfield).annotate(count=Count(yearfield)))})
+    return Response(data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def analytics_daily_data(request, year=None, month=None, day=None):
+    year = year or timezone.now().year
+    month = month or timezone.now().month
+    day = day or timezone.now().day
+
+    datefield = 'created_at'
+    user_datefield = 'date_joined'
+    yearfield = 'year'
+    monthfield = 'month'
+    dayfield = 'day'
+
+    data = []
+    payment_set = Payment.objects.filter(created_at__year=year, created_at__month=month, created_at__day=day).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    transfer_set = Transfer.filter(created_at__year=year, created_at__month=month, created_at__day=day).objects.annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    payment_request_set = PaymentRequest.objects.filter(created_at__year=year, created_at__month=month, created_at__day=day).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    service_set = Service.objects.filter(created_at__year=year, created_at__month=month, created_at__day=day).annotate(year=ExtractYear(datefield), month=ExtractMonth(datefield), day=ExtractDay(datefield))
+    user_set = User.objects.filter(date_joined__year=year, date_joined__month=month, date_joined__day=day).annotate(year=ExtractYear(user_datefield), month=ExtractMonth(user_datefield), day=ExtractDay(user_datefield))
+    
+    data.append({'label':_('Payments'), 'datasets': list(payment_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    data.append({'label':_('Transfers'), 'datasets': list(transfer_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    data.append({'label':_('Payments Request'), 'datasets': list(payment_request_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    data.append({'label':_('Users'), 'datasets': list(user_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
+    return Response(data, status=status.HTTP_200_OK)

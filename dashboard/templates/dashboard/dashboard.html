@@ -5,7 +5,9 @@
 {% else %}
 
 {% block HEADER_BANNER %}
-
+        {% block BANNER_TITLE %}
+                {% include "dashboard_summary.html" %}
+        {% endblock BANNER_TITLE %}
 {% endblock HEADER_BANNER %}
 
 {% block MAIN_CONTENT %}

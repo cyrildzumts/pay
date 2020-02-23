@@ -111,3 +111,20 @@
     padding: 5px 10px;
     margin: 2px 5px;
 }
+
+.metric{
+    padding: 16px;
+    margin: 16px;
+}
+
+.metric-title{
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+.metric-value{
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 16px;
+}

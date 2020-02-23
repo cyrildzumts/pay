@@ -4,56 +4,26 @@
         <div class="row">
                 <h3>Dashboard</h3>
         </div>
-        <div class="row flex-wrap">
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans 'Service Usage' %} </p>
-                                <p>{{summary.service_summary.usage_count}}</p>
-                        </div>
-                        
+        <div id="metrics" class="row flex-wrap">
+                <div id="payments" class="metric">
+                        <span class="metric-title">{% trans "Payments" %}</span>
+                        <span class="metric-value">0</span>
                 </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans 'Number of Transfer' %} </p>
-                                <p>{{summary.transfer_summary.number_of_transfers}}</p>
-                        </div>
-                        
+                <div id="transfers" class="metric">
+                        <span class="metric-title">{% trans "Transfers" %}</span>
+                        <span class="metric-value">0</span>
                 </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Total Paid amount for this month" %} </p>
-                                <p>{{summary.service_summary.total_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
+                <div id="p_requests" class="metric">
+                        <span class="metric-title">{% trans "Payment Requests" %}</span>
+                        <span class="metric-value">0</span>
                 </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Min Transferred amount" %}</p>
-                                <p>{{summary.transfer_summary.min_transferred_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
+                <div id="users" class="metric">
+                        <span class="metric-title">{% trans "Users" %}</span>
+                        <span class="metric-value">0</span>
                 </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans "Max Paid amount Service" %} </p>
-                                <p>{{summary.service_summary.max_paid_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                       
-
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Average Paid amount for Service this month" %} </p>
-                                <p>{{summary.service_summary.average_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Average Transferred amount this month" %} </p>
-                                <p class="subtitle">{{summary.transfer_summary.average_transferred_amount}}  {% trans "XAF" %}</p>
-                        </div>
-                        
+                <div id="services" class="metric">
+                        <span class="metric-title">{% trans "Service" %}</span>
+                        <span class="metric-value">0</span>
                 </div>
         </div>
   </div>
