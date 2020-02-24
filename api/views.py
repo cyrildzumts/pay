@@ -22,6 +22,7 @@ from api.serializers import ( AvailableServiceSerializer, AccountSerializer,
 from django.contrib.auth.models import User
 from accounts.models import Account
 from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy
+from voucher.models import Voucher
 from payments.forms import PaymentRequestForm
 from pay import utils
 from django.utils import timezone
@@ -153,12 +154,15 @@ def analytics_data(request):
     payment_request_count = PaymentRequest.objects.count()
     service_count = Service.objects.count()
     user_count = User.objects.count()
+    sold_voucher_count = Voucher.objects.filter(is_sold=True).count()
+    voucher_count = Voucher.objects.count()
 
     data.append({'label':_('Payments'), 'count': payment_count})
     data.append({'label':_('Transfers'), 'count': transfer_count})
     data.append({'label':_('Payment Requests'), 'count': payment_request_count})
     data.append({'label':_('Users'), 'count': user_count})
     data.append({'label':_('Services'), 'count': service_count})
+    data.append({'label':_('Vouchers'), 'count': voucher_count, 'sold': sold_voucher_count})
     return Response(data, status=status.HTTP_200_OK)
     
 

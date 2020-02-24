@@ -68,24 +68,22 @@ function updateMetrics(metrics_data){
         console.error("No metrics container found.");
         return;
     }
-    var target = {};
     metrics_data.forEach(data =>{
-        if (data.label == "Payments"){
-            target = $('#payments .metric-value', container);
+        if(data.label == "Vouchers"){
+            $('#vouchers .metric-value .sold', container).text(data.sold);
+            $('#vouchers .metric-value .total', container).text(data.count);
+        }else if (data.label == "Payments"){
+            $('#payments .metric-value', container).text(data.count);
         }else if(data.label == "Transfers"){
-            target = $('#transfers .metric-value', container);
+            $('#transfers .metric-value', container).text(data.count);
         }else if(data.label == "Payment Requests"){
-            target = $('#p_requests .metric-value', container);
+            $('#p_requests .metric-value', container).text(data.count);
         }else if(data.label == "Users"){
-            target = $('#users .metric-value', container);
+            $('#users .metric-value', container).text(data.count);
         }else if(data.label == "Services"){
-            target = $('#services .metric-value', container);
-        }
-        if(target.length){
-            target.text(data.count);
+            $('#services .metric-value', container).text(data.count);
         }else{
-            console.error("Metrics Error: no target found found.");
-            return;
+            console.error("Metrics Error: no target found for label %s.", data.label);
         }
         
     });
