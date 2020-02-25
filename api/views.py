@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear
-from django.db.models import Count, Avg, F, Q
+from django.db.models import Count, Avg, F, Q, Sum, Max, Min
 from django.urls import reverse, resolve
 from rest_framework import filters
 from django.views.decorators.csrf import csrf_exempt
@@ -164,7 +164,23 @@ def analytics_data(request):
     data.append({'label':_('Services'), 'count': service_count})
     data.append({'label':_('Vouchers'), 'count': voucher_count, 'sold': sold_voucher_count})
     return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def transaction_reports(request):
+    data = []
+    payment_report = Payment.objects.aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
+    transfer_report = Transfer.objects.aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
+    payment_request_report = PaymentRequest.objects.aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
+    service_report = Service.objects.aggregate(total_count=Count('id'), total_paid=Sum('price'), avg_paid=Avg('price'), max_paid=Max('price'), min_paid=Min('price'))
+    sold_voucher_report = Voucher.objects.filter(is_sold=True).aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
     
+    data.append({'label':_('Payments'), 'report': payment_report})
+    data.append({'label':_('Transfers'), 'report': transfer_report})
+    data.append({'label':_('Payment Requests'), 'report': payment_request_report})
+    data.append({'label':_('Services'), 'report': service_report})
+    data.append({'label':_('Vouchers'), 'report': sold_voucher_report})
+    return Response(data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def analytics_monthly_data(request,year=None, month=None):
