@@ -60,6 +60,7 @@
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups' %}">{% trans "Policy Groups" %}</a></li>
                               {% endif %}
                               {% if can_view_user %}
+                                    <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:reports' %}">{% trans "Reports" %}</a></li>
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}">{% trans "Users" %}</a></li>
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:tokens' %}">{% trans "Token" %}</a></li>
                               {% endif %}

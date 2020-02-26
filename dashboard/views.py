@@ -115,6 +115,29 @@ def generate_token(request):
         
 
     return render(request, template_name, context)
+
+
+@login_required
+def reports(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    if not can_view_user:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    queryset = User.objects.all()
+    template_name = "dashboard/reports.html"
+    page_title = _("Dashboard Reports") + " - " + settings.SITE_NAME
+    
+    context['page_title'] = page_title
+    context.update(get_view_permissions(request.user))
+    context.update(analytics.transaction_reports())
+    return render(request,template_name, context)
         
 @login_required
 def users(request):

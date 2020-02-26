@@ -44,6 +44,7 @@ urlpatterns = [
     #path('policy-groups/remove-all/', views.policy_remove_all, name='policy-group-remove-all'),
     path('policy-groups/update/<uuid:group_uuid>/', views.policy_group_update, name='policy-group-update'),
     path('policy-groups/create/', views.policy_group_create, name='policy-group-create'),
+    path('reports/', views.reports, name='reports'),
     path('tokens/', views.tokens, name='tokens'),
     path('users/', views.users, name='users'),
     path('users/create-user/', views.create_account, name='create-user'),

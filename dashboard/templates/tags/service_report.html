@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div id="service-reports" class="row">
+    <div id="services-paid" class="metric mat-box">
+            <div class="metric-title">{% trans "Services" %}</div>
+            <div><span class="metric-value">{{service_report.total_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="services-count" class="metric mat-box">
+            <div class="metric-title">{% trans "Services Count" %}</div>
+            <div><span class="metric-value">{{service_report.total_count}}</span></div>
+    </div>
+    <div id="services-average" class="metric mat-box">
+            <div class="metric-title">{% trans "Average Services" %}</div>
+            <div><span class="metric-value">{{service_report.avg_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="services-min" class="metric mat-box">
+            <div class="metric-title">{% trans "Min Services" %}</div>
+            <div><span class="metric-value">{{service_report.min_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="services-max" class="metric mat-box">
+            <div class="metric-title">{% trans "Max Services" %}</div>
+            <div><span class="metric-value">{{service_report.max_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+</div>

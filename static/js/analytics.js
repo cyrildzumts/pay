@@ -62,6 +62,14 @@ function addMetric(container, data){
 
 }
 
+function addReportMetric(container, data){
+    var el = $('<div/>').addClass('metric');
+    $('<span/>').addClass('metric-title').html(data.label).appendTo(el);
+    $('<span/>').addClass('metric-value').html(data.count).appendTo(el);
+    container.append(el);
+
+}
+
 function updateMetrics(metrics_data){
     var container = $('#metrics');
     if(container.length == 0){
@@ -84,8 +92,7 @@ function updateMetrics(metrics_data){
             $('#services .metric-value', container).text(data.count);
         }else{
             console.error("Metrics Error: no target found for label %s.", data.label);
-        }
-        
+        } 
     });
 }
 

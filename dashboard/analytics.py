@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models import F, Q
 from django.db.models import Count, Sum, Avg, Min, Max, IntegerField
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy
+from voucher.models import Voucher
 import logging
 from datetime import datetime
 
@@ -176,6 +178,24 @@ def get_recent_transfers(limit=5):
     queryset = get_recent_model_instance(appName=appName, modelName=modelName, limit=limit)
     return queryset
 
+def transaction_reports():
+    data = []
+    payment_report = Payment.objects.aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
+    transfer_report = Transfer.objects.aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
+    payment_request_report = PaymentRequest.objects.aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
+    service_report = Service.objects.aggregate(total_count=Count('id'), total_paid=Sum('price'), avg_paid=Avg('price'), max_paid=Max('price'), min_paid=Min('price'))
+    sold_voucher_report = Voucher.objects.filter(is_sold=True).aggregate(total_count=Count('id'), total_paid=Sum('amount'), avg_paid=Avg('amount'), max_paid=Max('amount'), min_paid=Min('amount'))
+    
+
+    context = {
+        'payment_report':payment_report,
+        'transfer_report': transfer_report,
+        'voucher_report' : sold_voucher_report,
+        'service_report' :service_report,
+        'payment_request_report' : payment_request_report
+    }
+    return context
+
 def get_transfers_summary():
     '''
     This method returns a transfer summary as a queryset.
@@ -222,6 +242,7 @@ def get_recent_services(limit=5):
 
     queryset = get_recent_model_instance(appName=appName, modelName=modelName, limit=limit)
     return queryset
+
 
 
 def get_service_usage_summary():

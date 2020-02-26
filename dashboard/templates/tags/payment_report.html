@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div id="payment-reports" class="row">
+    <div id="payments-paid" class="metric mat-box">
+            <div class="metric-title">{% trans "Payments" %}</div>
+            <div><span class="metric-value">{{payment_report.total_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="payments-count" class="metric mat-box">
+            <div class="metric-title">{% trans "Payments Count" %}</div>
+            <div><span class="metric-value">{{payment_report.total_count}}</span></div>
+    </div>
+    <div id="payments-average" class="metric mat-box">
+            <div class="metric-title">{% trans "Average Payments" %}</div>
+            <div><span class="metric-value">{{payment_report.avg_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="payments-min" class="metric mat-box">
+            <div class="metric-title">{% trans "Min Payments" %}</div>
+            <div><span class="metric-value">{{payment_report.min_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="payments-max" class="metric mat-box">
+            <div class="metric-title">{% trans "Max Payments" %}</div>
+            <div><span class="metric-value">{{payment_report.max_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+</div>
