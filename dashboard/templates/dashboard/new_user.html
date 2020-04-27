@@ -1,0 +1,46 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "New User" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col col-9">
+                <div class="banner--actions">
+                    
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+
+{% block MAIN_CONTENT %}
+
+{% if can_add_user %}
+
+<div class="container">
+    <div class="col-m-12 col-8">
+    <form class="signup-form container" action="{% url 'dashboard:create-user'%}" method="POST">{% csrf_token %}
+        {% include 'tags/registration_form.html' %}
+        <div class="form-group">
+            <a class="mat-button mat-button-outlined" href="{%url 'dashboard:home'%}"> {% trans "Cancel" %} </a>
+            <button class="mat-button mat-button-default" type="submit">{%trans 'Create My Account'%} </button>
+        </div>
+    </form>
+    </div>
+</div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
+{% endblock MAIN_CONTENT %}

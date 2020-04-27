@@ -1,0 +1,82 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Users" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col col-9">
+                <div class="banner--actions">
+                    
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+{% block MAIN_CONTENT %}
+
+{% if can_view_user %}
+
+<div class="row">
+  <div class="nav">
+    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    {% if can_add_user %}
+    <a class="mat-button mat-button-default" href="{% url 'dashboard:create-user' %}"> <i class="fas fa-user-plus"></i><span>{% trans "New User" %}</span></a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="container">
+<div class="col-m-12 col-8">
+    <div class="mat-table-wrapper">
+        <table id="service-list" class="mat-table js-filter-table">
+          <caption>{% trans "Users" %}</caption>
+          <thead>
+                  <tr>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          <th scope="col">{% trans "Username" %}</th>
+                          <th scope="col">{% trans "Name" %}</th>
+                          <th scope="col">{% trans "Is Active" %}</th>
+                          <th scope="col">{% trans "Date Joined" %}</th>
+                          <th scope="col">{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for user in users  %}
+                  <tr>
+                    <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
+                    <td scope="row" data-label="{% trans 'Username' %}">{{user.username}}</td>
+                    <td data-label="{% trans 'Name' %}">{{user.get_full_name}}</td>
+                    <td data-label="{% trans 'Is Active' %}">{% if user.is_active %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</td>
+                    <td data-label="{% trans 'Date Joined' %}">{{user.date_joined|date}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% url 'dashboard:user-detail' user.pk %}">{% trans "More" %} </a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    {% include "tags/pagination.html" with page_set=users %}
+    </div><!--End of Table Wrapper-->
+  </div>
+</div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
+{% endblock MAIN_CONTENT %}

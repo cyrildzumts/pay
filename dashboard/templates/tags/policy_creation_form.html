@@ -1,5 +1,7 @@
 {% load i18n %} 
 
+{% if can_add_policy %}
+
 
 
 <div class="responsive">
@@ -11,7 +13,7 @@
         <div class="card__body">
         
         
-                <form class="form card" name="policy" action="{% url 'dashboard:policy_create' %}" method="POST">{% csrf_token %}
+                <form class="form card" name="policy" action="{% url 'dashboard:policy-create' %}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     
                     <div class="form-group">
@@ -44,3 +46,9 @@
             </div>
     </div>          
 </div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}

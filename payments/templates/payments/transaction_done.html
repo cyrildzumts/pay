@@ -1,11 +1,11 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block META_REDIRECT %}
-        <meta http-equiv='refresh' content="3;url={%url 'payments:payment-home'%}"/>
+        <meta http-equiv='refresh' content="3;url={%url 'accounts:account'%}"/>
 {% endblock META_REDIRECT %}
 {% block MAIN %}
 
 <div class="container">
-    {% include "tags/transfer_done_content.html" %}
+    {% include "tags/transaction_done_content.html" %}
 </div>
 {% endblock MAIN %}

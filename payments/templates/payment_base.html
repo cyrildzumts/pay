@@ -7,23 +7,31 @@
 {% block HEADER_BANNER %}
     <div class="banner banner-align-left">
         <div class="full welcome-text center">
-                <h4> {% trans "Welcome" %} {{name}}</h4>
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Payments" %} {{user.username}}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
         </div>
         <div class="container">
 
             <div class="col col-9">
                 {% if account %}
-                
-                
                 <div class="banner--content flex-column">
-                    <div class="row row-left"><span class="item"><h4>{% trans "Balance" %}</h4></span></div>
-                    <div class="row row-left subtitle"><span class="item"><span class="big strong">{{account.balance}} {% trans "XAF" %} </span></span></div>
+                    <div class="row row-left"><span class="item"><h4>{% trans "Current Balance" %}</h4></span></div>
+                    <div class="row row-left subtitle"><span class="item big strong">{{account.balance}} </span><span class="big strong">{% trans "XAF" %}</span></div>
                     
                 </div><!--End of Banner-Content-->
                 {% endif %}
                 <div class="banner--actions">
-                        <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
-                        <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Activities" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
                 </div><!--End of Banner-Actions-->
             </div><!--End of Responsive-->
         

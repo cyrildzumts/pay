@@ -1,6 +1,10 @@
 {% load i18n %}
 
 <div>
-    <p> Your transaction was succesfull. You will be redirected to the home page in an instant.
-    Click here to directly go to your <a class="mat-button mat-button-default" href="{% url 'home' %}"> {{site_name}} </a> </p>
+    <p> 
+    {% trans "Your transaction was succesfull. " %}
+    {% trans "You will be redirected to your account page in an instant." %}
+    {% trans "Click here to directly go to your Account if you don't want to way." %} : <a class="mat-button mat-button-default" href="{% url 'accounts:account' %}">{% trans "My Account" %}</a>
+    
+    </p>
 </div>

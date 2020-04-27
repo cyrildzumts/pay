@@ -1,23 +1,54 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
-
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Claim History"%}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
 
 <div class="container">
-    {% for claim in claims %}
-        <div class="card">
-           <p> {% trans "Subject" %} : {{claim.subject}}</p>
-           <p> {% trans "Amount" %} : {{claim.amount}} FCFA</p>   
-           <p> {% trans "Date" %} : {{claim.created_at}}</p> 
-           {% if claim.is_closed %}
-           <p class="is-closed"> {% trans "Closed at " %} : {{claim.closed_at}} </p>  
-           {% else %}
-           <p class="is-opened"> {% trans "Opened" %} </p> 
-           {% endif %} 
-          <a class="mat-button mat-button-text" href="{% url 'payments:claim_detail' claim.pk %}">{% trans "More" %} ...</a>
-        </div>
-    {% empty %}
-    <p> {% trans "There is no claims now." %} ...</p>
-    {% endfor %}
+
+    {% if claim_list %}
+  <div class="col-xs-12 col-6">
+    <div class="mat-table-wrapper">
+        <table id="claim-list" class="mat-table js-filter-table">
+          <caption>{% trans "Claim List" %}</caption>
+          <thead>
+                  <tr>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          <th>{% trans "Sender" %}</th>
+                          <th>{% trans "Participant" %}</th>
+                          <th>{% trans "Subject" %}</th>
+                          <th>{% trans "Amount" %}</th>
+                          <th>{% trans "Status" %}</th>
+                          <th>{% trans "Date" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for claim in claim_list  %}
+                  <tr>
+                    <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
+                    <td data-label="{% trans 'Sender' %}">{{claim.participant_1.username}}</td>
+                    <td data-label="{% trans 'Participant' %}">{{claim.participant_2.username}}</td>
+                    <td data-label="{% trans 'Subject' %}">{{claim.subject}}</td>
+                    <td data-label="{% trans 'Amount' %}">{{claim.amount}} {% trans "XAF" %}</td>
+                    <td data-label="{% trans 'Status' %}">{% if claim.is_closed %}{% trans "Closed" %} {%else%}{% trans "Opened" %}{% endif %}</td>
+                    <td data-label="{% trans 'Date' %}">{{claim.created_at}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{claim.get_absolute_url}}">{% trans "More" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    {% include "tags/pagination.html" with page_set=claim_list %}
+    </div><!--End of Table Wrapper-->
+    {% else %}
+    <p> {% trans "There is no claim yet" %}.</p>
+    </div>
+    {% endif %}
 </div>
 {% endblock MAIN %}

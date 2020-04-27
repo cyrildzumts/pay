@@ -1,0 +1,21 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Transfers for Month Archive"%} : {{month|date:"Y, m"}}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+{% block MAIN %}
+<div class="container">
+  <div class="col-xs-12 col-6">
+    <div class="mat-list-wrapper">
+            <div class="mat-list-header"> {% trans "Days" %}</div>
+            <ul class="mat-list">
+                {% for date in date_list %}
+                <li class="mat-list-item"><a href="{% url 'payments:transfer-day-archive' date|date:'Y' date|date:'n' date|date:'j'  %}">{{date|date:"Y - m, d"}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+  
+  </div>
+</div>
+{% endblock MAIN %}

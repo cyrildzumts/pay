@@ -1,33 +1,18 @@
 {% load i18n %} 
 
 <div class="responsive">
-
     <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'voucher:recharge' %}" method="POST">{% csrf_token %}
         
         <input type="hidden" name="seller" value="{{request.user.pk}}">
-
-        
-        <div class="form-group">
-            <label for="search">{% trans "Customer Search" %} : </label>
-            <input class="js-user-search" type="text" name="search" id="search">
-            <ul class="js-user-search-result user-search-result" id="user-search-result" data-target-name="#customer-name" data-target="#customer">
-
-            </ul>
-        </div>
-        <div class="form-group">
-            <label for="customer-name">{% trans "Customer" %} : </label>
-            <input id="customer-name" type="text" name="customer-name">
-            <input id="customer" type="text" name="customer">
-        </div>
-
+        <input id="customer" type="hidden" name="customer">
+        {% include "tags/search_user_snipet.html" with target="#customer" target_name="#user-search" fieldname="Customer Name" %}
         <div class="form-group">
             <label for="amount">{% trans "Amount" %} : </label>
-            <input id="amount" type="text" name="amount">
-            <span id="amount-error" class="validation-error error">{% trans "The amount must be a number" %}</span>
+            <input id="amount" type="text" name="amount" placeholder="{% trans 'Enter the amount here...' %}" required>
         </div>
         
         <div class="form-group row">
-            <a class="mat-button mat-button-outlined" href="{%url 'voucher:voucher-home'%}">{% trans "Cancel" %}</a>
+            <a class="mat-button mat-button-outlined js-cancel" href="{%url 'voucher:voucher-home'%}">{% trans "Cancel" %}</a>
             <button class="mat-button mat-button-default" type="submit">{% trans "Recharge" %}</button>
         </div>
     </form>

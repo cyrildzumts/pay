@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
-
+{% load static %}
 {% load i18n %} 
 <head>
         <meta charset="utf-8">
@@ -30,58 +30,71 @@
 </head>
 
 <body>
-        <header class="header">
+<header class="header">
 {% block HEADER_PANEL %}
-<div class="header--panel row">
+<div class="header--panel">
   <div class="col col-1">
-    <div class="logo">
-      <a class="link link-logo" href="{%url 'home'%}"> PAY </a>
-    </div>
+   <div class="row">
+        <button class="js-menu menu-button mat-button"><i class="btn-icon fas fa-bars"></i> {% trans "Menu" %}</button>
+        <button class="js-menu-close menu-close menu-button mat-button"><i class="btn-icon fas fa-times"></i> {% trans "Close" %}</button>
+        <ul class="logo">
+            <li><a class="mat-button mat-button-text" href="{%url 'home'%}">{{site_name}}</a></li>
+        </ul>
+   </div>
+    
   </div>
-  <div class="col col-11">
-    <nav class="nav">
-      <a href="#discover">{% trans 'Discover our services'%}</a>
-      <a href="#pay">PAY</a>
-      <a href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a>
-      <a href="#enterprise">{% trans 'For Businesses'%}</a>
-      {% if request.user.is_authenticated %}
-      <a class="link" href="{% url 'accounts:account' %}">{% trans 'My Account' %}</a>
-      <a class="signout-btn link signout" href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a>
-      {% else %}
-      <a class="dialog-btn" href="{% url 'accounts:register' %}" data-tab="1" data-target="#signup-dialog">{% trans 'Create an Account' %}</a>
-      <a class="dialog-btn" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Login' %}</a>
-      
-
+    <ul class="mat-list site-panel">
+      <li class="mat-list-item"><a class="mat-button mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
+      {% if is_dashboard_allowed %}
+       <li class="mat-list-item"><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
       {% endif %}
-      <div class="languages">
-      <form id="lang-form" class="lang-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
-        <input name="next" type="hidden" value="{{redirect_to}}">
-        <input id="current-lang" type="hidden" name="language" value="">
-      </form>
-      {% for lang in LANGUAGES %}
-        {% if lang.0 == LANGUAGE_CODE %}
-        <span class="js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span>
-         {% else %}
-         <span class="js-lang lang" title="{{lang.1}}"> {{lang.0}} </span>
+      <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a></li>
+      <li class="mat-list-item"><a class="mat-button mat-button-text" href="#enterprise">{% trans 'For Businesses'%}</a></li>
+      {% if request.user.is_authenticated %}
+      <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'accounts:account' %}">{% trans 'My Account' %}</a></li>
+      <li class="mat-list-item"><a class="signout-btn mat-button mat-button-text signout" href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a></li>
+      {% else %}
+      <li class="mat-list-item"><a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:register' %}" data-tab="1" data-target="#signup-dialog">{% trans 'Create an Account' %}</a></li>
+      <li class="mat-list-item"><a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:login' %}" data-tab="0" data-target="#signup-dialog">{% trans 'Login' %}</a></li>
+      
+      {% endif %}
+      <li  class="mat-list-item">
+        <form id="lang-form" name="localization-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
+                <input name="next" type="hidden" value="{{redirect_to}}">
+                <input id="current-lang" type="hidden" name="language" value="">
+        <ul class="row languages">
+        
+        
+        {% for lang in LANGUAGES %}
+                {% if lang.0 == LANGUAGE_CODE %}
+                <li><span class="mat-button js-lang lang active" title="{{lang.1}}"> {{lang.0}} </span></li>
+                {% else %}
+                <li><button type="submit" class="mat-button js-lang lang" title="{{lang.1}}"> {{lang.0}} </button></li>
+                {% endif %}
+        {% endfor %}
+        
+        </ul>
+        </form>
+      </li>
+      {% if dev_mode %}
+        {% block GRID %}
+        <li><button class="js-grid-enable baseline-grid-btn mat-button mat-button-text">{% trans "Enable Grid" %}</button></li>
+        {% endblock GRID %}
         {% endif %}
-      {% endfor %}
-      </div>
-    </nav>
-  </div>
+    </ul>
 </div>
 {% endblock HEADER_PANEL %}
-                {% block GRID %}
-                <button class="js-grid-enable baseline-grid-btn">Enable Grid</button>
-                {% endblock GRID %}
+
+
                 
-        </header>
+</header>
         <div class="page">
                 
                 <div class="page--banner">
                         {% block HEADER_BANNER %}
                         {% endblock HEADER_BANNER %}
                 </div>
-                {% block MESSAGES %}
+                {% comment %}{% block MESSAGES %}
                 {% if messages %}
                 <ul class="messages">
                 {% for message in messages %}
@@ -93,6 +106,7 @@
                 {% endif %}
                 
                 {% endblock MESSAGES %}
+                {% endcomment %}
                 {% block DIALOGS %}
                 
                 {% endblock DIALOGS %}
@@ -121,6 +135,39 @@
                 </div>
                 </footer>
         </div>
+{% block NOTIFICATIONS %}
+        <div id="notifications-wrapper" class="flex-column notifications-wrapper">
+                <div class="row notifications-controls">
+                        <button class="mat-button mat-button-default"><i class="button-icon icon"></i> <span class="button-text">{% trans "Close all" %}</span></button>
+                </div>
+                {% if messages %}
+                        <ul class="messages">
+                        {% for message in messages %}
+                                <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+                        {% endfor %}
+                        
+                        </ul>
+                        
+                {% endif %}
+                
+                <div class="notifications-container">
+
+                        <ul id="notifications" class="notification-list">
+                        {% if notifications %}
+                                {% for notification in notifications %}
+                                <li class="notification-contaner">
+                                        <div class="notification box">
+                                                <span class="js-close"></span>
+                                                <div class="title">{{notification.title}}</div>
+                                                <div class="content">{{notification.content}}</div>
+                                        </div>
+                                </li>
+                                {% endfor %}
+                        {% endif %}
+                        </ul>
+                </div>
+        </div>
+{% endblock NOTIFICATIONS %}
 
         {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
          
@@ -128,8 +175,10 @@
         
          <script  src="{% static "js/lib/pubsub.js" %}"></script>
          {% endcomment %}
-         <script  src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
+        <script  src="{% static 'js/vendor/jquery-3.4.0.min.js' %}"></script>
         <script  type="application/javascript" src="{% static 'js/pay.js' %}"></script> 
+        {% block SCRIPT %}
+        {% endblock SCRIPT %}
 </body>
 
 </html>

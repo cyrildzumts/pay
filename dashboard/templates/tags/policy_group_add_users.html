@@ -1,0 +1,51 @@
+{% load i18n %}
+<form action="{% url 'dashboard:policy-group-update-members' group.policy_group_uuid %}" method="post">{% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-5">
+            <section class="mat-list-wrapper">
+                <div class="mat-list-header">
+                    <div class="list-title">
+                        {% trans "Available Users" %}
+                    </div>
+                    <i class="hint">{% trans "Click on a user to add it to a the group" %}</i>
+                </div>
+                <ul class="mat-list js-user-selector">
+                    {% for u in users %}
+                        <li class="mat-list-item" data-id="{{u.pk}}">{{u.username}} - {{u.get_full_name}}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+
+        <div class="col-xs-12 col-5">
+            <section class="mat-list-wrapper">
+                <div class="mat-list-header">
+                    <div class="list-title">
+                        {% trans "Selected Users" %}
+                    </div>
+                    <i class="hint">{% trans "Click on a user to remove it from the group" %}</i>
+                </div>
+                <ul id="selected-members" class="mat-list js-users-selected">
+                    {% for u in members %}
+                        <li class="mat-list-item" data-id="{{u.pk}}">{{u.username}} - {{u.get_full_name}}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+<div class="hide">
+    <input type="text" name="name" value="{{group.name}}">
+    <input type="text" name="policy" value="{{group.policy.pk}}">
+</div>
+<select class="hide" name="members" id="members" multiple>
+{% for u in members %}
+    <option value="{{u.pk}}" selected>{{u.username}} - {{u.get_full_name}}</option>
+{% endfor %}
+</select>
+<div class="form-group">
+<a class="mat-button mat-button-text js-dialog-close" href="{{group.get_dashboard_absolute_url}}">{% trans "Cancel" %}</a>
+<button class="mat-button mat-button-default" type="submit">{% trans "Update Group" %}</button>
+</div>
+</form>

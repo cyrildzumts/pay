@@ -1,0 +1,33 @@
+{% load i18n %} 
+
+<div class="responsive">
+    
+    <form id="idcard-form" name="idcard" action="{% url 'payments:upload-idcard' %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+        <input type="hidden" name="user" value="{{request.user.pk}}">
+        <div class="form-group">
+            <label for="card_number">{% trans "Card Number" %}* : </label>
+            <input type="number" name="card_number" id="card_number" placeholder="{% trans 'Enter your ID Card number' %}">
+        </div>
+        <div class="form-group">
+            <label for="delivery_at">{% trans "Issued Date" %}*: </label>
+            <input id="delivery_at" type="date" name="delivery_at" id="delivery_at" placeholder="{% trans 'Enter the delivery date' %}">
+        </div>
+        <div class="form-group">
+            <label for="expire_at">{% trans "Valid until " %}*: </label>
+            <input id="expire_at" type="date" name="expire_at" id="expire_at">
+        </div>
+        <div>
+            <label for="delivery_place">{% trans "Where was it delivered ?" %}* : </label>
+            <input id="delivery_place" type="text" name="delivery_place" id="delivery_place" placeholder="Enter the delivery place">
+                        
+        </div>
+        <div class="form-group">
+            <label for="image">{% trans "Select your ID card image :" %} (jpg, png)*</label>
+            <input type="file" name="image" id="image">    
+        </div>
+        <div class="form-group row">
+            <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
+            <button class="mat-button mat-button-default" type="submit">{% trans "Send" %}</button>
+        </div>
+    </form>
+</div>

@@ -18,6 +18,7 @@ def generate_voucher(context={}):
         name = context.get('name', name)
         amount = context.get('amount', amount)
         number = context.get('number', number)
+        user   = context.get('user')
 
     logger.info("Starting generating %s  %s vouchers card with credit of %s", number, name, amount)
     kwargs = {

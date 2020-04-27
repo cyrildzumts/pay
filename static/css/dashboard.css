@@ -111,3 +111,26 @@
     padding: 5px 10px;
     margin: 2px 5px;
 }
+
+.metric{
+    width: 250px;
+    background-color: #fafafa;
+    font-family: 'Montserrat';
+    text-align: center;
+    text-transform: uppercase;
+    padding: 8px !important;
+    margin: 8px !important;
+
+}
+
+.metric-title{
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+.metric-value{
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 16px;
+}

@@ -1,15 +1,17 @@
-{% extends "flat_minimal_base.html" %}
+{% extends "base_flat.html" %}
 {% load i18n %} 
-{% block MAINCONTENT %}
-    <div  class="flat-card">
-        <section class="flat-row flex-center">
-            <div class="header">
-                {% trans "Access interdit :  500 ! Oups !" %}
+{% block MAIN %}
+    <div  class="row">
+        <div class="error-40x box">
+            <div class="title">
+                {% trans "Access Forbidden ! " %} :  403  Oups !
             </div>
-            <div class="flat-main-content">
-                    <p> {% trans "Vous n'avez pas le droit d'accéder à cette page." %}</p>
-                    <p><a  href="#"> {% trans "Retour à l'Acceuille" %} </a> </p>
+            <div class="box-content content">
+                    <p> {% trans "You are not allowed to access this page." %}</p>
             </div>
-        </section>
+            <div class="actions">
+                <a class="mat-button mat-button-default" href="{% url 'home' %}">{% trans "Go back to Home Page" %} </a>
+            </div>
+        </div>
     </div> 
-  {% endblock MAINCONTENT %}
+  {% endblock MAIN %}

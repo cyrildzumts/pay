@@ -1,12 +1,16 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "RECHARGE MY ACCOUNT" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 
 {% block MAIN %}
 
 <div class="container">
-    <div class="card">
-
+    <div class="col-xs-12 col-8">
+        <div class="mat-box">
+        {% include "tags/recharge_form.html" %}
+        </div>
     </div>
-    {% include "tags/recharge_form.html" %}
 </div>
 {% endblock MAIN %}

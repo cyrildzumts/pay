@@ -1,228 +1,31 @@
+/* PAY COLORS */
+:root{
+    --body-bg: #1F2833;
+    --header-hover-color: #66FCF1; 
+    --header-bg: #45A29E;
+    --header-color: #fff;
+    --header-panel-bg :#0B0C10;
+    --header-panel-color: #fff;
+    --banner-bg: #45A29E;
+    --banner-color: #fff;
+    --card-bg : transparent;
+    --card-color : #616161;
+    --btn-border : 1px solid #66FCF1;
+    --btn-color: #66FCF1;
+    --input-border : 1px solid #ccc;
+    --btn-hover-border : 1px solid #454545;
+    --btn-hover-color: #454545;
+    --box-shadow: 0 1px 0 rgba(9,45,66,.25);
+    --in-bg : #4caf50;
+    --in-color: #eeeeee;
+    --out-bg:#e91e63;
+    --out-color:#eeeeee;
+    --logo-bg: #fff;
+    --logo-color: #242424;
+    --nav-link-color: #fff;
+    --nav-link-hover-color: #242424;
+    --form-bg: transparent;
+    --form-color: #242424;
+  
+  }
 
-.link{
-    color: #242424;
-    text-decoration: none;
-}
-
-.usage-description{
-    width: 100%;
-    text-align: left;
-    padding: 10px 18px;
-}
-
-.usage-description a{
-    text-decoration: none;
-    color: var(--btn-color);
-    font-weight: 600;
-    padding: 16px 18px;
-}
-
-.usage-description a:link{
-    color: var(--btn-color);
-}
-
-.advantages{
-    background-color: #fff;
-    color: #242424;
-    min-height: 25rem;
-    padding: 18px 20px;
-}
-
-.advantage h3{
-    padding: 16px 18px;
-    font-size: 1.25rem;
-}
-
-.advantage p{
-    color: #242424;
-    font-size: 1rem;
-    padding: 16px 18px;
-}
-
-.advantage a{
-    text-decoration: none;
-    color:#66FCF1;
-    font-weight: 600;
-    padding: 16px 18px;
-}
-
-.logo{
-    text-decoration: none;
-    color: var(--logo-color);
-    font-weight: 600;
-}
-
-.idcard{
-    max-width: 1024px;
-}
-
-.highlight{
-
-    font-weight: bold;
-    color: aquamarine;
-}
-
-.shadow{
-    box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
-}
-
-.box{
-    /*background-color: #ccc;*/
-    padding:16px 8px;
-    margin: 16px 4px;
-    text-align: center;
-    border: 2px solid #ccc;
-    font-size: 0.8em;
-}
-
-.entry{
-    width: 100%;
-    font-size: 1.333em;
-    text-align: center;
-    padding: 16px 8px;
-}
-
-.box .title{
-    width: 100%;
-    font-size: 1em;
-    font-weight: bold;
-    
-}
-
-.box .subtitle{
-    width: 100%;
-    font-size: 0.8em;
-}
-
-.dock{
-
-    display: flex;
-    align-items: center;
-    
-    position: relative;
-    list-style-type: none;
-
-}
-.dock-left{
-    flex-direction: column;
-    justify-content: left;
-    top: 0;
-    left: 0;
-}
-
-.dock-left .docklet{
-    width: 100%;
-    font-size: 1.2em;
-    font-weight: 500;
-    border: 1px solid #ccc;
-    padding: 8px;
-
-}
-
-.docklet:hover{
-
-    background-color: #ccc;
-    color: #242424;
-    border: 1px solid #242424;
-}
-
-.docklet .link{
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: 500;
-    
-}
-
-.docklet:hover .link{
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: 500;
-    color: #242424;
-}
-
-.panel{
-    display: flex;
-    align-items: baseline;
-    height: 100%;
-    font-size: 1em;
-    font-weight: bold;
-    line-height: 16px;
-    color: #242424;
-}
-
-.panel .entry{
-    width: 100%;
-    font-size: 1em;
-    text-align: center;
-    padding: 8px 8px;
-}
-
-.panel-align-left{
-    justify-content: flex-start;
-}
-.panel-align-rigth{
-    justify-content: flex-end;
-}
-
-.panel-align-center{
-    justify-content: center;
-}
-
-
-.panel.panel-column{
-    flex-direction: column;
-    width: 140px;
-    
-}
-
-.messages{
-    display: flex;
-    position: relative;
-    
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    list-style-type: none;
-    text-decoration: none;
-
-    font-size: 1.2em;
-    line-height: 16px;
-    font-weight: 700;
-
-}
-
-.info, .success, .debug, .warn, .warning, .error{
-    width: 100%;
-    min-height: 32px;
-    padding: 4px;
-    margin: 4px ;
-}
-
-.info{
-    background-color: #fff;
-    border: 2px solid #616161;
-    color: #616161 !important;
-}
-.success{
-    background-color: #fff;
-    border: 2px solid #388e3c !important;
-    color: #388e3c !important;
-}
-
-.warning, .warn{
-    background-color: #fff;
-    border: 2px solid #e64a19 !important;
-    color: #e64a19 !important;
-}
-.debug{
-    background-color: #fff;
-    border: 2px solid #1976d2 !important;
-    color: #1976d2 !important;
-}
-
-.error{
-    background-color: #fff;
-    border: 2px solid #d32f2f !important;
-    color: #d32f2f !important;
-}

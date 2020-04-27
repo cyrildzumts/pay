@@ -1,5 +1,9 @@
 {% load i18n %} 
 
+{% if can_recharge_account_voucher %}
+
+
+
 <div class="responsive">
 
     <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'dashboard:recharge' %}" method="POST">{% csrf_token %}
@@ -9,9 +13,15 @@
         </div>
         
         <div class="form-group row">
+            <a class="mat-button mat-button-text js-cancel" href="{%url 'dashboard:dashboard'%}">{% trans "Cancel" %}</a>
             <button class="mat-button mat-button-default" type="submit">{% trans "Recharge my Account" %}</button>
-            <a class="mat-button mat-button-text" href="{%url 'dashboard:dashboard'%}">{% trans "Cancel" %}</a>
         </div>
     </form>
 
 </div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}

@@ -12,16 +12,18 @@
 
                 <p> {% trans "Customer" %} : {{recharge.customer.get_full_name}} </p>
                 <p> {% trans "Seller" %} : {{recharge.seller.get_full_name}} </p>
-                <p> {% trans "Balance" %} : {{recharge.amount}} FCFA </p>
+                <p> {% trans "Balance" %} : {{recharge.amount}}  {% trans "XAF" %} </p>
                 <p> {% trans "Voucher Code" %} : {{recharge.voucher.voucher_code}} </p>
-                <p> {% trans "Creation Date" %} : {{recharge.created_at}} </p>
+                <p> {% trans "Creation Date" %} : {{recharge.created_at|date:"F j, Y"}} </p>
+                <p> {% trans "Voucher Detail" %} : <a class="mat-button mat-button-text" href="{{recharge.voucher.get_absolute_url}}"> {% trans "Voucher" %}</a></p>
+
                 
             </div>
 
             <div class="card__actions">
                   <a class="mat-button mat-button-text" href="{% url 'voucher:recharges' %}"> {% trans "Recharge List" %} </a>
                   <a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
-                  <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> Dashboard </a>
+                  <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
             </div>
           
         </div>

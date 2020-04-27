@@ -35,6 +35,9 @@ class Voucher(models.Model):
     def get_absolute_url(self):
         return reverse("voucher:voucher-detail", kwargs={"voucher_uuid": self.voucher_uuid})
 
+    def get_dashboard_absolute_url(self):
+        return reverse("dashboard:voucher-detail", kwargs={"voucher_uuid": self.voucher_uuid})
+
 
 class SoldVoucher(models.Model):
 
@@ -87,4 +90,7 @@ class Recharge(models.Model):
 
     def get_absolute_url(self):
         return reverse("voucher:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})
+    
+    def get_dashboard_absolute_url(self):
+        return reverse("dashboard:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})
     

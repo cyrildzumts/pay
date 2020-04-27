@@ -1,0 +1,60 @@
+{% load i18n %}
+<div class="col-m-12 col-5">
+
+    <div class="mat-box">
+        <div class="form-group">
+            <label for="username">{% trans "Username" %}</label>
+            <input id="username" type="text" name="username">
+        </div>
+        <div class="form-group">
+            <label for="firstname">{% trans "Firstname" %}</label>
+            <input id="firstname" type="text" name="first_name">
+        </div>
+        <div class="form-group">
+            <label for="lastname">{% trans "Lastname" %}</label>
+            <input id="lastname" type="text" name="last_name">
+        </div>
+        <div class="form-group">
+            <label for="password1">{% trans "Password" %}</label>
+            <input id="password1" type="password" name="password1">
+        </div>
+
+        <div class="form-group">
+            <label for="password2">{% trans 'Password Confirmation'%}</label>
+            <input id="password2" type="password" name="password2" >
+        </div>
+        <div class="form-group">
+            <label for="email">{% trans 'E-Mail'%}</label>
+            <input type="email" name="email">
+        </div>
+    </div>
+</div>
+<div class="col-m-12 col-5">
+    <div class="mat-box">
+    <input type="hidden" name="account_type" value="B">
+        <div class="form-group">
+            <label for="address">{% trans 'Your address'%}</label>
+            <input type="text" name="address" >
+        </div>
+        <div class="form-group">
+            <label for="telefon">{% trans 'Telefon'%}</label>
+            <input type="text" name="telefon" >
+        </div>
+        <div class="form-group">
+            <label for="city">{% trans 'City'%}</label>
+            <input type="text" name="city">
+        </div>
+        <div class="form-group">
+            <label for="country">{% trans 'Country'%}</label>
+            <input type="text" name="country">
+        </div>
+        <div class="form-group">
+            <label for="zipcode">{% trans 'Zipcode'%}</label>
+            <input type="text" name="zipcode">
+        </div>
+        <div class="form-group">
+            <label for="date_of_birth">{% trans 'Date of birth'%}</label>
+            <input type="date" name="date_of_birth">
+        </div>
+    </div>
+</div>

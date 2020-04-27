@@ -10,17 +10,22 @@
 
             <div class="col col-9">
                 <div class="banner--content flex-column">
-                    <div class="row row-left"><span class="item"><h4>{% trans "Balance" %}</h4></span></div>
+                    <div class="row row-left"><span class="item"><h4>{% trans "Current Balance" %}</h4></span></div>
                     <div class="row row-left subtitle"><span class="item"><span class="big strong">{{account.balance}} {% trans "XAF" %} </span></span></div>
                     
                 </div><!--End of Banner-Content-->
                 <div class="banner--actions">
-                        <a class="mat-button mat-button-text" href="{%url 'accounts:update' account.pk %}"> {% trans "Edit my account" %}</a>
+                        <a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a>
+                        {% if has_idcard %}
+                        <a class="mat-button mat-button-text" href="{{idcard.get_absolute_url}}"> {% trans "IDCard Detail" %}</a>
+                        <a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID" %}</a>
+                        {% else %}
+                        <a class="mat-button mat-button-text" href="{%url 'payments:upload-idcard' %}"> {% trans "Upload my ID" %}</a>
+                        {% endif %}
                         <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
                         <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transfers' %}"> {% trans "Transfer History" %}</a>
-                        
-                        <a class="mat-button mat-button-text" href="{%url 'payments:services' %}"> {% trans "Service Usage History" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:payment-home' %}"> {% trans "Payments" %}</a>
+                        <a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a>
                 </div><!--End of Banner-Actions-->
             </div><!--End of Responsive-->
         
@@ -31,35 +36,19 @@
 {% block MAIN %}
 
 <div class="row">
-        <div class="tabs">
-                
-                <div class="row">
-                        <ul  class="action-list listview">
-                                
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'accounts:password-change' %}"> {% trans "Change my password" %}</a> </li>
-                                
-                                {% if has_idcard is True %}
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' idcard.idcard_uuid %}"> {% trans "Update my ID" %}</a> </li>
-                                {% else %}
-                                <li class="action list-item"><a class="mat-button mat-button-text" href="{%url 'payments:upload-idcard' %}"> {% trans "Upload my ID" %}</a> </li>
-                                {% endif %}
-                        </ul>
-                </div>
-        </div>
-        <!--End of tabs-->
+
 </div>
 <div class="container">
-    {% if has_payments %}
-         {% include "tags/payment_list_snippet.html" %}
+    {% if latest_payments %}
+         {% include "tags/payment_list_snippet.html" with transaction_list=latest_payments list_title="Latest Payments"%}
     {% endif %}
-    {% if has_transfers %}
-         {% include "tags/transfer_list_snippet.html" %}
+    {% if latest_transfers %}
+         {% include "tags/transfer_list_snippet.html" with transaction_list=latest_transfers list_title="Latest Transfers"%}
     {% endif %}
-    {% if has_recharges %}
-         {% include "tags/recharge_list_snippet.html" %}
+    {% if latest_recharges %}
+         {% include "tags/recharge_list_snippet.html" with transaction_list=latest_recharges list_title="My Recharges"%}
     {% endif %}
 
    
 </div>
-
 {% endblock MAIN %}

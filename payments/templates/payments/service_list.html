@@ -1,20 +1,15 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
-
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Service Usage History"%}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
-
+<div class="row">
+  <div class="nav">
+    <a class="mat-button mat-button-outlined" href="{% url 'payments:available-services' %}"> {% trans "Available services" %} </a>
+  </div>
+</div>
 <div class="container">
-    {% for service in services %}
-        <div class="card">
-          <p> {% trans "Name" %} : {{service.name}} </p>
-          <p> {% trans "Price" %} : {{service.price}} FCFA </p>
-          <p> {% trans "Category" %} : {{service.category.category_name}} </p>
-          <p> {% trans "Date" %} : {{service.created_at}} </p>
-          <a class="mat-button mat-button-text" href="{% url 'payments:service-detail' service.pk %}"> {% trans "More" %} ...</a>
-        </div>
-    {% empty %}
-    <p> {% trans "You haven't used any services" %} ...</p>
-    <a class="mat-button mat-button-text" href="{% url 'payments:available-services' %}"> {% trans "See Available services" %} </a>
-    {% endfor %}
+   {% include "tags/service_list_snippet.html" with transaction_list=service_list list_title="Service Payments" %}
 </div>
 {% endblock MAIN %}

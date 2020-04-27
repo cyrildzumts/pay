@@ -1,0 +1,69 @@
+{% load i18n %} 
+{% if not request.user.is_authenticated %}
+<div id="signup-dialog" class="modal signup-dialog dialog">
+  <div class="tabs dialog-content box-shadow">
+    <div class="tab--title">
+      <div class="full welcome-text center">
+        <h4> {%trans 'Accedez à PAY'%} </h4>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="row">
+        <span class="tab active" data-toggle="#login" data-index="0"> 
+          {%trans "I have a PAY account"%}
+         </span>
+        <span class="tab" data-toggle="#register" data-index="1"> 
+          {% trans 'I want to create an PAY account'%}
+         </span>
+
+      </div>
+    </div>
+    <!--End of Tab-bar -->
+    <div class="tab-container container">
+      <div id="login" class="tab-content grid">
+        <form id="login-form" class="login-form" action="{% url 'accounts:login' %}" method="post"> {% csrf_token %}
+          <div id="error-login" class="error-login left">
+            <p></p>
+          </div>
+          <div class="form-group">
+
+            <input type="text" name="username" placeholder="{% trans 'Username'%}">
+            <input type="password" name="password" placeholder="{% trans 'Password'%}">
+          </div>
+          <div class="form-group">
+            <button id="login-submit" class="button"  name="submit" type="submit">{% trans "Login" %}</button>
+            <span class="button close" data-target="#signup-dialog">{% trans "Cancel" %}</span>
+          </div>
+
+        </form>
+      </div>
+      <!--End of Tab-content-->
+      <div id="register" class="tab-content grid">
+        <form id="signup-form" class="login-form" action="{% url 'accounts:register' %}" method="post"
+          autocomplete="off"> {% csrf_token %}
+          <input autocomplete="off" name="hidden" type="text" style="display:none;">
+          <div class="form-group">
+            <input autocomplete="off" name="hidden" type="text" style="display:none;">
+            <input type="text" name="username" placeholder="{% trans 'Username' %}" value="">
+            <input type="text" name="firstname" placeholder="{% trans 'Firstname' %}" value="">
+            <input type="text" name="lastname" placeholder=" {% trans 'Lastname' %}" value="">
+            <input type="password" name="password1" placeholder=" {% trans 'Your Password' %}" value="">
+            <input type="password" name="password1" placeholder=" {% trans 'Enter Your Password again' %}" value="">
+            <input type="email" name="email" placeholder=" {% trans 'E-Mail' %}" value="">
+            <input type="text" name="telefon" placeholder=" {% trans 'Phone-Number' %}" value="">
+          </div>
+          <div class="form-group">
+            <button id="signup-submit" class="button" name="submit" type="submit"> {% trans 'Create My PAY Account' %}</button>
+            <span class="button close" data-target="#signup-dialog"> {% trans 'Cancel' %} </span>
+          </div>
+        </form>
+      </div>
+      <!--End of Tab-content-->
+
+    </div>
+    <!--End of Tab-container-->
+  </div>
+  <!--End of tabs-->
+</div>
+<!--End of signup dialog-->
+{% endif %}

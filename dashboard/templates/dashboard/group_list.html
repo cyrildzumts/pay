@@ -1,14 +1,34 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Policy Groups" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
 
-<div class="container">
-    <ul class="mat-list horizontal-list">
-        <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span>  </a></li>
-        <li class="list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus"></i> <span>{% trans "Create A Group" %}</span> </a></li>
-    </ul>
-</div>
+            <div class="col col-9">
+                <div class="banner--actions">
+                    {% if can_add_group %}<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fas-plus"></i> <span>{% trans "Create A Group" %}</span> </a>{% endif %}
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+
+{% block MAIN_CONTENT %}
+
+{% if can_view_group %}
+
 
 <div id="group-delete-dialog" class="dialog">
     <div class="dialog-content">
@@ -21,7 +41,7 @@
         </div>
         <div class="row">
             <button class="mat-button mat-button-outlined js-close" type="button">{% trans "Cancel" %}</button>
-            <button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>
+            {% if can_delete_group %}<button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>{% endif %}
         </div>
     </div><!--End of Dialog Content-->
     
@@ -29,6 +49,7 @@
 
 <div class="container">
     {% if groups %}
+    <div class="col-m-12 col-8">
     <div class="mat-table-wrapper">
         <div class="row">
             <div class="mat-table-title">
@@ -55,7 +76,7 @@
                   <td>{{g.permissions.count}}</td>
                   <td>{{g.user_set.count}}</td>
                   <td><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
-                  <td><a class="mat-button mat-button-text danger js-need-confirmation" data-target="#group-delete-dialog" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>
+                  {% if can_delete_group %}<td><a class="mat-button mat-button-text danger js-need-confirmation" data-target="#group-delete-dialog" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>{% endif %}
                   </tr>
                   {% endfor %}
                   
@@ -70,7 +91,12 @@
     {% else %}
     <p> {% trans "There is currently no Group" %} ...</p>
     {% endif %}
+    </div>
 </div>
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 
-
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}

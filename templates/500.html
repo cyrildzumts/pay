@@ -1,19 +1,19 @@
-{% extends "flat_minimal_base.html" %}
+{% extends "base_flat.html" %}
 {% load i18n %} 
-{% block MAINCONTENT %}
-    <div  class="flat-card">
-        <section class="flat-row flex-center">
-            <div class="header">
-                {% trans "Serveur en maintenance :  500 ! Oups !" %}
+{% block MAIN %}
+    <div  class="row">
+        <div class="error-40x box">
+            <div class="title">
+                {% trans "Internal Server Error ! " %} :  500  Oups !
             </div>
-            <div class="flat-main-content">
-                    <p> 
-                        {% blocktrans %}Le serveur est actuellement en maintenance.
-veuillez revenir plus tard. Nos techniciens resolvent le problème.
-                        {% endblocktrans %}
-                    </p>
-                    
+            <div class="box-content content">
+                    <p>{% trans "The server has encountered an internal error." %}</p>
+                    <p>{% trans "If this problem persists please contact us." %}</p>
+                    <p>{% trans "Our technicians are working on the problem." %}</p>
             </div>
-        </section>
+            <div class="actions">
+                <a class="mat-button mat-button-default" href="{% url 'home' %}">{% trans "Go back to Home Page" %} </a>
+            </div>
+        </div>
     </div> 
-  {% endblock MAINCONTENT %}
+  {% endblock MAIN %}

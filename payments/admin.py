@@ -1,5 +1,5 @@
 from django.contrib import admin
-from payments.models import Reduction, Transaction, Transfer, Payment, CaseIssue, Service ,AvailableService, ServiceCategory
+from payments.models import Reduction, Transaction, Transfer, Payment, CaseIssue, Service ,AvailableService, ServiceCategory, Policy
 
 # Register your models here.
 
@@ -41,3 +41,4 @@ admin.site.register(Transaction)
 admin.site.register(Transfer)
 admin.site.register(Payment)
 admin.site.register(CaseIssue)
+admin.site.register(Policy)

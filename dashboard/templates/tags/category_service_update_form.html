@@ -1,6 +1,8 @@
 {% load i18n %} 
 
 
+{% if can_change_category %}
+
 
 <div class="responsive">
 
@@ -29,7 +31,7 @@
                     </div><!-- End of Card-body-->
 
                     <div class="card__actions">
-                            <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
+                            <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
                             <button class="mat-button mat-button-default" type="submit">{% trans "Update" %}</button>
                         </div>
                     
@@ -37,3 +39,8 @@
             </div>
     </div>          
 </div>
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}

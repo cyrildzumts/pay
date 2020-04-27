@@ -1,6 +1,7 @@
 {% load i18n %}
 
-<div>
-    <p> Your Id  was succesfull uploaded. You will be redirected to the home page in an instant.
-    Click here to directly go to your <a class="mat-button mat-button-default" href="{% url 'home' %}"> {{site_name}} </a> </p>
+<div class="mat-box">
+    <div>{% trans "Your Id  was succesfull uploaded." %}</div>
+    <div>{% trans "You will be redirected to the home page in an instant." %}</div>
+    <div> {% trans "Click here to directly go to your" %} <a class="mat-button mat-button-default" href="{% url 'home' %}"> {{site_name}} </a></div> 
 </div>

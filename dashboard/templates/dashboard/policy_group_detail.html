@@ -1,0 +1,78 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Policy Group" %} - {{group.name}}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col-xs-12 col-9">
+                <div class="banner--actions">
+                    <a class="mat-button mat-button-text" href="{{group.get_dashboard_update_url}}"><span class="pen"></span>{% trans "Edit" %}</a>
+                    <a class="mat-button mat-button-text" href="{{group.get_dashboard_remove_url}}"><span class="delete"></span>{% trans "Delete" %}</a>
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:policy-group-create'%}"><span class="add"></span>{% trans "New Policy Group" %}</a>
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups' %}"><span class="back"></span>{% trans "Policy Groups" %}</a>
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+
+{% block MAIN_CONTENT %}
+
+{% if can_view_policy %}
+<div class="container">
+        <div class="card">
+          <div class="card__title">
+              <h3>{% trans "Policy Group" %}</h3>
+          </div>
+          <div class="card__body">
+            <p> {% trans "Policy Group Name" %} : {{group.name}}</p>
+            <p> {% trans "Members" %} : {{group.members.count}} </p>
+            <p> {% trans "Commission" %} : {{group.policy.commission}}</p>
+
+            <div class="mat-list-wrapper">
+              <div class="mat-list-header">
+                <div class="list-title">{% trans "Group Members" %}</div>
+                <button class="mat-button mat-button-default js-dialog-add-members" data-target="#add-group-members">{% trans "Add members" %}</div>
+              </div>
+              
+              <ul class="mat-list">
+                {% for user in group.members.all %}
+                <li class="mat-list-item">{{user.username}} - {{user.get_full_name}}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-6">
+          <div class="mat-dialog" id="add-group-members">
+              <span class="dialog-close">{% trans "Close" %}</span>
+              <div  class="dialog-title">
+              {% trans "Add Members to policy group" %}
+              </div>
+              <div class="dialog-content">
+              {% include "tags/policy_group_add_users.html" %}
+              </div>
+          </div>
+    </div>
+</div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
+{% endblock MAIN_CONTENT %}

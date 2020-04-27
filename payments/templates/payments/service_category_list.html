@@ -1,16 +1,34 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "CATEGORIES" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 
 {% block MAIN %}
-
 <div class="container">
-    {% for category in categories %}
-        <div class="card">
-          <p> {% trans "Name" %} : {{category.category_name}} </p>
-          <p> {% trans "Date" %} : {{category.created_at}} </p>
+  <div class="row"><p>{% trans "Select the service you want to use." %}</p></div>
+  <div class="col-xs-12 col-6">
+    <ul class="nav">
+      {% for cat in category_list %}
+      <li class="mat-list-item">
+        <div class="dropdown">
+            <span class="mat-button mat-button-text dropdown-toggle">{{cat.category_name}}</span>
+            <div class="dropdown-content">
+              <ul class="listview">
+                {% for service in cat.available_services.all %}
+                <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
+                {% empty %}
+                <li class="list-item"><span class="mat-button mat-button-text disabled">{% trans "No service available" %}</span></li>
+                {% endfor %}
+              </ul>
+            </div>
         </div>
-    {% empty %}
-    <p> {% trans "There is no service categories" %} </p>
-    {% endfor %}
+        
+        
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
+
 {% endblock MAIN %}

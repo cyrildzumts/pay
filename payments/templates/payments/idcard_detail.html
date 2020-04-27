@@ -1,34 +1,53 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "MY ID CARD" %} </h4>
+{% endblock HEADER_BANNER_TITLE %}
+
 {% block MAIN %}
 
-<div class="container flex column">
-        {% if has_idcard %}
-            <div class="card">
-                <div class="card__body">
-                    <p class="responsive"> {% trans "ID number" %} : {{idcard.card_number}} </p>
-                    <p class="responsive"> {% trans "Delivery Place " %} : {{idcard.delivery_place}} </p>
-                    <p class="responsive"> {% trans "Delivered at " %} : {{idcard.delivery_at}} </p>
-                    <p class="responsive"> {% trans "Expire at " %} : {{idcard.expire_at}} </p>
-                </div>
-                <div class="card__image responsive idcard"> 
-                    <p>{% trans "Image" %}: </p>
-                    <img class="full js-zoom" src="{{idcard.image.url}}"/>
-                </div>
-                <div class="card__actions">
-                    <a class="mat-button mat-button-text" href="{%url 'payments:idcard-update' idcard.pk %}"> {% trans "Update my ID Card" %}</a>
-                    <a class="mat-button mat-button-text" href="{% url 'payments:payment-home' %}"> {% trans "Payment Home" %} </a>
-                </div>
 
+<div class="container">
+        {% if has_idcard %}
+            {% if idcard.has_expired %}
+            <div class="mat-box">
+                <div class="warning"><span>{% trans "Your ID Card has expiered since" %}</span><span class="emphasis"> {{idcard.expire_at|timesince}}</span></div>
+                <ul class="actions">
+                    <li><a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID Card" %}</a></li>
+                </ul>
             </div>
             
-        {% else %}
-            <p> {% trans "Wrong request" %} </p>
-        {% endif %}
-        <div class="responsive">
-                
-        </div>
+            {% endif %}
         
+        <div class="col-xs-12 col-6">
+            <div class="mat-list-wrapper">
+                <div class="mat-list-header">
+                    <div class="title">
+                    {% trans "ID CARD INFO" %}
+                    </div>
+                </div>
+                <ul class="mat-list">
+                    <li class="mat-list-item entry"><span class="key">{% trans "ID number" %}</span><span class="value">{{idcard.card_number}}</span></li>
+                    <li class="mat-list-item entry"><span class="key">{% trans "Delivery Place " %}</span><span class="value">{{idcard.delivery_place}}</span></li>
+                    <li class="mat-list-item entry"><span class="key">{% trans "Delivered at " %}</span><span class="value">{{idcard.delivery_at|date:"F j, Y"}}</span></li>
+                    <li class="mat-list-item entry"><span class="key">{% trans "Valide until " %}</span><span class="value">{{idcard.expire_at|date:"F j, Y"}}</span></li>
+                    <li class="mat-list-item entry">
+                        <div class="col-m-12 col-4">
+                            <div class="image-wrapper">
+                                <img class="img-responsive js-zoom" src="{{idcard.image.url}}"/>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-xs-12 col-6">
+            <p> {% trans "You have not uploaded an ID Card yet." %} </p>
+            <p>{% trans "You will not be able to use some features of PAY" %}</p>
+            <p>{% trans "Follow this link to add your ID Card." %} <a class="mat-button mat-button-text" href="payments:upload-idcard">{% trans "Add my ID Card" %}</a></p>
+        </div>  
+        {% endif %}        
 </div>
 {% endblock MAIN %}

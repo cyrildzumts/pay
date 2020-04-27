@@ -1,103 +1,24 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
+{% if not can_access_dashboard %}
+{% include "tags/unauthorized.html" %}
+{% else %}
 
 {% block HEADER_BANNER %}
-{% if not is_allowed %}
-         {% include "tags/unauthorized.html" %}
-{% else %}
-
-  <div class="container">
-        <div class="row">
-                <h3>Dashboard</h3>
-        </div>
-        <div class="row flex-wrap">
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans 'Service Usage' %} </p>
-                                <p>{{summary.service_summary.usage_count}}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans 'Number of Transfer' %} </p>
-                                <p>{{summary.transfer_summary.number_of_transfers}}</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Total Paid amount for this month" %} </p>
-                                <p>{{summary.service_summary.total_amount}} FCFA</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Min Transferred amount" %}</p>
-                                <p>{{summary.transfer_summary.min_transferred_amount}} FCFA</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title"> {% trans "Max Paid amount Service" %} </p>
-                                <p>{{summary.service_summary.max_paid_amount}} FCFA</p>
-                        </div>
-                       
-
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Average Paid amount for Service this month" %} </p>
-                                <p>{{summary.service_summary.average_amount}} FCFA</p>
-                        </div>
-                        
-                </div>
-                <div class="responsive">
-                        <div class="box">
-                                <p class="title">{% trans "Average Transferred amount this month" %} </p>
-                                <p class="subtitle">{{summary.transfer_summary.average_transferred_amount}} FCFA</p>
-                        </div>
-                        
-                </div>
-        </div>
-  </div>
-  {% endif %}
+        {% block BANNER_TITLE %}
+                {% include "tags/dashboard_summary.html" %}
+        {% endblock BANNER_TITLE %}
 {% endblock HEADER_BANNER %}
 
-{% block MAIN %}
-{% if not is_allowed %}
-        <div class="warning">
-                <a class="mat-button mat-button-text" href="{% url 'home' %}">{% trans "Go back to PAY HOME PAGE" %}</a>
-        </div>
-{% else %}
-
+{% block MAIN_CONTENT %}
 <div class="container row">
-        <div class="col col-2">
-                <aside class="panel panel-align-left">
-                        <ul class="dock dock-left">
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:group-create'%}">{% trans "Create Group" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available_services'%}">{% trans "Available Services" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category_services' %}">{% trans "Categories" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>
-                                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
-                        </ul>
-                </aside>
-        </div>
-
         <div class="col col-10">
                 <div class="container">
                         <div class="row">
                                 <div class="col col-9">
                                         <div class="row">
+                                                {% if can_view_transfer %}
+                                                
                                                 <div class="col col-6">
                                                         <div class="row">
                                                            <div class="mat-table-wrapper">
@@ -122,7 +43,7 @@
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-transfer"></td>-->
                                                                                 <td>{{xfer.sender.username}}</td>
                                                                                 <td>{{xfer.amount}} {% trans "XAF" %}</td>
-                                                                                <td>{{xfer.created_at}}</td>
+                                                                                <td>{{xfer.created_at|date:"F j, Y"}}</td>
                                                                                 </tr>
                                                                                 {% endfor %}
                                                                                 
@@ -136,7 +57,10 @@
                                                            </div> <!--End of Table Wrapper-->
                                                         </div> <!--End of Row-->
                                                 </div> <!--End of Col-6-->
-
+                                                {% endif %}
+                                                {% if can_view_service %}
+                                                
+                                                
                                                 <div class="col col-6">
 
                                                         <div class="row">
@@ -162,7 +86,7 @@
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                                                                                 <td>{{s.name}}</td>
                                                                                 <td>{{s.price}} {% trans "XAF" %}</td>
-                                                                                <td>{{s.created_at}}</td>
+                                                                                <td>{{s.created_at|date:"F j, Y"}}</td>
                                                                                 </tr>
                                                                                 {% endfor %}
                                                                                 
@@ -178,6 +102,7 @@
                                                         
                                                 
                                                 </div><!--End of Col-6-->
+                                                {% endif %}
                                         </div><!--End of Row-->
                                 </div><!--End of Col-9-->
                         </div><!--End of Row-->
@@ -185,6 +110,6 @@
         </div><!--End of Col-10-->
 
 </div>
-
+{% include "tags/analytics.html" %}
+{% endblock MAIN_CONTENT %}
 {% endif %}
-{% endblock MAIN %}

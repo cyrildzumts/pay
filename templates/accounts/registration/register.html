@@ -1,0 +1,92 @@
+
+{% extends "base_flat.html" %}
+{% load i18n %} 
+{% block HEADER_PANEL %}
+  <div class="header--panel row">
+       <div class="col col-1">
+              <div class="logo">
+                <a class="link" href="{%url 'home'%}"> {{site_name}} </a>
+              </div>
+        </div>
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+
+{% endblock HEADER_BANNER %}
+
+{% block MAIN %}
+
+<div class="padded-wrapper-top">
+  <div class="grid">
+    <div class="title">
+      {%trans 'Registration'%}
+    </div>
+
+    <div class="form-wrapper">
+        <form class="signup-form flex-column" action="{% url 'accounts:register'%}" method="POST">{% csrf_token %}
+        {% comment %}
+          <div class="form-group">
+            <label for="username">{% trans "Username" %} : </label>
+            <input type="text" name="username" value="{{user_form.username.value}}">
+         </div>
+         <div class="form-group">
+         <label for="first_name">{% trans 'Firstname'%} :</label>
+          <input type="text" name="first_name" value="{{user_form.first_name}}">
+          </div>
+          <div class="form-group">
+            <label for="last_name">{% trans "Lastname" %} : </label>
+            <input type="text" name="last_name" value="{{user_form.last_name}}">
+          </div>
+          <div class="form-group">
+            <label for="password">{% trans 'Password'%}</label>
+            <input type="password" name="password1" >
+            
+          </div>
+          <div class="form-group">
+            <label for="password2">{% trans 'Password Confirmation'%}</label>
+            <input type="password" name="password2" >
+          </div>
+          <div class="form-group">
+            <label for="email">{% trans 'E-Mail'%}</label>
+            <input type="email" name="email" value="{{user_form.email}}">
+          </div>
+
+          <div class="form-group">
+            <label for="address">{% trans 'Your address'%}</label>
+            <input type="text" name="address" placeholder="{{account_form.address}}">
+          </div>
+          <div class="form-group">
+            <label for="zipcode">{% trans 'Zipcode'%}</label>
+            <input type="text" name="zipcode" value="{{account_form.zipcode}}">
+          </div>
+          <div class="form-group">
+            <label for="date_of_birth">{% trans 'Date of birth'%}</label>
+            <input type="date" name="date_of_birth" value="{{account_form.date_of_birth}}">
+          </div>
+          <div class="form-group">
+            <label for="country">{% trans 'Country'%}</label>
+            <input type="text" name="country" value="{{account_form.country}}">
+          </div>
+          <div class="form-group">
+            <label for="city">{% trans 'City'%}</label>
+            <input type="text" name="city" value="{{account_form.city}}">
+          </div>
+        {% endcomment %}
+          {% include "tags/form_snippet.html" with form=user_form %}
+          {% include "tags/form_snippet.html" with form=account_form %}
+          <div class="form-group">
+            <a class="mat-button mat-button-outlined" href="{%url 'home'%}"> {% trans "Cancel" %} </a>
+            <button class="mat-button mat-button-default" type="submit">{%trans 'Create My Account'%} </button>
+          </div>
+          <div class="form-group">
+              <span class="register-hint">{% trans "Already have an account ? " %}</span><a class="mat-button mat-button-default register-btn" href="{% url 'accounts:login' %}">{% trans "Sign In" %}</a>
+          </div>
+          
+          
+        </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock MAIN %}

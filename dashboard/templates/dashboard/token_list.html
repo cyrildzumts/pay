@@ -1,0 +1,62 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Tokens" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col col-9">
+                <div class="banner--actions">
+                    
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+
+{% block MAIN_CONTENT %}
+
+{% if can_view_user %}
+
+{% if token_list %}
+    <div class="col-m-12 col-6">
+        <div class="mat-list-wrapper">
+            <div class="mat-list-header">
+                <span class="title">{% trans "Token List" %}</span>
+            </div>
+            <ul class="mat-list">
+                {% for token in token_list %}
+                <li class="mat-list-item">
+                        <div class="entry">
+                            <span>{{token.key}}</span> <i class="separator-ht"></i> <span class="emphasis">{{token.user.username}}</span>
+                        </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% include "tags/pagination.html" with page_set=token_list %}
+        </div>
+    </div>
+
+    {% else %}
+    <p> {% trans "You is no Token yet." %}.</p>
+
+    {% endif %}
+    </div>
+</div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
+{% endblock MAIN_CONTENT %}

@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="flex flex-column">
+    <div class="form-group">
+        <label for="search">{% trans fieldname %} : </label>
+        <input class="js-user-search" type="text" name="search" id="user-search">
+    </div>
+    <div class="searcu-result-container">
+        <ul class="js-user-search-result user-search-result" id="user-search-result" data-target-name="{{target_name}}" data-target="{{target}}">
+
+        </ul>
+    </div>  
+</div>

@@ -1,0 +1,55 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Payments for year "%} {{year|date:"Y"}}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+{% block MAIN %}
+
+<div class="container">
+  <div class="col-xs-12 col-6">
+    <div class="mat-list-wrapper">
+      <div class="mat-list-header">{% trans "Month" %}</div>
+      <ul class="mat-list">
+        {% for date in date_list %}
+        <li class="mat-list-item"><a href="{% url 'payments:payment-month-archive' year|date:'Y' date|date:'n' %}">{{date|date:"m, Y"}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-12 col-6">
+    <div class="mat-table-wrapper">
+        <table id="transaction-list" class="mat-table js-filter-table">
+          <caption>{% trans "Payments List" %}</caption>
+          <thead>
+                  <tr>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          <th>{% trans "Sender" %}</th>
+                          <th>{% trans "Recipient" %}</th>
+                          <th>{% trans "Amount" %}</th>
+                          <th>{% trans "Date of usage" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for payment in object_list  %}
+                  <tr>
+                    <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
+                    <td data-label="{% trans 'Sender' %}">{{payment.sender.username}}</td>
+                    <td data-label="{% trans 'Recipient' %}">{{payment.recipient.username}}</td>
+                    <td data-label="{% trans 'Amount' %}">{{payment.amount}} {% trans "XAF" %}</td>
+                    <td data-label="{% trans 'Date' %}">{{payment.created_at}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{payment.get_absolute_url}}">{% trans "More" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    {% include "tags/pagination.html" with page_set=object_list %}
+    </div><!--End of Table Wrapper-->
+  </div>
+</div>
+{% endblock MAIN %}

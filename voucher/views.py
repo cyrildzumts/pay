@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
+from django.db.models import F, Q
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,7 +12,8 @@ from voucher.forms import VoucherCreationForm, RechargeCustomerAccount, Recharge
 from voucher.tasks import generate_voucher
 from voucher import voucher_service
 from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 import logging
 from datetime import datetime
 # Create your views here.
@@ -63,7 +65,6 @@ def voucher_details(request, voucher_uuid=None):
 
     context = {
         'page_title': page_title,
-        'template_name': template_name,
         'voucher': instance
     }
     return render(request, template_name, context)
@@ -72,10 +73,12 @@ def voucher_details(request, voucher_uuid=None):
 @login_required
 def voucher_activate(request, voucher_uuid=None):
     c = Voucher.objects.filter(voucher_uuid=voucher_uuid, activated=False, is_used=False).update(
-        activated=True, activated_at=datetime.now(), activated_by=request.user)
+        activated=True, activated_at=timezone.now(), activated_by=request.user, is_sold=True, sold_by=request.user, sold_at=timezone.now())
     if c > 0:
+        messages.success(request, _("Voucher activated"))
         return redirect('voucher:vouchers')
     else:
+        messages.error(request, _("Voucher not activated"))
         return redirect('voucher:voucher-detail', voucher_uuid=voucher_uuid)
 
 
@@ -83,9 +86,9 @@ def voucher_activate(request, voucher_uuid=None):
 def recharge_user_account_view(request):
     #TODO : Add permission check here if must be check if the user sending this request 
     # is allowed to recharge a user account
-    page_title = _("Recharge User Account") + ' | ' + settings.SITE_NAME
+    page_title = _("Recharge User Account") + ' - ' + settings.SITE_NAME
     template_name = "voucher/recharge.html"
-    context = {}
+    
     logger.info("User Recharge Account view requested by user %s", request.user.get_full_name())
     if request.method == "POST":
         logger.info("Received new Recharge request for user account")
@@ -101,11 +104,10 @@ def recharge_user_account_view(request):
             result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
             if result.get('succeed', False):
                 messages.success(request, _("The customer account has been successfuly recharged"))
-                context['succeed'] = True
                 logger.info("recharge_user_account_view() : Customer %s was successfully recharge with the Amount = %s .", customer, amount)
+                return redirect('voucher:voucher-home')
             else :
                 messages.error(request, _("Your request could not processed. You might need to check that the submitted data are correct."))
-                context['succeed'] = True
                 logger.info("recharge_user_account_view() : Customer = %s could not be recharge with the  Amount = %s .", customer, amount)
         else :
             
@@ -116,7 +118,10 @@ def recharge_user_account_view(request):
             logger.error(form.errors)
     elif request.method == "GET":
         form = RechargeCustomerAccountByStaff()
-        context['form'] = form,
+    context = {
+        'form' : form,
+        'page_title' : page_title
+    }
     return render(request,template_name, context)
     
 
@@ -148,7 +153,7 @@ def used_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_used_voucher_set()
+    voucher_list = Voucher.objects.filter(is_used=True).order_by('-created_at')
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
@@ -160,7 +165,7 @@ def used_vouchers(request):
     template_name = "voucher/used_voucher_list.html"
     page_title = _("Used Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['voucher_list'] = voucher_list
+    context['voucher_list'] = voucher_set
     return render(request, template_name, context)
 
 
@@ -168,11 +173,11 @@ def used_vouchers(request):
 def used_voucher_details(request, voucher_uuid=None):
     page_title = _("Used Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(UsedVoucher, voucher_uuid=voucher_uuid)
-    template_name = "voucher/used_voucher_details.html"
+    template_name = "voucher/voucher_details.html"
     context = {
         'page_title': page_title,
-        'template_name': template_name,
-        'used_voucher': instance
+        'used_voucher': instance,
+        'voucher' : instance
     }
     return render(request, template_name, context)
 
@@ -183,7 +188,7 @@ def sold_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_sold_voucher_set()
+    voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(activated=True)).order_by('-created_at')
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
@@ -195,19 +200,19 @@ def sold_vouchers(request):
     template_name = "voucher/sold_voucher_list.html"
     page_title = _("Sold Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
-    context['voucher_list'] = voucher_list
+    context['voucher_list'] = voucher_set
     return render(request, template_name, context)
 
 
 @login_required
 def sold_voucher_details(request, voucher_uuid=None):
     page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(SoldVoucher, voucher_uuid=voucher_uuid)
-    template_name = "voucher/sold_voucher_details.html"
+    instance = get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
+    template_name = "voucher/voucher_details.html"
     context = {
         'page_title': page_title,
-        'template_name': template_name,
-        'sold_voucher': instance
+        'sold_voucher': instance,
+        'voucher' : instance
     }
     return render(request, template_name, context)
 

@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div id="payment-request-reports" class="row">
+    <div id="payment-request-paid" class="metric mat-box">
+            <div class="metric-title">{% trans "Payment Request" %}</div>
+            <div><span class="metric-value">{{payment_request_report.total_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="payment-request-count" class="metric mat-box">
+            <div class="metric-title">{% trans "Payment Request Count" %}</div>
+            <div><span class="metric-value">{{payment_request_report.total_count}}</span></div>
+    </div>
+    <div id="payment-request-average" class="metric mat-box">
+            <div class="metric-title">{% trans "Average Payment Request" %}</div>
+            <div><span class="metric-value">{{payment_request_report.avg_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="payment-request-min" class="metric mat-box">
+            <div class="metric-title">{% trans "Min Payment Request" %}</div>
+            <div><span class="metric-value">{{payment_request_report.min_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="payment-request-max" class="metric mat-box">
+            <div class="metric-title">{% trans "Max Payment Request" %}</div>
+            <div><span class="metric-value">{{payment_request_report.max_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+</div>

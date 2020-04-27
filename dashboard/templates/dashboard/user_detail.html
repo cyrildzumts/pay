@@ -1,0 +1,92 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "User Information" %} - {{user_instance.username}}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col col-9">
+                <div class="banner--actions">
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}">{% trans "Users" %}</a>
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+
+{%block MAIN_CONTENT %}
+
+                
+<div class="container">
+        <nav class="nav">
+                <ul class="actions" role="navigation">
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}"> {% trans "Users" %} </a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
+                </ul>
+        </nav>
+        <div class="box">
+                <div class="title">
+                        <span>{% trans "User" %}</span>
+                </div>
+                <div class="box-content">
+                        <div class="entry">
+                                <span class="key">{% trans "Username" %}</span> <span class="value">{{user_instance.username}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Lastname" %}</span> <span class="value">{{user_instance.last_name}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Firstname" %}</span> <span class="value">{{user_instance.first_name}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "E-Mail" %}</span> <span class="value">{{user_instance.email}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Date joined" %}</span> <span class="value">{{user_instance.date_joined|date:"F j, Y"}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Last login" %}</span> <span class="value">{{user_instance.last_login|date:"F j, Y"}}</span>
+                        </div>
+                </div>
+                
+        </div>
+        {% if user_instance.account %}
+        <div class="box">
+                <div class="title">
+                     <span>{% trans "Account Information" %}</span>
+                </div>
+                <div class="box-content">
+                        <div class="entry">
+                                <span class="key">{% trans "Country" %}</span> <span class="value">{{user_instance.account.country}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "City" %}</span> <span class="value">{{user_instance.account.city}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Telefon" %}</span> <span class="value">{{user_instance.account.telefon}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Account Type" %}</span> <span class="value">{{user_instance.account.account_type}}</span>
+                        </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Balance" %}</span> <span class="value">{{user_instance.account.balance}} {% trans "XAF" %}</span>
+                        </div>
+                        
+                </div>
+        </div>
+        {% endif %}
+</div>
+                
+{% endblock MAIN_CONTENT %}
+
+

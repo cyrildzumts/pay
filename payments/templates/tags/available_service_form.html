@@ -4,7 +4,7 @@
     <div class="form-group">
             
     </div>
-    <form id="available-services-form" class="available-services-form form" name="available_services" action="{% url 'payments:available-services' %}" method="POST">{% csrf_token %}
+    <form id="available-services-form"  name="available_services" action="{% url 'payments:available-services' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="created_by" value="{{request.user.pk}}">
         <div class="form-group">
             <input type="text" name="service_code" id="code" placeholder="{% trans 'Enter the service code' %}">
@@ -21,8 +21,8 @@
             <input type="checkbox" name="is_active" id="is_active" checked>
         </div>
         <div class="form-group row">
+            <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
             <button class="mat-button mat-button-default" type="submit">{% trans "Create the Service" %}</button>
-            <a class="mat-button mat-button-default" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
         </div>
     </form>
 </div>

@@ -1,5 +1,6 @@
 {% load i18n %} 
 
+{% if can_add_available_service %}
 
 
 <div class="responsive">
@@ -11,7 +12,7 @@
         <div class="card__body">
         
         
-                <form class="form card" name="available_service" action="{% url 'dashboard:available_service_create' %}" method="POST">{% csrf_token %}
+                <form class="form card" name="available_service" action="{% url 'dashboard:available-service-create' %}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     
                     <div class="form-group">
@@ -65,7 +66,7 @@
                     </div><!-- End of Card-body-->
 
                     <div class="card__actions">
-                            <a class="mat-button mat-button-text" href="{% url 'dashboard:available_services' %}">{% trans "Cancel" %}</a>
+                            <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:available-services' %}">{% trans "Cancel" %}</a>
                             <button class="mat-button mat-button-default" type="submit">{% trans "Create" %}</button>
                         </div>
                     
@@ -73,3 +74,10 @@
             </div>
     </div>          
 </div>
+
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}

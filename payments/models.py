@@ -1,10 +1,47 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.db.models import Q
 from django.dispatch import receiver
 from django.urls import reverse
 from pay import settings
+from pay import utils
 import uuid
+import datetime
+
+
+HELP_TEXT_FOR_DATE ="Please use the following format: <em>YYYY-MM-DD</em>."
+HELP_TEXT_FOR_SERVICE_REF_NUMBER = 'Please enter the reference number issued by the operation.'
+HELP_TEXT_FOR_OPERATOR = 'Please enter the operator who is offering this service'
+help_text=HELP_TEXT_FOR_CUSTOMER = 'Please enter the customer who is using this service'
+help_text=HELP_TEXT_FOR_CUSTOMER_REF = 'Please enter the customer reference number used by the operator of this service'
+help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT = 'Please enter the date when this bill was issued (following format: <em>YYYY-MM-DD</em>.)'
+
+COMMISSION_DEFAULT = 0.03
+COMMISSION_MAX_DIGITS = 7
+COMMISSION_DECIMAL_PLACES = 5
+
+PR_ACTIVE           = 'Active'
+PR_CANCELED         = 'Canceled'
+PR_CLEARED          = 'Cleared'
+PR_ACCEPTED         = 'Accepted'
+PR_CREATED          = 'Created'
+PR_COMPLETED        = 'Completed'
+PR_DECLINED         = 'Declined'
+PR_EXPIRED          = 'Expired'
+PR_FAILED           = 'Failed'
+PR_PAID             = 'Paid'
+PR_PROCESSED        = 'Processed'
+PR_PENDING          = 'Pending'
+PR_REFUSED          = 'Refused'
+PR_REVERSED         = 'Reversed'
+
+PR_STATUS = [
+    PR_ACCEPTED,PR_ACTIVE, PR_CANCELED, PR_CLEARED,
+    PR_COMPLETED, PR_CREATED, PR_DECLINED, PR_EXPIRED,
+    PR_FAILED, PR_PAID, PR_PENDING, PR_PROCESSED, 
+    PR_REFUSED, PR_REVERSED
+]
 
 
 def ident_file_path(instance, filename):
@@ -22,6 +59,7 @@ class IDCard(models.Model):
     expire_at = models.DateField(blank=True, null=True)
     delivery_place = models.CharField(max_length=32, blank=True, null=True)
     is_valid = models.BooleanField(default=False, blank=True, null=True)
+    validated_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL,related_name='validated_idcards')
     idcard_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
@@ -33,6 +71,16 @@ class IDCard(models.Model):
     
     def get_update_url(self):
         return reverse('payments:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
+    
+    def get_dashboard_update_url(self):
+        return reverse('dashboard:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
+    
+    def get_dashboard_update_url(self):
+        return reverse('dashboard:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
+    
+    @property
+    def has_expired(self):
+        return self.expire_at < datetime.date.today()
    
 
 
@@ -51,7 +99,7 @@ class Policy(models.Model):
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_digits=10, decimal_places=5, default=0.03)
+    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
@@ -75,9 +123,42 @@ class Policy(models.Model):
         return reverse("dashboard:policy-update", kwargs={"policy_uuid": self.policy_uuid})
 
 
+class PolicyGroup(models.Model):
+    name = models.CharField(max_length=80)
+    policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
+    members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
+    policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse("payments:policy-group", kwargs={"group_uuid": self.policy_group_uuid})
+    
+    def get_dashboard_absolute_url(self):
+        return reverse("dashboard:policy-group-detail", kwargs={"group_uuid": self.policy_group_uuid})
+
+    def get_dashboard_update_url(self):
+        return reverse("dashboard:policy-group-update", kwargs={"group_uuid": self.policy_group_uuid})
+    
+    def get_dashboard_remove_url(self):
+        return reverse("dashboard:policy-group-remove", kwargs={"group_uuid": self.policy_group_uuid})
+
+
+
+class PolicyMembership(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(PolicyGroup, on_delete=models.CASCADE)
+    policy_membership_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_by = models.ForeignKey(User, related_name="modified_membership", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    added_by = models.ForeignKey(User, related_name="added_membership", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+
+
 class ServiceCategory(models.Model):
-    category_name = models.CharField(max_length=50, unique=True, null=False,blank=False)
-    category_code = models.IntegerField(blank=False, unique=True)
+    category_name = models.CharField(max_length=50, unique=True)
+    category_code = models.IntegerField(unique=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -113,17 +194,14 @@ class AvailableService(models.Model):
     form_class contains the name of the Form used to interact with the service in html.
     operator_name is 
     """
-    service_code = models.IntegerField(blank=False)
-    name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    template_name = models.CharField(max_length=50, blank=True, null=True)
-    form_class = models.CharField(max_length=50, blank=True, null=True)
+    service_code = models.IntegerField()
+    name = models.CharField(max_length=50)
+    operator = models.ForeignKey(User, related_name="available_services", unique=False,null=True,  on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_OPERATOR)
+    category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True, on_delete=models.SET_NULL)
     modified_at = models.DateTimeField(auto_now=True)
-    modified_by = models.ForeignKey(User, related_name="modified_available_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    modified_by = models.ForeignKey(User, related_name="modified_available_services", unique=False, null=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=True)
     description = models.CharField(max_length=80, blank=True, null=True)
     available_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -137,6 +215,12 @@ class AvailableService(models.Model):
         This method returns the url that is used to query the details of this models.
         """
         return reverse('payments:available-service-detail', kwargs={'available_uuid':self.available_uuid})
+    
+    def get_usage_url(self):
+        """
+        This method returns the url that is used to query the details of this models.
+        """
+        return reverse('payments:new-service', kwargs={'available_service_uuid':self.available_uuid})
 
     def get_dashboard_absolute_url(self):
         """
@@ -179,18 +263,19 @@ class Service(models.Model):
 
 
     """
-    name = models.CharField(max_length=50, blank=True, null=True)
-    operator = models.ForeignKey(User, related_name="offered_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    customer = models.ForeignKey(User, related_name="used_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    reference_number = models.IntegerField(blank=False)
-    customer_reference = models.CharField(max_length=50, blank=True, null=True)
-    category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
-    service_instance = models.ForeignKey(AvailableService, related_name="executed_services", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=50, null=True)
+    operator = models.ForeignKey(User,null=True, related_name="offered_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_OPERATOR)
+    customer = models.ForeignKey(User,null=True, related_name="used_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_CUSTOMER)
+    reference_number = models.IntegerField(help_text=HELP_TEXT_FOR_SERVICE_REF_NUMBER, blank=True, null=True)
+    customer_reference = models.CharField(max_length=50, blank=True ,null=True, help_text=HELP_TEXT_FOR_CUSTOMER_REF)
+    category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True, on_delete=models.SET_NULL)
+    service_instance = models.ForeignKey(AvailableService,null=True, related_name="executed_services", unique=False, on_delete=models.CASCADE)
     price = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_digits=10, decimal_places=5, default=3.0)
+    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    issued_at = models.DateField()
-    description = models.CharField(max_length=80, blank=True, null=True)
+    issued_at = models.DateField(help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT, blank=True, null=True)
+    description = models.CharField(max_length=80, null=True)
+    verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
@@ -202,10 +287,17 @@ class Service(models.Model):
 
     def get_dashboard_absolute_url(self):
         return reverse('dashboard:service-detail', kwargs={'service_uuid':self.service_uuid})
+    
+    @staticmethod
+    def get_user_services(user):
+        queryset = Service.objects.none()
+        if isinstance(user, User) and user.is_authenticated:
+            queryset = Service.objects.filter(Q(customer=user) | Q(operator=user)).order_by('-created_at')
+        return queryset
 
 class Reduction(models.Model):
     code = models.TextField(max_length=8)
-    percent =  models.DecimalField(max_digits=10, decimal_places=5)
+    percent =  models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
     user = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     used_at = models.DateTimeField()
@@ -246,6 +338,7 @@ class Payment(models.Model):
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_payments')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_payments')
+    verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
     created_at = models.DateTimeField(auto_now_add=True)
     is_validated = models.BooleanField(default=False)
     validated_at = models.DateTimeField(auto_now=True)
@@ -261,22 +354,97 @@ class Payment(models.Model):
     def get_dashboard_absolute_url(self):
         return reverse('dashboard:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
 
+    @staticmethod
+    def get_user_payments(user):
+        queryset = Payment.objects.none()
+        if user and user.is_authenticated:
+            queryset = Payment.objects.filter(Q(sender=user) | Q(recipient=user)).order_by('-created_at')
+        return queryset
+
+
+
+class PaymentRequest(models.Model):
+    """
+    A PaymentRequest object is only used by partner and is created per REST request.
+    A payment request can be accepted and paid by the customer who is receiving this
+    payment request.
+    """
+    payment = models.OneToOneField('Payment', on_delete=models.CASCADE, blank=True, null=True)
+    verification_code = models.TextField(max_length=80, default=utils.generate_token_10, blank=True)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE ,blank=False )
+    requester_name = models.CharField(max_length=32 ,blank=True, null=True)
+    amount = models.DecimalField(max_digits=10,decimal_places=2, blank=False, null=False)
+    unit_price = models.IntegerField(blank=True, null=True)
+    quantity = models.IntegerField(default=1, blank=True, null=True)
+    tva = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
+    commission = models.DecimalField(max_digits=5,decimal_places=4, blank=True, null=True)
+    country = models.CharField(max_length=32, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=32, default=PR_CREATED, blank=True, null=False)
+    product_name = models.CharField(max_length=255 ,blank=False, null=False)
+    customer_name = models.CharField(max_length=255 ,blank=False, null=False)
+    description = models.CharField(max_length=255 ,blank=False, null=False)
+    request_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return "Payment Request id : {0} - Amount : {1}".format(self.pk, self.amount)
+    
+    #def get_absolute_url(self):
+    #    return reverse('payments:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
+
+    def get_dashboard_url(self):
+        return reverse('dashboard:payment-request-detail', kwargs={'request_uuid':self.request_uuid})
+
+    @staticmethod
+    def get_user_payments(user):
+        queryset = PaymentRequest.objects.none()
+        if user and user.is_authenticated:
+            queryset = PaymentRequest.objects.filter(Q(seller=user) | Q(payment__recipient=user))
+        return queryset
+
+
+class ExternalPayment(models.Model):
+    payment_request = models.OneToOneField('PaymentRequest', on_delete=models.CASCADE)
+    payment = models.OneToOneField('Payment', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    request_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return "External Payment : {0} - Amount : {1}".format(self.pk, self.payment.amount)
+    
+    #def get_absolute_url(self):
+    #    return reverse('payments:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
+
+    #def get_dashboard_url(self):
+    #    return reverse('dashboard:external-payment-request-detail', kwargs={'request_uuid':self.request_uuid})
+
+
 class Transfer(models.Model):
     amount = models.IntegerField(blank=False)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_transfers')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_transfers')
     created_at = models.DateTimeField(auto_now_add=True)
     details = models.TextField(max_length=256)
+    verification_code = models.TextField(max_length=80, default=utils.generate_token_10, editable=False)
     transfer_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
-        return "Transfer id : {0} - Amount : {1}".format(self.pk, self.amount)
+        return "Transfer  - Amount : {}".format(self.amount)
 
     def get_absolute_url(self):
         return reverse('payments:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
 
     def get_dashboard_absolute_url(self):
         return reverse('dashboard:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
+
+    @staticmethod
+    def get_user_transfers(user):
+        queryset = Transfer.objects.none()
+        if user and user.is_authenticated:
+            queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user)).order_by('-created_at')
+        return queryset
+
 
 class CaseIssue(models.Model):
     participant_1 = models.ForeignKey(User, null=True , on_delete = models.CASCADE, related_name='created_issues')

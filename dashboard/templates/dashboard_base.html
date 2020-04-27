@@ -1,4 +1,5 @@
 {% extends "base_flat.html"%}
+{% load static %}
 {% load i18n %} 
 {% block META_REDIRECT %}
         
@@ -32,17 +33,54 @@
 {% block HEADER_BANNER %}
   <div class="row">
         <div class="col col-6">
-          <div class="row">
-                
-                <div class="details-info">
-                    <div></div>
-                    <i class="dialog-btn fas fa-plus-circle fa-2x" data-target="#transaction-dialog"></i>
-                </div>
-          </div>
+          
         </div> 
   </div>
 {% endblock HEADER_BANNER %}
 
 {% block MAIN %}
-
+<div class="col-m-12 col-2">
+{% block SIDEBAR %}
+      <div class="container">
+            <aside class="panel panel-left panel-align-left">
+                  <ul class="dock dock-left">
+                              <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
+                              <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
+                              {% if can_view_group %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}">{% trans "Groups" %}</a></li>{% endif %}
+                              {% if can_view_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}">{% trans "Services" %}</a></li>{% endif %}
+                              {% if can_view_transfer %} <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}">{% trans "Transfers" %}</a></li>{% endif %}
+                              {% if can_view_payment %} 
+                              <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}">{% trans "Payments" %}</a></li>
+                              <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payment-requests'%}">{% trans "Payment Requests" %}</a></li>
+                              {% endif %}
+                              {% if can_view_voucher %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home'%}">{% trans "Vouchers" %}</a></li>{% endif %}
+                              {% if can_view_available_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>{% endif %}
+                              {% if can_view_policy %}
+                                    <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
+                                    <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups' %}">{% trans "Policy Groups" %}</a></li>
+                              {% endif %}
+                              {% if can_view_user %}
+                                    <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:reports' %}">{% trans "Reports" %}</a></li>
+                                    <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}">{% trans "Users" %}</a></li>
+                                    <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:tokens' %}">{% trans "Token" %}</a></li>
+                              {% endif %}
+                              {% if can_view_category %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services' %}">{% trans "Categories" %}</a></li>{% endif %}
+                              {% if can_generate_token %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}">{% trans "Token AUTH API" %}</a></li>{% endif %}
+                              <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'accounts:logout'%}">{% trans "Logout" %}</a></li>
+                  </ul>
+            </aside>
+      </div>
+{% endblock SIDEBAR %}
+</div>
+<div class="col-m-12 col-10">
+      {% block MAIN_CONTENT %}
+      
+      {% endblock MAIN_CONTENT %}
+</div>
+      
 {% endblock MAIN %}
+
+{% block SCRIPT %}
+<script  type="application/javascript" src="{% static 'js/vendor/Chart.min.js' %}"></script> 
+<script  type="application/javascript" src="{% static 'js/analytics.js' %}"></script> 
+{% endblock SCRIPT %}

@@ -532,6 +532,7 @@ var Collapsible = (function(){
             console.log("No collapsible found on this page.");
             return;
         }
+        this.$collapsible.children('.collapse-content').hide()
         console.log("Found " + this.$collapsible.length + " collapsibles on this pages.");
         $(this.$collapsible).on("click", ".open", function(event){
             console.log(this);
@@ -801,18 +802,135 @@ var Group = (function(){
     return Group;
 })();
 
+
+var PermissionGroupManager = (function(){
+    function PermissionGroupManager(){
+        this.selected_permissions = {};
+        this.group_users = {}
+        this.add_selected_permissions_btn = {};
+        this.add_selected_users_btn = {};
+        this.remove_selected_permissions_btn = {};
+        this.remove_selected_users_btn = {};
+        
+    };
+
+    PermissionGroupManager.prototype.init = function(){
+        $('#available-permission-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#permission-list');
+            var self = $(this);
+            var $selected_permissions = $('#selected-permission-list');
+            $selected_permissions.append($('<option/>', {'value': self.data('value'), 'selected': true, 'text': self.text()}));
+            self.appendTo($target);
+        });
+
+        $('#permission-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#available-permission-list');
+            var self = $(this);
+            $('#selected-permission-list option').filter(function(){
+                return this.value == self.data('value');
+            }).remove();
+            self.removeClass('active').appendTo($target);
+        });
+
+
+        $('#available-user-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#user-list');
+            var self = $(this);
+            var $selected_users = $('#selected-user-list');
+            $selected_users.append($('<option/>', {'value': self.data('value'), 'selected': true, 'text': self.text()}));
+            self.appendTo($target);
+        });
+
+        $('#user-list').on('click','li', function(event){
+            event.preventDefault();
+            var $target = $('#available-user-list');
+            var self = $(this);
+            $('#selected-user-list option').filter(function(){
+                return this.value == self.data('value');
+            }).remove();
+            self.removeClass('active').appendTo($target);
+        });
+
+    };
+
+
+    return PermissionGroupManager;
+})();
+
+var JSFilter = (function(){
+    function JSFilter(){
+        console.log("creating JSFilter instance");
+        this.init();
+        console.log("JSFilter instance created");
+    };
+
+    JSFilter.prototype.init = function(){
+        console.log("JSFilter instance initializing");
+        $('.js-jsfilter-input, .js-list-filter').on('keyup', function(event){
+            event.stopPropagation();
+            var value = this.value.trim();
+            var target_container = this.getAttribute('data-target');
+            var el = this.getAttribute('data-element');
+            $(target_container + " " +  el).filter(function(){
+                $(this).toggle(this.innerHTML.includes(value));
+            });
+        });
+
+        console.log("JSFilter instance initialized");
+    };
+
+
+    return JSFilter;
+})();
+
+var isDirty = false;
+
+function can_leave(){
+    isDirty = false;
+    //window.onbeforeunload = null;
+}
+
+function askConfirmation(event){
+    var ret = undefined;
+    if(isDirty){
+        if(event){
+            event.preventDefault();
+            event.returnValue = "You have unsubmitted data. Leaving this page will lost the data."
+        }
+        ret =  "You have unsubmitted data. Leaving this page will lost the data.";
+    }else{
+        delete event['returnValue'];
+    }
+    
+    return ret;
+}
+
+function prevent_leaving(){
+    isDirty = true;
+    //window.onbeforeunload = onbeforeunload;
+}
+
 $(document).ready(function(){
 let account = new Account();
 account.init();
 let tabs = new Tabs();
 tabs.init();
 
+var jsfilter = new JSFilter();
+
 var filter = new TableFilter();
 filter.init();
 
-var group = new Group();
-group.init();
+var permissionManager = new PermissionGroupManager();
 
+var group = new Group();
+permissionManager.init();
+group.init();
+//$(window).on('beforeunload', onbeforeunload);
+window.addEventListener('beforeunload', askConfirmation);
 var scheduled_query = false;
 var query_delay = 800;
 var $user_search_result = $('#user-search-result');
@@ -822,17 +940,18 @@ var $user_search_target_name = $($user_search_result.data('target-name'));
 var userSearch = function(options){
 
     var promise = ajax(options).then(function(response){
-        console.log("User Search succeed");
-        console.log(response);
+        //console.log("User Search succeed");
+        //console.log(response);
         $user_search_result.empty();
         response.forEach(function(user, index){
             var full_name = user.first_name + " " +  user.last_name;
-            $('<li>').data('user-id', user.id).data('user-name', full_name).html(full_name).
+            $('<li>').data('user-id', user.id).data('user-name', full_name).html(full_name + " [" + user.username + "]").
             on('click', function(event){
                 event.stopPropagation();
                 var user_id = $(this).data('user-id');
                 var user_name = $(this).data('user-name');
                 $user_search_target.val(user_id);
+                //$(".js-user-search").val(user_name);
                 $user_search_target_name.val(user_name);
                 $user_search_result.hide();
                 $user_search_result.empty();
@@ -849,8 +968,6 @@ var userSearch = function(options){
 $('.js-user-search').on('keyup', function(event){
     event.stopPropagation();
     var query = $(this).val();
-    console.log("user search has changed %s", query);
-    console.log("Send API request now ");
     query = query.trim()
     if(query.length == 0 ){
         return;
@@ -902,17 +1019,51 @@ slider.init();
         else{
             console.log("Card not created");
         }
-        
     });
 
     $('.js-grid-enable').on('click', function(){
         $(this).toggleClass('active');
-        $('body').toggleClass('baseline-16');
-        console.log("toggling Class on grid element");
+        $('body, body > header.header').toggleClass('baseline-16');
     });
 
     $('.js-need-confirmation').on('click', function(event){
         return confirm("This action is irreversible. Do you to want proceed ?");
+    });
+    $('.js-menu').on('click', function(){
+        $('.site-panel').css('left', 0);
+        $('.js-menu-close').show();
+        $(this).hide();
+
+    });
+    $('.js-menu-close').on('click', function(){
+        var panel = $('.site-panel');
+        var left = '-' + panel.css('width');
+        panel.css('left', left );
+        $('.js-menu').show();
+        $(this).hide();
+    });
+    /*
+    $('form').on('change', function(event){
+        prevent_leaving();
+    });
+    $('form .js-cancel').on('click', can_leave);
+    */
+    $('.js-user-selector').on('click', 'li', function(){
+        let target = $(this);
+        $('#members').append($('<option/>', {'value': target.data('id'), 'selected': true, 'text': target.text()}));
+        target.appendTo('#selected-members');
+    });
+    $('#selected-members').on('click', 'li', function(){
+        let target = $(this);
+        target.appendTo('.js-user-selector');
+        $('#members option').filter(function(){
+            return this.value == target.data('id');
+        }).remove();
+        
+    });
+
+    $('.mat-list').on('click', '.mat-list-item', function(){
+        $(this).toggleClass('active');
     });
 });
 

@@ -1,10 +1,13 @@
 {% load i18n %} 
 
+{% if can_add_idcard %}
+
+
 <div class="responsive">
     <div class="form-group">
             
     </div>
-    <form id="idcard-form" class="idcard-form form" name="idcard" action="{% url 'dashboard:upload_idcard' %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+    <form id="idcard-form" class="idcard-form form" name="idcard" action="{% url 'dashboard:upload-idcard' %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
         <input type="hidden" name="user" value="{{request.user.pk}}">
         <div class="form-group">
             <input type="number" name="card_number" id="card_number" placeholder="{% trans 'Enter your ID Card number' %}">
@@ -19,3 +22,9 @@
         </div>
     </form>
 </div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}

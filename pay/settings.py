@@ -81,6 +81,10 @@ ACCOUNTS = {
     )
 }
 
+PAY_USER = 'pay'
+PAY_RECHARGE_USER = 'pay_recharge'
+
+DEFAULT_LOCAL_CURRENCY = 'XAF'
 
 # Application definition
 
@@ -114,7 +118,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         #'rest_framework.authentication.BasicAuthentication',
         #'rest_framework.authentication.SessionAuthentication',
-        #'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
@@ -144,7 +148,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'pay.context_processors.site_context',
-                'accounts.context_processors.account_context'
+                'accounts.context_processors.account_context',
+                'payments.context_processors.payment_context'
             ],
         },
     },
@@ -161,7 +166,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-    'default': {
+    'production': {
 	'ENGINE': 'django.db.backends.postgresql',
 	'NAME'	:  os.environ['PAY_DATABASE_NAME'],
 	'USER'	:  os.environ['PAY_DATABASE_USERNAME'],
@@ -178,6 +183,9 @@ DATABASES = {
 
 }
 
+DEFAULT_DATABASE = os.environ.get('DJANGO_DATABASE', 'dev')
+DATABASES['default'] = DATABASES[DEFAULT_DATABASE]
+DEV_MODE = True
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

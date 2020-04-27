@@ -1,0 +1,41 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Payment Archive"%}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+{% block MAIN %}
+<ul class="actions">
+  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-transfer' %}"> {% trans "Make a Transfer" %} </a></li>
+</ul>
+<div class="container">
+    <div class="col-xs-12 col-6">
+        <div class="mat-list-wrapper">
+            <div class="mat-list-header"> {% trans "Years" %}</div>
+            <ul class="mat-list">
+                {% for date in date_list %}
+                <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'payments:payment-year-archive' date|date:'Y' %}">{{date|date:"Y"}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% if latest %}
+    <div class="col-xs-12 col-6">
+        <div class="mat-list-wrapper">
+            <div class="mat-list-header"> {% trans "Latest Payments" %}</div>
+            <ul class="mat-list">
+                {% for payment in latest %}
+                <li class="mat-list-item">
+                    <a class="mat-button mat-button-text" href="{{payment.get_absolute_url}}">
+                        {{payment.created_at}} : {{payment.sender.get_full_name}} - {{payment.amount}} {% trans "XAF" %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% else %}
+    <p> {% trans "You haven't made any transfer yet" %}</p>
+    {% endif %}
+  
+</div>
+{% endblock MAIN %}

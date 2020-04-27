@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<div class="mat-box">
+    <div>{% trans "Your transaction was succesfull." %}</div>
+    <div>{% trans "You will be redirected to your account page in an instant." %}</div>
+    <div>{% trans "Click here to directly go to your Account if you don't want to way." %} : <a class="mat-button mat-button-default" href="{% url 'accounts:account' %}">{% trans "My Account" %}</a></div>
+</div>

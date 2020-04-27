@@ -3,8 +3,9 @@
 
 {% block MAIN %}
 
+{% if can_add_transaction %}
 <div class="container">
-    <form id="transaction-form" class="transaction-form form" name="transaction" action="{% url 'accounts:new_transaction'%}" method="POST">{% csrf_token %}
+    <form id="transaction-form" class="transaction-form form" name="transaction" action="{% url 'accounts:new-transaction'%}" method="POST">{% csrf_token %}
         <div id="error-login" class="error-login left">
           </div>
           <div class="form-group">
@@ -27,4 +28,9 @@
           </div>
     </form>
 </div>
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 {% endblock MAIN %}

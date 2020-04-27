@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div id="voucher-reports" class="row">
+    <div id="voucher-paid" class="metric mat-box">
+            <div class="metric-title">{% trans "Voucher" %}</div>
+            <div><span class="metric-value">{{voucher_report.total_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="voucher-count" class="metric mat-box">
+            <div class="metric-title">{% trans "Voucher Count" %}</div>
+            <div><span class="metric-value">{{voucher_report.total_count}}</span></div>
+    </div>
+    <div id="voucher-average" class="metric mat-box">
+            <div class="metric-title">{% trans "Average Voucher" %}</div>
+            <div><span class="metric-value">{{voucher_report.avg_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="voucher-min" class="metric mat-box">
+            <div class="metric-title">{% trans "Min Voucher" %}</div>
+            <div><span class="metric-value">{{voucher_report.min_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+    <div id="voucher-max" class="metric mat-box">
+            <div class="metric-title">{% trans "Max Voucher" %}</div>
+            <div><span class="metric-value">{{voucher_report.max_paid}}</span><span>{% trans "XAF" %}</span></div>
+    </div>
+</div>

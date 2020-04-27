@@ -1,0 +1,79 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Policy Group" %} - {{group.name}}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+
+            <div class="col-xs-12 col-9">
+                <div class="banner--actions">
+                    {% if can_add_policy %}
+                    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-group-create' %}"> {% trans "Add New Policy Group" %} </a>
+                    {% endif %}
+                    {% if can_delete_policy %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-groups' %}"> {% trans "Delete All Policies" %} </a>
+                    {% endif %}
+                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
+                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
+                        
+                </div><!--End of Banner-Actions-->
+            </div><!--End of Responsive-->
+        
+        </div><!--End of Container-->
+    </div>
+{% endblock HEADER_BANNER %}
+{% block MAIN_CONTENT %}
+
+
+{% if can_view_policy %}
+
+<div class="container">
+  <div class="col-xs-12 col-6">
+    <div class="mat-table-wrapper">
+        <div class="row">
+            <div class="mat-table-title">
+                {% trans "Policy Groups" %}
+            </div>
+        </div><!--End of Row-->
+        
+        <table id="policy-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          <th>{% trans "Name" %}</th>
+                          <th>{% trans "Number of members" %}</th>
+                          <th>{% trans "commission" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for group in groups  %}
+                  <tr>
+                  <!--<td class="checkbox"><input type="checkbox" name="selected-policy"></td>-->
+                  <td>{{group.name}}</td>
+                  <td>{{group.members.count}}</td>
+                  <td>{{group.policy.commission}}</td>
+                  <td><a class="mat-button mat-button-default" href="{{group.get_dashboard_absolute_url}}"> {% trans "Detail" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    {% include "tags/pagination.html" with page_set=groups %}
+    </div><!--End of Table Wrapper-->
+</div>
+</div>
+
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
+{% endblock MAIN_CONTENT %}

@@ -3,14 +3,23 @@
 
 {% block MAIN %}
 
+<div class="row">
+ <a class="mat-button mat-button-text" href="{% url 'payments:payments' %}"> {% trans "My Payments" %} </a>
+</div>
+
 <div class="container">
-        <div class="card">
-          <p> {% trans "Sender" %} : {{payment.sender.full_name}} </p>
-          <p> {% trans "Recipient" %} : {{payment.recipient.full_name}} </p>
-          <p> {% trans "Price" %} : {{payment.amount}} FCFA </p>
-          <p> {% trans "Date" %} : {{payment.created_at}} </p>
-          <p> {% trans "Description" %} : {{payment.details}} </p>
-          
+    <div class="col-m-12 col-4">
+        <div class="mat-box">
+          {% if user == payment.sender %}
+          <p> <span>{{payment.recipient.get_full_name}}</span> </p>
+          <p> <span>{% trans "Price" %}</span> <i class="separator"></i> <span class="amount outgoing">{{payment.amount}}</span> <span>{% trans "XAF" %}</span> </p>
+          {% else %}
+          <p> <span>{{payment.sender.get_full_name}}</span> </p>
+          <p> <span>{% trans "Price" %}</span> <i class="separator"></i> <span class="amount incoming">{{payment.amount}}</span> <span>{% trans "XAF" %}</span> </p>
+          {% endif %}
+          <p> <span>{% trans "Date" %}</span> <i class="separator"></i> <span>{{payment.created_at|date:"N j, Y"}}</span> </p>
+          <p> <span>{% trans "Description" %}</span> <i class="separator"></i> <span>{{payment.details}}</span> </p>
         </div>
+    </div>
 </div>
 {% endblock MAIN %}

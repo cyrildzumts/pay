@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
+from django.http import Http404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
@@ -10,11 +12,14 @@ from django.db.models import F, Q
 from rest_framework.authtoken.models import Token
 from pay import utils, settings
 from dashboard import forms
+from payments.models import PaymentRequest
 from dashboard import analytics
+from dashboard.permissions import PermissionManager, get_view_permissions
 import logging
 from pay.tasks import send_mail_task
-
-
+from accounts.account_services import AccountService
+from accounts.forms import UserCreationForm
+from accounts.forms import AccountCreationForm
 logger = logging.getLogger(__name__)
 # Create your views here.
 
@@ -22,16 +27,12 @@ logger = logging.getLogger(__name__)
 @login_required
 def dashboard(request):
     template_name = "dashboard/dashboard.html"
-    allowed =request.user.is_superuser or request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
+    can_view_dashboard = PermissionManager.user_can_access_dashboard(request.user)
     page_title = _('Dashboard') + '| ' + settings.SITE_NAME
     username = request.user.username
-    if not allowed :
-        context = {
-        'name'          : username,
-        'page_title'    : page_title,
-        'is_allowed'     : allowed
-        }  
-        logger.warning("Access Denied : A user %s with no appropriate permission has requested the Dashboard Page", username)
+    if not can_view_dashboard :
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     else : 
         context = {
             'name'          : username,
@@ -39,44 +40,167 @@ def dashboard(request):
             'summary' : analytics.dashboard_summary(),
             'recent_transfers' : analytics.get_recent_transfers(),
             'recent_services' : analytics.get_recent_services(),
-            'is_allowed'     : allowed
+            'is_allowed'     : can_view_dashboard
         }
+        context.update(get_view_permissions(request.user))
+
         logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
 
     return render(request, template_name, context)
 
 
 @login_required
+def tokens(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    if not can_view_user:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    queryset = Token.objects.all()
+    template_name = "dashboard/token_list.html"
+    page_title = _("Dashboard Users Tokens") + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    context['page_title'] = page_title
+    context['token_list'] = list_set
+    context.update(get_view_permissions(request.user))
+    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
+    return render(request,template_name, context)
+
+@login_required
 def generate_token(request):
-    allowed = request.user.groups.filter(Q(name='Administration') or Q(name='Manager') or Q(name='Marketing')).exists()
+    username = request.user.username
+    can_view_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_view_dashboard :
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_generate_token = PermissionManager.user_can_generate_token(request.user)
+    if not can_generate_token:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     template_name = "dashboard/token_generate.html"
     context = {
         'page_title' :_('User Token Generation') + ' - ' + settings.SITE_NAME,
-        'is_allowed' : allowed,
+        'can_generate_token' : can_generate_token,
     }
-    
-    if allowed:
-        if request.method == 'POST':
+    if request.method == 'POST':
             form = forms.TokenForm(utils.get_postdata(request))
             if form.is_valid():
-                user_id = form.cleaned_data['user']
-                username = form.cleaned_data['username']
+                user_id = form.cleaned_data.get('user')
                 user = User.objects.get(pk=user_id)
                 t = Token.objects.get_or_create(user=user)
                 context['generated_token'] = t
+                logger.info("user \"%s\" create a token for user \"%s\"", request.user.username, user.username )
                 messages.add_message(request, messages.SUCCESS, _('Token successfully generated for user {}'.format(username)) )
                 return redirect('dashboard:home')
             else :
+                logger.error("TokenForm is invalid : %s\n%s", form.errors, form.non_field_errors)
                 messages.add_message(request, messages.ERROR, _('The submitted form is not valid') )
-        else :
+    else :
             context['form'] = forms.TokenForm()
+            context.update(get_view_permissions(request.user))
+        
 
     return render(request, template_name, context)
-        
+
+
+@login_required
+def reports(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    if not can_view_user:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    queryset = User.objects.all()
+    template_name = "dashboard/reports.html"
+    page_title = _("Dashboard Reports") + " - " + settings.SITE_NAME
     
+    context['page_title'] = page_title
+    context.update(get_view_permissions(request.user))
+    context.update(analytics.transaction_reports())
+    return render(request,template_name, context)
+        
+@login_required
+def users(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    if not can_view_user:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    queryset = User.objects.all()
+    template_name = "dashboard/user_list.html"
+    page_title = _("Dashboard Users") + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    context['page_title'] = page_title
+    context['users'] = list_set
+    context.update(get_view_permissions(request.user))
+    context['can_delete_user'] = PermissionManager.user_can_delete_user(request.user)
+    context['can_add_user'] = PermissionManager.user_can_add_user(request.user)
+    context['can_update_user'] = PermissionManager.user_can_change_user(request.user)
+    return render(request,template_name, context)
+
+@login_required
+def user_details(request, pk=None):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    if not PermissionManager.user_can_view_user(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    context = {}
+    #queryset = User.objects.select_related('account')
+    user = get_object_or_404(User, pk=pk)
+    template_name = "dashboard/user_detail.html"
+    page_title = "User Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['user_instance'] = user
+    context.update(get_view_permissions(request.user))
+    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
+    context['can_update'] = PermissionManager.user_can_change_user(request.user)
+    return render(request,template_name, context)
 
 @login_required
 def service_details(request, service_uuid=None):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    if not PermissionManager.user_can_view_service(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     context = {}
     model = utils.get_model('payments', 'Service')
     user_services = model.objects.filter(Q(operator=request.user) | Q(customer=request.user) )
@@ -85,19 +209,32 @@ def service_details(request, service_uuid=None):
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['service'] = service
+    context.update(get_view_permissions(request.user))
+    context['can_delete'] = PermissionManager.user_can_delete_service(request.user)
+    context['can_update'] = PermissionManager.user_can_change_service(request.user)
     context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
 
 
 @login_required
 def services(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_service = PermissionManager.user_can_view_service(request.user)
+    if not can_view_service:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model('payments', 'Service')
-    queryset = model.objects.select_related('category').all()
+    queryset = model.objects.select_related('category').all().order_by('-created_at')
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -106,6 +243,10 @@ def services(request):
         list_set = None
     context['page_title'] = page_title
     context['services'] = list_set
+    context['can_access_dashboard'] = can_access_dashboard
+    context.update(get_view_permissions(request.user))
+    context['can_delete'] = PermissionManager.user_can_delete_service(request.user)
+    context['can_update'] = PermissionManager.user_can_change_service(request.user)
     context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
 
@@ -113,13 +254,23 @@ def services(request):
 
 @login_required
 def available_services(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_available_service = PermissionManager.user_can_view_available_service(request.user)
+    if not can_view_available_service:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     context = {}
     model = utils.get_model('payments', 'AvailableService')
     queryset = model.objects.all()
     template_name = "dashboard/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -128,9 +279,24 @@ def available_services(request):
         list_set = None
     context['page_title'] = page_title
     context['available_services'] = list_set
+    context.update(get_view_permissions(request.user))
+    context['can_delete_available_service'] = PermissionManager.user_can_delete_available_service(request.user)
+    context['can_change_available_service'] = PermissionManager.user_can_change_available_service(request.user)
+    context['can_add_available_service'] = PermissionManager.user_can_add_available_service(request.user)
     return render(request,template_name, context)
 
 def available_service_update(request, available_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_update_available_service = PermissionManager.user_can_change_available_service(request.user)
+    if not can_update_available_service:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     page_title = _("Edit Available Service")+ ' | ' + settings.SITE_NAME
     instance = get_object_or_404(forms.AvailableService, available_uuid=available_uuid)
     template_name = "dashboard/available_service_update.html"
@@ -139,7 +305,7 @@ def available_service_update(request, available_uuid=None):
         if form.is_valid():
             logger.info("AvailableServiceForm for instance %s is valid", form.cleaned_data['name'])
             form.save()
-            return redirect('dashboard:available_services')
+            return redirect('dashboard:available-services')
         else:
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
     
@@ -152,13 +318,26 @@ def available_service_update(request, available_uuid=None):
             'service' : instance,
             'form': form,
             'categories': categories,
-            'operators': operators
+            'operators': operators,
+            'can_update_available_service': can_update_available_service
         }
+    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
 @login_required
 def available_service_create(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_add_available_service = PermissionManager.user_can_add_available_service(request.user)
+    if not can_add_available_service:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     page_title = _("Create Available Service")+ ' | ' + settings.SITE_NAME
     template_name = "dashboard/available_service_create.html"
     form = None
@@ -168,7 +347,7 @@ def available_service_create(request):
             logger.info("AvailableServiceForm for instance %s is valid", form.cleaned_data['name'])
             avs = form.save()
             forms.AvailableService.objects.filter(pk=avs.pk).update(created_by=request.user)
-            return redirect('dashboard:available_services')
+            return redirect('dashboard:available-services')
         else:
             form = forms.AvailableServiceForm()
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
@@ -182,15 +361,26 @@ def available_service_create(request):
             'template_name':template_name,
             'form': form,
             'categories': categories,
-            'operators': operators
+            'operators': operators,
+            'can_add_available_service': can_add_available_service
         }
-    
+    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
 @login_required
 def available_service_remove(request, available_uuid=None):
     # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_available_service = PermissionManager.user_can_delete_available_service(request.user)
+    if not can_delete_available_service:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     deleted_count, extras = forms.AvailableService.objects.filter(available_uuid=available_uuid).delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'AvailableService has been deleted')
@@ -200,11 +390,22 @@ def available_service_remove(request, available_uuid=None):
         messages.add_message(request, messages.ERROR, 'AvailableService could not be deleted')
         logger.error("AvailableService Delete failed. Action requested by User {}",request.user.username)
         
-    return redirect('dashboard:available_services')
+    return redirect('dashboard:available-services')
     
 @login_required
 def available_service_remove_all(request):
     # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_available_service = PermissionManager.user_can_delete_available_service(request.user)
+    if not can_delete_available_service:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     deleted_count, extras = forms.AvailableService.objects.all().delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'All AvailableService has been deleted')
@@ -218,6 +419,17 @@ def available_service_remove_all(request):
 
 @login_required
 def available_service_details(request, available_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_available_service = PermissionManager.user_can_view_available_service(request.user)
+    if not can_view_available_service:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model('payments', 'AvailableService')
     service= get_object_or_404(model, available_uuid=available_uuid)
@@ -225,17 +437,31 @@ def available_service_details(request, available_uuid=None):
     page_title = "Available Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['service'] = service
+    context.update(get_view_permissions(request.user))
+    context['can_delete_available_service'] = PermissionManager.user_can_delete_available_service(request.user)
+    context['can_update_available_service'] = PermissionManager.user_can_change_available_service(request.user)
     return render(request,template_name, context)
 
 @login_required
 def category_services(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_category = PermissionManager.user_can_view_category(request.user)
+    if not can_view_category:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model('payments', 'ServiceCategory')
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -244,11 +470,26 @@ def category_services(request):
         list_set = None
     context['page_title'] = page_title
     context['categories'] = list_set
+    context.update(get_view_permissions(request.user))
+    context['can_add_category'] = PermissionManager.user_can_add_category(request.user)
+    context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
+    context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
     return render(request,template_name, context)
 
 
 @login_required
 def category_service_update(request, category_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_change_category = PermissionManager.user_can_change_category(request.user)
+    if not can_change_category:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     page_title = _("Edit Category Service")+ ' | ' + settings.SITE_NAME
     instance = get_object_or_404(forms.ServiceCategory, category_uuid=category_uuid)
     template_name = "dashboard/category_service_update.html"
@@ -257,7 +498,7 @@ def category_service_update(request, category_uuid=None):
         if form.is_valid():
             logger.info("ServiceCategoryForm for instance %s is valid", form.cleaned_data['category_name'])
             form.save()
-            return redirect('dashboard:category_services')
+            return redirect('dashboard:category-services')
         else:
             logger.info("Edit ServiceCategoryForm is not valid. Errors : %s", form.errors)
     
@@ -266,9 +507,10 @@ def category_service_update(request, category_uuid=None):
             'page_title':page_title,
             'template_name':template_name,
             'category' : instance,
-            'form': form
+            'form': form,
+            'can_update_category' : can_change_category
         }
-    
+    context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
 
 
@@ -277,6 +519,17 @@ def category_service_update(request, category_uuid=None):
 @login_required
 def category_service_remove(request, category_uuid=None):
     # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_category = PermissionManager.user_can_delete_category(request.user)
+    if not can_delete_category:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     deleted_count, extras = forms.ServiceCategory.objects.filter(category_uuid=category_uuid).delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'Service Category has been deleted')
@@ -286,12 +539,23 @@ def category_service_remove(request, category_uuid=None):
         messages.add_message(request, messages.ERROR, 'Service Category could not be deleted')
         logger.error("Service Category Delete failed. Action requested by User {}",request.user.username)
         
-    return redirect('dashboard:category_services')
+    return redirect('dashboard:category-services')
 
 
 @login_required
 def category_service_remove_all(request):
     # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_category = PermissionManager.user_can_delete_category(request.user)
+    if not can_delete_category:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     deleted_count, extras = forms.ServiceCategory.objects.all().delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'All ServiceCategory has been deleted')
@@ -306,6 +570,17 @@ def category_service_remove_all(request):
 
 @login_required
 def category_service_create(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_add_category = PermissionManager.user_can_add_category(request.user)
+    if not can_add_category:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     page_title = _("Create Category Service")+ ' | ' + settings.SITE_NAME
     template_name = "dashboard/category_service_create.html"
     form = None
@@ -314,7 +589,7 @@ def category_service_create(request):
         if form.is_valid():
             logger.info("ServiceCategoryForm for instance %s is valid", form.cleaned_data['category_name'])
             form.save()
-            return redirect('dashboard:category_services')
+            return redirect('dashboard:category-services')
         else:
             form = forms.ServiceCategoryForm()
             logger.info("Edit ServiceCategoryForm is not valid. Errors : %s", form.errors)
@@ -324,15 +599,27 @@ def category_service_create(request):
     context = {
             'page_title':page_title,
             'template_name':template_name,
-            'form': form
+            'form': form,
+            'can_add_category' : can_add_category
         }
-    
+    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
 
 @login_required
 def category_service_details(request, category_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_category = PermissionManager.user_can_view_category(request.user)
+    if not can_view_category:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model('payments', 'ServiceCategory')
     avs_model = utils.get_model('payments', 'AvailableService')
@@ -344,11 +631,26 @@ def category_service_details(request, category_uuid=None):
     context['category'] = category
     context['has_services'] = category.available_services.exists()
     context['available_services'] = category.available_services.all()
+    context.update(get_view_permissions(request.user))
+    context['can_add_category'] = PermissionManager.user_can_add_category(request.user)
+    context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
+    context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
     return render(request,template_name, context)
 
 
 @login_required
 def policies(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_policy = PermissionManager.user_can_view_policy(request.user)
+    if not can_view_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model(app_name='payments', modelName='Policy')
     #current_account = Account.objects.get(user=request.user)
@@ -356,7 +658,7 @@ def policies(request):
     template_name = "dashboard/policy_list.html"
     page_title = "Policies - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -365,11 +667,25 @@ def policies(request):
         list_set = None
     context['page_title'] = page_title
     context['policies'] = list_set
+    context.update(get_view_permissions(request.user))
+    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
+    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
     return render(request,template_name, context)
 
 
 @login_required
 def policy_update(request, policy_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_change_policy = PermissionManager.user_can_change_policy(request.user)
+    if not can_change_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     page_title = _("Edit Policy")+ ' | ' + settings.SITE_NAME
     instance = get_object_or_404(forms.Policy, policy_uuid=policy_uuid)
     template_name = "dashboard/policy_update.html"
@@ -380,6 +696,7 @@ def policy_update(request, policy_uuid=None):
             form.save()
             return redirect('dashboard:policies')
         else:
+            logger.info("[failed] Edit PolicyForm commission : %s", request.POST.copy()['commission'])
             logger.info("Edit PolicyForm is not valid. Errors : %s", form.errors)
     
     form = forms.PolicyForm(instance=instance)
@@ -387,9 +704,10 @@ def policy_update(request, policy_uuid=None):
             'page_title':page_title,
             'template_name':template_name,
             'policy' : instance,
-            'form': form
+            'form': form,
+            'can_change_policy' : can_change_policy
         }
-    
+    context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
 
 
@@ -397,6 +715,17 @@ def policy_update(request, policy_uuid=None):
 @login_required
 def policy_remove(request, policy_uuid=None):
     # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_policy = PermissionManager.user_can_delete_policy(request.user)
+    if not can_delete_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     deleted_count, extras = forms.Policy.objects.filter(policy_uuid=policy_uuid).delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'Policy has been deleted')
@@ -412,6 +741,16 @@ def policy_remove(request, policy_uuid=None):
 @login_required
 def policy_remove_all(request):
     # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_policy = PermissionManager.user_can_delete_policy(request.user)
+    if not can_delete_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     deleted_count, extras = forms.Policy.objects.all().delete()
     if deleted_count > 0 :
         messages.add_message(request, messages.SUCCESS, 'All Policies has been deleted')
@@ -425,6 +764,17 @@ def policy_remove_all(request):
 
 @login_required
 def policy_create(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_add_policy = PermissionManager.user_can_add_policy(request.user)
+    if not can_add_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     page_title = _("Create Policy")+ ' | ' + settings.SITE_NAME
     template_name = "dashboard/policy_create.html"
     form = None
@@ -443,15 +793,27 @@ def policy_create(request):
     context = {
             'page_title':page_title,
             'template_name':template_name,
-            'form': form
+            'form': form,
+            'can_add_policy' : can_add_policy
         }
     
-    
+    context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
 
 
 @login_required
 def policy_details(request, policy_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_policy = PermissionManager.user_can_view_policy(request.user)
+    if not can_view_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model(app_name='payments', modelName='Policy')
     #current_account = Account.objects.get(user=request.user)
@@ -460,22 +822,249 @@ def policy_details(request, policy_uuid=None):
     page_title = "Policy Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['policy'] = policy
+    context.update(get_view_permissions(request.user))
+    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
+    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
     return render(request,template_name, context)
 
 
+@login_required
+def policy_groups(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
 
+    can_view_policy = PermissionManager.user_can_view_policy(request.user)
+    can_add_policy = PermissionManager.user_can_add_policy(request.user)
+    if not can_view_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='PolicyGroup')
+    #current_account = Account.objects.get(user=request.user)
+    queryset = model.objects.all()
+    template_name = "dashboard/policy_group_list.html"
+    page_title = "Policy Group - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    context['page_title'] = page_title
+    context['groups'] = list_set
+    context.update(get_view_permissions(request.user))
+    context['can_add_policy'] = can_add_policy
+    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
+    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    return render(request,template_name, context)
+
+
+@login_required
+def policy_group_create(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_add_policy = PermissionManager.user_can_add_policy(request.user)
+    if not can_add_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    page_title = _("Create Policy Group") + ' | ' + settings.SITE_NAME
+    template_name = "dashboard/policy_group_create.html"
+    form = None
+    if request.method =="POST":
+        form = forms.PolicyGroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard:policy-groups')
+        else:
+            logger.info("Edit PolicyGroupForm is not valid. Errors : %s", form.errors)
+    elif request.method == "GET":
+        form = forms.PolicyGroupForm()
+
+    context = {
+            'page_title':page_title,
+            'template_name':template_name,
+            'form': form,
+            'policies' : forms.Policy.objects.all(),
+            'can_add_policy' : can_add_policy
+        }
+    context.update(get_view_permissions(request.user))
+    
+    return render(request, template_name,context )
+
+@login_required
+def policy_group_update(request, group_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_change_policy = PermissionManager.user_can_change_policy(request.user)
+    if not can_change_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    page_title = _("Edit Policy Group")+ ' | ' + settings.SITE_NAME
+    instance = get_object_or_404(forms.PolicyGroup, policy_group_uuid=group_uuid)
+    template_name = "dashboard/policy_group_update.html"
+    if request.method =="POST":
+        form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard:policy-groups')
+        else:
+            logger.info("Edit PolicyGroupUpdateForm is not valid. Errors : %s", form.errors)
+    
+    form = forms.PolicyGroupForm(instance=instance)
+    context = {
+            'page_title':page_title,
+            'template_name':template_name,
+            'group' : instance,
+            'form': form,
+            'policies' : forms.Policy.objects.all(),
+            'can_change_policy' : can_change_policy
+        }
+    context.update(get_view_permissions(request.user))
+    return render(request, template_name,context )
+
+
+@login_required
+def policy_group_update_members(request, group_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_change_policy = PermissionManager.user_can_change_policy(request.user)
+    if not can_change_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    page_title = _("Edit Policy Group")+ ' | ' + settings.SITE_NAME
+    instance = get_object_or_404(forms.PolicyGroup, policy_group_uuid=group_uuid)
+    template_name = "dashboard/policy_group_update.html"
+    if request.method =="POST":
+        form = forms.PolicyGroupUpdateForm(request.POST, instance=instance)
+        if form.is_valid():
+            # user can not be members on more han one group at the same time.
+            #old_members = instance.members.all()
+            new_members = form.cleaned_data.get('members')
+            logger.info('new members : %s', new_members)
+            for u in new_members:
+                u.policygroup_set.clear()
+            
+            instance.members.clear()
+            form.save()
+            messages.success(request, "Policy Group {} updated".format(instance.name))
+            return redirect('dashboard:policy-groups')
+        else:
+            messages.error(request, "Policy Group {} could not updated. Invalid form".format(instance.name))
+            logger.info("Edit PolicyGroupUpdateForm is not valid. Errors : %s", form.errors)
+            return redirect(instance.get_dashboard_absolute_url())
+    messages.error(request, "Invalid request")
+    return redirect(instance.get_dashboard_absolute_url())
+    """
+    form = forms.PolicyGroupForm(instance=instance)
+    context = {
+            'page_title':page_title,
+            'template_name':template_name,
+            'policy_group' : instance,
+            'form': form,
+            'policies' : forms.Policy.objects.all(),
+            'can_change_policy' : can_change_policy,
+            'can_access_dashboard': can_access_dashboard
+        }
+    
+    return render(request, template_name,context )
+    """
+
+@login_required
+def policy_group_details(request, group_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_policy = PermissionManager.user_can_view_policy(request.user)
+    if not can_view_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    model = utils.get_model(app_name='payments', modelName='PolicyGroup')
+    #current_account = Account.objects.get(user=request.user)
+    group = get_object_or_404(model, policy_group_uuid=group_uuid)
+    template_name = "dashboard/policy_group_detail.html"
+    page_title = "Policy Group Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['group'] = group
+    context['members'] = group.members.all()
+    context['users'] = User.objects.filter(is_active=True, is_superuser=False)
+    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
+    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    context.update(get_view_permissions(request.user))
+    return render(request,template_name, context)
+
+@login_required
+def policy_group_remove(request, group_uuid=None):
+    # TODO Check if the user requesting the deletion has the permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_policy = PermissionManager.user_can_delete_policy(request.user)
+    if not can_delete_policy:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    deleted_count, extras = forms.PolicyGroup.objects.filter(policy_group_uuid=group_uuid).delete()
+    if deleted_count > 0 :
+        messages.success(request, 'PolicyGroup has been deleted')
+        logger.info("Policy Group deleted by User {}", request.user.username)
+    
+    else:
+        messages.error(request, 'Policy Group could not be deleted')
+        logger.error("Policy Group Delete failed. Action requested by User {}",request.user.username)
+        
+    return redirect('dashboard:policy-groups')
 
 
 @login_required
 def transfers(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_transfer = PermissionManager.user_can_view_transfer(request.user)
+    if not can_view_transfer:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model(app_name='payments', modelName='Transfer')
     #current_account = Account.objects.get(user=request.user)
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -484,11 +1073,24 @@ def transfers(request):
         list_set = None
     context['page_title'] = page_title
     context['transfers'] = list_set
+    context['can_delete_transfer'] = PermissionManager.user_can_delete_transfer(request.user)
+    context['can_update_transfer'] = PermissionManager.user_can_change_transfer(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
 @login_required
 def transfer_details(request, transfer_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_transfer = PermissionManager.user_can_view_transfer(request.user)
+    if not can_view_transfer:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     context = {}
     model = utils.get_model(app_name='payments', modelName='Transfer')
     transfer = get_object_or_404(model, transfer_uuid=transfer_uuid)
@@ -496,18 +1098,32 @@ def transfer_details(request, transfer_uuid=None):
     page_title = "Transfer Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['transfer'] = transfer
+    context['can_delete_transfer'] = PermissionManager.user_can_delete_transfer(request.user)
+    context['can_update_transfer'] = PermissionManager.user_can_change_transfer(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
 def payments(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_payment = PermissionManager.user_can_view_payment(request.user)
+    if not can_view_payment:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model(app_name='payments', modelName='Payment')
     #current_account = Account.objects.get(user=request.user)
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         payment_set = paginator.page(page)
     except PageNotAnInteger:
@@ -516,11 +1132,25 @@ def payments(request):
         payment_set = None
     context['page_title'] = page_title
     context['payments'] = payment_set
+    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
+    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
 @login_required
 def payment_details(request, payment_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_payment = PermissionManager.user_can_view_payment(request.user)
+    if not can_view_payment:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model(app_name='payments', modelName='Payment')
     payment = get_object_or_404(model, payment_uuid=payment_uuid)
@@ -528,18 +1158,91 @@ def payment_details(request, payment_uuid=None):
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['payment'] = payment
+    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
+    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
+    context.update(get_view_permissions(request.user))
+    return render(request,template_name, context)
+
+
+@login_required
+def payment_requests(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_payment = PermissionManager.user_can_view_payment(request.user)
+    if not can_view_payment:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    #current_account = Account.objects.get(user=request.user)
+    queryset = PaymentRequest.objects.all().order_by('-created_at')
+    template_name = "dashboard/payment_request_list.html"
+    page_title = "Payments Requests - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    try:
+        request_set = paginator.page(page)
+    except PageNotAnInteger:
+        request_set = paginator.page(1)
+    except EmptyPage:
+        request_set = None
+    context['page_title'] = page_title
+    context['requests'] = request_set
+    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
+    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
+    context.update(get_view_permissions(request.user))
+    return render(request,template_name, context)
+
+
+@login_required
+def payment_request_details(request, request_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_payment = PermissionManager.user_can_view_payment(request.user)
+    if not can_view_payment:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    payment_request = get_object_or_404(PaymentRequest, request_uuid=request_uuid)
+    template_name = "dashboard/payment_request_detail.html"
+    page_title = "Payment Details - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['payment_request'] = payment_request
+    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
+    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
 def cases(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_claim = PermissionManager.user_can_view_claim(request.user)
+    if not can_view_claim:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
     #current_account = Account.objects.get(user=request.user)
-    queryset = model.objects.all()
+    queryset = model.objects.all().order_by('-created_at')
     template_name = "dashboard/cases.html"
     page_title = "Cases - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, utils.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -548,11 +1251,26 @@ def cases(request):
         list_set = None
     context['page_title'] = page_title
     context['cases'] = list_set
+    context['can_delete_claim'] = PermissionManager.user_can_delete_claim(request.user)
+    context['can_update_claim'] = PermissionManager.user_can_change_claim(request.user)
+    context['can_close_claim'] = PermissionManager.user_can_close_claim(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
 @login_required
 def case_details(request, issue_uuid=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_claim = PermissionManager.user_can_view_claim(request.user)
+    if not can_view_claim:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
     claim = get_object_or_404(model, issue_uuid=issue_uuid)
@@ -560,20 +1278,37 @@ def case_details(request, issue_uuid=None):
     page_title = "Claim Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['claim'] = claim
+    context['can_delete_claim'] = PermissionManager.user_can_delete_claim(request.user)
+    context['can_update_claim'] = PermissionManager.user_can_change_claim(request.user)
+    context['can_close_claim'] = PermissionManager.user_can_close_claim(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
 
 @login_required
 def case_close(request, issue_uuid=None):
-    context = {}
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_close_claim = PermissionManager.user_can_close_claim(request.user)
+    if not can_close_claim:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     model = utils.get_model(app_name='payments', modelName='CaseIssue')
-    claim = get_object_or_404(model, issue_uuid=issue_uuid)
-    template_name = "dashboard/case_close.html"
-    page_title = "Claim Closing - " + settings.SITE_NAME
-    context['page_title'] = page_title
-    context['claim'] = claim
-    return render(request,template_name, context)
+    updated = model.objects.filter(issue_uuid=issue_uuid).update(is_closed=True)
+    if updated :
+            messages.success(request, "Case closed")
+            logger.info("User %s closed the Claim %s", username, issue_uuid)
+            
+    else :
+            messages.error(request,"Case not closed")
+            logger.warn("User %s failed to close the Claim %s", username, issue_uuid)
+    return redirect('dashboard:caseissues')
 
 
 @login_required
@@ -588,14 +1323,25 @@ def model_usage(request, appName=None, modelName=None):
 
 @login_required
 def groups(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_group = PermissionManager.user_can_view_group(request.user)
+    if not can_view_group:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     
     #current_account = Account.objects.get(user=request.user)
-    group_list = Group.objects.all()
+    group_list = Group.objects.extra(select={'iname':'lower(name)'}).order_by('iname')
     template_name = "dashboard/group_list.html"
     page_title = "Groups" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(group_list, 10)
+    paginator = Paginator(group_list, utils.PAGINATED_BY)
     try:
         group_set = paginator.page(page)
     except PageNotAnInteger:
@@ -604,22 +1350,51 @@ def groups(request):
         group_set = None
     context['page_title'] = page_title
     context['groups'] = group_set
+    context['can_delete_group'] = PermissionManager.user_can_delete_group(request.user)
+    context['can_update_group'] = PermissionManager.user_can_change_group(request.user)
+    context['can_add_group'] = PermissionManager.user_can_add_group(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
 def group_detail(request, pk=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_view_group = PermissionManager.user_can_view_group(request.user)
+    if not can_view_group:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = {}
     group = get_object_or_404(Group, pk=pk)
     template_name = "dashboard/group_detail.html"
     page_title = "Group Detail" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['group'] = group
+    context['can_delete_group'] = PermissionManager.user_can_delete_group(request.user)
+    context['can_update_group'] = PermissionManager.user_can_change_group(request.user)
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
 @login_required
 def group_update(request, pk=None):
     # TODO CHECK if the requesting User has the permission to update a group
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_change_group = PermissionManager.user_can_change_group(request.user)
+    if not can_change_group:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = None
     page_title = 'Group Update'
     template_name = 'dashboard/group_update.html'
@@ -652,13 +1427,26 @@ def group_update(request, pk=None):
             'users' : group_users,
             'available_users' : available_users,
             'permissions': permissions,
-            'available_permissions' : available_permissions
+            'available_permissions' : available_permissions,
+            'can_change_group' : can_change_group
     }
+    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 
 @login_required
 def group_create(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_add_group = PermissionManager.user_can_add_group(request.user)
+    if not can_add_group:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
     context = None
     page_title = 'Group Creation'
     template_name = 'dashboard/group_create.html'
@@ -674,7 +1462,7 @@ def group_create(request):
             logger.debug('Creating a Group with the name {}'.format(group_name))
             if not Group.objects.filter(name=group_name).exists():
                 group = form.save()
-                messages.add_message(request, messages.SUCCESS, "The Group has been succesfully created")
+                messages.success(request, "The Group has been succesfully created")
                 if users:
                     group.user_set.set(users)
                     logger.debug("Added users into the group %s",users)
@@ -684,25 +1472,37 @@ def group_create(request):
                 return redirect('dashboard:groups')
             else:
                 msg = "A Group with the given name {} already exists".format(group_name)
-                messages.add_message(request, messages.ERROR, msg)
+                messages.error(request, msg)
                 logger.error(msg)
             
         else :
-            messages.add_message(request, messages.ERROR, "The Group could not be created. Please correct the form")
+            messages.error(request, "The Group could not be created. Please correct the form")
             logger.error("Error on creating new Group Errors : %s", form.errors)
     
     context = {
             'page_title' : page_title,
             'form': form,
             'available_users' : available_users,
-            'available_permissions': available_permissions
+            'available_permissions': available_permissions,
+            'can_add_group' : can_add_group
     }
+    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 
 @login_required
 def group_delete(request, pk=None):
     # TODO Check if the user requesting the deletion has the Group Delete permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    can_delete_group = PermissionManager.user_can_delete_group(request.user)
+    if not can_delete_group:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     try:
         group = Group.objects.get(pk=pk)
         name = group.name
@@ -715,4 +1515,207 @@ def group_delete(request, pk=None):
         logger.error("Group Delete : Group not found. Action requested by User {}",request.user.username)
         
     return redirect('dashboard:groups')
+
+
+#######################################################
+########            Permissions 
+
+@login_required
+def permissions(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+
+    context = {}
+    permission_list = Permission.objects.all()
+    template_name = "dashboard/permission_list.html"
+    page_title = "Permissions" + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(permission_list, utils.PAGINATED_BY)
+    try:
+        permission_set = paginator.page(page)
+    except PageNotAnInteger:
+        permission_set = paginator.page(1)
+    except EmptyPage:
+        permission_set = None
+    context['page_title'] = page_title
+    context['permissions'] = permission_set
+    context.update(get_view_permissions(request.user))
+    return render(request,template_name, context)
+
+@login_required
+def permission_detail(request, pk=None):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    permission = get_object_or_404(Permission, pk=pk)
+    template_name = "dashboard/permission_detail.html"
+    page_title = "Permission Detail" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['permission'] = permission
+    context.update(get_view_permissions(request.user))
+    return render(request,template_name, context)
+
+
+@login_required
+def permission_update(request, pk=None):
+    # TODO CHECK if the requesting User has the permission to update a permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = None
+    page_title = 'Permission Update'
+    template_name = 'dashboard/permission_update.html'
+    permission = get_object_or_404(Permission, pk=pk)
+    form = forms.GroupFormCreation(instance=permission)
+    permission_users = permission.user_set.all()
+    available_users = User.objects.exclude(pk__in=permission_users.values_list('pk'))
+
+    if request.method == 'POST':
+        form = forms.GroupFormCreation(request.POST, instance=permission)
+        users = request.POST.getlist('users')
+        if form.is_valid() :
+            logger.debug("Permission form for update is valid")
+            if form.has_changed():
+                logger.debug("Permission has changed")
+            permission = form.save()
+            if users:
+                logger.debug("adding %s users [%s] into the permission", len(users), users)
+                permission.user_set.set(users)
+            logger.debug("Added permissions to users %s",users)
+            return redirect('dashboard:permissions')
+        else :
+            logger.error("Error on editing the perssion. The form is invalid")
     
+    context = {
+            'page_title' : page_title,
+            'form': form,
+            'users' : permission_users,
+            'available_users' : available_users,
+            'permission': permission
+    }
+    context.update(get_view_permissions(request.user))
+    return render(request, template_name, context)
+
+
+@login_required
+def permission_create(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = None
+    page_title = 'Permission Creation'
+    template_name = 'dashboard/permission_create.html'
+    available_groups = Group.objects.all()
+    available_users = User.objects.all()
+    form = forms.GroupFormCreation()
+    if request.method == 'POST':
+        form = forms.GroupFormCreation(request.POST)
+        users = request.POST.getlist('users')
+        if form.is_valid():
+            logger.debug("Permission Create : Form is Valid")
+            perm_name = form.cleaned_data.get('name', None)
+            perm_codename = form.cleaned_data.get('codename', None)
+            logger.debug('Creating a Permission with the name {}'.format(perm_name))
+            if not Permission.objects.filter(Q(name=perm_name) | Q(codename=perm_codename)).exists():
+                perm = form.save()
+                messages.add_message(request, messages.SUCCESS, "The Permission has been succesfully created")
+                if users:
+                    perm.user_set.set(users)
+                    logger.debug("Permission %s given to users  %s",perm_name, users)
+                else :
+                    logger.debug("Permission %s created without users", perm_name)
+
+                return redirect('dashboard:permissions')
+            else:
+                msg = "A Permission with the given name {} already exists".format(perm_name)
+                messages.add_message(request, messages.ERROR, msg)
+                logger.error(msg)
+            
+        else :
+            messages.add_message(request, messages.ERROR, "The Permission could not be created. Please correct the form")
+            logger.error("Error on creating new Permission : %s", form.errors)
+    
+    context = {
+            'page_title' : page_title,
+            'form': form,
+            'available_users' : available_users,
+            'available_groups': available_groups
+    }
+    context.update(get_view_permissions(request.user))
+    return render(request, template_name, context)
+
+
+@login_required
+def permission_delete(request, pk=None):
+    # TODO Check if the user requesting the deletion has the Group Delete permission
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    try:
+        perm = Permission.objects.get(pk=pk)
+        name = perm.name
+        messages.add_message(request, messages.SUCCESS, 'Permission {} has been deleted'.format(name))
+        perm.delete()
+        logger.debug("Permission {} deleted by User {}", name, request.user.username)
+        
+    except Permission.DoesNotExist:
+        messages.add_message(request, messages.ERROR, 'Permission could not be found. Permission not deleted')
+        logger.error("Permission Delete : Permission not found. Action requested by User {}",request.user.username)
+        raise Http404('Permission does not exist')
+        
+    return redirect('dashboard:permissions')
+
+
+@login_required
+def create_account(request):
+    username = request.user.username
+    context = {}
+    page_title = _('New User')
+    template_name = 'dashboard/new_user.html'
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    can_add_user = PermissionManager.user_can_add_user(request.user)
+    if not (can_add_user and can_view_user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    if request.method == 'POST':
+        name = request.POST['username']
+        result = AccountService.process_registration_request(request)
+        if result['user_created']:
+            messages.success(request, _(f"User {name} created"))
+            return redirect('dashboard:users')
+        else:
+            user_form = UserCreationForm(request.POST)
+            account_form = AccountCreationForm(request.POST)
+            user_form.is_valid()
+            account_form.is_valid()
+    else:
+        user_form = UserCreationForm()
+        account_form = AccountCreationForm()
+    context.update(get_view_permissions(request.user))
+    context['can_add_user'] = can_add_user
+    context['user_form'] = user_form
+    context['account_form'] = account_form
+    return render(request, template_name, context)
+
+

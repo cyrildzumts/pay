@@ -1,0 +1,44 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN_CONTENT %}
+
+{% if can_view_permission %}
+<div class="container">
+    <div class="box">
+            <div class="title">
+                <h3><span>{% trans "Permission" %}</span> - <span>{{permission.name}}</span></h3>
+             </div>
+             <div class="row actions">
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:permissions' %}"><i class="fas fa-arrow-left"></i> <span>{% trans "Go Back" %}</span></a>
+                <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+                {% if can_delete_permission %}<a class="mat-button mat-button-text danger" href="{% url 'dashboard:permission-delete' permission.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a>{% endif %}
+                {% if can_change_permission %}<a class="mat-button mat-button-text" href="{% url 'dashboard:permission-update' group.pk %}"><i class="far fa-edit"></i><span>{% trans "Edit" %}</span></a>{% endif %}
+             </div>
+             <div class="box-content">
+                {% if permission.groups %}
+                    <ul class="mat-list">
+                        <li><h4>{% trans "Groups" %}</h4></li>
+                        {% for g in permission.groups.all %}
+                            <li class="list-item"><span>{% trans g.name %}</span></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if permission.user_set %}
+                    <ul class="mat-list">
+                        <li><h4>{% trans "Users members" %}</h4></li>
+                        {% for u in permission.user_set.all %}
+                            <li class="list-item"><span>{% trans u.get_full_name %}</span> - <span>{{u.username}}</span></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+             </div>
+    </div>
+</div>
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
+{% endblock MAIN_CONTENT %}

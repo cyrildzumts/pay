@@ -4,16 +4,8 @@
 {% block MAIN %}
 
 <div class="container">
-        <div class="card">
-          <p> {% trans "Operator" %} : {{service.operator.get_full_name}} </p>
-          <p> {% trans "Customer" %} : {{service.customer.get_full_name}} </p>
-          <p> {% trans "Price" %} : {{service.price}} FCFA </p>
-          <div>  
-            <p> {% trans "Desciption" %} : </p>
-            <p>{{service.description}}</p>
-          </div>
-          <p> {% trans "Date" %} : {{service.created_at}} </p>
-        </div>
-    <a class="mat-button mat-button-text" href="{% url 'payments:new-transaction' %}"> {% trans "Pay a Bill" %} </a>
+    <div class="col-m-12 col-6">
+    {% include "tags/service_snippet.html" %}
+    </div>
 </div>
 {% endblock MAIN %}

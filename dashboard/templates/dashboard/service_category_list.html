@@ -1,9 +1,10 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
+{% block MAIN_CONTENT %}
 
 <div class="container">
+<div class="col-xs-12 col-6">
     {% for category in categories %}
         <div class="card">
             <div class="card__title">
@@ -18,5 +19,6 @@
     <p> {% trans "There is no service categories" %} </p>
     <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
     {% endfor %}
+    </div>
 </div>
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}

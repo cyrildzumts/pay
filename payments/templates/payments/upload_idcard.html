@@ -1,9 +1,16 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "NEW ID CARD  UPLOAD" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 
 {% block MAIN %}
 
 <div class="container">
-    {% include "tags/idcard_form.html" %}
+    <div class="col-xs-12 col-8">
+        <div class="mat-box">
+        {% include "tags/idcard_upload_form.html" %}
+        </div>
+    </div>
 </div>
 {% endblock MAIN %}

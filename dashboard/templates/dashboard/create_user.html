@@ -1,0 +1,42 @@
+
+{% extends "base_flat.html" %}
+{% load i18n %} 
+{% block HEADER_PANEL %}
+  <div class="header--panel row">
+       <div class="col col-1">
+              <div class="logo">
+                <a class="link" href="{%url 'home'%}"> {{site_name}} </a>
+              </div>
+        </div>
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+
+{% endblock HEADER_BANNER %}
+
+{% block MAIN_CONTENT %}
+
+<div class="padded-wrapper-top">
+  <div class="grid">
+    <div class="title">
+      {%trans 'Registration'%}
+    </div>
+
+    <div class="form-wrapper">
+        <form class="signup-form flex-column" action="{% url 'dashboard:create-account'%}" method="POST">{% csrf_token %}
+        
+          {% include "tags/form_snipet.html" with form=user_form %}
+          {% include "tags/form_snipet.html" with form=account_form %}
+          <div class="form-group">
+            <a class="mat-button mat-button-outlined" href="{%url 'dashboard:home'%}"> {% trans "Cancel" %} </a>
+            <button class="mat-button mat-button-default" type="submit">{%trans 'Create User Account'%} </button>
+          </div>
+          
+          
+        </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock MAIN_CONTENT %}

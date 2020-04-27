@@ -1,0 +1,42 @@
+{% extends "base_flat.html"%}
+{% load i18n %}
+
+{% block HEADER_PANEL %}
+<div class="header--panel">
+  <div class="row">{{site_name}}</div>
+</div>
+{% endblock HEADER_PANEL %}
+
+
+{% block HEADER_BANNER %}
+{% block  HEADER_BANNER_TITLE %}
+    <div class="row">
+    <h4> {% trans "PAYMENT REQUEST" %}</h4>
+    </div>
+    
+{% endblock HEADER_BANNER_TITLE %}
+
+{% endblock HEADER_BANNER %}
+
+
+
+{% block MAIN %}
+<div class="container">    
+        <div class="mat-box">
+            <div class="title">
+                <span>{% trans "Payment Request" %}</span>
+            </div>
+            <div class="mat-box-content">
+                <div><span>{% trans "Seller" %}</span> <i class="separator-ht"></i><span>{{payment_request.requester_name}}</span></div>
+                <div><span>{% trans "Amount" %}</span> <i class="separator-ht"></i><span>{{payment_request.amount}}</span><span>{% trans "XAF" %}</span></div>
+            </div>
+            <div class="row">
+                <a class="mat-button mat-button-default js-cancel" href="{% url 'payments:payment-request-decline' payment_request.request_uuid %}"> {% trans "Decline" %} </a>
+                <a class="mat-button mat-button-default" href="{% url 'payments:payment-request-accept' payment_request.request_uuid %}"> {% trans "Pay" %} </a>
+            </div>
+        </div>
+        
+</div>
+{% endblock MAIN %}
+{% block NOTIFICATIONS %}
+{% endblock NOTIFICATIONS %}
