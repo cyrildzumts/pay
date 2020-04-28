@@ -55,7 +55,7 @@ CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
 
 CELERY_NAMESPACE = 'CELERY'
 
-ALLOWED_HOSTS = ['localhost','http://pay-atalaku.com', 'www.pay-atalaku.com', 'pay-atalaku.com', os.environ['PAY_ALLOWED_HOST']]
+ALLOWED_HOSTS = [os.getenv('PAY_ALLOWED_HOST')]
 
 #EMAIL SETTINGS
 EMAIL_HOST = os.environ['PAY_EMAIL_HOST']
