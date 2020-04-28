@@ -81,10 +81,10 @@ ACCOUNTS = {
     )
 }
 
-PAY_USER = 'pay'
-PAY_RECHARGE_USER = 'pay_recharge'
+PAY_USER = os.getenv('PAY_USER')
+PAY_RECHARGE_USER = os.getenv('PAY_RECHARGE_USER')
 
-DEFAULT_LOCAL_CURRENCY = 'XAF'
+DEFAULT_LOCAL_CURRENCY = os.getenv('PAY_CURRENCY')
 
 # Application definition
 
@@ -177,7 +177,7 @@ DATABASES = {
         'sslmode': 'require'
     },
     'TEST'  :{
-        'NAME': 'pay_testdb',
+        'NAME': os.getenv('PAY_TEST_DATABASE', 'pay_testdb'),
     },
    },
 
