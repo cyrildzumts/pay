@@ -167,7 +167,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
     'production': {
-	'ENGINE': 'django.db.backends.postgresql',
+	'ENGINE':  os.environ['PAY_DATABASE_ENGINE'],
 	'NAME'	:  os.environ['PAY_DATABASE_NAME'],
 	'USER'	:  os.environ['PAY_DATABASE_USERNAME'],
 	'PASSWORD':  os.environ['PAY_DATABASE_PW'],
