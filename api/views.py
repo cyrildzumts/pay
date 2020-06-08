@@ -114,22 +114,23 @@ class TransferRetrieveUpdateCreateAPIView(RetrieveUpdateDestroyAPIView):
 
 @api_view(['GET', 'POST'])
 def payment_request(request, username, token):
+    logger.debug(f"New Payment Request - usernme \"{username}\" - token \"{token}\"")
     auth_token = None
     if not username or not token :
-        logger.warning("PAYMENT REQUEST API : username or token missing")
+        logger.error("PAYMENT REQUEST API : username or token missing")
         return Response({'error': 'username or token missing'})
         
     try:
         auth_token = Token.objects.get(key=token, user__username=username)
     except Token.DoesNotExist as e:
-        logger.info('PAYMENT REQUEST API : User not found')
+        logger.error('PAYMENT REQUEST API : User not found')
         return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'POST':
         postdata = request.POST.copy()
         postdata['seller'] = auth_token.user.pk
         form = PaymentRequestForm(postdata)
-        logger.info("POSTDATA :")
+        logger.info(f"POSTDATA :{postdata}")
             
         if form.is_valid(): 
             p_request = form.save()
@@ -137,7 +138,7 @@ def payment_request(request, username, token):
             url = reverse('payments:payment-request', kwargs={'request_uuid':p_request.request_uuid})
             return Response({'token':p_request.request_uuid, 'url': url}, status=status.HTTP_200_OK)
         else:
-            logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" is invalid")
+            logger.error(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" is invalid")
             for k,v in form.errors.items():
                 logger.info(f" P - Key: {k} - Value: {v}")
             return Response({'error': 'Submitted data is invalid'}, status=status.HTTP_400_BAD_REQUEST)
