@@ -177,7 +177,8 @@ DATABASES = {
         'sslmode': 'require'
     },
     'TEST'  :{
-        'NAME': os.getenv('PAY_TEST_DATABASE', 'pay_testdb'),
+        'NAME': os.getenv('PAY_TEST_DATABASE', 'test_pay_db'),
+        'TEMPLATE' : os.getenv('PAY_TEST_DATABASE_TEMPLATE')
     },
    },
 
