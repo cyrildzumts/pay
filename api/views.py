@@ -124,7 +124,7 @@ def payment_request(request, username, token):
         auth_token = Token.objects.get(key=token, user__username=username)
     except Token.DoesNotExist as e:
         logger.error('PAYMENT REQUEST API : User not found')
-        return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': f'Request user {username} not found'}, status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'POST':
         postdata = request.POST.copy()
@@ -136,14 +136,14 @@ def payment_request(request, username, token):
             p_request = form.save()
             logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
             url = reverse('payments:payment-request', kwargs={'request_uuid':p_request.request_uuid})
-            return Response({'token':p_request.request_uuid, 'url': url}, status=status.HTTP_200_OK)
+            return Response({'token':p_request.request_uuid, 'url': url, 'verification_code': p_request.verification_code}, status=status.HTTP_200_OK)
         else:
             logger.error(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" is invalid")
             for k,v in form.errors.items():
                 logger.info(f" P - Key: {k} - Value: {v}")
             return Response({'error': 'Submitted data is invalid'}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" rejected. Method not GET not allowed")
+        logger.info(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" rejected. Method GET not allowed")
         return Response({'error': 'Bad Request'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
