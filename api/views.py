@@ -130,12 +130,13 @@ def payment_request(request, username, token):
         postdata = request.POST.copy()
         postdata['seller'] = auth_token.user.pk
         form = PaymentRequestForm(postdata)
-        logger.info(f"POSTDATA :{postdata}")
+        logger.info(f"POSTDATA")
+        logger.info(postdata)
             
         if form.is_valid(): 
             p_request = form.save()
             logger.info(f"PAYMENT REQUEST API : Created Payment Request from user \"{username}\"")
-            url = reverse('payments:payment-request', kwargs={'request_uuid':p_request.request_uuid})
+            url = request.build_absolute_uri(reverse('payments:payment-request', kwargs={'request_uuid':p_request.request_uuid}))
             return Response({'token':p_request.request_uuid, 'url': url, 'verification_code': p_request.verification_code}, status=status.HTTP_200_OK)
         else:
             logger.error(f"PAYMENT REQUEST API : Payment Request from user \"{username}\" is invalid")

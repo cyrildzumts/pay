@@ -62,6 +62,12 @@
                         <span class="key">{% trans "Description" %} :</span> <span class="value">{{payment_request.description}}</span>
                     </div>
                     <div class="entry">
+                        <span class="key">{% trans "Redirect success URL" %} :</span> <span class="value">{{payment_request.redirect_success_url}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Redirect failed URL" %} :</span> <span class="value">{{payment_request.redirect_failed_url}}</span>
+                    </div>
+                    <div class="entry">
                         <span class="key">{% trans "UUID" %} :</span> <span class="value">{{payment_request.request_uuid}}</span>
                     </div>
 

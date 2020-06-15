@@ -385,7 +385,11 @@ class PaymentRequest(models.Model):
     product_name = models.CharField(max_length=255 ,blank=False, null=False)
     customer_name = models.CharField(max_length=255 ,blank=False, null=False)
     description = models.CharField(max_length=255 ,blank=False, null=False)
+    redirect_success_url = models.TextField(max_length=256, blank=True, null=True)
+    redirect_failed_url = models.TextField(max_length=256, blank=True, null=True)
+    failed_reason = models.TextField(max_length=256, blank=True, null=True)
     request_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
 
     def __str__(self):
         return "Payment Request id : {0} - Amount : {1}".format(self.pk, self.amount)
