@@ -179,7 +179,8 @@ class PaymentRequestForm(forms.ModelForm):
     class Meta:
         model = PaymentRequest
         fields = ['payment', 'seller', 'amount', 'unit_price','quantity', 'tva', 'commission',
-        'country', 'status', 'product_name', 'customer_name', 'description', 'requester_name'
+        'country', 'status', 'product_name', 'customer_name', 'description', 'requester_name', 
+        'redirect_success_url', 'redirect_failed_url', 'failed_reason'
         ]
     """
     def clean_token(self):
