@@ -1,0 +1,28 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block META_REDIRECT %}
+        <meta http-equiv='refresh' content="5;url={{payment_redirect_url}}"/>
+{% endblock META_REDIRECT %}
+{% block MAIN %}
+
+<div class="container">
+    <div class="mat-box">
+        <form action="{{payment_redirect_url}}"></form>
+        <p> 
+            {% if payment_success %}
+            <div>
+                <span>{% trans "Your Payment was succesfull. " %}</span>
+            </div>
+            {% else %}
+            <div>
+                <span>{% trans "Your Payment could not be procceed. " %}</span>
+            </div>
+            {% endif %}
+            <div>
+            {% trans "You will be redirected to the merchant site." %}
+            {% trans "Click here to directly go to the merchant site if you don't want to way." %} : <a class="mat-button mat-button-default" href="{{payment_redirect_url}}">{% trans "Merchant" %}</a>
+            </div>
+        </p>
+    </div>
+</div>
+{% endblock MAIN %}

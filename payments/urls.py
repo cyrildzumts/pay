@@ -59,6 +59,7 @@ urlpatterns = [
     path('payments/payment-request/<uuid:request_uuid>/', views.payment_request, name='payment-request'),
     path('payment-requests/decline/<uuid:request_uuid>/', views.decline_payment_request, name="payment-request-decline"),
     path('payment-requests/accept/<uuid:request_uuid>/', views.accept_payment_request, name="payment-request-accept"),
+    path('payment-requests/done/<uuid:request_uuid>/<int:succeed>/', views.payment_request_done, name="payment-request-done"),
 
     path('payments/archive/', ArchiveIndexView.as_view(model=views.Payment,date_field="created_at"), name='payment-archive'),
     path('payments/archive/<int:year>/', views.PaymentYearArchiveView.as_view(), name='payment-year-archive'),

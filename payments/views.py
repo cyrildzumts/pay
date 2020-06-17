@@ -554,12 +554,13 @@ def accept_payment_request(request, request_uuid):
     try:
         commission = recipient.policygroup_set.first().policy.commission
     except Exception as e:
-        logger.error("[recipient Error] %s", e)
+        logger.error(f"recipient Error on querying the commission for user \"{recipient.username}\"")
+        logger.exception(e)
     succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
     if succeed:
         p = Payment.objects.create(sender=sender, recipient=recipient, amount=amount, details=payment_request.description)
         PaymentRequest.objects.filter(pk=payment_request.pk).update(status='Paid', payment=p, commission=commission )
-        payment_request.payment = p
+        #payment_request.payment = p
         """
         send_mail_task.apply_async(args=[context['email_context']],
             queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
@@ -567,28 +568,49 @@ def accept_payment_request(request, request_uuid):
         )
         """
         logger.info("Payment request successful")
-        return redirect('payments:transaction-done')
-
-    context = {
-        'page_title':page_title,
-        'payment_request': payment_request
-    }
-    return redirect('payments:payment-request', request_uuid=request_uuid)
+    else:
+        logger.error("Payment Request with uuid \"{request_uuid}\" refused")
+    return redirect('payments:payment-request-done', request_uuid=request_uuid, succeed=((succeed and 1) or 0))
 
 @login_required
 def decline_payment_request(request, request_uuid):
-    context = {}
-    page_title = _("Payment Request")
+    #context = {}
+    #page_title = _("Payment Request")
     payment_request = None
     try:
-        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
+        p_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
     except PaymentRequest.DoesNotExist as e:
         logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
         raise Http404
     logger.info(f"Payment request with uuid : \"{request_uuid}\" declined by user \"{request.user.username}\"")
-    PaymentRequest.objects.filter(pk=payment_request.pk).update(status='Declined')
+    PaymentRequest.objects.filter(pk=p_request.pk).update(status='Declined')
     logger.info("Payment request declined")
-    return redirect('payments:transaction-done')
+    return redirect('payments:payment-request-done', request_uuid=request_uuid, succeed=0)
+
+@login_required
+def payment_request_done(request, request_uuid, succeed=1):
+    logger.info("Payment Request Done")
+    
+    template_name = "payments/payment_request_done.html"
+    page_title = "Payment Confirmation" + " - " + settings.SITE_NAME
+    queryset = PaymentRequest.objects.filter(request_uuid=request_uuid)
+    p_request = PaymentRequest.objects.none()
+    payment_redirect_url = None
+    if queryset.exists():
+        p_request = queryset.first()
+    
+    if succeed:
+        payment_redirect_url = p_request.redirect_success_url
+    else:
+        payment_redirect_url = p_request.redirect_failed_url
+    context = {
+        'page_title' : page_title,
+        'payment_request' : p_request,
+        'payment_success' : succeed == 1,
+        'payment_redirect_url': payment_redirect_url
+    }
+    return render(request,template_name, context)
+
 
 @login_required
 def payment_done(request):
