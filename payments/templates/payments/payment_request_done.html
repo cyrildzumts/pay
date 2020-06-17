@@ -1,21 +1,25 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block META_REDIRECT %}
+        {% comment "" %}
         <meta http-equiv='refresh' content="5;url={{payment_redirect_url}}"/>
+        {% endcomment %}
 {% endblock META_REDIRECT %}
 {% block MAIN %}
 
 <div class="container">
     <div class="mat-box">
-        <form action="{{payment_redirect_url}}"></form>
+        <form action="{{payment_redirect_url}}">
+        <input type="hidden" name="reason" value="Test Remote form submit">
+        
         <p> 
             {% if payment_success %}
             <div>
-                <span>{% trans "Your Payment was succesfull. " %}</span>
+                <span>{% trans "Your Payment was succesfull." %}</span>
             </div>
             {% else %}
             <div>
-                <span>{% trans "Your Payment could not be procceed. " %}</span>
+                <span>{% trans "Your Payment could not be procceed." %}</span>
             </div>
             {% endif %}
             <div>
@@ -23,6 +27,8 @@
             {% trans "Click here to directly go to the merchant site if you don't want to way." %} : <a class="mat-button mat-button-default" href="{{payment_redirect_url}}">{% trans "Merchant" %}</a>
             </div>
         </p>
+        <button class="mat-button mat-button-default" type="submit">{% trans "Go To Marchant" %}</button>
+        </form>
     </div>
 </div>
 {% endblock MAIN %}
