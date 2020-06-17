@@ -670,6 +670,7 @@ def policies(request):
     context.update(get_view_permissions(request.user))
     context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
     context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    context['can_add_policy'] = PermissionManager.user_can_add_policy(request.user)
     return render(request,template_name, context)
 
 
