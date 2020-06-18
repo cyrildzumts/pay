@@ -186,7 +186,8 @@ DATABASES = {
 
 DEFAULT_DATABASE = os.environ.get('DJANGO_DATABASE', 'dev')
 DATABASES['default'] = DATABASES[DEFAULT_DATABASE]
-DEV_MODE = True
+DEBUG = DEFAULT_DATABASE == 'dev'
+#DEV_MODE = True
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -271,6 +272,11 @@ LOGGING = {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',
             'propagate': False,
         }
     }
