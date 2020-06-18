@@ -186,7 +186,8 @@ DATABASES = {
 
 DEFAULT_DATABASE = os.environ.get('DJANGO_DATABASE', 'dev')
 DATABASES['default'] = DATABASES[DEFAULT_DATABASE]
-DEBUG = DEFAULT_DATABASE == 'dev'
+#DEBUG = DEFAULT_DATABASE == 'dev'
+DEBUG = True
 #DEV_MODE = True
 
 # Password validation
