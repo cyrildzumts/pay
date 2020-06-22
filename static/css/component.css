@@ -1357,7 +1357,7 @@ a {
 	padding: 4px 8px;
 	margin: 4px 2px;
 }
-
+/*
 .form-group{
 	display: flex;
 	justify-content: right;
@@ -1366,6 +1366,8 @@ a {
 	padding: 0;
 	margin-bottom: 16px;
 }
+*/
+
 
 .form-group input, .form-group textarea, .form-group select{
 	/*width: 100%;*/
@@ -1375,6 +1377,7 @@ a {
 	color: var(--btn-color);
 	border: var(--input-border);
 }
+
 
 .form-group .mat-button{
 	padding: 0 8px;
