@@ -5,11 +5,11 @@
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">
         {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Seller Name" %}
-        <div class="form-group">
+        <div class="mat-input">
             <label for="amount">{% trans "Amount" %}</label>
             <input type="text" name="amount" placeholder="{% trans 'Enter the amount to be paid' %}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="details">{% trans "Description" %}</label>
             <input type="text" name="details" placeholder="{% trans 'Payment description' %}">
         </div>

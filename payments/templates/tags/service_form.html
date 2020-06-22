@@ -9,27 +9,27 @@
         <input type="hidden" name="customer" value="{{request.user.pk}}">
         <input type="hidden" name="commission" value="{{commission}}">
 
-        <div class="form-group">
+        <div class="mat-input">
             <label for="name">{% trans "Service Name" %}</label>
             <input id="name" type="text" name="name" value="{{service.name}}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="reference_number">{% trans "Reference Number" %}</label>
             <input id="reference_number" type="text" name="reference_number" placeholder="{% trans 'Your bill Reference number if applicable' %}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="customer_reference">{% trans "Your customer reference" %}</label>
             <input id="customer_reference" type="text" name="customer_reference" placeholder="{% trans 'your customer number as known by the operator' %}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="price">{% trans "Amount" %}</label>
             <input id="price" type="text" name="price" placeholder="{% trans 'Enter the price of the service' %}" required>
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="Issue_date">{% trans "Issue Date" %}</label>
             <input id="issue_date" type="date" name="issued_at" placeholder="{% trans 'Enter the date when the bill was delivered, if applicable' %}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="description">{% trans "Payment Description" %}</label>
             <input id="description" type="text" name="description" placeholder="{% trans 'Enter Service description here' %}" required>
         </div>

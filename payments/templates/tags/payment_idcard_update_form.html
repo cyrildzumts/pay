@@ -8,29 +8,29 @@
         <div class="form-group">
 
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="card_number">{% trans "Card Number" %}</label>
             <input id="card_number" type="text" name="card_number" placeholder="{{idcard.card_number}}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="delivery_at">{% trans "Issued Date" %} : </label>
             <input id="delivery_at" type="date" name="delivery_at" id="delivery_at" placeholder="{{idcard.delivery_at}}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="expire_at">{% trans "Epire at " %} : </label>
             <input id="expire_at" type="date" name="expire_at" id="expire_at" placeholder="{{idcard.expire_at}}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="delivery_place">{% trans "Delivrance place" %} : </label>
             <input id="delivery_place" type="text" name="delivery_place" id="delivery_place" placeholder="{{idcard.delivery_place}}">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="old_image">{% trans "Current ID image" %}</label>
-            <div class="responsive">
+            <span class="responsive">
                 <img id="old_image" class="full js-zoom" src="{{idcard.image.url}}"/>
-            </div>
+            </span>
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="image">{% trans "ID card Picture" %} : </label>
             <input id="image" type="file" name="image">
         </div>

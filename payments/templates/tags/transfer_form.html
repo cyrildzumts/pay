@@ -7,11 +7,11 @@
 
         {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient Name" %}
 
-        <div class="form-group">
+        <div class="mat-input">
             <label for="amount">{% trans "Amount(XAF)" %}</label>
             <input id="amount" type="text" name="amount">
         </div>
-        <div class="form-group">
+        <div class="mat-input">
             <label for="details">{% trans "Description" %}</label>
             <input id="details" type="text" name="details" placeholder="{% trans 'Description' %}">
         </div>
