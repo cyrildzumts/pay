@@ -303,7 +303,7 @@
 }
 
 .info, .success, .debug, .warn, .warning, .error{
-    width: 100%;
+    /*width: 100%;*/
     min-height: 32px;
     padding: 4px;
     margin: 4px ;
