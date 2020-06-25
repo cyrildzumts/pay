@@ -256,7 +256,7 @@ def recharges(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    recharge_list = voucher_service.VoucherService.get_recharge_set({seller=request.user})
+    recharge_list = voucher_service.VoucherService.get_recharge_set(seller=request.user)
     page = request.GET.get('page', 1)
     paginator = Paginator(recharge_list, 10)
     try:
