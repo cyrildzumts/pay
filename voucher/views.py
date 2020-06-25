@@ -188,7 +188,7 @@ def sold_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = Voucher.objects.filter(sold_by=request.user ,Q(is_sold=True)|Q(activated=True)).order_by('-created_at')
+    voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(activated=True), sold_by=request.user).order_by('-created_at')
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
@@ -256,7 +256,7 @@ def recharges(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    recharge_list = voucher_service.VoucherService.get_recharge_set(seller=request.user)
+    recharge_list = voucher_service.VoucherService.get_recharge_set(**{seller=request.user})
     page = request.GET.get('page', 1)
     paginator = Paginator(recharge_list, 10)
     try:
