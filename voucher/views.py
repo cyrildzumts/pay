@@ -40,7 +40,7 @@ def vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_voucher_set(Q(sold_by=request.user)|Q(activated_by=request.user))
+    voucher_list = voucher_service.VoucherService.get_voucher_set(activated_by=request.user)
 
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
