@@ -285,11 +285,11 @@ def recharge_details(request, recharge_uuid=None):
     return render(request, template_name, context)
 
 class RechargeView(ListView):
-    queryset = Recharge.objects.filter(seller=request.user).order_by('-created_at')
+    queryset = Recharge.objects.order_by('-created_at')
     context_object_name = "recharge_list"
     template_name = 'voucher/recharge_list.html'
 
 class RechargeDetailView(DetailView):
-    queryset = Recharge.objects.filter(seller=request.user).all()
+    queryset = Recharge.objects.all()
     context_object_name = "recharge"
     template_name = 'tags/recharge_details.html'
