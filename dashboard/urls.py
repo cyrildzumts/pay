@@ -55,5 +55,19 @@ urlpatterns = [
     path('category-services/remove-all/', views.category_service_remove_all, name='category-service-remove-all'),
     path('category-services/update/<uuid:category_uuid>/', views.category_service_update, name='category-service-update'),
     path('category-services/create/', views.category_service_create, name='category-service-create'),
+    path('voucher', views.voucher_home, name='voucher-home'),
+    path('activate/<uuid:voucher_uuid>/', views.voucher_activate, name='activate'),
+    path('vouchers/', views.vouchers, name='vouchers'),
+    path('voucher-detail/<uuid:voucher_uuid>/', views.voucher_details, name='voucher-detail'),
+
+    path('used-vouchers/', views.used_vouchers, name='used-vouchers'),
+    path('used-voucher-detail/<uuid:voucher_uuid>/', views.used_voucher_details, name='used-voucher-detail'),
+
+    path('sold-vouchers/', views.sold_vouchers, name='sold-vouchers'),
+    path('sold-voucher-detail/<uuid:voucher_uuid>/', views.sold_voucher_details, name='sold-voucher-detail'),
+    path('generate/', views.voucher_generate, name='voucher-generate'),
+    path('recharge/', views.recharge_user_account_view, name='recharge'),
+    path('recharges/', views.recharges, name='recharges'),
+    path('recharges/<uuid:recharge_uuid>/', views.recharge_details, name='recharge-detail')
     
 ]

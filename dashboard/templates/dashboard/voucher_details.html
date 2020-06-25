@@ -1,0 +1,64 @@
+{% extends "voucher_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+
+         <div class="col col-4 col-sm-12">
+            <div class="box">
+
+            <div class="row full">
+                <div class="col col-3">
+                    <div class="row title">
+                        <h3> {% trans voucher.name  %} </h3>
+                    </div>
+                </div>
+                <div class="col col-9">
+                    <ul class="box-content">
+                        <li><span>{% trans "Credit" %} :</span> <span>{{voucher.amount}} {% trans "XAF" %}</span></li>
+
+                        <li><span>{% trans "Voucher Code" %} :</span> <span>{{voucher.voucher_code}}</span></li>
+                        <li><span>{% trans "Creation Date" %} :</span> <span>{{voucher.created_at|date:"F j, Y"}}</span></li>
+     
+                        {% if voucher.activated is True %}
+                        <li><span>{% trans "Activated" %} :</span> <span>{% trans "Yes" %}</span></li>
+                        <li><span>{% trans "Activated by" %} :</span> <span>{{voucher.activated_by.get_full_name}} - {{voucher.activated_by.username}}</span></li>
+                        <li><span>{% trans "Activation Date" %} :</span> <span>{{voucher.activated_at|date:"F j, Y"}}</span></li>
+                        <li><span>{% trans "Sold by" %} :</span> <span>{{voucher.sold_by.get_full_name}} - {{voucher.sold_by.username}}</span></li>
+                        <li><span>{% trans "Sold Date" %} :</span> <span>{{voucher.sold_at|date:"F j, Y"}}</span></li>
+                        {% else %}
+                        <li><span>{% trans "Activated" %} :</span> <span>{% trans "No" %}</span></li>
+                        {% endif %}
+
+                        {% if voucher.is_used is True %}
+                        <li><span>{% trans "Is already used " %} :</span> <span>{% trans "Yes" %}</span></li>
+                        <li><span>{% trans "Used by" %} :</span> <span>{{voucher.used_by.get_full_name}} - {{voucher.used_by.username}}</span></li>
+                        <li><span>{% trans "Used at" %} :</span> <span>{{voucher.used_at|date:"F j, Y"}}</span></li>
+
+                        {% else %}
+                        <li><span>{% trans "Is already used " %} :</span> <span>{% trans "No" %}</span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row full">
+                <div class="row">
+                {% if voucher.activated is False %}
+                  <a class="mat-button mat-button-default" href="{% url 'voucher:activate' voucher.voucher_uuid %} "> {% trans "Activate this Voucher" %} </a>
+                {% endif %}
+                  
+                  <a class="mat-button mat-button-text" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
+                  <a class="mat-button mat-button-text" href="{% url 'accounts:account' %}"> {% trans "PAY Home" %} </a>
+                </div>
+            </div>
+            
+            
+
+            
+        </div>
+         </div>
+    
+    
+</div>
+{% endblock MAIN %}

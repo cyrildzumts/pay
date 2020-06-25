@@ -1,0 +1,65 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+
+<div class="row">
+  <div class="nav">
+    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+    <a class="mat-button mat-button-default" href="{% url 'dashboard:vouchers' %}"> {% trans "Vouchers" %} </a>
+    <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a>
+  </div>
+</div>
+
+<div class="container">
+
+  {% if voucher_list %}
+  
+
+
+    <div class="mat-table-wrapper">
+        <div class="row">
+            <div class="mat-table-title">
+                {% trans "Used Voucher Page" %}
+            </div>
+        </div><!--End of Row-->
+        
+        <table id="voucher-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          <th>{% trans "Voucher Name" %}</th>
+                          <th>{% trans "Credit" %}</th>
+                          <th>{% trans "Voucher Code" %}</th>
+                          <th>{% trans "Usage Date" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for v in voucher_list  %}
+                  <tr>
+                  <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
+                  <td>{{v.name}}</td>
+                  <td>{{v.amount}} {% trans "XAF" %}</td>
+                  <td>{{v.voucher_code}}</td>
+                  <td>{{v.used_at|date:"F j, Y"}}</td>
+                  <td><a class="mat-button mat-button-default" href="{% url 'dashboard:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+          <tfoot>
+                  
+          </tfoot>
+
+    </table>
+    {% include "tags/pagination.html" with page_set=voucher_list %} 
+    </div><!--End of Table Wrapper-->
+  {% else %}
+  <div class="">
+      <p>{% trans "There are no used Voucher now." %}</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock MAIN %}

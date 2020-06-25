@@ -1,0 +1,42 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+{% block MAIN %}
+
+<div class="row">
+        
+        <nav class="nav responsive">
+            <ul class="listview dock">
+                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
+                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
+                <li class="list-item"> 
+                    <a class="mat-button mat-button-text" href="{%url 'dashboard:vouchers'%}">
+                        {% trans "Generated Voucher List" %}
+                    </a> 
+                </li>
+                <li class="list-item"> 
+                    <a class="mat-button mat-button-text" href="{%url 'dashboard:recharge'%}">
+                        {% trans "Recharge Customer Account" %} 
+                     </a> 
+                </li>
+                <li class="list-item"> 
+                    <a class="mat-button mat-button-text" href="{%url 'dashboard:used-vouchers'%}"> 
+                        {% trans "Used Voucher List" %} 
+                    </a> 
+                </li>
+                <li class="list-item"> 
+                    <a class="mat-button mat-button-text" href="{%url 'dashboard:sold-vouchers'%}">
+                        {% trans "Sold Voucher List" %} 
+                     </a> 
+                </li>
+
+                <li class="list-item"> 
+                    <a class="mat-button mat-button-text" href="{%url 'dashboard:voucher-generate'%}">
+                        {% trans "Generate new Voucher cards" %} 
+                     </a> 
+                </li>
+            </ul>
+        </nav>
+
+</div>
+
+{% endblock MAIN %}
