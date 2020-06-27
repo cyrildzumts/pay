@@ -22,7 +22,7 @@ function validate_transfert_form(){
         console.log("You must provide a description of the transfer");
     }
     if(is_valid){
-        submitBtn.removeClass(".disabled");
+        submitBtn.removeClass("disabled");
     }
 }
 
