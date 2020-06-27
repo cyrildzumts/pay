@@ -2,7 +2,7 @@
 
 <div class="container flex-center">
 
-    <form id="voucher-recharge-form" name="voucher-recharge" action="{% url 'payments:recharge' %}" method="POST">{% csrf_token %}
+    <form id="recharge-form" name="voucher-recharge" action="{% url 'payments:recharge' %}" method="POST">{% csrf_token %}
         <div class="mat-input">
             <label for="voucher">{% trans "Voucher Code" %} : </label>
             <input id="voucher" type="text" name="voucher">
@@ -10,7 +10,7 @@
         
         <div class="form-group actions">
             <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
-            <button class="mat-button mat-button-default" type="submit">{% trans "Recharge my Account" %}</button>
+            <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Recharge my Account" %}</button>
         </div>
     </form>
 

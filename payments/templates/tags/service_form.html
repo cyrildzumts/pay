@@ -2,7 +2,7 @@
 
 <div class="container">
 
-    <form name="transaction" action="{% url 'payments:new-service'  service.available_uuid %}" method="POST">{% csrf_token %}
+    <form id="service-form" name="service-form" action="{% url 'payments:new-service'  service.available_uuid %}" method="POST">{% csrf_token %}
         <input type="hidden" name="operator" value="{{service.operator.pk}}">
         <input type="hidden" name="service_instance" value="{{service.pk}}">
         <input type="hidden" name="category" value="{{service.category.pk}}">
@@ -14,29 +14,29 @@
             <input id="name" type="text" name="name" value="{{service.name}}">
         </div>
         <div class="mat-input">
-            <label for="reference_number">{% trans "Reference Number" %}</label>
-            <input id="reference_number" type="text" name="reference_number" placeholder="{% trans 'Your bill Reference number if applicable' %}">
+            <label for="reference-number">{% trans "Reference Number" %}</label>
+            <input id="reference-number" type="text" name="reference_number" placeholder="{% trans 'Your bill Reference number if applicable' %}">
         </div>
         <div class="mat-input">
-            <label for="customer_reference">{% trans "Your customer reference" %}</label>
-            <input id="customer_reference" type="text" name="customer_reference" placeholder="{% trans 'your customer number as known by the operator' %}">
+            <label for="customer-reference">{% trans "Your customer reference" %}</label>
+            <input id="customer-reference" type="text" name="customer_reference" placeholder="{% trans 'your customer number as known by the operator' %}">
         </div>
         <div class="mat-input">
-            <label for="price">{% trans "Amount" %}</label>
-            <input id="price" type="text" name="price" placeholder="{% trans 'Enter the price of the service' %}" required>
+            <label for="amount">{% trans "Amount" %}</label>
+            <input id="amount" type="text" name="price" placeholder="{% trans 'Enter the price of the service' %}" required>
         </div>
         <div class="mat-input">
-            <label for="Issue_date">{% trans "Issue Date" %}</label>
-            <input id="issue_date" type="date" name="issued_at" placeholder="{% trans 'Enter the date when the bill was delivered, if applicable' %}">
+            <label for="Issue-date">{% trans "Issue Date" %}</label>
+            <input id="issue-date" type="date" name="issued_at" placeholder="{% trans 'Enter the date when the bill was delivered, if applicable' %}">
         </div>
         <div class="mat-input">
-            <label for="description">{% trans "Payment Description" %}</label>
-            <input id="description" type="text" name="description" placeholder="{% trans 'Enter Service description here' %}" required>
+            <label for="details">{% trans "Payment Description" %}</label>
+            <input id="details" type="text" name="description" placeholder="{% trans 'Enter Service description here' %}" required>
         </div>
 
         <div class="form-group actions">
             <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
-            <button class="mat-button mat-button-default" type="submit">{% trans "Pay" %}</button>
+            <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Pay" %}</button>
             
         </div>
     </form>

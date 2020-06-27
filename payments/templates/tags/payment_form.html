@@ -7,15 +7,15 @@
         {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Seller" %}
         <div class="mat-input">
             <label for="amount">{% trans "Amount" %}</label>
-            <input type="text" name="amount">
+            <input id="amount" type="text" name="amount">
         </div>
         <div class="mat-input">
             <label for="details">{% trans "Description" %}</label>
-            <input type="text" name="details">
+            <input id="details" type="text" name="details">
         </div>
         <div class="form-group actions">
             <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
-            <button class="mat-button mat-button-default" type="submit">{% trans "PAY" %}</button>
+            <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "PAY" %}</button>
         </div>
     </form>
 
