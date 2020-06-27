@@ -9,7 +9,7 @@
                 <div><span>{% trans "Amount" %}</span> <i class="separator-ht"></i><span>{{payment_request.amount}}</span><span>{% trans "XAF" %}</span></div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group actions">
             <a class="mat-button mat-button-default js-cancel" href="{% url 'payments:payment-request-decline' payment_request.request_uuid %}"> {% trans "Decline" %} </a>
             <a class="mat-button mat-button-default" href="{% url 'payments:payment-request-accept' payment_request.request_uuid %}"> {% trans "Pay" %} </a>
         </div>

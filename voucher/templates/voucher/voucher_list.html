@@ -3,8 +3,8 @@
 
 {% block MAIN %}
 
-<div class="row">
-  <div class="nav">
+<div class="container">
+  <div class="nav actions">
     <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
     <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
   </div>
@@ -61,11 +61,6 @@
   {% else %}
     <div class="">
       <p>{% trans "There are no Voucher sold now." %}</p>
-      <ul class="mat-list">
-        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a></li>
-        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}">{% trans "Voucher Board" %}</a></li>
-        <li class="mat-list-item"> <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a></li>
-      </ul>
     </div>
     {% endif %}
 </div>
