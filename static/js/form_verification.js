@@ -23,6 +23,8 @@ function validate_transfert_form(){
     }
     if(is_valid){
         submitBtn.removeClass("disabled");
+    }else{
+        submitBtn.addClass("disabled");
     }
 }
 
