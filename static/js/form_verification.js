@@ -13,7 +13,7 @@ function validate_transfert_form(){
         console.log("Recipient is missing");
 
     }
-    if(!$amount.val().test(number_regex)){
+    if(!number_regex.test($amount.val())){
         is_valid = false;
         console.log("Amount must be a number");
     }
