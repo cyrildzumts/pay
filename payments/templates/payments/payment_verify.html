@@ -8,7 +8,6 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-m-12 col-8">
             <div class="mat-box">
             
                 <form  name="payment_verification" action="{% url 'payments:payment-verification' %}" method="POST">{% csrf_token %}
@@ -51,7 +50,6 @@
                     </div>
                 </form>
             </div>
-        </div>
     </div>
 
     {% if payment_verification_ready %}
@@ -61,7 +59,7 @@
                 <div class="title">
                     <span class="success">{% trans "Payment successdfully verified." %}</span>
                 </div>
-                <div class="content">
+                <div class="mat-box-content content">
                     <div class="entry">
                         <span class="key">{% trans "Sender" %} :</span> <span class="value">{{payment.sender.get_full_name}}</span>
                     </div>
@@ -84,11 +82,11 @@
                 </div>
             </div>
         {% else %}
-            <div class="box">
+            <div class="mat-box">
                 <div class="title">
                     <span class="error">{% trans "Payment could not be verified." %}</span>
                 </div>
-                <div class="content">
+                <div class="mat-box-content content">
                     <span> {% trans "No payment could be found." %} </span>
                     <span>{% trans "Make sure that you entered the correct verification code or operator reference" %}</span>
                 </div>

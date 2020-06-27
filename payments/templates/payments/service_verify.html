@@ -8,7 +8,6 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-8">
             <div class="mat-box">
                 <form  name="service_verification" action="{% url 'payments:service-verification' %}" method="POST">{% csrf_token %}
                     
@@ -50,12 +49,11 @@
                     </div>
                 </form>
             </div>
-        </div>
     </div>
 
     {% if service_verification_ready %}
     <div class="row">
-      <div class="col-m-12 col-6">
+      <div class="container">
         {% if service_is_valid %}
             
             {% include "tags/service_snippet.html" %}
@@ -65,7 +63,7 @@
                 <div class="title">
                     <span class="error">{% trans "Payment could not be verified." %}</span>
                 </div>
-                <div class="content">
+                <div class="mat-box-content content">
                     <span> {% trans "No payment could be found." %} </span>
                     <span>{% trans "Make sure that you entered the correct verification code or operator reference" %}</span>
                 </div>

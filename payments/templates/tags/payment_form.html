@@ -4,7 +4,7 @@
     <form id="payment-form" name="payment" action="{% url 'payments:new-payment' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">
-        {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Seller Name" %}
+        {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Seller" %}
         <div class="mat-input">
             <label for="amount">{% trans "Amount" %}</label>
             <input type="text" name="amount">

@@ -5,10 +5,10 @@
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">
 
-        {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient Name" %}
+        {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient" %}
 
         <div class="mat-input">
-            <label for="amount">{% trans "Amount(XAF)" %}</label>
+            <label for="amount">{% trans "Amount" %}</label>
             <input id="amount" type="text" name="amount">
         </div>
         <div class="mat-input">

@@ -10,7 +10,6 @@
 <div class="container">
     
     <div class="row">
-        <div class="col-m-12 col-8">
             <div class="mat-box">
             
                 <form  name="transfer_verification" action="{% url 'payments:transfer-verification' %}" method="POST">{% csrf_token %}
@@ -53,7 +52,6 @@
                     </div>
                 </form>
             </div>
-        </div>
     </div>
 
     {% if transfer_verification_ready %}
@@ -63,7 +61,7 @@
                 <div class="title">
                     <span class="success">{% trans "Transfer successdfully verified." %}</span>
                 </div>
-                <div class="content">
+                <div class="mat-box-content content">
                     <div class="entry">
                         <span class="key">{% trans "Sender" %} :</span> <span class="value">{{transfer.sender.get_full_name}}</span>
                     </div>
@@ -90,7 +88,7 @@
                 <div class="title">
                     <span class="error">{% trans "Transfer could not be verified." %}</span>
                 </div>
-                <div class="content">
+                <div class="mat-box-content content">
                     <span> {% trans "No transfer could be found." %} </span>
                     <span>{% trans "Make sure that you entered the correct verification code or operator reference" %}</span>
                 </div>
