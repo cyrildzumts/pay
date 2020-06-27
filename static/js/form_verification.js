@@ -140,5 +140,5 @@ $(document).ready(function(){
     $recharge_form.on("submit", validate_recharge_form);
     $service_form.on("submit", validate_service_form);
 
-    $("#submit-btn", $form).addClass("disabled");
+    $("#submit-btn").addClass("disabled");
 });
