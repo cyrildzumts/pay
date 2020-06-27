@@ -22,9 +22,9 @@ function validate_transfert_form(){
         console.log("You must provide a description of the transfer");
     }
     if(is_valid){
-        submitBtn.removeClass("disabled");
+        submitBtn.removeClass("disabled").prop("disabled", false);
     }else{
-        submitBtn.addClass("disabled");
+        submitBtn.addClass("disabled").prop("disabled", true);
     }
     return is_valid;
 }
@@ -50,9 +50,9 @@ function validate_payment_form(){
         console.log("You must provide a description of the transfer");
     }
     if(is_valid){
-        submitBtn.removeClass("disabled");
+        submitBtn.removeClass("disabled").prop("disabled", false);
     }else{
-        submitBtn.addClass("disabled");
+        submitBtn.addClass("disabled").prop("disabled", true);
     }
     return is_valid;
 }
@@ -67,9 +67,9 @@ function validate_recharge_form(){
         console.log("Voucher is missing");
     }
     if(is_valid){
-        submitBtn.removeClass("disabled");
+        submitBtn.removeClass("disabled").prop("disabled", false);
     }else{
-        submitBtn.addClass("disabled");
+        submitBtn.addClass("disabled").prop("disabled", true);
     }
     return is_valid;
 }
@@ -110,9 +110,9 @@ function validate_service_form(){
         console.log("Details is required");
     }
     if(is_valid){
-        submitBtn.removeClass("disabled");
+        submitBtn.removeClass("disabled").prop("disabled", false);
     }else{
-        submitBtn.addClass("disabled");
+        submitBtn.addClass("disabled").prop("disabled", true);
     }
     return is_valid;
 }
@@ -140,5 +140,5 @@ $(document).ready(function(){
     $recharge_form.on("submit", validate_recharge_form);
     $service_form.on("submit", validate_service_form);
 
-    $("#submit-btn").addClass("disabled");
+    $("#submit-btn").addClass("disabled").prop("disabled", true);
 });
