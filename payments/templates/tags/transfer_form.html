@@ -1,7 +1,7 @@
 {% load i18n %} 
 
 <div class="container">
-    <form name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
+    <form id="transfer-form" name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
         <input type="hidden" name="sender" value="{{request.user.pk}}">
         <input type="hidden" name="recipient" id="recipient">
 
@@ -17,7 +17,7 @@
         </div>
         <div class="form-group actions">
             <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
-            <button class="mat-button mat-button-default" type="submit">{% trans "Send Money" %}</button>
+            <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Send Money" %}</button>
         </div>
     </form>
 
