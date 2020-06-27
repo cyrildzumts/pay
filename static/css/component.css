@@ -1803,7 +1803,7 @@ input[type=text]:focus, textarea:focus{
 
 .entry .part{
 	padding: 0 16px;
-	width: 25%;
+	/*width: 25%;*/
 }
 
 .money{
