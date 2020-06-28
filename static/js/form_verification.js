@@ -262,6 +262,7 @@ function validate_id_upload_form(params) {
     var submitBtn = $("#submit-btn", $form);
     var is_valid = true;
     var card_number = $("#card-number", $form);
+    var card_number_error = false;
     var delivery_at = $("#delivery-at", $form);
     var expire_at = $("#expire-at", $form);
     var delivery_place = $("#delivery-place", $form);
@@ -273,6 +274,7 @@ function validate_id_upload_form(params) {
         console.log("Card number is required");
     }else if(!number_regex.test(card_number.val())){
         is_valid = false;
+        card_number_error = true;
         console.log("Card number must be a number");
     }
     if(delivery_at.val().length == 0){
@@ -315,6 +317,7 @@ function validate_id_upload_form(params) {
         is_valid = false;
         console.log("A jpg or png is required");
     }
+    card_number.toggleClass('error', card_number_error);
     submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     delivery_at.toggleClass('error', delivery_at_error);
     expire_at.toggleClass('error', expire_at_error);
