@@ -1,5 +1,6 @@
-number_regex = RegExp('^[0-9]+$');
-real_number_regex = RegExp('^[0-9]*(\.[0-9]+)?$');
+var number_regex = RegExp('^[0-9]+$');
+var real_number_regex = RegExp('^[0-9]*(\.[0-9]+)?$');
+var image_ext_regex = RegExp('\.(jpe?g|png)$');
 
 
 function validate_transfert_form(){
@@ -257,6 +258,48 @@ function validate_policy_form(){
     return is_valid;
 }
 
+function validate_id_upload_form(params) {
+    var $form = $("#idcard-form");
+    var submitBtn = $("#submit-btn", $form);
+    var is_valid = true;
+    var card_number = $("#card-number", $form);
+    var delivery_at = $("#delivery-at", $form);
+    var expire_at = $("#expire-at", $form);
+    var delivery_place = $("#delivery-place", $form);
+    var image = $("#image", $form);
+    if(card_number.val().length == 0){
+        is_valid = false;
+        console.log("Card number is required");
+    }else if(!number_regex.test(card_number.val())){
+        is_valid = false;
+        console.log("Card number must be a number");
+    }
+    if(delivery_at.val().length == 0){
+        is_valid = false;
+        console.log("Delivery date is required");
+    }
+    if(delivery_place.val().length == 0){
+        is_valid = false;
+        console.log("Delivery place is required");
+    }
+    if(image.val().length == 0){
+        is_valid = false;
+        console.log("IDcard image is required");
+    }else if(!image_ext_regex.test(image.val())){
+        is_valid = false;
+        console.log("A jpg or png is required");
+    }
+
+
+
+    if(is_valid){
+        submitBtn.removeClass("disabled").prop("disabled", false);
+    }else{
+        submitBtn.addClass("disabled").prop("disabled", true);
+    }
+    return is_valid;
+}
+
 $(document).ready(function(){
     var $transfer_form = $("#transfer-form");
     var $payment_form = $("#payment-form");
@@ -265,6 +308,7 @@ $(document).ready(function(){
     var $category_form = $("#category-form");
     var $policy_form = $("#policy-form");
     var $available_service_form = $("#available-service-form");
+    var $idcard_form = $("#idcard-form");
     $("input",$transfer_form).on('keyup change', validate_transfert_form);
     $("input",$payment_form).on('keyup change', validate_payment_form);
     $("input",$recharge_form).on('keyup change', validate_recharge_form);
@@ -272,6 +316,7 @@ $(document).ready(function(){
     $("input", $category_form).on('keyup change',validate_category_form);
     $("input", $policy_form).on('keyup change',validate_policy_form);
     $("input", $available_service_form).on('keyup change',validate_available_service_form);
+    $("input", $idcard_form).on('keyup change',validate_id_upload_form);
 
     $transfer_form.on("submit", validate_transfert_form);
     $payment_form.on("submit", validate_payment_form);
@@ -280,6 +325,6 @@ $(document).ready(function(){
     $available_service_form.on("submit", validate_available_service_form);
     $policy_form.on("submit", validate_policy_form);
     $category_form.on("submit", validate_category_form);
-
+    $idcard_form.on("submit", validate_id_upload_form);
     $("#submit-btn").addClass("disabled").prop("disabled", true);
 });
