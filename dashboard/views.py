@@ -353,12 +353,12 @@ def available_service_create(request):
             forms.AvailableService.objects.filter(pk=avs.pk).update(created_by=request.user)
             return redirect('dashboard:available-services')
         else:
-            form = forms.AvailableServiceForm()
             logger.info("Edit AvailableServiceForm is not valid. Errors : %s", form.errors)
+            form = forms.AvailableServiceForm()
     elif request.method == "GET":
         form = forms.AvailableServiceForm()
-        categories = analytics.get_categories()
-        operators = analytics.get_operators()
+    categories = analytics.get_categories()
+    operators = analytics.get_operators()
 
     context = {
             'page_title':page_title,
