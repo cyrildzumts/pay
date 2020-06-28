@@ -267,6 +267,8 @@ function validate_id_upload_form(params) {
     var expire_at = $("#expire-at", $form);
     var delivery_place = $("#delivery-place", $form);
     var image = $("#image", $form);
+    var delivery_at_error = false;
+    var expire_at_error = false;
     if(card_number.val().length == 0){
         is_valid = false;
         console.log("Card number is required");
@@ -286,13 +288,21 @@ function validate_id_upload_form(params) {
         var delivery_date = new Date(delivery_at.val());
         var expire_date = new Date(expire_at.val());
         var today = Date.now();
+        if( today < delivery_date){
+            is_valid = false;
+            console.log("Invalid Date. Delivery date is date is invalid");
+            delivery_at_error = true;
+        }
         if(expire_date <= delivery_date){
             is_valid = false;
             console.log("Invalid Date. Expire date can not be lower than the deleverivry date");
+            delivery_at_error = true;
+            expire_at_error = true;
         }
         if(expire_date <= today){
             is_valid = false;
-            console.log("Invalid Date. YOur ID card has already expired");
+            console.log("Invalid Date. Your ID card has already expired");
+            expire_at_error = true;
         }
     }
     if(delivery_place.val().length == 0){
@@ -306,14 +316,16 @@ function validate_id_upload_form(params) {
         is_valid = false;
         console.log("A jpg or png is required");
     }
-
-
-
+    /*
     if(is_valid){
         submitBtn.removeClass("disabled").prop("disabled", false);
     }else{
         submitBtn.addClass("disabled").prop("disabled", true);
     }
+    */
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
+    delivery_at.toggleClass('error', delivery_at_error);
+    expire_at.toggleClass('error', expire_at_error);
     return is_valid;
 }
 
