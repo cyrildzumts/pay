@@ -1,4 +1,5 @@
 number_regex = RegExp('^[0-9]+$');
+real_number_regex = RegExp('^[0-9]*(\.[0-9]+)?$');
 
 
 function validate_transfert_form(){
@@ -41,7 +42,7 @@ function validate_payment_form(){
         console.log("Recipient is missing");
 
     }
-    if(!number_regex.test($amount.val())){
+    if(!real_number_regex.test($amount.val())){
         is_valid = false;
         console.log("Amount must be a number");
     }
@@ -97,7 +98,7 @@ function validate_service_form(){
         is_valid = false;
         console.log("Customer Reference required");
     }
-    if(!number_regex.test(amount.val())){
+    if(!real_number_regex.test(amount.val())){
         is_valid = false;
         console.log("Amount is required and must be a number");
     }
@@ -117,6 +118,132 @@ function validate_service_form(){
     return is_valid;
 }
 
+function validate_category_form(params) {
+    var $form = $("#category-form");
+    var submitBtn = $("#submit-btn", $form);
+    var category_name = $("#category-name", $form);
+    var category_code = $("#category-code", $form);
+    var is_valid = true;
+
+    if((category_name.val().length == 0)){
+        is_valid = false;
+        console.log("Category name is required");
+    }else if (number_regex.test(category_name.val())) {
+        is_valid = false;
+        console.log("Category name must not be a number");
+    }
+
+    if((category_code.val().length == 0)){
+        is_valid = false;
+        console.log("Category code is required");
+    }else if (number_regex.test(category_name.val())) {
+        is_valid = false;
+        console.log("Category name must not be a number");
+    }
+    if(is_valid){
+        submitBtn.removeClass("disabled").prop("disabled", false);
+    }else{
+        submitBtn.addClass("disabled").prop("disabled", true);
+    }
+    return is_valid;
+
+
+}
+
+function validate_available_service_form(params) {
+    var $form = $("#available-service-form");
+    var submitBtn = $("#submit-btn", $form);
+    var is_valid = true;
+    var service_code = $("#service-code", $form);
+    var name = $("#name", $form);
+    var operator = $("#operator", $form);
+    var category = $("#category", $form);
+    var description = $("#description", $form);
+    if(name.val().length == 0){
+        is_valid = false;
+        console.log("Service Name is required");
+    }
+    if(service_code.val().length == 0){
+        is_valid = false;
+        console.log("Service code is required");
+    }else if(!number_regex.test(service_code.val())){
+        is_valid = false;
+        console.log("Service Code must be a number");
+    }
+    if(operator.val().length == 0){
+        is_valid = false;
+        console.log("Operator is required");
+    }else if(number_regex.test(operator.val())){
+        is_valid = false;
+        console.log("Operator must be a number")
+    }
+    if(category.val().length == 0){
+        is_valid = false;
+        console.log("Category is required");
+    }else if(number_regex.test(category.val())){
+        is_valid = false;
+        console.log("Category must be a number")
+    }
+    if(description.val().length == 0){
+        is_valid = false;
+        console.log("Service Description is required");
+    }
+    if(is_valid){
+        submitBtn.removeClass("disabled").prop("disabled", false);
+    }else{
+        submitBtn.addClass("disabled").prop("disabled", true);
+    }
+    return is_valid;
+}
+
+function validate_policy_form(){
+    var $form = $("#available-service-form");
+    var submitBtn = $("#submit-btn", $form);
+    var is_valid = true;
+    var daily_limit = $("#daily-limit", $form);
+    var weekly_limit = $("#weekly-limit", $form);
+    var monthly_limit = $("#monthly-limit", $form);
+    var commission = $("#commission", $form);
+
+    if(daily_limit.val().length == 0){
+        is_valid = false;
+        console.log("Daily limit is required");
+    }else if(!real_number_regex.test(daily_limit.val())){
+        is_valid = false;
+        console.log("Dailylimit must be a number");
+    }
+
+    if(weekly_limit.val().length == 0){
+        is_valid = false;
+        console.log("Weekly limit is required");
+    }else if(!real_number_regex.test(weekly_limit.val())){
+        is_valid = false;
+        console.log("Weekly limit must be a number");
+    }
+
+    if(monthly_limit.val().length == 0){
+        is_valid = false;
+        console.log("monthly limit is required");
+    }else if(!real_number_regex.test(monthly_limit.val())){
+        is_valid = false;
+        console.log("monthly limit must be a number");
+    }
+
+    if(commission.val().length == 0){
+        is_valid = false;
+        console.log("commission is required");
+    }else if(!real_number_regex.test(commission.val())){
+        is_valid = false;
+        console.log("Commission must be a number");
+    }
+
+    if(is_valid){
+        submitBtn.removeClass("disabled").prop("disabled", false);
+    }else{
+        submitBtn.addClass("disabled").prop("disabled", true);
+    }
+    return is_valid;
+}
 
 $(document).ready(function(){
     var $transfer_form = $("#transfer-form");
