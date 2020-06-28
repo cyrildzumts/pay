@@ -19,20 +19,20 @@
                         <input id="created-by" type="hidden" name="created_by" value="{{request.user.pk}}">
                     </div>
                     <div class="form-group">
-                        <label for="category_name">{% trans "Category Name" %}</label>
-                        <input id="category_name" type="text"  name="category_name" value="{{category.category_name}}">
+                        <label for="category-name">{% trans "Category Name" %}</label>
+                        <input id="category-name" type="text"  name="category_name" value="{{category.category_name}}">
                     </div>
                     <div class="form-group">
-                        <label for="category_code">{% trans "Category Code" %}</label>
-                        <input id="category_code" type="text"  name="category_code" value="{{category.category_code}}">
+                        <label for="category-code">{% trans "Category Code" %}</label>
+                        <input id="category-code" type="text"  name="category_code" value="{{category.category_code}}">
                     </div>
                     <div class="form-group">
-                        <label for="is_active">{% trans "Is Active" %}</label>
-                        <input id="is_active" type="checkbox"  name="is_active">
+                        <label for="is-active">{% trans "Is Active" %}</label>
+                        <input id="is-active" type="checkbox"  name="is_active">
                     </div>
                     </div><!-- End of Card-body-->
 
-                    <div class="card__actions">
+                    <div class="actions">
                             <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
                             <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Create" %}</button>
                         </div>
