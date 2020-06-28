@@ -188,7 +188,7 @@ li a{
 .banner .item{
 	/*width: 100%;*/
 	text-align: left;
-	padding: 8px;
+	padding: 0 16px;
 	/*font-size: 1rem;*/
 
 }
