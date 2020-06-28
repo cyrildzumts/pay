@@ -117,7 +117,7 @@ function validate_service_form(){
         is_valid = false;
         console.log("Details is too long. Only max 80 char accepted");
     }
-    $amount.toggleClass('error', amount_error);
+    amount.toggleClass('error', amount_error);
     submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     return is_valid;
 }
