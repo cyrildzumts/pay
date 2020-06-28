@@ -282,7 +282,7 @@ function validate_id_upload_form(params) {
         is_valid = false;
         console.log("Expire date is required");
     }
-    if((delivery_at.val().length == 0) && (expire_at.val().length == 0)){
+    if((delivery_at.val().length > 0) && (expire_at.val().length > 0)){
         var delivery_date = new Date(delivery_at.val());
         var expire_date = new Date(expire_at.val());
         var today = Date.now();
