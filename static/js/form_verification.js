@@ -150,7 +150,7 @@ function validate_category_form(params) {
 
 }
 
-function validate_available_service_form(params) {
+function validate_available_service_form() {
     var $form = $("#available-service-form");
     var submitBtn = $("#submit-btn", $form);
     var is_valid = true;

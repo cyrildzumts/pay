@@ -13,7 +13,7 @@
         <div class="mat-box-content">
         
         
-                <form class="category-form" name="category_service" action="{% url 'dashboard:category-service-create' %}" method="POST">{% csrf_token %}
+                <form id="category-form" class="category-form" name="category_service" action="{% url 'dashboard:category-service-create' %}" method="POST">{% csrf_token %}
                     <div class="container">
                     <div class="form-group">
                         <input id="created-by" type="hidden" name="created_by" value="{{request.user.pk}}">
