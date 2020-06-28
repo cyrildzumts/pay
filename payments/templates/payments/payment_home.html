@@ -6,10 +6,10 @@
 
 {% block MAIN %}
 <div class="container">
-        <div class="col-md-12 col-4">
+        <div class="col-m-12 col-4">
         {% include "tags/transfer_list_snippet.html" with transaction_list=latest_transfers list_title="Latest Transfers" %}
         </div>
-        <div class="col-md-12 col-4">
+        <div class="col-m-12 col-4">
         {% include "tags/payment_list_snippet.html" with transaction_list=latest_payments list_title="Latest Payments" %}
         </div>   
 </div>
