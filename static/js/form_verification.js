@@ -128,7 +128,7 @@ function validate_category_form(params) {
     if((category_name.val().length == 0)){
         is_valid = false;
         console.log("Category name is required");
-    }else if (number_regex.test(category_name.val())) {
+    }else if (!number_regex.test(category_name.val())) {
         is_valid = false;
         console.log("Category name must not be a number");
     }
@@ -136,7 +136,7 @@ function validate_category_form(params) {
     if((category_code.val().length == 0)){
         is_valid = false;
         console.log("Category code is required");
-    }else if (number_regex.test(category_name.val())) {
+    }else if (!number_regex.test(category_name.val())) {
         is_valid = false;
         console.log("Category name must not be a number");
     }
@@ -173,14 +173,14 @@ function validate_available_service_form() {
     if(operator.val().length == 0){
         is_valid = false;
         console.log("Operator is required");
-    }else if(number_regex.test(operator.val())){
+    }else if(!number_regex.test(operator.val())){
         is_valid = false;
         console.log("Operator must be a number")
     }
     if(category.val().length == 0){
         is_valid = false;
         console.log("Category is required");
-    }else if(number_regex.test(category.val())){
+    }else if(!number_regex.test(category.val())){
         is_valid = false;
         console.log("Category must be a number")
     }
