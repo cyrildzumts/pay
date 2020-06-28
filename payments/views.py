@@ -922,7 +922,9 @@ def upload_idcard(request):
     
     if request.method == "POST":
         postdata = utils.get_postdata(request)
-        
+        delivery_at = postdata.get('delivery_at')
+        expire_at = postdata.get('expire_at')
+        logger.debug(f"Delivery At : {delivery_at} - Expire at {expire_at}")
         form = IDCardForm(postdata, request.FILES)
         if form.is_valid():
             logger.info("submitted idcard form is valide")

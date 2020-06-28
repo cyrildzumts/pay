@@ -278,6 +278,23 @@ function validate_id_upload_form(params) {
         is_valid = false;
         console.log("Delivery date is required");
     }
+    if(expire_at.val().length == 0){
+        is_valid = false;
+        console.log("Expire date is required");
+    }
+    if((delivery_at.val().length == 0) && (expire_at.val().length == 0)){
+        var delivery_date = new Date(delivery_at.val());
+        var expire_date = new Date(expire_at.val());
+        var today = Date.now();
+        if(expire_date <= delivery_date){
+            is_valid = false;
+            console.log("Invalid Date. Expire date can not be lower than the deleverivry date");
+        }
+        if(expire_date <= today){
+            is_valid = false;
+            console.log("Invalid Date. YOur ID card has already expired");
+        }
+    }
     if(delivery_place.val().length == 0){
         is_valid = false;
         console.log("Delivery place is required");

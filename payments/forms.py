@@ -36,7 +36,7 @@ class UpdateIDCardForm(forms.ModelForm):
 class IDCardForm(forms.ModelForm):
     class Meta:
         model = IDCard
-        fields = ['card_number', 'image', 'user']
+        fields = ['card_number', 'image', 'user', 'delivery_at', 'expire_at', 'delivery_place']
 
 
 class ServiceCategoryCreationForm(forms.ModelForm):
