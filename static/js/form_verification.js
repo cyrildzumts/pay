@@ -197,7 +197,7 @@ function validate_available_service_form(params) {
 }
 
 function validate_policy_form(){
-    var $form = $("#available-service-form");
+    var $form = $("#policy-form");
     var submitBtn = $("#submit-btn", $form);
     var is_valid = true;
     var daily_limit = $("#daily-limit", $form);
@@ -250,22 +250,24 @@ $(document).ready(function(){
     var $payment_form = $("#payment-form");
     var $recharge_form = $("#recharge-form");
     var $service_form = $("#service-form");
-    $("input",$transfer_form).on('keyup change', function(){
-        validate_transfert_form();
-    });
-    $("input",$payment_form).on('keyup change', function(){
-        validate_payment_form();
-    });
-    $("input",$recharge_form).on('keyup change', function(){
-        validate_recharge_form();
-    });
-    $("input",$service_form).on('keyup change', function(){
-        validate_service_form();
-    });
+    var $category_form = $("#category-form");
+    var $policy_form = $("#policy-form");
+    var $available_service_form = $("#available-service-form");
+    $("input",$transfer_form).on('keyup change', validate_transfert_form);
+    $("input",$payment_form).on('keyup change', validate_payment_form);
+    $("input",$recharge_form).on('keyup change', validate_recharge_form);
+    $("input",$service_form).on('keyup change', validate_service_form);
+    $("input", $category_form).on('keyup change',validate_category_form);
+    $("input", $policy_form).on('keyup change',validate_policy_form);
+    $("input", $available_service_form).on('keyup change',validate_available_service_form);
+
     $transfer_form.on("submit", validate_transfert_form);
     $payment_form.on("submit", validate_payment_form);
     $recharge_form.on("submit", validate_recharge_form);
     $service_form.on("submit", validate_service_form);
+    $available_service_form.on("submit", validate_available_service_form);
+    $policy_form.on("submit", validate_policy_form);
+    $category_form.on("submit", validate_category_form);
 
     $("#submit-btn").addClass("disabled").prop("disabled", true);
 });
