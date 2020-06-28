@@ -6,6 +6,7 @@ var image_ext_regex = RegExp('\.(jpe?g|png)$');
 function validate_transfert_form(){
     var $form = $("#transfer-form");
     var $amount = $("#amount",$form);
+    var amount_error = false;
     var $recipient = $("#recipient", $form);
     var $details = $("#details", $form);
     var is_valid = true;
@@ -17,6 +18,7 @@ function validate_transfert_form(){
     }
     if(!number_regex.test($amount.val())){
         is_valid = false;
+        amount_error = true;
         console.log("Amount must be a number");
     }
     if($details.val().length == 0){
@@ -26,17 +28,16 @@ function validate_transfert_form(){
         is_valid = false;
         console.log("Details is too long. Only max 80 char accepted");
     }
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
+    $amount.toggleClass('error', amount_error);
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
+
     return is_valid;
 }
 
 function validate_payment_form(){
     var $form = $("#payment-form");
     var $amount = $("#amount",$form);
+    var amount_error = false;
     var $recipient = $("#recipient", $form);
     var $details = $("#details", $form);
     var is_valid = true;
@@ -48,6 +49,7 @@ function validate_payment_form(){
     }
     if(!real_number_regex.test($amount.val())){
         is_valid = false;
+        amount_error = true;
         console.log("Amount must be a number");
     }
     if($details.val().length == 0){
@@ -57,11 +59,8 @@ function validate_payment_form(){
         is_valid = false;
         console.log("Details is too long. Only max 80 char accepted");
     }
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
+    $amount.toggleClass('error', amount_error);
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     return is_valid;
 }
 
@@ -74,11 +73,7 @@ function validate_recharge_form(){
         is_valid = false;
         console.log("Voucher is missing");
     }
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     return is_valid;
 }
 
@@ -89,6 +84,7 @@ function validate_service_form(){
     var reference_number = $("#reference-number", $form);
     var customer_reference = $("#customer-reference", $form);
     var amount = $("#amount", $form);
+    var amount_error = false;
     var issue_date = $("#issue-date", $form);
     var details = $("#details", $form);
 
@@ -107,6 +103,7 @@ function validate_service_form(){
     }
     if(!real_number_regex.test(amount.val())){
         is_valid = false;
+        amount_error = true;
         console.log("Amount is required and must be a number");
     }
     if(issue_date.val().length == 0){
@@ -120,11 +117,8 @@ function validate_service_form(){
         is_valid = false;
         console.log("Details is too long. Only max 80 char accepted");
     }
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
+    $amount.toggleClass('error', amount_error);
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     return is_valid;
 }
 
@@ -133,6 +127,7 @@ function validate_category_form(params) {
     var submitBtn = $("#submit-btn", $form);
     var category_name = $("#category-name", $form);
     var category_code = $("#category-code", $form);
+    var code_error = false;
     var is_valid = true;
 
     if((category_name.val().length == 0)){
@@ -148,13 +143,11 @@ function validate_category_form(params) {
         console.log("Category code is required");
     }else if (!number_regex.test(category_name.val())) {
         is_valid = false;
+        code_error = true;
         console.log("Category name must not be a number");
     }
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
+    category_code.toggleClass('error', code_error);
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     return is_valid;
 
 
@@ -165,6 +158,7 @@ function validate_available_service_form() {
     var submitBtn = $("#submit-btn", $form);
     var is_valid = true;
     var service_code = $("#service-code", $form);
+    var code_error = false;
     var name = $("#name", $form);
     var operator = $("#operator", $form);
     var category = $("#category", $form);
@@ -178,6 +172,7 @@ function validate_available_service_form() {
         console.log("Service code is required");
     }else if(!number_regex.test(service_code.val())){
         is_valid = false;
+        code_error = true;
         console.log("Service Code must be a number");
     }
     if(operator.val().length == 0){
@@ -201,11 +196,8 @@ function validate_available_service_form() {
         is_valid = false;
         console.log("Service Description is too long. Only max 80 char accepted");
     }
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
+    service_code.toggleClass('error', code_error);
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     return is_valid;
 }
 
@@ -217,12 +209,17 @@ function validate_policy_form(){
     var weekly_limit = $("#weekly-limit", $form);
     var monthly_limit = $("#monthly-limit", $form);
     var commission = $("#commission", $form);
+    var commission_error = false;
+    var daily_limit_error = false;
+    var weekly_limit_error = false;
+    var monthly_limit_error = false;
 
     if(daily_limit.val().length == 0){
         is_valid = false;
         console.log("Daily limit is required");
     }else if(!real_number_regex.test(daily_limit.val())){
         is_valid = false;
+        daily_limit_error = true;
         console.log("Dailylimit must be a number");
     }
 
@@ -231,6 +228,7 @@ function validate_policy_form(){
         console.log("Weekly limit is required");
     }else if(!real_number_regex.test(weekly_limit.val())){
         is_valid = false;
+        weekly_limit_error = true;
         console.log("Weekly limit must be a number");
     }
 
@@ -239,6 +237,7 @@ function validate_policy_form(){
         console.log("monthly limit is required");
     }else if(!real_number_regex.test(monthly_limit.val())){
         is_valid = false;
+        monthly_limit_error = true;
         console.log("monthly limit must be a number");
     }
 
@@ -247,14 +246,14 @@ function validate_policy_form(){
         console.log("commission is required");
     }else if(!real_number_regex.test(commission.val())){
         is_valid = false;
+        commission_error = true;
         console.log("Commission must be a number");
     }
-
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
+    daily_limit.toggleClass('error', daily_limit_error);
+    weekly_limit.toggleClass('error', weekly_limit_error);
+    monthly_limit.toggleClass('error', monthly_limit_error);
+    commission.toggleClass('error', commission_error);
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     return is_valid;
 }
 
@@ -316,13 +315,6 @@ function validate_id_upload_form(params) {
         is_valid = false;
         console.log("A jpg or png is required");
     }
-    /*
-    if(is_valid){
-        submitBtn.removeClass("disabled").prop("disabled", false);
-    }else{
-        submitBtn.addClass("disabled").prop("disabled", true);
-    }
-    */
     submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
     delivery_at.toggleClass('error', delivery_at_error);
     expire_at.toggleClass('error', expire_at_error);
