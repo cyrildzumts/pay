@@ -21,6 +21,9 @@ function validate_transfert_form(){
     if($details.val().length == 0){
         is_valid = false;
         console.log("You must provide a description of the transfer");
+    }else if($details.val().length > 80){
+        is_valid = false;
+        console.log("Details is too long. Only max 80 char accepted");
     }
     if(is_valid){
         submitBtn.removeClass("disabled").prop("disabled", false);
@@ -49,6 +52,9 @@ function validate_payment_form(){
     if($details.val().length == 0){
         is_valid = false;
         console.log("You must provide a description of the transfer");
+    }else if($details.val().length > 80){
+        is_valid = false;
+        console.log("Details is too long. Only max 80 char accepted");
     }
     if(is_valid){
         submitBtn.removeClass("disabled").prop("disabled", false);
@@ -109,6 +115,9 @@ function validate_service_form(){
     if(details.val().length == 0){
         is_valid = false;
         console.log("Details is required");
+    }else if(details.val().length > 80){
+        is_valid = false;
+        console.log("Details is too long. Only max 80 char accepted");
     }
     if(is_valid){
         submitBtn.removeClass("disabled").prop("disabled", false);
@@ -187,6 +196,9 @@ function validate_available_service_form() {
     if(description.val().length == 0){
         is_valid = false;
         console.log("Service Description is required");
+    }else if(description.val().length > 80){
+        is_valid = false;
+        console.log("Service Description is too long. Only max 80 char accepted");
     }
     if(is_valid){
         submitBtn.removeClass("disabled").prop("disabled", false);
