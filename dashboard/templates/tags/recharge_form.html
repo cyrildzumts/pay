@@ -3,18 +3,20 @@
 {% if can_recharge_account_voucher %}
 
 
-
 <div class="responsive">
-
     <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'dashboard:recharge' %}" method="POST">{% csrf_token %}
-        <div class="form-group">
-            <label for="voucher">{% trans "Voucher Code" %} : </label>
-            <input id="voucher" type="text" name="voucher">
+        
+        <input type="hidden" name="seller" value="{{request.user.pk}}">
+        <input id="customer" type="hidden" name="customer">
+        {% include "tags/search_user_snipet.html" with target="#customer" target_name="#user-search" fieldname="Customer Name" %}
+        <div class="mat-input">
+            <label for="amount">{% trans "Amount" %}</label>
+            <input id="amount" type="text" name="amount" required>
         </div>
         
-        <div class="form-group row">
-            <a class="mat-button mat-button-text js-cancel" href="{%url 'dashboard:dashboard'%}">{% trans "Cancel" %}</a>
-            <button class="mat-button mat-button-default" type="submit">{% trans "Recharge my Account" %}</button>
+        <div class="form-group actions">
+            <a class="mat-button mat-button-outlined js-cancel" href="{%url 'dashboard:voucher'%}">{% trans "Cancel" %}</a>
+            <button class="mat-button mat-button-default" type="submit">{% trans "Recharge User balance" %}</button>
         </div>
     </form>
 

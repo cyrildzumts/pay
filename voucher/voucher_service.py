@@ -229,8 +229,6 @@ class VoucherService:
         seller_account_exist = Account.objects.filter(user=seller).exists()
         if not (recharge_account_exist and customer_account_exist and seller_account_exist):
             logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
-            logger.error("[processing_service_request] Error : queryset result %s instance", count)
-            logger.error(queryset)
             result['errors'] = "The service request cannot be processed"
             return result
         if  amount > 0 :

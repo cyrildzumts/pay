@@ -1793,7 +1793,10 @@ def recharge_user_account_view(request):
     # is allowed to recharge a user account
     page_title = _("Recharge User Account") + ' - ' + settings.SITE_NAME
     template_name = "dashboard/recharge.html"
-    
+    can_recharge_account_voucher = PermissionManager.user_can_recharge_account(request.user)
+    if not can_recharge_account_voucher:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
     logger.info("User Recharge Account view requested by user %s", request.user.get_full_name())
     if request.method == "POST":
         logger.info("Received new Recharge request for user account")
@@ -1827,6 +1830,7 @@ def recharge_user_account_view(request):
         'form' : form,
         'page_title' : page_title
     }
+    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
     
 

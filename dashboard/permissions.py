@@ -201,6 +201,11 @@ class PermissionManager :
         return PermissionManager.user_has_perm(user=user, perm=Constants.VOUCHER_VIEW_PERM)
 
     
+    @staticmethod
+    def user_can_recharge_account(user=None):
+        return PermissionManager.user_has_perm(user=user, perm=Constants.VOUCHER_RECHARGE_ACCOUNT_PERM)
+
+    
     ## IDCARD PERMISSION
 
     @staticmethod
@@ -255,6 +260,7 @@ def get_view_permissions(user=None):
         'can_view_payment': PermissionManager.user_can_view_payment(user),
         'can_view_voucher': PermissionManager.user_can_view_voucher(user),
         'can_add_group' : PermissionManager.user_can_add_group(user),
-        'can_generate_token': PermissionManager.user_can_generate_token(user)
+        'can_generate_token': PermissionManager.user_can_generate_token(user),
+        'can_recharge_account_voucher': PermissionManager.user_can_recharge_account(user)
     }
     return context
