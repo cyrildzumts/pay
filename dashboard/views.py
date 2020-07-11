@@ -1791,6 +1791,7 @@ def voucher_activate(request, voucher_uuid=None):
 def recharge_user_account_view(request):
     #TODO : Add permission check here if must be check if the user sending this request 
     # is allowed to recharge a user account
+    username = request.user.username
     page_title = _("Recharge User Account") + ' - ' + settings.SITE_NAME
     template_name = "dashboard/recharge.html"
     can_recharge_account_voucher = PermissionManager.user_can_recharge_account(request.user)
