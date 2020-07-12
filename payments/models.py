@@ -6,42 +6,10 @@ from django.dispatch import receiver
 from django.urls import reverse
 from pay import settings
 from pay import utils
+from payments import constants as Constants
 import uuid
 import datetime
 
-
-HELP_TEXT_FOR_DATE ="Please use the following format: <em>YYYY-MM-DD</em>."
-HELP_TEXT_FOR_SERVICE_REF_NUMBER = 'Please enter the reference number issued by the operation.'
-HELP_TEXT_FOR_OPERATOR = 'Please enter the operator who is offering this service'
-help_text=HELP_TEXT_FOR_CUSTOMER = 'Please enter the customer who is using this service'
-help_text=HELP_TEXT_FOR_CUSTOMER_REF = 'Please enter the customer reference number used by the operator of this service'
-help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT = 'Please enter the date when this bill was issued (following format: <em>YYYY-MM-DD</em>.)'
-
-COMMISSION_DEFAULT = 0.03
-COMMISSION_MAX_DIGITS = 7
-COMMISSION_DECIMAL_PLACES = 5
-
-PR_ACTIVE           = 'Active'
-PR_CANCELED         = 'Canceled'
-PR_CLEARED          = 'Cleared'
-PR_ACCEPTED         = 'Accepted'
-PR_CREATED          = 'Created'
-PR_COMPLETED        = 'Completed'
-PR_DECLINED         = 'Declined'
-PR_EXPIRED          = 'Expired'
-PR_FAILED           = 'Failed'
-PR_PAID             = 'Paid'
-PR_PROCESSED        = 'Processed'
-PR_PENDING          = 'Pending'
-PR_REFUSED          = 'Refused'
-PR_REVERSED         = 'Reversed'
-
-PR_STATUS = [
-    PR_ACCEPTED,PR_ACTIVE, PR_CANCELED, PR_CLEARED,
-    PR_COMPLETED, PR_CREATED, PR_DECLINED, PR_EXPIRED,
-    PR_FAILED, PR_PAID, PR_PENDING, PR_PROCESSED, 
-    PR_REFUSED, PR_REVERSED
-]
 
 
 def ident_file_path(instance, filename):
@@ -99,7 +67,7 @@ class Policy(models.Model):
     daily_limit = models.IntegerField(blank=False)
     weekly_limit = models.IntegerField(blank=False)
     monthly_limit = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
+    commission = models.DecimalField(max_digits=Constants.COMMISSION_MAX_DIGITS, decimal_places=Constants.COMMISSION_DECIMAL_PLACES, default=Constants.COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
@@ -196,7 +164,7 @@ class AvailableService(models.Model):
     """
     service_code = models.IntegerField()
     name = models.CharField(max_length=50)
-    operator = models.ForeignKey(User, related_name="available_services", unique=False,null=True,  on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_OPERATOR)
+    operator = models.ForeignKey(User, related_name="available_services", unique=False,null=True,  on_delete=models.CASCADE, help_text=Constants.HELP_TEXT_FOR_OPERATOR)
     category = models.ForeignKey(ServiceCategory, related_name="available_services", unique=False, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="created_services", unique=False, null=True, on_delete=models.SET_NULL)
@@ -264,16 +232,16 @@ class Service(models.Model):
 
     """
     name = models.CharField(max_length=50, null=True)
-    operator = models.ForeignKey(User,null=True, related_name="offered_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_OPERATOR)
-    customer = models.ForeignKey(User,null=True, related_name="used_services", unique=False, on_delete=models.CASCADE, help_text=HELP_TEXT_FOR_CUSTOMER)
-    reference_number = models.IntegerField(help_text=HELP_TEXT_FOR_SERVICE_REF_NUMBER, blank=True, null=True)
-    customer_reference = models.CharField(max_length=50, blank=True ,null=True, help_text=HELP_TEXT_FOR_CUSTOMER_REF)
+    operator = models.ForeignKey(User,null=True, related_name="offered_services", unique=False, on_delete=models.CASCADE, help_text=Constants.HELP_TEXT_FOR_OPERATOR)
+    customer = models.ForeignKey(User,null=True, related_name="used_services", unique=False, on_delete=models.CASCADE, help_text=Constants.HELP_TEXT_FOR_CUSTOMER)
+    reference_number = models.IntegerField(help_text=Constants.HELP_TEXT_FOR_SERVICE_REF_NUMBER, blank=True, null=True)
+    customer_reference = models.CharField(max_length=50, blank=True ,null=True, help_text=Constants.HELP_TEXT_FOR_CUSTOMER_REF)
     category = models.ForeignKey(ServiceCategory, related_name="category_services", unique=False, null=True, on_delete=models.SET_NULL)
     service_instance = models.ForeignKey(AvailableService,null=True, related_name="executed_services", unique=False, on_delete=models.CASCADE)
     price = models.IntegerField(blank=False)
-    commission = models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT, blank=True)
+    commission = models.DecimalField(max_digits=Constants.COMMISSION_MAX_DIGITS, decimal_places=Constants.COMMISSION_DECIMAL_PLACES, default=Constants.COMMISSION_DEFAULT, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    issued_at = models.DateField(help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT, blank=True, null=True)
+    issued_at = models.DateField(help_text=Constants.HELP_TEXT_FOR_SERVICE_ISSUED_AT, blank=True, null=True)
     description = models.CharField(max_length=80, null=True)
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -297,7 +265,7 @@ class Service(models.Model):
 
 class Reduction(models.Model):
     code = models.TextField(max_length=8)
-    percent =  models.DecimalField(max_digits=COMMISSION_MAX_DIGITS, decimal_places=COMMISSION_DECIMAL_PLACES, default=COMMISSION_DEFAULT)
+    percent =  models.DecimalField(max_digits=Constants.COMMISSION_MAX_DIGITS, decimal_places=Constants.COMMISSION_DECIMAL_PLACES, default=Constants.COMMISSION_DEFAULT)
     user = models.ForeignKey(User, null=True , on_delete = models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     used_at = models.DateTimeField()
@@ -381,7 +349,7 @@ class PaymentRequest(models.Model):
     country = models.CharField(max_length=32, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=32, default=PR_CREATED, blank=True, null=False)
+    status = models.CharField(max_length=32, default=Constants.PR_CREATED, blank=True, null=False)
     product_name = models.CharField(max_length=255 ,blank=False, null=False)
     customer_name = models.CharField(max_length=255 ,blank=False, null=False)
     description = models.CharField(max_length=255 ,blank=False, null=False)

@@ -30,6 +30,7 @@ from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, PaymentRequestForm,
     RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm,TransactionVerificationForm
 )
+from payments import constants as Constants
 from payments.payment_service import PaymentService, voucher_service
 from pay import settings, utils
 from pay.tasks import send_mail_task
@@ -526,9 +527,9 @@ def payment_request(request, request_uuid=None):
     page_title = "Payment Request" + " - " + settings.SITE_NAME
     p_request = None
     try:
-        p_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
+        p_request = PaymentRequest.objects.get(request_uuid=request_uuid, status=Constants.PR_CREATED)
     except PaymentRequest.DoesNotExist as e:
-        logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
+        logger.warning(f"Payment Request with uuid \"{request_uuid}\" an status \"{Constants.PR_CREATED}\" not found")
         raise Http404
     context['page_title'] = page_title
     context['payment_request'] = p_request
@@ -542,9 +543,9 @@ def accept_payment_request(request, request_uuid):
     page_title = _("Payment Request")
     payment_request = None
     try:
-        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
+        payment_request = PaymentRequest.objects.get(request_uuid=request_uuid, status=Constants.PR_CREATED)
     except PaymentRequest.DoesNotExist as e:
-        logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
+        logger.warning(f"Payment Request with uuid \"{request_uuid}\" an status \"{Constants.PR_CREATED}\" not found")
         raise Http404
     
     sender = request.user
@@ -559,7 +560,7 @@ def accept_payment_request(request, request_uuid):
     succeed = PaymentService.make_payment(sender=sender, recipient=recipient, amount=amount)
     if succeed:
         p = Payment.objects.create(sender=sender, recipient=recipient, amount=amount, details=payment_request.description)
-        PaymentRequest.objects.filter(pk=payment_request.pk).update(status='Paid', payment=p, commission=commission )
+        PaymentRequest.objects.filter(pk=payment_request.pk).update(status=Constants.PR_PAID, payment=p, commission=commission )
         #payment_request.payment = p
         """
         send_mail_task.apply_async(args=[context['email_context']],
@@ -578,13 +579,13 @@ def decline_payment_request(request, request_uuid):
     #page_title = _("Payment Request")
     payment_request = None
     try:
-        p_request = PaymentRequest.objects.get(request_uuid=request_uuid, status="Created")
+        p_request = PaymentRequest.objects.get(request_uuid=request_uuid, status=Constants.PR_CREATED)
     except PaymentRequest.DoesNotExist as e:
-        logger.warning(f"Payment Request with uuid \"{request_uuid}\" not found")
+        logger.warning(f"Payment Request with uuid \"{request_uuid}\" and status \"{Constants.PR_CREATED}\" not found")
         raise Http404
     logger.info(f"Payment request with uuid : \"{request_uuid}\" declined by user \"{request.user.username}\"")
-    PaymentRequest.objects.filter(pk=p_request.pk).update(status='Declined')
-    logger.info("Payment request declined")
+    PaymentRequest.objects.filter(pk=p_request.pk).update(status=Constants.PR_DECLINED)
+    logger.info(f"Payment request with uuid {request_uuid} declined")
     return redirect('payments:payment-request-done', request_uuid=request_uuid, succeed=0)
 
 @login_required
