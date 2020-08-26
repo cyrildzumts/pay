@@ -32,7 +32,7 @@ def generate_voucher(context={}):
         batch = list(islice(vouchers, batch_size))
         if not batch:
             break
-        Voucher.objects.bulk_create(batch, batch_size)
+        Voucher.objects.bulk_create(batch, batch_size, ignore_conflicts=True)
     
     logger.info("Generation of  %s  %s vouchers card with credit of %s done.", number, name, amount)
     
