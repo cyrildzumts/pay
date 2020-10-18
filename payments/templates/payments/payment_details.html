@@ -11,14 +11,14 @@
     <div class="col-m-12 col-4">
         <div class="mat-box">
           {% if user == payment.sender %}
-          <p> <span>{{payment.recipient.get_full_name}}</span> </p>
-          <p> <span>{% trans "Price" %}</span> <i class="separator"></i> <span class="amount outgoing">{{payment.amount}}</span> <span>{% trans "XAF" %}</span> </p>
+          <div class="entry"><span class="key">{% trans "Recipient" %}</span> <span class="value">{{payment.recipient.get_full_name}}</span> </div>
+          <div class="entry"> <span class="key">{% trans "Price" %}</span><span class=" value amount outgoing">{{payment.amount}} {% trans "XAF" %}</span></div>
           {% else %}
-          <p> <span>{{payment.sender.get_full_name}}</span> </p>
-          <p> <span>{% trans "Price" %}</span> <i class="separator"></i> <span class="amount incoming">{{payment.amount}}</span> <span>{% trans "XAF" %}</span> </p>
+          <div class="entry"> <span class="key">{% trans "Sender" %}</span> <span class="value">{{payment.sender.get_full_name}}</span> </div>
+          <div class="entry"> <span class="key">{% trans "Price" %}</span><span class="value amount incoming">{{payment.amount}} {% trans "XAF" %}</span></div>
           {% endif %}
-          <p> <span>{% trans "Date" %}</span> <i class="separator"></i> <span>{{payment.created_at|date:"N j, Y"}}</span> </p>
-          <p> <span>{% trans "Description" %}</span> <i class="separator"></i> <span>{{payment.details}}</span> </p>
+          <div class="entry"> <span class="key">{% trans "Date" %}</span><span  class="value">{{payment.created_at|date:"N j, Y"}}</span> </div>
+          <div class="entry"> <span class="key">{% trans "Description" %}</span><span class="value">{{payment.details}}</span> </div>
         </div>
     </div>
 </div>
