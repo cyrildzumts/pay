@@ -8,13 +8,27 @@
 </div>
 <div class="container">
          <div class="mat-box">
-            <p> {% trans "Name" %} : {{sold_voucher.voucher.name}} </p>
-            <p> {% trans "Credit" %} : {{sold_voucher.voucher.amount}}  {% trans "XAF" %} </p>
-            <p> {% trans "Voucher Code" %} : {{sold_voucher.voucher.voucher_code}} </p>
-            <p> {% trans "Creation Date" %} : {{sold_voucher.voucher.created_at|date:"F j, Y"}} </p>
-            <p> {% trans "Activation Date" %} : {{voucher.activated_at|date:"F j, Y"}} </p>
-            <p> {% trans "Sold Date" %} : {{sold_voucher.sold_at|date:"F j, Y"}} </p>
-            <p> {% trans "Seller" %} : {{sold_voucher.seller.get_full_name}} </p>
+            <div class="entry">
+                <span class="key">{% trans "Name" %}</span><span class="value">{{sold_voucher.voucher.name}}</span>
+            </div>
+            <div class="entry">
+                <span class="key">{% trans "Credit" %}</span><span class="value">{{sold_voucher.voucher.amount}} {% trans "XAF" %}</span>
+            </div>
+            <div class="entry">
+                <span class="key">{% trans "Voucher Code" %}</span><span class="value">{{sold_voucher.voucher.voucher_code}}</span>
+            </div>
+            <div class="entry">
+                <span class="key">{% trans "Creation Date" %}</span><span class="value">{{sold_voucher.voucher.created_at|date:"F j, Y"}}</span>
+            </div>
+            <div class="entry">
+                <span class="key">{% trans "Activation Date" %}</span><span class="value">{{voucher.activated_at|date:"F j, Y"}}</span>
+            </div>
+            <div class="entry">
+                <span class="key">{% trans "Sold Date" %}</span><span class="value">{{sold_voucher.sold_at|date:"F j, Y"}}</span>
+            </div>
+            <div class="entry">
+                <span class="key">{% trans "Seller" %}</span><span class="value">{{sold_voucher.seller.get_full_name}}</span>
+            </div>
         </div>
 </div>
 {% endblock MAIN %}

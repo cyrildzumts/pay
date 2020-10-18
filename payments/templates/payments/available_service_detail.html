@@ -9,17 +9,17 @@
 <div class="container">
         <div class="box">
             <div class="box-content">
-              <p> {% trans "Operator" %} : {{service.operator.get_full_name}} </p>
-              <p> {% trans "Category" %}: {{service.category.category_name}} </p>
-              <p> {% trans "Date" %} : {{service.created_at}} </p>
+              <div class="entry"> <span class="key">{% trans "Operator" %}</span> <span class="value">{{service.operator.get_full_name}}</span></div>
+              <div class="entry"> <span class="key">{% trans "Category" %}</span> <span class="value">{{service.category.category_name}}</span></div>
+              <div class="entry"> <span class="key">{% trans "Available since" %}</span> <span class="value">{{service.created_at}}</span></div>
             </div>
         </div>
         <ul class="actions">
           {% if has_favorite_service_app %}
           <li> <a class="mat-button mat-button-text" href="{% url 'payments:add-to-favorite-service' service.available_uuid %}"> {% trans "Add to my favorite" %}</a> </li>
           {% endif %}
-          <li> <a class="mat-button mat-button-text" href="{{service.get_usage_url}}"> {% trans "Use this service" %}</a> </li>
           <li> <a class="mat-button mat-button-text" href="{% url 'payments:available-services' %}"> {% trans "Available Services" %} </a></li>
+          <li> <a class="mat-button mat-button-default" href="{{service.get_usage_url}}"> {% trans "Use this service" %}</a> </li>
         </ul>
 </div>
 {% endblock MAIN %}

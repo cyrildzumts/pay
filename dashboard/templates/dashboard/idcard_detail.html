@@ -6,18 +6,28 @@
 {% if can_view_idcard %}
 <div class="container flex column">
         {% if has_idcard %}
-            <div class="card">
-                <div class="card__body">
-                    <p class="responsive"> {% trans "ID number" %} : {{idcard.card_number}} </p>
-                    <p class="responsive"> {% trans "Delivery Place " %} : {{idcard.delivery_place}} </p>
-                    <p class="responsive"> {% trans "Delivered at " %} : {{idcard.delivery_at}} </p>
-                    <p class="responsive"> {% trans "Expire at " %} : {{idcard.expire_at}} </p>
+            <div class="mat-box">
+                <div class="box">
+                    <div class="entry"><span class="key">{% trans "ID number" %}</span><span class="value">{{idcard.card_number}}</span></div>
+                    <div class="entry"><span class="key">{% trans "Delivery Place " %}</span><span class="value">{{idcard.delivery_place}}</span></div>
+                    <div class="entry"><span class="key">{% trans "Delivered at " %}</span><span class="value">{{idcard.delivery_at|date:"F j, Y"}}</span></div>
+                    <div class="entry"><span class="key">{% trans "Valide until " %}</span><span class="value">{{idcard.expire_at|date:"F j, Y"}}</span></div>
+                    <div class="entry">
+                        <span class="key">{% trans "ID Image" %}</span>
+                        <div class="value">
+                            <div class="col-4 col-m-12">
+                                <div class="image-wrapper">
+                                    <img class="img-responsive js-zoom" src="{{idcard.image.url}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card__image responsive idcard"> 
+                <div class="responsive idcard"> 
                     <p>{% trans "Image" %}: </p>
                     <img class="full js-zoom" src="{{idcard.image.url}}"/>
                 </div>
-                <div class="card__actions">
+                <div class="actions">
                     {% if can_change_idcard %}<a class="mat-button mat-button-text" href="{{idcard.get_dashboard_update_url}}"> {% trans "Update" %}</a>{% endif %}
                     <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
                 </div>
