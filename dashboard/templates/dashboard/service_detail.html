@@ -85,61 +85,31 @@
                   <span class="key">{% trans "Category" %}</span><span class="value">{{service.category}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Operator" %} : </span><span class="value">{{service.operator.get_full_name}}</span>
+                  <span class="key">{% trans "Operator" %}</span><span class="value">{{service.operator.get_full_name}}</span>
                 </div>
                 <div class="entry">
                   <span class="key">{% trans "Customer" %}</span><span class="value">{{service.customer.get_full_name}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Amount" %} :</span><span class="value">{{service.price}} {% trans "XAF" %}</span>
+                  <span class="key">{% trans "Amount" %}</span><span class="value">{{service.price}} {% trans "XAF" %}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Commission" %} :</span><span class="value">{{service.commission}}</span>
+                  <span class="key">{% trans "Commission" %}</span><span class="value">{{service.commission}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Issue Date" %} :</span><span class="value">{{service.issued_at}}</span>
+                  <span class="key">{% trans "Issue Date" %}</span><span class="value">{{service.issued_at}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Date" %} :</span><span class="value">{{service.created_at|date:"F j, Y"}}</span>
+                  <span class="key">{% trans "Date" %}</span><span class="value">{{service.created_at|date:"F j, Y"}}</span>
                 </div>
                 <div class="entry">
                   <span class="key">{% trans "Verification Code" %}</span><span class="value">{{service.verification_code}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Description" %} :</span><span class="value">{{service.description}}</span>
+                  <span class="key">{% trans "Description" %}</span><span class="value">{{service.description}}</span>
                 </div>               
             </div>
         </div>
-        
-        {% comment %}<div class="card">
-            <div class="card__title">
-                <h3>{{service.name}}</h3>
-            </div>
-
-            <div class="card__body">
-                <p> {% trans "Operator" %} : {{service.operator.get_full_name}} </p>
-                <p> {% trans "Customer" %} : {{service.customer.get_full_name}} </p>
-                <p> {% trans "Price" %} : {{service.price}} FCFA </p>
-                <p> {% trans "Date" %} : {{service.created_at}} </p>
-                <p> {% trans "Issued Date" %} : {{service.issued_at}} </p>
-                <p> {% trans "Category" %} : {{service.category}}</p>
-                <p> {% trans "Commission" %} : {{service.commission}}</p>
-                <div>  
-                    <p> {% trans "Desciption" %} : </p>
-                    <p>{{service.description}}</p>
-                </div>
-            </div>
-
-            <div class="card__actions">
-              <a class="mat-button mat-button-text" href="{% url 'dashboard:services' %}"> {% trans "Back to Services" %} </a>
-              <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-            </div>
-          
-          
-          
-        </div>
-        {% endcomment %}
-    
 </div>
 
 {% else %}

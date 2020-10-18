@@ -15,31 +15,42 @@
                     </div>
                 </div>
                 <div class="col col-9">
-                    <ul class="box-content">
-                        <li><span>{% trans "Credit" %} :</span> <span>{{voucher.amount}} {% trans "XAF" %}</span></li>
-
-                        <li><span>{% trans "Voucher Code" %} :</span> <span>{{voucher.voucher_code}}</span></li>
-                        <li><span>{% trans "Creation Date" %} :</span> <span>{{voucher.created_at|date:"F j, Y"}}</span></li>
-     
+                    <div class="mat-box">
+                        <div class="entry">
+                            <span class="key">{% trans "Credit" %}</span><span class="value">{{voucher.amount}} {% trans "XAF" %}</span>
+                        </div>
+                        <div class="entry">
+                            <span class="key">{% trans "Voucher Code" %}</span><span class="value">{{voucher.voucher_code}}</span>
+                        </div>
+                        <div class="entry">
+                            <span class="key">{% trans "Creation Date" %}</span><span class="value">{{voucher.created_at|date:"F j, Y"}}</span>
+                        </div>
                         {% if voucher.activated is True %}
-                        <li><span>{% trans "Activated" %} :</span> <span>{% trans "Yes" %}</span></li>
-                        <li><span>{% trans "Activated by" %} :</span> <span>{{voucher.activated_by.get_full_name}} - {{voucher.activated_by.username}}</span></li>
-                        <li><span>{% trans "Activation Date" %} :</span> <span>{{voucher.activated_at|date:"F j, Y"}}</span></li>
-                        <li><span>{% trans "Sold by" %} :</span> <span>{{voucher.sold_by.get_full_name}} - {{voucher.sold_by.username}}</span></li>
-                        <li><span>{% trans "Sold Date" %} :</span> <span>{{voucher.sold_at|date:"F j, Y"}}</span></li>
-                        {% else %}
-                        <li><span>{% trans "Activated" %} :</span> <span>{% trans "No" %}</span></li>
+                        <div class="entry">
+                            <span class="key">{% trans "Activation Date" %}</span><span class="value">{{voucher.activated_at|date:"F j, Y"}}</span>
+                        </div>
+                        <div class="entry">
+                            <span class="key">{% trans "Activated by" %}</span><span class="value">{{voucher.activated_by.get_full_name}} - {{voucher.activated_by.username}}</span>
+                        </div>
+                        <div class="entry">
+                            <span class="key">{% trans "Sold Date" %}</span><span class="value">{{voucher.sold_at|date:"F j, Y"}}</span>
+                        </div>
+                        
+                        <div class="entry">
+                            <span class="key">{% trans "Sold by" %}</span><span class="value">{{voucher.sold_by.get_full_name}} - {{voucher.sold_by.username}}</span>
+                        </div>
                         {% endif %}
-
                         {% if voucher.is_used is True %}
-                        <li><span>{% trans "Is already used " %} :</span> <span>{% trans "Yes" %}</span></li>
-                        <li><span>{% trans "Used by" %} :</span> <span>{{voucher.used_by.get_full_name}} - {{voucher.used_by.username}}</span></li>
-                        <li><span>{% trans "Used at" %} :</span> <span>{{voucher.used_at|date:"F j, Y"}}</span></li>
-
-                        {% else %}
-                        <li><span>{% trans "Is already used " %} :</span> <span>{% trans "No" %}</span></li>
+                            <div class="entry">
+                                <span class="key">{% trans "Used by" %}</span><span class="value">{{voucher.used_by.get_full_name}} - {{voucher.used_by.username}}</span>
+                            </div>
+                        <div class="entry">
+                                <span class="key">{% trans "Usage Date" %}</span><span class="value">{{voucher.used_at|date:"F j, Y"}}</span>
+                            </div>
+                            
                         {% endif %}
-                    </ul>
+                        
+                </div>
                 </div>
             </div>
             <div class="row full">

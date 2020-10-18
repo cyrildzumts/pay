@@ -5,23 +5,33 @@
 
 <div class="container">
          <div class="mat-box">
-
-              <div class="mat-box-content">
-                  <p> {% trans "Name" %} : {{used_voucher.voucher.name}} </p>
-                  <p> {% trans "Credit" %} : {{used_voucher.voucher.amount}}  {% trans "XAF" %} </p>
-                  <p> {% trans "Voucher Code" %} : {{used_voucher.voucher.voucher_code}} </p>
-                  <p> {% trans "Creation Date" %} : {{used_voucher.voucher.created_at|date:"F j, Y"}} </p>
-                  <p> {% trans "Activation Date" %} : {{used_voucher.voucher.activated_at|date:"F j, Y"}} </p>
-                  <p> {% trans "Usage Date" %} : {{used_voucher.used_at|date:"F j, Y"}} </p>
-                  <p> {% trans "Customer" %} : {{used_voucher.customer.get_full_name}} </p>
-              </div><!--End of card body-->
-              <div class="actions">
-                  <a class="mat-button mat-button-text" href="{% url 'dashboard:vouchers' %}"> {% trans "Vouchers" %} </a>
-                  <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-              
-              </div><!--End of card actions-->
-
+                <div class="entry">
+                    <span class="key">{% trans "Name" %}</span><span class="value">{{used_voucher.voucher.name}}</span>
+                </div>
+                <div class="entry">
+                    <span class="key">{% trans "Credit" %}</span><span class="value">{{used_voucher.voucher.amount}} {% trans "XAF" %}</span>
+                </div>
+                <div class="entry">
+                    <span class="key">{% trans "Voucher Code" %}</span><span class="value">{{used_voucher.voucher.voucher_code}}</span>
+                </div>
+                <div class="entry">
+                    <span class="key">{% trans "Creation Date" %}</span><span class="value">{{used_voucher.voucher.created_at|date:"F j, Y"}}</span>
+                </div>
+                <div class="entry">
+                    <span class="key">{% trans "Activation Date" %}</span><span class="value">{{used_voucher.voucher.activated_at|date:"F j, Y"}}</span>
+                </div>
+                <div class="entry">
+                    <span class="key">{% trans "Usage Date" %}</span><span class="value">{{used_voucher.used_at|date:"F j, Y"}}</span>
+                </div>
+                <div class="entry">
+                    <span class="key">{% trans "Seller" %}</span><span class="value">{{used_voucher.seller.get_full_name}}</span>
+                </div>
         </div>
+        <div class="actions">
+            <a class="mat-button mat-button-text" href="{% url 'dashboard:vouchers' %}"> {% trans "Vouchers" %} </a>
+            <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+        
+        </div><!--End of card actions-->
     
 </div>
 {% endblock MAIN %}
