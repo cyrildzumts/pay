@@ -625,7 +625,7 @@ def payment_done(request):
 @login_required
 def payments(request):
     context = {}
-    queryset = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user) )
+    queryset = Payment.objects.filter(Q(sender=request.user) | Q(recipient=request.user)).order_by('-created_at')
     page = request.GET.get('page', 1)
     paginator = Paginator(queryset, 10)
     try:
