@@ -1,13 +1,53 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Payment History"%}</h4>
+    <h4> {% trans "Payments"%}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
-<ul class="listview">
-  <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:new-payment' %}"> {% trans "Make a Payment" %} </a></li>
-</ul>
-<div class="container">
-        {% include "tags/payments_snippet.html" with transaction_list=payment_list list_title="Payments" %}
+
+
+{% if payment_list %}
+<div class="container wrapper">
+<div class="col-m-12 col-9">
+    <div class="mat-table-wrapper">
+        <table id="payment-list" class="mat-table js-filter-table">
+          <caption>{% trans "Payments" %}</caption>
+          <thead>
+                  <tr>
+                          <th scope="col">{% trans "Sender" %}</th>
+                          <th scope="col">{% trans "Receiver" %}</th>
+                          <th scope="col">{% trans "Amount" %}</th>
+                          <th scope="col">{% trans "Date" %}</th>
+                          <th scope="col">{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for p in payment_list %}
+                  <tr>
+                    <td scope="row" data-label="{% trans 'Sender' %}">{{p.sender.get_full_name}}</td>
+                    <td data-label="{% trans 'Receiver' %}">{{p.receiver.get_full_name}} </td>
+                    <td data-label="{% trans 'Amount' %}"><span class="{% if p.sender.pk == user.pk %}outgoing{% else %}incoming{% endif %}">{{p.amount|floatformat:"-2"}}</span> <span class="currency">{% trans "XAF" %}</span></td>
+                    <td data-label="{% trans 'Date' %}">{{p.created_at|date:"F j, Y"}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{p.get_absolute_url}}"><i class="fas fa-info icon"></i><span>{% trans "Detail" %}</span></a></td>
+                  </tr>
+                  {% endfor %}
+                  
+          </tbody>
+
+    </table>
+    {% include "tags/pagination.html" with page_set=payment_list %}
+    </div><!--End of Table Wrapper-->
+  </div>
 </div>
+
+{% else %}
+<div class="container wrapper">
+  <div class="col-m-12 col-12">
+    <p>{% trans "There is no payments yet." %}</p>
+  </div>
+  <div class="col-m-12 col-12">
+    <p>{% trans "Recents payments will be displayed here." %}</p>
+  </div>
+</div>
+{% endif %}
 {% endblock MAIN %}
