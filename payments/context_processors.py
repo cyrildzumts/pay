@@ -5,6 +5,7 @@ LATEST_LIMITS = 5
 
 def payment_context(request):
     idcard = None
+    balance = None
     has_idcard = False
     has_payments = False
     has_transfers = False
@@ -19,6 +20,10 @@ def payment_context(request):
             
         except IDCard.DoesNotExist:
             pass
+            
+        if hasattr(request.user,'balance'):
+            balance = request.user.balance
+
         latest_payments = Payment.get_user_payments(request.user)[:LATEST_LIMITS]
         latest_transfers = Transfer.get_user_transfers(request.user)[:LATEST_LIMITS]
         latest_services = Service.get_user_services(request.user)[:LATEST_LIMITS]
@@ -26,7 +31,7 @@ def payment_context(request):
 
     context = {
         'idcard' : idcard,
-        'balance' : request.user.balance,
+        'balance' : balance,
         'has_idcard': has_idcard,
         'latest_payments' : latest_payments,
         'latest_transfers' : latest_transfers,
