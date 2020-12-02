@@ -1,38 +1,7 @@
-{% extends "base.html"%}
+{% extends "payment_base.html"%}
 {% load i18n %}
 
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                <h4> {% trans "Welcome" %} {{name}}</h4>
-        </div>
-        <div class="container">
 
-            <div class="col col-9">
-                <div class="banner--content flex-column">
-                    <div class="row row-left"><span class="item"><h4>{% trans "Current Balance" %}</h4></span></div>
-                    <div class="row row-left subtitle"><span class="item"><span class="big strong">{{account.balance}} {% trans "XAF" %} </span></span></div>
-                    
-                </div><!--End of Banner-Content-->
-                <div class="banner--actions">
-                        <a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a>
-                        {% if has_idcard %}
-                        <a class="mat-button mat-button-text" href="{{idcard.get_absolute_url}}"> {% trans "IDCard Detail" %}</a>
-                        <a class="mat-button mat-button-text" href="{{idcard.get_update_url}}"> {% trans "Update my ID" %}</a>
-                        {% else %}
-                        <a class="mat-button mat-button-text" href="{%url 'payments:upload-idcard' %}"> {% trans "Upload my ID" %}</a>
-                        {% endif %}
-                        <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my Balance" %}</a> 
-                        <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send Money" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:payment-home' %}"> {% trans "Payments" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a>
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
-        
-        </div><!--End of Container-->
-        
-    </div>
-{% endblock HEADER_BANNER %}
 {% block MAIN %}
 
 <div class="row">

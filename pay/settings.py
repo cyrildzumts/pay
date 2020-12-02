@@ -85,6 +85,7 @@ PAY_USER = os.getenv('PAY_USER')
 PAY_RECHARGE_USER = os.getenv('PAY_RECHARGE_USER')
 
 DEFAULT_LOCAL_CURRENCY = os.getenv('PAY_CURRENCY')
+CURRENCY = os.getenv('PAY_CURRENCY') 
 
 # Application definition
 

@@ -4,11 +4,13 @@ from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
 from payments.forms import   ServiceCreationForm, IDCardForm, RechargeForm, PaymentForm, TransactionForm, TransferForm
-from payments.models import Policy, Transaction, Transfer, Service, Payment
-from django.db.models import F, Q
+from payments.models import Policy, Transaction, Transfer, Service, Payment, Balance
+from django.db.models import F, Q, FloatField
 from django.apps import apps
 from django.forms import modelform_factory
+from accounts.models import Account
 from voucher import voucher_service
+from itertools import islice
 import sys
 import logging
 import numbers
@@ -509,3 +511,63 @@ class PaymentService :
             if flag:
                 instance = queryset.get()
         return flag, instance
+
+    
+def migrate_to_balance_model():
+    account_set = Account.objects.select_related('user').filter(user__balance=None)
+    balance_list = [Balance(name=account.user.username, user=account.user, balance=account.balance) for account in account_set]
+   
+    batch_size = 100
+    while True:
+        batch = list(islice(balance_list, batch_size))
+        if not batch:
+            break
+        Balance.objects.bulk_create(batch, batch_size, ignore_conflicts=True)
+    
+
+
+def create_service(data):
+    pass
+
+
+def create_transfer(data):
+    form = TransferForm(data)
+
+    if not form.is_valid():
+        logger.warn(f"Transfer failed with errors : {form.errors}")
+        return None
+
+    amount = form.cleaned_data.get('amount')
+    sender = form.cleaned_data.get('sender')
+    recipient = form.cleaned_data.get('recipient')
+    
+    Balance.objects.filter(user=sender).update(balance=F('balance') - amount)
+    Balance.objects.filter(user=recipient).update(balance=F('balance') + amount)
+    logger.info("Payment Operation was successfull")
+
+    return form.save()
+
+
+def create_payment(data):
+    form = PaymentForm(data)
+
+    if not form.is_valid():
+        logger.warn(f"Payment failed with errors : {form.errors}")
+        return None
+    amount = form.cleaned_data.get('amount')
+    sender = form.cleaned_data.get('sender')
+    pay = User.objects.get(username='pay')
+    recipient = form.cleaned_data.get('recipient')
+    policy_group = recipient.policygroup_set.first()
+    commission = policy_group.policy.commsission
+    pay_fee, recipient_amount, succeed = PaymentService.get_commission(price=amount, applied_commision=commission)
+    if succeed:
+        Balance.objects.filter(user=sender).update(balance=F('balance') - amount)
+        Balance.objects.filter(user=recipient).update(balance=F('balance') + recipient_amount)
+        Balance.objects.filter(user=pay).update(balance=F('balance') + pay_fee)
+        logger.info("Payment Operation was successfull")
+        return form.save()
+    logger.info("Payment could not be processed")
+    return None
+    
+

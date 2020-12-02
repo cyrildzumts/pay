@@ -78,9 +78,12 @@
                         <div class="entry">
                                 <span class="key">{% trans "Account Type" %}</span> <span class="value">{{user_instance.account.account_type}}</span>
                         </div>
-                        <div class="entry">
-                                <span class="key">{% trans "Balance" %}</span> <span class="value">{{user_instance.account.balance}} {% trans "XAF" %}</span>
-                        </div>
+                        {% if balance %}
+                                <div class="entry">
+                                        <span class="key">{% trans "Balance" %}</span> <span class="value">{{balance.balance|floatformat:"-2"}} {% trans CURRENCY %}</span>
+                                </div>
+                        {% endif %}
+                        
                         
                 </div>
         </div>

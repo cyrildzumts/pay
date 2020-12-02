@@ -6,38 +6,31 @@
 {% endblock META_REDIRECT %}
 
 {% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Payments" %} {{user.username}}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-
-            <div class="col-m-12 col-9">
-                {% if account %}
-                <div class="banner--content flex-column item">
-                    <div class="row row-left"><h4>{% trans "Pay Balance" %}</h4></div>
-                    <div class="row row-left subtitle"><span class="big strong">{{account.balance}} </span><span class="big strong">{% trans "XAF" %}</span></div>
-                    
+    <div class="container">
+        <div class="mat-box full">
+            <div class="mat-box-title">
+                {% if is_seller and balance %}
+                <div class="balance-info">
+                    <div class="row flex-left"><h4>{% trans "Balance" %}</h4></div>
+                    <div class="row flex-left balance"><span>{{balance.balance|floatformat:"-2"}} {% trans CURRENCY %} </span></div>
                 </div><!--End of Banner-Content-->
                 {% endif %}
-                <div class="actions">
-                        <a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Activities" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a>
-                        <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
+                
+            </div>
+        </div>
         
+        <div class="container">
+                <ul class="actions">
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Activities" %}</a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
+                        <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>   
+                </ul><!--End of actions-->
         </div><!--End of Container-->
-        
     </div>
 {% endblock HEADER_BANNER %}
 {% block MAIN %}

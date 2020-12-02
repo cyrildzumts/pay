@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from pay import settings
 from pay import utils
+from pay import conf as GLOBAL_CONF
 from payments import constants as Constants
 import uuid
 import datetime
@@ -16,6 +17,42 @@ def ident_file_path(instance, filename):
     file_ext = filename.split(".")[-1]
     name = settings.IDENTIFICATION_DOC_NAME_PREFIX + "." + file_ext
     return "identifications/pay_user_{0}_{1}".format(instance.user.id, name)
+
+
+
+class Balance(models.Model):
+    name = models.CharField(max_length=64)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, blank=True, null=True)
+    balance = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("vendors:balance-detail", kwargs={"balance_uuid": self.balance_uuid})
+    
+    def get_history_url(self):
+        return reverse('vendors:balance-history', kwargs={'balance_uuid':self.balance_uuid})
+
+class BalanceHistory(models.Model):
+    balance_ref_id = models.IntegerField(blank=False, null=False)
+    current_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    sender = models.ForeignKey(User, related_name='sender_histories', blank=True, null=True, on_delete=models.SET_NULL)
+    receiver = models.ForeignKey(User, related_name='receiver_histories', blank=True, null=True, on_delete=models.SET_NULL)
+    balance = models.ForeignKey(Balance, related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
+    #sold_product = models.ForeignKey('vendors.SoldProduct', related_name="sold_product", blank=True, null=True, on_delete=models.SET_NULL)
+
+    created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
+    history_uuid = models.UUIDField(default=uuid.uuid4, editable=False)    
+
+
+    def __str__(self):
+        return f"BalanceHistory {self.id}"
+
+    def get_absolute_url(self):
+        return reverse("vendors:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
     
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=True, null=True)
@@ -91,9 +128,12 @@ class Policy(models.Model):
         return reverse("dashboard:policy-update", kwargs={"policy_uuid": self.policy_uuid})
 
 
+
+
 class PolicyGroup(models.Model):
     name = models.CharField(max_length=80)
     policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
+    group_type = models.IntegerField(default=Constants.POLICY_GROUP_BASIC, choices=Constants.POLICY_GROUP)
     members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
     policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
@@ -303,7 +343,7 @@ class Transaction(models.Model):
 
 
 class Payment(models.Model):
-    amount = models.IntegerField(blank=False)
+    amount = models.DecimalField(default=0.0, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_payments')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_payments')
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
@@ -341,7 +381,7 @@ class PaymentRequest(models.Model):
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE ,blank=False )
     requester_name = models.CharField(max_length=32 ,blank=True, null=True)
-    amount = models.DecimalField(max_digits=10,decimal_places=2, blank=False, null=False)
+    amount = models.DecimalField(default=0.0,max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     unit_price = models.IntegerField(blank=True, null=True)
     quantity = models.IntegerField(default=1, blank=True, null=True)
     tva = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
@@ -393,7 +433,7 @@ class ExternalPayment(models.Model):
 
 
 class Transfer(models.Model):
-    amount = models.IntegerField(blank=False)
+    amount = models.DecimalField(default=0.0, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_transfers')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_transfers')
     created_at = models.DateTimeField(auto_now_add=True)

@@ -11,6 +11,7 @@ def site_context(request):
         'meta_description': settings.META_DESCRIPTION,
         'redirect_to' : '/',
         'is_dashboard_allowed' : is_dashboard_allowed,
-        'dev_mode' : settings.DEV_MODE
+        'dev_mode' : settings.DEV_MODE,
+        'CURRENCY' : settings.CURRENCY,
     }
     return context

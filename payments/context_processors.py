@@ -1,5 +1,5 @@
 
-from payments.models import IDCard, Transfer, Payment, Service
+from payments.models import IDCard, Transfer, Payment, Service, Balance
 
 LATEST_LIMITS = 5
 
@@ -26,6 +26,7 @@ def payment_context(request):
 
     context = {
         'idcard' : idcard,
+        'balance' : request.user.balance,
         'has_idcard': has_idcard,
         'latest_payments' : latest_payments,
         'latest_transfers' : latest_transfers,

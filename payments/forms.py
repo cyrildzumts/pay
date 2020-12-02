@@ -155,6 +155,7 @@ class PaymentVerificationForm(forms.Form):
 class RechargeForm(forms.Form):
     voucher = forms.CharField(max_length=32, label="Voucher Code")
 
+
 class PaymentForm(forms.ModelForm):
 
     class Meta:
@@ -172,6 +173,19 @@ class PaymentForm(forms.ModelForm):
         if not recipient or not recipient.is_active:
             raise forms.ValidationError(message='You can not make a payment to an inactive account', code='invalid')
         return recipient
+    
+    def clean(self):
+        amount = self.cleaned_data.get('amount')
+        sender = self.cleaned_data.get('sender')
+        recipient = self.cleaned_data.get('recipient')
+        if sender == recipient:
+            raise forms.ValidationError(message=f'Sender \"{sender.username}\" and recipient \"{sender.username}\" are the same.', code="invalid")
+        if not recipient.policygroup_set.exists():
+            raise forms.ValidationError(message=f"recipient {recipient.username} has no policy group")
+        if sender.balance and sender.balance.balance < amount:
+            raise forms.ValidationError(message=f"sender {sender.username} has not enough money on his balance")
+
+
 
 
 class PaymentRequestForm(forms.ModelForm):
@@ -215,6 +229,17 @@ class TransferForm(forms.ModelForm):
         if not recipient or not recipient.is_active:
             raise forms.ValidationError(message='You can not make a transfer to an inactive account', code='invalid')
         return recipient
+    
+    def clean(self):
+        amount = self.cleaned_data.get('amount')
+        sender = self.cleaned_data.get('sender')
+        recipient = self.cleaned_data.get('recipient')
+        if sender == recipient:
+            raise forms.ValidationError(message=f'Sender \"{sender.username}\" and recipient \"{sender.username}\" are the same.', code="invalid")
+        if recipient.policygroup_set.exists():
+            raise forms.ValidationError(message=f"Transfer to business user is not allowed")
+        if sender.balance and sender.balance.balance < amount:
+            raise forms.ValidationError(message=f"sender {sender.username} has not enough money on his balance")
 
 
 

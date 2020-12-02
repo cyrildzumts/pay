@@ -32,6 +32,7 @@ from payments.forms import (
 )
 from payments import constants as Constants
 from payments.payment_service import PaymentService, voucher_service
+from payments import payment_service#
 from pay import settings, utils
 from pay.tasks import send_mail_task
 import logging
@@ -208,8 +209,8 @@ def new_transfer(request):
     page_title = _("New Transfer" + " - " + settings.SITE_NAME)
     
     if request.method == "POST":
-        context = PaymentService.process_transfer_request(request)
-        if context['success']:
+        tranfer = payment_service.create_transfer(utils.get_postdata(request))
+        if transfer:
             return redirect('payments:transaction-done')
         else : 
             logger.error("There was an error with the transfer request")
@@ -497,8 +498,8 @@ def new_payment(request):
     template_name = "payments/new_payment.html"
     page_title = "Payment"
     if request.method == "POST":
-        context = PaymentService.process_payment_request(request)
-        if context['success']:
+        payment = payment_service.create_payment(utils.get_postdata(request))
+        if payment:
             messages.success(request, 'We have send you a confirmation E-Mail. You will receive it in an instant')
             """
             send_mail_task.apply_async(args=[context['email_context']],

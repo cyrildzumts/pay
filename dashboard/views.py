@@ -13,6 +13,7 @@ from django.db.models import F, Q
 from rest_framework.authtoken.models import Token
 from pay import utils, settings
 from dashboard import forms
+from payments import payment_service
 from payments.models import PaymentRequest
 from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
@@ -1993,6 +1994,12 @@ def recharge_details(request, recharge_uuid=None):
         'recharge': instance
     }
     return render(request, template_name, context)
+
+
+@login_required
+def generate_balance(request):
+    payment_service.migrate_to_balance_model()
+    return redirect('dashboard:users')
 
 class RechargeView(ListView):
     queryset = Recharge.objects.order_by('-created_at')
