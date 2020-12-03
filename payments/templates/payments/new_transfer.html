@@ -17,13 +17,6 @@
         </div>
         <div class="form-group">
             {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient" %}
-            <select name="recipient2" >
-                <option value="">{% trans "Select the Recipient" %}</option>
-            {% for u in contacts %}
-                <option value="{{u.pk}}">{{u.get_full_name}}</option>
-            {% endfor %}
-                
-            </select>
         </div>
         <div class="form-group">
             <label for="amount">{% trans "Amount" %}</label>
