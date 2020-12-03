@@ -192,6 +192,8 @@ def user_details(request, pk=None):
     page_title = "User Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['user_instance'] = user
+    if hasattr(user, 'balance'):
+        context['user_balance'] = user.balance
     context.update(get_view_permissions(request.user))
     context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
     context['can_update'] = PermissionManager.user_can_change_user(request.user)
