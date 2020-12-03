@@ -3,7 +3,7 @@
 
 {% block MAIN %}
 
-<div class="row">
+<div class="actions">
  <a class="mat-button mat-button-text" href="{% url 'payments:payments' %}"> {% trans "My Payments" %} </a>
 </div>
 
@@ -19,6 +19,7 @@
           {% endif %}
           <div class="entry"> <span class="key">{% trans "Date" %}</span><span  class="value">{{payment.created_at|date:"N j, Y"}}</span> </div>
           <div class="entry"> <span class="key">{% trans "Description" %}</span><span class="value">{{payment.details}}</span> </div>
+          <div class="entry"> <span class="key">{% trans "Verification Code" %}</span><span class="value">{{payment.verification_code}}</span> </div>
         </div>
     </div>
 </div>
