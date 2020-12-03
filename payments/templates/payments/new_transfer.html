@@ -1,21 +1,16 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
-
 {% block  HEADER_BANNER_TITLE %}
     <h4> {% trans "SEND MONEY" %}</h4>
 {% endblock HEADER_BANNER_TITLE %}
-
 {% block MAIN %}
-
 <div class="container">
    <div class="col-xs-12 col-m-6 col-4">
         <div class="mat-box">
             <form name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
                 <input id="recipient" type="hidden" name="recipient">
                 <input type="hidden" name="sender" value="{{request.user.pk}}">
-                <div class="form-group">
-                    {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient" %}
-                </div>
+                {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient" %}
                 <div class="form-group">
                     <label for="amount">{% trans "Amount" %}</label>
                     <input type="text" name="amount">
