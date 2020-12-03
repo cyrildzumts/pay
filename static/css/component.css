@@ -123,17 +123,7 @@
 	  text-decoration: none;
   }
   
-  .balance{
-	  font-size: 1.5em;
-	  font-weight: bold;
-  }
-  
-  .balance-info{
-	  font-size: 1em;
-	  font-weight: bold;
-	  height: 25px;
-	  border-radius:50%;
-  }
+
   
   .header {
 	  
@@ -1086,17 +1076,19 @@
   /****************************************************************/
   /* sections */
   .balance{
-	  font-size: 1.5em;
-	  font-weight: bold;
-	  line-height: 1.5;
-  }
-  
-  .balance-info{
-	  font-size: 1em;
-	  font-weight: bold;
-	  height: 25px;
-	  border-radius:50%;
-  }
+	font-size: 0.6em;
+	font-weight: bold;
+	line-height: 1.5;
+	letter-spacing: 0.3em;
+}
+
+.balance-info{
+	display: flex;
+	flex-direction: column;
+	font-size: 1em;
+	font-weight: bold;
+	max-width: 8em;
+}
   
   .register-hint{
 	  min-width: 120px;
