@@ -4,21 +4,16 @@
     <div class="banner banner-align-left">
         <div class="full welcome-text center">
                 {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "User Information" %} - {{user_instance.username}}</h4>
+                    <h4> {% trans "User Information" %}</h4>
                 {% endblock HEADER_BANNER_TITLE %}
                 
         </div>
         <div class="container">
-
-            <div class="col col-9">
-                <div class="banner--actions">
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}">{% trans "Users" %}</a>
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
-        
+        <ul class="actions" role="navigation">
+                <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}"> {% trans "Users" %} </a></li>
+                <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
+                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>
+        </ul>
         </div><!--End of Container-->
         
     </div>
@@ -28,17 +23,12 @@
 
                 
 <div class="container">
-        <nav class="nav">
-                <ul class="actions" role="navigation">
-                        <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}"> {% trans "Users" %} </a></li>
-                        <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
-                </ul>
-        </nav>
+
         <div class="mat-box">
                 <div class="title">
                         <span>{% trans "User" %}</span>
                 </div>
-                <div class="box-content box">
+                <div class="box">
                         <div class="entry">
                                 <span class="key">{% trans "Username" %}</span> <span class="value">{{user_instance.username}}</span>
                         </div>
@@ -65,7 +55,7 @@
                 <div class="title">
                      <span>{% trans "Account Information" %}</span>
                 </div>
-                <div class="box-content box">
+                <div class="box">
                         <div class="entry">
                                 <span class="key">{% trans "Country" %}</span> <span class="value">{{user_instance.account.country}}</span>
                         </div>
