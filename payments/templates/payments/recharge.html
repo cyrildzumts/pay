@@ -1,7 +1,7 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "RECHARGE MY ACCOUNT" %}</h4>
+    <h4> {% trans "BALANCE RECHARGE" %}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 
 {% block MAIN %}
@@ -9,7 +9,17 @@
 <div class="container">
     <div class="col-xs-12 col-8">
         <div class="mat-box">
-        {% include "tags/recharge_form.html" %}
+            <form id="recharge-form" name="voucher-recharge" action="{% url 'payments:recharge' %}" method="POST">{% csrf_token %}
+                <div class="mat-input">
+                    <label for="voucher">{% trans "Voucher Code" %} : </label>
+                    <input id="voucher" type="text" name="voucher">
+                </div>
+                
+                <div class="actions">
+                    <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
+                    <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Recharge my Account" %}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
