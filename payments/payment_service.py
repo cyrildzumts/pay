@@ -559,7 +559,7 @@ def create_service(data):
         pay_user = User.objects.get(username=settings.PAY_USER)
         price = form.cleaned_data.get('price')
         policy_group = operator.policygroup_set.first()
-        commission = policy_group.policy.commsission
+        commission = policy_group.policy.commission
         pay_fee, operator_amount, succeed = PaymentService.get_commission(price=price, applied_commision=commission)
         if succeed:
             Balance.objects.filter(user=customer).update(balance=F('balance') - price)
@@ -606,7 +606,7 @@ def create_payment(data):
     pay = User.objects.get(username=settings.PAY_USER)
     recipient = form.cleaned_data.get('recipient')
     policy_group = recipient.policygroup_set.first()
-    commission = policy_group.policy.commsission
+    commission = policy_group.policy.commission
     pay_fee, recipient_amount, succeed = PaymentService.get_commission(price=amount, applied_commision=commission)
     if succeed:
         Balance.objects.filter(user=sender).update(balance=F('balance') - amount)
