@@ -7,6 +7,8 @@
 
 {% block HEADER_BANNER %}
     <div class="container">
+        {% block HEADER_BANNER_TITLE %}
+        {% endblock HEADER_BANNER_TITLE %}
         <div class="mat-box full">
             <div class="mat-box-title">
                 {% if is_seller and balance %}
