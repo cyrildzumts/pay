@@ -515,16 +515,14 @@ class PaymentService :
     
 def migrate_to_balance_model():
     account_set = Account.objects.select_related('user').filter(user__balance=None)
-    balance_list = [Balance(name=account.user.username, user=account.user, balance=account.balance) for account in account_set]
+    balance_list = [{'name' : account.user.username, 'user' : account.user, 'balance' : account.balance} for account in account_set]
    
-    batch_size = 100
-    while True:
-        batch = list(islice(balance_list, batch_size))
-        if not batch:
-            break
-        Balance.objects.bulk_create(batch, batch_size, ignore_conflicts=True)
+    for b in balance_list:
+        logger.info(f'creating balance for {b}')
+        Balance.objects.create(**b)
+        logger.info(f'balance for {b} created')
+    return
     
-
 
 def create_service(data):
     pass

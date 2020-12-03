@@ -1999,7 +1999,7 @@ def recharge_details(request, recharge_uuid=None):
 @login_required
 def generate_balance(request):
     payment_service.migrate_to_balance_model()
-    return redirect('dashboard:users')
+    return redirect('dashboard:home')
 
 class RechargeView(ListView):
     queryset = Recharge.objects.order_by('-created_at')
