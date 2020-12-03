@@ -18,6 +18,7 @@ import numbers
 
 logger = logging.getLogger(__name__)
 
+SERVICE_PAYMENT_CONFIRMATION = "Service Payment Confirmation"
 
 class PaymentService :
     
@@ -522,10 +523,58 @@ def migrate_to_balance_model():
         Balance.objects.create(**b)
         logger.info(f'balance for {b} created')
     return
-    
+
+
+
+def create_Service_context(service, fee):
+    email_context = {
+        'title'             : SERVICE_PAYMENT_CONFIRMATION,
+        'recipient_name'    : service.operator.get_full_name(),
+        'sender_name'       : service.customer.get_full_name(),
+        'service_name'      : service.name,
+        'customer_reference': service.customer_reference,
+        'consumer_name'     : service.customer.get_full_name(),
+        'reference_number'  : service.reference_number,
+        'invoice_date'      : service.issued_at,
+        'category_name'     : service.category.category_name,
+        'price'             : service.price,
+        'commission'        : service.commission,
+        'pay_fee'           : fee,
+        'payment_date'      : service.created_at,
+        'description'       : service.description,
+        'template_name'     : 'accounts/service_mail_confirmation_incoming.html',
+        'recipient_email'   : service.operator.email,
+        'sender_email'      : service.customer.email,
+        'has_image'         : False
+    }
+    return {'success' : True,'email_context' : email_context}
+
 
 def create_service(data):
-    pass
+    form = ServiceCreationForm(data)
+    if form.is_valid():
+        name = form.cleaned_data.get('name')
+        customer = form.cleaned_data.get('customer')
+        operator = form.cleaned_data.get('operator')
+        pay_user = User.objects.get(username=settings.PAY_USER)
+        price = form.cleaned_data.get('price')
+        policy_group = operator.policygroup_set.first()
+        commission = policy_group.policy.commsission
+        pay_fee, operator_amount, succeed = PaymentService.get_commission(price=price, applied_commision=commission)
+        if succeed:
+            Balance.objects.filter(user=customer).update(balance=F('balance') - price)
+            Balance.objects.filter(user=operator).update(balance=F('balance') + operator_amount)
+            Balance.objects.filter(user=pay).update(balance=F('balance') + pay_fee)
+            logger.info("Service Payment Operation was successfull")
+            service = form.save()
+            return service
+        else:
+            logger.info(f"Service Payment could not be processed. Error on calculating the commission")
+    else:
+        logger.info(f"Service Payment could not be processed. Errors : {form.errors}")
+    
+    return None
+
 
 
 def create_transfer(data):
@@ -554,7 +603,7 @@ def create_payment(data):
         return None
     amount = form.cleaned_data.get('amount')
     sender = form.cleaned_data.get('sender')
-    pay = User.objects.get(username='pay')
+    pay = User.objects.get(username=settings.PAY_USER)
     recipient = form.cleaned_data.get('recipient')
     policy_group = recipient.policygroup_set.first()
     commission = policy_group.policy.commsission

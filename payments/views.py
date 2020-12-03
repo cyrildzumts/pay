@@ -310,7 +310,35 @@ def transfer_verify(request):
 
 
 @login_required
-def new_service(request, available_service_uuid=None):
+def new_service(request, available_service_uuid):
+    context = {}
+    email_template_name = "payments/service_done_email.html"
+    template_name = "payments/new_service.html"
+    page_title = _("Service Usage")
+    service_instance = get_object_or_404(AvailableService, available_uuid=available_service_uuid)
+    commission = service_instance.operator.policygroup_set.first().policy.commission
+    if request.method == "POST":
+        postdata = utils.get_postdata(request)
+        postdata['commission'] = commission
+        service = payment_service.create_service(postdata)
+        if service:
+            messages.success(request, _('We have send you a confirmation E-Mail. You will receive it in an instant'))
+            logger.info("Service Payment successful.")
+            return redirect('payments:transaction-done')
+        else : 
+            logger.error("There was an error with the service payment request ")
+
+    form = ServiceCreationForm()
+    context = {
+        'page_title':page_title,
+        'service' : service_instance,
+        'commission' : commission,
+        'form': form
+    }
+    return render(request, template_name, context)
+
+@login_required
+def new_service_2(request, available_service_uuid=None):
     '''
     This view is responsible for processing a service.
     To process a transaction service : 

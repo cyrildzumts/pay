@@ -108,19 +108,24 @@ class ServiceCreationForm(forms.ModelForm):
             The operator must be the same as the operator found in service_instance.
         '''
         cleaned_data = super().clean()
-
-        operator = cleaned_data.get('operator') # this is the pk value
+        name = cleaned_data.get('name')
+        operator = cleaned_data.get('operator')
+        customer = cleaned_data.get('customer')
         available_service_instance = cleaned_data.get('service_instance')
+        price = cleaned_data.get('price')
+        if not name:
+            raise forms.ValidationError(message="service name is missing", code='invalid')
+        
         if operator and available_service_instance:
-            if operator.pk != available_service_instance.operator.pk:
-                self.add_error('operator', 'This operator is offering this service')
-                self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
-                #raise forms.ValidationError(message='The submitted service operator is invalid', code='invalid')
+            if operator != available_service_instance.operator:
+                raise forms.ValidationError(message='The selected operator is not the one offering this service', code='invalid')
+            if hasattr(customer, 'balance') and customer.balance.balance < price:
+                raise forms.ValidationError(message='customer balance is insufficient to process this payment', code='invalid')
         else:
             if not operator:
-                self.add_error('operator', 'This operator is offering this service')
+                self.add_error('operator', 'The operator is missing')
             if not available_service_instance:
-                self.add_error('service_instance', 'The operator offering this service must be the same as the operator field')
+                self.add_error('service_instance', 'service_instance is missing')
             
             
             
