@@ -11,12 +11,13 @@
    <div class="col-xs-12 col-8">
         <div class="mat-box">
         <form name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
+        <input id="recipient" type="hidden" name="recipient">
         <div class="form-group">
             <input type="hidden" name="sender" value="{{request.user.pk}}">
         </div>
         <div class="form-group">
             {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient" %}
-            <select name="recipient" >
+            <select name="recipient2" >
                 <option value="">{% trans "Select the Recipient" %}</option>
             {% for u in contacts %}
                 <option value="{{u.pk}}">{{u.get_full_name}}</option>
@@ -32,7 +33,7 @@
             <label for="description">{% trans "Description" %}</label>
             <input id="description" type="text" name="details">
         </div>
-        <div class="form-group row">
+        <div class="actions">
             <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:home'%}">{% trans "Cancel" %}</a>
             <button class="mat-button mat-button-default" type="submit">{% trans "Send Money" %}</button>
         </div>
