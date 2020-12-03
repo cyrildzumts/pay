@@ -11,7 +11,7 @@
         {% endblock HEADER_BANNER_TITLE %}
         <div class="mat-box full">
             <div class="mat-box-title">
-                {% if is_seller and balance %}
+                {% if balance %}
                 <div class="balance-info">
                     <div class="row flex-left"><h4>{% trans "Balance" %}</h4></div>
                     <div class="row flex-left balance"><span>{{balance.balance|floatformat:"-2"}} {% trans CURRENCY %} </span></div>
