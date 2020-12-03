@@ -12,7 +12,7 @@
             <form id="payment-form" name="payment" action="{% url 'payments:new-payment' %}" method="POST">{% csrf_token %}
                 <input type="hidden" name="sender" value="{{request.user.pk}}">
                 <input type="hidden" name="recipient" id="recipient">
-                
+
                 {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Seller" %}
                 <div class="mat-input">
                     <label for="amount">{% trans "Amount" %}</label>
@@ -23,7 +23,7 @@
                     <input id="details" type="text" name="details">
                 </div>
                 <div class="actions">
-                    <a class="mat-button mat-button-default js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
+                    <a class="mat-button mat-button-outlined js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
                     <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "PAY" %}</button>
                 </div>
             </form>
