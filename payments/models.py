@@ -461,7 +461,7 @@ class Transfer(models.Model):
 class Refund(models.Model):
     amount = models.DecimalField(default=0.0, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     status = models.IntegerField(default=Constants.REFUND_PENDING, choices=Constants.REFUND_STATUS)
-    delined_reason = models.IntegerField(blank=True, null=True, choices=Constants.REFUND_DECLINED_REASON)
+    declined_reason = models.IntegerField(blank=True, null=True, choices=Constants.REFUND_DECLINED_REASON)
     payment = models.OneToOneField('payments.Payment', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     last_changed_at = models.DateTimeField(auto_now=True)
