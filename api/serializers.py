@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from accounts.models import Account
 from payments.models import (
-    Transfer, Payment, CaseIssue, AvailableService, ServiceCategory, Service, Policy
+    Transfer, Payment, CaseIssue, AvailableService, ServiceCategory, Service, Policy, Refund
 )
 from voucher.models import (
     Voucher, SoldVoucher, UsedVoucher
@@ -95,3 +95,10 @@ class SoldVoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = SoldVoucher
         fields = ("seller","voucher", "sold_at", )
+
+
+
+class RefundSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Refund
+        fields = ['amount', 'status', 'declined_reason', 'payment', 'created_at', 'last_changed_at', 'refund_uuid']

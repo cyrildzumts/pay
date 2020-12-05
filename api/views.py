@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear
 from django.db.models import Count, Avg, F, Q, Sum, Max, Min
+from django.forms.models import model_to_dict
 from django.urls import reverse, resolve
 from rest_framework import filters
 from django.views.decorators.csrf import csrf_exempt
@@ -21,9 +22,10 @@ from api.serializers import ( AvailableServiceSerializer, AccountSerializer,
  )
 from django.contrib.auth.models import User
 from accounts.models import Account
-from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy
+from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy, Refund
 from voucher.models import Voucher
 from payments.forms import PaymentRequestForm
+from payments import payment_service
 from pay import utils
 from django.utils import timezone
 from operator import itemgetter
@@ -255,3 +257,117 @@ def analytics_daily_data(request, year=None, month=None, day=None):
     data.append({'label':_('Payments Request'), 'datasets': list(payment_request_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
     data.append({'label':_('Users'), 'datasets': list(user_set.values(yearfield, monthfield).annotate(count=Count(monthfield)))})
     return Response(data, status=status.HTTP_200_OK)
+
+
+
+
+@api_view(['GET', 'POST'])
+def refund_create(request, payment_uuid):
+    payment = None
+    try:
+        payment = Payment.objects.get(payment_uuid=payment_uuid)
+    except Payment.DoesNotExist as e:
+        logger.warning(f"No payment found with uuid \"{payment_uuid}\"")
+        return Response({'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
+    data = {'amount' : payment.amount, 'payment': payment.pk}
+    refund = payment_service.create_refund(data)
+    logger.info(f"payment found with uuid \"{payment_uuid}\"")
+    if refund:
+        logger.info(f"Refund created for payment with uuid \"{payment_uuid}\"")
+        return Response(data={'refund': refund.refund_uuid, 'payment': payment.payment_uuid, 'created': True, 'accepted': False }, status=status.HTTP_200_OK)
+    else:
+        logger.warn(f"Refund not created for payment with uuid \"{payment_uuid}\"")
+        return Response(data={'payment': payment.payment_uuid, 'created': False}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['GET', 'POST'])
+def client_refund_create(request, payment_uuid, token, username):
+    payment = None
+    auth_token = None
+    try:
+        auth_token = Token.objects.get(key=token, user__username=username)
+    except Token.DoesNotExist as e:
+        logger.warning(f"No Token found with key \"{token}\"")
+        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
+    try:
+        payment = Payment.objects.get(payment_uuid=payment_uuid)
+    except Payment.DoesNotExist as e:
+        logger.warning(f"No payment found with uuid \"{payment_uuid}\"")
+        return Response({'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+    refund = payment_service.create_accept_refund(auth_token.user, payment)
+    logger.info(f"payment found with uuid \"{payment_uuid}\"")
+    if refund:
+        logger.info(f"Refund created for payment with uuid \"{payment_uuid}\"")
+        return Response(data={'refund': refund.refund_uuid, 'payment': payment.payment_uuid, 'created': True, 'status': refund.status, 'declined_reason' : refund.declined_reason }, status=status.HTTP_200_OK)
+    else:
+        logger.warn(f"Refund not created for payment with uuid \"{payment_uuid}\"")
+        return Response(data={'payment': payment.payment_uuid, 'created': False}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['GET', 'POST'])
+def client_accept_refund(request, payment_uuid, token, username):
+    auth_token = None
+    try:
+        auth_token = Token.objects.get(key=token, user__username=username)
+    except Token.DoesNotExist as e:
+        logger.warning(f"No Token found with key \"{token}\"")
+        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
+    try:
+        payment = Payment.objects.get(payment_uuid=payment_uuid)
+    except Payment.DoesNotExist as e:
+        logger.warning(f"No payment found with uuid \"{payment_uuid}\"")
+        return Response({'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+    refunded = payment_service.accept_refund(auth_token.user, payment)
+    if refunded:
+        logger.info(f"Refund accepted for payment with uuid \"{payment_uuid}\"")
+
+    else:
+        logger.warn(f"Refund not accepted for payment with uuid \"{payment_uuid}\"")
+    return Response(data={'payment': payment.payment_uuid, 'accepted': refunded}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['GET', 'POST'])
+def client_declined_refund(request, payment_uuid, token, username):
+    auth_token = None
+    try:
+        auth_token = Token.objects.get(key=token, user__username=username)
+    except Token.DoesNotExist as e:
+        logger.warning(f"No Token found with key \"{token}\"")
+        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
+
+    try:
+        payment = Payment.objects.get(payment_uuid=payment_uuid)
+    except Payment.DoesNotExist as e:
+        logger.warning(f"No payment found with uuid \"{payment_uuid}\"")
+        return Response({'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+    declined = payment_service.declined_refund(auth_token.user, payment)
+    if declined:
+        logger.info(f"Refund declined for payment with uuid \"{payment_uuid}\"")
+
+    else:
+        logger.warn(f"Refund not declined for payment with uuid \"{payment_uuid}\"")
+    return Response(data={'payment': payment.payment_uuid, 'declined': declined}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+def get_refunds(request, status, token, username):
+    auth_token = None
+    try:
+        auth_token = Token.objects.get(key=token, user__username=username)
+    except Token.DoesNotExist as e:
+        logger.warning(f"No Token found with key \"{token}\"")
+        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    queryset = payment_service.client_refunds(auth_token.user, status)
+    data = list(queryset.values())
+    return Response(data)
+    

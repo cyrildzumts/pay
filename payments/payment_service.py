@@ -644,9 +644,13 @@ def update_refund(data, refund):
 
 
     
-def accept_refund(payment):
-    if not isinstance(payment, Payment):
-        return False
+def accept_refund(requester, payment):
+    if not isinstance(requester, User) or not isinstance(payment, Payment):
+        return None
+
+    if payment.recipient != requester:
+        logger.warn(f"Refund not accepted. Recipient \"{payment.recipient.username}\" is not the requester \"{requester.username}\"")
+        return None
     
     try:
         refund = Refund.objects.get(payment=payment, status=Constants.REFUND_PENDING)
@@ -665,10 +669,36 @@ def accept_refund(payment):
     Refund.objects.filter(payment=payment, status=Constants.REFUND_PENDING).update(status=Constants.REFUND_PAID)
     return True
 
+def create_accept_refund(requester, payment):
+    refund = None
+    if not isinstance(requester, User) or not isinstance(payment, Payment):
+        return None
+    if payment.recipient != requester:
+        logger.warn(f"Refund not created. Recipient \"{payment.recipient.username}\" is not the requester \"{requester.username}\"")
+        return None
+    data = {
+        'payment': payment,
+        'amount' : payment.amount
+    }
+    if payment.recipient.balance.balance < payment.amount:
+        logger.warn(f"Refund not processed. Recipient \"{payment.recipient.username}\" has insufficient fund left")
+        data['status'] : Constants.REFUND_DECLINED
+        data['declined_reason'] = Constants.REFUND_DECLINED_UNSUFFICIENT_FUND
+    else:
+        data['status'] : Constants.REFUND_PAID
+
+    refund = Refund.objects.create(**data)
+    return refund
 
 
-def declined_refund(payment):
-    if not isinstance(payment, Payment):
+
+
+def declined_refund(requester, payment):
+    if not isinstance(requester, User) or not isinstance(payment, Payment):
+        return False
+    
+    if payment.recipient != requester:
+        logger.warn(f"Refund not declined. Recipient \"{payment.recipient.username}\" is not the requester \"{requester.username}\"")
         return False
     
     try:
@@ -680,3 +710,10 @@ def declined_refund(payment):
     Refund.objects.filter(payment=payment, status=Constants.REFUND_PENDING).update(status=Constants.REFUND_DECLINED, delined_reason=Constants.REFUND_DECLINED_NOT_APPLICABLE)
     return True
     
+
+
+def client_refunds(requester, status):
+    if not isinstance(requester, User):
+        return None
+
+    return Refund.objects.filter(payment__recipient=requester, status=status)
