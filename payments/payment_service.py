@@ -645,7 +645,7 @@ def update_refund(data, refund):
 
     
 def accept_refund(payment):
-    if not isinstance(payment, Payment)
+    if not isinstance(payment, Payment):
         return False
     
     try:
