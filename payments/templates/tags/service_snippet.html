@@ -13,7 +13,7 @@
             <span class="key">{% trans "Customer" %}</span><span class="value">{{service.customer.get_full_name}}</span>
         </div>
         <div class="entry">
-            <span class="key">{% trans "Amount" %} </span><span class="value incoming">{{service.price}} {% trans "XAF" %}</span>
+            <span class="key">{% trans "Amount" %} </span><span class="value incoming">{{service.price|floatformat:"-2"}} {% trans CURRENCY %}</span>
         </div>
         <div class="entry">
             <span class="key">{% trans "Commission" %} </span><span class="value">{{service.commission}}</span>
@@ -23,7 +23,7 @@
             <span class="key">{% trans "Operator" %}</span><span class="value">{{service.operator.get_full_name}}</span>
         </div>
         <div class="entry">
-            <span class="key">{% trans "Amount" %} </span><span class="value outgoing">{{service.price}} {% trans "XAF" %}</span>
+            <span class="key">{% trans "Amount" %} </span><span class="value outgoing">{{service.price|floatformat:"-2"}} {% trans CURRENCY %}</span>
         </div>
         {% endif %}
         {% if service.reference_number %}

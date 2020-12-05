@@ -55,6 +55,11 @@ urlpatterns = [
     path('payments/', views.payments, name='payments'),
     path('payment-done/', views.payment_done, name='payment-done'),
     path('payments/<uuid:payment_uuid>/', views.payment_details, name='payment-detail'),
+    path('refunds/', views.refunds, name='refunds'),
+    path('refund/<uuid:refund_uuid>/', views.refund_detail, name='refund-detail'),
+    path('refund/create/<uuid:payment_uuid>/', views.create_refund, name='create-refund'),
+    path('refund/accept/<uuid:payment_uuid>/', views.accept_refund, name='accept-refund'),
+    path('refund/decline/<uuid:payment_uuid>/', views.declined_refund, name='decline-refund'),
 
     path('payment-request/<uuid:request_uuid>/', views.payment_request, name='payment-request'),
     path('payment-requests/decline/<uuid:request_uuid>/', views.decline_payment_request, name="payment-request-decline"),

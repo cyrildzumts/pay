@@ -1,9 +1,13 @@
-
 from django.apps import apps
 import secrets
+import logging
+import random
 
+logger = logging.getLogger(__name__)
 
-PAGINATED_BY = 10
+PAGINATED_BY = 50
+RAND_START = 0
+RAND_END = 1000000
 
 def get_postdata(request):
     return request.POST.copy()
@@ -48,3 +52,33 @@ def get_all_fields_from_form(instance):
 
 def generate_token_10():
     return secrets.token_urlsafe(10)
+
+
+def get_random_ref():
+    return random.randrange(RAND_START, RAND_END)
+
+
+def is_entry_key_in_tuples(key, tuples):
+    found = False
+    for k, v in tuples:
+        if k == key:
+            found = True
+            break
+    return found
+
+
+def find_element_by_key_in_tuples(key, tuples):
+    value = None
+    for k, v in tuples:
+        if k == key:
+            value = v
+            break
+    return key, value
+
+def find_element_by_value_in_tuples(value, tuples):
+    key = None
+    for k, v in tuples:
+        if v == value:
+            key = k
+            break
+    return key, value

@@ -1,11 +1,13 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
-
+{% load payments_tags %}
 {% block MAIN %}
 
-<div class="actions">
- <a class="mat-button mat-button-text" href="{% url 'payments:payments' %}"> {% trans "My Payments" %} </a>
-</div>
+<ul class="actions">
+    <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:payments' %}"> {% trans "My Payments" %} </a></li>
+    {% if not has_refund %} <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:request-refund' payment.payment_uuid %}"> {% trans "Refund" %} </a></li> {% endif %}
+    
+</ul>
 
 <div class="container">
     <div class="col-m-12 col-4">
@@ -15,12 +17,25 @@
           <div class="entry"> <span class="key">{% trans "Price" %}</span><span class=" value amount outgoing">{{payment.amount}} {% trans "XAF" %}</span></div>
           {% else %}
           <div class="entry"> <span class="key">{% trans "Sender" %}</span> <span class="value">{{payment.sender.get_full_name}}</span> </div>
-          <div class="entry"> <span class="key">{% trans "Price" %}</span><span class="value amount incoming">{{payment.amount}} {% trans "XAF" %}</span></div>
+          <div class="entry"> <span class="key">{% trans "Price" %}</span><span class="value amount incoming">{{payment.amount|floatformat:"-2"}} {% trans "XAF" %}</span></div>
           {% endif %}
           <div class="entry"> <span class="key">{% trans "Date" %}</span><span  class="value">{{payment.created_at|date:"N j, Y"}}</span> </div>
           <div class="entry"> <span class="key">{% trans "Description" %}</span><span class="value">{{payment.details}}</span> </div>
           <div class="entry"> <span class="key">{% trans "Verification Code" %}</span><span class="value">{{payment.verification_code}}</span> </div>
         </div>
     </div>
+    {% if has_refund %}
+    
+    <div class="col-m-12 col-4">
+        <div class="mat-box">
+          <div class="title"><h4>{% trans "Refund" %}</h4></div>
+          <div class="entry"> <span class="key">{% trans "Status" %}</span><span class="value">{{refund.status|payment_status_value}}</span> </div>
+          <div class="entry"> <span class="key">{% trans "Last Change" %}</span><span  class="value">{{refund.last_changed_at|date:"N j, Y"}}</span> </div>
+          {% if refund.declined_reason %}
+          <div class="entry"> <span class="key">{% trans "Declined Reason" %}</span><span class="value">{{refund.declined_reason|declined_reason_value}}</span> </div>
+          {% endif %}
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock MAIN %}

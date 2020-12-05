@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
-from payments.forms import   ServiceCreationForm, IDCardForm, RechargeForm, PaymentForm, TransactionForm, TransferForm
-from payments.models import Policy, Transaction, Transfer, Service, Payment, Balance
+from payments.forms import   ServiceCreationForm, IDCardForm, RechargeForm, PaymentForm, TransactionForm, TransferForm, RefundForm
+from payments.models import Policy, Transaction, Transfer, Service, Payment, Balance, Refund
+from payments import constants as Constants
 from django.db.models import F, Q, FloatField
 from django.apps import apps
 from django.forms import modelform_factory
@@ -597,7 +598,6 @@ def create_transfer(data):
 
 def create_payment(data):
     form = PaymentForm(data)
-
     if not form.is_valid():
         logger.warn(f"Payment failed with errors : {form.errors}")
         return None
@@ -616,5 +616,68 @@ def create_payment(data):
         return form.save()
     logger.info("Payment could not be processed")
     return None
-    
 
+
+
+def create_refund(data):
+    form = RefundForm(data)
+
+    if not form.is_valid():
+        logger.warn(f"Refund Creation failed with errors : {form.errors}")
+        return None
+
+    logger.info("Refund Creation was successfull")
+
+    return form.save()
+
+
+def update_refund(data, refund):
+    form = RefundForm(data, instance=refund)
+
+    if not form.is_valid():
+        logger.warn(f"Refund Update failed with errors : {form.errors}")
+        return None
+
+    logger.info("Refund Creation was successfull")
+    refund = form.save()
+    if refund.status == Constants.REFUND_ACCEPTED:
+    return refund
+
+
+    
+def accept_refund(payment):
+    if not isinstance(payment, Payment)
+        return False
+    
+    try:
+        refund = Refund.objects.get(payment=payment, status=Constants.REFUND_PENDING)
+    except Refund.DoesNotExist as e:
+        logger.warn(f"Refund not processed. No Refund found for payment  \"{payment.payment_uuid}\"")
+        return False
+
+    if payment.recipient.balance.balance < payment.amount:
+        logger.warn(f"Refund not processed. Recipient \"{payment.recipient.username}\" has insufficient fund left")
+        Refund.objects.filter(payment=payment).update(status=Constants.REFUND_DECLINED, delined_reason=Constants.REFUND_DECLINED_UNSUFFICIENT_FUND)
+        return False
+
+
+    Balance.objects.filter(user=payment.recipient).update(balance=F('balance') - payment.mount)
+    Balance.objects.filter(user=payment.sender).update(balance=F('balance') + payment.mount)
+    Refund.objects.filter(payment=payment, status=Constants.REFUND_PENDING).update(status=Constants.REFUND_PAID)
+    return True
+
+
+
+def declined_refund(payment):
+    if not isinstance(payment, Payment)
+        return False
+    
+    try:
+        refund = Refund.objects.get(payment=payment, status=Constants.REFUND_PENDING)
+    except Refund.DoesNotExist as e:
+        logger.warn(f"Refund not processed. No Refund found for payment  \"{payment.payment_uuid}\"")
+        return False
+
+    Refund.objects.filter(payment=payment, status=Constants.REFUND_PENDING).update(status=Constants.REFUND_DECLINED, delined_reason=Constants.REFUND_DECLINED_NOT_APPLICABLE)
+    return True
+    

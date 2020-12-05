@@ -26,7 +26,7 @@
                   <tr>
                     <td scope="row" data-label="{% trans 'Sender' %}">{{p.sender.get_full_name}}</td>
                     <td data-label="{% trans 'Receiver' %}">{{p.recipient.get_full_name}} </td>
-                    <td data-label="{% trans 'Amount' %}"><span class="{% if p.sender.pk == request.user.pk %}outgoing{% else %}incoming{% endif %}">{{p.amount|floatformat:"-2"}}</span> <span class="currency">{% trans "XAF" %}</span></td>
+                    <td data-label="{% trans 'Amount' %}"><span class="{% if p.sender.pk == request.user.pk %}outgoing{% else %}incoming{% endif %}">{{p.amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
                     <td data-label="{% trans 'Date' %}">{{p.created_at|date:"F j, Y"}}</td>
                     <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{p.get_absolute_url}}"><i class="fas fa-info icon"></i><span>{% trans "Detail" %}</span></a></td>
                   </tr>

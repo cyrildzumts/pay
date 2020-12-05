@@ -24,7 +24,7 @@ from accounts.models import Account
 from payments.models import (
     Transaction, Transfer, AvailableService, Payment, 
     Service, ServiceCategory, Policy, CaseIssue, Reduction,
-    IDCard, PaymentRequest
+    IDCard, PaymentRequest, Refund
 )
 from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, PaymentRequestForm,
@@ -1024,6 +1024,50 @@ def transaction_verification(request):
     context['page_title'] = page_title
     return render(request,template_name, context)
 
+
+@login_required
+def create_refund(request, payment_uuid):
+    payment = get_object_or_404(Refund, payment_uuid=payment_uuid)
+    data = {'amount' : payment.amount, 'payment': payment.pk}
+    refund = payment_service.create_refund(data)
+    if refund:
+        messages.info(request, message="Refund created")
+    else:
+        messages.warning(request, message="Refund not created")
+    
+    return redirect(payment)
+
+
+@login_required
+def accept_refund(request, payment_uuid):
+    payment = get_object_or_404(Refund, payment_uuid=payment_uuid, recipient=request.user)
+    accepted = payment_service.accept_refund(payment)
+    if accepted:
+        messages.info(request, message="Refund accepted")
+    else :
+        messages.warning(request, message="Refund cound be processed")
+    
+    return redirect(payment)
+
+
+@login_required
+def declined_refund(request, payment_uuid):
+    payment = get_object_or_404(Refund, payment_uuid=payment_uuid, recipient=request.user)
+    declined = payment_service.declined_refund(payment)
+    if declined:
+        messages.info(request, message="Refund declined")
+    else :
+        messages.warning(request, message="Refund cound be processed")
+    
+    return redirect(payment)
+
+@login_required
+def refunds(request):
+    pass
+
+@login_required
+def refund_detail(request, refund_uuid):
+    pass
 
 
 

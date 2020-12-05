@@ -4,7 +4,7 @@ from rest_framework.authtoken.models import Token
 from accounts.models import Account
 from payments.models import (
     Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard,
-    Reduction, PaymentRequest
+    Reduction, PaymentRequest, Refund
 )
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
@@ -115,7 +115,7 @@ class ServiceCreationForm(forms.ModelForm):
         price = cleaned_data.get('price')
         if not name:
             raise forms.ValidationError(message="service name is missing", code='invalid')
-        
+
         if operator and available_service_instance:
             if operator != available_service_instance.operator:
                 raise forms.ValidationError(message='The selected operator is not the one offering this service', code='invalid')
@@ -180,6 +180,7 @@ class PaymentForm(forms.ModelForm):
         return recipient
     
     def clean(self):
+        super().clean()
         amount = self.cleaned_data.get('amount')
         sender = self.cleaned_data.get('sender')
         recipient = self.cleaned_data.get('recipient')
@@ -189,6 +190,17 @@ class PaymentForm(forms.ModelForm):
             raise forms.ValidationError(message=f"recipient {recipient.username} has no policy group")
         if sender.balance and sender.balance.balance < amount:
             raise forms.ValidationError(message=f"sender {sender.username} has not enough money on his balance")
+
+
+class RefundForm(forms.ModelForm):
+    class Meta:
+        model = Refund
+        fields = ['amount','status','declined_reason', 'payment']
+
+    
+
+
+    
 
 
 
@@ -236,6 +248,7 @@ class TransferForm(forms.ModelForm):
         return recipient
     
     def clean(self):
+        super().clean()
         amount = self.cleaned_data.get('amount')
         sender = self.cleaned_data.get('sender')
         recipient = self.cleaned_data.get('recipient')

@@ -354,7 +354,7 @@ class Payment(models.Model):
     payment_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
-        return "Payment id : {0} - Amount : {1}".format(self.pk, self.amount)
+        return f"Payment - {self.amount}"
     
     def get_absolute_url(self):
         return reverse('payments:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
@@ -456,6 +456,25 @@ class Transfer(models.Model):
         if user and user.is_authenticated:
             queryset = Transfer.objects.filter(Q(sender=user) | Q(recipient=user)).order_by('-created_at')
         return queryset
+
+
+class Refund(models.Model):
+    amount = models.DecimalField(default=0.0, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    status = models.IntegerField(default=Constants.REFUND_PENDING, choices=Constants.REFUND_STATUS)
+    delined_reason = models.IntegerField(blank=True, null=True, choices=Constants.REFUND_DECLINED_REASON)
+    payment = models.OneToOneField('payments.Payment', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_changed_at = models.DateTimeField(auto_now=True)
+    refund_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return f"Refund {self.payment.sender.username} - {self.payment.recipient.username} : {self.amount} {settings.CURRENCY}"
+
+    def get_absolute_url(self):
+        return reverse('payments:refund-detail', kwargs={'refund_uuid':self.refund_uuid})
+
+    def get_dashboard_absolute_url(self):
+        return reverse('dashboard:refund-detail', kwargs={'refund_uuid':self.refund_uuid})
 
 
 class CaseIssue(models.Model):

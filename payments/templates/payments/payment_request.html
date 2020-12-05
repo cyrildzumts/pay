@@ -27,7 +27,7 @@
         </div>    
         <div class="mat-box">
             <div class="entry"><span class="key">{% trans "Seller" %}</span><span class="value">{{payment_request.requester_name}}</span></div>
-            <div class="entry"><span class="key">{% trans "Amount" %}</span><span class="value">{{payment_request.amount}} {% trans "XAF" %}</span></div>
+            <div class="entry"><span class="key">{% trans "Amount" %}</span><span class="value">{{payment_request.amount|floatformat:"-2"}} {% trans CURRENCY %}</span></div>
         </div>
 
         <div class="actions">
