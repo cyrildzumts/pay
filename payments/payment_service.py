@@ -640,7 +640,6 @@ def update_refund(data, refund):
 
     logger.info("Refund Creation was successfull")
     refund = form.save()
-    if refund.status == Constants.REFUND_ACCEPTED:
     return refund
 
 
