@@ -5,7 +5,7 @@
 
 <ul class="actions">
     <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:payments' %}"> {% trans "My Payments" %} </a></li>
-    {% if not has_refund %} <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:request-refund' payment.payment_uuid %}"> {% trans "Refund" %} </a></li> {% endif %}
+    {% if not has_refund %} <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'payments:create-refund' payment.payment_uuid %}"> {% trans "Refund" %} </a></li> {% endif %}
     
 </ul>
 
