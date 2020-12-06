@@ -5,6 +5,7 @@
         <div class="mat-list-wrapper">
             <div class="mat-list-header">
                 <span class="title">{% trans list_title %}</span>
+                <a href="{% url 'payments:services' %}" class="mat-button mat-button-text">{% trans "See all" %}</a>
             </div>
             <ul class="mat-list">
                 {% for transaction in transaction_list %}

@@ -255,7 +255,6 @@
     font-size: 1em;
     font-weight: bold;
     line-height: 16px;
-    color: #242424;
 }
 .panel-left{
     position: absolute;
@@ -378,7 +377,6 @@
 
 .old-price{
     text-decoration: line-through;
-    color: #242424;
     margin-right: 4px;
     font-size: 80%;
 
