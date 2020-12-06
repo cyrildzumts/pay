@@ -258,10 +258,7 @@
   
   label{
 	  padding: 4px 8px;
-	  /*width: 250px;*/
 	  text-align: left;
-	  /*max-width: 350px;*/
-	  color: #CCC;
   }
   
   .label-row{
@@ -292,7 +289,6 @@
 	  left: 0;
 	  text-align: left;
 	  max-width: 100%;
-	  color: #CCC;
 	  font-weight: 600;
 	  padding: 0 !important;
 	  margin-bottom: 0;
@@ -306,7 +302,6 @@
 	  display: inline-block;
 	  width: 100%;
 	  text-align: left;
-	  color: #242424;
 	  font-weight: 500;
 	  letter-spacing: .2px;
 	  border: none !important;
@@ -320,12 +315,10 @@
 	  display: inline-block;
 	  width: 100%;
 	  text-align: left;
-	  /*color: #242424;*/
 	  font-weight: 500;
 	  letter-spacing: .2px;
 	  border: none !important;
 	  border-radius: none;
-	  /*border-bottom: 2px solid #CCC !important;*/
 	  padding: 8px 0 !important;
 	  border-radius: 0 !important;
   
@@ -793,15 +786,8 @@
   }
   
   .disabled{
-	  color:var(--disabled-color) !important;
-	  background-color: var(--disabled-bg-color) !important;
 	  cursor: default !important;
   }
-  
-  .disabled:hover{
-	  background-color: var(--disabled-hover-bg-color) !important;
-  }
-  
   
   
   .fill {object-fit: fill;}

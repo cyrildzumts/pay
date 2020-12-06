@@ -214,3 +214,26 @@ li.active.selected{
 .outgoing{
     color: #d32f2f;
 }
+
+
+.mat-input label, .form-group label{
+    color: var(--fourth-color);
+}
+
+.mat-input label input, .mat-input input, .form-group input{
+    border-bottom: 2px solid var(--fourth-color) !important;
+    color: var(--secondary-color);
+}
+.mat-input span, .form-group span{
+    color: var(--fourth-color);
+}
+
+.disabled{
+    color: var(--disabled-color) !important;
+    background-color: var(--disabled-bg-color) !important;
+}
+
+.disabled:hover{
+    background-color: var(--disabled-color) !important;
+    color: var(--disabled-bg-color) !important;
+}

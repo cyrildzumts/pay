@@ -7,4 +7,6 @@
     --label-color : #56617B;
     --body-bg : #3C4457;
     --body-color: #8792AC;
+    --disabled-color : #8792AC;
+    --disabled-bg-color : #56617B;
 }
