@@ -255,6 +255,7 @@ li.active.selected{
 }
 
 .pagination .disabled{
+    background-color: transparent !important;
     color: var(--third-color);
 }
 
