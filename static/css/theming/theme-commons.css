@@ -43,16 +43,18 @@ body{
     border: 2px solid var(--primary-color);;
 }
 
-
 .mat-table{
-    background-color: var(--fourth-color);
-
+    background-color: var(--secondary-color);
 }
 
 .mat-table thead{
-    background-color: var(--primary-color);
+    background-color: var(--third-color);
     color: var(--fourth-color);
     font-weight: 700;
+}
+
+.mat-table tr, table tr{
+    border-bottom: 2px solid var(--third-color);
 }
 
 .kiosk .active{
@@ -240,4 +242,9 @@ li.active.selected{
 .disabled:hover{
     background-color: var(--disabled-color) !important;
     color: var(--disabled-bg-color) !important;
+}
+
+
+.mat-table-wrapper .mat-table-filter{
+    border-bottom: 1px solid #ccc;
 }
