@@ -248,3 +248,16 @@ li.active.selected{
 .mat-table-wrapper .mat-table-filter{
     border-bottom: 1px solid #ccc;
 }
+
+
+.pagination .pagination--page{
+    border: 1px solid var(--primary-color);
+}
+
+.pagination .disabled{
+    color: var(--third-color);
+}
+
+.pagination .active{
+    color: var(--secondary-color);
+}

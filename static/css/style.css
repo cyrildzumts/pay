@@ -300,17 +300,11 @@
 }
 
 .pagination .pagination--page{
-    border: 1px solid #ccc;
     padding: 4px 8px;
-}
-
-.pagination .disabled{
-    color: #ccc;
 }
 
 .pagination .active{
     font-weight: bold;
-    color: #1976d2;
 }
 
 .messages{
