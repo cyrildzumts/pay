@@ -16,7 +16,7 @@ body{
 
 .page--banner{
     background-color: var(--third-color);
-    color: var(--primary-color);
+    color: var(--fourth-color);
 }
 
 .footer{
@@ -97,8 +97,14 @@ li.active.selected{
     color: var(--secondary-color);
 }
 
+.balance-info{
+    color: var(--fourth-color);
+    font-weight: 700;
+}
+
 .balance{
-	color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 700;
 }
 
 .primary-color{
@@ -110,12 +116,10 @@ li.active.selected{
 }
 
 .modal{
-    background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content{
-    background-color: #fff;
     background-clip: padding-box;
     background-color: #fefefe;
     border: 1px solid rgba(0, 0, 0, 0.2);
