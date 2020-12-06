@@ -109,7 +109,6 @@ li.active.selected{
 }
 
 .balance{
-    color: var(--primary-color);
     font-weight: 700;
 }
 
@@ -221,10 +220,6 @@ li.active.selected{
 .entrant, .incoming{
     color: #00e676;
 }
-.outgoing{
-    color: #d32f2f;
-}
-
 
 .mat-input label, .form-group label{
     color: var(--fourth-color);
@@ -267,6 +262,9 @@ li.active.selected{
     color: var(--secondary-color);
 }
 
-.money{
+.money, .outgoing{
     color: #FF0D00;
+}
+.entrant, .incoming{
+    color: #00e676;
 }
