@@ -47,6 +47,10 @@ body{
     background-color: var(--secondary-color);
 }
 
+.mat-table thead tr:nth-child(even){
+    background-color: var(--secondary-color);
+}
+
 .mat-table thead{
     background-color: var(--third-color);
     color: var(--fourth-color);
@@ -261,4 +265,8 @@ li.active.selected{
 
 .pagination .active{
     color: var(--secondary-color);
+}
+
+.money{
+    color: #FF0D00;
 }
