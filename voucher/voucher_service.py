@@ -6,6 +6,7 @@ from django.utils import timezone
 from pay import utils
 from pay import settings
 from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
+from payments.models import Balance
 import codecs
 import random
 import hashlib
@@ -249,6 +250,40 @@ class VoucherService:
             logger.info("[processing_service_request] Error : Amount is negativ (%s). The service request cannot be processed", amount)
             result['errors'] = "Amount is negativ {}. The service request cannot be processed".format(amount)
             return result
+        return result
+
+
+    @classmethod
+    def recharge_balance(cls, seller, customer, amount):
+        
+        result = {
+            'succeed': False,
+            'errors': ''
+        }
+        if not isinstance(seller, User) or not isinstance(customer, User):
+        return result
+
+        Recharge = utils.get_model("voucher", "Recharge")
+
+        if  amount > 0 :
+            v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
+            if v is None :
+                v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = cls.get_voucher(seller), 
+                    activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer, sold_by=seller,
+                    activated_at=timezone.now(), activated_by=seller, used_at=timezone.now(), sold_at=timezone.now())
+            else :
+                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, activated_by=seller, sold_by=seller,
+                    activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
+
+            Balance.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
+            Balance.objects.filter(user=customer).update(balance=F('balance') + amount)
+            Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
+            logger.info("User Balance %s has been recharged by the User %s with the amount of %s", customer.get_full_name(), seller.get_full_name(), amount)
+            result['succeed'] = True
+        else:
+            logger.info(f"[processing_service_request] Error : Amount is negativ {amount}. The service request cannot be processed")
+            result['errors'] = f"Amount is negativ {amount}. The service request cannot be processed"
+  
         return result
 
 
