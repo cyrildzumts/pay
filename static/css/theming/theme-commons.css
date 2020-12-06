@@ -14,6 +14,11 @@ body{
     font-weight: 700;
 }
 
+.site-panel{
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
+}
+
 .page--banner{
     background-color: var(--third-color);
     color: var(--fourth-color);
