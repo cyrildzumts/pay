@@ -9,7 +9,7 @@ body{
     color: var(--fourth-color);
 }
 
-.header a{
+.header a, a{
     color: var(--fourth-color) !important;
     font-weight: 700;
 }
@@ -67,12 +67,8 @@ li.active.selected{
 	border-bottom: 3px solid var(--secondary-color);
 }
 
-.logo{
-    color: var(--secondary-color) !important;
-}
 
 .logo a, .logo .mat-button{
-    color: var(--secondary-color) !important;
     letter-spacing: 0.5em;
     /*font-size: 1em;*/
 }
@@ -111,14 +107,6 @@ li.active.selected{
 
 .secondary-color{
     color: var(--secondary-color);
-}
-
-
-.entrant, .incoming{
-    color: #00e676;
-}
-.outgoing{
-    color: #d32f2f;
 }
 
 .modal{
@@ -196,9 +184,12 @@ li.active.selected{
     border: 1px solid #201c29;
 }
 
+.mat-list-item{
+    border-bottom: 1px solid var(--primary-color);
+}
+
 .mat-list-item.active{
-    background-color: var(--mat-list-item-active-bg);
-    color: var(--mat-list-item-active-color);
+    color: var(--secondary-color);
 }
 
 .mat-tooltip{
@@ -215,4 +206,11 @@ li.active.selected{
 .out{
     background-color: var(--out-bg);
     color: var(--out-color);
+}
+
+.entrant, .incoming{
+    color: #00e676;
+}
+.outgoing{
+    color: #d32f2f;
 }

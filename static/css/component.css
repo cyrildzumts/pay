@@ -1922,7 +1922,6 @@
 	  width: 100%;
 	  min-height: 48px;
 	  /*max-height: 72px;*/
-	  border-bottom: 1px solid #ccc;
   }
   
   .mat-list-item > input {
@@ -1988,17 +1987,16 @@
   
   .money{
 	  padding: 0 16px;
+	  font-weight: 700;
   }
   
   .money .amount{
 	  font-size: 1em;
-	  font-weight: 700;
 	  padding : 0 4px 0 16px;
   }
   
   .money .currency{
 	  font-size: 1em;
-	  font-weight: 700;
 	  padding : 0;
   }
   
@@ -2031,7 +2029,6 @@
 	  display: flex;
 	  flex-direction: column;
 	  width: 100%;
-	  border-top: 1px solid #ccc;
 	  padding: 0;
 	  margin: 16px 0 32px 0;
   }
