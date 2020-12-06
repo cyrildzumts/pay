@@ -5,7 +5,7 @@
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
 <div class="container">
-   <div class="col-xs-12 col-m-6 col-4">
+   <div class="col-xs-12 col-4">
         <div class="mat-box">
             <form name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
                 <input id="recipient" type="hidden" name="recipient">
