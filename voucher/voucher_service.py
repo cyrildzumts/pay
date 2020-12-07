@@ -261,7 +261,7 @@ class VoucherService:
             'errors': ''
         }
         if not isinstance(seller, User) or not isinstance(customer, User):
-        return result
+            return result
 
         Recharge = utils.get_model("voucher", "Recharge")
 
