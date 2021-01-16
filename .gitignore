@@ -1,4 +1,5 @@
 *.sqlite3
+*.db
 *.pyc
 staticfiles/*
 static_root/*
@@ -10,8 +11,12 @@ static_root/*
 .vscode
 */migrations/*
 */__pycache__/*
+*_site*.conf
+*_site*.conf.backup
+robots.txt
 log
 logs
 *.log
+media
 __pycache__
 XDG_CACHE_HOME
