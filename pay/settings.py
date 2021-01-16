@@ -253,7 +253,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'file',
-            'filename':'pay.log'
+            'filename':'logs/pay.log'
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -295,7 +295,7 @@ LANGUAGES = (
     ('fr',_('French')),
 )
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'conf/locale')
+    os.path.join(BASE_DIR, 'locale')
 ]
 TIME_ZONE = 'UTC'
 
@@ -312,7 +312,7 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "staticfiles"),
 )
