@@ -3,6 +3,9 @@ from django.contrib import auth
 # from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from pay import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
     
 
@@ -36,6 +39,10 @@ def home(request):
         'page_title': page_title,
         'user_is_authenticated' : request.user.is_authenticated
     }
+
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pay.settings')
+    logger.debug(f"DATABASE HOST : {os.environ['PAY_DATABASE_HOST']}")
     return render(request, template_name,context)
 
 
