@@ -34,15 +34,17 @@
 </head>
 
 <body>
+<input id="lang" type="hidden" name="lang" value="{{LANGUAGE_CODE}}">
+<div class="page full">
 <header class="header">
 {% block HEADER_PANEL %}
-<div class="header--panel flex">
-  <div class="col col-1">
-   <div class="row flex flex-start">
-        <button class="js-menu menu-button mat-button"><i class="btn-icon fas fa-bars"></i> {% trans "Menu" %}</button>
-        <button class="js-menu-close menu-close menu-button mat-button"><i class="btn-icon fas fa-times"></i> {% trans "Close" %}</button>
+<div class="header--panel">
+  <div class="col-xs-12 col-1">
+   <div class="row">
+        <button class="js-menu menu-button mat-button"><i class="btn-icon fas fa-bars"></i></button>
+        <button class="js-menu-close menu-close menu-button mat-button"><i class="btn-icon fas fa-times"></i></button>
         <ul class="logo">
-            <li><a class="mat-button mat-button-text" href="{%url 'home'%}">{{site_name}}</a></li>
+            <li class="mat-list-item"><a class="mat-button mat-button-text" href="{%url 'home'%}">{{site_name}}</a></li>
         </ul>
    </div>
     
@@ -86,59 +88,39 @@
         {% endblock GRID %}
         {% endif %}
     </ul>
+    <ul class="mat-list mobile-site-panel hidden-xl">
+        {% if request.user.is_authenticated %}
+        {% if account %}<li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'accounts:account' %}"><i class="fas fa-user icon"></i></a></li>{% endif %}
+        {% else %}
+        <li class="mat-list-item"><a class="dialog-btn mat-button mat-button-text" href="{% url 'accounts:login' %}?next={{request.path}}" data-tab="0" data-target="#signup-dialog">{% trans 'Login' %}</a></li>
+       {% endif %}
+    </ul>
 </div>
 {% endblock HEADER_PANEL %}
-
-
-                
 </header>
-        <div class="page">
-                
-                <div class="page--banner">
-                        {% block HEADER_BANNER %}
-                        {% endblock HEADER_BANNER %}
-                </div>
-                {% comment %}{% block MESSAGES %}
-                {% if messages %}
-                <ul class="messages">
-                {% for message in messages %}
-                        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
-                {% endfor %}
-                
-                </ul>
-                
-                {% endif %}
-                
-                {% endblock MESSAGES %}
-                {% endcomment %}
-                {% block DIALOGS %}
-                
-                {% endblock DIALOGS %}
+{% block NEWS %}
 
-                 {% block SIGNUP_DIALOG %}
-                
-                {% endblock SIGNUP_DIALOG %}
+{% endblock NEWS %}
+{% if banner %}
+{% block HEADER_BANNER %}
 
-                <main class="container">
-                {% block MAIN %}
-                
-                {% endblock MAIN %}
-                </main>
+{% endblock HEADER_BANNER %}
 
-                <footer class="footer column row">
-                {% block FOOTER %}
-                
-                {% endblock FOOTER %}
-                <div class="footer-list">
-                        {% now "Y" as current_year %}
-                        <ul class="flex">
-                                <li class="list-item flex"><div class="copyright">Copyright <i class="fa fa-copyright"></i><span class="copyright-year">{{current_year}}</span> </div> <div class="site">{{site_name}} - {%trans 'Payment Solutions' %} </div></li>
-                                <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'about' %}">{% trans "About us" %}</a></li>
-                                <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'faq' %}">{% trans "FAQ" %}</a></li>
-                        </ul>
-                </div>
-                </footer>
-        </div>
+{% endif %}
+
+{% block DIALOGS %}
+
+{% endblock DIALOGS %}
+
+{% block SIGNUP_DIALOG %}
+
+{% endblock SIGNUP_DIALOG %}
+
+<div class="container">
+{% block MAIN %}
+
+{% endblock MAIN %}
+</div>
 {% block NOTIFICATIONS %}
         <div id="notifications-wrapper" class="flex-column notifications-wrapper">
                 <div class="row notifications-controls">
@@ -172,18 +154,27 @@
                 </div>
         </div>
 {% endblock NOTIFICATIONS %}
-
-        {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
-         
-        {% comment "" %}
-        
-         <script  src="{% static "js/lib/pubsub.js" %}"></script>
-         {% endcomment %}
-        <script  src="{% static 'js/vendor/jquery-3.5.0.min.js' %}"></script>
-        <script  type="application/javascript" src="{% static 'js/pay.js' %}"></script>
-        <script  type="application/javascript" src="{% static 'js/form_verification.js' %}"></script> 
-        {% block SCRIPT %}
-        {% endblock SCRIPT %}
+<footer class="footer column row">
+{% include 'tags/footer_content.html' %}
+<div class="footer-list">
+        {% now "Y" as current_year %}
+        <ul class="mat-list">
+                <li class="list-item"><span>Copyright</span> <i class="fa fa-copyright"></i><span class="copyright-year">{{current_year}}</span> <span class="site">{{site_name}} - {%trans 'ONLINE SHOP' %} </span></li>
+                <li class="list-item">
+                        <div class="actions">
+                                <a class="mat-button mat-button-text" href="{% url 'about' %}">{% trans "About us" %}</a>
+                                <a class="mat-button mat-button-text" href="{% url 'faq' %}">{% trans "FAQ" %}</a>
+                        </div>
+                </li>
+        </ul>
+</div>
+</footer>
+</div>
+<script  src="{% static 'js/vendor/jquery-3.5.0.min.js' %}"></script>
+<script  type="application/javascript" src="{% static 'js/pay.js' %}"></script>
+<script  type="application/javascript" src="{% static 'js/form_verification.js' %}"></script> 
+{% block SCRIPT %}
+{% endblock SCRIPT %}
 </body>
 
 </html>

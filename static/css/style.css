@@ -1,5 +1,5 @@
 
-.strong{
+.strong, .bold, .em{
     font-weight: bold;
 }
 
@@ -58,12 +58,6 @@
     max-width: 1024px;
 }
 
-.highlight{
-
-    font-weight: bold;
-    color: aquamarine;
-}
-
 .shadow{
     box-shadow: 0 5px 10px rgba(154,160,185,0.05), 0 15px 40px rgba(166,173,201,0.2);
 }
@@ -71,9 +65,9 @@
 .mat-box{
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
 				0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-				0px 1px 3px 0px rgba(0,0,0,0.12);
-    padding: 8px;
-    margin: 8px auto;
+                0px 1px 3px 0px rgba(0,0,0,0.12);
+    padding: 8px 16px;
+    margin: 4px auto;
 }
 
 .mat-box-content{
@@ -117,7 +111,7 @@
     width: 100%;
     font-size: 1em;
     /*text-align: center;*/
-    padding: 8px 4px;
+    padding-top: 0.5em;
 }
 
 .cart-item-entry{
@@ -136,14 +130,14 @@
 }
 
 .entry .key, .entry .value{
-    display: inline-block;
+    /*display: inline-block;*/
     /*min-width: 250px;*/
     text-align: left;
     font-size: 0.875em;
 }
 
 .cart-item-entry .key, .cart-item-entry .value{
-    display: inline-block;
+    /*display: inline-block;*/
     /*min-width: 250px;*/
     text-align: left;
     font-size: 0.875em;
@@ -151,15 +145,15 @@
     margin-right: 4px;
 }
 
-.entry .key{
-    font-weight: 400;
+.entry .key, .attr .key{
+    font-weight: 600;
     /*width: 50%;*/
-    margin: 4px 8px;
+    /*margin: 4px 8px;*/
 
 }
 
 .entry .value{
-    font-weight: 600;
+    font-weight: 500;
     text-align: right;
     margin: 4px 8px;
 }
@@ -179,6 +173,7 @@
     width: 100%;
     font-size: 1.1em;
     font-weight: bold;
+    padding: 16px 4px;
     
 }
 
@@ -228,12 +223,6 @@
 
 }
 
-.docklet:hover{
-
-    background-color: #fafafa;
-    color: #242424;
-}
-
 .docklet .link{
     text-decoration: none;
     font-size: 1em;
@@ -245,7 +234,6 @@
     text-decoration: none;
     font-size: 1em;
     font-weight: 500;
-    color: #242424;
 }
 
 .panel{
@@ -255,6 +243,7 @@
     font-size: 1em;
     font-weight: bold;
     line-height: 16px;
+    color: #242424;
 }
 .panel-left{
     position: absolute;
@@ -293,17 +282,23 @@
     justify-content: center;
     max-width: 500px;
     overflow: hidden;
-    overflow-x: auto;
+    overflow-x: scroll;
     padding: 8px 16px;
     margin : 8px auto;
 }
 
 .pagination .pagination--page{
+    border: 1px solid #ccc;
     padding: 4px 8px;
+}
+
+.pagination .disabled{
+    color: #ccc;
 }
 
 .pagination .active{
     font-weight: bold;
+    color: #1976d2;
 }
 
 .messages{
@@ -321,31 +316,28 @@
     line-height: 16px;
     font-weight: 700;
 
-    min-height: 68px;
+    min-height: 48px;
 
 }
 
 .info, .success, .debug, .warn, .warning, .error{
-    /*width: 100%;*/
-    min-height: 32px;
-    padding: 4px;
-    margin: 4px ;
+    font-weight: 600;
 }
 
 .info{
     background-color: #fff;
-    border: 2px solid #616161;
+    /*border: 2px solid #616161;*/
     color: #616161 !important;
 }
 .success{
     background-color: #fff;
-    border: 2px solid #388e3c !important;
+    /*border: 2px solid #388e3c !important;*/
     color: #388e3c !important;
 }
 
 .warning, .warn{
     background-color: #fff;
-    border: 2px solid #e64a19 !important;
+    /*border: 2px solid #e64a19 !important;*/
     color: #e64a19 !important;
 }
 .debug{
@@ -356,7 +348,7 @@
 
 .error{
     background-color: #fff;
-    border: 2px solid #d32f2f !important;
+    /*border: 2px solid #d32f2f !important;*/
     color: #d32f2f !important;
 }
 
@@ -377,6 +369,7 @@
 
 .old-price{
     text-decoration: line-through;
+    color: #242424;
     margin-right: 4px;
     font-size: 80%;
 
@@ -416,46 +409,3 @@
     padding-right: 4px;
 }
 
-#notifications-wrapper{
-    display: none;
-    position: absolute;
-    top : 48px;
-    right: 16px;
-    width: 344px;
-    max-width: 344px;
-    height: auto;
-    border: 1px solid #ccc;
-    background-color: #242424;
-}
-
-.notification-list{
-    display: flex;
-    position: relative;
-    
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-height: 500px;
-    background-color: #454545;
-    color: #fafafa;
-    overflow: auto;
-    list-style-type: none;
-    text-decoration: none;
-    font-size: 1.2em;
-    line-height: 16px;
-    font-weight: 700;
-}
-
-
-
-.notification .title{
-    font-size: 1.2em;
-    font-weight: 700;
-}
-
-.notification .content{
-    font-size: 1em;
-    font-weight: 400;
-
-}

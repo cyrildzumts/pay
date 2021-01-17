@@ -5,23 +5,27 @@ body{
 }
 
 .header{
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--fourth-color);
 }
 
-.header a, a{
+.header a{
     color: var(--fourth-color) !important;
     font-weight: 700;
 }
-
 .site-panel{
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--fourth-color);
+}
+
+.header .menu-button{
+    color: var(--fourth-color);
+    font-weight: 600;
 }
 
 .page--banner{
     background-color: var(--third-color);
-    color: var(--fourth-color);
+    color: var(--primary-color);
 }
 
 .footer{
@@ -32,38 +36,44 @@ body{
     background-color: var(--primary-color);
     color: var(--third-color);
 }
+.mat-button-text{
+    /*background-color: var(--primary-color);*/
+    color: var(--primary-color);
+}
+.mat-button-outline{
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.mat-button:disabled {
+	color: #ccc !important;
+	font-weight: 700 !important;
+    border: 2px solid #ccc !important;
+    cursor: not-allowed;
+}
+
+.mat-button:disabled:hover {
+	color: #aaa !important;
+	font-weight: 700 !important;
+	border: 2px solid #aaa !important;
+}
+
+
 
 .mat-button{
-    color: var(--third-color);
+    /*color: var(--primary-color);*/
     font-weight: 700;
-}
-
-.mat-button-outlined{
-    border: 1px solid var(--primary-color);
-    color: var(--third-color);
-}
-
-.mat-button-outlined:hover{
-
-    border: 2px solid var(--primary-color);;
 }
 
 .mat-table{
-    background-color: var(--secondary-color);
-}
+    background-color: var(--fourth-color);
 
-.mat-table thead tr:nth-child(even){
-    background-color: var(--secondary-color);
 }
 
 .mat-table thead{
-    background-color: var(--third-color);
+    background-color: var(--primary-color);
     color: var(--fourth-color);
     font-weight: 700;
-}
-
-.mat-table tr, table tr{
-    border-bottom: 2px solid var(--third-color);
 }
 
 .kiosk .active{
@@ -75,11 +85,15 @@ li.active{
 }
 
 li.active.selected{
-	border-bottom: 3px solid var(--secondary-color);
+	border-bottom: 3px solid var(--secondary-color) !important;
 }
 
+.logo{
+    color: var(--secondary-color) !important;
+}
 
 .logo a, .logo .mat-button{
+    color: var(--secondary-color) !important;
     letter-spacing: 0.5em;
     /*font-size: 1em;*/
 }
@@ -108,13 +122,8 @@ li.active.selected{
     color: var(--secondary-color);
 }
 
-.balance-info{
-    color: var(--fourth-color);
-    font-weight: 700;
-}
-
 .balance{
-    font-weight: 700;
+	color: var(--secondary-color);
 }
 
 .primary-color{
@@ -125,151 +134,62 @@ li.active.selected{
     color: var(--secondary-color);
 }
 
-.modal{
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content{
-    background-clip: padding-box;
-    background-color: #fefefe;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.modal-header{
-    border-bottom: 1px solid #e9ecef;
-}
-
-.modal-footer{
-    border-top: 1px solid #e9ecef;
-}
-.close-modal:hover, .close-modal:focus{
-    color: black;
-}
-
-.cancel:hover{
-    color: #aaa;
-}
-
-.action{
-    border-bottom: var(--btn-border);
-}
-
-.chips{
-    color: #232F34;
-    background-color: #232F341E;
-}
-
-.chips-outlined{
-    border: 1px solid #232F34;
-}
-
-/*
-.filter-chips{
-
-}
-*/
-
-.chips-enabled{
-    color: #232F34;
-    background-color: #232F343E;
-}
-
-.chips-disabled{
-    color: #232F345A;
-    background-color: #232F341A;
-}
-
-.chips-selected{
-    color: #232F34;
-    background-color: #232F345E;
-}
-
-.chips-activated{
-    color: #232F34;
-    background-color: #232F346E;
-}
-
-.chips:hover{
-    color: #232F34;
-    background-color: #232F342E;
-}
-
-.bordered{
-    border: 1px solid #201c29;
-}
-
-.mat-list-item{
-    border-bottom: 1px solid var(--primary-color);
-}
-
-.mat-list-item.active{
-    color: var(--secondary-color);
-}
-
-.mat-tooltip{
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-
-}
-
-.in{
-    background-color: var(--in-bg);
-    color: var(--in-color);
-}
-
-.out{
-    background-color: var(--out-bg);
-    color: var(--out-color);
-}
-
-.entrant, .incoming{
-    color: #00e676;
-}
-
 .mat-input label, .form-group label{
-    color: var(--fourth-color);
+	color: var(--primary-color);
 }
 
 .mat-input label input, .mat-input input, .form-group input{
-    border-bottom: 2px solid var(--fourth-color) !important;
-    color: var(--secondary-color);
+    color: var(--primary-color);
+	border-bottom: 2px solid var(--primary-color) !important;
 }
-.mat-input span, .form-group span{
-    color: var(--fourth-color);
+.list-item .mat-button{
+    color: var(--third-color) !important;
 }
-
-.disabled{
-    color: var(--disabled-color) !important;
-    background-color: var(--disabled-bg-color) !important;
+/*
+#notifications-wrapper{
+    background-color: var(--primary-color);
 }
+*/
 
-.disabled:hover{
-    background-color: var(--disabled-color) !important;
-    color: var(--disabled-bg-color) !important;
-}
-
-
-.mat-table-wrapper .mat-table-filter{
-    border-bottom: 1px solid #ccc;
+.notification-list{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
 }
 
-
-.pagination .pagination--page{
-    border: 1px solid var(--primary-color);
+.notification{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
 }
 
-.pagination .disabled{
-    background-color: transparent !important;
+.metric{
+    background-color:var(--primary-color);
     color: var(--third-color);
 }
 
-.pagination .active{
-    color: var(--secondary-color);
+.banner-action .mat-button{
+    background-color: #FFFFFF !important;
+    color: var(--primary-color) !important;
 }
 
-.money, .outgoing{
-    color: #FF0D00;
+.product-filter .collapse-content, .product-filter .collapsible-content{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
 }
-.entrant, .incoming{
-    color: #00e676;
+
+.content-filter .collapse-content, .content-filter .collapsible-content{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
+}
+
+.product-detail-shipping{
+	color: #4A4B4A;
+}
+
+.news{
+    background-color:#fafafa;
+    color: var(--primary-color);
+}
+
+.news .news-title{
+    color: var(--secondary-color);
 }
