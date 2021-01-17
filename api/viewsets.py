@@ -10,7 +10,7 @@ from api.serializers import ( AvailableServiceSerializer, AvailableService, Acco
     VoucherSerializer, SoldVoucherSerializer, UsedVoucherSerializer, Voucher, SoldVoucher, UsedVoucher,
     UserSerializer
  )
- from accounts import constants as Account_Constants
+from accounts import constants as Account_Constants
 
 
 class AccountViewSet(viewsets.ReadOnlyModelViewSet):
