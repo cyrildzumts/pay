@@ -187,7 +187,7 @@ DATABASES = {
    },
 
 }
-logger.debug(f"DATABASE HOST : {os.environ['PAY_DATABASE_HOST']}")
+
 DEFAULT_DATABASE = os.environ.get('DJANGO_DATABASE', 'dev')
 DATABASES['default'] = DATABASES[DEFAULT_DATABASE]
 #DEBUG = DEFAULT_DATABASE == 'dev'
