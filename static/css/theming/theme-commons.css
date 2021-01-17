@@ -22,6 +22,9 @@ body{
     color: var(--fourth-color);
     font-weight: 600;
 }
+.header-banner .list-item .mat-button{
+    color: var(--primary-color) !important;
+}
 
 .page--banner{
     background-color: var(--third-color);

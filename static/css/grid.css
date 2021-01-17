@@ -3,7 +3,7 @@
 .container {
   min-width: 100% !important;
   /*height: 100%;*/
-  margin: 0 auto;
+  /*margin: 0;*/
   display: flex !important;
   flex-wrap: wrap;
   position: relative !important;
@@ -104,6 +104,21 @@
 
 .row-right, .flex-right{
   justify-content: flex-end !important;
+}
+
+.align-left{
+  align-items: flex-start !important;
+}
+.align-right{
+  align-items: flex-end !important;
+}
+
+.align-center{
+  align-items: center !important;
+}
+
+.align-baseline{
+  align-items: baseline !important;
 }
 
 .flex-wrap{
@@ -208,6 +223,8 @@
 .col-xs-12 { width: 100%; }
 .hidden-xs {display: none;}
 .box{ width: 100%;}
+.mat-box{width: 100%;}
+body{font-size: 1.3em;}
 
 }
   
@@ -230,6 +247,8 @@
   .col-m-12 { width: 100%; }
   .hidden-m {display: none;}
   .box{ width: 100%;}
+  .mat-box{width: 100%;}
+  body{font-size: 1.3em;}
 
 }
 
