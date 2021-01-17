@@ -10,6 +10,7 @@ from api.serializers import ( AvailableServiceSerializer, AvailableService, Acco
     VoucherSerializer, SoldVoucherSerializer, UsedVoucherSerializer, Voucher, SoldVoucher, UsedVoucher,
     UserSerializer
  )
+ from accounts import constants as Account_Constants
 
 
 class AccountViewSet(viewsets.ReadOnlyModelViewSet):
@@ -19,13 +20,13 @@ class AccountViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class BusinessAccountViewSet(viewsets.ReadOnlyModelViewSet):
-     queryset = AccountSerializer.Meta.model.objects.filter(account_type='B')
+     queryset = AccountSerializer.Meta.model.objects.filter(account_type=Account_Constants.ACCOUNT_BUSINESS)
      serializer_class = AccountSerializer
      #permission_classes = [IsAuthenticated]
 
 
 class ActiveAccountViewSet(viewsets.ReadOnlyModelViewSet):
-     queryset = AccountSerializer.Meta.model.objects.filter(is_active_account=True)
+     queryset = AccountSerializer.Meta.model.objects.filter(is_active=True)
      serializer_class = AccountSerializer
      #permission_classes = [IsAuthenticated]
 

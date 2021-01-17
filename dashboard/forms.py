@@ -66,9 +66,8 @@ class IDCardForm(forms.ModelForm):
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ("user","date_of_birth","country",
-                  "city","province","address","zip_code","telefon",
-                  "newsletter","is_active_account","balance","account_type",
+        fields = ("user","date_of_birth","telefon",
+                  "newsletter","is_active","account_type",
                   "email_validated", )
         
 
