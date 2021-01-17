@@ -3,6 +3,7 @@ from django.contrib import auth
 # from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from pay import settings
+import os
 import logging
 
 logger = logging.getLogger(__name__)
