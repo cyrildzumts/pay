@@ -33,9 +33,18 @@ SITE_NAME           =  os.environ['PAY_SITE_NAME']
 
 META_KEYWORDS       = "Pay, payment, buy, online-pay, africa-pay, payment solution"
 META_DESCRIPTION    = "Pay Atalaku is your african solution for online payments"
+VENDOR_PAYMENT_DAY = 5
+
+ACCOUNT_ROOT_PATH = "/accounts/"
+HOME_URL = "/"
+DASHBOARD_ROOT_PATH = "/dashboard/"
+PAYMENT_ROOT_PATH = "/payments/"
+VOUCHER_ROOT_PATH = "/voucher/"
+USER_PATH = "/users/detail/"
+PATH_ACCEPTING_BANNER = [ACCOUNT_ROOT_PATH, HOME_URL, DASHBOARD_ROOT_PATH, PAYMENT_ROOT_PATH, VOUCHER_ROOT_PATH, USER_PATH]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG               = True
+
 CELERY_BROKER_URL   = os.environ['PAY_CELERY_BROKER_URL']
 CELERY_BACKEND      = os.environ['PAY_CELERY_BACKEND']
 
@@ -188,11 +197,16 @@ DATABASES = {
 
 }
 
+
 DEFAULT_DATABASE = os.environ.get('DJANGO_DATABASE', 'dev')
 DATABASES['default'] = DATABASES[DEFAULT_DATABASE]
-#DEBUG = DEFAULT_DATABASE == 'dev'
-DEBUG = True
 DEV_MODE = DEFAULT_DATABASE == 'dev'
+#CSRF_COOKIE_SECURE = not DEV_MODE
+
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = DEV_MODE
+#DEBUG = True
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
