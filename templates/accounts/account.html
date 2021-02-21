@@ -4,9 +4,6 @@
 
 {% block MAIN %}
 
-<div class="row">
-
-</div>
 <div class="container">
     {% if latest_payments %}
          {% include "tags/payment_list_snippet.html" with transaction_list=latest_payments list_title="Latest Payments"%}
@@ -17,7 +14,5 @@
     {% if latest_recharges %}
          {% include "tags/recharge_list_snippet.html" with transaction_list=latest_recharges list_title="My Recharges"%}
     {% endif %}
-
-   
 </div>
 {% endblock MAIN %}
