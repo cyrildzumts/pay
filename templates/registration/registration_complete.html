@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block HEADER_BANNER %}
+    <div class="container">
+        <div class="flex flex-column registration-success">
+            <h3>{% trans 'Registration successful' %}</h3>
+        </div>
+        
+    </div>
+{% endblock HEADER_BANNER %}
+{% block MAIN %}
+<div class="container">
+    <div class="mat-box registration-success">
+        <p>{% trans "You account has been successfully created." %}</p>
+        <p>{% trans "A verification mail has been sent to your email" %} : <span>{{user.email}}</span></p>
+        <p>{% trans "Please open email and follows the described steps" %}</p>
+        <p>{% trans "Once your email has been verified, you will able to place orders." %}</p>
+        <div class="actions"><a class="mat-button mat-button-default" href="{%url 'catalog:catalog-home' %}">{% trans 'Discover our Products' %}</a></div>
+    </div>
+</div>
+        
+{% endblock MAIN %}

@@ -9,6 +9,7 @@ def site_context(request):
     banner = len(list(filter(lambda path: path in request.path, settings.PATH_ACCEPTING_BANNER))) > 0
     context = {
         'site_name' : settings.SITE_NAME,
+        'SITE_NAME': settings.SITE_NAME,
         'meta_keywords': settings.META_KEYWORDS,
         'meta_description': settings.META_DESCRIPTION,
         'redirect_to' : '/',

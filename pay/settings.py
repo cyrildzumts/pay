@@ -77,7 +77,9 @@ EMAIL_HOST_USER = os.environ['PAY_EMAIL_USER']
 CONTACT_MAIL =  os.environ['PAY_CONTACT_MAIL']
 EMAIL_USE_SSL = True
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.environ.get('PAY_EMAIL_BACKEND')
+DEFAULT_FROM_EMAIL = os.environ.get('PAY_DEFAULT_FROM_EMAIL', 'PAY-ATALAKU <info@pay-atalaku.com>')
 
 ACCOUNTS = {
     'ACCOUNT_TYPE' :  (
