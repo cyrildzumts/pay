@@ -28,6 +28,11 @@ body{
     color: var(--primary-color);
 }
 
+.banner{
+    background-color: var(--primary-color);
+    color : var(--light-color);
+}
+
 .footer{
     background-color: var(--primary-color);
     color: var(--fourth-color);
