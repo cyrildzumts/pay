@@ -7,6 +7,7 @@
     --label-color : #CCC;
     --body-bg : #FFFFFF;
     --body-color: #242424;
-    --disabled-color : #8792AC;
-    --disabled-bg-color : #56617B;
+    --notification-bg : #fafafa;
+    --notification-color : #0A0A0A;
+    --action-color : #FF0D00;
 }

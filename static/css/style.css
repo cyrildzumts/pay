@@ -409,3 +409,10 @@
     padding-right: 4px;
 }
 
+.no-padding{
+    padding: 0 !important;
+}
+
+.padding-1x{
+    padding: 1em !important;
+}
