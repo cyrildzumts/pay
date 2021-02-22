@@ -14,7 +14,7 @@ from rest_framework.authtoken.models import Token
 from pay import utils, settings
 from dashboard import forms
 from payments import payment_service
-from payments.models import PaymentRequest
+from payments.models import PaymentRequest, Balance
 from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
 import logging
