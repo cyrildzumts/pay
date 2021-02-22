@@ -13,7 +13,7 @@
                 <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:users' %}"> {% trans "Users" %} </a></li>
                 <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
                 <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>
-                {% if not balance %}
+                {% if not user_balance %}
                         <li class="list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:create-balance' user_instance.pk %}"><i class="fas fa-plus icon"></i><span>{% trans "Add Balance" %}</span></a></li>
                 {% endif %}
         </ul>
