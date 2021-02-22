@@ -1,8 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.db.models import Q
-from django.dispatch import receiver
 from django.urls import reverse
 from pay import settings
 from pay import utils
@@ -30,10 +27,10 @@ class Balance(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("vendors:balance-detail", kwargs={"balance_uuid": self.balance_uuid})
+        return reverse("payments:balance-detail", kwargs={"balance_uuid": self.balance_uuid})
     
     def get_history_url(self):
-        return reverse('vendors:balance-history', kwargs={'balance_uuid':self.balance_uuid})
+        return reverse('payments:balance-history', kwargs={'balance_uuid':self.balance_uuid})
 
 class BalanceHistory(models.Model):
     balance_ref_id = models.IntegerField(blank=False, null=False)
@@ -42,8 +39,6 @@ class BalanceHistory(models.Model):
     sender = models.ForeignKey(User, related_name='sender_histories', blank=True, null=True, on_delete=models.SET_NULL)
     receiver = models.ForeignKey(User, related_name='receiver_histories', blank=True, null=True, on_delete=models.SET_NULL)
     balance = models.ForeignKey(Balance, related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
-    #sold_product = models.ForeignKey('vendors.SoldProduct', related_name="sold_product", blank=True, null=True, on_delete=models.SET_NULL)
-
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     history_uuid = models.UUIDField(default=uuid.uuid4, editable=False)    
 
@@ -52,7 +47,7 @@ class BalanceHistory(models.Model):
         return f"BalanceHistory {self.id}"
 
     def get_absolute_url(self):
-        return reverse("vendors:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
+        return reverse("payments:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
     
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=True, null=True)
