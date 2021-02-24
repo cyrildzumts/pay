@@ -39,6 +39,9 @@ def send_validation_mail(sender, instance, created, **kwargs):
     if created:
         logger.debug("sending validation mail ...")
         logger.debug("new user created, sending validation mail ...")
+        if not settings.SITE_HOST:
+            logger.warning("SITE_HOST environment vairable is missing")
+            
         email_context = {
             'template_name': settings.DJANGO_VALIDATION_EMAIL_TEMPLATE,
             'title': 'Validation de votre adresse mail',
@@ -47,7 +50,7 @@ def send_validation_mail(sender, instance, created, **kwargs):
                 'SITE_NAME': settings.SITE_NAME,
                 'SITE_HOST': settings.SITE_HOST,
                 'FULL_NAME': instance.user.get_full_name(),
-                'validation_url' : settings.SITE_HOST + instance.get_validation_url()
+                'validation_url' : (settings.SITE_HOST or "") + instance.get_validation_url()
             }
         }
         send_mail_task.apply_async(
