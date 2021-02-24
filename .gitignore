@@ -11,8 +11,8 @@ static_root/*
 .vscode
 */migrations/*
 */__pycache__/*
-*_site*.conf
-*_site*.conf.backup
+*_site.conf
+*_site.conf.backup
 robots.txt
 log
 logs
