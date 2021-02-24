@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from celery import shared_task
 from django.template.loader import render_to_string
 import django.template.loader as loader
+from pay import settings
 import logging
 
 
