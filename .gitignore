@@ -14,8 +14,8 @@ static_root/*
 *_site.conf
 *_site.conf.backup
 robots.txt
-.ini
-.ini.save
+*.ini
+*.ini.save
 log
 logs
 *.log
