@@ -124,6 +124,8 @@ INSTALLED_APPS = [
     'voucher.apps.VoucherConfig',
     'dashboard.apps.DashboardConfig',
     'pay.apps.PayConfig',
+    'core.apps.PayConfig',
+
 ]
 
 # RESTFRAMEWORK SETTINGS
