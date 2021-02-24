@@ -34,7 +34,7 @@ from payments import constants as Constants
 from payments.payment_service import PaymentService, voucher_service
 from payments import payment_service#
 from pay import settings, utils
-from pay.tasks import send_mail_task
+from core.tasks import send_mail_task
 import logging
 
 logger = logging.getLogger(__name__)
