@@ -68,6 +68,7 @@ CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
 CELERY_NAMESPACE = 'CELERY'
 
 ALLOWED_HOSTS = [os.getenv('PAY_ALLOWED_HOST')]
+SITE_HOST = os.getenv('PAY_HOST')
 
 #EMAIL SETTINGS
 EMAIL_HOST = os.environ['PAY_EMAIL_HOST']
@@ -80,7 +81,12 @@ EMAIL_USE_SSL = True
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = os.environ.get('PAY_EMAIL_BACKEND')
 DEFAULT_FROM_EMAIL = os.environ.get('PAY_DEFAULT_FROM_EMAIL', 'PAY-ATALAKU <info@pay-atalaku.com>')
-
+DJANGO_EMAIL_TEMPLATE = "tags/template_email.html"
+DJANGO_EMAIL_TEMPLATE_TXT = "tags/template_email.txt"
+DJANGO_WELCOME_EMAIL_TEMPLATE = "welcome_email.html"
+DJANGO_VALIDATION_EMAIL_TEMPLATE = "validation_email.html"
+DJANGO_PAYMENT_CONFIRMATION_EMAIL_TEMPLATE = "tags/payment_confirmation_email.html"
+DJANGO_TRANSFER_CONFIRMATION_EMAIL_TEMPLATE = "tags/transfer_confirmation_email.html"
 ACCOUNTS = {
     'ACCOUNT_TYPE' :  (
         ('A', 'Admin'),

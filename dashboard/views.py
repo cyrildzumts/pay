@@ -18,7 +18,7 @@ from payments.models import PaymentRequest, Balance
 from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
 import logging
-from pay.tasks import send_mail_task
+from core.tasks import send_mail_task
 from accounts.account_services import AccountService
 from accounts.forms import UserCreationForm
 from accounts.forms import AccountCreationForm
