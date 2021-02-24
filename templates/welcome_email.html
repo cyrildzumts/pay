@@ -1,0 +1,25 @@
+{% extends "template_email.html" %}
+{% load i18n %}
+
+
+{% block EMAIL_BODY %}
+
+<tr><!--EMAIL_BODY-->
+    <td>
+        <table>
+            <tr>
+                <td>
+                    <h4>Bienvenue chez {{SITE_NAME}}, {{FULL_NAME}}</h4>
+                    <p>Votre compte a été crée avec succès.</p>
+                    <p>Vous pouvez dès maintenant effectuer des paiement en ligne en vous connectant à votre compte.</p>
+                    <p>Recharger votre compte auprès de l'un de nos agents.</p>
+                    <p></p>
+                    <p>Pour votre sécurité, nous ne vous demanderons jamais votre mot passe.</p>
+                    <p>Visitéz notre site pour passer votre premier paiement en ligne en cliquant sur ce lien : <a class="mat-button-mat-button-text" href="{{SITE_HOST}}{% url 'home' %}">Découvrir notre solution</a></p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+{% endblock EMAIL_BODY %}
