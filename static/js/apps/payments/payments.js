@@ -1,7 +1,7 @@
 define(function(require) {
     'use strict';
-    var $ = require('vendor/jquery.min');
-    console.log("Payment app module initialization : ", require('vendor/jquery.min'));
+    var $ = require('jquery');
+    console.log("Payment app module initialization : ", require('jquery'));
 
     $(function(){
         console.log("Payment app module ready");
