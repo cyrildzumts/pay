@@ -1,3 +1,3 @@
 requirejs(['commonjs'], function(common){
-    requirejs(['apps/payments']);
+    requirejs(['apps/payments/payments']);
 });
