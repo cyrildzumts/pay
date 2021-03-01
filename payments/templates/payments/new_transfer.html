@@ -7,13 +7,13 @@
 <div class="container">
    <div class="col-xs-12 col-4">
         <div class="mat-box">
-            <form name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
+            <form id="transfer-form" name="transfer" action="{% url 'payments:new-transfer' %}" method="POST">{% csrf_token %}
                 <input id="recipient" type="hidden" name="recipient">
-                <input type="hidden" name="sender" value="{{request.user.pk}}">
+                <input id="sender" type="hidden" name="sender" value="{{request.user.pk}}">
                 {% include "tags/search_user_snipet.html" with target="#recipient" target_name="#user-search" fieldname="Recipient" %}
                 <div class="form-group">
                     <label for="amount">{% trans "Amount" %}</label>
-                    <input type="text" name="amount">
+                    <input id="amount" type="text" name="amount">
                 </div>
                 <div class="form-group">
                     <label for="description">{% trans "Description" %}</label>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="actions">
                     <a class="mat-button mat-button-outlined js-cancel" href="{% url 'dashboard:home'%}">{% trans "Cancel" %}</a>
-                    <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Send Money" %}</button>
+                    <button id="submit-btn" class="mat-button mat-button-default js-submit" type="submit">{% trans "Send Money" %}</button>
                 </div>
             </form>
         </div>
