@@ -31,10 +31,9 @@ define(function(require) {
         PaymentManager.prototype.make_payment = function(data){
             console.log("run make_payment request");
             var options = {
-                type:'GET',
-                method: 'GET',
-                dataType: 'json',
                 url : '/api/dummy/',
+                type:'GET',
+                dataType: 'json',
                 data : {}
             };
             var p = ajax_api(options, false, false);
@@ -48,11 +47,10 @@ define(function(require) {
         PaymentManager.prototype.make_transfer = function(data){
             console.log("run make_transfer request");
             var options = {
-                type:'GET',
-                method: 'GET',
-                dataType: 'json',
                 url : '/api/dummy/',
-                data : {}
+                type:'GET',
+                data : {},
+                dataType: 'json',
             };
             var p = ajax_api(options, false, false);
             p.then(function (response) {
