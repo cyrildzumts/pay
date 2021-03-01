@@ -1,9 +1,9 @@
 
 requirejs(['commonjs', 'apps/payments/payments'], function(common,PaymentManager){
-    var PaymentManager =  requirejs(['payments/payments']);
+    //var PaymentManager =  require(['payments/payments']);
     console.log("PaymentManager : ", PaymentManager);
     //var payment_manager = new PaymentManager();
-    payment_manager.init();
+    //payment_manager.init();
 });
 
 /*
