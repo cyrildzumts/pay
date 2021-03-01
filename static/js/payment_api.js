@@ -6,7 +6,7 @@ requirejs(['commonjs', 'apps/payments/payments'], function(common,PaymentManager
 });
 */
 
-define(['payments/payments', 'commonjs'], function(PaymentManager, common) {
+define(['apps/payments/payments', 'commonjs'], function(PaymentManager, common) {
     'use strict';
     //var PaymentManager = require('payments/payments');
     var payment_manager = new PaymentManager();
