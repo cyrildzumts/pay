@@ -36,7 +36,7 @@ define(function(require) {
                 dataType: 'json',
                 data : {}
             };
-            var p = ajax_api(options, false, false);
+            var p = ajax_api(options, true, false);
             p.then(function (response) {
                 console.log(response);
             }, function(reason){
@@ -52,7 +52,7 @@ define(function(require) {
                 data : {},
                 dataType: 'json',
             };
-            var p = ajax_api(options, false, false);
+            var p = ajax_api(options, true, false);
             p.then(function (response) {
                 console.log(response);
             }, function(reason){
