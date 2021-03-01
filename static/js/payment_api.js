@@ -1,5 +1,14 @@
-requirejs(['commonjs', 'payments/payments'], function(common,PaymentManager){
+/*
+requirejs(['commonjs', 'apps/payments/payments'], function(common,PaymentManager){
     //var PaymentManager =  requirejs(['apps/payments/payments']);
+    var payment_manager = new PaymentManager();
+    payment_manager.init();
+});
+*/
+
+define(['require', 'commonjs'], function(require, common) {
+    'use strict';
+    var PaymentManager = require('payments/payments');
     var payment_manager = new PaymentManager();
     payment_manager.init();
 });
