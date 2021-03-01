@@ -87,7 +87,7 @@ define(function(require) {
     })();
     $(function(){
        
-        console.log("Payment app module ready. Balance : %s", balance);
+        console.log("Payment app module ready.");
     });
     
 });

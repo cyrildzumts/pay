@@ -17,12 +17,12 @@
                     <span class="amount-error warning hidden">{% trans "You don't have sufficient balance to process this action" %}</span>
                 </div>
                 <div class="form-group">
-                    <label for="description">{% trans "Description" %}</label>
-                    <input id="description" type="text" name="details">
+                    <label for="details">{% trans "Description" %}</label>
+                    <input id="details" type="text" name="details">
                 </div>
                 <div class="actions">
                     <a class="mat-button mat-button-outlined js-cancel" href="{% url 'dashboard:home'%}">{% trans "Cancel" %}</a>
-                    <button id="submit-btn" class="mat-button mat-button-default js-submit" type="submit">{% trans "Send Money" %}</button>
+                    <button id="submit-btn" class="mat-button mat-button-default js-submit-btn" type="submit">{% trans "Send Money" %}</button>
                 </div>
             </form>
         </div>
