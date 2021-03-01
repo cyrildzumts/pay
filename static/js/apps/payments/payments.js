@@ -30,9 +30,22 @@ define(function(require) {
 
         };
 
+        PaymentManager.prototype.is_recipient_seller = function(data){
+
+        };
+
+        PaymentManager.prototype.validate_form_transfer = function(){
+
+        };
+
+        PaymentManager.prototype.validate_form_payment = function(){
+
+        };
+
     });
     $(function(){
-        console.log("Payment app module ready");
+        var balance = $('.balance').data('balance');
+        console.log("Payment app module ready. Balance : %s", balance);
     });
     
 });
