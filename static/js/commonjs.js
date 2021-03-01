@@ -1,7 +1,7 @@
 requirejs.config({
     baseUrl:'/static/js/lib',
     paths : {
-        vendor: '/static/js/vendor',
+        vendor: '../vendor',
         apps : '../apps',
         payments: '../apps/payments',
         vouchers: '../apps/vouchers',
