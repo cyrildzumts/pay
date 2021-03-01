@@ -13,6 +13,7 @@ define(function(require) {
                 event.preventDefault();
                 event.stopPropagation();
                 self.make_transfer($(this).serialize());
+                return false;
 
             });
 
@@ -20,6 +21,7 @@ define(function(require) {
                 event.preventDefault();
                 event.stopPropagation();
                 self.make_payment($(this).serialize());
+                return false;
 
             });
 
