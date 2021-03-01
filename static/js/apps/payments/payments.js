@@ -9,7 +9,7 @@ define(function(require) {
         PaymentManager.prototype.init = function(){
             this.balance = $('.balance').data('balance');
             var self = this;
-            $('#tranfer-form').submit(function(event){
+            $('#transfer-form').submit(function(event){
                 event.preventDefault();
                 event.stopPropagation();
                 self.make_transfer($(this).serialize());
