@@ -3,7 +3,7 @@ define(function(require) {
     var $ = require('jquery');
     var ajax_api = require('ajax_api');
     var PaymentManager = (function(){
-        function PaymentManager(params) {
+        function PaymentManager() {
             this.csrfmiddlewaretoken = document.querySelector('input[name="csrfmiddlewaretoken"]');
         };
         PaymentManager.prototype.init = function(){

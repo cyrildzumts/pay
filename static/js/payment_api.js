@@ -1,5 +1,4 @@
-requirejs(['commonjs'], function(common){
-    var PaymentManager =  requirejs(['apps/payments/payments']);
+requirejs(['commonjs', 'payments/payments'], function(common, PaymentManager){
     var payment_manager = new PaymentManager();
     payment_manager.init();
 });
