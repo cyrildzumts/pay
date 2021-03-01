@@ -22,6 +22,8 @@ define(function(require) {
                 self.make_payment($(this).serialize());
 
             });
+
+            console.log("PaymentManager initialized.");
         };
 
         PaymentManager.prototype.make_payment = function(data){
@@ -89,5 +91,7 @@ define(function(require) {
        
         console.log("Payment app module ready.");
     });
+
+    return PaymentManager;
     
 });
