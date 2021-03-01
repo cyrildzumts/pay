@@ -371,3 +371,9 @@ def get_refunds(request, status, token, username):
     data = list(queryset.values())
     return Response(data)
     
+
+
+
+@api_view(['GET', 'POST'])
+def dummy(request):
+    return Response({'dummy': 'request dummy', 'test': 'parahone'})

@@ -22,16 +22,40 @@ define(function(require) {
                 self.make_payment($(this).serialize());
 
             });
-
         };
 
         PaymentManager.prototype.make_payment = function(data){
             console.log("run make_payment request");
-
+            var options = {
+                type:'GET',
+                method: 'GET',
+                dataType: 'json',
+                url : '/api/dummy/',
+                data : {}
+            };
+            var p = ajax_api(options, false, false);
+            p.then(function (response) {
+                console.log(response);
+            }, function(reason){
+                console.log(response);
+            });
         };
 
         PaymentManager.prototype.make_transfer = function(data){
             console.log("run make_transfer request");
+            var options = {
+                type:'GET',
+                method: 'GET',
+                dataType: 'json',
+                url : '/api/dummy/',
+                data : {}
+            };
+            var p = ajax_api(options, false, false);
+            p.then(function (response) {
+                console.log(response);
+            }, function(reason){
+                console.log(response);
+            });
         };
 
         PaymentManager.prototype.recharge = function(data){
