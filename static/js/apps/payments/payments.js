@@ -4,18 +4,34 @@ define(function(require) {
     var ajax_api = require('ajax_api');
     var PaymentManager = (function(){
         function PaymentManager(params) {
-            
+            this.csrfmiddlewaretoken = document.querySelector('input[name="csrfmiddlewaretoken"]');
         };
         PaymentManager.prototype.init = function(){
+            this.balance = $('.balance').data('balance');
+            var self = this;
+            $('#tranfer-form').on('submit', function(event){
+                event.preventDefault();
+                event.stopPropagation();
+                self.make_transfer($(this).serialize());
+
+            });
+
+            $('#payment-form').on('submit', function(event){
+                event.preventDefault();
+                event.stopPropagation();
+                self.make_payment($(this).serialize());
+
+            });
 
         };
 
         PaymentManager.prototype.make_payment = function(data){
+            console.log("run make_payment request");
 
         };
 
         PaymentManager.prototype.make_transfer = function(data){
-
+            console.log("run make_transfer request");
         };
 
         PaymentManager.prototype.recharge = function(data){
@@ -42,9 +58,11 @@ define(function(require) {
 
         };
 
-    });
+        return PaymentManager;
+
+    })();
     $(function(){
-        var balance = $('.balance').data('balance');
+       
         console.log("Payment app module ready. Balance : %s", balance);
     });
     
