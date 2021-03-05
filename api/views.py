@@ -376,4 +376,4 @@ def get_refunds(request, status, token, username):
 
 @api_view(['GET', 'POST'])
 def dummy(request):
-    return Response({'dummy': 'request dummy', 'test': 'test result'})
+    return Response({'dummy': 'request dummy', 'test': 'test result', 'user': request.user.username})
