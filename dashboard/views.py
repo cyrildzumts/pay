@@ -144,6 +144,55 @@ def reports(request):
     context.update(get_view_permissions(request.user))
     context.update(analytics.transaction_reports())
     return render(request,template_name, context)
+
+@login_required
+def users_delete(request):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    if not PermissionManager.user_can_delete_user(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    if request.method != "POST":
+        raise SuspiciousOperation('Bad request. Expected POST request but received a GET')
+    
+    postdata = utils.get_postdata(request)
+    id_list = postdata.getlist('users')
+
+    if len(id_list):
+        user_list = list(map(int, id_list))
+        User.objects.filter(id__in=user_list).delete()
+        messages.success(request, f"Users \"{id_list}\" deleted")
+        logger.info(f"Users \"{id_list}\" deleted by user {username}")
+        
+    else:
+        messages.error(request, f"Users \"\" could not be deleted")
+        logger.error(f"ID list invalid. Error : {id_list}")
+    return redirect('dashboard:users')
+
+@login_required
+def user_delete(request, pk=None):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    if not PermissionManager.user_can_delete_user(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    if request.method != "POST":
+        raise SuspiciousOperation('Bad request. Expected POST request but received a GET')
+    
+    postdata = utils.get_postdata(request)
+
+    User.objects.filter(id=pk).delete()
+    messages.success(request, f"Users \"{pk}\" deleted")
+    logger.info(f"Users \"{pk}\" deleted by user {username}")
+    return redirect('dashboard:users')
         
 @login_required
 def users(request):

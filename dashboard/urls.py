@@ -48,6 +48,7 @@ urlpatterns = [
     path('tokens/', views.tokens, name='tokens'),
     path('users/', views.users, name='users'),
     path('users/generate-balance/', views.generate_balance, name='generate-balance'),
+    path('users/delete/<int:pk>/', views.user_delete, name='user-delete'),
     path('users/create-user/', views.create_account, name='create-user'),
     path('users/create-balance/<int:pk>', views.create_balance, name='create-balance'),
     path('users/detail/<int:pk>', views.user_details, name='user-detail'),
