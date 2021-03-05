@@ -2074,6 +2074,32 @@ def generate_balance(request):
     payment_service.migrate_to_balance_model()
     return redirect('dashboard:home')
 
+
+@login_required
+def send_welcome_mail(request, pk):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    user = get_object_or_404(User, pk=pk)
+    email_context = {
+            'template_name': settings.DJANGO_WELCOME_EMAIL_TEMPLATE,
+            'title': 'Bienvenu chez PAY',
+            'recipient_email': user.email,
+            'context':{
+                'SITE_NAME': settings.SITE_NAME,
+                'SITE_HOST': settings.SITE_HOST,
+                'FULL_NAME': user.get_full_name()
+            }
+    }
+    send_mail_task.apply_async(
+        args=[email_context],
+        queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+        routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+    )
+
+    return redirect('dashboard:user-detail', pk=pk)
+
 class RechargeView(ListView):
     queryset = Recharge.objects.order_by('-created_at')
     context_object_name = "recharge_list"
