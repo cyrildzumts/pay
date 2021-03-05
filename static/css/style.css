@@ -109,9 +109,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    min-height: 3em;
     font-size: 1em;
     /*text-align: center;*/
-    padding-top: 0.5em;
+    padding: 0.5em;
 }
 
 .cart-item-entry{
