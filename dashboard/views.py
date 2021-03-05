@@ -22,6 +22,7 @@ from core.tasks import send_mail_task
 from accounts.account_services import AccountService
 from accounts.forms import UserCreationForm
 from accounts.forms import AccountCreationForm
+from accounts import constants as Account_Constants
 from voucher.models import Voucher, Recharge
 from voucher import voucher_service
 from voucher.forms import RechargeCustomerAccountByStaff, RechargeCustomerAccount
@@ -1714,7 +1715,7 @@ def permission_delete(request, pk=None):
 @login_required
 def create_account(request):
     username = request.user.username
-    context = {}
+    context = {'ACCOUNT_TYPE' : Account_Constants.ACCOUNT_TYPE,}
     page_title = _('New User')
     template_name = 'dashboard/new_user.html'
     can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
