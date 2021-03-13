@@ -2020,7 +2020,8 @@ def voucher_generate(request):
                 args=[{
                     'name': name,
                     'amount': amount,
-                    'number': number
+                    'number': number,
+                    'user': request.user
                 }],
                 queue=settings.CELERY_VOUCHER_GENERATE_QUEUE,
                 routing_key=settings.CELERY_VOUCHER_ROUTING_KEY
