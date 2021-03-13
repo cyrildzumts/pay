@@ -33,8 +33,8 @@ define(function(require) {
         PaymentManager.prototype.make_payment = function(data){
             console.log("run make_payment request with data : ", data);
             var options = {
-                //url : Constants.make_payment_url,
-                url : '/api/dummy/',
+                url : Constants.make_payment_url,
+                //url : '/api/dummy/',
                 type:'POST',
                 dataType: 'json',
                 data : data
@@ -42,6 +42,9 @@ define(function(require) {
             var p = ajax_api(options, true, false);
             p.then(function (response) {
                 console.log(response);
+                if(response.success){
+                    window.location.replace(response.redirect_url)
+                }
             }, function(reason){
                 console.log(response);
             });
@@ -50,8 +53,8 @@ define(function(require) {
         PaymentManager.prototype.make_transfer = function(data){
             console.log("run make_transfer request with data : ", data);
             var options = {
-                url : '/api/dummy/',
-                //url : Constants.make_transfer_url,
+                //url : '/api/dummy/',
+                url : Constants.make_transfer_url,
                 type:'POST',
                 data : data,
                 dataType: 'json',
@@ -59,6 +62,9 @@ define(function(require) {
             var p = ajax_api(options, true, false);
             p.then(function (response) {
                 console.log(response);
+                if(response.success){
+                    window.location.replace(response.redirect_url)
+                }
             }, function(reason){
                 console.log(response);
             });
