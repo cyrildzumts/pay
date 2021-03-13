@@ -203,6 +203,11 @@
 	  letter-spacing: 0.15em;
   }
   
+
+  .banner li{
+	border-bottom: none;
+}
+
   .banner--title{
 	  width: 100%;
 	  text-align: center;
@@ -255,6 +260,10 @@
 	  flex-wrap: wrap;
 	  justify-content: center;
 	  align-items: center;
+  }
+
+  .actions li{
+	  border-bottom: none;
   }
   
   .banner--actions .mat-button, .actions .mat-button  {

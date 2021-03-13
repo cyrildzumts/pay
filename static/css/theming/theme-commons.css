@@ -33,6 +33,10 @@ body{
     color : var(--light-color);
 }
 
+.banner *{
+    color : var(--light-color);
+}
+
 .footer{
     background-color: var(--primary-color);
     color: var(--fourth-color);
