@@ -18,6 +18,7 @@ class Voucher(models.Model):
     is_used = models.BooleanField(default=False)
     is_sold = models.BooleanField(default=False)
     activated_by = models.ForeignKey(User, related_name='acticatedvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(User, related_name='createdvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_by = models.ForeignKey(User, related_name='usedvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     sold_by = models.ForeignKey(User, related_name='soldvouchers', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     used_at = models.DateTimeField(blank=True, null=True)

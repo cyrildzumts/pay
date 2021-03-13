@@ -7,7 +7,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
-from pay import settings, utils
+from pay import settings, utils, conf
 from voucher.forms import VoucherCreationForm, RechargeCustomerAccount, RechargeCustomerAccountByStaff
 from voucher.tasks import generate_voucher
 from voucher import voucher_service
@@ -40,12 +40,12 @@ def vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_voucher_set(activated_by=request.user)
+    voucher_list = voucher_service.VoucherService.get_voucher_set(created_by=request.user)
 
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(voucher_list, 10)
+    paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
     except PageNotAnInteger:
@@ -230,13 +230,13 @@ def voucher_generate(request):
             amount = form.cleaned_data['amount']
             number = form.cleaned_data['number']
             logger.info("Submitted Voucher Creation Form is valid.")
-            logger.info(
-                "Voucher creation request : Name : %s - Amout : %s - Number : %s", name, amount, number)
+            logger.info(f"Voucher creation request by user {request.user.username} : Name : {name} - Amout : {amount} - Number : {number}")
             generate_voucher.apply_async(
                 args=[{
                     'name': name,
                     'amount': amount,
-                    'number': number
+                    'number': number,
+                    'user': request.user
                 }],
                 queue=settings.CELERY_VOUCHER_GENERATE_QUEUE,
                 routing_key=settings.CELERY_VOUCHER_ROUTING_KEY

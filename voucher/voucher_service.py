@@ -227,8 +227,8 @@ class VoucherService:
 
 
     @staticmethod
-    def get_voucher_set(start=None, end=None, **filters):       
-        return Voucher.objects.filter(**filters).order_by('-created_at')[start:end]
+    def get_voucher_set(**kwargs):       
+        return Voucher.objects.filter(**kwargs).order_by('-created_at')
 
     @staticmethod
     def get_used_voucher_set(start=None, end=None, **filters):       

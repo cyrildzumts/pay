@@ -13,26 +13,25 @@ def generate_voucher(context={}):
     
     name='PAY-STANDARD'
     amount=2500
-    number=100
+    number=10
+    user = None
     if context :
         name = context.get('name', name)
         amount = context.get('amount', amount)
         number = context.get('number', number)
         user   = context.get('user')
+    if user is None:
+        logger.warn(f"Generation of vouchers aborted requester user is missing")
+        return
 
-    logger.info("Starting generating %s  %s vouchers card with credit of %s", number, name, amount)
-    kwargs = {
-        'name' : name,
-        'amount': amount
-    }
+    logger.info(f"Starting generating {number}  {name} vouchers card with credit of {amount}")
     voucher_codes = [ voucher_service.voucher_generate() for i in range(number)]
-    logger.info("Gener")
-    vouchers = (Voucher(name=name, amount=amount, voucher_code=code) for code in voucher_codes)
+    vouchers = (Voucher(name=name, amount=amount, voucher_code=code, created_by=user) for code in voucher_codes)
     while True:
         batch = list(islice(vouchers, batch_size))
         if not batch:
             break
         Voucher.objects.bulk_create(batch, batch_size, ignore_conflicts=True)
     
-    logger.info("Generation of  %s  %s vouchers card with credit of %s done.", number, name, amount)
+    logger.info(f"[OK] Generation of {number}  {name} vouchers card with credit of {amount} done")
     
