@@ -46,7 +46,7 @@ define(function(require) {
                     window.location.replace(response.redirect_url)
                 }
             }, function(reason){
-                console.log(response);
+                console.log(reason);
             });
         };
 
@@ -66,7 +66,7 @@ define(function(require) {
                     window.location.replace(response.redirect_url)
                 }
             }, function(reason){
-                console.log(response);
+                console.log(reason);
             });
         };
 
