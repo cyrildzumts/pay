@@ -385,6 +385,7 @@ def dummy(request):
 
 @api_view(['POST'])
 def make_payment(request):
+    logger.info("api make payment")
     data = utils.get_postdata(request)
     payment = payment_service.create_payment(data)
     response_data = None
