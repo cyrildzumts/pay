@@ -604,7 +604,7 @@ def update_balance(data):
     is_payment = data['is_payment']
 
     if activity == Constants.BALANCE_ACTIVITY_PAYMENT:
-        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, is_incoming=True,  activity=activity, current_amount=fee, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, is_incoming=True,  activity=activity, current_amount=fee, current_amount_without_fee=0, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
         BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk,is_incoming=False,  activity=activity, current_amount=-amount, current_amount_without_fee=-amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
         BalanceHistory.objects.create(balance=recipient.balance, is_incoming=True,  balance_ref_id=recipient.balance.pk, activity=activity, current_amount=recipient_amount,current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
 
@@ -620,7 +620,7 @@ def update_balance(data):
         Balance.objects.filter(user=sender).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
 
     elif activity == Constants.BALANCE_ACTIVITY_REFUND:
-        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk,is_incoming=False,  activity=activity, current_amount=fee, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk,is_incoming=False,  activity=activity, current_amount=fee, current_amount_without_fee=0, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
         BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk,is_incoming=False,  activity=activity, current_amount=recipient_amount, current_amount_without_fee=amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
         BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk,is_incoming=True,  activity=activity, current_amount=-amount, current_amount_without_fee=-amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
 
