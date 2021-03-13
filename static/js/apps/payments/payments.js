@@ -1,7 +1,8 @@
-define(['require', 'constants'],function(require, Constants) {
+define(function(require) {
     'use strict';
 
     var $ = require('jquery');
+    var Constants = require('constants')
     var ajax_api = require('ajax_api');
     var PaymentManager = (function(){
         function PaymentManager() {
