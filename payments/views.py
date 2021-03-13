@@ -915,7 +915,8 @@ def recharge(request):
                     'context': {
                         'FULL_NAME': request.user.get_full_name(),
                         'voucher': voucher,
-                        'amount' : amount
+                        'amount' : amount,
+                        'CURRENCY': settings.CURRENCY
                     },
                     'recipient_email': request.user.email,
                     'template_name': "accounts/recharge_confirmation_email.html"
