@@ -1,5 +1,6 @@
 from celery import shared_task
 from voucher.models import Voucher
+from django.contrib.auth.models import User
 from voucher import voucher_service
 from itertools import islice
 import logging, uuid
@@ -19,7 +20,12 @@ def generate_voucher(context={}):
         name = context.get('name', name)
         amount = context.get('amount', amount)
         number = context.get('number', number)
-        user   = context.get('user')
+        user_pk = context.get('user')
+        try:
+            user = User.objects.get(pk=user_pk)
+        except User.DoesNotExist:
+            logger.warn(f"No user found with id {user_pk} ")
+    
     if user is None:
         logger.warn(f"Generation of vouchers aborted requester user is missing")
         return

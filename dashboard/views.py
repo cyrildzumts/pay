@@ -2021,7 +2021,7 @@ def voucher_generate(request):
                     'name': name,
                     'amount': amount,
                     'number': number,
-                    'user': request.user
+                    'user': request.user.pk
                 }],
                 queue=settings.CELERY_VOUCHER_GENERATE_QUEUE,
                 routing_key=settings.CELERY_VOUCHER_ROUTING_KEY
