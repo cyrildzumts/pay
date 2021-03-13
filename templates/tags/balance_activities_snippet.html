@@ -21,7 +21,7 @@
                   {% for activity in activity_list %}
                   <tr>
                     <td scope="row" data-label="{% trans 'Sender' %}">{{activity.sender.get_full_name}}({{activity.sender.username}})</td>
-                    <td data-label="{% trans 'Receiver' %}">{{activity.recipient.get_full_name}}({{activity.recipient.username}})</td>
+                    <td data-label="{% trans 'Receiver' %}">{{activity.recipient.get_full_name}}({{activity.receiver.username}})</td>
                     <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount_without_fee|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
                     <td data-label="{% trans 'Activity Type' %}">{{activity.activity|balance_activity}} </td>
                     <td data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j, Y"}}</td>
