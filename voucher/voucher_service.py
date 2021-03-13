@@ -195,18 +195,6 @@ class VoucherService:
             flag = Voucher.objects.filter(voucher_code=voucher, activated=True, is_used=False).exists()
         return flag
 
-    @classmethod
-    def update_balance(cls, data):
-    recipient = data['recipient']
-    amount = data['amount']
-    fee = 0
-
-    #BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, current_amount=-fee, balance_amount=pay.balance.balance, sender=recipient, receiver=pay)
-    #BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, current_amount=amount, current_amount_without_fee=amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
-    BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk, current_amount=amount,current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, receiver=recipient)
-
-    Balance.objects.filter(user=recipient).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') +amount)
-
 
     @classmethod
     def use_voucher(cls, voucher, user_pk=None):
