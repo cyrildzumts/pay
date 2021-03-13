@@ -9,16 +9,9 @@
                 
         </div>
         <div class="container">
-
-            <div class="col col-9">
-                <div class="banner--actions">
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups'%}"><span class="add"></span>{% trans "Policy Groups" %}</a>
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
-        
+                <ul class="banner--actions">
+                    <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups'%}"><span class="add"></span>{% trans "Policy Groups" %}</a></li>
+                </ul><!--End of Banner-Actions-->
         </div><!--End of Container-->
         
     </div>

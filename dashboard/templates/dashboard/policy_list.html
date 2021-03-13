@@ -9,15 +9,9 @@
                 
         </div>
         <div class="container">
-
-            <div class="col-xs-12 col-9">
-                <div class="banner--actions">
-                    {% if can_add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "Add New Policy" %} </a>{% endif %}
-                    {% if can_delete_policy %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-remove-all' %}"> {% trans "Delete All Policies" %} </a>{% endif %}
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>  
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
+                <ul class="banner--actions actions">
+                    {% if can_add_policy %}<li class="mat-list-item"><a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "Add New Policy" %} </a></li>{% endif %} 
+                </ul><!--End of Banner-Actions-->
         </div><!--End of Container-->
     </div>
 {% endblock HEADER_BANNER %}
@@ -51,9 +45,9 @@
                   <tr>
                   <!--<td class="checkbox"><input type="checkbox" name="selected-policy"></td>-->
                   <td>{{policy.commission}}</td>
-                  <td>{{policy.daily_limit}} {% trans "XAF" %}</td>
-                  <td>{{policy.weekly_limit}} {% trans "XAF" %}</td>
-                  <td>{{policy.monthly_limit}} {% trans "XAF" %}</td>
+                  <td>{{policy.daily_limit}} {% trans CURRENCY %}</td>
+                  <td>{{policy.weekly_limit}} {% trans CURRENCY %}</td>
+                  <td>{{policy.monthly_limit}} {% trans CURRENCY %}</td>
                   <td><a class="mat-button mat-button-default" href="{{policy.get_dashboard_absolute_url}}"> {% trans "Detail" %}</a></td>
                   </tr>
                   {% endfor %}

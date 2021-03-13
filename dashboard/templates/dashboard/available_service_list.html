@@ -13,11 +13,7 @@
                     <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
                     {% if can_add_available_service %}
                     <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a></li>
-                    {% endif %}
-                    {% if can_delete_available_service %}
-                    <li class="mat-list-item"><a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:available-service-remove-all' %}"> {% trans "Delete All Available Service" %} </a></li>
-                    {% endif %}
-                        
+                    {% endif %}    
                 </ul><!--End of Banner-Actions-->    
         </div><!--End of Container-->
         
