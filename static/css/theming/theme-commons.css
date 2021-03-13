@@ -74,6 +74,11 @@ body{
     font-weight: 700;
 }
 
+.banner .mat-button-default{
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
 .mat-table{
     background-color: var(--fourth-color);
 

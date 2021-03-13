@@ -206,6 +206,7 @@
 
   .banner li{
 	border-bottom: none;
+	width: unset;
 }
 
   .banner--title{
