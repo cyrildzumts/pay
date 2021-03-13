@@ -1,11 +1,10 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-
 {% block HEADER_BANNER %}
     <div class="banner banner-align-left">
         <div class="full welcome-text center">
                 {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Recharge User Account" %}</h4>
+                    <h4> {% trans "Voucher Generate" %}</h4>
                 {% endblock HEADER_BANNER_TITLE %}
                 
         </div>
@@ -19,6 +18,11 @@
                     </a> 
                 </li>
                 <li class="mat-list-item"> 
+                    <a class="mat-button mat-button-default" href="{%url 'dashboard:recharge'%}">
+                        {% trans "Recharge Customer Account" %} 
+                     </a> 
+                </li>
+                <li class="mat-list-item"> 
                     <a class="mat-button mat-button-default" href="{%url 'dashboard:used-vouchers'%}"> 
                         {% trans "Used Voucher List" %} 
                     </a> 
@@ -26,12 +30,6 @@
                 <li class="mat-list-item"> 
                     <a class="mat-button mat-button-default" href="{%url 'dashboard:sold-vouchers'%}">
                         {% trans "Sold Voucher List" %} 
-                     </a> 
-                </li>
-
-                <li class="mat-list-item"> 
-                    <a class="mat-button mat-button-default" href="{%url 'dashboard:voucher-generate'%}">
-                        {% trans "Generate new Voucher cards" %} 
                      </a> 
                 </li>
             </ul>
@@ -43,6 +41,6 @@
 {% block MAIN_CONTENT %}
 
 <div class="container">
-    {% include "tags/voucher_recharge_form.html" with ACTION_URL='dashboard:recharge' CANCEL_URL='dashboard:voucher-home' %}
+    {% include "tags/voucher_generate_form.html" with ACTION_URL='dashboard:voucher-generate' CANCEL_URL='dashboard:voucher-home' %}
 </div>
 {% endblock MAIN_CONTENT %}

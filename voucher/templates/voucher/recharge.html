@@ -4,6 +4,6 @@
 {% block MAIN %}
 
 <div class="container">
-    {% include "tags/voucher_recharge_form.html" %}
+    {% include "tags/voucher_recharge_form.html" with ACTION_URL='voucher:recharge' CANCEL_URL='voucher:voucher-home' %}
 </div>
 {% endblock MAIN %}

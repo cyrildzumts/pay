@@ -1,0 +1,20 @@
+{% load i18n %} 
+
+<div class="mat-box">
+    <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url ACTION_URL %}" method="POST">{% csrf_token %}
+        
+        <input type="hidden" name="seller" value="{{request.user.pk}}">
+        <input id="customer" type="hidden" name="customer">
+        {% include "tags/search_user_snipet.html" with target="#customer" target_name="#user-search" fieldname="Customer Name" %}
+        <div class="mat-input">
+            <label for="amount">{% trans "Amount" %}</label>
+            <input id="amount" type="text" name="amount" required>
+        </div>
+        
+        <div class="form-group actions">
+            <a class="mat-button mat-button-outlined js-cancel" href="{%url CANCEL_URL %}">{% trans "Cancel" %}</a>
+            <button class="mat-button mat-button-default" type="submit">{% trans "Recharge" %}</button>
+        </div>
+    </form>
+
+</div>

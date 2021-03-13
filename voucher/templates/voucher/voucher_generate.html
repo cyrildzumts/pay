@@ -4,7 +4,7 @@
 {% block MAIN %}
 
 <div class="container">
-    {% include "tags/voucher_generate_form.html" %}
+    {% include "tags/voucher_generate_form.html" with ACTION_URL='voucher:voucher-generate' CANCEL_URL='voucher:voucher-home' %}
 </div>
 {% endblock MAIN %}
 
