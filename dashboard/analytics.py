@@ -5,6 +5,7 @@ from django.db.models import Count, Sum, Avg, Min, Max, IntegerField
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy
 from voucher.models import Voucher
+from accounts import constants as ACCOUNT_CONSTANTS
 import logging
 from datetime import datetime
 
@@ -324,7 +325,7 @@ def get_categories():
     return utils.get_model('payments', 'ServiceCategory').objects.filter(is_active=True)
 
 def get_operators():
-    return User.objects.filter(is_superuser=False, is_active=True, account__account_type='B')
+    return User.objects.filter(is_superuser=False, is_active=True, account__account_type=ACCOUNT_CONSTANTS.ACCOUNT_VENDOR)
 
 def get_category_services_filter_by(**kwargs):
     return utils.get_model('payments', 'ServiceCategory').objects.filter(**kwargs)
