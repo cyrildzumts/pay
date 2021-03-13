@@ -141,10 +141,10 @@ function validate_category_form(params) {
     if((category_code.val().length == 0)){
         is_valid = false;
         console.log("Category code is required");
-    }else if (!number_regex.test(category_name.val())) {
+    }else if (!number_regex.test(category_code.val())) {
         is_valid = false;
         code_error = true;
-        console.log("Category name must not be a number");
+        console.log("Category code must not be a number");
     }
     category_code.toggleClass('error', code_error);
     submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
