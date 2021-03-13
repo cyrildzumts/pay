@@ -217,7 +217,7 @@ class VoucherService:
             
             voucher_queryset.update(is_used=True, used_by=recipient, used_at=timezone.now())
 
-            logger.info(f"Voucher {voucher} used by user {user.get_full_name()} ")
+            logger.info(f"Voucher {voucher} used by user {recipient.get_full_name()} ")
             succeed = True
         else:
 
