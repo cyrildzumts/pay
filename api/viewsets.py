@@ -1,3 +1,4 @@
+from django.db.models import F, Q
 from rest_framework import viewsets
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from api.permissions import (
@@ -36,12 +37,18 @@ class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
      serializer_class = ServiceSerializer
      #permission_classes = [IsAuthenticated]
 
+     
+     
+
 
 
 class TransferViewSet(viewsets.ReadOnlyModelViewSet):
-     queryset = TransferSerializer.Meta.model.objects.all()
+     #queryset = TransferSerializer.Meta.model.objects.all()
      serializer_class = TransferSerializer
      #permission_classes = [IsAuthenticated]
+
+     def get_queryset(self):
+         return TransferSerializer.Meta.model.objects.filter(Q(sender=self.request.user) | Q(recipient=self.request.user))
 
 
 class PaymentViewSet(viewsets.ReadOnlyModelViewSet):

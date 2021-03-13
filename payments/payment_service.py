@@ -8,10 +8,12 @@ from payments.models import Policy, Transaction, Transfer, Service, Payment, Bal
 from payments import constants as Constants
 from django.db.models import F, Q, FloatField
 from django.apps import apps
+from django.core.exceptions import ObjectDoesNotExist
 from django.forms import modelform_factory
 from accounts.models import Account
 from voucher import voucher_service
 from itertools import islice
+from django.utils import timezone
 import sys
 import logging
 import numbers
@@ -578,6 +580,51 @@ def create_service(data):
 
 
 
+def update_balance(data):
+    recipient = data['recipient']
+    sender = data['sender']
+    pay = data['pay']
+    recipient_amount = data['recipient_amount']
+    amount = data['amount']
+    fee = data['fee']
+    is_payment = data['is_payment']
+    if is_payment:
+        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, current_amount=fee, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, current_amount=-amount, current_amount_without_fee=-amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk, current_amount=recipient_amount,current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+
+        Balance.objects.filter(user=sender).update(balance=F('balance') - amount)
+        Balance.objects.filter(user=recipient).update(balance=F('balance') + recipient_amount, balance_without_fee=F('balance_without_fee') + amount)
+        Balance.objects.filter(user=pay).update(balance=F('balance') + fee)
+    else:
+        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, current_amount=-fee, balance_amount=pay.balance.balance, sender=recipient, receiver=pay)
+        BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, current_amount=amount, current_amount_without_fee=amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk, current_amount=-recipient_amount,current_amount_without_fee=-amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+
+        Balance.objects.filter(user=recipient).update(balance=F('balance') - recipient_amount, balance_without_fee=F('balance_without_fee') - amount)
+        Balance.objects.filter(user=sender).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
+        Balance.objects.filter(user=pay).update(balance=F('balance') - fee)
+
+
+def get_payments(user):
+    return Payment.objects.filter(Q(sender=user) | Q(recipient=user), created_at__date=timezone.now().today())
+
+def get_payment(user, payment_uuid):
+    payment = None
+    try:
+        payment = Payment.objects.filter(Q(sender=user) | Q(recipient=user), payment_uuid=payment_uuid).get()
+    except Payment.DoesNotExist as e:
+        pass
+    return payment
+
+def find_payment_from_description(user, description):
+    payment = None
+    try:
+        payment = Payment.objects.filter(Q(sender=user) | Q(recipient=user), details==description).get()
+    except Payment.DoesNotExist as e:
+        pass
+    return payment
+
 def create_transfer(data):
     form = TransferForm(data)
 
@@ -608,15 +655,64 @@ def create_payment(data):
     policy_group = recipient.policygroup_set.first()
     commission = policy_group.policy.commission
     pay_fee, recipient_amount, succeed = PaymentService.get_commission(price=amount, applied_commision=commission)
+    payment = None
     if succeed:
-        Balance.objects.filter(user=sender).update(balance=F('balance') - amount)
-        Balance.objects.filter(user=recipient).update(balance=F('balance') + recipient_amount)
-        Balance.objects.filter(user=pay).update(balance=F('balance') + pay_fee)
-        logger.info("Payment Operation was successfull")
-        return form.save()
-    logger.info("Payment could not be processed")
-    return None
+        data = {
+            'amount' : amount,
+            'sender' : sender,
+            'pay' : pay,
+            'recipient': recipient,
+            'recipient_amount' : recipient_amount,
+            'fee' : pay_fee,
+            'is_payment' : True
+        }
+        update_balance(data)
 
+        #BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, current_amount=pay_fee, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
+        #BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, current_amount=-amount, current_amount_without_fee=-amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        #BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk, current_amount=recipient_amount,current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+
+        #Balance.objects.filter(user=sender).update(balance=F('balance') - amount)
+        #Balance.objects.filter(user=recipient).update(balance=F('balance') + recipient_amount, balance_without_fee=F('balance_without_fee') + amount)
+        #Balance.objects.filter(user=pay).update(balance=F('balance') + pay_fee)
+
+        logger.info("Payment Operation was successfull")
+        payment = form.save(commit=False)
+        payment.fee = pay_fee
+        payment.save()
+    logger.info("Payment could not be processed")
+    return payment
+
+
+
+def make_refund(user, payment_uuid):
+    try:
+        payment = Payment.objects.get(recipient=user,payment_uuid=payment_uuid)
+        refund = create_accept_refund(user, payment)
+        data = {
+            'success' : True,
+            'refund': {
+                'refund_uuid' : refund.refund_uuid,
+                'amount': refund.amount,
+                'status': refund.status,
+                'created_at' : refund.created_at,
+                'last_changed_at': refund.last_changed_at,
+                'payment' : {
+                    'payment_uuid' : payment_uuid,
+                    'amount': payment.amount,
+                    'sender': payment.sender.get_full_name(),
+                    'recipient': payment.recipient.get_full_name(),
+                    'fee' : payment.fee
+                },
+            }
+        }
+
+    except ObjectDoesNotExist as e:
+        data = {
+            'success' : False,
+            'message': 'payment not found'
+        }
+    
 
 
 def create_refund(data):
@@ -662,10 +758,32 @@ def accept_refund(requester, payment):
         logger.warn(f"Refund not processed. Recipient \"{payment.recipient.username}\" has insufficient fund left")
         Refund.objects.filter(payment=payment).update(status=Constants.REFUND_DECLINED, delined_reason=Constants.REFUND_DECLINED_UNSUFFICIENT_FUND)
         return False
+    
+    amount = payment.amount
+    fee = payment.fee
+    recipient_amount = amount - fee
+    sender = payment.sender
+    recipient = payment.recipient
+    pay = User.objects.get(username=settings.PAY_USER)
 
+    data = {
+        'amount' : amount,
+        'sender' : sender,
+        'pay' : pay,
+        'recipient': recipient,
+        'recipient_amount' : recipient_amount,
+        'fee' : fee,
+        'is_payment' : False
+    }
+    update_balance(data)
 
-    Balance.objects.filter(user=payment.recipient).update(balance=F('balance') - payment.mount)
-    Balance.objects.filter(user=payment.sender).update(balance=F('balance') + payment.mount)
+    #BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, current_amount=-fee, balance_amount=pay.balance.balance, sender=recipient, receiver=pay)
+    #BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, current_amount=amount, current_amount_without_fee=amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+    #BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk, current_amount=-recipient_amount,current_amount_without_fee=-amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+
+    #Balance.objects.filter(user=recipient).update(balance=F('balance') - recipient_amount, balance_without_fee=F('balance_without_fee') - amount)
+    #Balance.objects.filter(user=sender).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
+    #Balance.objects.filter(user=pay).update(balance=F('balance') - fee)
     Refund.objects.filter(payment=payment, status=Constants.REFUND_PENDING).update(status=Constants.REFUND_PAID)
     return True
 
@@ -686,6 +804,30 @@ def create_accept_refund(requester, payment):
         data['declined_reason'] = Constants.REFUND_DECLINED_UNSUFFICIENT_FUND
     else:
         data['status'] : Constants.REFUND_PAID
+        amount = payment.amount
+        fee = payment.fee
+        recipient_amount = amount - fee
+        sender = payment.sender
+        recipient = payment.recipient
+        pay = User.objects.get(username=settings.PAY_USER)
+        data = {
+            'amount' : amount,
+            'sender' : sender,
+            'pay' : pay,
+            'recipient': recipient,
+            'recipient_amount' : recipient_amount,
+            'fee' : fee,
+            'is_payment' : False
+        }
+        update_balance(data)
+        
+        #BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, current_amount=-fee, balance_amount=pay.balance.balance, sender=recipient, receiver=pay)
+        #BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, current_amount=amount, current_amount_without_fee=amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        #BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk, current_amount=-recipient_amount,current_amount_without_fee=-amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+
+        #Balance.objects.filter(user=recipient).update(balance=F('balance') - recipient_amount, balance_without_fee=F('balance_without_fee') - amount)
+        #Balance.objects.filter(user=sender).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
+        #Balance.objects.filter(user=pay).update(balance=F('balance') - fee)
 
     refund = Refund.objects.create(**data)
     return refund

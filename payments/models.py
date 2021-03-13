@@ -22,6 +22,7 @@ class Balance(models.Model):
     name = models.CharField(max_length=64)
     user = models.OneToOneField(User, on_delete=models.SET_NULL, blank=True, null=True)
     balance = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_without_fee = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     balance_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
@@ -36,7 +37,9 @@ class Balance(models.Model):
 class BalanceHistory(models.Model):
     balance_ref_id = models.IntegerField(blank=False, null=False)
     current_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    current_amount_without_fee = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     balance_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_amount_without_fee = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     sender = models.ForeignKey(User, related_name='sender_histories', blank=True, null=True, on_delete=models.SET_NULL)
     receiver = models.ForeignKey(User, related_name='receiver_histories', blank=True, null=True, on_delete=models.SET_NULL)
     balance = models.ForeignKey(Balance, related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
@@ -340,6 +343,7 @@ class Transaction(models.Model):
 
 class Payment(models.Model):
     amount = models.DecimalField(default=0.0, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    fee = models.DecimalField(blank=True, null=True, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_payments')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_payments')
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
