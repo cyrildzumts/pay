@@ -6,46 +6,49 @@
 {% endblock META_REDIRECT %}
 
 {% block HEADER_BANNER %}
-{% block  HEADER_BANNER_TITLE %}
-      <h4> {% trans "Voucher" %}</h4>
-{% endblock HEADER_BANNER_TITLE %}
+<div class="banner banner-align-left">
+      <div class="full welcome-text center">
+            {% block  HEADER_BANNER_TITLE %}
+                  <h4> {% trans "Voucher" %}</h4>
+            {% endblock HEADER_BANNER_TITLE %}
+      </div>
+      <div class="container">
+            <ul class="banner--actions actions">
+                  <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'home'%}">{% trans SITE_NAME %}</a></li>
+                  <li class="mat-list-item"> 
+                        <a class="mat-button mat-button-default" href="{%url 'voucher:voucher-home'%}">
+                        {% trans "Generated Voucher List" %}
+                        </a> 
+                  </li>
+                  <li class="mat-list-item"> 
+                        <a class="mat-button mat-button-default" href="{%url 'voucher:recharges'%}">
+                        {% trans "Recharges History" %} 
+                        </a> 
+                  </li>
+                  <li class="mat-list-item"> 
+                        <a class="mat-button mat-button-default" href="{%url 'voucher:recharge'%}">
+                        {% trans "Recharge Customer Account" %} 
+                        </a> 
+                  </li>
+                  <li class="mat-list-item"> 
+                        <a class="mat-button mat-button-default" href="{%url 'voucher:used-vouchers'%}"> 
+                        {% trans "Used Voucher List" %} 
+                        </a> 
+                  </li>
+                  <li class="mat-list-item"> 
+                        <a class="mat-button mat-button-default" href="{%url 'voucher:sold-vouchers'%}">
+                        {% trans "Sold Voucher List" %} 
+                        </a> 
+                  </li>
 
-<div class="container">
-      <ul class="banner--actions actions">
-            <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'home'%}">{% trans SITE_NAME %}</a></li>
-            <li class="mat-list-item"> 
-                  <a class="mat-button mat-button-default" href="{%url 'voucher:voucher-home'%}">
-                  {% trans "Generated Voucher List" %}
-                  </a> 
-            </li>
-             <li class="mat-list-item"> 
-                  <a class="mat-button mat-button-default" href="{%url 'voucher:recharges'%}">
-                  {% trans "Recharges History" %} 
-                  </a> 
-            </li>
-            <li class="mat-list-item"> 
-                  <a class="mat-button mat-button-default" href="{%url 'voucher:recharge'%}">
-                  {% trans "Recharge Customer Account" %} 
-                  </a> 
-            </li>
-            <li class="mat-list-item"> 
-                  <a class="mat-button mat-button-default" href="{%url 'voucher:used-vouchers'%}"> 
-                  {% trans "Used Voucher List" %} 
-                  </a> 
-            </li>
-            <li class="mat-list-item"> 
-                  <a class="mat-button mat-button-default" href="{%url 'voucher:sold-vouchers'%}">
-                  {% trans "Sold Voucher List" %} 
-                  </a> 
-            </li>
+                  <li class="mat-list-item"> 
+                        <a class="mat-button mat-button-default" href="{%url 'voucher:voucher-generate'%}">
+                        {% trans "Generate new Voucher cards" %} 
+                        </a> 
+                  </li>
+            </ul>
 
-            <li class="mat-list-item"> 
-                  <a class="mat-button mat-button-default" href="{%url 'voucher:voucher-generate'%}">
-                  {% trans "Generate new Voucher cards" %} 
-                  </a> 
-            </li>
-      </ul>
-
+      </div>
 </div>
 
 {% endblock HEADER_BANNER %}
