@@ -4,22 +4,15 @@
     <div class="banner banner-align-left">
         <div class="full welcome-text center">
                 {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "New Policies Group Creation" %}</h4>
+                    <h4> {% trans "Group Creation" %}</h4>
                 {% endblock HEADER_BANNER_TITLE %}
                 
         </div>
         <div class="container">
-
-            <div class="col col-9">
-                <div class="banner--actions">
+                <ul class="banner--actions actions">
                     {% if can_view_group %}
-                    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-groups'%}"> {% trans "Policy groups" %}</a>{% endif %}
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
-        
+                    <li class="mat-list-item"><a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-groups'%}"><i class="fas fa-list icon"></i><span>{% trans "Policy groups" %}</span></a></li>{% endif %} 
+                </ul><!--End of Banner-Actions-->
         </div><!--End of Container-->
         
     </div>
