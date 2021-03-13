@@ -1,15 +1,11 @@
 {% extends "voucher_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Used Vouchers" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 
-
-<div class="row">
-  <div class="nav">
-    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
-  </div>
-</div>
+{% block MAIN_CONTENT %}
 
 <div class="container">
 
@@ -27,23 +23,23 @@
         <table id="voucher-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>
-                          <th>{% trans "Voucher Name" %}</th>
-                          <th>{% trans "Credit" %}</th>
-                          <th>{% trans "Voucher Code" %}</th>
-                          <th>{% trans "Usage Date" %}</th>
-                          <th>{% trans "Details" %}</th>
+                        {% comment %}<th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>{% endcomment %}
+                        <th>{% trans "Voucher Name" %}</th>
+                        <th>{% trans "Credit" %}</th>
+                        <th>{% trans "Voucher Code" %}</th>
+                        <th>{% trans "Usage Date" %}</th>
+                        <th>{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
                   {% for v in voucher_list  %}
                   <tr>
-                  <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
-                  <td>{{v.name}}</td>
-                  <td>{{v.amount}} {% trans "XAF" %}</td>
-                  <td>{{v.voucher_code}}</td>
-                  <td>{{v.used_at|date:"F j, Y"}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
+                  {% comment %}<td class="checkbox"><input type="checkbox" name="selected-voucher"></td>{% endcomment %}
+                    <td>{{v.name}}</td>
+                    <td>{{v.amount}} {% trans CURRENCY %}</td>
+                    <td>{{v.voucher_code}}</td>
+                    <td>{{v.used_at|date:"F j, Y"}}</td>
+                    <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -61,4 +57,4 @@
     </div>
   {% endif %}
 </div>
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}
