@@ -46,7 +46,7 @@ class BalanceHistory(models.Model):
     activity = models.IntegerField(default=Constants.BALANCE_ACTIVITY_RECHARGE, choices=Constants.BALANCE_ACTIVITY_TYPES)
     balance = models.ForeignKey(Balance, related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
     recharge = models.ForeignKey('voucher.Recharge', related_name='balance_history', null=True,blank=True, on_delete=models.SET_NULL)
-    voucher = models.OneToOneField('voucher.Voucher', related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
+    voucher = models.ForeignKey('voucher.Voucher', related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     history_uuid = models.UUIDField(default=uuid.uuid4, editable=False)    
 
