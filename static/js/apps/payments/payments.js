@@ -1,5 +1,6 @@
-define(function(require) {
+define(['require', 'constants'],function(require, Constants) {
     'use strict';
+
     var $ = require('jquery');
     var ajax_api = require('ajax_api');
     var PaymentManager = (function(){
@@ -29,12 +30,13 @@ define(function(require) {
         };
 
         PaymentManager.prototype.make_payment = function(data){
-            console.log("run make_payment request");
+            console.log("run make_payment request with data : ", data);
             var options = {
+                //url : Constants.make_payment_url,
                 url : '/api/dummy/',
-                type:'GET',
+                type:'POST',
                 dataType: 'json',
-                data : {}
+                data : data
             };
             var p = ajax_api(options, true, false);
             p.then(function (response) {
@@ -45,11 +47,12 @@ define(function(require) {
         };
 
         PaymentManager.prototype.make_transfer = function(data){
-            console.log("run make_transfer request");
+            console.log("run make_transfer request with data : ", data);
             var options = {
                 url : '/api/dummy/',
-                type:'GET',
-                data : {},
+                //url : Constants.make_transfer_url,
+                type:'POST',
+                data : data,
                 dataType: 'json',
             };
             var p = ajax_api(options, true, false);

@@ -26,9 +26,12 @@ partners_urlpatterns = [
     path('V1/payments/<str:description>/',views.dummy),
     path('V1/payments/<uuid:payment_uuid>/',views.dummy),
     path('V1/payments/refund/<uuid:payment_uuid>/',views.dummy),
+    path('V1/payments/make-payment/',views.make_payment),
+
 
     path('V1/transfers/<str:description>/',views.dummy),
     path('V1/transfers/<uuid:transfer_uuid>/',views.dummy),
+    path('V1/transfer/make-transfer/',views.make_transfer),
 
     path('V1/refunds/',views.dummy),
     path('V1/refunds/<uuid:refund_uuid>/',views.dummy),
@@ -53,6 +56,7 @@ partners_urlpatterns = [
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('', include(partners_urlpatterns)),
     path('analytics/', views.analytics_data, name='analytics'),
     path('api-token-auth/', drf_api_views.obtain_auth_token, name='api-token-auth'),
     path('dummy/', views.dummy, name='dummy'),

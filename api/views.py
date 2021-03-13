@@ -378,4 +378,44 @@ def get_refunds(request, status):
 
 @api_view(['GET', 'POST'])
 def dummy(request):
-    return Response({'dummy': 'request dummy', 'test': 'test result', 'user': request.user.username})
+    data = utils.get_postdata(request)
+    logger.info(f"Dummy Submitted Data : {data}")
+    return Response({'dummy': 'request dummy', 'test': 'test result', 'user': request.user.username, 'submitted_data': data})
+
+
+@api_view(['POST'])
+def make_payment(request):
+    data = utils.get_postdata(request)
+    payment = payment_service.create_payment(data)
+    response_data = None
+    if payment:
+        response_data = {
+            'success' : True,
+            'amount': payment.amount,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    else:
+        response_data = {
+            'success' : False,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    return Response(response_data)
+
+
+@api_view(['POST'])
+def make_transfer(request):
+    data = utils.get_postdata(request)
+    transfer = payment_service.create_transfer(data)
+    response_data = None
+    if transfer:
+        response_data = {
+            'success' : True,
+            'amount': transfer.amount,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    else:
+        response_data = {
+            'success' : False,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    return Response(response_data)
