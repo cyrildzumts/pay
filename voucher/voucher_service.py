@@ -150,8 +150,8 @@ def update_balance(data):
 
     if activity == PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_RECHARGE:
         recharge = Recharge.objects.create(voucher=voucher, customer=recipient, seller=voucher.sold_by, amount=amount)
-        BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, recharge=recharge, activity=activity, voucher=voucher , current_amount=-amount, current_amount_without_fee=-amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
-        BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk,recharge=recharge,  activity=activity, voucher=voucher , current_amount=amount, current_amount_without_fee=+amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, recharge=recharge, activity=activity, voucher=voucher , current_amount=amount, current_amount_without_fee=amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk,recharge=recharge, is_incoming=True,  activity=activity, voucher=voucher , current_amount=amount, current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
 
         Balance.objects.filter(user=recipient).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
         Balance.objects.filter(user=sender).update(balance=F('balance') - amount, balance_without_fee=F('balance_without_fee') - amount)
