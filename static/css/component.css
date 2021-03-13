@@ -2112,12 +2112,12 @@
   
   .mat-list-item:last-child{
 	  border-bottom: none;
-	  margin: 0 auto;
+	  /*margin: 0 auto;*/
   }
   
   .mat-list-item .mat-button{
 	  width: 100%;
-	  padding: 0 !important;
+	  /*padding: 0 !important;*/
 	  margin: 0 !important;
   }
   
