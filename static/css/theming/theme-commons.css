@@ -79,6 +79,10 @@ body{
     color: var(--primary-color);
 }
 
+.banner .mat-button-default *{
+    color: var(--primary-color);
+}
+
 .mat-table{
     background-color: var(--fourth-color);
 
