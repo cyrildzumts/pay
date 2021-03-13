@@ -1,0 +1,14 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Balance Activities"%}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+{% block MAIN %}
+
+
+{% if activity_list %}
+<div class="container">
+ {% include 'tags/balance_activities_snippet.html' with OPEN_IN_DASHBOARD=False %}
+</div>
+{% endif %}
+{% endblock MAIN %}

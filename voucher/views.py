@@ -104,7 +104,7 @@ def recharge_user_account_view(request):
             #result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
             result = voucher_service.VoucherService.recharge_balance(seller=seller, customer=customer, amount=amount)
             if result.get('succeed', False):
-                messages.success(request, _("The customer account has been successfuly recharged"))
+                messages.success(request, _("The customer balance has been successfully recharged"))
                 logger.info("recharge_user_account_view() : Customer %s was successfully recharge with the Amount = %s .", customer, amount)
                 return redirect('voucher:voucher-home')
             else :

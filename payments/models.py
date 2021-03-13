@@ -38,20 +38,29 @@ class BalanceHistory(models.Model):
     balance_ref_id = models.IntegerField(blank=False, null=False)
     current_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     current_amount_without_fee = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    is_incoming = models.BooleanField(default=False, blank=True, null=True)
     balance_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     balance_amount_without_fee = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     sender = models.ForeignKey(User, related_name='sender_histories', blank=True, null=True, on_delete=models.SET_NULL)
     receiver = models.ForeignKey(User, related_name='receiver_histories', blank=True, null=True, on_delete=models.SET_NULL)
+    activity = models.IntegerField(default=Constants.BALANCE_ACTIVITY_RECHARGE, choices=Constants.BALANCE_ACTIVITY_TYPES)
     balance = models.ForeignKey(Balance, related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
+    recharge = models.ForeignKey('voucher:Recharge', related_name='balance_history', null=True,blank=True, on_delete=models.SET_NULL)
+    voucher = models.OneToOneField('voucher:Voucher', related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     history_uuid = models.UUIDField(default=uuid.uuid4, editable=False)    
 
 
     def __str__(self):
-        return f"BalanceHistory {self.id}"
+        return f"BalanceHistory {self.activity}"
 
     def get_absolute_url(self):
         return reverse("payments:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
+    
+    def get_dashboard_url(self):
+        return reverse("dashboard:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
+
+
     
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=True, null=True)

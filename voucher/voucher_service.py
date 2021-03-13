@@ -6,7 +6,9 @@ from django.utils import timezone
 from pay import utils
 from pay import settings
 from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
-from payments.models import Balance
+from payments.models import Balance, BalanceHistory
+from payments import constants as PAYMENTS_CONSTANTS
+
 import codecs
 import random
 import hashlib
@@ -138,6 +140,23 @@ def voucher_validate(code, n_parts=VOUCHER_DEFAULT_PART_COUNT, part_len=VOUCHER_
     return is_valid
 
 
+def update_balance(data):
+    recipient = data['recipient']
+    sender = data['sender']
+    recipient_amount = data['recipient_amount']
+    amount = data['amount']
+    voucher = data['voucher']
+    activity = data['activity']
+
+    if activity == PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_RECHARGE:
+        recharge = Recharge.objects.create(voucher=voucher, customer=recipient, seller=voucher.sold_by, amount=amount)
+        BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, recharge=recharge, activity=activity, voucher=voucher , current_amount=-amount, current_amount_without_fee=-amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk,recharge=recharge,  activity=activity, voucher=voucher , current_amount=amount, current_amount_without_fee=+amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+
+        Balance.objects.filter(user=recipient).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
+        Balance.objects.filter(user=sender).update(balance=F('balance') - amount, balance_without_fee=F('balance_without_fee') - amount)
+        
+
 
 class VoucherService:
     """
@@ -177,24 +196,44 @@ class VoucherService:
         return flag
 
     @classmethod
+    def update_balance(cls, data):
+    recipient = data['recipient']
+    amount = data['amount']
+    fee = 0
+
+    #BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, current_amount=-fee, balance_amount=pay.balance.balance, sender=recipient, receiver=pay)
+    #BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk, current_amount=amount, current_amount_without_fee=amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+    BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk, current_amount=amount,current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, receiver=recipient)
+
+    Balance.objects.filter(user=recipient).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') +amount)
+
+
+    @classmethod
     def use_voucher(cls, voucher, user_pk=None):
         succeed = False
         amount = 0
         if cls.can_be_used(voucher):
-
-            Account = utils.get_model("accounts", "Account")
-            user = User.objects.get(pk=user_pk)
+            recipient = User.objects.get(pk=user_pk)
             voucher_queryset = Voucher.objects.filter(voucher_code=voucher)
-            voucher_queryset.update(is_used=True, used_by=user, used_at=timezone.now())
             v = voucher_queryset.get()
             amount = v.amount
-            Account.objects.filter(user=user).update(balance=F('balance') + amount)
+            data = {
+                'sender' : v.sold_by,
+                'recipient': recipient,
+                'amount': amount,
+                'recipient_amount' : amount,
+                'voucher' : v,
+                'activity' : PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_RECHARGE
+            }
+            update_balance(data)
+            
+            voucher_queryset.update(is_used=True, used_by=recipient, used_at=timezone.now())
 
-            logger.info("Voucher %s used by user %s", voucher, user.get_full_name())
+            logger.info(f"Voucher {voucher} used by user {user.get_full_name()} ")
             succeed = True
         else:
 
-            logger.info("Voucher %s could not be used. Verify that the voucher is activated", voucher)
+            logger.info(f"Voucher {voucher} could not be used. Verify that the voucher is activated")
             
         return succeed,amount
 
@@ -223,11 +262,10 @@ class VoucherService:
             'succeed': False,
             'errors': ''
         }
-        Account = utils.get_model("accounts", "Account")
         Recharge = utils.get_model("voucher", "Recharge")
-        recharge_account_exist = Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).exists()
-        customer_account_exist = Account.objects.filter(user=customer).exists()
-        seller_account_exist = Account.objects.filter(user=seller).exists()
+        recharge_account_exist = User.objects.filter(username=settings.PAY_RECHARGE_USER).exists()
+        customer_account_exist = customer is not None
+        seller_account_exist = seller is not None
         if not (recharge_account_exist and customer_account_exist and seller_account_exist):
             logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
             result['errors'] = "The service request cannot be processed"
@@ -241,8 +279,8 @@ class VoucherService:
             else :
                 Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, activated_by=seller, sold_by=seller,
                     activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
-            Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
-            Account.objects.filter(user=customer).update(balance=F('balance') + amount)
+            Balance.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
+            Balance.objects.filter(user=customer).update(balance=F('balance') + amount)
             Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
             logger.info("User Account %s has been recharge by the User %s with the amount of %s", customer.get_full_name(), seller.get_full_name(), amount)
             result['succeed'] = True
@@ -275,10 +313,17 @@ class VoucherService:
                 Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, activated_by=seller, sold_by=seller,
                     activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
 
-            Balance.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
-            Balance.objects.filter(user=customer).update(balance=F('balance') + amount)
-            Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
-            logger.info("User Balance %s has been recharged by the User %s with the amount of %s", customer.get_full_name(), seller.get_full_name(), amount)
+            data = {
+                'sender' : seller,
+                'recipient': customer,
+                'amount': amount,
+                'recipient_amount' : amount,
+                'voucher': v,
+                'activity' : PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_RECHARGE
+            }
+            update_balance(data)
+            #Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
+            logger.info(f"User Balance {customer.username} has been recharged by the User {seller.username} with the amount of {amount}")
             result['succeed'] = True
         else:
             logger.info(f"[processing_service_request] Error : Amount is negativ {amount}. The service request cannot be processed")
