@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label for="amount">{% trans "Amount" %}</label>
                     <input id="amount" type="text" name="amount">
-                    <span class="amount-error warning hidden">{% trans "You don't have sufficient balance to process this action" %}</span>
+                    <span class="amount-error warning {% if balance.balance > 0.0 %}hidden{% endif %}">{% trans "You don't have sufficient balance to process this action" %}</span>
                 </div>
                 <div class="form-group">
                     <label for="details">{% trans "Description" %}</label>

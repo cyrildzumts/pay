@@ -28,7 +28,7 @@
 
 
 .full{
-  min-width: 100%;
+  min-width: 100% !important;
 }
 
 .col {
@@ -83,7 +83,7 @@
 
 
 .hidden{
-  display: none;
+  display: none !important;
 }
 
 .row{

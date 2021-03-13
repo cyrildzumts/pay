@@ -10,18 +10,13 @@
                 
         </div>
         <div class="container">
-
-            <div class="col-xs-12 col-9">
-                <div class="banner--actions">
-                    <a class="mat-button mat-button-text" href="{{group.get_dashboard_update_url}}"><span class="pen"></span>{% trans "Edit" %}</a>
-                    <a class="mat-button mat-button-text" href="{{group.get_dashboard_remove_url}}"><span class="delete"></span>{% trans "Delete" %}</a>
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:policy-group-create'%}"><span class="add"></span>{% trans "New Policy Group" %}</a>
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups' %}"><span class="back"></span>{% trans "Policy Groups" %}</a>
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
+                <ul class="banner--actions actions">
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{{group.get_dashboard_update_url}}"><i class="fas fa-pen icon"></i>{% trans "Edit" %}</a></li>
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{{group.get_dashboard_remove_url}}"><i class="fas fa-trash icon"></i>{% trans "Delete" %}</a></li>
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:policy-group-create'%}"><i class="fas fa-plus icon"></i>{% trans "New Policy Group" %}</a></li>
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"><i class="fas fa-home icon"></i>{% trans "Dashboard" %}</a></li>
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:policy-groups' %}"><i class="fas fa-back icon"></i>{% trans "Policy Groups" %}</a></li>   
+                </ul><!--End of Banner-Actions-->
         
         </div><!--End of Container-->
         
@@ -32,11 +27,11 @@
 
 {% if can_view_policy %}
 <div class="container">
-        <div class="card">
-          <div class="card__title">
+        <div class="mat-box">
+          <div class="mat-box-title">
               <h3>{% trans "Policy Group" %}</h3>
           </div>
-          <div class="card__body">
+          <div class="mat-box-content">
             <p> {% trans "Policy Group Name" %} : {{group.name}}</p>
             <p> {% trans "Members" %} : {{group.members.count}} </p>
             <p> {% trans "Commission" %} : {{group.policy.commission}}</p>

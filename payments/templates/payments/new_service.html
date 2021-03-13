@@ -31,6 +31,7 @@
                 <div class="mat-input">
                     <label for="amount">{% trans "Amount" %}</label>
                     <input id="amount" type="text" name="price" placeholder="{% trans 'Enter the price of the service' %}" required>
+                    <span class="amount-error warning {% if balance.balance == 0.0 %}hidden{% endif %}">{% trans "You don't have sufficient balance to process this action" %}</span>
                 </div>
                 <div class="mat-input">
                     <label for="Issue-date">{% trans "Issue Date" %}</label>
