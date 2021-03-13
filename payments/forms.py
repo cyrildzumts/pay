@@ -42,13 +42,13 @@ class IDCardForm(forms.ModelForm):
 class ServiceCategoryCreationForm(forms.ModelForm):
     class Meta:
         model = ServiceCategory
-        fields = ['category_name', 'category_code', 'is_active']
+        fields = ['category_name', 'category_code', 'is_active', 'created_by']
 
 
 class AvailableServiceCreationForm(forms.ModelForm):
     class Meta:
         model = AvailableService
-        fields = ['service_code', 'name', 'operator', 'category', 'is_active', 'description']
+        fields = ['service_code', 'name', 'operator', 'category', 'is_active','created_by', 'description']
     
     def clean_operator(self):
         operator = self.cleaned_data.get('operator')
