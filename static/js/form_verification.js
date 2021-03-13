@@ -342,13 +342,13 @@ $(document).ready(function(){
     $("input", $available_service_form).on('keyup change',validate_available_service_form);
     $("input", $idcard_form).on('keyup change',validate_id_upload_form);
 
-    $transfer_form.on("submit", validate_transfert_form);
-    $payment_form.on("submit", validate_payment_form);
-    $recharge_form.on("submit", validate_recharge_form);
-    $service_form.on("submit", validate_service_form);
-    $available_service_form.on("submit", validate_available_service_form);
-    $policy_form.on("submit", validate_policy_form);
-    $category_form.on("submit", validate_category_form);
-    $idcard_form.on("submit", validate_id_upload_form);
+    //$transfer_form.on("submit", validate_transfert_form);
+    //$payment_form.on("submit", validate_payment_form);
+    //$recharge_form.on("submit", validate_recharge_form);
+    //$service_form.on("submit", validate_service_form);
+    //$available_service_form.on("submit", validate_available_service_form);
+    //$policy_form.on("submit", validate_policy_form);
+    //$category_form.on("submit", validate_category_form);
+    //$idcard_form.on("submit", validate_id_upload_form);
     $("#submit-btn").addClass("disabled").prop("disabled", true);
 });
