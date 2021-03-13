@@ -133,7 +133,7 @@ function validate_category_form(params) {
     if((category_name.val().length == 0)){
         is_valid = false;
         console.log("Category name is required");
-    }else if (!number_regex.test(category_name.val())) {
+    }else if (number_regex.test(category_name.val())) {
         is_valid = false;
         console.log("Category name must not be a number");
     }
