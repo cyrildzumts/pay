@@ -10,15 +10,11 @@
                 
         </div>
         <div class="container">
-
-            <div class="col col-9">
-                <div class="banner--actions">
-                    {% if can_add_group %}<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fas-plus"></i> <span>{% trans "Create A Group" %}</span> </a>{% endif %}
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
+                <ul class="banner--actions actions">
+                    {% if can_add_group %}
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fas-plus"></i> <span>{% trans "Create A Group" %}</span> </a></li>
+                    {% endif %}
+                </ul><!--End of Banner-Actions-->
         
         </div><!--End of Container-->
         

@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import Group, Permission
-from accounts.models import Account
 from payments.models import (
     Service, ServiceCategory, Policy, AvailableService, IDCard, Payment, Transaction,
     Transfer, Reduction, PolicyGroup, PolicyMembership
@@ -59,17 +58,6 @@ class IDCardForm(forms.ModelForm):
     class Meta:
         model = IDCard
         fields = ("user","card_number", "is_valid","delivery_at","expire_at","delivery_place",)
-
-
-
-
-class AccountForm(forms.ModelForm):
-    class Meta:
-        model = Account
-        fields = ("user","date_of_birth","telefon",
-                  "newsletter","is_active","account_type",
-                  "email_validated", )
-        
 
 
 class TokenForm(forms.Form):
