@@ -149,9 +149,12 @@ class PolicyGroup(models.Model):
     group_type = models.IntegerField(default=Constants.POLICY_GROUP_BASIC, choices=Constants.POLICY_GROUP)
     members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
     policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    #created_at = models.DateTimeField(auto_now_add=True)
+    #modified_at = models.DateTimeField(auto_now=True)
+    #modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
-    class Meta:
-        ordering = ["-created_at"]
+    #class Meta:
+    #   ordering = ["-created_at"]
 
     def __str__(self):
         return self.name
