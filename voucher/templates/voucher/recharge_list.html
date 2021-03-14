@@ -8,7 +8,6 @@
 {% block MAIN_CONTENT %}
 
 <div class="container">
-    {% include "tags/recharge_list_snippet.html" with transaction_list=recharge_list list_title="Recharge List" %}
-    
+    {% include "tags/recharge_list_snippet.html" with transaction_list=recharge_list list_title="Recharge List" OPEN_DASHBOARD_URL=False %}
 </div>
 {% endblock MAIN_CONTENT %}

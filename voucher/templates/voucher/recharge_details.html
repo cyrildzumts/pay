@@ -1,4 +1,4 @@
-{% extends "account_base.html"%}
+{% extends "voucher_base.html"%}
 {% load i18n %}
 
 {% block  HEADER_BANNER_TITLE %}
@@ -6,32 +6,5 @@
 {% endblock HEADER_BANNER_TITLE %}
 
 {% block MAIN_CONTENT %}
-
-<div class="container">
-            <div class="row title">
-                <h3> {% trans Recharge   %} </h3>
-            </div>
-            <div class="actions">
-                  <a class="mat-button mat-button-text" href="{% url 'voucher:recharges' %}"> {% trans "Back" %} </a>
-            </div>
-            <div class="mat-box">
-                <div class="entry">
-                    <span class="key">{% trans "Seller" %}</span><span class="value">{{recharge.seller.get_full_name}}</span>
-                </div>
-                <div class="entry">
-                    <span class="key">{% trans "Balance" %}</span><span class="value">{{recharge.amount}}  {% trans "XAF" %}</span>
-                </div>
-                <div class="entry">
-                    <span class="key">{% trans "Voucher Code" %}</span><span class="value">{{recharge.voucher.voucher_code}}</span>
-                </div>
-                <div class="entry">
-                    <span class="key">{% trans "Creation Date" %}</span><span class="value">{{recharge.created_at|date:"F j, Y"}}</span>
-                </div>
-                <div class="entry">
-                    <span class="key">{% trans "Voucher Detail" %}</span><span class="value"><a class="mat-button mat-button-text" href="{{recharge.voucher.get_absolute_url}}"> {% trans "Voucher" %}</a></span>
-                </div>
- 
-            </div>
-
-</div>
+{% include 'tags/recharge_snippet.html' %}
 {% endblock MAIN_CONTENT %}
