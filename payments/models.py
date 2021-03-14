@@ -57,10 +57,10 @@ class BalanceHistory(models.Model):
         return f"{self.created_at.isoformat(' ', 'seconds')}  -  {self.recipient.username}  -  {utils.find_element_by_key_in_tuples(self.activity, Constants.BALANCE_ACTIVITY_TYPES)}  -  -{self.amount} {_(settings.CURRENCY)}"
 
     def get_absolute_url(self):
-        return reverse("payments:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
+        return reverse("payments:activity-details", kwargs={"history_uuid": self.history_uuid})
     
     def get_dashboard_url(self):
-        return reverse("dashboard:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
+        return reverse("dashboard:activity-details", kwargs={"history_uuid": self.history_uuid})
 
 
     
