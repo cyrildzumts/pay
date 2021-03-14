@@ -74,6 +74,24 @@
                                 </div>
                         </div>
                         {% endif %}
+                        {% if user_instance.policygroup_set %}
+                                <div class="box">
+                                        <h3>{% trans "USER POLICY GROUPS" %}</h3>
+                                        <ul class="mat-list">
+                                                {% for g in user_instance.policygroup_set.all %} <li class="mat-list-item">{{g}}</li> {% endfor %}
+                                        </ul>
+                                </div>
+                        
+                        {% endif %}
+                        {% if user_instance.groups %}
+                                <div class="box">
+                                        <h3>{% trans "USER GROUPS" %}</h3>
+                                        <ul class="mat-list">
+                                                {% for g in user_instance.groups.all %} <li class="mat-list-item">{{g.name}}</li> {% endfor %}
+                                        </ul>
+                                </div>
+                        
+                        {% endif %}
                         <div class="box">
                                 {% if user_instance.balance %}
                                 <div class="entry">
