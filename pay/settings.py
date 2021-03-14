@@ -101,6 +101,11 @@ ACCOUNTS = {
     )
 }
 
+GROUP_SELLER = 'Seller'
+GROUP_OPERATOR = 'Operators'
+GROUP_BUSINESS = 'Business'
+GROUP_API_USERS = 'API-USERS'
+
 PAY_USER = os.getenv('PAY_USER')
 PAY_RECHARGE_USER = os.getenv('PAY_RECHARGE_USER')
 
@@ -169,7 +174,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'pay.context_processors.site_context',
                 'accounts.context_processors.account_context',
-                'payments.context_processors.payment_context'
+                'payments.context_processors.payment_context',
+                'voucher.context_processors.voucher_context'
             ],
         },
     },

@@ -194,6 +194,13 @@ def update_balance(data):
         
 
 
+def is_seller(user):
+    if isinstance(user, User):
+        return user.groups.filter(name=settings.GROUP_SELLER).exists()
+
+    return False
+
+
 class VoucherService:
     """
     voucher_activated : contains a list of activated voucher code
@@ -369,6 +376,7 @@ class VoucherService:
     @classmethod
     def get_activated_voucher(cls):
         return list(cls.voucher_activated)
+
 
     @classmethod
     def summary(cls):

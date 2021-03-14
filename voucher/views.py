@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.exceptions import SuspiciousOperation
 from django.contrib.auth.models import User
 from django.db.models import F, Q
 from django.contrib import auth, messages
@@ -27,6 +28,9 @@ def voucher_home(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     template_name = "voucher/voucher.html"
     page_title = _("Voucher Dashboard") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -40,10 +44,14 @@ def vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = voucher_service.VoucherService.get_voucher_set(created_by=request.user)
-
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
+    
+
+    voucher_list = voucher_service.VoucherService.get_voucher_set(created_by=request.user)
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
@@ -52,26 +60,33 @@ def vouchers(request):
         voucher_set = paginator.page(1)
     except EmptyPage:
         voucher_set = None
-    context['page_title'] = page_title
     context['voucher_list'] = voucher_set
+    context['page_title'] = page_title
+    
     return render(request, template_name, context)
 
 
 @login_required
 def voucher_details(request, voucher_uuid=None):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     page_title = _("Voucher Details") + ' | ' + settings.SITE_NAME
-    instance = get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/voucher_details.html"
-
     context = {
         'page_title': page_title,
-        'voucher': instance
+        'voucher' : get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
     }
+
     return render(request, template_name, context)
 
 
 @login_required
 def voucher_activate(request, voucher_uuid=None):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
+
     c = Voucher.objects.filter(voucher_uuid=voucher_uuid, activated=False, is_used=False).update(
         activated=True, activated_at=timezone.now(), activated_by=request.user, is_sold=True, sold_by=request.user, sold_at=timezone.now())
     if c > 0:
@@ -82,10 +97,14 @@ def voucher_activate(request, voucher_uuid=None):
         return redirect('voucher:voucher-detail', voucher_uuid=voucher_uuid)
 
 
+
 @login_required
 def recharge_user_account_view(request):
-    #TODO : Add permission check here if must be check if the user sending this request 
-    # is allowed to recharge a user account
+
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
+
     page_title = _("Recharge User Account") + ' - ' + settings.SITE_NAME
     template_name = "voucher/recharge.html"
     
@@ -150,6 +169,9 @@ def sell_voucher_view(request):
 
 @login_required
 def used_vouchers(request):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     context = {}
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
@@ -172,6 +194,9 @@ def used_vouchers(request):
 
 @login_required
 def used_voucher_details(request, voucher_uuid=None):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     page_title = _("Used Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(UsedVoucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/voucher_details.html"
@@ -189,6 +214,9 @@ def sold_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(activated=True), sold_by=request.user).order_by('-created_at')
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
@@ -207,6 +235,9 @@ def sold_vouchers(request):
 
 @login_required
 def sold_voucher_details(request, voucher_uuid=None):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/voucher_details.html"
@@ -220,6 +251,9 @@ def sold_voucher_details(request, voucher_uuid=None):
 
 @login_required
 def voucher_generate(request):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     page_title = _("Voucher Generator") + ' | ' + settings.SITE_NAME
     template_name = "voucher/voucher_generate.html"
     if request.method == "POST":
@@ -253,6 +287,9 @@ def voucher_generate(request):
 
 @login_required
 def recharges(request):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     context = {}
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
@@ -275,13 +312,16 @@ def recharges(request):
 
 @login_required
 def recharge_details(request, recharge_uuid=None):
+    is_seller = voucher_service.is_seller(request.user)
+    if is_seller:
+        raise SuspiciousOperation(_("You are allowed to access thi page"))
     page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Recharge, recharge_uuid=recharge_uuid)
     template_name = "voucher/recharge_details.html"
     context = {
         'page_title': page_title,
         'template_name': template_name,
-        'recharge': instance
+        'recharge': instance,
     }
     return render(request, template_name, context)
 
