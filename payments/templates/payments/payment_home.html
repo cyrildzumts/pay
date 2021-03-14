@@ -1,17 +1,12 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block HEADER_BANNER_TITLE %}
-        <h4>{% trans "Your Payment Home" %}</h4>
+        <h4>{% trans "Payment" %}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 
 {% block MAIN %}
 <div class="container">
-        <div class="col-m-12 col-4">
-        {% include "tags/transfer_list_snippet.html" with transaction_list=latest_transfers list_title="Latest Transfers" %}
-        </div>
-        <div class="col-m-12 col-4">
-        {% include "tags/payment_list_snippet.html" with transaction_list=latest_payments list_title="Latest Payments" %}
-        </div>   
+    {% include "tags/activity_list_snippet.html" with  list_title="Recents activities" OPEN_DASHBOARD_URL=False %}
 </div>
 
 {% endblock MAIN %}

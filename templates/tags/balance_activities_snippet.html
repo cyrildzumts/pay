@@ -9,22 +9,22 @@
           <caption>{% trans "Activities" %}</caption>
           <thead>
                   <tr>
-                          <th scope="col">{% trans "Sender" %}</th>
-                          <th scope="col">{% trans "Receiver" %}</th>
-                          <th scope="col">{% trans "Amount" %}</th>
-                          <th scope="col">{% trans "Activity Type" %}</th>
                           <th scope="col">{% trans "Date" %}</th>
+                          <th scope="col">{% trans "Name" %}</th>
+                          {% comment %}<th scope="col">{% trans "Receiver" %}</th>{% endcomment %}
+                          <th scope="col">{% trans "Activity Type" %}</th>
+                          <th scope="col">{% trans "Amount" %}</th>
                           {% comment %}<th scope="col">{% trans "Details" %}</th>{% endcomment %}
                   </tr>
           </thead>
           <tbody>
                   {% for activity in activity_list %}
                   <tr>
-                    <td scope="row" data-label="{% trans 'Sender' %}">{{activity.sender.get_full_name}}({{activity.sender.username}})</td>
-                    <td data-label="{% trans 'Receiver' %}">{{activity.recipient.get_full_name}}({{activity.receiver.username}})</td>
-                    <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount_without_fee|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
+                    <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j, Y"}}</td>
+                    <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}({{activity.sender.username}}){% else %}{{activity.recipient.get_full_name}}({{activity.recipient.username}}){% endif %}</td>
+                    {% comment %}<td data-label="{% trans 'Receiver' %}">{{activity.recipient.get_full_name}}({{activity.receiver.username}})</td>{% endcomment %}
                     <td data-label="{% trans 'Activity Type' %}">{{activity.activity|balance_activity}} </td>
-                    <td data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j, Y"}}</td>
+                    <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount_without_fee|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
                     {% comment %}<td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% if OPEN_IN_DASHBOARD %}activity.get_dashboard_url {% else %} activity.get_absolute_url {% endif %}"><i class="fas fa-info icon"></i><span>{% trans "Detail" %}</span></a></td>{% endcomment %}
                   </tr>
                   {% endfor %}

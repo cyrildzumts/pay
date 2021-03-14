@@ -85,12 +85,15 @@ class Recharge(models.Model):
     seller = models.ForeignKey(User, related_name='recharges', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     amount = models.IntegerField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    #paid_in = models.BooleanField(default=False)
-    #paid_in_at = models.DateTimeField(blank=True, null=True)
+    #collected = models.BooleanField(default=False)
+    #collected_at = models.DateTimeField(blank=True, null=True)
     recharge_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return f"{self.voucher.name} - [{self.voucher.voucher_code}] - {self.created_at.isoformat(' ', 'seconds')} - {self.amount} {_(settings.CURRENCY)}"
+    
+    def get_repr(self):
+        return f"{self.voucher.name} - [{self.voucher.voucher_code}] - {self.created_at.isoformat(' ', 'seconds')}"
 
     def get_absolute_url(self):
         return reverse("voucher:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})

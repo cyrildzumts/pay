@@ -98,11 +98,11 @@
 	width: 100%;
 }
 
-.row-left, .flex-left{
+.row-left, .flex-left, .justify-left{
   justify-content: flex-start !important;
 }
 
-.row-right, .flex-right{
+.row-right, .flex-right, .justify-right{
   justify-content: flex-end !important;
 }
 
@@ -124,7 +124,7 @@
 .flex-wrap{
   flex-wrap: wrap;
 }
-.flex-center{
+.flex-center, .justify-center{
   justify-content: center !important;
 }
 
