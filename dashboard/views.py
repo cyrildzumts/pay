@@ -1013,7 +1013,8 @@ def policy_group_update(request, group_uuid=None):
             'group' : instance,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_change_policy' : can_change_policy
+            'can_change_policy' : can_change_policy,
+            'GROUP_TYPE': PAYMENTS_CONSTANTS.POLICY_GROUP_TYPE
         }
     context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
