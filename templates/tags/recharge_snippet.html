@@ -3,7 +3,7 @@
 
 <div class="container">
         <div class="col-xs-12 col-4">
-            <div class="full">
+            <div class="box">
                 <div class="mat-box-title"><h3>{% trans "Recharge Info" %}</h3></div>
                     <div class="mat-box">
                         <div class="entry">
@@ -23,48 +23,38 @@
         </div>
 
          <div class="col-4 col-xs-12">
-            <div class="mat-box">
-
-                <div class="row full">
-                    <div class="col-3">
-                        <div class="row title">
-                            <h3> {% trans voucher.name  %} </h3>
-                        </div>
+            <div class="box">
+                <div class="mat-box-title"><h3>{% trans voucher.name  %}</h3></div>
+                <div class="mat-box">
+                    <div class="entry">
+                        <span class="key">{% trans "Credit" %}</span><span class="value">{{voucher.amount}} {% trans CURRENCY %}</span>
                     </div>
-                    <div class="col-xs-12 col-9">
-                        <div class="mat-box">
-                            <div class="entry">
-                                <span class="key">{% trans "Credit" %}</span><span class="value">{{voucher.amount}} {% trans CURRENCY %}</span>
-                            </div>
-                            <div class="entry">
-                                <span class="key">{% trans "Voucher Code" %}</span><span class="value">{{voucher.voucher_code}}</span>
-                            </div>
-                            <div class="entry">
-                                <span class="key">{% trans "Creation Date" %}</span><span class="value">{{voucher.created_at|date:"F j, Y"}}</span>
-                            </div>
-                            <div class="entry">
-                                <span class="key">{% trans "Activation Date" %}</span><span class="value">{{voucher.activated_at|date:"F j, Y"}}</span>
-                            </div>
-                            <div class="entry">
-                                <span class="key">{% trans "Activated by" %}</span><span class="value">{{voucher.activated_by.get_full_name}} - {{voucher.activated_by.username}}</span>
-                            </div>
-                            <div class="entry">
-                                <span class="key">{% trans "Sold Date" %}</span><span class="value">{{voucher.sold_at|date:"F j, Y"}}</span>
-                            </div>
-                            
-                            <div class="entry">
-                                <span class="key">{% trans "Sold by" %}</span><span class="value">{{voucher.sold_by.get_full_name}} - {{voucher.sold_by.username}}</span>
-                            </div>
-                            <div class="entry">
-                                <span class="key">{% trans "Used by" %}</span><span class="value">{{voucher.used_by.get_full_name}} - {{voucher.used_by.username}}</span>
-                            </div>
-                            <div class="entry">
-                                <span class="key">{% trans "Usage Date" %}</span><span class="value">{{voucher.used_at|date:"F j, Y"}}</span>
-                            </div>
-                        </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Voucher Code" %}</span><span class="value">{{voucher.voucher_code}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Creation Date" %}</span><span class="value">{{voucher.created_at|date:"F j, Y"}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Activation Date" %}</span><span class="value">{{voucher.activated_at|date:"F j, Y"}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Activated by" %}</span><span class="value">{{voucher.activated_by.get_full_name}} - {{voucher.activated_by.username}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Sold Date" %}</span><span class="value">{{voucher.sold_at|date:"F j, Y"}}</span>
+                    </div>
+                    
+                    <div class="entry">
+                        <span class="key">{% trans "Sold by" %}</span><span class="value">{{voucher.sold_by.get_full_name}} - {{voucher.sold_by.username}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Used by" %}</span><span class="value">{{voucher.used_by.get_full_name}} - {{voucher.used_by.username}}</span>
+                    </div>
+                    <div class="entry">
+                        <span class="key">{% trans "Usage Date" %}</span><span class="value">{{voucher.used_at|date:"F j, Y"}}</span>
                     </div>
                 </div>
-            
             </div>
         </div>
 </div>
