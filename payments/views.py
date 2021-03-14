@@ -49,8 +49,11 @@ logger = logging.getLogger(__name__)
 def payment_home(request):
     template_name = "payments/payment_home.html"
     page_title = _("Payment" + " - " + settings.SITE_NAME)    
+    balance = Balance.objects.get(user=request.user)
+    activity_list = BalanceHistory.objects.filter(balance=balance).order_by('-created_at')[:Constants.RECENT_LIMIT]
     context = {
         'page_title' : page_title,
+        'activity_list' : activity_list
     }
     return render(request=request, template_name=template_name, context=context)
 
@@ -60,9 +63,14 @@ def show_payments(request):
     template_name = "payments/payments.html"
     # checkout_url = checkout.get_checkout_url(request)
     #match = resolve('/payments/')
+    balance = Balance.objects.get(user=request.user)
+    activity_list = BalanceHistory.objects.filter(balance=balance).order_by('-created_at')[:Constants.RECENT_LIMIT]
+    context = {
+        'page_title' : page_title,
+        'activity_list' : activity_list
+    }
 
-
-    return render(request=request, template_name=template_name)
+    return render(request=request, template_name=template_name, context=context)
 # Create your views here.
 
 

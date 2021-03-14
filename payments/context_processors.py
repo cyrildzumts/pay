@@ -24,17 +24,11 @@ def payment_context(request):
         if hasattr(request.user,'balance'):
             balance = request.user.balance
 
-        latest_payments = Payment.get_user_payments(request.user)[:LATEST_LIMITS]
-        latest_transfers = Transfer.get_user_transfers(request.user)[:LATEST_LIMITS]
-        latest_services = Service.get_user_services(request.user)[:LATEST_LIMITS]
         
 
     context = {
         'idcard' : idcard,
         'balance' : balance,
         'has_idcard': has_idcard,
-        'latest_payments' : latest_payments,
-        'latest_transfers' : latest_transfers,
-        'latest_services' : latest_services
     }
     return context
