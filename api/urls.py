@@ -55,7 +55,7 @@ partners_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('', include(router.urls)),
+    #path('', include(router.urls)),
     path('', include(partners_urlpatterns)),
     path('analytics/', views.analytics_data, name='analytics'),
     path('api-token-auth/', drf_api_views.obtain_auth_token, name='api-token-auth'),
