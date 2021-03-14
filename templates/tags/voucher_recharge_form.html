@@ -1,9 +1,9 @@
 {% load i18n %} 
 
 <div class="mat-box">
-    <form id="recharge-form" class="form" name="voucher-recharge" action="{% url ACTION_URL %}" method="POST">{% csrf_token %}
+    <form id="staff-recharge-form" class="form" name="voucher-recharge" action="{% url ACTION_URL %}" method="POST">{% csrf_token %}
         
-        <input type="hidden" name="seller" value="{{request.user.pk}}">
+        <input id="seller" type="hidden" name="seller" value="{{request.user.pk}}">
         <input id="customer" type="hidden" name="customer">
         {% include "tags/search_user_snipet.html" with target="#customer" target_name="#user-search" fieldname="Customer Name" %}
         <div class="mat-input">
