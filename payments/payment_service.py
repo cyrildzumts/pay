@@ -715,7 +715,8 @@ def create_payment(data):
         payment = form.save(commit=False)
         payment.fee = pay_fee
         payment.save()
-    logger.info("Payment could not be processed")
+    else:
+        logger.warn("Payment could not be processed")
     return payment
 
 

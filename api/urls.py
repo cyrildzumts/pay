@@ -31,7 +31,7 @@ partners_urlpatterns = [
 
     #path('V1/transfers/<str:description>/',views.dummy),
     #path('V1/transfers/<uuid:transfer_uuid>/',views.dummy),
-    path('V1/transfer/make-transfer/',views.make_transfer),
+    path('V1/transfers/make-transfer/',views.make_transfer),
 
     #path('V1/refunds/',views.dummy),
     #path('V1/refunds/<uuid:refund_uuid>/',views.dummy),
