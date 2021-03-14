@@ -17,13 +17,13 @@ class PolicyGroupForm(forms.ModelForm):
 
     class Meta:
         model = PolicyGroup
-        fields = ('name', 'policy',)
+        fields = ('name', 'policy','group_type')
 
 class PolicyGroupUpdateForm(forms.ModelForm):
     
     class Meta:
         model = PolicyGroup
-        fields = ('name', 'policy', 'members',)
+        fields = ('name', 'policy', 'members','group_type')
 
 class PolicyGroupUpdateMembersForm(forms.ModelForm):
     

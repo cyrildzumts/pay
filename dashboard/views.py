@@ -13,7 +13,7 @@ from django.db.models import F, Q
 from rest_framework.authtoken.models import Token
 from pay import utils, settings, conf
 from dashboard import forms
-from payments import payment_service
+from payments import payment_service, constants as PAYMENTS_CONSTANTS
 from payments.models import PaymentRequest, Balance
 from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
@@ -975,7 +975,8 @@ def policy_group_create(request):
             'template_name':template_name,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_add_policy' : can_add_policy
+            'can_add_policy' : can_add_policy,
+            'GROUP_TYPE': PAYMENTS_CONSTANTS.POLICY_GROUP_TYPE
         }
     context.update(get_view_permissions(request.user))
     
