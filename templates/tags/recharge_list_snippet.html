@@ -1,27 +1,23 @@
 {% load i18n %}
 
-{% if transaction_list %}
+{% if recharge_list %}
     <div class="col-m-12 col-6">
         <div class="mat-list-wrapper">
             <div class="mat-list-header">
                 <span class="title">{% trans list_title %}</span>
             </div>
             <ul class="mat-list">
-                {% for transaction in transaction_list %}
+                {% for recharge in recharge_list %}
                 <li class="mat-list-item">
-                    <a class="mat-button mat-button-text" href="{% if OPEN_DASHBOARD_URL %}transaction.get_dashboard_url{% else %}transaction.get_absolute_url{% endif %}">
+                    <a class="mat-button mat-button-text" href="{% if OPEN_DASHBOARD_URL %}{{recharge.get_dashboard_url}}{% else %}{{recharge.get_absolute_url}}{% endif %}">
                         <div class="entry">
-                            {% if transaction.seller.pk == request.user.pk %}
-                            <span class="part">{{transaction.voucher.voucher_code}}</span> <i class="separator-ht"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator-ht"></i> <div class="money"><span class="amount outgoing">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                            {% else %}
-                            <span class="part">{{transaction.voucher.voucher_code}}</span> <i class="separator-ht"></i> <span class="part">{{transaction.created_at|date:"M j, Y"}}</span> <i class="separator-ht"></i> <div class="money"><span class="amount incoming">{{transaction.amount}}</span> <span class="currency">{% trans "XAF" %}</span></div>
-                            {% endif %}
+                            <span class="part">{{recharge.voucher.voucher_code}}</span><span class="part">{{recharge.created_at|date:"M j, Y"}}</span> <div class="money"><span class="amount">{{recharge.amount}}</span> <span class="currency">{% trans CURRENCY %}</span></div>
                         </div>
                     </a>
                 </li>
                 {% endfor %}
             </ul>
-            {% include "tags/pagination.html" with page_set=transaction_list %}
+            {% include "tags/pagination.html" with page_set=recharge_list %}
         </div>
     </div>
     {% endif %}
