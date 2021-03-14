@@ -51,6 +51,8 @@ class BalanceHistory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     history_uuid = models.UUIDField(default=uuid.uuid4, editable=False)    
 
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         if self.is_incoming:
@@ -148,6 +150,9 @@ class PolicyGroup(models.Model):
     members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
     policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return self.name
     
@@ -184,6 +189,9 @@ class ServiceCategory(models.Model):
     modified_by = models.ForeignKey(User, related_name="modified_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     category_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+
+
 
 
     def __str__(self):
@@ -297,6 +305,8 @@ class Service(models.Model):
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return "Service " + self.name
@@ -365,6 +375,9 @@ class Payment(models.Model):
     details = models.TextField(max_length=256)
     payment_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return f"Payment - {self.amount}"
     
@@ -410,6 +423,8 @@ class PaymentRequest(models.Model):
     failed_reason = models.TextField(max_length=256, blank=True, null=True)
     request_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return "Payment Request id : {0} - Amount : {1}".format(self.pk, self.amount)
@@ -453,6 +468,9 @@ class Transfer(models.Model):
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10, editable=False)
     transfer_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return "Transfer  - Amount : {}".format(self.amount)
 
@@ -478,6 +496,9 @@ class Refund(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_changed_at = models.DateTimeField(auto_now=True)
     refund_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"Refund {self.payment.sender.username} - {self.payment.recipient.username} : {self.amount} {settings.CURRENCY}"
