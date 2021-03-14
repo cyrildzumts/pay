@@ -85,8 +85,8 @@ class Recharge(models.Model):
     seller = models.ForeignKey(User, related_name='recharges', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     amount = models.IntegerField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    paid_in = models.BooleanField(default=False)
-    paid_in_at = models.DateTimeField(blank=True, null=True)
+    #paid_in = models.BooleanField(default=False)
+    #paid_in_at = models.DateTimeField(blank=True, null=True)
     recharge_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
