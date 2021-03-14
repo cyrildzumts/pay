@@ -16,7 +16,7 @@
     <div class="col-m-12 col-4">
         <div class="mat-box">
           <div class="entry"><span class="key">{% trans "Sender" %}</span> <span class="value">{{activity.sender.get_full_name}}({{activity.sender.username}})</span> </div>
-          <div class="entry"><span class="key">{% trans "Recipient" %}</span> <span class="value">{{activity.receiver.get_full_name}}({{activity.recipient.username}})</span> </div>
+          <div class="entry"><span class="key">{% trans "Recipient" %}</span> <span class="value">{{activity.receiver.get_full_name}}({{activity.receiver.username}})</span> </div>
           <div class="entry"> <span class="key">{% trans "Amount" %}</span><span class="value amount {% if activity.is_incoming %}incoming{% else %}outgoing{% endif %}">{{activity.current_amount_without_fee}} {% trans CURRENCY %}</span></div>
           {% comment %}<div class="entry"> <span class="key">{% trans "Amount With Fee" %}</span><span class="value amount {% if activity.is_incoming %}incoming{% else %}outgoing{% endif %}">{{activity.current_amount}} {% trans CURRENCY %}</span></div>{% endcomment %}
           <div class="entry"> <span class="key">{% trans "Balance" %}</span><span class="value amount">{{activity.balance_amount}} {% trans CURRENCY %}</span></div>
