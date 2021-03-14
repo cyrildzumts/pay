@@ -1,5 +1,5 @@
 
-from payments.models import IDCard, Transfer, Payment, Service, Balance
+from payments.models import IDCard, Transfer, Payment, Service, Balance, BalanceHistory
 
 RECENT_LIMIT = 8
 REQUEST_PATH = ['/accounts/', '/payments/']
