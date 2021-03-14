@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext as _
 from django.urls import reverse
+from pay import settings
 import uuid
 
 # Create your models here.
@@ -84,10 +85,12 @@ class Recharge(models.Model):
     seller = models.ForeignKey(User, related_name='recharges', unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     amount = models.IntegerField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    paid_in = models.BooleanField(default=False)
+    paid_in_at = models.DateTimeField(blank=True, null=True)
     recharge_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
-        return "Recharge " + self.voucher.name
+        return self.voucher.name + " - " + self.voucher.voucher_code + " - " +  self.created_at + " - " + self.amount + " " + str(_(settings.CURRENCY))
 
     def get_absolute_url(self):
         return reverse("voucher:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})
