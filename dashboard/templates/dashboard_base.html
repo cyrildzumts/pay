@@ -24,7 +24,10 @@
                               <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}">{% trans "Payments" %}</a></li>
                               <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:payment-requests'%}">{% trans "Payment Requests" %}</a></li>
                               {% endif %}
-                              {% if can_view_voucher %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:voucher-home'%}">{% trans "Vouchers" %}</a></li>{% endif %}
+                              {% if can_view_voucher %}
+                              <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:voucher-home'%}">{% trans "Vouchers" %}</a></li>
+                              <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:recharges'%}">{% trans "Recharges" %}</a></li>
+                              {% endif %}
                               {% if can_view_available_service %}<li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}">{% trans "Available Services" %}</a></li>{% endif %}
                               {% if can_view_policy %}
                                     <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:policies' %}">{% trans "Policies" %}</a></li>
