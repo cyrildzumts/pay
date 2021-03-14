@@ -378,6 +378,7 @@ def get_refunds(request, status):
 
 @api_view(['GET', 'POST'])
 def dummy(request):
+    logger.info("api dummy request")
     data = utils.get_postdata(request)
     logger.info(f"Dummy Submitted Data : {data}")
     return Response({'dummy': 'request dummy', 'test': 'test result', 'user': request.user.username, 'submitted_data': data})
