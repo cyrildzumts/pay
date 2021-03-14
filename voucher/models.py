@@ -92,6 +92,6 @@ class Recharge(models.Model):
     def get_absolute_url(self):
         return reverse("voucher:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})
     
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         return reverse("dashboard:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})
     
