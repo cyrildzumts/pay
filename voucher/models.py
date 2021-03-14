@@ -90,7 +90,7 @@ class Recharge(models.Model):
     recharge_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
-        return self.voucher.name + " - " + self.voucher.voucher_code + " - " +  self.created_at.isoformat(' ', 'seconds') + " - " + self.amount + " " + str(_(settings.CURRENCY))
+        return f"{self.voucher.name} - {self.voucher.voucher_code} - {self.created_at.isoformat(' ', 'seconds')} - {self.amount} {_(settings.CURRENCY)}"
 
     def get_absolute_url(self):
         return reverse("voucher:recharge-detail", kwargs={"recharge_uuid": self.recharge_uuid})
