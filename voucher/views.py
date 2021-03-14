@@ -315,14 +315,15 @@ def recharges(request):
 def recharge_details(request, recharge_uuid=None):
     is_seller = voucher_service.is_seller(request.user)
     if is_seller:
-        raise SuspiciousOperation(_("You are allowed to access thi page"))
-    page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
+        raise SuspiciousOperation(_("You are allowed to access this page"))
+    page_title = _("Recharge Info") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Recharge, recharge_uuid=recharge_uuid)
     template_name = "voucher/recharge_details.html"
     context = {
         'page_title': page_title,
         'template_name': template_name,
         'recharge': instance,
+        'voucher': instance.voucher
     }
     return render(request, template_name, context)
 
