@@ -805,7 +805,7 @@ def activities(request):
 def activity_details(request, history_uuid):
     context = {}
     activity = get_object_or_404(BalanceHistory, history_uuid=history_uuid)
-    template_name = "payments/activity_detail.html"
+    template_name = "payments/balance_activity.html"
     page_title = "Activity" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['activity'] = activity
