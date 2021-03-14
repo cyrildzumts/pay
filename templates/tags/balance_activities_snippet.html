@@ -14,7 +14,7 @@
                           {% comment %}<th scope="col">{% trans "Receiver" %}</th>{% endcomment %}
                           <th scope="col">{% trans "Activity Type" %}</th>
                           <th scope="col">{% trans "Amount" %}</th>
-                          {% comment %}<th scope="col">{% trans "Details" %}</th>{% endcomment %}
+                          <th scope="col">{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
@@ -25,7 +25,7 @@
                     {% comment %}<td data-label="{% trans 'Receiver' %}">{{activity.recipient.get_full_name}}({{activity.receiver.username}})</td>{% endcomment %}
                     <td data-label="{% trans 'Activity Type' %}">{{activity.activity|balance_activity}} </td>
                     <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount_without_fee|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
-                    {% comment %}<td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% if OPEN_IN_DASHBOARD %}activity.get_dashboard_url {% else %} activity.get_absolute_url {% endif %}"><i class="fas fa-info icon"></i><span>{% trans "Detail" %}</span></a></td>{% endcomment %}
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% if OPEN_IN_DASHBOARD %}{{activity.get_dashboard_url}} {% else %} {{activity.get_absolute_url}} {% endif %}"><i class="fas fa-info icon"></i><span></a></td>
                   </tr>
                   {% endfor %}
           </tbody>
