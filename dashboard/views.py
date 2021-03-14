@@ -11,7 +11,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Q
 from rest_framework.authtoken.models import Token
-from pay import utils, settings
+from pay import utils, settings, conf
 from dashboard import forms
 from payments import payment_service
 from payments.models import PaymentRequest, Balance
@@ -73,7 +73,7 @@ def tokens(request):
     template_name = "dashboard/token_list.html"
     page_title = _("Dashboard Users Tokens") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -212,7 +212,7 @@ def users(request):
     template_name = "dashboard/user_list.html"
     page_title = _("Dashboard Users") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -312,7 +312,7 @@ def services(request):
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -348,7 +348,7 @@ def available_services(request):
     template_name = "dashboard/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -539,7 +539,7 @@ def category_services(request):
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -736,7 +736,7 @@ def policies(request):
     template_name = "dashboard/policy_list.html"
     page_title = "Policies - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -928,7 +928,7 @@ def policy_groups(request):
     template_name = "dashboard/policy_group_list.html"
     page_title = "Policy Group - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1143,7 +1143,7 @@ def transfers(request):
     template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1202,7 +1202,7 @@ def payments(request):
     template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         payment_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1262,7 +1262,7 @@ def payment_requests(request):
     template_name = "dashboard/payment_request_list.html"
     page_title = "Payments Requests - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         request_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1321,7 +1321,7 @@ def cases(request):
     template_name = "dashboard/cases.html"
     page_title = "Cases - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1420,7 +1420,7 @@ def groups(request):
     template_name = "dashboard/group_list.html"
     page_title = "Groups" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(group_list, utils.PAGINATED_BY)
+    paginator = Paginator(group_list, conf.PAGINATED_BY)
     try:
         group_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1613,7 +1613,7 @@ def permissions(request):
     template_name = "dashboard/permission_list.html"
     page_title = "Permissions" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(permission_list, utils.PAGINATED_BY)
+    paginator = Paginator(permission_list, conf.PAGINATED_BY)
     try:
         permission_set = paginator.page(page)
     except PageNotAnInteger:
@@ -2044,7 +2044,7 @@ def recharges(request):
     # permission
     recharge_list = voucher_service.VoucherService.get_recharge_set()
     page = request.GET.get('page', 1)
-    paginator = Paginator(recharge_list, 10)
+    paginator = Paginator(recharge_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
     except PageNotAnInteger:
@@ -2066,7 +2066,8 @@ def recharge_details(request, recharge_uuid=None):
     context = {
         'page_title': page_title,
         'template_name': template_name,
-        'recharge': instance
+        'recharge': instance,
+        'voucher': instance.voucher
     }
     return render(request, template_name, context)
 

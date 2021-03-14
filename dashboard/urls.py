@@ -73,6 +73,6 @@ urlpatterns = [
     path('generate/', views.voucher_generate, name='voucher-generate'),
     path('recharge/', views.recharge_user_account_view, name='recharge'),
     path('recharges/', views.recharges, name='recharges'),
-    path('recharges/<uuid:recharge_uuid>/', views.recharge_details, name='recharge-detail')
+    path('recharges/recharge/<uuid:recharge_uuid>/', views.recharge_details, name='recharge-detail')
     
 ]

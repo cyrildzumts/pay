@@ -21,6 +21,12 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_VOUCHER_LIMIT = 100
 
+DEFAULT_VOUCHER_NAME ='PAY-STANDARD'
+DEFAULT_VENDOR_GENERATED_VOCUHER_NAME = "VENDOR CARD"
+DEFAULT_VOUCHER_AMOUNT = 2500
+DEFAULT_VOUCHER_NUMBER = 10
+DEFAULT_BATCH_SIZE = 10
+
 VOUCHER_DEFAULT_PART_COUNT = 4
 VOUCHER_DEFAULT_PART_LENGTH = 4
 
@@ -140,6 +146,36 @@ def voucher_validate(code, n_parts=VOUCHER_DEFAULT_PART_COUNT, part_len=VOUCHER_
     return is_valid
 
 
+
+def generate_vouchers(context):
+    user = None
+    if context and isinstance(context, dict) and 'user' in context:
+        name = context.get('name', DEFAULT_VOUCHER_NAME)
+        amount = context.get('amount', DEFAULT_VOUCHER_AMOUNT)
+        number = context.get('number', DEFAULT_VOUCHER_NUMBER)
+        user_pk = context.get('user', -1)
+        try:
+            user = User.objects.get(pk=user_pk)
+        except User.DoesNotExist:
+            logger.warn(f"No user found with id {user_pk} ")
+            return
+    
+    if user is None:
+        logger.warn(f"Generation of vouchers aborted requester user is missing")
+        return
+
+    logger.info(f"Starting generating {number}  {name} vouchers card with credit of {amount}")
+    voucher_codes = [ voucher_service.voucher_generate() for i in range(number)]
+    vouchers = (Voucher(name=name, amount=amount, voucher_code=code, created_by=user) for code in voucher_codes)
+    while True:
+        batch = list(islice(vouchers, DEFAULT_BATCH_SIZE))
+        if not batch:
+            break
+        Voucher.objects.bulk_create(batch, DEFAULT_BATCH_SIZE, ignore_conflicts=True)
+    
+    logger.info(f"[OK] Generation of {number}  {name} vouchers card with credit of {amount} done")
+
+
 def update_balance(data):
     recipient = data['recipient']
     sender = data['sender']
@@ -240,43 +276,8 @@ class VoucherService:
         return SoldVoucher.objects.filter(is_sold=True).filter(**filters).order_by('-created_at')[start:end]
 
     @staticmethod
-    def get_recharge_set(start=None, end=None, **filters):       
-        return Recharge.objects.filter(**filters).order_by('-created_at')[start:end]
-
-    @classmethod
-    def process_recharge_user_account(cls, seller=None, customer=None, amount=-1):
-        now = datetime.now()
-        result = {
-            'succeed': False,
-            'errors': ''
-        }
-        Recharge = utils.get_model("voucher", "Recharge")
-        recharge_account_exist = User.objects.filter(username=settings.PAY_RECHARGE_USER).exists()
-        customer_account_exist = customer is not None
-        seller_account_exist = seller is not None
-        if not (recharge_account_exist and customer_account_exist and seller_account_exist):
-            logger.info("[processing_service_request] Error : Recharge, customer ans Seller Account not found. The service request cannot be processed")
-            result['errors'] = "The service request cannot be processed"
-            return result
-        if  amount > 0 :
-            v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
-            if v is None :
-                v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = cls.get_voucher(seller), 
-                    activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer, sold_by=seller,
-                    activated_at=timezone.now(), activated_by=seller, used_at=timezone.now(), sold_at=timezone.now())
-            else :
-                Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, activated_by=seller, sold_by=seller,
-                    activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
-            Balance.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
-            Balance.objects.filter(user=customer).update(balance=F('balance') + amount)
-            Recharge.objects.create(voucher=v, customer=customer, seller=seller, amount=amount)
-            logger.info("User Account %s has been recharge by the User %s with the amount of %s", customer.get_full_name(), seller.get_full_name(), amount)
-            result['succeed'] = True
-        else:
-            logger.info("[processing_service_request] Error : Amount is negativ (%s). The service request cannot be processed", amount)
-            result['errors'] = "Amount is negativ {}. The service request cannot be processed".format(amount)
-            return result
-        return result
+    def get_recharge_set(**kwargs):       
+        return Recharge.objects.filter(**kwargs).order_by('-created_at')
 
 
     @classmethod
@@ -292,11 +293,11 @@ class VoucherService:
         Recharge = utils.get_model("voucher", "Recharge")
 
         if  amount > 0 :
-            v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount).first()
+            v = Voucher.objects.filter(activated=False,is_sold=False, is_used=False, amount=amount, created_by=seller).first()
             if v is None :
-                v = Voucher.objects.create(name="STAFF GENERATED CARD", voucher_code = cls.get_voucher(seller), 
+                v = Voucher.objects.create(name=DEFAULT_VENDOR_GENERATED_VOCUHER_NAME + "-" + seller.username.upper(), voucher_code = cls.get_voucher(seller), 
                     activated=True,is_sold=True, is_used=True, amount=amount, used_by=customer, sold_by=seller,
-                    activated_at=timezone.now(), activated_by=seller, used_at=timezone.now(), sold_at=timezone.now())
+                    activated_at=timezone.now(), created_by=seller, activated_by=seller, used_at=timezone.now(), sold_at=timezone.now())
             else :
                 Voucher.objects.filter(pk=v.pk).update(activated=True, is_sold=True, is_used=True, used_by=customer, activated_by=seller, sold_by=seller,
                     activated_at=timezone.now(), used_at=timezone.now(), sold_at=timezone.now())
@@ -325,14 +326,14 @@ class VoucherService:
         succeed = False
         #TODO Add permission checking.User must have the permission to activate a voucher
         if cls.is_valide(voucher):
-            queryset = Voucher.objects.filter(voucher_code=voucher, activated=False, is_used=False)
-        if queryset.exists():
-            queryset.update(activated=True, activated_by=seller, activated_at=timezone.now(), is_sold=True, sold_by=seller, sold_at=timezone.now())
-            succeed = True
-            logger.info("Voucher %s is successfuly activated ",voucher)
+            queryset = Voucher.objects.filter(voucher_code=voucher, activated=False, is_used=False, created_by=seller)
+            if queryset.exists():
+                queryset.update(activated=True, activated_by=seller, activated_at=timezone.now(), is_sold=True, sold_by=seller, sold_at=timezone.now())
+                succeed = True
+                logger.info("Voucher %s is successfuly activated ",voucher)
 
-        else :
-            logger.warning("Voucher %s is whether activated or it doesn't exists.",voucher)
+            else :
+                logger.warning("Voucher %s is whether activated or it doesn't exists.",voucher)
 
         return succeed
 
@@ -351,8 +352,9 @@ class VoucherService:
         if cls.generated_voucher <= cls.used_voucher:
             logger.info("There are no voucher left. New voucher are now generated")
             cls.generate_new_code(number_of_code=DEFAULT_VOUCHER_LIMIT)
+            
         voucher = cls.voucher_generated.pop()
-        cls.activate_voucher(voucher, user)
+        #cls.activate_voucher(voucher, user)
         return voucher
 
 

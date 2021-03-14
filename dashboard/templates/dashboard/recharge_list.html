@@ -1,18 +1,14 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Recharges" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 
-
-<div class="row">
-  <div class="nav">
-    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    <a class="mat-button mat-button-default" href="{% url 'dashboard:vouchers' %}"> {% trans "Vouchers" %} </a>
-  </div>
-</div>
+{% block MAIN_CONTENT %}
 
 <div class="container">
     {% include "tags/recharge_list_snippet.html" with transaction_list=recharge_list list_title="Recharge List" %}
     
 </div>
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}
