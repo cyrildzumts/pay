@@ -34,6 +34,7 @@ def voucher_home(request):
     template_name = "voucher/voucher.html"
     page_title = _("Voucher Dashboard") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
+    context['recharge_list'] = voucher_service.VoucherService.get_recharge_set(seller=request.user)[:conf.RECENT_LIMIT]
     messages.info(request, _("Welcome back to voucher page"))
     return render(request, template_name, context)
 

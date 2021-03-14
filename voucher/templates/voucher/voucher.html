@@ -8,8 +8,10 @@
 {% block MAIN_CONTENT %}
 
 <div class="container">
-    <div class="row"></div>
 
+</div>
+<div class="container">
+    {% include "tags/recharge_list_snippet.html" with list_title="Recents activities" OPEN_DASHBOARD_URL=False %}
 </div>
 
 {% endblock MAIN_CONTENT %}
