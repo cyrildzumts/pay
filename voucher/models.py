@@ -29,6 +29,7 @@ class Voucher(models.Model):
     class Meta:
         verbose_name = _("Voucher")
         verbose_name_plural = _("Vouchers")
+        ordering = ['-created_at', -'sold_at', '-used_at']
 
 
     def __str__(self):
@@ -51,6 +52,7 @@ class SoldVoucher(models.Model):
     class Meta:
         verbose_name = _("SoldVoucher")
         verbose_name_plural = _("SoldVouchers")
+        ordering = ['-sold_at']
         
 
     def __str__(self):
@@ -70,6 +72,7 @@ class UsedVoucher(models.Model):
     class Meta:
         verbose_name = _("UsedVoucher")
         verbose_name_plural = _("UsedVouchers")
+        ordering = ['-used_at']
         
 
     def __str__(self):
@@ -88,6 +91,9 @@ class Recharge(models.Model):
     #collected = models.BooleanField(default=False)
     #collected_at = models.DateTimeField(blank=True, null=True)
     recharge_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
         return f"{self.voucher.name} - [{self.voucher.voucher_code}] - {self.created_at.isoformat(' ', 'seconds')} - {self.amount} {_(settings.CURRENCY)}"
