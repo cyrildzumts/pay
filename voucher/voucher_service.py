@@ -271,20 +271,20 @@ class VoucherService:
 
     @staticmethod
     def get_voucher_set(**kwargs):       
-        return Voucher.objects.filter(**kwargs).order_by('-created_at')
+        return Voucher.objects.filter(**kwargs)
 
     @staticmethod
     def get_used_voucher_set(start=None, end=None, **filters):       
-        return Voucher.objects.filter(is_used=True).filter(**filters).order_by('-created_at')[start:end]
+        return Voucher.objects.filter(is_used=True).filter(**filters)[start:end]
 
 
     @staticmethod
     def get_sold_voucher_set(start=None, end=None, **filters):       
-        return SoldVoucher.objects.filter(is_sold=True).filter(**filters).order_by('-created_at')[start:end]
+        return SoldVoucher.objects.filter(is_sold=True).filter(**filters)[start:end]
 
     @staticmethod
     def get_recharge_set(**kwargs):       
-        return Recharge.objects.filter(**kwargs).order_by('-created_at')
+        return Recharge.objects.filter(**kwargs)
 
 
     @classmethod
