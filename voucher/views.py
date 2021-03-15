@@ -177,7 +177,7 @@ def used_vouchers(request):
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
     # permission
-    voucher_list = Voucher.objects.filter(is_used=True, sold_by=request.user).order_by('-created_at')
+    voucher_list = Voucher.objects.filter(is_used=True, sold_by=request.user)
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
@@ -218,7 +218,7 @@ def sold_vouchers(request):
     is_seller = voucher_service.is_seller(request.user)
     if is_seller:
         raise SuspiciousOperation(_("You are allowed to access thi page"))
-    voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(activated=True), sold_by=request.user).order_by('-created_at')
+    voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(activated=True), sold_by=request.user)
     page = request.GET.get('page', 1)
     paginator = Paginator(voucher_list, 10)
     try:
