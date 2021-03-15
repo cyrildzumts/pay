@@ -51,12 +51,16 @@
   </div>
     <ul class="mat-list site-panel">
       <li class="mat-list-item"><a class="mat-button mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
-      {% if is_dashboard_allowed %}
-       <li class="mat-list-item"><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-      {% endif %}
-      <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a></li>
-      <li class="mat-list-item"><a class="mat-button mat-button-text" href="#enterprise">{% trans 'For Businesses'%}</a></li>
+      
+        {% comment %} <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a></li>{% endcomment %}
+        {% comment %}<li class="mat-list-item"><a class="mat-button mat-button-text" href="#enterprise">{% trans 'For Businesses'%}</a></li>{% endcomment %}
       {% if request.user.is_authenticated %}
+        {% if is_dashboard_allowed %}
+        <li class="mat-list-item"><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
+        {% endif %}
+        {% if is_seller %}
+        <li class="mat-list-item"><a class="mat-button mat-button-text" href="{%url 'voucher:voucher-home'%}">{% trans "Marchand" %}</a></li>
+        {% endif %}
       <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'accounts:account' %}">{% trans 'My Account' %}</a></li>
       <li class="mat-list-item"><a class="signout-btn mat-button mat-button-text signout" href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a></li>
       {% else %}
