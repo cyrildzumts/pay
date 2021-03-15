@@ -101,7 +101,7 @@ ACCOUNTS = {
     )
 }
 
-GROUP_SELLER = 'Seller'
+GROUP_SELLER = 'Sellers'
 GROUP_OPERATOR = 'Operators'
 GROUP_BUSINESS = 'Business'
 GROUP_API_USERS = 'API-USERS'
