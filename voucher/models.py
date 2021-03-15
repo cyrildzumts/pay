@@ -29,7 +29,7 @@ class Voucher(models.Model):
     class Meta:
         verbose_name = _("Voucher")
         verbose_name_plural = _("Vouchers")
-        ordering = ['-created_at', -'sold_at', '-used_at']
+        ordering = ['-created_at', '-sold_at', '-used_at']
 
 
     def __str__(self):
