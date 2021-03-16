@@ -22,8 +22,7 @@ def generate_reports(template_name, output_name):
         'SITE_HOST': settings.SITE_HOST,
         'orientation' : 'portrait',
         'model_page_number' : 1,
-        'page_orientation': 'portrait',
-        'page_size': page_size,
+        'page_size': 'letter portrait',
         'border': '',
         'entry_list' : entry_list,
         'total' : total

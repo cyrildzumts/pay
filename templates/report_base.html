@@ -4,7 +4,7 @@
     <title>{{report_title}}</title>
     <style type="text/css">
         @page {
-            size: letter portrait;
+            size: {{page_size}};
             {% if orientation == 'landscape' %}{% include "reports/css/landscape.css" %}{% else %}{% include "reports/css/portrait.css" %}{% endif %}
         }
     </style>
