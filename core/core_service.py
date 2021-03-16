@@ -61,7 +61,7 @@ def generate_recharge_reports(template_name, output_name, seller=None):
     if pdf_status.err:
         logger.error("error when creating the report pdf")
     else:
-        logger.info("report pdf created")
+        logger.info("recharge report pdf created")
 
 
 
@@ -78,7 +78,7 @@ def generate_sold_voucher_reports(template_name, output_name, seller=None):
             user_seller = User.objects.get(username=seller)
             entry_list = Voucher.objects.filter(seller=user_seller,is_sold=True, sold_by=seller ,created_at__year=now.year, created_at__month=now.month)
         except User.DoesNotExist:
-            logger.warn("report generator : no seller {seller} found")
+            logger.warn("report generator generate_sold_voucher_reports : no seller {seller} found")
             return
         #total = Recharge.objects.filter(created_at__year=now.year, created_at__month=now.month).aggregate(total=Sum('amount')).get('total') or 0
     elif isinstance(seller, User):
@@ -113,3 +113,4 @@ def generate_sold_voucher_reports(template_name, output_name, seller=None):
     if pdf_status.err:
         logger.error("error when creating the report pdf")
     else:
+        logger.info("sold voucher report pdf created")
