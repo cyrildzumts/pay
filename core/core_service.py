@@ -23,7 +23,7 @@ def generate_reports(template_name, output_name, seller=None):
     if isinstance(seller, str):
         try:
             user_seller = User.objects.get(username=seller)
-            entry_list = Recharge.objects.filter(seller=seller,created_at__year=now.year, created_at__month=now.month)
+            entry_list = Recharge.objects.filter(seller=user_seller,created_at__year=now.year, created_at__month=now.month)
         except User.DoesNotExist:
             logger.warn("report generator : no seller {seller} found")
             return
