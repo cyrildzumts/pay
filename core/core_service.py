@@ -99,7 +99,7 @@ def generate_sold_voucher_reports(template_name, output_name, seller=None):
         'FRAME_NUMBER' : 2,
         'page_size': 'letter portrait',
         'border': '',
-        'entry_list' : entry_list,
+        'entry_list' : entry_list.order_by('-sold_at'),
         'TOTAL' : total,
         'COUNT': entry_list.count(),
         'CURRENCY': settings.CURRENCY,
