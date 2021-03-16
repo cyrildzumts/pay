@@ -12,17 +12,23 @@
     padding-bottom : 16px;
     padding-left : 16px;
     text-align: left;
-    /*border : 1px solid #a0a0a0;*/
+    border : 1px solid #a0a0a0;
 }
 
 #report-table tr{
     text-align: left;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 
 
 #report-table thead{
     background-color: #ccc;
+}
+#report-table thead tr{
+    border : 1px solid #a0a0a0;
 }
 
 
@@ -38,6 +44,9 @@
 #report-table tbody tr{
     text-align: left;
     border-bottom: 1px solid #ccc;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 #report-table tfoot{
