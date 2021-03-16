@@ -2,6 +2,7 @@ from django.db.models import F, Q, Count, Sum
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.template.loader import get_template, render_to_string
+from django.utils.translation import gettext_lazy as _
 from django.contrib.staticfiles import finders
 from voucher.models import Recharge, Voucher
 from pay import settings
