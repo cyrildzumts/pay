@@ -5,24 +5,24 @@
 {% block REPORT_CONTENT %}
 <div id="main-content">
     <table id="report-table">
-        <caption>{% trans "Recharges Listing" %}</i></caption>
+        <caption>{% trans "Voucher Card Listing" %}</i></caption>
         <thead>
             <tr>
                  <th class="pos">{% trans "Pos." %}</th>
                 <th>{% trans "Card Name" %}</th>
                 <th>{% trans "Code" %}</th>
-                <th>{% trans "Date" %}</th>
-                <th>{% trans "Price" %}</th>
+                <th>{% trans "Sold Date" %}</th>
+                <th>{% trans "Credit" %}</th>
             </tr>
         </thead>
         <tbody>
-            {% for recharge in entry_list %}
+            {% for voucher in entry_list %}
             <tr>
                 <td class="bold">{{forloop.revcounter}}</td>
-                <td>{{recharge.voucher.name}}</td>
-                <td>{{recharge.voucher.voucher_code}}</td>
-                <td>{{recharge.created_at}}</td>
-                <td class="bold">{{recharge.amount}} {% trans CURRENCY %}</td>
+                <td>{{voucher.name}}</td>
+                <td>{{voucher.voucher_code}}</td>
+                <td>{{voucher.sold_at}}</td>
+                <td class="bold">{{voucher.amount}} {% trans CURRENCY %}</td>
             </tr>
             {% endfor %}
         </tbody>
