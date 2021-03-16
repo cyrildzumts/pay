@@ -9,7 +9,7 @@
 {% elif FRAME_NUMBER == '2'%}
 
 	@frame header_frame {           /* Static frame */
-	    -pdf-frame-content: header_content;
+	    -pdf-frame-content: header-content;
 	    left: 1cm; width: 19cm; top: 0.5cm; height: 2cm;
 	    {% if border %}	    -pdf-frame-border: 1;  {% endif %}   /* for debugging the layout */ 
 	}
@@ -18,7 +18,7 @@
 	    {% if border %}	    -pdf-frame-border: 1;  {% endif %}   /* for debugging the layout */
 	}
 	@frame footer_frame {           /* Static frame */
-	    -pdf-frame-content: footer_content;
+	    -pdf-frame-content: footer-content;
 	    left: 1cm; width: 19cm; top: 25.7cm; height: 2cm;
 	    {% if border %}	    -pdf-frame-border: 1;  {% endif %}   /* for debugging the layout */
 	}
@@ -26,7 +26,7 @@
 {% elif FRAME_NUMBER == '3' %}
 	/* A4   29.7 x 21.0  cm */
     @frame header_frame {           /* Static frame */
-        -pdf-frame-content: header_content;
+        -pdf-frame-content: header-content;
         left: 1cm; width: 19cm; top: 1cm; height: 1cm;
         {% if border %}	    -pdf-frame-border: 1;  {% endif %}   /* for debugging the layout */
     }
@@ -39,7 +39,7 @@
         {% if border %}	    -pdf-frame-border: 1;  {% endif %}   /* for debugging the layout */
     }
     @frame footer_frame {           /* Static frame */
-        -pdf-frame-content: footer_content;
+        -pdf-frame-content: footer-content;
 	    left: 1cm; width: 19cm; top: 25.7cm; height: 2cm;
         {% if border %}	    -pdf-frame-border: 1;  {% endif %}   /* for debugging the layout */
     }
