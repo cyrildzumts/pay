@@ -12,17 +12,17 @@
                 <th>{% trans "Card Name" %}</th>
                 <th>{% trans "Code" %}</th>
                 <th>{% trans "Date" %}</th>
-                <th>{% trans "Price" %}({% trans CURRENCY %})</th>
+                <th>{% trans "Price" %}</th>
             </tr>
         </thead>
         <tbody>
             {% for recharge in entry_list %}
             <tr>
-                <td>{{forloop.revcounter}}</td>
+                <td class="bold">{{forloop.revcounter}}</td>
                 <td>{{recharge.voucher.name}}</td>
                 <td>{{recharge.voucher.voucher_code}}</td>
                 <td>{{recharge.created_at}}</td>
-                <td>{{recharge.amount}}</td>
+                <td class="bold">{{recharge.amount}} {% trans CURRENCY %}</td>
             </tr>
             {% endfor %}
         </tbody>
