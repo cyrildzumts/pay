@@ -26,7 +26,7 @@ def generate_reports(template_name, output_name):
         'data': data,
         'page_orientation': page_orientation,
         'page_size': page_size,
-        'border': ''
+        'border': '',
         'entry_list' : entry_list,
         'total' : total
     }
