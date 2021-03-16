@@ -12,7 +12,7 @@ from xhtml2pdf import pisa
 
 logger = logging.getLogger(__name__)
 
-def generate_reports(template_name, output_name):
+def generate_reports(seller, template_name, output_name):
     template_name = template_name or "report_content.html"
     now = datetime.datetime.now()
     start_date = now - datetime.timedelta(days=now.day-1, hours=now.hour, minutes=now.minute, seconds=now.second)
