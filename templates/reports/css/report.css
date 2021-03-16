@@ -62,3 +62,8 @@
 #footer_content{
     text-align: center;
 }
+
+#report-summary{
+    text-align: right;
+    margin-top: 6px;
+}

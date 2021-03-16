@@ -26,16 +26,14 @@
             </tr>
             {% endfor %}
         </tbody>
-        <tfoot>
-            <tr></tr>
-            <tr>
-                <td><h3>{% trans "Summary" %}</h3> </td>
-            </tr>
-            <tr><td>{% trans "Total" %} : {{TOTAL}} {% trans CURRENCY %}</td></tr>
-            <tr><td>{% trans "Numbers of card sold" %} : {{RECHARGE_COUNT}}</td></tr>
-        </tfoot>
-
     </table>
+    <div id="report-summary">
+        <h3>{% trans "Summary" %}</h3>
+
+        <p>{% trans "Total" %} : <span class="bold">{{TOTAL}} {% trans CURRENCY %}</span></p>
+        <p>{% trans "Numbers of card sold" %} : <span class="bold">{{RECHARGE_COUNT}}</span></p>
+    </div>
+
 </div>
 
 {% endblock REPORT_CONTENT %}
