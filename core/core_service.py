@@ -40,7 +40,8 @@ def generate_reports(template_name, output_name, seller=None):
     context = {
         'SITE_NAME' : settings.SITE_NAME,
         'SITE_HOST': settings.SITE_HOST,
-        'CONTACT_MAIL': settings.DEFAULT_FROM_EMAIL,
+        'CONTACT_MAIL': settings.CONTACT_MAIL,
+        'DATE': now,
         'orientation' : 'portrait',
         'FRAME_NUMBER' : 2,
         'page_size': 'letter portrait',

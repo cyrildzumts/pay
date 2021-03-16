@@ -4,6 +4,11 @@
     font-size: 10px;
 }
 
+.date{
+    position: absolute;
+    top: 50px;
+    right: 250px;
+}
 
 #report-table{
 
