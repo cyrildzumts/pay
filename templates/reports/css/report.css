@@ -1,0 +1,48 @@
+/** Common Report CSS **/
+
+*{
+    font-size: 12px;
+}
+
+
+#report-table{
+
+    padding-top : 16px;
+    padding-right : 16px;
+    padding-bottom : 16px;
+    padding-left : 16px;
+    text-align: left;
+}
+
+#report-table tr{
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+#report-table thead{
+    background-color: #ccc;
+}
+
+
+#report-table td, #report-table th{
+    text-align: left;
+    /*border-bottom: 1px solid #ccc;*/
+}
+
+#report-table tbody{
+    font-size: 10px;
+    margin-top: 16px;
+}
+
+#report-table tfoot{
+    font-size: 11px;
+    margin-top: 16px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+#footer_content{
+    text-align: center;
+}
