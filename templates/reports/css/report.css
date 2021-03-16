@@ -7,10 +7,10 @@
 
 #report-table{
 
-    padding-top : 8px;
-    padding-right : 16px;
-    padding-bottom : 16px;
-    padding-left : 16px;
+    padding-top : 4px;
+    padding-right : 4px;
+    padding-bottom : 4px;
+    padding-left : 4px;
     text-align: left;
     border : 1px solid #a0a0a0;
 }
@@ -52,7 +52,7 @@
 
 #report-table tfoot{
     font-size: 11px;
-    margin-top: 16px;
+    margin-top: 6px;
 }
 
 .bold{
