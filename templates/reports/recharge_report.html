@@ -1,0 +1,16 @@
+{% extends 'report_base.html' %}
+{% load i18n %}
+
+
+{% block REPORT_CONTENT %}
+
+{% for entry in entry_list %}
+<p>{{entry}}</p>
+{% endfor %}
+
+<div>
+<h3>{% trans "Summary" %}</h3>
+<p>{% trans "Total" %} : {{total}} {% trans CURRENCY %}</p>
+</div>
+
+{% endblock REPORT_CONTENT %}
