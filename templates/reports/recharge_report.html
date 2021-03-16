@@ -3,14 +3,35 @@
 
 
 {% block REPORT_CONTENT %}
-
-{% for entry in entry_list %}
-<p>{{entry}}</p>
-{% endfor %}
-
 <div>
-<h3>{% trans "Summary" %}</h3>
-<p>{% trans "Total" %} : {{total}} {% trans CURRENCY %}</p>
+    <table>
+        <caption>{% trans "Recharges Listing for date interval" %} : <i>{{start_date}} - {{end_date}}</i></caption>
+        <thead>
+            <tr>
+                <th>{% trans "Card Name" %}</th>
+                <th>{% trans "Code" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Price" %}({% trans CURRENCY %})</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recharge in entry_list %}
+            <tr>
+                <td>{{recharge.voucher.name}}</td>
+                <td>{{recharge.voucher.voucher_code}}</td>
+                <td>{{recharge.created_at}}</td>
+                <td>{{recharge.amount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><h3>{% trans "Summary" %}</h3> </td>
+            </tr>
+            <tr><td>{% trans "Total" %} : {{total}} {% trans CURRENCY %}</td></tr>
+        </tfoot>
+
+    </table>
 </div>
 
 {% endblock REPORT_CONTENT %}
