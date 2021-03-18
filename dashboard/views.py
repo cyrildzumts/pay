@@ -185,10 +185,10 @@ def user_delete(request, pk=None):
         logger.warning("PermissionDenied to user %s for path %s", username, request.path)
         raise PermissionDenied
 
-    if request.method != "POST":
-        raise SuspiciousOperation('Bad request. Expected POST request but received a GET')
+    #if request.method != "POST":
+    #    raise SuspiciousOperation('Bad request. Expected POST request but received a GET')
     
-    postdata = utils.get_postdata(request)
+    #postdata = utils.get_postdata(request)
 
     User.objects.filter(id=pk).delete()
     messages.success(request, f"Users \"{pk}\" deleted")
