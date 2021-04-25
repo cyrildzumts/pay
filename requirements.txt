@@ -2,7 +2,7 @@ Django
 djangorestframework
 coreapi==2.3.3
 Markdown==3.1.1
-Pygments==2.4.2
+Pygments==2.7.4
 django-accounts==0.2
 reportlab==3.5.32
 celery
