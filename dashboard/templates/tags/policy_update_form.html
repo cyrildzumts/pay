@@ -10,10 +10,10 @@
         <div class="card__title">
             <h1>{% trans "Edit Policy" %}</h1>
         </div>
-        <div class="card__body">
+        <div class="mat-box">
         
         
-                <form class="form card" name="policy" action="{{policy.get_dashboard_update_url}}" method="POST">{% csrf_token %}
+                <form id="policy-form" class="form card" name="policy" action="{{policy.get_dashboard_update_url}}" method="POST">{% csrf_token %}
                     <div class="card__body">
                     {% if form.errors %}
                         <ul class="errorlist">

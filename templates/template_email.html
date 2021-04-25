@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <meta name="theme-color" content="#0A0A0A">
+    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+
+    <!-- CSS Reset : BEGIN -->
+    <style>
+        {% include 'tags/email.css' %}
+    </style>
+</head>
+
+<body>
+	<table role="presentation">
+        <tr><!--LOGO-->
+            <td>
+                <table>
+                    <tr>
+                        <td><h1><a class="mat-button mat-button-text" href="{{SITE_HOST}}">{{site_name}}</a></h1></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr><!--NAVIGATION-->
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {% block EMAIL_BODY %}
+        
+        {% endblock EMAIL_BODY %}
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                                <p>{{SITE_NAME}}</p>
+                                <p><i>Payment en ligne</i></p>
+                                <p><i>Votre moyen de paiement en ligne en afrique</i></p>
+                                <p><i><b>Tel: +24107433646</b></i></p>
+                                <p><a href="{{SITE_HOST}}">Visitez nous !</a></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

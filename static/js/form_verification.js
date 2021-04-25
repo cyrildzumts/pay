@@ -77,6 +77,34 @@ function validate_recharge_form(){
     return is_valid;
 }
 
+
+function validate_staff_recharge_form(){
+    var $form = $("#staff-recharge-form");
+    var seller = $("#seller",$form);
+    var customer = $("#customer",$form);
+    var $amount = $("#amount",$form);
+    var is_valid = true;
+    var submitBtn = $("#submit-btn", $form);
+
+    if(!number_regex.test($amount.val())){
+        is_valid = false;
+        amount_error = true;
+        console.log("Amount must be a number");
+    }
+    if(!number_regex.test(seller.val())){
+        is_valid = false;
+        amount_error = true;
+        console.log("Seller is missing/invalid");
+    }
+    if(!number_regex.test(customer.val())){
+        is_valid = false;
+        amount_error = true;
+        console.log("Customer ismissing/inivaid");
+    }
+    submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
+    return is_valid;
+}
+
 function validate_service_form(){
     var $form = $("#service-form");
     var submitBtn = $("#submit-btn", $form);
@@ -133,7 +161,7 @@ function validate_category_form(params) {
     if((category_name.val().length == 0)){
         is_valid = false;
         console.log("Category name is required");
-    }else if (!number_regex.test(category_name.val())) {
+    }else if (number_regex.test(category_name.val())) {
         is_valid = false;
         console.log("Category name must not be a number");
     }
@@ -141,10 +169,10 @@ function validate_category_form(params) {
     if((category_code.val().length == 0)){
         is_valid = false;
         console.log("Category code is required");
-    }else if (!number_regex.test(category_name.val())) {
+    }else if (!number_regex.test(category_code.val())) {
         is_valid = false;
         code_error = true;
-        console.log("Category name must not be a number");
+        console.log("Category code must not be a number");
     }
     category_code.toggleClass('error', code_error);
     submitBtn.toggleClass('disabled', !is_valid).prop('disabled',!is_valid);
@@ -328,6 +356,7 @@ $(document).ready(function(){
     var $transfer_form = $("#transfer-form");
     var $payment_form = $("#payment-form");
     var $recharge_form = $("#recharge-form");
+    var $staff_recharge_form = $("#staff-recharge-form");
     var $service_form = $("#service-form");
     var $category_form = $("#category-form");
     var $policy_form = $("#policy-form");
@@ -336,19 +365,20 @@ $(document).ready(function(){
     $("input",$transfer_form).on('keyup change', validate_transfert_form);
     $("input",$payment_form).on('keyup change', validate_payment_form);
     $("input",$recharge_form).on('keyup change', validate_recharge_form);
+    $("input",$staff_recharge_form).on('keyup change', validate_staff_recharge_form);
     $("input",$service_form).on('keyup change', validate_service_form);
     $("input", $category_form).on('keyup change',validate_category_form);
     $("input", $policy_form).on('keyup change',validate_policy_form);
     $("input", $available_service_form).on('keyup change',validate_available_service_form);
     $("input", $idcard_form).on('keyup change',validate_id_upload_form);
 
-    $transfer_form.on("submit", validate_transfert_form);
-    $payment_form.on("submit", validate_payment_form);
-    $recharge_form.on("submit", validate_recharge_form);
-    $service_form.on("submit", validate_service_form);
-    $available_service_form.on("submit", validate_available_service_form);
-    $policy_form.on("submit", validate_policy_form);
-    $category_form.on("submit", validate_category_form);
-    $idcard_form.on("submit", validate_id_upload_form);
+    //$transfer_form.on("submit", validate_transfert_form);
+    //$payment_form.on("submit", validate_payment_form);
+    //$recharge_form.on("submit", validate_recharge_form);
+    //$service_form.on("submit", validate_service_form);
+    //$available_service_form.on("submit", validate_available_service_form);
+    //$policy_form.on("submit", validate_policy_form);
+    //$category_form.on("submit", validate_category_form);
+    //$idcard_form.on("submit", validate_id_upload_form);
     $("#submit-btn").addClass("disabled").prop("disabled", true);
 });

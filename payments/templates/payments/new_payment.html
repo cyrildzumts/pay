@@ -7,7 +7,7 @@
 {% block MAIN %}
 
 <div class="container">
-    <div class="col-xs-12 col-m-6 col-4">
+    <div class="col-xs-12 col-4">
         <div class="mat-box">  
             <form id="payment-form" name="payment" action="{% url 'payments:new-payment' %}" method="POST">{% csrf_token %}
                 <input type="hidden" name="sender" value="{{request.user.pk}}">
@@ -17,6 +17,7 @@
                 <div class="mat-input">
                     <label for="amount">{% trans "Amount" %}</label>
                     <input id="amount" type="text" name="amount">
+                    <span class="amount-error warning {% if balance.balance > 0.0 %}hidden{% endif %}">{% trans "You don't have sufficient balance to process this action" %}</span>
                 </div>
                 <div class="mat-input">
                     <label for="details">{% trans "Description" %}</label>
@@ -24,7 +25,7 @@
                 </div>
                 <div class="actions">
                     <a class="mat-button mat-button-outlined js-cancel" href="{% url 'home' %}"> {% trans "Cancel" %} </a>
-                    <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "PAY" %}</button>
+                    <button id="submit-btn" class="mat-button mat-button-default js-submit-btn" type="submit">{% trans "PAY" %}</button>
                 </div>
             </form>
         </div>

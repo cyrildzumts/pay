@@ -11,20 +11,22 @@ from django.contrib.auth.models import User, Group, Permission
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Q
 from rest_framework.authtoken.models import Token
-from pay import utils, settings
+from pay import utils, settings, conf
 from dashboard import forms
-from payments import payment_service
-from payments.models import PaymentRequest
+from payments import payment_service, constants as PAYMENTS_CONSTANTS
+from payments.models import PaymentRequest, Balance
 from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
 import logging
-from pay.tasks import send_mail_task
+from core.tasks import send_mail_task
 from accounts.account_services import AccountService
 from accounts.forms import UserCreationForm
 from accounts.forms import AccountCreationForm
+from accounts import constants as Account_Constants
 from voucher.models import Voucher, Recharge
 from voucher import voucher_service
-from voucher.forms import RechargeCustomerAccountByStaff, RechargeCustomerAccount
+from voucher.tasks import generate_voucher
+from voucher.forms import RechargeCustomerAccountByStaff, RechargeCustomerAccount, VoucherCreationForm
 logger = logging.getLogger(__name__)
 # Create your views here.
 
@@ -71,7 +73,7 @@ def tokens(request):
     template_name = "dashboard/token_list.html"
     page_title = _("Dashboard Users Tokens") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -143,6 +145,55 @@ def reports(request):
     context.update(get_view_permissions(request.user))
     context.update(analytics.transaction_reports())
     return render(request,template_name, context)
+
+@login_required
+def users_delete(request):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    if not PermissionManager.user_can_delete_user(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    if request.method != "POST":
+        raise SuspiciousOperation('Bad request. Expected POST request but received a GET')
+    
+    postdata = utils.get_postdata(request)
+    id_list = postdata.getlist('users')
+
+    if len(id_list):
+        user_list = list(map(int, id_list))
+        User.objects.filter(id__in=user_list).delete()
+        messages.success(request, f"Users \"{id_list}\" deleted")
+        logger.info(f"Users \"{id_list}\" deleted by user {username}")
+        
+    else:
+        messages.error(request, f"Users \"\" could not be deleted")
+        logger.error(f"ID list invalid. Error : {id_list}")
+    return redirect('dashboard:users')
+
+@login_required
+def user_delete(request, pk=None):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    if not PermissionManager.user_can_delete_user(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    #if request.method != "POST":
+    #    raise SuspiciousOperation('Bad request. Expected POST request but received a GET')
+    
+    #postdata = utils.get_postdata(request)
+
+    User.objects.filter(id=pk).delete()
+    messages.success(request, f"Users \"{pk}\" deleted")
+    logger.info(f"Users \"{pk}\" deleted by user {username}")
+    return redirect('dashboard:users')
         
 @login_required
 def users(request):
@@ -161,7 +212,7 @@ def users(request):
     template_name = "dashboard/user_list.html"
     page_title = _("Dashboard Users") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -198,6 +249,26 @@ def user_details(request, pk=None):
     context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
     context['can_update'] = PermissionManager.user_can_change_user(request.user)
     return render(request,template_name, context)
+
+
+@login_required
+def create_balance(request, pk=None):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    if not PermissionManager.user_can_view_user(request.user):
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    user = get_object_or_404(User, pk=pk)
+
+    if Balance.objects.filter(user=user).exists():
+        messages.warning(request, f"User {user.username} already has a Balance")
+    else:
+        Balance.objects.create(name=user.get_full_name(), user=user)
+        messages.success(request, f"Balance created for User {user.username}")
+    return redirect('dashboard:user-detail', pk=user.pk)
 
 @login_required
 def service_details(request, service_uuid=None):
@@ -241,7 +312,7 @@ def services(request):
     template_name = "dashboard/service_list.html"
     page_title = _("Dashboard Services") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -277,7 +348,7 @@ def available_services(request):
     template_name = "dashboard/available_service_list.html"
     page_title = "Available Services - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -468,7 +539,7 @@ def category_services(request):
     template_name = "dashboard/category_service_list.html"
     page_title = "Service Categories - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -665,7 +736,7 @@ def policies(request):
     template_name = "dashboard/policy_list.html"
     page_title = "Policies - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -857,7 +928,7 @@ def policy_groups(request):
     template_name = "dashboard/policy_group_list.html"
     page_title = "Policy Group - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -904,7 +975,8 @@ def policy_group_create(request):
             'template_name':template_name,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_add_policy' : can_add_policy
+            'can_add_policy' : can_add_policy,
+            'GROUP_TYPE': PAYMENTS_CONSTANTS.POLICY_GROUP_TYPE
         }
     context.update(get_view_permissions(request.user))
     
@@ -941,7 +1013,8 @@ def policy_group_update(request, group_uuid=None):
             'group' : instance,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_change_policy' : can_change_policy
+            'can_change_policy' : can_change_policy,
+            'GROUP_TYPE': PAYMENTS_CONSTANTS.POLICY_GROUP_TYPE
         }
     context.update(get_view_permissions(request.user))
     return render(request, template_name,context )
@@ -1072,7 +1145,7 @@ def transfers(request):
     template_name = "dashboard/transfer_list.html"
     page_title = "Transfers - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1131,7 +1204,7 @@ def payments(request):
     template_name = "dashboard/payment_list.html"
     page_title = "Payments - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         payment_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1191,7 +1264,7 @@ def payment_requests(request):
     template_name = "dashboard/payment_request_list.html"
     page_title = "Payments Requests - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         request_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1250,7 +1323,7 @@ def cases(request):
     template_name = "dashboard/cases.html"
     page_title = "Cases - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, utils.PAGINATED_BY)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1349,7 +1422,7 @@ def groups(request):
     template_name = "dashboard/group_list.html"
     page_title = "Groups" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(group_list, utils.PAGINATED_BY)
+    paginator = Paginator(group_list, conf.PAGINATED_BY)
     try:
         group_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1542,7 +1615,7 @@ def permissions(request):
     template_name = "dashboard/permission_list.html"
     page_title = "Permissions" + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(permission_list, utils.PAGINATED_BY)
+    paginator = Paginator(permission_list, conf.PAGINATED_BY)
     try:
         permission_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1694,7 +1767,7 @@ def permission_delete(request, pk=None):
 @login_required
 def create_account(request):
     username = request.user.username
-    context = {}
+    context = {'ACCOUNT_TYPE' : Account_Constants.ACCOUNT_TYPE,}
     page_title = _('New User')
     template_name = 'dashboard/new_user.html'
     can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
@@ -1813,7 +1886,8 @@ def recharge_user_account_view(request):
             logger.info("recharge_user_account_view() : Received form is valid. Customer = %s - Seller = %s - Amount = %s .", customer, seller, amount)
             customer = get_object_or_404(User, pk=customer)
             seller = get_object_or_404(User, pk=seller)
-            result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
+            #result = voucher_service.VoucherService.process_recharge_user_account(seller=seller, customer=customer, amount=amount)
+            result = voucher_service.VoucherService.recharge_balance(seller=seller, customer=customer, amount=amount)
             if result.get('succeed', False):
                 messages.success(request, _("The customer account has been successfuly recharged"))
                 logger.info("recharge_user_account_view() : Customer %s was successfully recharge with the Amount = %s .", customer, amount)
@@ -1948,7 +2022,8 @@ def voucher_generate(request):
                 args=[{
                     'name': name,
                     'amount': amount,
-                    'number': number
+                    'number': number,
+                    'user': request.user.pk
                 }],
                 queue=settings.CELERY_VOUCHER_GENERATE_QUEUE,
                 routing_key=settings.CELERY_VOUCHER_ROUTING_KEY
@@ -1971,7 +2046,7 @@ def recharges(request):
     # permission
     recharge_list = voucher_service.VoucherService.get_recharge_set()
     page = request.GET.get('page', 1)
-    paginator = Paginator(recharge_list, 10)
+    paginator = Paginator(recharge_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1993,7 +2068,8 @@ def recharge_details(request, recharge_uuid=None):
     context = {
         'page_title': page_title,
         'template_name': template_name,
-        'recharge': instance
+        'recharge': instance,
+        'voucher': instance.voucher
     }
     return render(request, template_name, context)
 
@@ -2002,6 +2078,32 @@ def recharge_details(request, recharge_uuid=None):
 def generate_balance(request):
     payment_service.migrate_to_balance_model()
     return redirect('dashboard:home')
+
+
+@login_required
+def send_welcome_mail(request, pk):
+    username = request.user.username
+    if not PermissionManager.user_can_access_dashboard(request.user):
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    user = get_object_or_404(User, pk=pk)
+    email_context = {
+            'template_name': settings.DJANGO_WELCOME_EMAIL_TEMPLATE,
+            'title': 'Bienvenu chez PAY',
+            'recipient_email': user.email,
+            'context':{
+                'SITE_NAME': settings.SITE_NAME,
+                'SITE_HOST': settings.SITE_HOST,
+                'FULL_NAME': user.get_full_name()
+            }
+    }
+    send_mail_task.apply_async(
+        args=[email_context],
+        queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+        routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+    )
+
+    return redirect('dashboard:user-detail', pk=pk)
 
 class RechargeView(ListView):
     queryset = Recharge.objects.order_by('-created_at')

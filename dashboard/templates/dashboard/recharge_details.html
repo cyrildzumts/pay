@@ -1,0 +1,10 @@
+{% extends "dashboard_base.html"%}
+{% load i18n %}
+
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Recharge Details" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+
+{% block MAIN_CONTENT %}
+{% include 'tags/recharge_snippet.html' %}
+{% endblock MAIN_CONTENT %}

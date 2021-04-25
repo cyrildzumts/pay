@@ -1,0 +1,13 @@
+:root{
+    --primary-color: #0A0A0A;
+    --secondary-color: #FF0D00;
+    --third-color : #FFFFFF;
+    --fourth-color : #FFFFFF;
+    --light-color : #FAFAFA;
+    --label-color : #CCC;
+    --body-bg : #FFFFFF;
+    --body-color: #242424;
+    --notification-bg : #fafafa;
+    --notification-color : #0A0A0A;
+    --action-color : #FF0D00;
+}

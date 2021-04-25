@@ -1,49 +1,17 @@
 {% extends "voucher_base.html"%}
 {% load i18n %}
-{% block MAIN %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Voucher Home" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 
-<div class="row">
-        
-        <nav class="nav responsive">
-            <ul class="listview dock">
-                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
-                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'voucher:vouchers'%}">
-                        {% trans "Generated Voucher List" %}
-                    </a> 
-                </li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'voucher:recharge'%}">
-                        {% trans "Recharge Customer Account" %} 
-                     </a> 
-                </li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'voucher:recharges'%}">
-                        {% trans "Recharges History" %} 
-                     </a> 
-                </li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'voucher:used-vouchers'%}"> 
-                        {% trans "Used Voucher List" %} 
-                    </a> 
-                </li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'voucher:sold-vouchers'%}">
-                        {% trans "Sold Voucher List" %} 
-                     </a> 
-                </li>
 
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'voucher:voucher-generate'%}">
-                        {% trans "Generate new Voucher cards" %} 
-                     </a> 
-                </li>
-                
+{% block MAIN_CONTENT %}
 
-            </ul>
-        </nav>
+<div class="container">
 
 </div>
+<div class="container">
+    {% include "tags/recharge_list_snippet.html" with list_title="Recents activities" OPEN_DASHBOARD_URL=False %}
+</div>
 
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}

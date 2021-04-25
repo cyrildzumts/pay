@@ -1,9 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 from django.db.models import Q
-from django.dispatch import receiver
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from pay import settings
 from pay import utils
 from pay import conf as GLOBAL_CONF
@@ -24,35 +23,49 @@ class Balance(models.Model):
     name = models.CharField(max_length=64)
     user = models.OneToOneField(User, on_delete=models.SET_NULL, blank=True, null=True)
     balance = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_without_fee = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     balance_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("vendors:balance-detail", kwargs={"balance_uuid": self.balance_uuid})
+        return reverse("payments:balance-detail", kwargs={"balance_uuid": self.balance_uuid})
     
     def get_history_url(self):
-        return reverse('vendors:balance-history', kwargs={'balance_uuid':self.balance_uuid})
+        return reverse('payments:balance-history', kwargs={'balance_uuid':self.balance_uuid})
 
 class BalanceHistory(models.Model):
     balance_ref_id = models.IntegerField(blank=False, null=False)
     current_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    current_amount_without_fee = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    is_incoming = models.BooleanField(default=False, blank=True, null=True)
     balance_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_amount_without_fee = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     sender = models.ForeignKey(User, related_name='sender_histories', blank=True, null=True, on_delete=models.SET_NULL)
     receiver = models.ForeignKey(User, related_name='receiver_histories', blank=True, null=True, on_delete=models.SET_NULL)
+    activity = models.IntegerField(default=Constants.BALANCE_ACTIVITY_RECHARGE, choices=Constants.BALANCE_ACTIVITY_TYPES)
     balance = models.ForeignKey(Balance, related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
-    #sold_product = models.ForeignKey('vendors.SoldProduct', related_name="sold_product", blank=True, null=True, on_delete=models.SET_NULL)
-
+    recharge = models.ForeignKey('voucher.Recharge', related_name='balance_history', null=True,blank=True, on_delete=models.SET_NULL)
+    voucher = models.ForeignKey('voucher.Voucher', related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     history_uuid = models.UUIDField(default=uuid.uuid4, editable=False)    
 
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
-        return f"BalanceHistory {self.id}"
+        if self.is_incoming:
+            return f"{self.created_at.isoformat(' ', 'seconds')}  -  {self.sender.username}  -  {utils.find_element_by_key_in_tuples(self.activity, Constants.BALANCE_ACTIVITY_TYPES)[1]}  -  {self.current_amount_without_fee} {_(settings.CURRENCY)}"
+        return f"{self.created_at.isoformat(' ', 'seconds')}  -  {self.receiver.username}  -  {utils.find_element_by_key_in_tuples(self.activity, Constants.BALANCE_ACTIVITY_TYPES)[1]}  -  (-){self.current_amount_without_fee} {_(settings.CURRENCY)}"
 
     def get_absolute_url(self):
-        return reverse("vendors:balance-history-detail", kwargs={"history_uuid": self.history_uuid})
+        return reverse("payments:activity-details", kwargs={"history_uuid": self.history_uuid})
+    
+    def get_dashboard_url(self):
+        return reverse("dashboard:activity-details", kwargs={"history_uuid": self.history_uuid})
+
+
     
 class IDCard(models.Model):
     card_number = models.IntegerField(blank=True, null=True)
@@ -133,9 +146,15 @@ class Policy(models.Model):
 class PolicyGroup(models.Model):
     name = models.CharField(max_length=80)
     policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
-    group_type = models.IntegerField(default=Constants.POLICY_GROUP_BASIC, choices=Constants.POLICY_GROUP)
+    group_type = models.IntegerField(default=Constants.POLICY_GROUP_BASIC, choices=Constants.POLICY_GROUP_TYPE)
     members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
     policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    #created_at = models.DateTimeField(auto_now_add=True)
+    #modified_at = models.DateTimeField(auto_now=True)
+    #modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+
+    #class Meta:
+    #   ordering = ["-created_at"]
 
     def __str__(self):
         return self.name
@@ -173,6 +192,9 @@ class ServiceCategory(models.Model):
     modified_by = models.ForeignKey(User, related_name="modified_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     created_by = models.ForeignKey(User, related_name="created_categories", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     category_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+
+
 
 
     def __str__(self):
@@ -286,6 +308,8 @@ class Service(models.Model):
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
     service_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return "Service " + self.name
@@ -344,6 +368,7 @@ class Transaction(models.Model):
 
 class Payment(models.Model):
     amount = models.DecimalField(default=0.0, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    fee = models.DecimalField(blank=True, null=True, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outgoing_payments')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incoming_payments')
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10)
@@ -352,6 +377,9 @@ class Payment(models.Model):
     validated_at = models.DateTimeField(auto_now=True)
     details = models.TextField(max_length=256)
     payment_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"Payment - {self.amount}"
@@ -398,6 +426,8 @@ class PaymentRequest(models.Model):
     failed_reason = models.TextField(max_length=256, blank=True, null=True)
     request_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return "Payment Request id : {0} - Amount : {1}".format(self.pk, self.amount)
@@ -441,6 +471,9 @@ class Transfer(models.Model):
     verification_code = models.TextField(max_length=80, default=utils.generate_token_10, editable=False)
     transfer_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return "Transfer  - Amount : {}".format(self.amount)
 
@@ -466,6 +499,9 @@ class Refund(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_changed_at = models.DateTimeField(auto_now=True)
     refund_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"Refund {self.payment.sender.username} - {self.payment.recipient.username} : {self.amount} {settings.CURRENCY}"

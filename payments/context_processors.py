@@ -1,7 +1,8 @@
 
-from payments.models import IDCard, Transfer, Payment, Service, Balance
+from payments.models import IDCard, Transfer, Payment, Service, Balance, BalanceHistory
 
-LATEST_LIMITS = 5
+RECENT_LIMIT = 8
+REQUEST_PATH = ['/accounts/', '/payments/']
 
 def payment_context(request):
     idcard = None
@@ -13,6 +14,7 @@ def payment_context(request):
     latest_payments = None
     latest_transfers = None
     latest_services = None
+    activity_list = None
     if request.user.is_authenticated:
         try:
             idcard = IDCard.objects.get(user=request.user)
@@ -23,18 +25,15 @@ def payment_context(request):
             
         if hasattr(request.user,'balance'):
             balance = request.user.balance
-
-        latest_payments = Payment.get_user_payments(request.user)[:LATEST_LIMITS]
-        latest_transfers = Transfer.get_user_transfers(request.user)[:LATEST_LIMITS]
-        latest_services = Service.get_user_services(request.user)[:LATEST_LIMITS]
+            if request.path in REQUEST_PATH:
+                activity_list = BalanceHistory.objects.filter(balance=balance).order_by('-created_at')[:RECENT_LIMIT]
+        
         
 
     context = {
         'idcard' : idcard,
         'balance' : balance,
         'has_idcard': has_idcard,
-        'latest_payments' : latest_payments,
-        'latest_transfers' : latest_transfers,
-        'latest_services' : latest_services
+        'activity_list': activity_list,
     }
     return context

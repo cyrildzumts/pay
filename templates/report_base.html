@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{report_title}}</title>
+    <style type="text/css">
+        {% include "reports/css/report.css" %}
+        @page {
+            size: {{page_size}};
+            margin: 2cm;
+            {% if orientation == 'landscape' %}{% include "reports/css/landscape.css" %}{% else %}{% include "reports/css/portrait.css" %}{% endif %}
+        }
+    </style>
+</head>
+<body>
+    {% block HEADER %}{% include "reports/report_header.html" %}{% endblock HEADER %}
+    {% block REPORT_CONTENT %}{% endblock REPORT_CONTENT %}
+    {% block REPORT_FOOTER %}{% include "reports/report_footer.html" %}{% endblock REPORT_FOOTER %}
+</body>
+</html>

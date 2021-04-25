@@ -1,14 +1,11 @@
 {% extends "voucher_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
+{% block  HEADER_BANNER_TITLE %}
+    <h4> {% trans "Voucher List" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
 
-<div class="container">
-  <div class="nav actions">
-    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    <a class="mat-button mat-button-default" href="{% url 'voucher:voucher-home' %}"> {% trans "Voucher Home" %} </a>
-  </div>
-</div>
+{% block MAIN_CONTENT %}
 
 <div class="container">
 
@@ -24,7 +21,7 @@
         <table id="voucher-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>
+                          {% comment %}<th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>{% endcomment %}
                           <th>{% trans "Voucher Name" %}</th>
                           <th>{% trans "Amount" %}</th>
                           <th>{% trans "Voucher Code" %}</th>
@@ -36,15 +33,11 @@
           <tbody>
                   {% for v in voucher_list  %}
                   <tr>
-                  <td class="checkbox"><input type="checkbox" name="selected-voucher"></td>
+                  {% comment %}<td class="checkbox"><input type="checkbox" name="selected-voucher"></td>{% endcomment %}
                   <td>{{v.name}}</td>
-                  <td>{{v.amount}} {% trans "XAF" %}</td>
+                  <td>{{v.amount}} {% trans CURRENCY %}</td>
                   <td>{{v.voucher_code}}</td>
-                  {% if v.activated %}
-                  <td>{% trans "Yes" %}</td>
-                  {% else %}
-                  <td>{% trans "No" %}</td>
-                  {% endif %}
+                  <td>{{v.activated|yesno:_('yes,no')}}</td>
                   <td>{{v.created_at|date:"F j, Y"}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
@@ -64,4 +57,4 @@
     </div>
     {% endif %}
 </div>
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}

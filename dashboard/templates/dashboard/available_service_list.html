@@ -9,21 +9,12 @@
                 
         </div>
         <div class="container">
-
-            <div class="col col-9">
-                <div class="banner--actions">
-                    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
+                <ul class="banner--actions actions">
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
                     {% if can_add_available_service %}
-                    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a>
-                    {% endif %}
-                    {% if can_delete_available_service %}
-                    <a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:available-service-remove-all' %}"> {% trans "Delete All Available Service" %} </a>
-                    {% endif %}
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
-                        
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
-        
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a></li>
+                    {% endif %}    
+                </ul><!--End of Banner-Actions-->    
         </div><!--End of Container-->
         
     </div>
@@ -42,7 +33,7 @@
         <table id="available-service-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
-                          <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
+                          {% comment %}<th><input id="filter-select-all" type="checkbox" name="allselected"></th>{% endcomment %}
                           <th>{% trans "Service Name" %}</th>
                           <th>{% trans "Category" %}</th>
                           <th>{% trans "Details" %}</th>
@@ -52,7 +43,7 @@
           <tbody>
                   {% for avs in available_services  %}
                   <tr>
-                  <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
+                  {% comment %}<td class="checkbox"><input type="checkbox" name="selected-service"></td>{% endcomment %}
                   <td>{{avs.name}}</td>
                   <td>{{avs.category.category_name}}</td>
                   <td><a class="mat-button mat-button-default" href="{{avs.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>

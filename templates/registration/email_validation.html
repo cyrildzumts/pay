@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block HEADER_BANNER %}
+    <div class="container">
+        <div class="flex flex-column registration-success">
+            <h3>{% trans 'Registration successful' %}</h3>
+        </div>
+        
+    </div>
+{% endblock HEADER_BANNER %}
+{% block MAIN %}
+<div class="container">
+    <div class="mat-box registration-success">
+    {% autoescape off %}
+        {% if validated %}
+            <p>{% blocktrans %}Great! Your email address has been verified. You can now log to your account.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Go to your Account by folowing this Link {% endblocktrans %} :</p>
+            <p><a href="{% url 'accounts:account' %}">{% trans "My Account" %}</a></p>
+        {% else %}
+            <p>{% blocktrans %}Sorry! Your email address could not be verified.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Click on this link to get a new activation link {% endblocktrans %} :</p>
+            <p><a class="mat-button mat-button-text" href="{% url 'accounts:send-validation' account.account_uuid %}">{% trans "Send me a Validation link" %}</a></p>
+            <p><a class="mat-button mat-button-outlined" href="{% url 'home' %}">{% trans "Home Page" %}</a></p>
+        {% endif %}
+    {% endautoescape %}
+    </div>
+</div>
+        
+{% endblock MAIN %}
+
+
+

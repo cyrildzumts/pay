@@ -9,20 +9,15 @@
                 
         </div>
         <div class="container">
-
-            <div class="col-xs-12 col-9">
-                <div class="banner--actions">
+                <ul class="banner--actions">
                     {% if can_add_policy %}
-                    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-group-create' %}"> {% trans "Add New Policy Group" %} </a>
+                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:policy-group-create' %}"> {% trans "Add New Policy Group" %} </a></li>
                     {% endif %}
-                    {% if can_delete_policy %}<a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-groups' %}"> {% trans "Delete All Policies" %} </a>
+                    {% if can_delete_policy %}
+                    <li class="mat-list-item"><a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-groups' %}"> {% trans "Delete All Policies" %} </a></li>
                     {% endif %}
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"><span class="home"></span>{% trans "Dashboard" %}</a>
-                    <a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a>
                         
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
-        
+                </ul><!--End of Banner-Actions-->
         </div><!--End of Container-->
     </div>
 {% endblock HEADER_BANNER %}

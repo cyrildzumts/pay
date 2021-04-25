@@ -1,0 +1,55 @@
+
+{% extends "base.html" %}
+{% load i18n %} 
+{% block HEADER_PANEL %}
+  <div class="header--panel row">
+       <div class="col col-1">
+              <div class="logo">
+                <a class="link" href="{%url 'home'%}"> {{site_name}} </a>
+              </div>
+        </div>
+  </div>
+{% endblock HEADER_PANEL %}
+{% block HEADER_BANNER %}
+
+{% endblock HEADER_BANNER %}
+
+{% block MAIN %}
+
+<div class="padded-wrapper-top">
+  <div class="container user-registration">
+    <div class="col-m-12 col-6">
+        <h4 class="center">{%trans 'Registration'%}</h4>
+    </div>
+    <div class="col-m-12 col-6">
+      <form class="signup-form full" action="{% url 'accounts:register'%}" method="POST">{% csrf_token %}
+        <div class="grid">
+            <div class="mat-box">
+              {% include "tags/form_snippet.html" with form=user_form %}
+            </div>
+            <div class="mat-box">
+                <div class="field-wrapper">
+                    <div class="mat-input">
+                      <label for="account_type">{% trans "Account type" %}</label>
+                      <select name="account_type" id="account_type">
+                        <option value="">{% trans "Select an Account Type" %}</option>
+                        {% for k, v in ACCOUNT_TYPE %} 
+                          {% if k == 7 %}<option value="{{k}}" selected>{% trans v %}</option> {% endif %}
+                        {% endfor %}
+                      </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions flex-right">
+          <a class="mat-button mat-button-outlined" href="{%url 'home'%}"> {% trans "Cancel" %} </a>
+          <button class="mat-button mat-button-default" type="submit">{%trans 'Create My Account'%} </button>
+        </div>
+        <div class="actions flex-right">
+            <span class="register-hint">{% trans "Already have an account ? " %}</span><a class="mat-button mat-button-default register-btn" href="{% url 'accounts:login' %}">{% trans "Sign In" %}</a>
+        </div>
+      </form>
+     </div>
+  </div>
+</div>
+{% endblock MAIN %}

@@ -9,14 +9,10 @@
                 
         </div>
         <div class="container">
-
-            <div class="col col-9">
-                <div class="banner--actions">
-                    
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
-                </div><!--End of Banner-Actions-->
-            </div><!--End of Responsive-->
-        
+                <div class="actions">
+                    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"><i class="fas fa-list icon"></i><span>{% trans "Users" %}</span></a>
+                    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"><i class="fas fa-home icon"></i><span>{% trans "Dashboard" %}</span></a>
+                </div><!--End of Banner-Actions-->  
         </div><!--End of Container-->
         
     </div>
@@ -27,15 +23,13 @@
 {% if can_add_user %}
 
 <div class="container">
-    <div class="col-m-12 col-8">
     <form class="signup-form container" action="{% url 'dashboard:create-user'%}" method="POST">{% csrf_token %}
         {% include 'tags/registration_form.html' %}
-        <div class="form-group">
-            <a class="mat-button mat-button-outlined" href="{%url 'dashboard:home'%}"> {% trans "Cancel" %} </a>
+        <div class="actions">
+            <a class="mat-button mat-button-default" href="{%url 'dashboard:home'%}"><i class="fas fa-ban icon"></i><span>{% trans "Cancel" %}</span></a>
             <button class="mat-button mat-button-default" type="submit">{%trans 'Create My Account'%} </button>
         </div>
     </form>
-    </div>
 </div>
 
 {% else %}

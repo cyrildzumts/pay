@@ -1,42 +1,49 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block MAIN %}
 
-<div class="row">
-        
-        <nav class="nav responsive">
-            <ul class="listview dock">
-                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
-                <li class="docklet"><a class="mat-button mat-button-text" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'dashboard:vouchers'%}">
+{% block HEADER_BANNER %}
+    <div class="banner banner-align-left">
+        <div class="full welcome-text center">
+                {% block  HEADER_BANNER_TITLE %}
+                    <h4> {% trans "Voucher" %}</h4>
+                {% endblock HEADER_BANNER_TITLE %}
+                
+        </div>
+        <div class="container">
+            <ul class="banner--actions actions">
+                <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'home'%}">{% trans "PAY" %}</a></li>
+                <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
+                <li class="mat-list-item"> 
+                    <a class="mat-button mat-button-default" href="{%url 'dashboard:vouchers'%}">
                         {% trans "Generated Voucher List" %}
                     </a> 
                 </li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'dashboard:recharge'%}">
+                <li class="mat-list-item"> 
+                    <a class="mat-button mat-button-default" href="{%url 'dashboard:recharge'%}">
                         {% trans "Recharge Customer Account" %} 
                      </a> 
                 </li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'dashboard:used-vouchers'%}"> 
+                <li class="mat-list-item"> 
+                    <a class="mat-button mat-button-default" href="{%url 'dashboard:used-vouchers'%}"> 
                         {% trans "Used Voucher List" %} 
                     </a> 
                 </li>
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'dashboard:sold-vouchers'%}">
+                <li class="mat-list-item"> 
+                    <a class="mat-button mat-button-default" href="{%url 'dashboard:sold-vouchers'%}">
                         {% trans "Sold Voucher List" %} 
                      </a> 
                 </li>
 
-                <li class="list-item"> 
-                    <a class="mat-button mat-button-text" href="{%url 'dashboard:voucher-generate'%}">
+                <li class="mat-list-item"> 
+                    <a class="mat-button mat-button-default" href="{%url 'dashboard:voucher-generate'%}">
                         {% trans "Generate new Voucher cards" %} 
                      </a> 
                 </li>
             </ul>
-        </nav>
+        </div><!--End of Container-->
+        
+    </div>
+{% endblock HEADER_BANNER %}
+{% block MAIN_CONTENT %}
 
-</div>
-
-{% endblock MAIN %}
+{% endblock MAIN_CONTENT %}

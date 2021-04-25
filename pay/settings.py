@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,9 +33,18 @@ SITE_NAME           =  os.environ['PAY_SITE_NAME']
 
 META_KEYWORDS       = "Pay, payment, buy, online-pay, africa-pay, payment solution"
 META_DESCRIPTION    = "Pay Atalaku is your african solution for online payments"
+VENDOR_PAYMENT_DAY = 5
+
+ACCOUNT_ROOT_PATH = "/accounts/"
+HOME_URL = "/"
+DASHBOARD_ROOT_PATH = "/dashboard/"
+PAYMENT_ROOT_PATH = "/payments/"
+VOUCHER_ROOT_PATH = "/voucher/"
+USER_PATH = "/users/detail/"
+PATH_ACCEPTING_BANNER = [ACCOUNT_ROOT_PATH, HOME_URL, DASHBOARD_ROOT_PATH, PAYMENT_ROOT_PATH, VOUCHER_ROOT_PATH, USER_PATH]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG               = True
+
 CELERY_BROKER_URL   = os.environ['PAY_CELERY_BROKER_URL']
 CELERY_BACKEND      = os.environ['PAY_CELERY_BACKEND']
 
@@ -56,6 +68,7 @@ CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
 CELERY_NAMESPACE = 'CELERY'
 
 ALLOWED_HOSTS = [os.getenv('PAY_ALLOWED_HOST')]
+SITE_HOST = os.getenv('PAY_HOST')
 
 #EMAIL SETTINGS
 EMAIL_HOST = os.environ['PAY_EMAIL_HOST']
@@ -63,10 +76,18 @@ EMAIL_PORT = os.environ['PAY_EMAIL_PORT']
 EMAIL_HOST_PASSWORD = os.environ['PAY_EMAIL_PASSWORD']
 EMAIL_HOST_USER = os.environ['PAY_EMAIL_USER']
 CONTACT_MAIL =  os.environ['PAY_CONTACT_MAIL']
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.environ.get('PAY_EMAIL_BACKEND')
+DEFAULT_FROM_EMAIL = os.environ.get('PAY_DEFAULT_FROM_EMAIL', 'PAY-ATALAKU <info@pay-atalaku.com>')
+DJANGO_EMAIL_TEMPLATE = "tags/template_email.html"
+DJANGO_EMAIL_TEMPLATE_TXT = "tags/template_email.txt"
+DJANGO_WELCOME_EMAIL_TEMPLATE = "welcome_email.html"
+DJANGO_VALIDATION_EMAIL_TEMPLATE = "validation_email.html"
+DJANGO_PAYMENT_CONFIRMATION_EMAIL_TEMPLATE = "tags/payment_confirmation_email.html"
+DJANGO_TRANSFER_CONFIRMATION_EMAIL_TEMPLATE = "tags/transfer_confirmation_email.html"
 ACCOUNTS = {
     'ACCOUNT_TYPE' :  (
         ('A', 'Admin'),
@@ -80,6 +101,11 @@ ACCOUNTS = {
         ('X', 'PAY ACCOUNT'),
     )
 }
+
+GROUP_SELLER = 'Sellers'
+GROUP_OPERATOR = 'Operators'
+GROUP_BUSINESS = 'Business'
+GROUP_API_USERS = 'API-USERS'
 
 PAY_USER = os.getenv('PAY_USER')
 PAY_RECHARGE_USER = os.getenv('PAY_RECHARGE_USER')
@@ -104,6 +130,8 @@ INSTALLED_APPS = [
     'voucher.apps.VoucherConfig',
     'dashboard.apps.DashboardConfig',
     'pay.apps.PayConfig',
+    'core.apps.CoreConfig',
+
 ]
 
 # RESTFRAMEWORK SETTINGS
@@ -111,14 +139,11 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.IsAdminUser',
-        #'rest_framework.permissions.IsAuthenticated',
-        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.BasicAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
@@ -150,7 +175,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'pay.context_processors.site_context',
                 'accounts.context_processors.account_context',
-                'payments.context_processors.payment_context'
+                'payments.context_processors.payment_context',
+                'voucher.context_processors.voucher_context'
             ],
         },
     },
@@ -185,11 +211,16 @@ DATABASES = {
 
 }
 
+
 DEFAULT_DATABASE = os.environ.get('DJANGO_DATABASE', 'dev')
 DATABASES['default'] = DATABASES[DEFAULT_DATABASE]
-#DEBUG = DEFAULT_DATABASE == 'dev'
-DEBUG = True
 DEV_MODE = DEFAULT_DATABASE == 'dev'
+#CSRF_COOKIE_SECURE = not DEV_MODE
+
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = DEV_MODE
+#DEBUG = True
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -253,7 +284,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'file',
-            'filename':'pay.log'
+            'filename':'logs/pay.log'
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -272,7 +303,7 @@ LOGGING = {
             'propagate': True,
         },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'file'],
             'level': 'ERROR',
             'propagate': False,
         },
@@ -295,7 +326,7 @@ LANGUAGES = (
     ('fr',_('French')),
 )
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'conf/locale')
+    os.path.join(BASE_DIR, 'locale')
 ]
 TIME_ZONE = 'UTC'
 
@@ -312,7 +343,7 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "staticfiles"),
 )

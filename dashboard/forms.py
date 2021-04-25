@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import Group, Permission
-from accounts.models import Account
 from payments.models import (
     Service, ServiceCategory, Policy, AvailableService, IDCard, Payment, Transaction,
     Transfer, Reduction, PolicyGroup, PolicyMembership
@@ -18,13 +17,13 @@ class PolicyGroupForm(forms.ModelForm):
 
     class Meta:
         model = PolicyGroup
-        fields = ('name', 'policy',)
+        fields = ('name', 'policy','group_type')
 
 class PolicyGroupUpdateForm(forms.ModelForm):
     
     class Meta:
         model = PolicyGroup
-        fields = ('name', 'policy', 'members',)
+        fields = ('name', 'policy', 'members','group_type')
 
 class PolicyGroupUpdateMembersForm(forms.ModelForm):
     
@@ -59,18 +58,6 @@ class IDCardForm(forms.ModelForm):
     class Meta:
         model = IDCard
         fields = ("user","card_number", "is_valid","delivery_at","expire_at","delivery_place",)
-
-
-
-
-class AccountForm(forms.ModelForm):
-    class Meta:
-        model = Account
-        fields = ("user","date_of_birth","country",
-                  "city","province","address","zip_code","telefon",
-                  "newsletter","is_active_account","balance","account_type",
-                  "email_validated", )
-        
 
 
 class TokenForm(forms.Form):

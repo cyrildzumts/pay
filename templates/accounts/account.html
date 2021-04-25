@@ -1,23 +1,10 @@
-{% extends "payment_base.html"%}
+{% extends "site_account_base.html"%}
 {% load i18n %}
 
 
 {% block MAIN %}
 
-<div class="row">
-
-</div>
 <div class="container">
-    {% if latest_payments %}
-         {% include "tags/payment_list_snippet.html" with transaction_list=latest_payments list_title="Latest Payments"%}
-    {% endif %}
-    {% if latest_transfers %}
-         {% include "tags/transfer_list_snippet.html" with transaction_list=latest_transfers list_title="Latest Transfers"%}
-    {% endif %}
-    {% if latest_recharges %}
-         {% include "tags/recharge_list_snippet.html" with transaction_list=latest_recharges list_title="My Recharges"%}
-    {% endif %}
-
-   
+    {% include "tags/activity_list_snippet.html" with  list_title="Recents activities" OPEN_DASHBOARD_URL=False %}
 </div>
 {% endblock MAIN %}

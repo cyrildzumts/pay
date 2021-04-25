@@ -1,0 +1,235 @@
+
+body{
+    background-color: var(--body-bg);
+    color: var(--body-color);
+}
+
+.header{
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
+}
+
+.header a{
+    color: var(--fourth-color) !important;
+    font-weight: 700;
+}
+.site-panel{
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
+}
+
+.header .menu-button{
+    color: var(--fourth-color);
+    font-weight: 600;
+}
+
+.page--banner{
+    background-color: var(--third-color);
+    color: var(--primary-color);
+}
+
+.banner{
+    background-color: var(--primary-color);
+    color : var(--light-color);
+}
+
+.banner *{
+    color : var(--light-color);
+}
+
+.footer{
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
+}
+.mat-button-default{
+    background-color: var(--primary-color);
+    color: var(--third-color);
+}
+.mat-button-text{
+    /*background-color: var(--primary-color);*/
+    color: var(--primary-color);
+}
+.mat-button-outline{
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.mat-button:disabled {
+	color: #ccc !important;
+	font-weight: 700 !important;
+    border: 2px solid #ccc !important;
+    cursor: not-allowed;
+}
+
+.mat-button:disabled:hover {
+	color: #aaa !important;
+	font-weight: 700 !important;
+	border: 2px solid #aaa !important;
+}
+
+
+
+.mat-button{
+    /*color: var(--primary-color);*/
+    font-weight: 700;
+}
+
+.banner .mat-button-default{
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+.banner .mat-button-default *{
+    color: var(--primary-color);
+}
+
+.mat-table{
+    background-color: var(--fourth-color);
+
+}
+
+.mat-table thead{
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
+    font-weight: 700;
+}
+
+.kiosk .active{
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+li.active{
+	border-bottom: 2px solid var(--secondary-color);
+}
+
+li.active.selected{
+	border-bottom: 3px solid var(--secondary-color) !important;
+}
+
+.logo{
+    color: var(--secondary-color) !important;
+}
+
+.logo a, .logo .mat-button{
+    color: var(--secondary-color) !important;
+    letter-spacing: 0.5em;
+    /*font-size: 1em;*/
+}
+
+
+.highlight{
+    background-color: var(--light-color) !important;
+    color: var(--primary-color) !important;;
+}
+
+.highlight .label{
+	color: var(--primary-color) !important;
+}
+
+.docklet:hover{
+
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+.docklet a{
+    color: var(--primary-color);
+}
+
+.docklet:hover a{
+    color: var(--secondary-color);
+}
+
+.balance{
+	color: var(--secondary-color);
+}
+
+.primary-color{
+    color: var(--primary-color);
+}
+
+.secondary-color{
+    color: var(--secondary-color);
+}
+
+.mat-input label, .form-group label{
+	color: var(--primary-color);
+}
+
+.mat-input label input, .mat-input input, .form-group input{
+    color: var(--primary-color);
+	border-bottom: 2px solid var(--primary-color) !important;
+}
+.list-item .mat-button{
+    color: var(--third-color) !important;
+}
+/*
+#notifications-wrapper{
+    background-color: var(--primary-color);
+}
+*/
+
+.notification-list{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
+}
+
+.notification{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
+}
+
+.metric{
+    background-color:var(--primary-color);
+    color: var(--third-color);
+}
+
+.banner-action .mat-button{
+    background-color: #FFFFFF !important;
+    color: var(--primary-color) !important;
+}
+
+.product-filter .collapse-content, .product-filter .collapsible-content{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
+}
+
+.content-filter .collapse-content, .content-filter .collapsible-content{
+    background-color:var(--notification-bg);
+    color: var(--notification-color);
+}
+
+.product-detail-shipping{
+	color: #4A4B4A;
+}
+
+.news{
+    background-color:#fafafa;
+    color: var(--primary-color);
+}
+
+.news .news-title{
+    color: var(--secondary-color);
+}
+.modal-container{
+    background-color: #fafafa;
+    color: var(--primary-color);
+}
+
+.modal-container .mat-list .mat-list-item:hover{
+	background-color: #ccc;
+    color: var(--primary-color);
+}
+
+.dialog{
+    background-color: #fafafa;
+    color: var(--primary-color);
+}
+
+.action{
+    color: var(--action-color);
+}
+
+.banner li a {
+    color : var(--light-color);
+}

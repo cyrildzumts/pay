@@ -44,8 +44,8 @@ class UserSerializer(serializers.ModelSerializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ["user","date_of_birth","country", "city","province","address","zip_code","telefon",
-                  "newsletter","is_active_account","balance","account_type","policy","email_validated"]
+        fields = ["user","date_of_birth","telefon",
+                  "newsletter","account_type","email_validated"]
 
 
 

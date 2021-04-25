@@ -43,3 +43,12 @@ def payment_status_value(key):
         logger.info(f"payment_status_value: Could not found value  for key \"{key}\"")
         return key
     return v
+
+
+@register.filter
+def balance_activity(key):
+    k,v = utils.find_element_by_key_in_tuples(key, Constants.BALANCE_ACTIVITY_TYPES)
+    if v is None:
+        logger.info(f"balance_activity: Could not found value  for key \"{key}\"")
+        return key
+    return v

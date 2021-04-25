@@ -24,7 +24,7 @@ from accounts.models import Account
 from payments.models import (
     Transaction, Transfer, AvailableService, Payment, 
     Service, ServiceCategory, Policy, CaseIssue, Reduction,
-    IDCard, PaymentRequest, Refund
+    IDCard, PaymentRequest, Refund, BalanceHistory, Balance
 )
 from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, PaymentRequestForm,
@@ -32,9 +32,9 @@ from payments.forms import (
 )
 from payments import constants as Constants
 from payments.payment_service import PaymentService, voucher_service
-from payments import payment_service#
-from pay import settings, utils
-from pay.tasks import send_mail_task
+from payments import payment_service
+from pay import settings, utils, conf
+from core.tasks import send_mail_task
 import logging
 
 logger = logging.getLogger(__name__)
@@ -49,8 +49,11 @@ logger = logging.getLogger(__name__)
 def payment_home(request):
     template_name = "payments/payment_home.html"
     page_title = _("Payment" + " - " + settings.SITE_NAME)    
+    #balance = Balance.objects.get(user=request.user)
+    #activity_list = BalanceHistory.objects.filter(balance=balance).order_by('-created_at')[:Constants.RECENT_LIMIT]
     context = {
         'page_title' : page_title,
+    #    'activity_list' : activity_list
     }
     return render(request=request, template_name=template_name, context=context)
 
@@ -60,9 +63,14 @@ def show_payments(request):
     template_name = "payments/payments.html"
     # checkout_url = checkout.get_checkout_url(request)
     #match = resolve('/payments/')
+    balance = Balance.objects.get(user=request.user)
+    #activity_list = BalanceHistory.objects.filter(balance=balance).order_by('-created_at')[:Constants.RECENT_LIMIT]
+    context = {
+        'page_title' : page_title,
+    #    'activity_list' : activity_list
+    }
 
-
-    return render(request=request, template_name=template_name)
+    return render(request=request, template_name=template_name, context=context)
 # Create your views here.
 
 
@@ -772,6 +780,38 @@ def payment_verify(request):
     return render(request,template_name, context)
 
 
+
+@login_required
+def activities(request):
+    context = {}
+    queryset = payment_service.get_balance_activities(request.user)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    template_name = "payments/balance_activities.html"
+    page_title = "Activities" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['activity_list'] = list_set
+    return render(request,template_name, context)
+
+
+
+@login_required
+def activity_details(request, history_uuid):
+    context = {}
+    activity = get_object_or_404(BalanceHistory, history_uuid=history_uuid)
+    template_name = "payments/balance_activity.html"
+    page_title = "Activity" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['activity'] = activity
+    return render(request,template_name, context)
+
+
 @login_required
 def policies(request):
     context = {}
@@ -876,21 +916,25 @@ def recharge(request):
             voucher = recharge_form.cleaned_data['voucher']
             succeed, amount = voucher_service.VoucherService.use_voucher(voucher, request.user.pk)
             if succeed:
-                Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
+                #Account.objects.filter(user__username=settings.PAY_RECHARGE_USER).update(balance=F('balance') + amount)
                 email_context = {
                     'title' : _('Recharge Confirmation'),
                     'customer_name': request.user.get_full_name(),
-                    'voucher': voucher,
-                    'amount' : amount,
+                    'context': {
+                        'FULL_NAME': request.user.get_full_name(),
+                        'voucher': voucher,
+                        'amount' : amount,
+                        'CURRENCY': settings.CURRENCY
+                    },
                     'recipient_email': request.user.email,
-                    'template_name': "accounts/account_recharge_done_email.html"
+                    'template_name': "accounts/recharge_confirmation_email.html"
                 }
                 msg = 'Your account has been recharged.We have send you a confirmation E-Mail. You will receive an E-Mail in an instant'
                 messages.success(request, _(msg))
-                #send_mail_task.apply_async(args=[email_context],
-                #    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
-                #    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
-                #)
+                send_mail_task.apply_async(args=[email_context],
+                    queue=settings.CELERY_OUTGOING_MAIL_QUEUE,
+                    routing_key=settings.CELERY_OUTGOING_MAIL_ROUTING_KEY
+                )
                 logger.info("Recharge was succefull")
                 return redirect('accounts:account')
             else :

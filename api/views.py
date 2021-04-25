@@ -50,7 +50,6 @@ class UserSearchByNameView(ListAPIView):
      """
 
 class UserSearchView(ListAPIView):
-     #permission_classes = [IsAuthenticated]
      serializer_class = UserSerializer
      search_fields = ['last_name', 'first_name', 'username']
      filter_backends = [filters.SearchFilter]
@@ -260,8 +259,32 @@ def analytics_daily_data(request, year=None, month=None, day=None):
 
 
 
+@api_view(['GET'])
+def payments(request):
+    payment_queryset = payment_service.get_payments(request.user)
+    return Response(data={'success' : True, 'payments': payment_queryset})
 
-@api_view(['GET', 'POST'])
+
+@api_view(['GET'])
+def get_payment(request):
+    details = request.GET.get('details', None)
+    if details:
+        payment = payment_service.find_payment_from_description(request.user, details)
+        return Response(data={
+                'success' : True,
+                'payment_uuid': payment.payment_uuid,
+                'amount': payment.amount,
+                'fee' : payment.fee,
+                'created_at':payment.created_at,
+                'verification_code': payment.verification_code,
+                'details': payment.details, 
+                'sender': payment.sender.get_full_name(),
+                'recipient': payment.recipient.get_full_name()
+                }, status=status.HTTP_200_OK)
+    return Response(data={'success' : False, 'message': 'no payment found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST'])
 def refund_create(request, payment_uuid):
     payment = None
     try:
@@ -274,22 +297,18 @@ def refund_create(request, payment_uuid):
     logger.info(f"payment found with uuid \"{payment_uuid}\"")
     if refund:
         logger.info(f"Refund created for payment with uuid \"{payment_uuid}\"")
-        return Response(data={'refund': refund.refund_uuid, 'payment': payment.payment_uuid, 'created': True, 'accepted': False }, status=status.HTTP_200_OK)
+        return Response(data={'success' : True, 'refund': refund.refund_uuid, 'payment': payment.payment_uuid, 'created': True, 'accepted': False }, status=status.HTTP_200_OK)
     else:
         logger.warn(f"Refund not created for payment with uuid \"{payment_uuid}\"")
-        return Response(data={'payment': payment.payment_uuid, 'created': False}, status=status.HTTP_200_OK)
+        return Response(data={'success' : False, 'payment': payment.payment_uuid, 'created': False}, status=status.HTTP_200_OK)
 
 
 
-@api_view(['GET', 'POST'])
-def client_refund_create(request, payment_uuid, token, username):
+@api_view(['POST'])
+def client_refund_create(request, payment_uuid):
     payment = None
     auth_token = None
-    try:
-        auth_token = Token.objects.get(key=token, user__username=username)
-    except Token.DoesNotExist as e:
-        logger.warning(f"No Token found with key \"{token}\"")
-        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
+
     try:
         payment = Payment.objects.get(payment_uuid=payment_uuid)
     except Payment.DoesNotExist as e:
@@ -297,7 +316,7 @@ def client_refund_create(request, payment_uuid, token, username):
         return Response({'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
     
 
-    refund = payment_service.create_accept_refund(auth_token.user, payment)
+    refund = payment_service.create_accept_refund(request.user, payment)
     logger.info(f"payment found with uuid \"{payment_uuid}\"")
     if refund:
         logger.info(f"Refund created for payment with uuid \"{payment_uuid}\"")
@@ -308,39 +327,29 @@ def client_refund_create(request, payment_uuid, token, username):
 
 
 
-@api_view(['GET', 'POST'])
-def client_accept_refund(request, payment_uuid, token, username):
+@api_view(['POST'])
+def client_accept_refund(request, payment_uuid):
     auth_token = None
-    try:
-        auth_token = Token.objects.get(key=token, user__username=username)
-    except Token.DoesNotExist as e:
-        logger.warning(f"No Token found with key \"{token}\"")
-        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
+
     try:
         payment = Payment.objects.get(payment_uuid=payment_uuid)
     except Payment.DoesNotExist as e:
         logger.warning(f"No payment found with uuid \"{payment_uuid}\"")
-        return Response({'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'success' : False,'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
     
 
-    refunded = payment_service.accept_refund(auth_token.user, payment)
+    refunded = payment_service.accept_refund(request.user, payment)
     if refunded:
         logger.info(f"Refund accepted for payment with uuid \"{payment_uuid}\"")
 
     else:
         logger.warn(f"Refund not accepted for payment with uuid \"{payment_uuid}\"")
-    return Response(data={'payment': payment.payment_uuid, 'accepted': refunded}, status=status.HTTP_200_OK)
+    return Response(data={'success' : refunded,'payment': payment.payment_uuid, 'accepted': refunded}, status=status.HTTP_200_OK)
 
 
 
-@api_view(['GET', 'POST'])
-def client_declined_refund(request, payment_uuid, token, username):
-    auth_token = None
-    try:
-        auth_token = Token.objects.get(key=token, user__username=username)
-    except Token.DoesNotExist as e:
-        logger.warning(f"No Token found with key \"{token}\"")
-        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
+@api_view(['POST'])
+def client_declined_refund(request, payment_uuid):
 
     try:
         payment = Payment.objects.get(payment_uuid=payment_uuid)
@@ -349,25 +358,66 @@ def client_declined_refund(request, payment_uuid, token, username):
         return Response({'message': 'No payment found'}, status=status.HTTP_404_NOT_FOUND)
     
 
-    declined = payment_service.declined_refund(auth_token.user, payment)
+    declined = payment_service.declined_refund(request.user, payment)
     if declined:
         logger.info(f"Refund declined for payment with uuid \"{payment_uuid}\"")
 
     else:
         logger.warn(f"Refund not declined for payment with uuid \"{payment_uuid}\"")
-    return Response(data={'payment': payment.payment_uuid, 'declined': declined}, status=status.HTTP_200_OK)
+    return Response(data={'success' : declined,'payment': payment.payment_uuid, 'declined': declined}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_refunds(request, status):
+    queryset = payment_service.client_refunds(request.user, status)
+    data = list(queryset.values())
+    return Response(data={'success' : True, 'refunds': data})
+    
+
 
 
 @api_view(['GET', 'POST'])
-def get_refunds(request, status, token, username):
-    auth_token = None
-    try:
-        auth_token = Token.objects.get(key=token, user__username=username)
-    except Token.DoesNotExist as e:
-        logger.warning(f"No Token found with key \"{token}\"")
-        return Response({'message': 'No Token found'}, status=status.HTTP_404_NOT_FOUND)
-    
-    queryset = payment_service.client_refunds(auth_token.user, status)
-    data = list(queryset.values())
-    return Response(data)
-    
+def dummy(request):
+    logger.info("api dummy request")
+    data = utils.get_postdata(request)
+    logger.info(f"Dummy Submitted Data : {data}")
+    return Response({'dummy': 'request dummy', 'test': 'test result', 'user': request.user.username, 'submitted_data': data})
+
+
+@api_view(['POST'])
+def make_payment(request):
+    logger.info("api make payment")
+    data = utils.get_postdata(request)
+    payment = payment_service.create_payment(data)
+    response_data = None
+    if payment:
+        response_data = {
+            'success' : True,
+            'amount': payment.amount,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    else:
+        response_data = {
+            'success' : False,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    return Response(response_data)
+
+
+@api_view(['POST'])
+def make_transfer(request):
+    data = utils.get_postdata(request)
+    transfer = payment_service.create_transfer(data)
+    response_data = None
+    if transfer:
+        response_data = {
+            'success' : True,
+            'amount': transfer.amount,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    else:
+        response_data = {
+            'success' : False,
+            'redirect_url' : reverse('payments:payment-home')
+        }
+    return Response(response_data)
