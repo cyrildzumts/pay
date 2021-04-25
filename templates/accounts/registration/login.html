@@ -22,6 +22,9 @@
         <div class="container">
             <div class="col-6">
                 <div id="account-dialog" class="container">
+                    {% if login_error %}
+                        <div class="login-error error">{% trans login_error %}</div>
+                    {% endif %}
                     <section id="user-login" class="user-login flex">
                         <form id="login-form" class="login-form" action="{% url 'accounts:login' %}" method="post"> {% csrf_token %}
                             
@@ -44,7 +47,7 @@
                             <div class="form-group">
                             <button id="login-submit" class="mat-button mat-button-default"  name="submit" type="submit">{% trans "Login" %}</button>
                             </div>
-                            <div class="form-group">
+                            <div class="actions">
                                 <span class="register-hint">{% trans "New here ? " %}</span><a class="mat-button mat-button-default register-btn" href="{% url 'accounts:register' %}">{% trans "Register" %}</a>
                             </div>
                         </form>
