@@ -4,8 +4,10 @@ from rest_framework.authtoken.models import Token
 from accounts.models import Account
 from payments.models import (
     Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard,
-    Reduction, PaymentRequest, Refund
+    Reduction, PaymentRequest, Refund, Cashout
 )
+from payments import constants
+from pay import settings
 from django.contrib.admin.widgets import AdminDateWidget
 import datetime
 
@@ -280,3 +282,31 @@ class ReductionForm(forms.ModelForm):
     class Meta:
         model = Reduction
         fields = ['code', 'percent', 'user']
+
+
+class CashoutForm(forms.ModelForm):
+
+    class Meta:
+        model = Cashout
+        fields = Cashout.FORM_FIELDS
+
+    
+    def clean(self):
+        super().clean()
+        agent = self.cleaned_data['agent']
+        user = self.cleaned_data['user']
+        amount = self.cleaned_data['amount']
+        balance_amount = self.cleaned_data['balance_amount']
+        balance_amount_without_fee = self.cleaned_data['balance_amount_without_fee']
+        total_amount = self.cleaned_data['total_amount']
+        cashout_type = self.cleaned_data['cashout_type']
+        fee = self.cleaned_data['fee']
+        if agent == user:
+            raise forms.ValidationError(message=constants.CASHOUT_FORM_USER_AGENT_SAME_ERROR, code='invalid')
+
+        if not agent.groups.filter(name=settings.GROUP_AGENT).exists():
+            raise forms.ValidationError(message=constants.CASHOUT_INVALID_AGENT_ERROR, code='invalid')
+        
+        if cashout_type == constants.CASHOUT_WITHDRAW or cashout_type == constants.CASHOUT_CASHOUT:
+            if user.balance.balance < total_amount:
+                raise forms.ValidationError(message=constants.CASHOUT_USER_UNSUFFICIENT_BALANCE_ERROR)

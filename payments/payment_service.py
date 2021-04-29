@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from pay import utils, settings
 from abc import ABCMeta, ABC
-from payments.forms import   ServiceCreationForm, IDCardForm, RechargeForm, PaymentForm, TransactionForm, TransferForm, RefundForm
-from payments.models import Policy, Transaction, Transfer, Service, Payment, Balance, Refund, BalanceHistory
+from payments.forms import   ServiceCreationForm, IDCardForm, RechargeForm, PaymentForm, TransactionForm, TransferForm, RefundForm, CashoutForm
+from payments.models import Policy, Transaction, Transfer, Service, Payment, Balance, Refund, BalanceHistory, Cashout
 from payments import constants as Constants
 from django.db.models import F, Q, FloatField
 from django.apps import apps
@@ -627,7 +627,30 @@ def update_balance(data):
         Balance.objects.filter(user=recipient).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
         Balance.objects.filter(user=sender).update(balance=F('balance') - recipient_amount, balance_without_fee=F('balance_without_fee') - amount)
         Balance.objects.filter(user=pay).update(balance=F('balance') - fee)
+    
+    '''
+    elif activity == Constants.BALANCE_ACTIVITY_WITHDRAW:
+        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, is_incoming=True,  activity=activity, current_amount=fee, current_amount_without_fee=0, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
+        #BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk,is_incoming=False,  activity=activity, current_amount=amount, current_amount_without_fee=-amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=recipient.balance, is_incoming=False,  balance_ref_id=recipient.balance.pk, activity=activity, current_amount=recipient_amount,current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
 
+        #Balance.objects.filter(user=sender).update(balance=F('balance') - amount, balance_without_fee=amount)
+        Balance.objects.filter(user=recipient).update(balance=F('balance') + recipient_amount, balance_without_fee=F('balance_without_fee') + amount)
+        Balance.objects.filter(user=pay).update(balance=F('balance') + fee)
+
+    elif activity == Constants.BALANCE_ACTIVITY_CASHIN:
+        BalanceHistory.objects.create(balance=pay.balance, balance_ref_id=pay.balance.pk, is_incoming=True,  activity=activity, current_amount=fee, current_amount_without_fee=0, balance_amount=pay.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk,is_incoming=False,  activity=activity, current_amount=amount, current_amount_without_fee=-amount, balance_amount=sender.balance.balance, balance_amount_without_fee=sender.balance.balance, sender=sender, receiver=recipient)
+        BalanceHistory.objects.create(balance=recipient.balance, is_incoming=True,  balance_ref_id=recipient.balance.pk, activity=activity, current_amount=recipient_amount,current_amount_without_fee=amount ,balance_amount=recipient.balance.balance, balance_amount_without_fee=recipient.balance.balance_without_fee, sender=sender, receiver=recipient)
+
+        Balance.objects.filter(user=sender).update(balance=F('balance') - amount, balance_without_fee=amount)
+        Balance.objects.filter(user=recipient).update(balance=F('balance') + recipient_amount, balance_without_fee=F('balance_without_fee') + amount)
+        Balance.objects.filter(user=pay).update(balance=F('balance') + fee)
+
+    elif activity == Constants.BALANCE_ACTIVITY_CASHOUT:
+        pass
+    
+    '''
 
 
 def get_payments(user):
@@ -897,3 +920,11 @@ def client_refunds(requester, status):
         return None
 
     return Refund.objects.filter(payment__recipient=requester, status=status)
+
+
+def create_cashout(data):
+    form = CashoutForm(data)
+    if form.is_valid():
+        agent = form.cleaned_data['agent']
+        user = form.cleaned_data['user']
+        amount

@@ -35,6 +35,8 @@ class Balance(models.Model):
     def get_history_url(self):
         return reverse('payments:balance-history', kwargs={'balance_uuid':self.balance_uuid})
 
+
+
 class BalanceHistory(models.Model):
     balance_ref_id = models.IntegerField(blank=False, null=False)
     current_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
@@ -65,6 +67,41 @@ class BalanceHistory(models.Model):
     def get_dashboard_url(self):
         return reverse("dashboard:activity-details", kwargs={"history_uuid": self.history_uuid})
 
+
+
+
+
+
+class Cashout(models.Model):
+    agent = models.ForeignKey(User,null=True, related_name="cashouts", unique=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,null=True, unique=False, on_delete=models.CASCADE)
+    amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    fee = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    total_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_amount = models.DecimalField(blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    balance_amount_without_fee = models.DecimalField(default=0.0,blank=False, null=False, max_digits=GLOBAL_CONF.MAX_DIGITS, decimal_places=GLOBAL_CONF.DECIMAL_PLACES)
+    cashout_type = models.IntegerField(default=Constants.CASHOUT_CASHOUT, choices=Constants.CASHOUT_TYPES)
+    created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
+    cashout_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    FORM_FIELDS = ['agent', 'user', 'fee', 'amount', 'total_amount', 'balance_amount', 'balance_amount_without_fee','cashout_type' ]
+
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Cashout {self.amount} - {self.created_at} - {self.cashout_type} - {self.balance.user.username}"
+    
+
+    def get_absolute_url(self):
+        return reverse("payments:cashout-details", kwargs={"cashout_uuid": self.cashout_uuid})
+
+    def get_vendor_url(self):
+        return reverse("voucher:cashout-details", kwargs={"cashout_uuid": self.cashout_uuid})
+
+    
+    def get_dashboard_url(self):
+        return reverse("dashboard:cashout-details", kwargs={"cashout_uuid": self.cashout_uuid})
 
     
 class IDCard(models.Model):
