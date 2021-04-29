@@ -1,10 +1,7 @@
 {% extends "voucher_base.html"%}
 {% load i18n %}
-{% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Voucher" %} {{voucher.name}}</h4>
-{% endblock HEADER_BANNER_TITLE %}
 
-{% block MAIN_CONTENT %}
+{% block CONTENT_MAIN %}
 <div class="row">
     <div class="actions">
     {% if not voucher.activated %}
@@ -60,4 +57,4 @@
             
         </div>
 </div>
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

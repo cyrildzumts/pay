@@ -1,7 +1,7 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
+{% block CONTENT_MAIN %}
 
 <div class="container">
     <div class="mat-box">
@@ -30,4 +30,4 @@
     <a class="mat-button mat-button-text" href="{% url 'dashboard:vouchers' %}"> {% trans "Vouchers" %} </a>
     <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
 </div>
-{% endblock MAIN %}
+{% endblock CONTENT_MAIN %}

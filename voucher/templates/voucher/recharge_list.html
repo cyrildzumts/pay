@@ -1,13 +1,10 @@
 {% extends "voucher_base.html"%}
 {% load i18n %}
 
-{% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Recharge History" %}</h4>
-{% endblock HEADER_BANNER_TITLE %}
 
-{% block MAIN_CONTENT %}
+{% block CONTENT_MAIN %}
 
 <div class="container">
     {% include "tags/recharge_list_snippet.html" with list_title="Recharge List" OPEN_DASHBOARD_URL=False %}
 </div>
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

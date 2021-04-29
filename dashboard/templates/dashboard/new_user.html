@@ -1,24 +1,8 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "New User" %}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-                <div class="actions">
-                    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"><i class="fas fa-list icon"></i><span>{% trans "Users" %}</span></a>
-                    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"><i class="fas fa-home icon"></i><span>{% trans "Dashboard" %}</span></a>
-                </div><!--End of Banner-Actions-->  
-        </div><!--End of Container-->
-        
-    </div>
-{% endblock HEADER_BANNER %}
 
-{% block MAIN_CONTENT %}
+
+{% block CONTENT_MAIN %}
 
 {% if can_add_user %}
 
@@ -37,4 +21,4 @@
   <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
 </div>
 {% endif %}
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

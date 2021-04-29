@@ -1,16 +1,7 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block MAIN %}
-
-
-<div class="row">
-  <div class="nav">
-    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    <a class="mat-button mat-button-default" href="{% url 'dashboard:vouchers' %}"> {% trans "Vouchers" %} </a>
-    <a class="mat-button mat-button-default" href="{% url 'home' %}">{{site_name}}</a>
-  </div>
-</div>
+{% block CONTENT_MAIN %}
 
 <div class="container">
 
@@ -62,4 +53,4 @@
     </div>
   {% endif %}
 </div>
-{% endblock MAIN %}
+{% endblock CONTENT_MAIN %}

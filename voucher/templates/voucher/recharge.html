@@ -1,13 +1,9 @@
 {% extends "voucher_base.html"%}
 {% load i18n %}
 
-{% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Recharge User Account" %} </h4>
-{% endblock HEADER_BANNER_TITLE %}
-
-{% block MAIN_CONTENT %}
+{% block CONTENT_MAIN %}
 
 <div class="container">
     {% include "tags/voucher_recharge_form.html" with ACTION_URL='voucher:recharge' CANCEL_URL='voucher:voucher-home' %}
 </div>
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}
