@@ -17,11 +17,12 @@
     <div class="col-xs-12 col-6">
         <div class="container">
             <div class="col-6">
-                <div id="account-dialog" class="container padding-1x">
-                    <div>
-                        <h3>{{SITE_NAME}}</h3>
-                    </div>
-                    <div id="user-login" class="user-login flex mat-box">
+                <div id="account-dialog" class="container">
+                    {% if login_error %}
+                        <div class="login-error error">{% trans login_error %}</div>
+                    {% endif %}
+                    <section id="user-login" class="user-login flex">
+
                         <form id="login-form" class="login-form" action="{% url 'accounts:login' %}" method="post"> {% csrf_token %}
                             {% if login_error %}
                                 <span class="login-error warning ">{% trans login_error %}</span>
@@ -42,11 +43,11 @@
                             <div class="actions flex-right">
                                 <button id="login-submit" class="mat-button mat-button-default"  name="submit" type="submit">{% trans "Login" %}</button>
                             </div>
-                            <div class="actions flex-right">
+                            <div class="actions">
                                 <span class="register-hint">{% trans "New here ? " %}</span><a class="mat-button mat-button-default register-btn" href="{% url 'accounts:register' %}">{% trans "Register" %}</a>
                             </div>
                         </form>
-                    </div> <!-- End of Section Login-->
+                    </section> <!-- End of Section Login-->
                 </div><!--End of container -->
             </div>
         </div>
