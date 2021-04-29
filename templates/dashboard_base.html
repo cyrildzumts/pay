@@ -32,8 +32,8 @@
                     <li><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}"><i class="fas fa-key icon"></i><span>{% trans "Generate Token" %}</span></a></li>
                     {% endif %}
                     {% if can_view_payment %} 
-                    <li><a class="mat-button mat-button-text" href="{% url 'payment:payments'%}"><i class="fas fa-money-check icon"></i><span>{% trans "Payments" %}</span></a></li>
-                    <li><a class="mat-button mat-button-text" href="{% url 'payment:payments-requrests'%}"><i class="fas fa-money-check icon"></i><span>{% trans "Payment Requests" %}</span></a></li>
+                    <li><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}"><i class="fas fa-money-check icon"></i><span>{% trans "Payments" %}</span></a></li>
+                    <li><a class="mat-button mat-button-text" href="{% url 'dashboard:payments-requrests'%}"><i class="fas fa-money-check icon"></i><span>{% trans "Payment Requests" %}</span></a></li>
                     {% endif %}
                     {% if can_view_voucher %}
                     <li><a class="mat-button mat-button-text" href="{% url 'dashboard:voucher-home'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Vouchers" %}</span></a></li>
