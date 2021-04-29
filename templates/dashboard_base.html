@@ -103,12 +103,13 @@
 {% endblock MAIN %}
 {% block FOOTER %}{% endblock FOOTER %}
 {% block BASE_SCRIPT %}
-<script  data-main="{% static 'js/DashboardApp' %}" src="{% static 'js/require.js' %}"></script>        
+{% comment %}
+    <script  data-main="{% static 'js/DashboardApp' %}" src="{% static 'js/require.js' %}"></script>  
+{% endcomment %}      
 {% endblock BASE_SCRIPT %}
 
 {% block SCRIPT %}     
 
 <script  type="application/javascript" src="{% static 'js/lib/validators.js' %}"></script>
-<script  type="application/javascript" src="{% static 'js/lib/dashboard.js' %}"></script>
 
 {% endblock SCRIPT %}
