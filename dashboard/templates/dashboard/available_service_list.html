@@ -1,26 +1,12 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Available Services" %}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-                <ul class="banner--actions actions">
-                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
-                    {% if can_add_available_service %}
-                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:available-service-create'%}"> {% trans "Add new Service" %}</a></li>
-                    {% endif %}    
-                </ul><!--End of Banner-Actions-->    
-        </div><!--End of Container-->
-        
-    </div>
-{% endblock HEADER_BANNER %}
+{% if can_add_available_service %}
+{% block ACTIONS %}
+<a class="mat-button mat-button-default" href="{% url 'dashboard:available-service-create'%}"> <i class="fas fa-money-check icon"></i><span>{% trans "New Service" %}</span></a>
+{% endblock ACTIONS %}
+{% endif %}    
 
-{% block MAIN_CONTENT %}
+{% block CONTENT_MAIN %}
 
 <div class="container">
 <div class="col-xs-12 col-6">
@@ -61,4 +47,4 @@
     </div><!--End of Table Wrapper-->
   </div>
 </div>
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

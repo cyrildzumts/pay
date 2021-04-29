@@ -1,20 +1,9 @@
 
 {% extends "base_flat.html" %}
 {% load i18n %} 
-{% block HEADER_PANEL %}
-  <div class="header--panel row">
-       <div class="col col-1">
-              <div class="logo">
-                <a class="link" href="{%url 'home'%}"> {{site_name}} </a>
-              </div>
-        </div>
-  </div>
-{% endblock HEADER_PANEL %}
-{% block HEADER_BANNER %}
 
-{% endblock HEADER_BANNER %}
 
-{% block MAIN_CONTENT %}
+{% block CONTENT_MAIN %}
 
 <div class="padded-wrapper-top">
   <div class="grid">
@@ -39,4 +28,4 @@
 </div>
 
 
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

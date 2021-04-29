@@ -1,6 +1,6 @@
 {% load i18n %} 
 
-<div class="responsive">
+<div class="mat-box">
     <form id="voucher-recharge-form" class="voucher-recharge-form form" name="voucher-recharge" action="{% url 'voucher:recharge' %}" method="POST">{% csrf_token %}
         
         <input type="hidden" name="seller" value="{{request.user.pk}}">

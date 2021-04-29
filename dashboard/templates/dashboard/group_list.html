@@ -1,27 +1,13 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Groups" %}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-                <ul class="banner--actions actions">
-                    {% if can_add_group %}
-                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus icon"></i> <span>{% trans "Create A Group" %}</span> </a></li>
-                    {% endif %}
-                </ul><!--End of Banner-Actions-->
-        
-        </div><!--End of Container-->
-        
-    </div>
-{% endblock HEADER_BANNER %}
+{% block ACTIONS %}
+{% if can_add_group %}
+<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"><i class="fas fa-plus icon"></i> <span>{% trans "New Group" %}</span> </a>
+{% endif %}
+{% endblock ACTIONS %}
 
-{% block MAIN_CONTENT %}
+{% block CONTENT_MAIN %}
 
 {% if can_view_group %}
 
@@ -95,4 +81,4 @@
 </div>
 {% endif %}
 
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

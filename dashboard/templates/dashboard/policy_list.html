@@ -1,21 +1,11 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Policies" %}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-                <ul class="banner--actions actions">
-                    {% if can_add_policy %}<li class="mat-list-item"><a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "Add New Policy" %} </a></li>{% endif %} 
-                </ul><!--End of Banner-Actions-->
-        </div><!--End of Container-->
-    </div>
-{% endblock HEADER_BANNER %}
-{% block MAIN_CONTENT %}
+{% block ACTIONS %}
+{% if can_add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "New Policy" %} </a>{% endif %} 
+{% endblock ACTIONS %}
+
+
+{% block CONTENT_MAIN %}
 
 
 {% if can_view_policy %}
@@ -68,4 +58,4 @@
   <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
 </div>
 {% endif %}
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

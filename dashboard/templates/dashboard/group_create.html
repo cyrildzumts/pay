@@ -1,24 +1,8 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Group Creation" %}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-                <ul class="banner--actions actions">
-                    {% if can_view_group %}
-                    <li class="mat-list-item"><a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-groups'%}"><i class="fas fa-list icon"></i><span>{% trans "Policy groups" %}</span></a></li>{% endif %} 
-                </ul><!--End of Banner-Actions-->
-        </div><!--End of Container-->
-        
-    </div>
-{% endblock HEADER_BANNER %}
-{% block MAIN_CONTENT %}
+
+{% block CONTENT_MAIN %}
 <div class="container">
     {% include "tags/group_form.html" %}
 </div>
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}

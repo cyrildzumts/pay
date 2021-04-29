@@ -1,0 +1,48 @@
+
+
+{% extends "dashboard_base.html"%}
+{% load static %}
+{% load i18n %}
+{% if not is_seller %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% else %}
+{% if balance %}
+{% block SIDEBAR_BRAND_EXTRA %}
+<div class="balance-info">
+      <span>{% trans "Balance" %}</span>
+      <small>{{balance.balance|floatformat:"-2"}} {% trans CURRENCY %}</small>
+</div>
+{% endblock SIDEBAR_BRAND_EXTRA %}
+{% endif %}
+{% block SIDEBAR_CONTENT %}
+
+    <li><a class="mat-button mat-button-text" href="{% url 'voucher:vouchers' %}"><i class="fas fa-band-aid icon"></i><span>{% trans "Vouchers" %}</span></a></li>
+    <li><a class="mat-button mat-button-text" href="{% url 'voucher:recharges' %}"><i class="fas fa-shopping-bag icon"></i><span>{% trans "Recharges" %}</span></a></li>
+    <li><a class="mat-button mat-button-text" href="{% url 'voucher:recharge' %}"><i class="fas fa-money-check icon"></i><span>{% trans "Recharge Account" %}</span></a></li>
+    <li><a class="mat-button mat-button-text" href="{% url 'voucher:used-vouchers' %}"><i class="fas fa-barcode icon"></i><span>{% trans "Used Vouchers" %}</span></a></li>
+    <li><a class="mat-button mat-button-text" href="{% url 'voucher:sold-vouchers' %}"><i class="fas fa-gifts icon"></i><span>{% trans "Sold Vouchers" %}</span></a></li>
+    <li><a class="mat-button mat-button-text" href="{% url 'voucher:voucher-generate' %}"><i class="fas fa-hand-holding-usd icon"></i><span>{% trans "Generate Vouchers" %}</span></a></li>
+    <li><a class="mat-button mat-button-text" href="{% url 'home'%}" target="_blank"><i class="fas fa-home icon"></i><span>{% trans "Pay Site" %}</span></a></li>
+    <li><a class="mat-button mat-button-text" href="{% url 'accounts:logout'%}"><i class="fas fa-sign-out-alt icon"></i><span>{% trans "Logout" %}</span></a></li>
+    
+{% endblock SIDEBAR_CONTENT %}
+
+{% block CONTENT %}
+    <div class="actions">
+       <a class="mat-button mat-button-text" href="{% url 'voucher:recharge' %}"><i class="fas fa-money-check icon"></i><span>{% trans "Recharge Account" %}</span></a>
+        {% block ACTIONS %}
+        {% endblock ACTIONS %}
+    </div><!--End of Banner-Actions-->
+    <div>
+        {% block CONTENT_MAIN %}{% endblock CONTENT_MAIN %}
+    </div>
+{% endblock CONTENT %}
+{% endif %}
+{% block SCRIPT %}
+<script  type="application/javascript" src="{% static 'js/vendor/Chart.min.js' %}"></script>
+<script  type="application/javascript" src="{% static 'js/lib/accounts.js' %}"></script> 
+<script  type="application/javascript" src="{% static 'js/lib/attributes.js' %}"></script> 
+<script  type="application/javascript" src="{% static 'js/lib/dashboard.js' %}"></script>
+{% endblock SCRIPT %}

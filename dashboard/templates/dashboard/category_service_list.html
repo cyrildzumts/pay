@@ -1,26 +1,11 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Category List" %}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-                <ul class="banner--actions">
-                    {% if can_add_category %}
-                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:category-service-create'%}"> {% trans "Add new Category" %}</a></li>
-                    {% endif %} 
-                </ul><!--End of Banner-Actions-->
-        </div><!--End of Container-->
-        
-    </div>
-{% endblock HEADER_BANNER %}
+{% block ACTIONS %}
+{% if can_add_category %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "New Category" %}</a>{% endif %}
+{% endblock ACTIONS %}
 
-{% block MAIN_CONTENT %}
+{% block CONTENT_MAIN %}
 
 {% if can_view_category  %}
 
@@ -68,4 +53,4 @@
 </div>
 {% endif %}
 
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT_MAIN %}
