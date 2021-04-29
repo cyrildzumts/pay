@@ -23,18 +23,24 @@ body{
     font-weight: 600;
 }
 
+.sidebar {
+	background-color: var(--sidebar-bg-color);
+	color: var(--sidebar-color);
+}
+
+.sidebar-brand .balance-info small{
+    color: var(--secondary-color);
+}
+
+.sidebar-menu a.active{
+
+	color: #fafafa;
+	background-color: var(--sidebar-active-color);
+}
+
 .page--banner{
     background-color: var(--third-color);
     color: var(--primary-color);
-}
-
-.banner{
-    background-color: var(--primary-color);
-    color : var(--light-color);
-}
-
-.banner *{
-    color : var(--light-color);
 }
 
 .footer{
@@ -72,15 +78,6 @@ body{
 .mat-button{
     /*color: var(--primary-color);*/
     font-weight: 700;
-}
-
-.banner .mat-button-default{
-    background-color: var(--light-color);
-    color: var(--primary-color);
-}
-
-.banner .mat-button-default *{
-    color: var(--primary-color);
 }
 
 .mat-table{
@@ -122,7 +119,7 @@ li.active.selected{
     color: var(--primary-color) !important;;
 }
 
-.highlight .label{
+.highlight > .label{
 	color: var(--primary-color) !important;
 }
 
@@ -230,6 +227,55 @@ li.active.selected{
     color: var(--action-color);
 }
 
-.banner li a {
-    color : var(--light-color);
+.dashboard-header{
+    background-color: #fff;
+    color: var(--primary-color) ;
+
+}
+
+.metric-title, .dashboard-metrics span{
+    color: var(--text-grey);
+}
+
+.dashboard-metrics .fas, .dashboard-metrics .icon {
+    color: var(--secondary-color);
+}
+
+.sidebar-menu > ul li:hover, .sidebar-menu > ul li:hover a,
+.dash-main-content ul li:hover, .dash-main-content > ul li:hover a{
+	color: var(--secondary-color) !important;
+    font-size: 0.875rem;
+}
+
+.sidebar .footer-wrapper{
+	background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-color);
+}
+
+.product-card > .label{
+    background-color: var(--secondary-color) !important;
+    color: #fafafa !important;
+}
+
+a {
+	color: var(--primary-color) ;
+}
+
+.fas span{
+	border: 1px solid #fafafa;
+	background-color: #fafafa;
+	color: #0A0A0A;
+}
+
+.text-gray{
+    color:#777;
+}
+
+.footer-content{
+	background-color: #fafafa;
+    color: #0A0A0A;
+}
+
+.footer-catalog a{
+	color: #0A0A0A;
 }

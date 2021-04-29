@@ -1,136 +1,413 @@
 .dashboard-page{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
 }
 
 
 .dashboard-category li{
-    padding: 10px 20px;
-    margin: 10px 20px;
+padding: 10px 20px;
+margin: 10px 20px;
 }
 
 #dashboard-clock{
-    padding: 5px;
-    margin: 10px;
+padding: 5px;
+margin: 10px;
 }
 
 .dashboard-sidebar{
-    min-height: 100%;
+min-height: 100%;
 }
 
 .dashboard-card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5px 10px;
-    margin: 2px 5px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 5px 10px;
+margin: 2px 5px;
 }
 
 .dashboard-card div{
-    text-align: center;
-    padding: 5px 2px;
-    margin: 2px 5px;
+text-align: center;
+padding: 5px 2px;
+margin: 2px 5px;
 }
 
 .dashboard-tab{
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: center;
-    padding: 5px 10px;
-    margin: 2px 5px;
+display: flex;
+flex-direction: row;
+align-items: baseline;
+justify-content: center;
+padding: 5px 10px;
+margin: 2px 5px;
 }
 
 .dashboard-tab .tab{
-    padding: 5px 10px;
-    margin: 2px 5px;
-    font-weight: bold;
+padding: 5px 10px;
+margin: 2px 5px;
+font-weight: bold;
 }
 
 .dashboard-card .header{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    padding: 5px 10px;
-    margin: 2px 5px;
-    font-size: 16px;
-    font-weight: bold;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-content: center;
+text-align: center;
+padding: 5px 10px;
+margin: 2px 5px;
+font-size: 16px;
+font-weight: bold;
 }
 
 .dashboard-entry{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    padding: 5px 10px;
-    margin: 2px 5px;
-    font-size: 14px;
-    font-weight: bold;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-content: center;
+text-align: center;
+padding: 8px;
+margin: 2px 4px;
+font-size: 14px;
+font-weight: bold;
 }
 
 .dashboard-entry span{
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
+text-align: center;
+font-size: 14px;
+font-weight: bold;
 }
 .dashboard-list{
-    width: 100%;
+width: 100%;
 
 }
 
 .dashboard-list .dashboard-card .content{
-    display: flex;
-    flex-direction: column;
+display: flex;
+flex-direction: column;
 
 }
 .dashboard-title, .dashboard-list,
 .dashboard-list .header span,
 .dashboard-entry span
 {
-    padding: 5px 10px;
-    margin: 2px 5px;
+padding: 5px 10px;
+margin: 2px 5px;
 }
 
 .number{
-    text-align: center;
-    padding: 20px 15px;
-    margin: 2px;
+text-align: center;
+padding: 20px 15px;
+margin: 2px;
 }
 
-
-
 #myChart{
-    width: 450px;
-    height: 600px;
+width: 450px;
+height: 600px;
 
-    padding: 5px 10px;
-    margin: 2px 5px;
+padding: 5px 10px;
+margin: 2px 5px;
+}
+
+.dashboard-metrics{
+display: flex;
+align-items: center;
+justify-content: space-between;
+box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+margin-bottom: 2rem;
+
+
+}
+
+#metrics{
+font-size: 0.7em;
 }
 
 .metric{
-    width: 250px;
-    background-color: #fafafa;
-    font-family: 'Montserrat';
-    text-align: center;
-    text-transform: uppercase;
-    padding: 8px !important;
-    margin: 8px !important;
+width: 250px;
+font-family: 'Montserrat';
+text-align: left;
+text-transform: uppercase;
+padding: 8px !important;
+margin: 8px !important;
 
+}
+.metric .icon{
+padding-left: 0;
+margin-left: 0;
 }
 
 .metric-title{
-    width: 100%;
-    font-size: 1.2em;
-    font-weight: 500;
-    margin-bottom: 16px;
+width: 100%;
+font-weight: 500;
+margin: 0.5rem 0;
 }
+
 .metric-value{
-    font-size: 1.5em;
-    font-weight: 600;
-    margin-bottom: 16px;
+/*font-size: 1.2em;*/
+font-weight: 600;
+}
+
+#nav-toggle{
+display: none;
+}
+
+
+
+.sidebar {
+width: 345px;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 100;
+}
+
+.sidebar-menu{
+position: relative;
+margin-top: 1rem;
+}
+
+.sidebar-brand{
+display: flex;
+align-items: center;
+height: 90px;
+padding: 1rem 0 1rem 2rem;
+}
+
+.sidebar-brand span{
+display: inline-block;
+padding-right: 1rem;
+}
+
+.sidebar-brand .balance-info span{
+display: inline-block;
+width: 100%;
+text-align: left;
+font-size: 0.9rem;
+}
+.sidebar-brand .balance-info small{
+width: 100%;
+text-align: left;
+font-size: 0.7rem;
+font-weight: 600;
+}
+
+.sidebar-menu li{
+width: 100%;
+padding-left: 2rem;
+margin-bottom: 1.1rem;
+}
+
+.sidebar-menu a{
+/*display: block;*/
+width: 100% !important;
+font-size: 0.7rem;
+padding-left: 1rem;
+margin: 0 !important;
+justify-content: flex-start !important;
+}
+
+.sidebar-menu a.active{
+font-size: 1.1rem;
+padding-top: 1rem;
+padding-bottom: 1rem;
+border-radius: 30px 0 0 30px;
+}
+
+.sidebar-menu a span:first-child{
+font-size: 1.5rem;
+padding-right: 1rem;
+}
+
+.sidebar .footer-wrapper{
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+}
+
+.sidebar .footer-wrapper li{
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.6rem;
+font-weight: 500;
+/*padding-bottom: 0.5rem;*/
+/*margin-bottom: 0.5rem;*/
+}
+
+.spaced-list li span{
+min-width: 100px;
+padding: 0 1rem;
+}
+
+.sidebar .footer-wrapper a{
+font-size: 0.5rem;
+width: unset !important;
+}
+
+.dash-main-content{
+position: relative;
+transition: margin-left 300ms;
+margin-left: 345px;
+}
+
+.dashboard-header-wrapper{
+position: fixed;
+top:0;
+left: 345px;
+width: calc(100% - 345px);
+transition: left 300ms;
+z-index: 100;
+}
+
+.dashboard-header{
+display: flex;
+align-items: center;
+justify-content: space-between;
+height: 90px;
+padding: 1rem 0 1rem 1.5rem;
+box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+transition: width 300ms;
+
+}
+
+.dashboard-header-title label{
+padding-left: 0;
+padding-right: 1rem;
+}
+
+.dashboard-header .search-wrapper{
+display: flex;
+align-items: center;
+overflow-x: hidden;
+height: 48px;
+border: 1px solid #ccc;
+border-radius: 30px;
+}
+
+.dashboard-header .search-wrapper span{
+display: inline-block;
+padding: 0rem 1rem;
+font-size: 1.3rem;
+}
+
+.dashboard-header .search-wrapper input{
+height: 100%;
+padding: 0.5rem;
+border: none;
+outline: none;
+
+}
+
+.dashboard-header .user-wrapper{
+display: flex;
+align-items: center;
+padding: 0 1rem;
+}
+
+.dashboard-header .user-wrapper img{
+border-radius: 50%;
+width: 40px;
+height: 40px;
+margin-right: 1rem;
+}
+
+.dashboard-header .user-wrapper small{
+display: inline-block;
+color : var(--text-grey);
+}
+
+main {
+margin-top: 90px;
+padding: 2rem 1.5rem;
+min-height: calc(100vh - 90px);
+}
+
+#nav-toggle:checked  + .sidebar{
+transition: left 300ms;
+left: -345px;
+}
+
+
+#nav-toggle:checked ~ .dash-main-content .dashboard-header-wrapper{
+transition: width 300ms;
+left: 0;
+width: 100%;
+}
+
+#nav-toggle:checked ~ .dash-main-content{
+transition: margin-left 300ms;
+margin-left: 0;
+width: 100%;
+}
+
+@media only screen and (max-width: 1200px){
+
+.sidebar{
+    transition: left 300ms;
+    left: -345px;
+}
+
+
+.dash-main-content .dashboard-header-wrapper{
+    transition: width 300ms;
+    left: 0;
+    width: 100%;
+}
+
+.dash-main-content{
+    transition: margin-left 300ms;
+    margin-left: 0;
+    width: 100%;
+}
+
+
+#nav-toggle:checked > .sidebar .sidebar-brand h4 span:last-child,
+#nav-toggle:checked > .sidebar li a span:last-child,
+#nav-toggle:checked > .sidebar .footer-wrapper{
+    display: none;
+}
+
+}
+
+@media only screen and (max-width: 900px){
+
+.sidebar{
+    transition: left 300ms;
+    left: 0;
+    width: 100px;
+}
+
+
+.dash-main-content .dashboard-header-wrapper{
+    transition: width 300ms;
+    left: 0;
+    width: 100%;
+}
+.dashboard-header{
+    height: 60px;
+}
+
+.dash-main-content{
+    transition: margin-left 300ms;
+    margin-left: 100px;
+    width: calc(100vh - 100px);
+}
+
+
+.sidebar .sidebar-brand h4 span:last-child,
+.sidebar li a span:last-child,
+.sidebar .footer-wrapper{
+    display: none;
+}
+
+}
+
+@media only screen and (max-width:40em){
+* {
+  font-size: 0.875rem;
+}
 }

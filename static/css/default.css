@@ -11,7 +11,7 @@ body {
   background-color: #ffffff;
   color: #242424;
   font-size: 100%;
-  font-family: -apple-system,BlinkMacSystemFont,"Montserrat","Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: -apple-system,BlinkMacSystemFont,"Montserrat","Segoe UI","Roboto","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   line-height: 1.5em;
   margin: 0;
   height: 100%;
@@ -27,6 +27,8 @@ body {
   font-size: 1em;
   font-family: "Montserrat";
   line-height: 1.5em;
+  list-style-type: none;
+  text-decoration: none;
   margin: 0;
   padding: 0;
 }
