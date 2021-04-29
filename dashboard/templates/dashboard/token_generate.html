@@ -2,7 +2,7 @@
 {% load i18n %}
 
 
-{% block CONTENT_MAIN %}
+{% block CONTENT %}
 {% if not can_generate_token %}
  {% include "tags/unauthorized.html" %}
 {% else %}
@@ -26,4 +26,4 @@
 </div>
 
 {% endif %}
-{% endblock CONTENT_MAIN %}
+{% endblock CONTENT %}

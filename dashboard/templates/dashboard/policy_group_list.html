@@ -1,27 +1,11 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block HEADER_BANNER %}
-    <div class="banner banner-align-left">
-        <div class="full welcome-text center">
-                {% block  HEADER_BANNER_TITLE %}
-                    <h4> {% trans "Policy Group" %} - {{group.name}}</h4>
-                {% endblock HEADER_BANNER_TITLE %}
-                
-        </div>
-        <div class="container">
-                <ul class="banner--actions">
-                    {% if can_add_policy %}
-                    <li class="mat-list-item"><a class="mat-button mat-button-default" href="{% url 'dashboard:policy-group-create' %}"> {% trans "Add New Policy Group" %} </a></li>
-                    {% endif %}
-                    {% if can_delete_policy %}
-                    <li class="mat-list-item"><a class="mat-button mat-button-default warn js-need-confirmation" href="{% url 'dashboard:policy-groups' %}"> {% trans "Delete All Policies" %} </a></li>
-                    {% endif %}
-                        
-                </ul><!--End of Banner-Actions-->
-        </div><!--End of Container-->
-    </div>
-{% endblock HEADER_BANNER %}
-{% block MAIN_CONTENT %}
+{% block ACTIONS %}
+{% if can_add_policy %}
+<a class="mat-button mat-button-default" href="{% url 'dashboard:policy-group-create' %}"> {% trans "New Policy Group" %}</a>
+{% endif %}
+{% endblock ACTIONS %}
+{% block CONTENT %}
 
 
 {% if can_view_policy %}

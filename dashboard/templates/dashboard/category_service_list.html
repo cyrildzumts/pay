@@ -5,7 +5,7 @@
 {% if can_add_category %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "New Category" %}</a>{% endif %}
 {% endblock ACTIONS %}
 
-{% block CONTENT_MAIN %}
+{% block CONTENT %}
 
 {% if can_view_category  %}
 
@@ -53,4 +53,4 @@
 </div>
 {% endif %}
 
-{% endblock CONTENT_MAIN %}
+{% endblock CONTENT %}

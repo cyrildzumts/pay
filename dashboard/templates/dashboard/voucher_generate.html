@@ -2,9 +2,9 @@
 {% load i18n %}
 
 
-{% block CONTENT_MAIN %}
+{% block CONTENT %}
 
 <div class="container">
     {% include "tags/voucher_generate_form.html" with ACTION_URL='dashboard:voucher-generate' CANCEL_URL='dashboard:voucher-home' %}
 </div>
-{% endblock CONTENT_MAIN %}
+{% endblock CONTENT %}

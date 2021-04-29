@@ -7,7 +7,7 @@
 {% if can_add_category %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "Add new Category Service" %} </a>{% endif %}
 {% endblock ACTIONS %}
 
-{% block CONTENT_MAIN %}
+{% block CONTENT %}
 
 {% if can_view_category %}
 
@@ -56,4 +56,4 @@
   <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
 </div>
 {% endif %}
-{% endblock CONTENT_MAIN %}
+{% endblock CONTENT %}
