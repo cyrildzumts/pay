@@ -26,9 +26,6 @@
     </table>
     {% include "tags/pagination.html" with page_set=recharge_list %} 
     </div><!--End of Table Wrapper-->
-  {% else %}
-    <div class="">
+{% else %}
       <p>{% trans "There are no Voucher sold now." %}</p>
-    </div>
-    {% endif %}
 {% endif %}
