@@ -10,7 +10,7 @@
                             <span class="key">{% trans "Amount" %}</span><span class="value">{{recharge.amount}} {% trans CURRENCY %}</span>
                         </div>
                         <div class="entry">
-                            <span class="key">{% trans "Recharge Date" %}</span><span class="value">{{recharge.created_at|date:"F j, Y"}}</span>
+                            <span class="key">{% trans "Recharge Date" %}</span><span class="value">{{recharge.created_at|date:"F j,Y H:i:s"}}</span>
                         </div>
                         <div class="entry">
                             <span class="key">{% trans "Executed by" %}</span><span class="value">{{recharge.seller.get_full_name}} - {{recharge.seller.username}}</span>

@@ -19,7 +19,7 @@
                   <td>{{v.name}}</td>
                   <td>{{v.amount}} {% trans CURRENCY %}</td>
                   <td>{{v.voucher_code}}</td>
-                  <td>{{v.used_at|date:"F j, Y"}}</td>
+                  <td>{{v.used_at|date:"F j, Y H:i:s"}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url VOUCHER_URL v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}        

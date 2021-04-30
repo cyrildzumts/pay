@@ -18,7 +18,7 @@
                   <tr>
                   <td>{{recharge.voucher.name}}</td>
                   <td>{{recharge.amount}} {% trans CURRENCY %}</td>
-                  <td>{{recharge.created_at|date:"F j, Y"}}</td>
+                  <td>{{recharge.created_at|date:"F j,Y H:i:s"}}</td>
                   <td><a class="mat-button mat-button-text" href="{% if OPEN_DASHBOARD_URL %}{{recharge.get_dashboard_url}}{% else %}{{recharge.get_absolute_url}}{% endif %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}

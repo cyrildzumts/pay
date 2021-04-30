@@ -22,7 +22,7 @@
                   <td>{{v.amount}} {% trans CURRENCY %}</td>
                   <td>{{v.voucher_code}}</td>
                   <td><i class="fas fa-circle icon {% if v.activated %}success{% else %}warning{% endif %}"></i><span>{{v.activated|yesno:_('activated,deactivated')}}</span></td>
-                  <td>{{v.created_at|date:"F j, Y"}}</td>
+                  <td>{{v.created_at|date:"F j,Y H:i:s"}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url VOUCHER_URL v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
