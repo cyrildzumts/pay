@@ -8,8 +8,6 @@ html{
 body {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  color: #242424;
   font-size: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Montserrat","Segoe UI","Roboto","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   line-height: 1.5em;
