@@ -27,5 +27,7 @@
                 <span class="key">{% trans "Seller" %}</span><span class="value">{{used_voucher.seller.get_full_name}}</span>
             </div>
     </div>
+
+    {% include "tags/voucher_snippet.html" with voucher=used_voucher.voucher %}
 </div>
 {% endblock CONTENT_MAIN %}

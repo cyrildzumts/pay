@@ -16,7 +16,7 @@
                           <th>{% trans "Voucher Name" %}</th>
                           <th>{% trans "Amount" %}</th>
                           <th>{% trans "Voucher Code" %}</th>
-                          <th>{% trans "Activated" %}</th>
+                          <th>{% trans "Status" %}</th>
                           <th>{% trans "Creation Date" %}</th>
                           <th>{% trans "Details" %}</th>
                   </tr>
@@ -28,7 +28,7 @@
                   <td>{{v.name}}</td>
                   <td>{{v.amount}} {% trans CURRENCY %}</td>
                   <td>{{v.voucher_code}}</td>
-                  <td>{{v.activated|yesno:_('yes,no')}}</td>
+                  <td><i class="fas fa-circle icon {% if .activated %}success{% else %}warning{% endif %}"></i><span>{{v.activated|yesno:_('activated,deactivated')}}</span></td>
                   <td>{{v.created_at|date:"F j, Y"}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
