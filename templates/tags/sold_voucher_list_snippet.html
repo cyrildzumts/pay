@@ -1,0 +1,32 @@
+{% load i18n %}
+
+{% if voucher_list %}
+  
+    <div class="mat-table-wrapper">
+        <table id="voucher-list" class="mat-table js-filter-table">
+          <thead>
+                  <tr>
+                          <th>{% trans "Name" %}</th>
+                          <th>{% trans "Credit" %}</th>
+                          <th>{% trans "Voucher" %}</th>
+                          <th>{% trans "Sold Date" %}</th>
+                          <th>{% trans "Details" %}</th>
+                  </tr>
+          </thead>
+          <tbody>
+                  {% for v in voucher_list  %}
+                  <tr>
+                  <td>{{v.name}}</td>
+                  <td>{{v.amount}} {% trans CURRENCY %}</td>
+                  <td>{{v.voucher_code}}</td>
+                  <td>{{v.sold_at|date:"F j, Y"}}</td>
+                  <td><a class="mat-button mat-button-default" href="{% url VOUCHER_URL v.voucher_uuid %}"> {% trans "Details" %}</a></td>
+                  </tr>
+                  {% endfor %}        
+          </tbody>
+    </table>
+    {% include "tags/pagination.html" with page_set=voucher_list %} 
+    </div><!--End of Table Wrapper-->
+  {% else %}
+    <p>{% trans "There are no Voucher sold now." %}</p>
+  {% endif %}

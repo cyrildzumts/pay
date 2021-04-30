@@ -4,39 +4,6 @@
 {% block CONTENT_MAIN %}
 
 <div class="container">
-  {% if voucher_list %}
-  
-    <div class="mat-table-wrapper">
-        <table id="voucher-list" class="mat-table js-filter-table">
-          <thead>
-                  <tr>
-                          {% comment %}<th class="checkbox"><input id="filter-select-all" type="checkbox" name="allselected"></th>{% endcomment %}
-                          <th>{% trans "Voucher Name" %}</th>
-                          <th>{% trans "Credit" %}</th>
-                          <th>{% trans "Voucher Code" %}</th>
-                          <th>{% trans "Usage Date" %}</th>
-                          <th>{% trans "Details" %}</th>
-                  </tr>
-          </thead>
-          <tbody>
-                  {% for v in voucher_list  %}
-                  <tr>
-                  {% comment %}<td class="checkbox"><input type="checkbox" name="selected-voucher"></td>{% endcomment %}
-                  <td>{{v.name}}</td>
-                  <td>{{v.amount}} {% trans CURRENCY %}</td>
-                  <td>{{v.voucher_code}}</td>
-                  <td>{{v.sold_at|date:"F j, Y"}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
-                  </tr>
-                  {% endfor %}        
-          </tbody>
-    </table>
-    {% include "tags/pagination.html" with page_set=voucher_list %} 
-    </div><!--End of Table Wrapper-->
-  {% else %}
-    <div class="">
-      <p>{% trans "There are no Voucher sold now." %}</p>
-    </div>
-  {% endif %}
+  {% include "tags/voucher_list_snippet.html" with VOUCHER_URL='voucher:voucher-detail' voucher_list=voucher_list %}
 </div>
 {% endblock CONTENT_MAIN %}
