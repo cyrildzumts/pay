@@ -7,12 +7,6 @@
   {% if voucher_list %}
   
     <div class="mat-table-wrapper">
-        <div class="row">
-            <div class="mat-table-title">
-                {% trans "Sold Voucher List" %}
-            </div>
-        </div><!--End of Row-->
-        
         <table id="voucher-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
@@ -34,13 +28,8 @@
                   <td>{{v.sold_at|date:"F j, Y"}}</td>
                   <td><a class="mat-button mat-button-default" href="{% url 'voucher:voucher-detail' v.voucher_uuid %}"> {% trans "Details" %}</a></td>
                   </tr>
-                  {% endfor %}
-                  
+                  {% endfor %}        
           </tbody>
-          <tfoot>
-                  
-          </tfoot>
-
     </table>
     {% include "tags/pagination.html" with page_set=voucher_list %} 
     </div><!--End of Table Wrapper-->
