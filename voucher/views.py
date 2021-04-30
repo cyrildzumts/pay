@@ -14,7 +14,7 @@ from voucher.tasks import generate_voucher
 from voucher import voucher_service
 from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
 from django.utils.translation import gettext_lazy as _
-from voucher.resources import ui_strings
+from core.resources import ui_strings as CORE_UI_STRINGS
 from django.utils import timezone
 import logging
 from datetime import datetime
@@ -64,6 +64,7 @@ def vouchers(request):
         voucher_set = None
     context['voucher_list'] = voucher_set
     context['page_title'] = page_title
+    context['content_title'] = CORE_UI_STRINGS.UI_VOUCHER_LIST_TITLE
     
     return render(request, template_name, context)
 
@@ -79,7 +80,7 @@ def voucher_details(request, voucher_uuid=None):
         'page_title': page_title,
         'voucher' : get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
     }
-
+    context['content_title'] = CORE_UI_STRINGS.UI_VOUCHER_TITLE
     return render(request, template_name, context)
 
 
@@ -144,6 +145,7 @@ def recharge_user_account_view(request):
         'form' : form,
         'page_title' : page_title
     }
+    context['content_title'] = CORE_UI_STRINGS.UI_BALANCE_RECHARGE_TITLE
     return render(request,template_name, context)
     
 
@@ -191,6 +193,7 @@ def used_vouchers(request):
     page_title = _("Used Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['voucher_list'] = voucher_set
+    context['content_title'] = CORE_UI_STRINGS.UI_USED_VOUCHER_LIST_TITLE
     return render(request, template_name, context)
 
 
@@ -207,6 +210,7 @@ def used_voucher_details(request, voucher_uuid=None):
         'used_voucher': instance,
         'voucher' : instance
     }
+    context['content_title'] = CORE_UI_STRINGS.UI_USED_VOUCHER_TITLE
     return render(request, template_name, context)
 
 
@@ -233,6 +237,7 @@ def sold_vouchers(request):
     page_title = _("Sold Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['voucher_list'] = voucher_set
+    context['content_title'] = CORE_UI_STRINGS.UI_SOLD_VOUCHER_LIST_TITLE
     return render(request, template_name, context)
 
 
@@ -249,6 +254,7 @@ def sold_voucher_details(request, voucher_uuid=None):
         'sold_voucher': instance,
         'voucher' : instance
     }
+    context['content_title'] = CORE_UI_STRINGS.UI_SOLD_VOUCHER_TITLE
     return render(request, template_name, context)
 
 
@@ -284,6 +290,7 @@ def voucher_generate(request):
         'page_title': page_title,
         'template_name': template_name,
     }
+    context['content_title'] = CORE_UI_STRINGS.UI_VOUCHER_GENERATE_TITLE
     return render(request, template_name, context)
 
 
@@ -310,6 +317,7 @@ def recharges(request):
     page_title = _("Recharge List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['recharge_list'] = recharge_list
+    context['content_title'] = CORE_UI_STRINGS.UI_RECHARGE_LIST_TITLE
     return render(request, template_name, context)
 
 
@@ -327,6 +335,7 @@ def recharge_details(request, recharge_uuid=None):
         'recharge': instance,
         'voucher': instance.voucher
     }
+    context['content_title'] = CORE_UI_STRINGS.UI_RECHARGE_TITLE
     return render(request, template_name, context)
 
 class RechargeView(ListView):
