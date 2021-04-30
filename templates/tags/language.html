@@ -1,0 +1,22 @@
+
+{% load i18n %} 
+
+<form id="lang-form" name="localization-form" action="{% url 'set_language' %}" method="POST">{% csrf_token %}  
+        <input name="next" type="hidden" value="{{request.path}}">
+        <input id="current-lang" type="hidden" name="language" value="{{LANGUAGE_CODE}}">
+        <div class="flex">
+                <i class="fas fa-globe icon"></i>
+                <ul class="flex languages">
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                        {% if language.code == LANGUAGE_CODE %}
+                        <li class="mat-list-item js-lang language active selected" data-value="{{language.code}}" title="{% trans 'Current language : ' %} {%trans language.code %}">{{ language.code }}</li>
+                        {% else %}
+                        <li class="mat-list-item js-lang language lang-select" data-value="{{language.code}}" title="{% trans 'Select language : ' %} {%trans language.code %}">{{ language.code }}</li>
+                        {% endif %}
+                        
+                {% endfor %}
+                </ul>
+        </div>
+</form>
