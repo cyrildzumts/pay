@@ -19,6 +19,7 @@ from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
 import logging
 from core.tasks import send_mail_task
+from core.resources import ui_strings as CORE_UI_STRINGS
 from accounts.account_services import AccountService
 from accounts.forms import UserCreationForm
 from accounts.forms import AccountCreationForm
