@@ -21,8 +21,8 @@
                 <ul>
                     {% block SIDEBAR_CONTENT %}
                     <li><a class="mat-button mat-button-text active" href="{% url 'dashboard:home'%}"><i class="fas fa-tachometer-alt icon"></i><span>{% trans "Dashboard" %}</span></a></li>
-                    <li>
-                       <div class="collapsible"><span>{% trans "Transations" %}</span><i class="fas fa-plus icon"></i></div>
+                    <li class="collapsible">
+                       <div class="open"><span>{% trans "Transations" %}</span><i class="fas fa-plus icon"></i></div>
                        <ul class="collapse-content">
                             {% if can_view_service %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}"><i class="fas fa-gifts icon"></i><span>{% trans "Services" %}</span></a></li>{% endif %}
                             {% if can_view_transfer %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}"><i class="fas fa-shopping-bag icon"></i><span>{% trans "Transfers" %}</span></a></li>{% endif %}
@@ -33,8 +33,8 @@
                        </ul>
                     </li>
                     
-                    <li>
-                        <div class="collapsible"><span>{% trans "Users Settings" %}</span><i class="fas fa-plus icon"></i></div>
+                    <li class="collapsible">
+                        <div class="open"><span>{% trans "Users Settings" %}</span><i class="fas fa-plus icon"></i></div>
                         <ul class="collapse-content">
                             {% if can_view_group %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}"><i class="fas fa-users icon"></i><span>{% trans "Groups" %}</span></a></li>{% endif %}
                             {% if can_view_user %}
@@ -45,8 +45,8 @@
                         </ul>
                     </li>
                     
-                    <li>
-                        <div class="collapsible"><span>{% trans "Vouchers Settings" %}</span><i class="fas fa-plus icon"></i></div>
+                    <li class="collapsible">
+                        <div class="open"><span>{% trans "Vouchers Settings" %}</span><i class="fas fa-plus icon"></i></div>
                         <ul class="collapse-content">
                             {% if can_view_voucher %}
                             <li><a class="mat-button mat-button-text" href="{% url 'dashboard:vouchers'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Vouchers" %}</span></a></li>
