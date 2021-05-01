@@ -24,9 +24,9 @@
                     <li class="collapsible">
                        <div class="open"><span>{% trans "Transations" %}</span><i class="fas fa-plus icon"></i></div>
                        <ul class="collapse-content">
-                            {% if can_view_service %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}"><i class="fas fa-gifts icon"></i><span>{% trans "Services" %}</span></a></li>{% endif %}
-                            {% if can_view_transfer %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}"><i class="fas fa-shopping-bag icon"></i><span>{% trans "Transfers" %}</span></a></li>{% endif %}
-                            {% if can_view_payment %} 
+                            {% if perms.payments.view_service %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:services'%}"><i class="fas fa-gifts icon"></i><span>{% trans "Services" %}</span></a></li>{% endif %}
+                            {% if perms.payments.view_transfer %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:transfers'%}"><i class="fas fa-shopping-bag icon"></i><span>{% trans "Transfers" %}</span></a></li>{% endif %}
+                            {% if perms.payments.view_payment %} 
                             <li><a class="mat-button mat-button-text" href="{% url 'dashboard:payments'%}"><i class="fas fa-money-check icon"></i><span>{% trans "Payments" %}</span></a></li>
                             <li><a class="mat-button mat-button-text" href="{% url 'dashboard:payment-requests'%}"><i class="fas fa-money-check icon"></i><span>{% trans "Payment Requests" %}</span></a></li>
                             {% endif %}
@@ -36,37 +36,32 @@
                     <li class="collapsible">
                         <div class="open"><span>{% trans "Users Settings" %}</span><i class="fas fa-plus icon"></i></div>
                         <ul class="collapse-content">
-                            {% if can_view_group %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}"><i class="fas fa-users icon"></i><span>{% trans "Groups" %}</span></a></li>{% endif %}
-                            {% if can_view_user %}
-                            <li><a class="mat-button mat-button-text" href="{% url 'dashboard:users'%}"><i class="fas fa-user-circle icon"></i><span>{% trans "Users" %}</span></a></li>
-                            <li><a class="mat-button mat-button-text" href="{% url 'dashboard:tokens' %}"><i class="fas fa-key icon"></i><span>{% trans "Tokens" %}</span></a></li>
-                            <li><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}"><i class="fas fa-key icon"></i><span>{% trans "Generate Token" %}</span></a></li>
-                            {% endif %}
+                            {% if perms.auth.view_group %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}"><i class="fas fa-users icon"></i><span>{% trans "Groups" %}</span></a></li>{% endif %}
+                            {% if perms.auth.view_user %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:users'%}"><i class="fas fa-user-circle icon"></i><span>{% trans "Users" %}</span></a></li>{% endif %}
+                            {% if perms.authtoken.view_token %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:tokens' %}"><i class="fas fa-key icon"></i><span>{% trans "Tokens" %}</span></a></li>{% endif %}
+                            {% if perms.authtoken.add_token %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}"><i class="fas fa-key icon"></i><span>{% trans "Generate Token" %}</span></a></li>{% endif %}
                         </ul>
                     </li>
                     
                     <li class="collapsible">
                         <div class="open"><span>{% trans "Vouchers Settings" %}</span><i class="fas fa-plus icon"></i></div>
                         <ul class="collapse-content">
-                            {% if can_view_voucher %}
+                            {% if perms.voucher.view_voucher %}
                             <li><a class="mat-button mat-button-text" href="{% url 'dashboard:vouchers'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Vouchers" %}</span></a></li>
                             <li><a class="mat-button mat-button-text" href="{% url 'dashboard:sold-vouchers'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Sold Vouchers" %}</span></a></li>
                             <li><a class="mat-button mat-button-text" href="{% url 'dashboard:used-vouchers'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Used Vouchers" %}</span></a></li>
-                            <li><a class="mat-button mat-button-text" href="{% url 'dashboard:recharges'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Recharges" %}</span></a></li>
+                            
                             {% endif %}
-                            {% if can_add_recharge %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:recharge'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Recharge Balance" %}</span></a></li>{% endif %}
-                            {% if can_generate_voucher %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:voucher-generate'%}"><i class="fas fa-shipping-refresh icon"></i><span>{% trans "Generate Vouchers" %}</span></a></li>{% endif %}
+                            {% if perms.voucher.view_recharge %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:recharges'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Recharges" %}</span></a></li>{% endif %}
+                            {% if perms.voucher.add_recharge %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:recharge'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Recharge Balance" %}</span></a></li>{% endif %}
+                            {% if perms.voucher.add_voucher %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:voucher-generate'%}"><i class="fas fa-shipping-refresh icon"></i><span>{% trans "Generate Vouchers" %}</span></a></li>{% endif %}
                         </ul>
                     </li>
                     
-                    {% if can_view_policy %}
-                    <li><a class="mat-button mat-button-text" href="{% url 'dashboard:policies'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Policies" %}</span></a></li>
-                    <li><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Policy Group" %}</span></a></li>
-                    {% endif %}
-                    {% if can_view_category %}
-                    <li><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Available Services" %}</span></a></li>
-                    <li><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Categories" %}</span></a></li>
-                    {% endif %}
+                    {% if perms.payments.view_policy %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:policies'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Policies" %}</span></a></li>{% endif %}
+                    {% if perms.payments.view_policygroup %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:policy-groups'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Policy Group" %}</span></a></li>{% endif %}
+                    {% if perms.payments.view_servicecategory %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:category-services'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Categories" %}</span></a></li>{% endif %}
+                    {% if perms.payments.vew_availableservice %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:available-services'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Available Services" %}</span></a></li>{% endif %}
                     
                     <li><a class="mat-button mat-button-text" href="{% url 'dashboard:reports' %}"><i class="fas fa-poll icon"></i><span>{% trans "Reports" %}</span></a></li>
                     {% endblock SIDEBAR_CONTENT %}
