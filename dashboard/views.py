@@ -1793,7 +1793,7 @@ def vouchers(request):
     paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
-        context.update(utils.prepare_pagination(paginator.num_pages, page))
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         voucher_set = paginator.page(1)
     except EmptyPage:
