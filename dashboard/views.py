@@ -50,7 +50,6 @@ def dashboard(request):
             'recent_services' : analytics.get_recent_services(),
             'is_allowed'     : can_view_dashboard
         }
-        context.update(get_view_permissions(request.user))
 
         logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
 
@@ -83,8 +82,6 @@ def tokens(request):
         list_set = None
     context['page_title'] = page_title
     context['token_list'] = list_set
-    context.update(get_view_permissions(request.user))
-    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
     return render(request,template_name, context)
 
 @login_required
@@ -102,7 +99,6 @@ def generate_token(request):
     template_name = "dashboard/token_generate.html"
     context = {
         'page_title' :_('User Token Generation') + ' - ' + settings.SITE_NAME,
-        'can_generate_token' : can_generate_token,
     }
     if request.method == 'POST':
             form = forms.TokenForm(utils.get_postdata(request))
@@ -119,7 +115,6 @@ def generate_token(request):
                 messages.add_message(request, messages.ERROR, _('The submitted form is not valid') )
     else :
             context['form'] = forms.TokenForm()
-            context.update(get_view_permissions(request.user))
         
 
     return render(request, template_name, context)
@@ -143,8 +138,6 @@ def reports(request):
     page_title = _("Dashboard Reports") + " - " + settings.SITE_NAME
     
     context['page_title'] = page_title
-    context.update(get_view_permissions(request.user))
-    context.update(analytics.transaction_reports())
     return render(request,template_name, context)
 
 @login_required
@@ -222,10 +215,6 @@ def users(request):
         list_set = None
     context['page_title'] = page_title
     context['users'] = list_set
-    context.update(get_view_permissions(request.user))
-    context['can_delete_user'] = PermissionManager.user_can_delete_user(request.user)
-    context['can_add_user'] = PermissionManager.user_can_add_user(request.user)
-    context['can_update_user'] = PermissionManager.user_can_change_user(request.user)
     return render(request,template_name, context)
 
 @login_required
@@ -246,9 +235,35 @@ def user_details(request, pk=None):
     context['user_instance'] = user
     if hasattr(user, 'balance'):
         context['user_balance'] = user.balance
-    context.update(get_view_permissions(request.user))
-    context['can_delete'] = PermissionManager.user_can_delete_user(request.user)
-    context['can_update'] = PermissionManager.user_can_change_user(request.user)
+
+    return render(request,template_name, context)
+
+@login_required
+def sellers(request):
+    username = request.user.username
+    can_access_dashboard = PermissionManager.user_can_access_dashboard(request.user)
+    if not can_access_dashboard:
+        logger.warning("Dashboard : PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+    can_view_user = PermissionManager.user_can_view_user(request.user)
+    if not can_view_user:
+        logger.warning("PermissionDenied to user %s for path %s", username, request.path)
+        raise PermissionDenied
+
+    context = {}
+    queryset = User.objects.all()
+    template_name = "dashboard/user_list.html"
+    page_title = _("Dashboard Users") + " - " + settings.SITE_NAME
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    context['page_title'] = page_title
+    context['users'] = list_set
     return render(request,template_name, context)
 
 

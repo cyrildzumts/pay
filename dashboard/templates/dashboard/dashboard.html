@@ -1,34 +1,22 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% if not can_access_dashboard %}
+{% if not perms.dashboard.can_view_dashboard %}
 {% include "tags/unauthorized.html" %}
 {% else %}
 
-{% comment %}
-        {% block HEADER_BANNER %}
-                {% block BANNER_TITLE %}
-                        {% include "tags/dashboard_summary.html" %}
-                {% endblock BANNER_TITLE %}
-        {% endblock HEADER_BANNER %}
-{% endcomment %}
-
 {% block CONTENT %}
 <div class="container row">
-        <div class="col col-10">
+        <div class="full">
                 <div class="container">
                         <div class="row">
-                                <div class="col col-9">
+                                <div class="full">
                                         <div class="row">
-                                                {% if can_view_transfer %}
+                                                {% if perms.payments.view_transfer %}
                                                 
-                                                <div class="col col-6">
+                                                <div class="col-6">
                                                         <div class="row">
                                                            <div class="mat-table-wrapper">
-                                                                <div class="row">
-                                                                        <div class="list-title">
-                                                                                {% trans "Transfer History" %}
-                                                                        </div>
-                                                                </div>
+                                                                <h4>{% trans "Transfer History" %}</h4>
                                                                 
                                                                 <table id="transfer-list" class="mat-table js-filter-table">
                                                                         <thead>
@@ -60,18 +48,14 @@
                                                         </div> <!--End of Row-->
                                                 </div> <!--End of Col-6-->
                                                 {% endif %}
-                                                {% if can_view_service %}
+                                                {% if perms.payments.view_service %}
                                                 
                                                 
-                                                <div class="col col-6">
+                                                <div class="full">
 
                                                         <div class="row">
                                                            <div class="mat-table-wrapper">
-                                                                <div class="row">
-                                                                        <div class="list-title">
-                                                                                {% trans "Service History" %}
-                                                                        </div>
-                                                                </div>
+                                                                <h4>{% trans "Service History" %}</h4>
                                                                 
                                                                 <table id="service-list" class="mat-table js-filter-table">
                                                                         <thead>
