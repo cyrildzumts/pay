@@ -13,7 +13,58 @@
         {% include "tags/voucher_report.html" %}
         {% include "tags/payment_request_report.html" %}
         </div>
+        <div id="graphic-reports" class="container">
+            <div class="col-m-12 col-5">
+                <div class="diagram-wrapper">
+                    <div class="title">{% trans "Transfers" %}</div>
+                    <div class="diagram">
+                        <canvas id="transfers-diagram" ></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-m-12 col-5">
+                <div class="diagram-wrapper">
+                    <div class="title">{% trans "Payments" %}</div>
+                    <div class="diagram">
+                        <canvas id="payments-diagram" ></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-m-12 col-5">
+                <div class="diagram-wrapper">
+                    <div class="title">{% trans "Services" %}</div>
+                    <div class="diagram">
+                        <canvas id="services-diagram" ></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-m-12 col-5">
+                <div class="diagram-wrapper">
+                    <div class="title">{% trans "Vouchers" %}</div>
+                    <div class="diagram">
+                        <canvas id="vouchers-diagram" ></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-m-12 col-5">
+                <div class="diagram-wrapper">
+                    <div class="title">{% trans "Recharges" %}</div>
+                    <div class="diagram">
+                        <canvas id="recharges-diagram" ></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-m-12 col-5">
+                <div class="diagram-wrapper">
+                    <div class="title">{% trans "Users" %}</div>
+                    <div class="diagram">
+                        <canvas id="users-diagram" ></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     {% endblock CONTENT %}
 
 
