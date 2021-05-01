@@ -4,26 +4,25 @@
     <div class="banner banner-align-left">
 
         {% block  HEADER_BANNER_TITLE %}
-            <div class="full welcome-text center">
-                <h4> {% trans "Welcome" %} {{name}}</h4>
-            </div>
+           <h4> {% trans "Welcome" %} {{name}}</h4>
         {% endblock HEADER_BANNER_TITLE %}
-        <div class="mat-box full">
-            <div class="mat-box-title">
-                {% if balance %}
-                <div class="balance-info">
-                    <div class="row flex-left"><h4>{% trans "Balance" %}</h4></div>
-                    <div class="row flex-left balance"><span class="money">{{balance.balance|floatformat:"-2"}}</span><span class="currency">{% trans CURRENCY %}</span></div>
-                </div><!--End of Banner-Content-->
-                {% endif %}
-                
-            </div>
+        {% if balance %}
+        <div class="mat-box-">
+            <div class="balance-info">
+                <div class="row flex-left"><h4>{% trans "Balance" %}</h4></div>
+                <div class="row flex-left balance"><span class="money">{{balance.balance|floatformat:"-2"}}</span><span class="currency">{% trans CURRENCY %}</span></div>
+            </div><!--End of Banner-Content-->
         </div>
-        <ul class="actions">
+        {% endif %}
+        <ul class="primary-actions">
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"><i class="fas fa-paper-plane icon"></i><span>{% trans "Send money" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"><i class="fas fa-money-check-alt icon"></i><span>{% trans "Make Payment" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"><i class="fas fa-money-bill icon"></i><span>{% trans "Recharge" %}</span></a></li>
+        </ul>
+        <div class="collapsible">
+            <span class="open">{% trans "More" %} <i class="fas fa-ellipsis-h icon"></i></span>
+            <ul class="collapse-content">
                 <li><a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a></li>
                 <li><a class="mat-button mat-button-text" href="{%url 'payments:activities' %}"> {% trans "Activities" %}</a></li>
                 <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Archive" %}</a></li>
                 <li><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
@@ -31,6 +30,8 @@
                 <li><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
                 <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>   
         </ul><!--End of actions-->
+        </div>
+        
         {% block SUB_BANNER %}
         {% endblock SUB_BANNER %}
         
