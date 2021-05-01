@@ -47,6 +47,7 @@ urlpatterns = [
     path('reports/', views.reports, name='reports'),
     path('tokens/', views.tokens, name='tokens'),
     path('users/', views.users, name='users'),
+    path('sellers/', views.sellers, name='sellers'),
     path('users/generate-balance/', views.generate_balance, name='generate-balance'),
     path('users/send-welcome-mail/<int:pk>/', views.send_welcome_mail, name='send-welcome-mail'),
     path('users/delete/<int:pk>/', views.user_delete, name='user-delete'),

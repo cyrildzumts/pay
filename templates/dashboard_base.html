@@ -38,7 +38,7 @@
                         <ul class="collapse-content">
                             {% if perms.auth.view_group %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:groups'%}"><i class="fas fa-users icon"></i><span>{% trans "Groups" %}</span></a></li>{% endif %}
                             {% if perms.auth.view_user %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:users'%}"><i class="fas fa-user-circle icon"></i><span>{% trans "Users" %}</span></a></li>{% endif %}
-                            {% if perms.auth.view_user %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:users'%}"><i class="fas fa-user-circle icon"></i><span>{% trans "Sellers" %}</span></a></li>{% endif %}
+                            {% if perms.auth.view_user %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:sellers'%}"><i class="fas fa-user-circle icon"></i><span>{% trans "Sellers" %}</span></a></li>{% endif %}
                             {% if perms.authtoken.view_token %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:tokens' %}"><i class="fas fa-key icon"></i><span>{% trans "Tokens" %}</span></a></li>{% endif %}
                             {% if perms.authtoken.add_token %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:generate-token' %}"><i class="fas fa-key icon"></i><span>{% trans "Generate Token" %}</span></a></li>{% endif %}
                         </ul>

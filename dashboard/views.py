@@ -257,7 +257,7 @@ def sellers(request):
         raise PermissionDenied
 
     context = {}
-    queryset = User.objects.all()
+    queryset = User.objects.filter(groups__name=conf.SELLER_GROUP)
     template_name = "dashboard/user_list.html"
     page_title = _("Dashboard Users") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
