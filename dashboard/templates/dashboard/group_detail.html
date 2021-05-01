@@ -17,7 +17,7 @@
                         </div>
                         <ul class="mat-list">
                         {% for p in group.permissions.all %}
-                            <li><span>{{p.content_type.app_label}} - {{p.name}} - {{p.codename}}</span></li>
+                            <li><span>{{p.content_type.app_label}} - {{p.content_type.model}} - {{p.codename}}</span></li>
                         {% endfor %}
                         </ul>
                     </div>

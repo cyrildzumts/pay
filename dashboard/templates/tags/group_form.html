@@ -1,8 +1,8 @@
 {% load i18n %} 
 
-{% comment %}
-    {% if can_add_group %}
-{% endcomment %}
+
+{% if 1 %}
+
 
 <div class="col-m-12 col-8">
 <div class="container">
@@ -41,7 +41,7 @@
                             </div>
                             <ul class="mat-list" id="available-permission-list" data-target="#selected-permission-list" data-element="option">
                                 {% for p in available_permissions %}
-                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.content_type.app_label}} - {{p.name}} - {{p.codename}}</li>
+                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.content_type.app_label}} - {{p.content_type.model}} - {{p.codename}}</li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -117,10 +117,8 @@
 </div>
 </div>
 
-{% comment %}
-    {% else %}
-    <div class="col-m-12 col-8 access-error">
-      <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
-    </div>
-    {% endif %}
-{% endcomment %}
+{% else %}
+<div class="col-m-12 col-8 access-error">
+    <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}

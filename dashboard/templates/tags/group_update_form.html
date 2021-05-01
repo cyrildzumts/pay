@@ -49,7 +49,7 @@
                             </div>
                             <ul class="mat-list" id="available-permission-list" data-target="#selected-permission-list" data-element="option">
                                 {% for p in available_permissions %}
-                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.name}} - {{p.codename}}</li>
+                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.content_type.app_label}} - {{p.content_type.model}} - {{p.codename}}</li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -71,7 +71,7 @@
                             </div>
                             <ul class="mat-list" id="permission-list">
                                 {% for p in permissions %}
-                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.content_type.app_label}}-{{p.name}} - {{p.codename}}</li>
+                                <li class="mat-list-item" data-value="{{p.pk}}">{{p.content_type.app_label}} - {{p.content_type.model}} - {{p.codename}}</li>
                                 {% endfor %}
                             </ul>
                         </div>
