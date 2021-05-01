@@ -1,12 +1,12 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block ACTIONS %}
-{% if can_delete_group %}<a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' group.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a>{% endif %}
-{% if can_update_group %}<a class="mat-button mat-button-text" href="{% url 'dashboard:group-update' group.pk %}"><i class="far fa-edit"></i><span>{% trans "Edit" %}</span></a>{% endif %}
-{% endblock ACTIONS %}
-{% block CONTENT %}
 
-{% if can_view_group %}
+{% block CONTENT %}
+{% block ACTIONS %}
+{% if perms.auth.delete_group %}<a class="mat-button mat-button-text danger" href="{% url 'dashboard:group-delete' group.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a>{% endif %}
+{% if perms.auth.change_group %}<a class="mat-button mat-button-text" href="{% url 'dashboard:group-update' group.pk %}"><i class="far fa-edit"></i><span>{% trans "Edit" %}</span></a>{% endif %}
+{% endblock ACTIONS %}
+{% if perms.auth.view_group %}
 <div class="container">
     <div class="mat-box">
              <div class="box-content">

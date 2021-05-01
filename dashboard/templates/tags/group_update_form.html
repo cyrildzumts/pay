@@ -1,6 +1,6 @@
 {% load i18n %} 
 
-{% if can_change_group %}
+{% if perms.auth.change_group %}
 
 <div class="col-m-12 col-8">
 <div class="container">
@@ -11,7 +11,7 @@
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
         <select id="selected-permission-list" name="permissions" class="hidden" multiple>
             {% for p in permissions  %}
-                <option value="{{p.pk}}" selected>{{p.name}} - {{p.codename}}</option>
+                <option value="{{p.pk}}" selected>{{p.content_type.app_label}} - {{p.content_type.model}} - {{p.codename}}</option>
             {% endfor %}
         </select>
         <select name="users" id="selected-user-list" class="hidden" multiple>
