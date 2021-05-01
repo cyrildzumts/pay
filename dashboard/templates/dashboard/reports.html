@@ -1,19 +1,20 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
+{% load static %}
 
 {% if perms.dashboard.can_view_dashboard %}
 
-{% block CONTENT %}
-<div class="container">
-    <div id="reports" class="container">
-    {% include "tags/payment_report.html" %}
-    {% include "tags/transfer_report.html" %}
-    {% include "tags/service_report.html" %}
-    {% include "tags/voucher_report.html" %}
-    {% include "tags/payment_request_report.html" %}
+    {% block CONTENT %}
+    <div class="container">
+        <div id="reports" class="container">
+        {% include "tags/payment_report.html" %}
+        {% include "tags/transfer_report.html" %}
+        {% include "tags/service_report.html" %}
+        {% include "tags/voucher_report.html" %}
+        {% include "tags/payment_request_report.html" %}
+        </div>
     </div>
-</div>
-{% endblock CONTENT %}
+    {% endblock CONTENT %}
 
 
 {% block SCRIPT %}
