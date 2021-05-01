@@ -20,16 +20,16 @@
             </div>
         </div>
         <ul class="actions">
-                <li class="list-item"><a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:activities' %}"> {% trans "Activities" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Archive" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
-                <li class="list-item"><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>   
+                <li><a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"> {% trans "Send money" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"> {% trans "Make Payment" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"> {% trans "Recharge my account" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:activities' %}"> {% trans "Activities" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Archive" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
+                <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>   
         </ul><!--End of actions-->
         {% block SUB_BANNER %}
         {% endblock SUB_BANNER %}
