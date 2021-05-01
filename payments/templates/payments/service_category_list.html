@@ -6,19 +6,18 @@
 
 {% block MAIN %}
 <div class="container">
-  <div class="row"><p>{% trans "Select the service you want to use." %}</p></div>
   <div class="col-xs-12 col-6">
     <ul class="nav">
       {% for cat in category_list %}
-      <li class="mat-list-item">
+      <li>
         <div class="dropdown">
             <span class="mat-button mat-button-text dropdown-toggle">{{cat.category_name}}</span>
             <div class="dropdown-content">
-              <ul class="listview">
+              <ul>
                 {% for service in cat.available_services.all %}
-                <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
+                <li ><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
                 {% empty %}
-                <li class="list-item"><span class="mat-button mat-button-text disabled">{% trans "No service available" %}</span></li>
+                <li><span class="mat-button mat-button-text disabled">{% trans "No service available" %}</span></li>
                 {% endfor %}
               </ul>
             </div>
