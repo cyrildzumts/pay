@@ -48,10 +48,11 @@ def dashboard(request):
             'summary' : analytics.dashboard_summary(),
             'recent_transfers' : analytics.get_recent_transfers(),
             'recent_services' : analytics.get_recent_services(),
-            'is_allowed'     : can_view_dashboard
+            'is_allowed'     : can_view_dashboard,
+            'content_title' : CORE_UI_STRINGS.UI_DASHBOARD_TITLE
         }
 
-        logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
+    logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
 
     return render(request, template_name, context)
 
@@ -82,6 +83,7 @@ def tokens(request):
         list_set = None
     context['page_title'] = page_title
     context['token_list'] = list_set
+    context['content_title'] = CORE_UI_STRINGS.UI_TOKEN_LIST_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -99,6 +101,7 @@ def generate_token(request):
     template_name = "dashboard/token_generate.html"
     context = {
         'page_title' :_('User Token Generation') + ' - ' + settings.SITE_NAME,
+        'content_title': CORE_UI_STRINGS.UI_TOKEN_GENERATE_TITLE
     }
     if request.method == 'POST':
             form = forms.TokenForm(utils.get_postdata(request))
@@ -138,6 +141,7 @@ def reports(request):
     page_title = _("Dashboard Reports") + " - " + settings.SITE_NAME
     
     context['page_title'] = page_title
+    context['content_title'] = CORE_UI_STRINGS.UI_REPORT_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -215,6 +219,7 @@ def users(request):
         list_set = None
     context['page_title'] = page_title
     context['users'] = list_set
+    context['content_title'] = CORE_UI_STRINGS.UI_USER_LIST_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -233,6 +238,7 @@ def user_details(request, pk=None):
     page_title = "User Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['user_instance'] = user
+    context['content_title'] = CORE_UI_STRINGS.UI_USER_TITLE
     if hasattr(user, 'balance'):
         context['user_balance'] = user.balance
 
@@ -264,6 +270,7 @@ def sellers(request):
         list_set = None
     context['page_title'] = page_title
     context['users'] = list_set
+    context['content_title'] = CORE_UI_STRINGS.UI_SELLER_LIST_TITLE
     return render(request,template_name, context)
 
 
@@ -303,10 +310,8 @@ def service_details(request, service_uuid=None):
     page_title = "Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['service'] = service
-    context.update(get_view_permissions(request.user))
-    context['can_delete'] = PermissionManager.user_can_delete_service(request.user)
-    context['can_update'] = PermissionManager.user_can_change_service(request.user)
     context['service_summary'] = analytics.get_service_usage_summary()
+    context['content_title'] = CORE_UI_STRINGS.UI_SERVICE_TITLE
     return render(request,template_name, context)
 
 
@@ -337,10 +342,7 @@ def services(request):
         list_set = None
     context['page_title'] = page_title
     context['services'] = list_set
-    context['can_access_dashboard'] = can_access_dashboard
-    context.update(get_view_permissions(request.user))
-    context['can_delete'] = PermissionManager.user_can_delete_service(request.user)
-    context['can_update'] = PermissionManager.user_can_change_service(request.user)
+    context['content_title'] = CORE_UI_STRINGS.UI_SERVICE_LIST_TITLE
     context['service_summary'] = analytics.get_service_usage_summary()
     return render(request,template_name, context)
 
@@ -373,10 +375,7 @@ def available_services(request):
         list_set = None
     context['page_title'] = page_title
     context['available_services'] = list_set
-    context.update(get_view_permissions(request.user))
-    context['can_delete_available_service'] = PermissionManager.user_can_delete_available_service(request.user)
-    context['can_change_available_service'] = PermissionManager.user_can_change_available_service(request.user)
-    context['can_add_available_service'] = PermissionManager.user_can_add_available_service(request.user)
+    context['content_title'] = CORE_UI_STRINGS.UI_SERVICE_PARTNER_LIST_TITLE
     return render(request,template_name, context)
 
 def available_service_update(request, available_uuid=None):
@@ -413,9 +412,8 @@ def available_service_update(request, available_uuid=None):
             'form': form,
             'categories': categories,
             'operators': operators,
-            'can_update_available_service': can_update_available_service
+            'content_title' : CORE_UI_STRINGS.UI_SERVICE_PARTNER_UPDATE_TITLE
         }
-    context.update(get_view_permissions(request.user))
     
     return render(request, template_name,context )
 
@@ -456,10 +454,8 @@ def available_service_create(request):
             'form': form,
             'categories': categories,
             'operators': operators,
-            'can_add_available_service': can_add_available_service
+            'content_title' : CORE_UI_STRINGS.UI_SERVICE_PARTNER_CREATE_TITLE
         }
-    context.update(get_view_permissions(request.user))
-    
     return render(request, template_name,context )
 
 @login_required
@@ -531,9 +527,7 @@ def available_service_details(request, available_uuid=None):
     page_title = "Available Service Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['service'] = service
-    context.update(get_view_permissions(request.user))
-    context['can_delete_available_service'] = PermissionManager.user_can_delete_available_service(request.user)
-    context['can_update_available_service'] = PermissionManager.user_can_change_available_service(request.user)
+    context['content_title'] = CORE_UI_STRINGS.UI_SERVICE_PARTNER_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -564,10 +558,7 @@ def category_services(request):
         list_set = None
     context['page_title'] = page_title
     context['categories'] = list_set
-    context.update(get_view_permissions(request.user))
-    context['can_add_category'] = PermissionManager.user_can_add_category(request.user)
-    context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
-    context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
+    context['content_title'] =  CORE_UI_STRINGS.UI_CATEGORY_LIST_TITLE
     return render(request,template_name, context)
 
 
@@ -602,9 +593,8 @@ def category_service_update(request, category_uuid=None):
             'template_name':template_name,
             'category' : instance,
             'form': form,
-            'can_update_category' : can_change_category
         }
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_CATEGORY_UPDATE_TITLE
     return render(request, template_name,context )
 
 
@@ -694,9 +684,8 @@ def category_service_create(request):
             'page_title':page_title,
             'template_name':template_name,
             'form': form,
-            'can_add_category' : can_add_category
         }
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_CATEGORY_CREATE_TITLE
     
     return render(request, template_name,context )
 
@@ -725,10 +714,7 @@ def category_service_details(request, category_uuid=None):
     context['category'] = category
     context['has_services'] = category.available_services.exists()
     context['available_services'] = category.available_services.all()
-    context.update(get_view_permissions(request.user))
-    context['can_add_category'] = PermissionManager.user_can_add_category(request.user)
-    context['can_delete_category'] = PermissionManager.user_can_delete_category(request.user)
-    context['can_update_category'] = PermissionManager.user_can_change_category(request.user)
+    context['content_title'] =  CORE_UI_STRINGS.UI_CATEGORY_TITLE
     return render(request,template_name, context)
 
 
@@ -761,10 +747,7 @@ def policies(request):
         list_set = None
     context['page_title'] = page_title
     context['policies'] = list_set
-    context.update(get_view_permissions(request.user))
-    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
-    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
-    context['can_add_policy'] = PermissionManager.user_can_add_policy(request.user)
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_LIST_TITLE
     return render(request,template_name, context)
 
 
@@ -800,9 +783,8 @@ def policy_update(request, policy_uuid=None):
             'template_name':template_name,
             'policy' : instance,
             'form': form,
-            'can_change_policy' : can_change_policy
         }
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_UPDATE_TITLE
     return render(request, template_name,context )
 
 
@@ -889,10 +871,9 @@ def policy_create(request):
             'page_title':page_title,
             'template_name':template_name,
             'form': form,
-            'can_add_policy' : can_add_policy
         }
     
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_CREATE_TITLE
     return render(request, template_name,context )
 
 
@@ -917,9 +898,7 @@ def policy_details(request, policy_uuid=None):
     page_title = "Policy Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['policy'] = policy
-    context.update(get_view_permissions(request.user))
-    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
-    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_TITLE
     return render(request,template_name, context)
 
 
@@ -953,10 +932,7 @@ def policy_groups(request):
         list_set = None
     context['page_title'] = page_title
     context['groups'] = list_set
-    context.update(get_view_permissions(request.user))
-    context['can_add_policy'] = can_add_policy
-    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
-    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_GROUP_LIST_TITLE
     return render(request,template_name, context)
 
 
@@ -991,10 +967,9 @@ def policy_group_create(request):
             'template_name':template_name,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_add_policy' : can_add_policy,
             'GROUP_TYPE': PAYMENTS_CONSTANTS.POLICY_GROUP_TYPE
         }
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_GROUP_CREATE_TITLE
     
     return render(request, template_name,context )
 
@@ -1029,10 +1004,9 @@ def policy_group_update(request, group_uuid=None):
             'group' : instance,
             'form': form,
             'policies' : forms.Policy.objects.all(),
-            'can_change_policy' : can_change_policy,
             'GROUP_TYPE': PAYMENTS_CONSTANTS.POLICY_GROUP_TYPE
         }
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_GROUP_UPDATE_TITLE
     return render(request, template_name,context )
 
 
@@ -1110,9 +1084,7 @@ def policy_group_details(request, group_uuid=None):
     context['group'] = group
     context['members'] = group.members.all()
     context['users'] = User.objects.filter(is_active=True, is_superuser=False)
-    context['can_delete_policy'] = PermissionManager.user_can_delete_policy(request.user)
-    context['can_update_policy'] = PermissionManager.user_can_change_policy(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_POLICY_GROUP_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -1170,9 +1142,7 @@ def transfers(request):
         list_set = None
     context['page_title'] = page_title
     context['transfers'] = list_set
-    context['can_delete_transfer'] = PermissionManager.user_can_delete_transfer(request.user)
-    context['can_update_transfer'] = PermissionManager.user_can_change_transfer(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_TRANSFER_LIST_TITLE
     return render(request,template_name, context)
 
 
@@ -1195,9 +1165,7 @@ def transfer_details(request, transfer_uuid=None):
     page_title = "Transfer Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['transfer'] = transfer
-    context['can_delete_transfer'] = PermissionManager.user_can_delete_transfer(request.user)
-    context['can_update_transfer'] = PermissionManager.user_can_change_transfer(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_TRANSFER_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -1229,9 +1197,7 @@ def payments(request):
         payment_set = None
     context['page_title'] = page_title
     context['payments'] = payment_set
-    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
-    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_PAYMENT_LIST_TITLE
     return render(request,template_name, context)
 
 
@@ -1255,9 +1221,7 @@ def payment_details(request, payment_uuid=None):
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['payment'] = payment
-    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
-    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_PAYMENT_TITLE
     return render(request,template_name, context)
 
 
@@ -1289,9 +1253,7 @@ def payment_requests(request):
         request_set = None
     context['page_title'] = page_title
     context['requests'] = request_set
-    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
-    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_PAYMENT_REQUEST_LIST_TITLE
     return render(request,template_name, context)
 
 
@@ -1314,9 +1276,7 @@ def payment_request_details(request, request_uuid=None):
     page_title = "Payment Details - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['payment_request'] = payment_request
-    context['can_delete_payment'] = PermissionManager.user_can_delete_payment(request.user)
-    context['can_update_payment'] = PermissionManager.user_can_change_payment(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_PAYMENT_REQUEST_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -1447,10 +1407,7 @@ def groups(request):
         group_set = None
     context['page_title'] = page_title
     context['groups'] = group_set
-    context['can_delete_group'] = PermissionManager.user_can_delete_group(request.user)
-    context['can_update_group'] = PermissionManager.user_can_change_group(request.user)
-    context['can_add_group'] = PermissionManager.user_can_add_group(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_GROUP_LIST_TITLE
     return render(request,template_name, context)
 
 @login_required
@@ -1472,9 +1429,7 @@ def group_detail(request, pk=None):
     page_title = "Group Detail" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['group'] = group
-    context['can_delete_group'] = PermissionManager.user_can_delete_group(request.user)
-    context['can_update_group'] = PermissionManager.user_can_change_group(request.user)
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_GROUP_TITLE
     return render(request,template_name, context)
 
 
@@ -1525,9 +1480,8 @@ def group_update(request, pk=None):
             'available_users' : available_users,
             'permissions': permissions,
             'available_permissions' : available_permissions,
-            'can_change_group' : can_change_group
     }
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_GROUP_UPDATE_TITLE
     return render(request, template_name, context)
 
 
@@ -1581,9 +1535,8 @@ def group_create(request):
             'form': form,
             'available_users' : available_users,
             'available_permissions': available_permissions,
-            'can_add_group' : can_add_group
     }
-    context.update(get_view_permissions(request.user))
+    context['content_title'] =  CORE_UI_STRINGS.UI_GROUP_CREATE_TITLE
     return render(request, template_name, context)
 
 
@@ -1640,7 +1593,6 @@ def permissions(request):
         permission_set = None
     context['page_title'] = page_title
     context['permissions'] = permission_set
-    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 @login_required
@@ -1657,7 +1609,6 @@ def permission_detail(request, pk=None):
     page_title = "Permission Detail" + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['permission'] = permission
-    context.update(get_view_permissions(request.user))
     return render(request,template_name, context)
 
 
@@ -1701,7 +1652,6 @@ def permission_update(request, pk=None):
             'available_users' : available_users,
             'permission': permission
     }
-    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 
@@ -1752,7 +1702,6 @@ def permission_create(request):
             'available_users' : available_users,
             'available_groups': available_groups
     }
-    context.update(get_view_permissions(request.user))
     return render(request, template_name, context)
 
 
@@ -1809,7 +1758,6 @@ def create_account(request):
     else:
         user_form = UserCreationForm()
         account_form = AccountCreationForm()
-    context.update(get_view_permissions(request.user))
     context['can_add_user'] = can_add_user
     context['user_form'] = user_form
     context['account_form'] = account_form
@@ -1851,6 +1799,7 @@ def vouchers(request):
         voucher_set = None
     context['page_title'] = page_title
     context['voucher_list'] = voucher_set
+    context['content_title'] =  CORE_UI_STRINGS.UI_VOUCHER_LIST_TITLE
     return render(request, template_name, context)
 
 
@@ -1864,6 +1813,7 @@ def voucher_details(request, voucher_uuid=None):
         'page_title': page_title,
         'voucher': instance
     }
+    context['content_title'] =  CORE_UI_STRINGS.UI_VOUCHER_TITLE
     return render(request, template_name, context)
 
 
@@ -1969,6 +1919,7 @@ def used_vouchers(request):
     page_title = _("Used Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['voucher_list'] = voucher_set
+    context['content_title'] =  CORE_UI_STRINGS.UI_USED_VOUCHER_LIST_TITLE
     return render(request, template_name, context)
 
 
@@ -1982,6 +1933,7 @@ def used_voucher_details(request, voucher_uuid=None):
         'used_voucher': instance,
         'voucher' : instance
     }
+    context['content_title'] =  CORE_UI_STRINGS.UI_USED_VOUCHER_TITLE
     return render(request, template_name, context)
 
 
@@ -2004,6 +1956,7 @@ def sold_vouchers(request):
     page_title = _("Sold Voucher List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['voucher_list'] = voucher_set
+    context['content_title'] =  CORE_UI_STRINGS.UI_SOLD_VOUCHER_LIST_TITLE
     return render(request, template_name, context)
 
 
@@ -2017,6 +1970,7 @@ def sold_voucher_details(request, voucher_uuid=None):
         'sold_voucher': instance,
         'voucher' : instance
     }
+    context['content_title'] =  CORE_UI_STRINGS.UI_SOLD_VOUCHER_TITLE
     return render(request, template_name, context)
 
 
@@ -2050,6 +2004,7 @@ def voucher_generate(request):
         'page_title': page_title,
         'template_name': template_name,
     }
+    context['content_title'] =  CORE_UI_STRINGS.UI_TOKEN_GENERATE_TITLE
     return render(request, template_name, context)
 
 
@@ -2073,6 +2028,7 @@ def recharges(request):
     page_title = _("Recharge List") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
     context['recharge_list'] = recharge_list
+    context['content_title'] = CORE_UI_STRINGS.UI_RECHARGE_LIST_TITLE
     return render(request, template_name, context)
 
 
@@ -2087,6 +2043,7 @@ def recharge_details(request, recharge_uuid=None):
         'recharge': instance,
         'voucher': instance.voucher
     }
+    context['content_title'] =  CORE_UI_STRINGS.UI_RECHARGE_TITLE
     return render(request, template_name, context)
 
 
