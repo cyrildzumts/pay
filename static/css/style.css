@@ -290,8 +290,6 @@
     align-items: center;
     justify-content: center;
     max-width: 500px;
-    overflow: hidden;
-    overflow-x: scroll;
     padding: 8px 16px;
     margin : 8px auto;
 }

@@ -1790,7 +1790,7 @@ def vouchers(request):
     template_name = "dashboard/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
     page = request.GET.get('page', 1)
-    paginator = Paginator(voucher_list, 10)
+    paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1908,7 +1908,7 @@ def used_vouchers(request):
     # permission
     voucher_list = Voucher.objects.filter(is_used=True).order_by('-created_at')
     page = request.GET.get('page', 1)
-    paginator = Paginator(voucher_list, 10)
+    paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
     except PageNotAnInteger:
@@ -1945,7 +1945,7 @@ def sold_vouchers(request):
     # permission
     voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(activated=True)).order_by('-created_at')
     page = request.GET.get('page', 1)
-    paginator = Paginator(voucher_list, 10)
+    paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
     except PageNotAnInteger:
