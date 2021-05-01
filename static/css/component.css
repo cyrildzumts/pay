@@ -2964,7 +2964,7 @@
 	  width: 100%;
 	  justify-content: center;
 	  flex-wrap: wrap;
-	  font-size: 0.8em;
+	  /*font-size: 0.8em;*/
 	  letter-spacing: 0.2em;
 	  padding: 1em;
 	  margin-bottom: 2em;
