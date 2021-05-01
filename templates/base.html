@@ -163,9 +163,13 @@
 {% endblock BASE_SCRIPT %}
 
 <script  type="application/javascript" src="{% static 'js/pay.js' %}"></script>
-<script  type="application/javascript" src="{% static 'js/form_verification.js' %}"></script> 
+{% comment %}
+        <script  type="application/javascript" src="{% static 'js/form_verification.js' %}"></script> 
+{% endcomment %}
 
-<script  type="application/javascript" src="{% static 'js/lib/styling.js' %}"></script> 
+{% comment %}
+        <script  type="application/javascript" src="{% static 'js/lib/styling.js' %}"></script> 
+{% endcomment %}
 {% block SCRIPT %}
 {% endblock SCRIPT %}
 </body>

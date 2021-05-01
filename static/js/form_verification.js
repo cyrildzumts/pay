@@ -1,3 +1,8 @@
+define(function(require) {
+    'use strict';
+
+var $ = require('jquery');
+
 var number_regex = RegExp('^[0-9]+$');
 var real_number_regex = RegExp('^[0-9]*(\.[0-9]+)?$');
 var image_ext_regex = RegExp('\.(jpe?g|png)$');
@@ -381,4 +386,7 @@ $(document).ready(function(){
     //$category_form.on("submit", validate_category_form);
     //$idcard_form.on("submit", validate_id_upload_form);
     $("#submit-btn").addClass("disabled").prop("disabled", true);
+});
+    console.info("Form Verification module loaded");
+
 });
