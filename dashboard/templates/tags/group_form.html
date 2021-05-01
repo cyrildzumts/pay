@@ -1,13 +1,11 @@
 {% load i18n %} 
 
-{% if can_add_group %}
+{% comment %}
+    {% if can_add_group %}
+{% endcomment %}
 
 <div class="col-m-12 col-8">
 <div class="container">
-     <div class="actions">
-        <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
-        <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
-    </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-create' %}" method="POST">{% csrf_token %}
         <select id="selected-permission-list" name="permissions" class="hidden" multiple>
         </select>
@@ -119,8 +117,10 @@
 </div>
 </div>
 
-{% else %}
-<div class="col-m-12 col-8 access-error">
-  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
-</div>
-{% endif %}
+{% comment %}
+    {% else %}
+    <div class="col-m-12 col-8 access-error">
+      <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+    </div>
+    {% endif %}
+{% endcomment %}
