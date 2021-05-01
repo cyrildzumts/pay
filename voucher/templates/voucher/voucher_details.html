@@ -2,12 +2,5 @@
 {% load i18n %}
 
 {% block CONTENT_MAIN %}
-<div class="row">
-    <div class="actions">
-    {% if not voucher.activated %}
-        <a class="mat-button mat-button-default" href="{% url 'voucher:activate' voucher.voucher_uuid %} "> {% trans "Activate this Voucher" %} </a>
-    {% endif %}
-    </div>
-</div>
-{% include "tags/voucher_snippet.html" with voucher=voucher %}
+{% include "tags/voucher_snippet.html" with VOUCHER_ACTIVATE_URL='voucher:activate' %}
 {% endblock CONTENT_MAIN %}
