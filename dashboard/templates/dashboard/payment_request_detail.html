@@ -4,7 +4,7 @@
 
 {% block CONTENT %}
 
-{% if can_view_payment  %}
+{% if perms.payments.view_paymentrequest  %}
 <div class="container">
         <div class="mat-box">
                 <div class="title">
@@ -21,13 +21,13 @@
                         <span class="key">{% trans "Customer" %} :</span> <span class="value">{{payment_request.customer_name}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{payment_request.amount}} {% trans "XAF" %}</span>
+                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{payment_request.amount}} {% trans CURRENCY %}</span>
                     </div>
                     <div class="entry">
                         <span class="key">{% trans "Country" %} :</span> <span class="value">{{payment_request.country}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{payment_request.created_at}}</span>
+                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{payment_request.created_at|date:"F j, Y H:i:s"}}</span>
                     </div>
                     <div class="entry">
                         <span class="key">{% trans "Commission" %} :</span> <span class="value">{{payment_request.commission}}</span>

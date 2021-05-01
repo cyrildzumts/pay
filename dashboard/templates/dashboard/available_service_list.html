@@ -24,7 +24,6 @@
                           <th>{% trans "Service Name" %}</th>
                           <th>{% trans "Category" %}</th>
                           <th>{% trans "Details" %}</th>
-                          <th>{% trans "Delete Action" %}</th>
                   </tr>
           </thead>
           <tbody>
@@ -34,7 +33,7 @@
                   <td>{{avs.name}}</td>
                   <td>{{avs.category.category_name}}</td>
                   <td><a class="mat-button mat-button-default" href="{{avs.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
-                  {% if can_delete_available_service %}<td><a class="mat-button mat-button-default warning danger js-need-confirmation" href="{{avs.get_dashboard_remove_url}}"> {% trans "Delete" %}</a></td>{% endif %}
+                  
                   </tr>
                   {% endfor %}
                   

@@ -1,16 +1,9 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% if not can_access_dashboard %}
-{% include "tags/unauthorized.html" %}
-{% else %}
 
-{% block HEADER_BANNER %}
-        {% block BANNER_TITLE %}
-                <h4>{% trans "PAY REPORT" %}</h4>
-        {% endblock BANNER_TITLE %}
-{% endblock HEADER_BANNER %}
+{% if perms.dashboard.can_view_dashboard %}
 
-{% block MAIN_CONTENT %}
+{% block CONTENT %}
 <div class="container">
     <div id="reports" class="container">
     {% include "tags/payment_report.html" %}
@@ -20,10 +13,16 @@
     {% include "tags/payment_request_report.html" %}
     </div>
 </div>
-{% endblock MAIN_CONTENT %}
-{% endif %}
+{% endblock CONTENT %}
+
 
 {% block SCRIPT %}
 <script  type="application/javascript" src="{% static 'js/vendor/Chart.min.js' %}"></script> 
 <script  type="application/javascript" src="{% static 'js/analytics.js' %}"></script>
 {% endblock SCRIPT %}
+
+
+{% else %}
+{% include "tags/unauthorized.html" %}
+
+{% endif %}

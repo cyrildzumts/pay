@@ -4,7 +4,7 @@
 
 {% block CONTENT %}
 
-{% if can_view_payment %}
+{% if perms.payments.view_paymentrequest %}
 
 <div class="container">
 <div class="col-m-12 col-8">
@@ -26,9 +26,9 @@
                   <tr>
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                     <td scope="row" data-label="Seller">{{p.seller.get_full_name}}</td>
-                    <td data-label="Amount">{{p.amount}} {% trans "XAF" %}</td>
+                    <td data-label="Amount">{{p.amount}} {% trans CURRENCY %}</td>
                     <td data-label="Status">{{p.status}}</td>
-                    <td data-label="Date">{{p.created_at|date:"M j, Y"}}</td>
+                    <td data-label="Date">{{p.created_at|date:"F j,Y H:i:s"}}</td>
                     <td data-label="Details"><a class="mat-button mat-button-default" href="{{p.get_dashboard_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}

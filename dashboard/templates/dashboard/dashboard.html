@@ -32,8 +32,8 @@
                                                                                 <tr>
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-transfer"></td>-->
                                                                                 <td>{{xfer.sender.username}}</td>
-                                                                                <td>{{xfer.amount}} {% trans "XAF" %}</td>
-                                                                                <td>{{xfer.created_at|date:"F j, Y"}}</td>
+                                                                                <td>{{xfer.amount}} {% trans CURRENCY %}</td>
+                                                                                <td>{{xfer.created_at|date:"F j,Y H:i:s"}}</td>
                                                                                 </tr>
                                                                                 {% endfor %}
                                                                                 
@@ -72,7 +72,7 @@
                                                                                 <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                                                                                 <td>{{s.name}}</td>
                                                                                 <td>{{s.price}} {% trans "XAF" %}</td>
-                                                                                <td>{{s.created_at|date:"F j, Y"}}</td>
+                                                                                <td>{{s.created_at|date:"F j,Y H:i:s"}}</td>
                                                                                 </tr>
                                                                                 {% endfor %}
                                                                                 
