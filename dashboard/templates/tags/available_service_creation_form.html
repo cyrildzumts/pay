@@ -1,14 +1,12 @@
 {% load i18n %} 
 
-{% if can_add_available_service %}
+{% if perms.payments.add_availableservice %}
 
 
 <div class="container">
 
     <div class="mat-box">
-        <div class="title">
-            <h3>{% trans "Create a new Service" %}</h3>
-        </div>
+        <h3>{% trans "Create a new Service" %}</h3>
         <div class="mat-box-content">
         
         
