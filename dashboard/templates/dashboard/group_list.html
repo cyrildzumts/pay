@@ -2,9 +2,13 @@
 {% load i18n %}
 
 {% block ACTIONS %}
-{% if can_add_group %}
+{% comment %}
+    {% if can_add_group %}
+{% endcomment %}
 <a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"><i class="fas fa-plus icon"></i> <span>{% trans "New Group" %}</span> </a>
-{% endif %}
+{% comment %}
+    {% endif %}
+{% endcomment %}
 {% endblock ACTIONS %}
 
 {% block CONTENT %}
