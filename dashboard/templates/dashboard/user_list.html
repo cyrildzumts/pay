@@ -27,20 +27,20 @@
                           <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                           <th scope="col">{% trans "Username" %}</th>
                           <th scope="col">{% trans "Name" %}</th>
-                          <th scope="col">{% trans "Is Active" %}</th>
+                          <th scope="col">{% trans "Status" %}</th>
                           <th scope="col">{% trans "Date Joined" %}</th>
                           <th scope="col">{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
-                  {% for user in users  %}
+                  {% for u in users  %}
                   <tr>
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                    <td scope="row" data-label="{% trans 'Username' %}">{{user.username}}</td>
-                    <td data-label="{% trans 'Name' %}">{{user.get_full_name}}</td>
-                    <td data-label="{% trans 'Is Active' %}">{% if user.is_active %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</td>
-                    <td data-label="{% trans 'Date Joined' %}">{{user.date_joined|date}}</td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% url 'dashboard:user-detail' user.pk %}">{% trans "More" %} </a></td>
+                    <td scope="row" data-label="{% trans 'Username' %}">{{u.username}}</td>
+                    <td data-label="{% trans 'Name' %}">{{u.get_full_name}}</td>
+                    <td data-label="{% trans 'Status' %}"><span><i class="fas fa-circle icon {% if u.is_active %}success{% else %}warning{% endif %}"></i>{{u.is_active|yesno('active,inactive')}}</span></td>
+                    <td data-label="{% trans 'Date Joined' %}">{{u.date_joined|date}}</td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% url 'dashboard:user-detail' u.pk %}">{% trans "More" %} </a></td>
                   </tr>
                   {% endfor %}
                   

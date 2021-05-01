@@ -16,9 +16,7 @@
 <div class="container">
 
         <div class="mat-box">
-                <div class="title row">
-                        <span>{% trans "User Information" %}</span>
-                </div>
+                <h4>{% trans "User Information" %}</h4>
                 <div class="mat-box-content row">
                         <div class="box">
                                 <div class="entry">
@@ -63,7 +61,7 @@
                         {% endif %}
                         {% if user_instance.policygroup_set %}
                                 <div class="box">
-                                        <h3>{% trans "USER POLICY GROUPS" %}</h3>
+                                        <h5>{% trans "USER POLICY GROUPS" %}</h5>
                                         <ul class="mat-list">
                                                 {% for g in user_instance.policygroup_set.all %} <li class="mat-list-item">{{g}}</li> {% endfor %}
                                         </ul>
@@ -72,7 +70,7 @@
                         {% endif %}
                         {% if user_instance.groups %}
                                 <div class="box">
-                                        <h3>{% trans "USER GROUPS" %}</h3>
+                                        <h5>{% trans "USER GROUPS" %}</h5>
                                         <ul class="mat-list">
                                                 {% for g in user_instance.groups.all %} <li class="mat-list-item">{{g.name}}</li> {% endfor %}
                                         </ul>
