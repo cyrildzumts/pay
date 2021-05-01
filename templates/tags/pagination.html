@@ -8,7 +8,7 @@
     {% else %}
     <li class="pagination--page disabled"><i class="fas fa-angle-double-left"></i></li>
     {% endif %}
-    {% for i in page_set.paginator.page_range  %}
+    {% for i in pages  %}
     {% if i == page_set.number %}
     <li class="pagination--page active"><span>{{i}} <span class="sr-only">({% trans "current" %})</span> </span></li>
     {% else %}

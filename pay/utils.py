@@ -5,7 +5,10 @@ import random
 
 logger = logging.getLogger(__name__)
 
-PAGINATED_BY = 50
+PAGINATED_BY = 2
+PAGE_PAGINATION = 10
+PAGE_PAGINATION_PART_LIMIT = 6
+PAGE_PAGINATION_BETWEEN_LIMIT = 5
 RAND_START = 0
 RAND_END = 1000000
 
@@ -82,3 +85,20 @@ def find_element_by_value_in_tuples(value, tuples):
             key = k
             break
     return key, value
+
+
+def prepare_pagination(num_pages, page_number):
+    """
+    1 - Number of pages < PAGE_PAGINATION: show all pages;
+    2 - Current page <= 6: show first PAGE_PAGINATION pages;
+    3 - Current page > 6 and < (number of pages - 6): show current page, 5 before and 5 after;
+    4 - Current page >= (number of pages -6): show the last PAGE_PAGINATION pages.
+    """
+    if num_pages <= PAGE_PAGINATION or page_number <= PAGE_PAGINATION_PART_LIMIT:  # case 1 and 2
+        pages = [x for x in range(1, min(num_pages + 1, PAGE_PAGINATION + 1))]
+    elif page_number > num_pages - PAGE_PAGINATION_PART_LIMIT:  # case 4
+        pages = [x for x in range(num_pages - PAGE_PAGINATION - 1, num_pages + 1)]
+    else:  # case 3
+        pages = [x for x in range(page_number - PAGE_PAGINATION_PART_LIMIT - 1, page_number + PAGE_PAGINATION_PART_LIMIT)]
+    
+    return {'pages': pages}
