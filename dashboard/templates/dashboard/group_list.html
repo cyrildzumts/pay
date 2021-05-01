@@ -1,19 +1,18 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block ACTIONS %}
-{% comment %}
-    {% if can_add_group %}
-{% endcomment %}
-<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"><i class="fas fa-plus icon"></i> <span>{% trans "New Group" %}</span> </a>
-{% comment %}
-    {% endif %}
-{% endcomment %}
-{% endblock ACTIONS %}
-
 {% block CONTENT %}
 
-{% if can_view_group %}
+{% block ACTIONS %}
+
+{% if perms.auth.add_group %}
+<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"><i class="fas fa-plus icon"></i> <span>{% trans "New Group" %}</span> </a>
+
+{% endif %}
+
+{% endblock ACTIONS %}
+
+{% if perms.auth.view_group %}
 
 
 <div id="group-delete-dialog" class="dialog">
@@ -27,7 +26,7 @@
         </div>
         <div class="row">
             <button class="mat-button mat-button-outlined js-close" type="button">{% trans "Cancel" %}</button>
-            {% if can_delete_group %}<button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>{% endif %}
+            {% if perms.auth.delete_group %}<button class="mat-button mat-button-default warning js-confirm" type="button">{% trans "Delete" %}</button>{% endif %}
         </div>
     </div><!--End of Dialog Content-->
     
@@ -35,7 +34,7 @@
 
 <div class="container">
     <div class="actions">
-    {% if can_add_group %}<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus icon"></i> <span>{% trans "New Group" %}</span> </a>{% endif %}
+    {% if perms.auth.add_group %}<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus icon"></i> <span>{% trans "New Group" %}</span> </a>{% endif %}
     </div>
     {% if groups %}
     <div class="col-m-12 col-8">
@@ -60,7 +59,7 @@
                   <td>{{g.permissions.count}}</td>
                   <td>{{g.user_set.count}}</td>
                   <td><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
-                  {% if can_delete_group %}<td><a class="mat-button mat-button-text danger js-need-confirmation" data-target="#group-delete-dialog" href="{% url 'dashboard:group-delete' g.pk %}"><i class="far fa-trash-alt"></i><span>{% trans "Delete" %}</span></a></td>{% endif %}
+                  
                   </tr>
                   {% endfor %}
                   
