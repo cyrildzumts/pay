@@ -77,6 +77,7 @@ def tokens(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -213,6 +214,7 @@ def users(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -264,6 +266,7 @@ def sellers(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -336,6 +339,7 @@ def services(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -369,6 +373,7 @@ def available_services(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -552,6 +557,7 @@ def category_services(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -741,6 +747,7 @@ def policies(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -926,6 +933,7 @@ def policy_groups(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -1136,6 +1144,7 @@ def transfers(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -1191,6 +1200,7 @@ def payments(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         payment_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         payment_set = paginator.page(1)
     except EmptyPage:
@@ -1247,6 +1257,7 @@ def payment_requests(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         request_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         request_set = paginator.page(1)
     except EmptyPage:
@@ -1302,6 +1313,7 @@ def cases(request):
     paginator = Paginator(queryset, conf.PAGINATED_BY)
     try:
         list_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         list_set = paginator.page(1)
     except EmptyPage:
@@ -1401,6 +1413,7 @@ def groups(request):
     paginator = Paginator(group_list, conf.PAGINATED_BY)
     try:
         group_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         group_set = paginator.page(1)
     except EmptyPage:
@@ -1587,6 +1600,7 @@ def permissions(request):
     paginator = Paginator(permission_list, conf.PAGINATED_BY)
     try:
         permission_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         permission_set = paginator.page(1)
     except EmptyPage:
@@ -1912,6 +1926,7 @@ def used_vouchers(request):
     paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         voucher_set = paginator.page(1)
     except EmptyPage:
@@ -1949,6 +1964,7 @@ def sold_vouchers(request):
     paginator = Paginator(voucher_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         voucher_set = paginator.page(1)
     except EmptyPage:
@@ -2021,6 +2037,7 @@ def recharges(request):
     paginator = Paginator(recharge_list, conf.PAGINATED_BY)
     try:
         voucher_set = paginator.page(page)
+        context.update(utils.prepare_pagination(paginator.num_pages, int(page)))
     except PageNotAnInteger:
         voucher_set = paginator.page(1)
     except EmptyPage:
