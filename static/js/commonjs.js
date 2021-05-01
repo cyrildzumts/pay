@@ -6,7 +6,7 @@ requirejs.config({
         payments: '../apps/payments',
         vouchers: '../apps/vouchers',
         dashboard: '../apps/dashboard',
-        jquery : '../vendor/jquery-3.5.1',
+        jquery : '../vendor/jquery-3.5.1.min',
 
     }
 });
