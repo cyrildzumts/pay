@@ -1,14 +1,16 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block ACTIONS %}
-{% if can_add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "New Policy" %} </a>{% endif %} 
-{% endblock ACTIONS %}
+
 
 
 {% block CONTENT %}
+{% if perms.payments.view_policy %}
 
-
-{% if can_view_policy %}
+<div class="actions">
+{% block ACTIONS %}
+{% if  perms.payments.add_policy %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create' %}"> {% trans "New Policy" %} </a>{% endif %} 
+{% endblock ACTIONS %}
+</div>
 
 <div class="container">
   <div class="col-xs-12 col-6">

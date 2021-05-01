@@ -1,15 +1,18 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
+
+
+{% block CONTENT %}
+
+{% if perms.payments.view_policygroup %}
+<div class="actions">
 {% block ACTIONS %}
 <a class="mat-button mat-button-default" href="{% url 'dashboard:policy-group-create'%}"><i class="fas fa-plus icon"></i>{% trans "New Policy Group" %}</a>
 <a class="mat-button mat-button-default" href="{{group.get_dashboard_update_url}}"><i class="fas fa-pen icon"></i>{% trans "Edit" %}</a>
 <a class="mat-button mat-button-default" href="{{group.get_dashboard_remove_url}}"><i class="fas fa-trash icon"></i>{% trans "Delete" %}</a>
 {% endblock ACTIONS %}
-
-{% block CONTENT %}
-
-{% if can_view_policy %}
+</div>
 <div class="container">
         <div class="mat-box">
           <div class="mat-box-title">

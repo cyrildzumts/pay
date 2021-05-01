@@ -1,12 +1,14 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block ACTIONS %}
-<a class="mat-button mat-button-text" href="{{policy.get_dashboard_update_url}}"><span class="pen"></span>{% trans "Edit" %}</a>
-<a class="mat-button mat-button-text" href="{% url 'dashboard:policy-create'%}"><span class="add"></span>{% trans "New Policy" %}</a>
-{% endblock ACTIONS %}
+
 {% block CONTENT %}
 
-{% if can_view_policy %}
+{% if perms.payments.view_policy %}
+
+<div class="actions">
+<a class="mat-button mat-button-text" href="{{policy.get_dashboard_update_url}}"><span class="pen"></span>{% trans "Edit" %}</a>
+<a class="mat-button mat-button-text" href="{% url 'dashboard:policy-create'%}"><span class="add"></span>{% trans "New Policy" %}</a>
+</div>
 <div class="container">
         <div class="card">
           <div class="card__title">

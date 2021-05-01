@@ -1,5 +1,6 @@
 {% load i18n %}
 
+{% if perms.payments.view_transfer %}
 {% if transaction_list %}
     <div class="container">
         <div class="mat-list-wrapper">
@@ -30,3 +31,7 @@
     <p> {% trans "You haven't made any Transfers" %}.</p>
 
     {% endif %}
+
+{% else %}
+<p>{% trans "You are not allowed to access this page" %}</p>
+{% endif %}

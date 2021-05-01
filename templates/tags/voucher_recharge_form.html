@@ -1,4 +1,5 @@
 {% load i18n %} 
+{% if perms.voucher.add_recharge %}
 
 <div class="mat-box">
     <form id="staff-recharge-form" class="form" name="voucher-recharge" action="{% url ACTION_URL %}" method="POST">{% csrf_token %}
@@ -18,3 +19,6 @@
     </form>
 
 </div>
+{% else %}
+<p>{% trans "You are not allowed to access this page" %}</p>
+{% endif %}

@@ -1,42 +1,48 @@
 
 {% load i18n %}
 
-{% if voucher_list %}
-    
-    <div class="mat-table-wrapper">
-        <table id="voucher-list" class="mat-table js-filter-table">
-          <thead>
-                  <tr>
-                          <th>{% trans "Voucher Name" %}</th>
-                          <th>{% trans "Amount" %}</th>
-                          <th>{% trans "Voucher Code" %}</th>
-                          <th>{% trans "Status" %}</th>
-                          <th>{% trans "Creation Date" %}</th>
-                          <th>{% trans "Details" %}</th>
-                  </tr>
-          </thead>
-          <tbody>
-                  {% for v in voucher_list  %}
-                  <tr>
-                  <td>{{v.name}}</td>
-                  <td>{{v.amount}} {% trans CURRENCY %}</td>
-                  <td>{{v.voucher_code}}</td>
-                  <td><i class="fas fa-circle icon {% if v.activated %}success{% else %}warning{% endif %}"></i><span>{{v.activated|yesno:_('activated,deactivated')}}</span></td>
-                  <td>{{v.created_at|date:"F j,Y H:i:s"}}</td>
-                  <td><a class="mat-button mat-button-default" href="{% url VOUCHER_URL v.voucher_uuid %}"> {% trans "Details" %}</a></td>
-                  </tr>
-                  {% endfor %}
-                  
-          </tbody>
-          <tfoot>
-                  
-          </tfoot>
+{% if perms.voucher.view_voucher %}
 
-    </table>
-    {% include "tags/pagination.html" with page_set=voucher_list %} 
-    </div><!--End of Table Wrapper-->
+        {% if voucher_list %}
+        
+        <div class="mat-table-wrapper">
+                <table id="voucher-list" class="mat-table js-filter-table">
+                <thead>
+                        <tr>
+                                <th>{% trans "Voucher Name" %}</th>
+                                <th>{% trans "Amount" %}</th>
+                                <th>{% trans "Voucher Code" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Creation Date" %}</th>
+                                <th>{% trans "Details" %}</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {% for v in voucher_list  %}
+                        <tr>
+                        <td>{{v.name}}</td>
+                        <td>{{v.amount}} {% trans CURRENCY %}</td>
+                        <td>{{v.voucher_code}}</td>
+                        <td><i class="fas fa-circle icon {% if v.activated %}success{% else %}warning{% endif %}"></i><span>{{v.activated|yesno:_('activated,deactivated')}}</span></td>
+                        <td>{{v.created_at|date:"F j,Y H:i:s"}}</td>
+                        <td><a class="mat-button mat-button-default" href="{% url VOUCHER_URL v.voucher_uuid %}">{% trans "Details" %}</a></td>
+                        </tr>
+                        {% endfor %}
+                        
+                </tbody>
+                <tfoot>
+                        
+                </tfoot>
+
+        </table>
+        {% include "tags/pagination.html" with page_set=voucher_list %} 
+        </div><!--End of Table Wrapper-->
+        {% else %}
+        <div class="">
+        <p>{% trans "There are no Voucher sold now." %}</p>
+        </div>
+        {% endif %}
+
 {% else %}
-    <div class="">
-      <p>{% trans "There are no Voucher sold now." %}</p>
-    </div>
+<p>{% trans "You are not allowed to access this page" %}</p>
 {% endif %}

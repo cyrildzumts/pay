@@ -1,6 +1,8 @@
 
 {% load i18n %}
 
+{% if perms.voucher.view_voucher %}
+
 <div class="container padding">
     <div class="mat-box col-xs-12">
         <h4>{{voucher.name}}</h4>
@@ -34,3 +36,8 @@
         </div>
     </div>
 </div>
+
+
+{% else %}
+<p>{% trans "You are not allowed to access this page" %}</p>
+{% endif %}

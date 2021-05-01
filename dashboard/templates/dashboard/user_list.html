@@ -6,12 +6,12 @@
 
 {% block CONTENT %}
 
-{% if can_view_user %}
+{% if perms.auth.view_user %}
 
 <div class="row">
   <div class="nav">
     <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    {% if can_add_user %}
+    {% if perms.auth.add_user %}
     <a class="mat-button mat-button-default" href="{% url 'dashboard:create-user' %}"> <i class="fas fa-user-plus"></i><span>{% trans "New User" %}</span></a>
     {% endif %}
   </div>

@@ -1,5 +1,7 @@
 {% load i18n %} 
 
+{% if perms.voucher.add_voucher %}
+
 <div class="mat-box">
 
     <form id="voucher-generate-form" class="voucher-generate-form form" name="voucher-generate" action="{% url ACTION_URL %}" method="POST">{% csrf_token %}
@@ -25,3 +27,7 @@
     </form>
 
 </div>
+
+{% else %}
+<p>{% trans "You are not allowed to access this page" %}</p>
+{% endif %}

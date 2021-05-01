@@ -1,15 +1,16 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% if can_add_available_service %}
-{% block ACTIONS %}
-<a class="mat-button mat-button-default" href="{% url 'dashboard:available-service-create'%}"> <i class="fas fa-money-check icon"></i><span>{% trans "New Service" %}</span></a>
-{% endblock ACTIONS %}
-{% endif %}    
+  
 
 {% block CONTENT %}
-
+{% if perms.payments.view_availableservice %}
 <div class="container">
-<div class="col-xs-12 col-6">
+<div class="col-xs-12">
+    {% if perms.payments.add_availableservice %}
+        {% block ACTIONS %}
+        <a class="mat-button mat-button-default" href="{% url 'dashboard:available-service-create'%}"> <i class="fas fa-money-check icon"></i><span>{% trans "New Service" %}</span></a>
+        {% endblock ACTIONS %}
+    {% endif %}  
     <div class="mat-table-wrapper">
         <div class="row">
             <div class="mat-table-title">
@@ -47,4 +48,9 @@
     </div><!--End of Table Wrapper-->
   </div>
 </div>
+{% else %}
+<div class="access-error">
+  <p>{% trans "The page you requested could not be found or you are not allowed to access this page." %}</p>
+</div>
+{% endif %}
 {% endblock CONTENT %}

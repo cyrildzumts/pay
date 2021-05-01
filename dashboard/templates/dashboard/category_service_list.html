@@ -1,16 +1,17 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block ACTIONS %}
-{% if can_add_category %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "New Category" %}</a>{% endif %}
-{% endblock ACTIONS %}
+
 
 {% block CONTENT %}
 
-{% if can_view_category  %}
+{% if perms.payments.view_servicecategory  %}
+<div class="actions">
+{% if perms.payments.add_servicecategory %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "New Category" %}</a>{% endif %}
+</div>
 
 <div class="container">
-<div class="col-xs-12 col-6">
+<div class="col-xs-12">
     <div class="mat-table-wrapper">
         <div class="row">
             <div class="mat-table-title">
