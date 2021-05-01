@@ -31,7 +31,7 @@ def voucher_home(request):
     # permission
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     template_name = "voucher/voucher.html"
     page_title = _("Voucher Dashboard") + " - " + settings.SITE_NAME
     context['page_title'] = page_title
@@ -48,7 +48,7 @@ def vouchers(request):
     # permission
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     template_name = "voucher/voucher_list.html"
     page_title = _("Voucher List") + " - " + settings.SITE_NAME
     
@@ -73,7 +73,7 @@ def vouchers(request):
 def voucher_details(request, voucher_uuid=None):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     page_title = _("Voucher Details") + ' | ' + settings.SITE_NAME
     template_name = "voucher/voucher_details.html"
     context = {
@@ -88,7 +88,7 @@ def voucher_details(request, voucher_uuid=None):
 def voucher_activate(request, voucher_uuid=None):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
 
     c = Voucher.objects.filter(voucher_uuid=voucher_uuid, activated=False, is_used=False).update(
         activated=True, activated_at=timezone.now(), activated_by=request.user, is_sold=True, sold_by=request.user, sold_at=timezone.now())
@@ -106,7 +106,7 @@ def recharge_user_account_view(request):
 
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
 
     page_title = _("Recharge User Account") + ' - ' + settings.SITE_NAME
     template_name = "voucher/recharge.html"
@@ -175,7 +175,7 @@ def sell_voucher_view(request):
 def used_vouchers(request):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     context = {}
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
@@ -201,7 +201,7 @@ def used_vouchers(request):
 def used_voucher_details(request, voucher_uuid=None):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     page_title = _("Used Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(UsedVoucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/voucher_details.html"
@@ -222,7 +222,7 @@ def sold_vouchers(request):
     # permission
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
 
     voucher_list = Voucher.objects.filter(Q(is_sold=True)|Q(activated=True), sold_by=request.user)
     page = request.GET.get('page', 1)
@@ -245,7 +245,7 @@ def sold_vouchers(request):
 def sold_voucher_details(request, voucher_uuid=None):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     page_title = _("Sold Voucher Details") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Voucher, voucher_uuid=voucher_uuid)
     template_name = "voucher/voucher_details.html"
@@ -262,7 +262,7 @@ def sold_voucher_details(request, voucher_uuid=None):
 def voucher_generate(request):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     page_title = _("Voucher Generator") + ' | ' + settings.SITE_NAME
     template_name = "voucher/voucher_generate.html"
     if request.method == "POST":
@@ -299,7 +299,7 @@ def voucher_generate(request):
 def recharges(request):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     context = {}
     #model = utils.get_model('voucher', 'Voucher')
     # TODO Must be fixed : The users visiting this must have the appropiatre
@@ -325,7 +325,7 @@ def recharges(request):
 def recharge_details(request, recharge_uuid=None):
     is_seller = voucher_service.is_seller(request.user)
     if not is_seller:
-        raise SuspiciousOperation(ui_strings.UI_PAGE_NOT_ALLOWED)
+        raise SuspiciousOperation(CORE_UI_STRINGS.UI_PAGE_NOT_ALLOWED)
     page_title = _("Recharge Info") + ' | ' + settings.SITE_NAME
     instance = get_object_or_404(Recharge, recharge_uuid=recharge_uuid)
     template_name = "voucher/recharge_details.html"
