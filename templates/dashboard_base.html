@@ -57,7 +57,7 @@
                             {% if perms.voucher.add_voucher %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:voucher-generate'%}"><i class="fas fa-shipping-refresh icon"></i><span>{% trans "Generate Vouchers" %}</span></a></li>{% endif %}
                         </ul>
                     </li>
-                    <li>
+                    <li class="collapsible">
                         <div class="open"><span>{% trans "Partner Settings" %}</span><i class="fas fa-plus icon"></i></div>
                         <ul class="collapse-content">
                             {% if perms.payments.view_policy %}<li><a class="mat-button mat-button-text" href="{% url 'dashboard:policies'%}"><i class="fas fa-shipping-fast icon"></i><span>{% trans "Policies" %}</span></a></li>{% endif %}
