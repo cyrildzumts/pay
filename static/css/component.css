@@ -2678,7 +2678,7 @@
 	  overflow: hidden !important;
 	  overflow-x: auto !important;
 	  padding: 0.2em !important;
-	  padding-top: 3em !important;
+	  /*padding-top: 3em !important;*/
 	  margin-bottom: 1em !important;
   }
   
