@@ -2994,6 +2994,15 @@
   .footer-catalog a{
 	  display: inline-block;
   }
+
+  .primary-actions li a{
+	flex-direction: column;
+	justify-content: center;
+	}
+
+  .primary-actions a i ~ span{
+	  font-size: 0.7em;
+  }
   
   @media only screen and (max-width:40em){
 	  .product-detail-properties{

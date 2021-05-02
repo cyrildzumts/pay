@@ -17,11 +17,10 @@
             </div><!--End of Banner-Content-->
         </div>
         {% endif %}
-        
-        <ul class="primary-actions flex xs-column list-horizontal">
-            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"><i class="fas fa-paper-plane icon"></i><span>{% trans "Send money" %}</span></a></li>
-            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"><i class="fas fa-money-check-alt icon"></i><span>{% trans "Make Payment" %}</span></a></li>
-            <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"><i class="fas fa-money-bill icon"></i><span>{% trans "Recharge" %}</span></a></li>
+        <ul class="primary-actions grid padding">
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"><i class="fas fa-paper-plane padding"></i><span>{% trans "Send money" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"><i class="fas fa-money-check-alt padding"></i><span>{% trans "Make Payment" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"><i class="fas fa-money-bill padding"></i><span>{% trans "Recharge" %}</span></a></li>
         </ul>
         <div class="collapsible">
             <span class="open">{% trans "More" %} <i class="fas fa-ellipsis-h icon"></i></span>
