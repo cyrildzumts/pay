@@ -2993,12 +2993,12 @@
 	  display: inline-block;
   }
 
-  .primary-actions ul a{
+  .primary-actions li a{
 	flex-direction: column;
 	justify-content: center;
 	}
 
-  .primary-actions ul a i ~ span{
+  .primary-actions a i ~ span{
 	  font-size: small;
   }
   
