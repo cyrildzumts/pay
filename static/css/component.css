@@ -2999,7 +2999,7 @@
 	}
 
   .primary-actions a i ~ span{
-	  font-size: small;
+	  font-size: 0.7em;
   }
   
   @media only screen and (max-width:40em){
