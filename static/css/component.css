@@ -3065,6 +3065,10 @@
 		  justify-content: flex-start;
   
 	  }
+	  .xs-column li, .list-md-vertical li{
+		  width: 100%;
+		  text-align: left;
+	  }
 	  .site-panel {
 		  font-size: 0.8em !important;
 		  padding: 0.5em 1em !important;
