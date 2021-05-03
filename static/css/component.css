@@ -2629,7 +2629,7 @@
 	  margin: 0;
   }
   
-  .highlight{
+  .highlight, .hz-scrollable{
 	  display: flex;
 	  position: relative;
 	  width: 100%;
@@ -2653,7 +2653,9 @@
 	  overflow-x: auto !important;
   }
   
-  
+  .hz-scrollable .item, .highlight .item{
+	  flex: 0 0 10%;
+  }
   
   .highlight .product-card{
 	  flex: 0 0 20%;
@@ -2676,7 +2678,7 @@
 	  overflow: hidden !important;
 	  overflow-x: auto !important;
 	  padding: 0.2em !important;
-	  padding-top: 3em !important;
+	  /*padding-top: 3em !important;*/
 	  margin-bottom: 1em !important;
   }
   

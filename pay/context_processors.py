@@ -1,5 +1,7 @@
 from pay import settings
 from django.contrib.auth.models import User
+from django.db.models import Prefetch
+from payments.models import ServiceCategory
 
 def site_context(request):
     is_dashboard_allowed = False
@@ -16,6 +18,7 @@ def site_context(request):
         'is_dashboard_allowed' : is_dashboard_allowed,
         'dev_mode' : settings.DEV_MODE,
         'CURRENCY' : settings.CURRENCY,
-        'banner' : banner
+        'banner' : banner,
+        'category_list': ServiceCategory.objects.prefetch_related('available_services').filter(is_active=True)
     }
     return context
