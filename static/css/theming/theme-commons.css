@@ -23,8 +23,8 @@ body{
     font-weight: 700;
 }
 .site-panel{
-    background-color: var(--primary-color);
-    color: var(--fourth-color);
+    background-color: transparent;
+    color: var(--header-color);
 }
 
 .header .menu-button{
