@@ -15,7 +15,8 @@ body{
 }
 
 .banner a{
-    color: var(--banner-color) !important;
+    background-color: var(--banner-color);
+    color: var(--banner-bg-color) !important;
 }
 
 .header a{
