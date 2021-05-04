@@ -23,7 +23,7 @@ body{
     font-weight: 700;
 }
 .site-panel{
-    background-color: transparent;
+    background-color: var(--header-bg-color);
     color: var(--header-color);
 }
 
