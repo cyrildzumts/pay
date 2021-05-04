@@ -10,7 +10,7 @@
         {% block HEADER_BANNER_TITLE %}
         {% endblock HEADER_BANNER_TITLE %}
          {% if balance %}
-        <div class="mat-box-">
+        <div class="full padding-v">
             <div class="balance-info">
                 <div class="row flex-left"><h4>{% trans "Balance" %}</h4></div>
                 <div class="row flex-left balance"><span class="money">{{balance.balance|floatformat:"-2"}}</span><span class="currency">{% trans CURRENCY %}</span></div>
