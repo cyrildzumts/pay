@@ -363,12 +363,7 @@
     color: #e64a19 !important;
 }
 
-.currency{
-    margin-left: 4px;
-    margin-right: 4px;
-    font-size: 1em;
-    font-weight: 600;
-}
+
 
 .line-through{
     text-decoration: line-through;

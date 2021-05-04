@@ -1447,11 +1447,7 @@
 	  font-weight: bold;
 	  font-size: 1em;
   }
-  
-  .currency{
-	  font-size: 1em;
-	  font-weight: 700;
-  }
+
   
   
   /** Transaction Form **/
@@ -2191,21 +2187,19 @@
 	  width: 25%;
   }
   
-  .money{
-	  padding: 0 16px;
-  }
   
-  .money .amount{
+  .amount{
 	  font-size: 1em;
 	  font-weight: 700;
 	  padding : 0 4px 0 16px;
   }
   
-  .money .currency{
+  .currency{
 	  font-size: 1em;
-	  font-weight: 700;
-	  padding : 0;
-  }
+	  font-weight: 600;
+	  margin-left: 4px;
+	  margin-right: 4px;
+}
   
   .emphasis{
 	  font-weight: 600;
