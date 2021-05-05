@@ -20,17 +20,12 @@ body {
 }
 
 * {
-  background-color: transparent;
   font-family: "Montserrat";
   line-height: 1.5em;
   list-style-type: none;
   text-decoration: none;
-  margin: 0;
-  padding: 0;
 }
 
 p{
-  padding: 1em;
   text-decoration: none;
-  text-align: left;
 }
