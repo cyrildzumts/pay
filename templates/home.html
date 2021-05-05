@@ -4,7 +4,7 @@
 {% block HEADER_BANNER %}
 <div class="banner">
     <div class="banner--title">
-      <h1> {%trans 'Welcome to PAY'%} </h1>
+      <h1>{%trans 'Welcome to PAY'%}</h1>
       <h2>{% trans 'Your Payment Solution' %}</h2>
     </div><!--End of Banner Titlte-->
     <div class="banner--content">
@@ -21,7 +21,7 @@
     </div><!--End of Banner Content-->
       
   <div class="banner--actions">
-    <a class="mat-button mat-button-default" href="#"> {% trans 'Discover PAY' %} </a>
+    <a class="mat-button mat-button-default cta-button" href="#"> {% trans 'Discover PAY' %} </a>
   </div><!--End of Banner Actions-->
   
 </div><!--End of Banner-->
@@ -47,44 +47,36 @@
 </div>
 <div class="grid">
         <div class="flex responsive">
-            <div id="discover" class="mat-card">
-                <div class="card__image adapt-color">
-                    <img class="contain" src="images/businessman.svg" alt="">
+            <div id="discover" class="mat-box">
+                <div class="img-wrapper adapt-color">
+                    <img class="img contain" src="images/businessman.svg" alt="">
                 </div>
 
-                <div class="mat-card--body">
-                    <div class="title center">
-                    {% trans "Discover PAY" %}
-                    </div>
+                <div class="mat-box-content">
+                    <h4>{% trans "Discover PAY" %}</h4>
                     <div class="secondary--text">
                     <p class="center">
                         {%trans "Charge your PAY account and enjoy simplified payment." %}
                     </p>
                     </div>
                 </div>
-
-
-                <div class="mat-card--footer">
-                    <div class="card__actions">
-                      <button class="mat-button mat-button-outlined">
-                          {% trans "Learn more..." %}
-                      </button>
-                    </div>
-                </div><!--End of card footer-->
+                <div class="actions">
+                  <button class="mat-button mat-button-outlined">
+                      {% trans "Learn more..." %}
+                  </button>
+                </div>
             </div>    <!--End of card-->
         </div>     <!--End of Responsive-->
 
         <div class="flex responsive">
-            <div id="customer" class="mat-card">
+            <div id="customer" class="mat-box">
                 <div class="card--image">
                     <object class="contain" data="images/customer.svg" type="image/svg+xml"></object>
                     <!-- <img class="contain" src="images/customer.svg" alt=""> -->
                 </div>
 
-                <div class="mat-card--body">
-                    <div class="title center">
-                    {% trans "For individuals" %}
-                    </div>
+                <div class="mat-box-content">
+                    <h4>{% trans "For individuals" %}</h4>
                     <div class="secondary--text">
                     <p class="center">
                         {%trans "As a user, just recharge your balance from your chair with a voucher card."%}
@@ -106,7 +98,7 @@
 <div class="row">
   <div class="tabs">
     <div class="tabs--title">
-      <div class="full welcome-text center">
+      <div class="full">
         <h3> {%trans "Usage"%} </h3>
       </div>
     </div>
@@ -129,7 +121,7 @@
               <div class="row">
                 <div class="circle">1</div>
                 <div class="usage-description">
-                  <a class="mat-button mat-button-text" href="#"> {%trans "Create your free account"%} </a> 
+                  <a class="mat-button mat-button-text" href="{% url 'accounts:register' %}"> {%trans "Create your free account"%} </a> 
                 </div>
               </div>
           </div>
@@ -143,7 +135,7 @@
             <div class="row">
             <div class="circle">2</div>
               <div class="usage-description">
-                <a class="mat-button mat-button-text" href="#"> {%trans "Load your account from your sofa"%} </a>
+                <a class="mat-button mat-button-text" href="{% url 'payments:recharge' %}"> {%trans "Load your account from your sofa"%} </a>
               </div>
             </div>
           </div>
@@ -157,7 +149,7 @@
               <div class="row">
               <div class="circle">3</div>
                 <div class="usage-description">
-                    <a class="mat-button mat-button-text" href="#"> {%trans "Make your purchases or pay your bills comfortably" %} </a>
+                    <a class="mat-button mat-button-text" href="{% url 'payments:new-payment' %}"> {%trans "Make your purchases or pay your bills comfortably" %} </a>
                 </div>
               </div>
           
@@ -176,7 +168,7 @@
               <div class="row">
                   <div class="circle">1</div>
                   <div class="usage-description">
-                    <a class="mat-button mat-button-text" href="#"> {%trans "Create your Business PAY account for free" %} </a>
+                    <a class="mat-button mat-button-text" href="{% url 'accounts:register' %}"> {%trans "Create your Business PAY account for free" %} </a>
                   </div>
               </div>
             </div>
@@ -227,7 +219,7 @@
 In case of non-delivery, your payment will be refunded
       {% endblocktrans %}
       </p>
-      <a class="mat-button mat-button-outlined" href="#">{% trans "Customer protection" %}</a>
+      <span class="mat-button mat-button-outlined">{% trans "Customer protection" %}</span>
     </div>
     <!--End of advantage-->
   </div>
@@ -240,7 +232,7 @@ In case of non-delivery, your payment will be refunded
         You can check the validity of each transaction
       {% endblocktrans %}
       </p>
-      <a class="mat-button mat-button-outlined" href="#">{% trans "Protection for business" %}</a>
+      <span class="mat-button mat-button-outlined">{% trans "Protection for business" %}</span>
     </div>
     <!--End of advantage-->
   </div>
