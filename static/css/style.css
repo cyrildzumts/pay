@@ -16,13 +16,8 @@
 
 .usage-description a{
     text-decoration: none;
-    color: var(--btn-color);
     font-weight: 600;
     padding: 16px 18px;
-}
-
-.usage-description a:link{
-    color: var(--btn-color);
 }
 
 .advantages{
