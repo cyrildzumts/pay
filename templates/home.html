@@ -46,54 +46,44 @@
   </div>
 </div>
 <div class="grid">
-        <div class="flex responsive">
-            <div id="discover" class="mat-box">
-                <div class="img-wrapper adapt-color">
-                    <img class="img contain" src="images/businessman.svg" alt="">
-                </div>
+        <div id="discover" class="mat-box">
+            <div class="img-wrapper adapt-color">
+                <img class="img contain" src="images/businessman.svg" alt="">
+            </div>
 
-                <div class="mat-box-content">
-                    <h4>{% trans "Discover PAY" %}</h4>
-                    <div class="secondary--text">
-                    <p class="center">
-                        {%trans "Charge your PAY account and enjoy simplified payment." %}
-                    </p>
-                    </div>
+            <div class="mat-box-content">
+                <h4>{% trans "Discover PAY" %}</h4>
+                <div class="secondary--text">
+                  <p class="center">
+                      {%trans "Charge your PAY account and enjoy simplified payment." %}
+                  </p>
                 </div>
-                <div class="actions">
-                  <button class="mat-button mat-button-outlined">
-                      {% trans "Learn more..." %}
-                  </button>
+            </div>
+            <div class="actions">
+              <button class="mat-button mat-button-outlined">
+                  {% trans "Learn more..." %}
+              </button>
+            </div>
+        </div>    <!--End of box-->
+        <div id="customer" class="mat-box">
+            <div class="img-wrapper">
+              <img class="contain" src="images/customer.svg" alt="">
+            </div>
+
+            <div class="mat-box-content">
+                <h4>{% trans "For individuals" %}</h4>
+                <div class="secondary--text">
+                  <p class="center">
+                      {%trans "As a user, just recharge your balance from your chair with a voucher card."%}
+                  </p>
                 </div>
-            </div>    <!--End of card-->
-        </div>     <!--End of Responsive-->
-
-        <div class="flex responsive">
-            <div id="customer" class="mat-box">
-                <div class="card--image">
-                    <object class="contain" data="images/customer.svg" type="image/svg+xml"></object>
-                    <!-- <img class="contain" src="images/customer.svg" alt=""> -->
-                </div>
-
-                <div class="mat-box-content">
-                    <h4>{% trans "For individuals" %}</h4>
-                    <div class="secondary--text">
-                    <p class="center">
-                        {%trans "As a user, just recharge your balance from your chair with a voucher card."%}
-                    </p>
-                    </div>
-                </div>
-
-
-                <div class="mat-card--footer">
-                    <div class="actions">
-                      <button class="mat-button mat-button-outlined">
-                          {% trans "Learn more" %}
-                      </button>
-                    </div>
-                </div><!--End of card footer-->
-          </div><!--End of card-->
-      </div><!--End of column-->
+            </div>
+            <div class="actions">
+              <button class="mat-button mat-button-outlined">
+                  {% trans "Learn more" %}
+              </button>
+            </div>
+      </div><!--End of box-->
     </div>    <!--End of Grid-->
 <div class="row">
   <div class="tabs">
