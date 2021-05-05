@@ -1,7 +1,7 @@
 from django.contrib import auth
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import IntegrityError
-from pay import utils, settings
+from pay import utils, settings, conf
 from abc import ABCMeta, ABC
 from payments.forms import   ServiceCreationForm, IDCardForm, RechargeForm, PaymentForm, TransactionForm, TransferForm, RefundForm, CashoutForm
 from payments.models import Policy, Transaction, Transfer, Service, Payment, Balance, Refund, BalanceHistory, Cashout
@@ -928,3 +928,7 @@ def create_cashout(data):
         agent = form.cleaned_data['agent']
         user = form.cleaned_data['user']
         amount
+
+
+def is_seller(user):
+    return isinstance(user, User) and user.groups.filter(name=conf.SELLER_GROUP).exists()

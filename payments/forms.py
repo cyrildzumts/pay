@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from accounts.models import Account
 from payments.models import (
-    Payment, Transaction,Transfer, CaseIssue, Policy, Service, ServiceCategory,AvailableService, IDCard,
+    Payment, Transaction,Transfer, CaseIssue, Policy,PolicyGroup, Service, ServiceCategory,AvailableService, IDCard,
     Reduction, PaymentRequest, Refund, Cashout
 )
 from payments import constants
@@ -27,6 +27,11 @@ class PolicyForm(forms.ModelForm):
             raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
         return commission
 
+class PolicyGroupForm(forms.ModelForm):
+
+    class Meta:
+        model = PolicyGroup
+        fields = ('name', 'policy_group_uuid')
 
 class UpdateIDCardForm(forms.ModelForm):
     

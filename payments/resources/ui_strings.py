@@ -18,3 +18,4 @@ UI_CASHOUT_USER_AGENT_INVALID = _('Invalid cashout data. User and Agent should n
 UI_CASHOUT_USER_INSUFFICIENT_BALANCE  = _('User has no suffient balance')
 UI_CASHOUT_AGENT_INVALID  = _('agent does not belongs to the group of Agents')
 UI_CASHOUT_USER_INVALID  = _('user must not be an agent')
+UI_INVALID_USER_REQUEST = _('Invalid user request')
