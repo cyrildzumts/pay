@@ -195,33 +195,27 @@
   </div> <!--End of tabs-->
 
 </div>
-<div class="advantages grid">
-  <div class="responsive">
-    <div class="advantage mat-box">
-      <h3 class="left">{% trans "More security" %}</h3>
-      <p class="left">
-      {% blocktrans trimmed %}
-      Your payments are secure.
+<div class="advantages full grid flex-center">
+  <div class="advantage mat-box">
+    <h3 class="left">{% trans "More security" %}</h3>
+    <p class="left">
+    {% blocktrans trimmed %}
+    Your payments are secure.
 In case of non-delivery, your payment will be refunded
-      {% endblocktrans %}
-      </p>
-      <span class="mat-button mat-button-outlined">{% trans "Customer protection" %}</span>
-    </div>
-    <!--End of advantage-->
+    {% endblocktrans %}
+    </p>
+    <span class="mat-button mat-button-outlined">{% trans "Customer protection" %}</span>
   </div>
-  <!--End of column-->
-  <div class="responsive">
-    <div class="advantage mat-box">
-      <h3 class="left">{% trans "More security for your business" %}</h3>
-      <p class="left">
-      {% blocktrans trimmed%}
-        You can check the validity of each transaction
-      {% endblocktrans %}
-      </p>
-      <span class="mat-button mat-button-outlined">{% trans "Protection for business" %}</span>
-    </div>
     <!--End of advantage-->
+  <div class="advantage mat-box">
+    <h3 class="left">{% trans "More security for your business" %}</h3>
+    <p class="left">
+    {% blocktrans trimmed%}
+      You can check the validity of each transaction
+    {% endblocktrans %}
+    </p>
+    <span class="mat-button mat-button-outlined">{% trans "Protection for business" %}</span>
   </div>
-  <!--End of column-->
+  <!--End of advantage-->
 </div>
 {% endblock MAIN %}
