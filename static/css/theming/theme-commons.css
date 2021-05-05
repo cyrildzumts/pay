@@ -29,7 +29,8 @@ body{
 }
 
 .header .menu-button{
-    color: var(--fourth-color);
+    background-color: var(--header-bg-color);
+    color: var(--header-color);
     font-weight: 600;
 }
 
