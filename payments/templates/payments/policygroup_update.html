@@ -1,0 +1,40 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+
+{% block MAIN %}
+
+<div class="container">
+
+    <div class="mat-box">
+        <div class="mat-box-title">
+            <h3>{% trans "Change Partner Subscription" %}</h3>
+        </div>
+
+        <form class="form card" action="{% url 'payments:policy-group-update' %}" method="POST">{% csrf_token %}
+            {% if form.errors %}
+            <ul class="errorlist">
+                {% for error in form.errors %}
+                    <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="policygroup">{% trans "Subscription Plan" %}</label>
+                <select name="policy_group_uuid" id="policygroup">
+                    <option selected>{% trans "Select a Subscription Plan" %}</option>
+                    {% for pg in p_groups %}
+                    <option value="{{pg.policy_group_uuid}}">{{pg.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="actions">
+                    <a class="mat-button mat-button-text" href="{% url 'payments:payment-home' %}">{% trans "Cancel" %}</a>
+                    <button id="js-submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Update" %}</button>
+                </div>
+            
+        </form>
+    </div>          
+</div>
+
+{% endblock MAIN %}

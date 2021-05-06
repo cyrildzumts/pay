@@ -1122,28 +1122,35 @@ def seller_policygroup_update(request):
     if not payment_service.is_seller(seller):
         messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_INVALID_USER_REQUEST)
         return redirect("payemts:payment-home")
-    if request.method != 'POST':
-        messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_INVALID_USER_REQUEST)
-        return redirect("payemts:payment-home")
-    postdata = utils.get_postdata(request)
-    form = PolicyGroupForm(postdata)
-    if form.is_valid():
-        current_pg = None
-        if user.policygroup_set.exists():
-            current_pg = user.policygroup_set.first()
-        groupset = PolicyGroup.objects.filter(name=form.cleaned_data.get('name'), policy_group_uuid=form.cleaned_data.get('policy_group_uuid'))
-        if not groupset.exists():
-            messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_INVALID_USER_REQUEST)
-            return redirect("payemts:payment-home")
-        group = groupset.first()
-        if current_pg and current_pg != group:
-            user.policygroup_set.remove(current_pg)
-            user.policygroup_set.add(group)
-            messages.add_message(request, messages.INFO,CORE_UI_STRINGS.UI_POLICY_UPDATED)
+    template_name = "payments/policygroup_update.html"
+    if request.method == 'POST':
+        postdata = utils.get_postdata(request)
+        form = PolicyGroupForm(postdata)
+        if form.is_valid():
+            current_pg = None
+            if user.policygroup_set.exists():
+                current_pg = user.policygroup_set.first()
+            groupset = PolicyGroup.objects.filter(policy_group_uuid=form.cleaned_data.get('policy_group_uuid'))
+            if not groupset.exists():
+                messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_INVALID_USER_REQUEST)
+                return redirect("payemts:payment-home")
+            group = groupset.first()
+            if current_pg and current_pg != group:
+                user.policygroup_set.remove(current_pg)
+                user.policygroup_set.add(group)
+                messages.add_message(request, messages.INFO,CORE_UI_STRINGS.UI_POLICY_UPDATED)
+            else:
+                messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_POLICY_ALREADY_MEMBERS)
         else:
-            messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_POLICY_ALREADY_MEMBERS)
-
-    return redirect("payemts:payment-home")
+            messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_INVALID_USER_REQUEST)
+            logger.warning(f"Seller policygroup update error : Invalid form : {form.errors}")
+    else:
+        form = PolicyGroupForm()
+    context = {
+        'form': form,
+        'p_groups': PolicyGroup.objects.all()
+    }
+    return render(request, template_name, context)
 
 class PaymentYearArchiveView(YearArchiveView):
     queryset = Payment.objects.all()

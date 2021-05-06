@@ -6,6 +6,11 @@
 
 {% block MAIN %}
 <div class="container">
+<div class="actions">
+    <a href="{% url 'payments:policy-group-update' %}" class="mat-button mat-button-default"><i class="fas fa-update icon"></i><span>{% trans "Update Subscription Plan" %}</span></a>
+</div>
+</div>
+<div class="container">
     {% include "tags/activity_list_snippet.html" with  list_title="Recents activities" OPEN_DASHBOARD_URL=False %}
 </div>
 
