@@ -27,11 +27,9 @@ class PolicyForm(forms.ModelForm):
             raise forms.ValidationError(message=COMMISSION_VALUE_ERROR_MSG, code='invalid')
         return commission
 
-class PolicyGroupForm(forms.ModelForm):
+class PolicyGroupForm(forms.Form):
+    policy_group_uuid = forms.UUIDField()
 
-    class Meta:
-        model = PolicyGroup
-        fields = ['policy_group_uuid']
 
 class UpdateIDCardForm(forms.ModelForm):
     
