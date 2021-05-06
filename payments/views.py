@@ -1121,7 +1121,7 @@ def seller_policygroup_update(request):
     seller = request.user
     if not payment_service.is_seller(seller):
         messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_INVALID_USER_REQUEST)
-        return redirect("payemts:payment-home")
+        return redirect("payments:payment-home")
     template_name = "payments/policygroup_update.html"
     if request.method == 'POST':
         postdata = utils.get_postdata(request)
@@ -1133,7 +1133,7 @@ def seller_policygroup_update(request):
             groupset = PolicyGroup.objects.filter(policy_group_uuid=form.cleaned_data.get('policy_group_uuid'))
             if not groupset.exists():
                 messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_INVALID_USER_REQUEST)
-                return redirect("payemts:payment-home")
+                return redirect("payments:payment-home")
             group = groupset.first()
             if current_pg and current_pg != group:
                 user.policygroup_set.remove(current_pg)
