@@ -1139,8 +1139,9 @@ def seller_policygroup_update(request):
         if current_pg and current_pg != group:
             user.policygroup_set.remove(current_pg)
             user.policygroup_set.add(group)
-
-
+            messages.add_message(request, messages.INFO,CORE_UI_STRINGS.UI_POLICY_UPDATED)
+        else:
+            messages.add_message(request, messages.WARNING,CORE_UI_STRINGS.UI_POLICY_ALREADY_MEMBERS)
 
     return redirect("payemts:payment-home")
 

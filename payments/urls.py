@@ -81,6 +81,7 @@ urlpatterns = [
     path('payments/transaction-verification/', views.transaction_verification, name='transaction-verification'),
     path('policies/', views.policies, name='policies'),
     path('policies/<uuid:policy_uuid>/', views.policy_details, name='policy-detail'),
+    path('policy-group-update/', views.views.seller_policygroup_update, name='policy-group-update'),
     path('recharge/', views.recharge, name='recharge'),
     path('service-categories/', views.service_categories, name='service-categories'),
     path('service-categories/<uuid:category_uuid>/', views.service_category_details, name='service-categories-detail'),
