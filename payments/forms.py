@@ -31,7 +31,7 @@ class PolicyGroupForm(forms.ModelForm):
 
     class Meta:
         model = PolicyGroup
-        fields = ('policy_group_uuid')
+        fields = ['policy_group_uuid']
 
 class UpdateIDCardForm(forms.ModelForm):
     
