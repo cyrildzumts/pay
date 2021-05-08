@@ -6,112 +6,22 @@
 {% else %}
 
 {% block CONTENT %}
-<div class="container row">
-        <div class="full">
-                <div class="container">
-                        <div class="row">
-                                <div class="full">
-                                        <div class="row">
-                                                {% if perms.payments.view_transfer %}
-                                                
-                                                <div class="col-6">
-                                                        <div class="row">
-                                                           <div class="mat-table-wrapper">
-                                                                <h4>{% trans "Transfer History" %}</h4>
-                                                                
-                                                                <table id="transfer-list" class="mat-table js-filter-table">
-                                                                        <thead>
-                                                                                <tr>
-                                                                                        <!--<th><input id="filter-select-all" type="checkbox" name="allselected-transfer"></th>-->
-                                                                                        <th>{% trans "Sender" %}</th>
-                                                                                        <th>{% trans "Amount" %}</th>
-                                                                                        <th>{% trans "Date of Transfer" %}</th>
-                                                                                </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                                {% for xfer in recent_transfers  %}
-                                                                                <tr>
-                                                                                <!--<td class="checkbox"><input type="checkbox" name="selected-transfer"></td>-->
-                                                                                <td>{{xfer.sender.username}}</td>
-                                                                                <td>{{xfer.amount}} {% trans CURRENCY %}</td>
-                                                                                <td>{{xfer.created_at|date:"F j,Y H:i:s"}}</td>
-                                                                                </tr>
-                                                                                {% endfor %}
-                                                                                
-                                                                        </tbody>
-                                                                        <tfoot>
-                                                                                
-                                                                        </tfoot>
-                                                        
-                                                                </table>
-                                                                
-                                                           </div> <!--End of Table Wrapper-->
-                                                        </div> <!--End of Row-->
-                                                </div> <!--End of Col-6-->
-                                                {% endif %}
-                                                {% if perms.payments.view_service %}
-                                                
-                                                
-                                                <div class="full">
 
-                                                        <div class="row">
-                                                           <div class="mat-table-wrapper">
-                                                                <h4>{% trans "Service History" %}</h4>
-                                                                
-                                                                <table id="service-list" class="mat-table js-filter-table">
-                                                                        <thead>
-                                                                                <tr>
-                                                                                        <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                                                                                        <th>{% trans "Service Name" %}</th>
-                                                                                        <th>{% trans "Price" %}</th>
-                                                                                        <th>{% trans "Date of usage" %}</th>
-                                                                                </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                                {% for s in recent_services  %}
-                                                                                <tr>
-                                                                                <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                                                                                <td>{{s.name}}</td>
-                                                                                <td>{{s.price}} {% trans "XAF" %}</td>
-                                                                                <td>{{s.created_at|date:"F j,Y H:i:s"}}</td>
-                                                                                </tr>
-                                                                                {% endfor %}
-                                                                                
-                                                                        </tbody>
-                                                                        <tfoot>
-                                                                                
-                                                                        </tfoot>
-                                                        
-                                                                </table>
-                                                                
-                                                           </div> <!--End of Table Wrapper-->
-                                                        </div> <!--End of Row-->
-                                                        
-                                                
-                                                </div><!--End of Col-6-->
-                                                {% endif %}
-                                        </div><!--End of Row-->
-                                </div><!--End of Col-9-->
-                        </div><!--End of Row-->
-                </div><!--End of Container-->
-        </div><!--End of Col-10-->
-
+<div class="container">
+        <h3>{% trans "Partners report" %}</h3>
+        <ul>
+        {% for activity in partner_activities %}
+        <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
+        {% endfor %}
+        </ul>
 </div>
 <div class="container">
-<h3>{% trans "Partners report" %}</h3>
-<ul>
-  {% for activity in partners_activities %}
-  <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
-  {% endfor %}
-</ul>
-</div>
-<div class="container">
-<h3>{% trans "Customer report" %}</h3>
-<ul>
-  {% for activity in customer_activities %}
-  <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
-  {% endfor %}
-</ul>
+        <h3>{% trans "Customer report" %}</h3>
+        <ul>
+        {% for activity in customer_activities %}
+        <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
+        {% endfor %}
+        </ul>
 </div>
 {% include "tags/analytics.html" %}
 {% endblock CONTENT %}
