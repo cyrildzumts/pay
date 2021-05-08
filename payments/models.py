@@ -58,8 +58,8 @@ class BalanceHistory(models.Model):
 
     def __str__(self):
         if self.is_incoming:
-            return f"{self.created_at.isoformat(' ', 'seconds')}  -  {self.sender.username}  -  {utils.find_element_by_key_in_tuples(self.activity, Constants.BALANCE_ACTIVITY_TYPES)[1]}  -  {self.current_amount_without_fee} {_(settings.CURRENCY)}"
-        return f"{self.created_at.isoformat(' ', 'seconds')}  -  {self.receiver.username}  -  {utils.find_element_by_key_in_tuples(self.activity, Constants.BALANCE_ACTIVITY_TYPES)[1]}  -  (-){self.current_amount_without_fee} {_(settings.CURRENCY)}"
+            return f"{self.created_at.isoformat(' ', 'seconds')}  -  {self.sender.username}  -  {utils.find_element_by_key_in_tuples(self.activity, Constants.BALANCE_ACTIVITY_TYPES)[1]}  -  {self.current_amount} {_(settings.CURRENCY)}"
+        return f"{self.created_at.isoformat(' ', 'seconds')}  -  {self.receiver.username}  -  {utils.find_element_by_key_in_tuples(self.activity, Constants.BALANCE_ACTIVITY_TYPES)[1]}  -  (-){self.current_amount} {_(settings.CURRENCY)}"
 
     def get_absolute_url(self):
         return reverse("payments:activity-details", kwargs={"history_uuid": self.history_uuid})
