@@ -11,7 +11,7 @@
         <h3>{% trans "Partners report" %}</h3>
         <ul>
         {% for activity in partner_activities %}
-        <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
+        <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{activity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
         {% endfor %}
         </ul>
 </div>
@@ -19,7 +19,7 @@
         <h3>{% trans "Customer report" %}</h3>
         <ul>
         {% for activity in customer_activities %}
-        <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
+        <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{activity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
         {% endfor %}
         </ul>
 </div>
