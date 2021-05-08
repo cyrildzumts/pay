@@ -32,23 +32,13 @@
         <div class="grid">
             <div class="mat-box">
               {% include "tags/form_snippet.html" with form=user_form %}
-              <div class="field-wrapper">
-                    <div class="mat-input">
-                      <label for="account_type">{% trans "Account type" %}</label>
-                      <select name="account_type" id="account_type">
-                        <option value="">{% trans "Select an Account Type" %}</option>
-                        {% for k, v in ACCOUNT_TYPE %} <option value="{{k}}" {% if k == 3 %}selected{% endif %}>{% trans v %}</option> {% endfor %}
-                      </select>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="padding-1x"></div>
-        <div class="actions flex-center">
-          <a class="mat-button mat-button-outlined" href="{%url 'home'%}"> {% trans "Cancel" %} </a>
+        <div class="actions">
           <button class="mat-button mat-button-default" type="submit">{%trans 'Create My Account'%} </button>
         </div>
-        <div class="actions flex-center">
+        <div class="actions">
             <span class="register-hint">{% trans "Already have an account ? " %}</span><a class="mat-button mat-button-default register-btn" href="{% url 'accounts:login' %}">{% trans "Sign In" %}</a>
         </div>
       </form>

@@ -1,5 +1,6 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
+{% load payments_tags %}
 {% if not perms.dashboard.can_view_dashboard %}
 {% include "tags/unauthorized.html" %}
 {% else %}
@@ -95,6 +96,22 @@
                 </div><!--End of Container-->
         </div><!--End of Col-10-->
 
+</div>
+<div class="container">
+<h3>{% trans "Partners report" %}</h3>
+<ul>
+  {% for activity in partners_activities %}
+  <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
+  {% endfor %}
+</ul>
+</div>
+<div class="container">
+<h3>{% trans "Customer report" %}</h3>
+<ul>
+  {% for activity in customer_activities %}
+  <li><span>{{activity.partner}}</span> - <span>{{activity.activity|balance_activity}}</span> - <span> {{ativity.total_amount}} {% trans CURRENCY %}</span> - <span>{{activity.years}}</span></li>
+  {% endfor %}
+</ul>
 </div>
 {% include "tags/analytics.html" %}
 {% endblock CONTENT %}

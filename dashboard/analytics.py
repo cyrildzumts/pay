@@ -2,8 +2,12 @@ from pay import utils
 from django.contrib.auth.models import User
 from django.db.models import F, Q
 from django.db.models import Count, Sum, Avg, Min, Max, IntegerField
+from django.db.models.functions import (
+	ExtractDay, ExtractMonth, ExtractQuarter, ExtractWeek,
+	ExtractIsoWeekDay, ExtractWeekDay, ExtractIsoYear, ExtractYear,
+)
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
-from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy
+from payments.models import Transfer, Payment, PaymentRequest, Service, CaseIssue, AvailableService, Policy, Balance ,BalanceHistory
 from voucher.models import Voucher
 from accounts import constants as ACCOUNT_CONSTANTS
 import logging
@@ -343,3 +347,9 @@ def get_number_of_policies_filter_by(**kwargs):
     return utils.get_model('payments', 'Policy').objects.filter(**kwargs).count()
 
 
+def transaction_reports(**filters):
+    reports = Balance.objects.filter(**filters).values(years=ExtractYear('balance_history__created_at'),months=ExtractMonth('balance_history__created_at'),activity=F('balance_history__activity'),partner=F('user__username')).annotate(total_amount=Sum('balance_history__current_amount')).order_by('activity', 'partner', '-years','-months').values('activity', 'partner','years', 'total_amount')
+
+
+def transaction_years_reports(**filters):
+    reports = Balance.objects.filter(**filters).values(years=ExtractYear('balance_history__created_at'),activity=F('balance_history__activity'),partner=F('user__username')).annotate(total_amount=Sum('balance_history__current_amount')).order_by('activity', 'partner', '-years').values('activity', 'partner','years', 'total_amount')
