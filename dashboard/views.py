@@ -50,8 +50,8 @@ def dashboard(request):
             'recent_services' : analytics.get_recent_services(),
             'is_allowed'     : can_view_dashboard,
             'content_title' : CORE_UI_STRINGS.UI_DASHBOARD_TITLE,
-            'partner_activities' : analytics.transaction_years_reports(filters={'user__groups__name': conf.PARTNER_GROUP}),
-            'customer_activities' : analytics.transaction_years_reports(filters={'user__groups': None}),
+            'partner_activities' : analytics.transaction_years_reports(**{'user__groups__name': conf.PARTNER_GROUP}),
+            'customer_activities' : analytics.transaction_years_reports(**{'user__groups': None}),
         }
 
     logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
