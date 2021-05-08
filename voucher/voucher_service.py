@@ -165,7 +165,7 @@ def generate_vouchers(context):
         return
 
     logger.info(f"Starting generating {number}  {name} vouchers card with credit of {amount}")
-    voucher_codes = [ voucher_service.voucher_generate() for i in range(number)]
+    voucher_codes = [ voucher_generate() for i in range(number)]
     vouchers = (Voucher(name=name, amount=amount, voucher_code=code, created_by=user) for code in voucher_codes)
     while True:
         batch = list(islice(vouchers, DEFAULT_BATCH_SIZE))
