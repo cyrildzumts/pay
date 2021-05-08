@@ -8,7 +8,7 @@ from pay import settings
 from voucher.models import Voucher, SoldVoucher, UsedVoucher, Recharge
 from payments.models import Balance, BalanceHistory
 from payments import constants as PAYMENTS_CONSTANTS
-
+from itertools import islice
 import codecs
 import random
 import hashlib
