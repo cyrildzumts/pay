@@ -348,9 +348,9 @@ def get_number_of_policies_filter_by(**kwargs):
 
 
 def transaction_reports(**filters):
-    reports = Balance.objects.filter(**filters).values(years=ExtractYear('balance_history__created_at'),months=ExtractMonth('balance_history__created_at'),activity=F('balance_history__activity'),partner=F('user__username')).annotate(total_amount=Sum('balance_history__current_amount')).order_by('activity', 'partner', '-years','-months').values('activity', 'partner','years', 'total_amount')
+    return Balance.objects.filter(**filters).values(years=ExtractYear('balance_history__created_at'),months=ExtractMonth('balance_history__created_at'),activity=F('balance_history__activity'),partner=F('user__username')).annotate(total_amount=Sum('balance_history__current_amount')).order_by('activity', 'partner', '-years','-months').values('activity', 'partner','years', 'total_amount')
 
 
 def transaction_years_reports(**filters):
     logger.debug(f"transaction_years_reports : filters : {filters}")
-    reports = Balance.objects.filter(**filters).values(years=ExtractYear('balance_history__created_at'),activity=F('balance_history__activity'),partner=F('user__username')).annotate(total_amount=Sum('balance_history__current_amount')).order_by('activity', 'partner', '-years').values('activity', 'partner','years', 'total_amount')
+    return Balance.objects.filter(**filters).values(years=ExtractYear('balance_history__created_at'),activity=F('balance_history__activity'),partner=F('user__username')).annotate(total_amount=Sum('balance_history__current_amount')).order_by('activity', 'partner', '-years').values('activity', 'partner','years', 'total_amount')
