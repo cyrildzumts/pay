@@ -357,5 +357,5 @@ def transaction_years_reports(**filters):
 
 
 def detailed_activities_reports(**filters):
-    queryset = BalanceHistory.objects.select_related().filter(**filters).order_by('-created-at')
+    queryset = BalanceHistory.objects.select_related().filter(**filters).order_by('-created_at')
     return queryset, queryset.aggregate(total=Sum('current_amount'), count=Count('activity'))
