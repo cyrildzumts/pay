@@ -825,7 +825,7 @@ def generate_activities_invoice(request):
         filename = f"Invoice-Activities-{request.user.get_full_name()}-{date.year}-{date.month}"
         invoice = core_service.generate_invoice(user=request.user, date=form.cleaned_data['date'], output_name=filename)
         response = HttpResponse(invoice.getvalue(), content_type=Constants.INVOICE_CONTENT_TYPE)
-        response[Constants.CONTENT_DISPOSITION]= f"inline; filename='{filename}'"
+        response[Constants.CONTENT_DISPOSITION]= f"attachment; filename='{filename}'"
         return response
     else:
         messages.error(request, CORE_UI_STRINGS.UI_INVALID_REQUEST)
