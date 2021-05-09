@@ -7,10 +7,14 @@ help_text=HELP_TEXT_FOR_CUSTOMER = 'Please enter the customer who is using this 
 help_text=HELP_TEXT_FOR_CUSTOMER_REF = 'Please enter the customer reference number used by the operator of this service'
 help_text=HELP_TEXT_FOR_SERVICE_ISSUED_AT = 'Please enter the date when this bill was issued (following format: <em>YYYY-MM-DD</em>.)'
 
+INVOICE_CONTENT_TYPE = 'application/pdf'
+CONTENT_DISPOSITION = 'Content-Disposition'
+
 CASHOUT_FORM_USER_AGENT_SAME_ERROR = ui_strings.UI_CASHOUT_USER_AGENT_INVALID
 CASHOUT_USER_UNSUFFICIENT_BALANCE_ERROR = ui_strings.UI_CASHOUT_USER_INSUFFICIENT_BALANCE
 CASHOUT_INVALID_AGENT_ERROR = ui_strings.UI_CASHOUT_AGENT_INVALID
 CASHOUT_INVALID_USER_INVALID = ui_strings.UI_CASHOUT_USER_INVALID
+
 
 
 COMMISSION_DEFAULT = 0.03

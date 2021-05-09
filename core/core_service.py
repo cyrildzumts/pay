@@ -5,14 +5,19 @@ from django.template.loader import get_template, render_to_string
 from django.utils.translation import gettext_lazy as _
 from django.contrib.staticfiles import finders
 from voucher.models import Recharge, Voucher
+from dashboard import analytics
 from pay import settings
+from payments.templatetags import payments_tags
+from payments import constants as PAYMENTS_CONSTANTS
 import os
 import logging
 import datetime
+import io
 from xhtml2pdf import pisa
 
 
 logger = logging.getLogger(__name__)
+PAYMENTS_ACTIVITIES = [PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_SERVICE, PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_PAYMENT, PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_REFUND]
 
 def generate_recharge_reports(template_name, output_name, seller=None):
     template_name = template_name or "report_content.html"
@@ -115,3 +120,110 @@ def generate_sold_voucher_reports(template_name, output_name, seller=None):
         logger.error("error when creating the report pdf")
     else:
         logger.info("sold voucher report pdf created")
+
+
+
+def generate_invoice(debug=False, output_name=None, user=None, date=datetime.date.today()):
+    
+    #start_date = now - datetime.timedelta(days=now.day-1, hours=now.hour, minutes=now.minute, seconds=now.second)
+    #end_delta = datetime.timedelta(days=1,hours=-23, minutes=-59, seconds=-59)
+    #end_date = datetime.datetime(now.year, now.month +1, 1) - end_delta
+    #user_seller =  None
+    if not isinstance(user, User):
+        logger.warn("generate_invoice : no valid order")
+        return None
+
+    template_name = "invoices/activities_invoice.html"
+    filters = {
+    #    'activity': activity,
+        'balance' : user.balance,
+        'created_at__year': date.year,
+        'created_at__month': date.month
+    }
+    activities, details = analytics.detailed_activities_reports(**filters)
+    activity_str = payments_tags.balance_activity(activity)
+    invoice_title = f"Invoice-Activities-{activity_str}-{user.get_full_name()}-{now.year}-{now.month}"
+    context = {
+        'SITE_NAME' : settings.SITE_NAME,
+        'SITE_HOST': settings.SITE_HOST,
+        'CONTACT_MAIL': settings.CONTACT_MAIL,
+        'DATE': now,
+        'orientation' : 'portrait',
+        'FRAME_NUMBER' : 2,
+        'page_size': 'letter portrait',
+        'border': debug,
+        'entry_list' : activities,
+        'TOTAL' : details.get('total', 0),
+        'COUNT': details.get('count', 0),
+        'CURRENCY': settings.CURRENCY,
+        'INVOICE_TITLE' : f"Invoice-Activities-{now.year}-{now.month}",
+        'ACTIVITY': activity,
+        'ACTIVITY_NAME': activity_str
+    }
+    output_name = output_name or f"{invoice_title}.pdf"
+    invoice_html = render_to_string(template_name, context)
+    invoice_file = io.BytesIO()
+    pdf_status = pisa.CreatePDF(invoice_html, dest=invoice_file, debug=False)
+    if pdf_status.err:
+        logger.error("error when creating the report pdf")
+        return None
+    else:
+        logger.info("recharge report pdf created")
+    return invoice_file
+
+
+def report_payments(user,year, month, debug=False, output_name=None):
+    #start_date = now - datetime.timedelta(days=now.day-1, hours=now.hour, minutes=now.minute, seconds=now.second)
+    #end_delta = datetime.timedelta(days=1,hours=-23, minutes=-59, seconds=-59)
+    #end_date = datetime.datetime(now.year, now.month +1, 1) - end_delta
+    #user_seller =  None
+    now = datetime.datetime.now()
+    if not isinstance(user, User):
+        logger.warn("generate_invoice : no valid order")
+        return None
+    if not isinstance(year, int) or year < 0 or year > now.year:
+        logger.warn(f"generate_invoice : invalid year format. submitted year : {year}")
+        return None
+    if not isinstance(month, int) or month < 0 or month > 12:
+        logger.warn(f"generate_invoice : invalid month format. submitted month : {month}")
+        return None
+    if year == now.year and month > now.month:
+        logger.warn(f"generate_invoice : invalid date format. submitted year : {year} - month : {month}")
+        return None
+
+    template_name = "invoices/payment_reports.html"
+    filters = {
+        'activity__in': PAYMENTS_ACTIVITIES,
+        'balance' : user.balance,
+        'created_at__year': year,
+        'created_at__month': month
+    }
+    activities, details = analytics.detailed_activities_reports(**filters)
+    activity_str = payments_tags.balance_activity(PAYMENTS_CONSTANTS.BALANCE_ACTIVITY_PAYMENT)
+    invoice_title = f"Invoice-Activities-{activity_str}-{user.get_full_name()}-{now.year}-{now.month}"
+    context = {
+        'SITE_NAME' : settings.SITE_NAME,
+        'SITE_HOST': settings.SITE_HOST,
+        'CONTACT_MAIL': settings.CONTACT_MAIL,
+        'DATE': now,
+        'orientation' : 'portrait',
+        'FRAME_NUMBER' : 2,
+        'page_size': 'letter portrait',
+        'border': debug,
+        'entry_list' : activities,
+        'TOTAL' : details.get('total', 0),
+        'COUNT': details.get('count', 0),
+        'CURRENCY': settings.CURRENCY,
+        'INVOICE_TITLE' : invoice_title,
+        'ACTIVITY_NAME': activity_str
+    }
+    output_name = output_name or f"{invoice_title}.pdf"
+    invoice_html = render_to_string(template_name, context)
+    invoice_file = io.BytesIO()
+    pdf_status = pisa.CreatePDF(invoice_html, dest=invoice_file, debug=False)
+    if pdf_status.err:
+        logger.error("error when creating the report pdf")
+        return None
+    else:
+        logger.info("recharge report pdf created")
+    return invoice_file

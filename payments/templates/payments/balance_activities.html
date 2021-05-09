@@ -8,6 +8,18 @@
 
 {% if activity_list %}
 <div class="container">
+  <div class="mat-box">
+    <form action="{% url 'payments:generate-invoice' %}" method="POST">{% csrf_token %}
+        
+        <div class="form-group">
+            <label for="date">{% trans "Date" %}</label>
+            <input type="date" name="date" id="date">
+        </div>
+        <div class="actions">
+            <button class="mat-button mat-button-default" type="submit"><i class="fas fa-file-invoice icon"></i>{% trans "Generate Invoice" %}</button>
+        </div>
+    </form>
+  </div>
  {% include 'tags/balance_activities_snippet.html' with OPEN_IN_DASHBOARD=False %}
 </div>
 {% endif %}

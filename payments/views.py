@@ -28,7 +28,7 @@ from payments.models import (
 )
 from payments.forms import (
     TransactionForm, TransferForm, ServiceCreationForm, PaymentRequestForm,
-    RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm,TransactionVerificationForm, PolicyGroupForm
+    RechargeForm, IDCardForm, UpdateIDCardForm, PaymentForm,TransactionVerificationForm, PolicyGroupForm, ReportForm
 )
 from payments import constants as Constants
 from payments.payment_service import PaymentService, voucher_service
@@ -36,6 +36,7 @@ from payments import payment_service
 from pay import settings, utils, conf
 from core.resources import ui_strings as CORE_UI_STRINGS
 from core.tasks import send_mail_task
+from core import core_service
 import logging
 
 logger = logging.getLogger(__name__)
@@ -812,6 +813,21 @@ def activity_details(request, history_uuid):
     context['activity'] = activity
     return render(request,template_name, context)
 
+
+@login_required
+def generate_activities_invoice(request):
+    if request.method != 'POST':
+        messages.error(request, CORE_UI_STRINGS.UI_INVALID_REQUEST)
+        return redirect('payments:activities')
+    form = ReportForm(utils.get_postdata(request))
+    if form.is_valid():
+        invoice = core_service.generate_invoice(user=request.user, date=form.cleaned_data['date'])
+        response = HttpResponse(invoice.getvalue(), content_type=Constants.INVOICE_CONTENT_TYPE)
+        response[Constants.CONTENT_DISPOSITION]= f"inline; filename='{filename}'"
+        return response
+    else:
+        messages.error(request, CORE_UI_STRINGS.UI_INVALID_REQUEST)
+        return redirect('payments:activities')
 
 @login_required
 def policies(request):

@@ -354,3 +354,8 @@ def transaction_reports(**filters):
 def transaction_years_reports(**filters):
     logger.debug(f"transaction_years_reports : filters : {filters}")
     return Balance.objects.filter(**filters).values(years=ExtractYear('balance_history__created_at'),activity=F('balance_history__activity'),partner=F('user__username')).annotate(total_amount=Sum('balance_history__current_amount')).order_by('activity', 'partner', '-years').exclude(activity=None).values('activity', 'partner','years', 'total_amount')
+
+
+def detailed_activities_reports(**filters):
+    queryset = BalanceHistory.objects.select_related().filter(**filters).order_by('-created-at')
+    return queryset, queryset.aggregate(total=Sum('current_amount'), count=Count('activity'))

@@ -1,14 +1,12 @@
-{% extends 'report_base.html' %}
+
 {% load i18n %}
 
-
-{% block REPORT_CONTENT %}
 <div id="main-content">
     <table id="report-table">
-        <caption>{% trans "Recharges Listing" %}</i></caption>
+        <caption>{{ACTIVITY_NAME}}</caption>
         <thead>
             <tr>
-                 <th class="pos">{% trans "Pos." %}</th>
+                <th class="pos">{% trans "Pos." %}</th>
                 <th>{% trans "Card Name" %}</th>
                 <th>{% trans "Code" %}</th>
                 <th>{% trans "Date" %}</th>
@@ -16,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for recharge in entry_list %}
+            {% for entry in entry_list %}
             <tr>
                 <td class="bold">{{forloop.revcounter}}</td>
-                <td>{{recharge.voucher.name}}</td>
-                <td>{{recharge.voucher.voucher_code}}</td>
-                <td>{{recharge.created_at}}</td>
-                <td class="bold">{{recharge.amount}} {% trans CURRENCY %}</td>
+                <td>{{entry.recharge.voucher.name}}</td>
+                <td>{{entry.recharge.voucher.voucher_code}}</td>
+                <td>{{entry.recharge.created_at|date:'F j, Y H:i:s'}}</td>
+                <td class="bold">{{entry.recharge.amount}} {% trans CURRENCY %}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -31,9 +29,7 @@
         <h3>{% trans "Summary" %}</h3>
 
         <p>{% trans "Total" %} : <span class="bold">{{TOTAL}} {% trans CURRENCY %}</span></p>
-        <p>{% trans "Numbers of card sold" %} : <span class="bold">{{COUNT}}</span></p>
+        <p>{% trans ACTIVITY_NAME %} : <span class="bold">{{COUNT}}</span></p>
     </div>
 
 </div>
-
-{% endblock REPORT_CONTENT %}

@@ -9,6 +9,7 @@ from payments.models import (
 from payments import constants
 from pay import settings
 from django.contrib.admin.widgets import AdminDateWidget
+from core.resources import ui_strings as CORE_UI_STRINGS
 import datetime
 
 COMMISSION_MAX_VALUE = 1.00
@@ -305,11 +306,22 @@ class CashoutForm(forms.ModelForm):
         cashout_type = self.cleaned_data['cashout_type']
         fee = self.cleaned_data['fee']
         if agent == user:
-            raise forms.ValidationError(message=constants.CASHOUT_FORM_USER_AGENT_SAME_ERROR, code='invalid')
+            raise forms.ValidationError(message=CORE_UI_STRINGS.CASHOUT_FORM_USER_AGENT_SAME_ERROR, code='invalid')
 
         if not agent.groups.filter(name=settings.GROUP_AGENT).exists():
-            raise forms.ValidationError(message=constants.CASHOUT_INVALID_AGENT_ERROR, code='invalid')
+            raise forms.ValidationError(message=CORE_UI_STRINGS.CASHOUT_INVALID_AGENT_ERROR, code='invalid')
         
         if cashout_type == constants.CASHOUT_WITHDRAW or cashout_type == constants.CASHOUT_CASHOUT:
             if user.balance.balance < total_amount:
-                raise forms.ValidationError(message=constants.CASHOUT_USER_UNSUFFICIENT_BALANCE_ERROR)
+                raise forms.ValidationError(message=CORE_UI_STRINGS.CASHOUT_USER_UNSUFFICIENT_BALANCE_ERROR)
+
+
+class ReportForm(forms.Form):
+    date = forms.DateField()
+
+    def clean(self):
+        super().clean()
+        submitted_date = self.cleaned_data['date']
+        today = datetime.date.today()
+        if submitted_date > today:
+            raise forms.ValidationError(message=CORE_UI_STRINGS.UI_INVALID_DATE_REPORT)

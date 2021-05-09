@@ -1,0 +1,38 @@
+{% extends 'report_base.html' %}
+{% load i18n %}
+{% load payments_tags %}
+
+{% block REPORT_CONTENT %}
+<div id="main-content">
+    <table id="activity_list" class="mat-table">
+            <caption>{% trans "Activities" %}</caption>
+            <thead>
+                    <tr>
+                        <th scope="col">{% trans "Name" %}</th>
+                        <th scope="col">{% trans "Activity" %}</th>
+                        <th scope="col">{% trans "Amount" %}</th>
+                        <th scope="col">{% trans "Date" %}</th>
+                        <th scope="col">{% trans "Details" %}</th>
+                    </tr>
+            </thead>
+            <tbody>
+                    {% for activity in activity_list %}
+                    <tr>
+                    <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}({{activity.sender.username}}){% else %}{{activity.receiver.get_full_name}}({{activity.receiver.username}}){% endif %}</td>
+                    <td data-label="{% trans 'Activity' %}">{{activity.activity|balance_activity}} </td>
+                    <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
+                    <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j,Y H:i:s"}}</td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+    </table>
+    <div id="report-summary">
+        <h3>{% trans "Summary" %}</h3>
+
+        <p>{% trans "Total" %} : <span class="bold">{{TOTAL}} {% trans CURRENCY %}</span></p>
+        <p>{% trans ACTIVITY_NAME %} : <span class="bold">{{COUNT}}</span></p>
+    </div>
+
+</div>
+
+{% endblock REPORT_CONTENT %}

@@ -10,6 +10,7 @@ urlpatterns = [
     path('available-services/', views.available_services, name='available-services'),
     path('available-service-detail/<uuid:available_uuid>/', views.available_service_details, name='available-service-detail'),
     path('activities/', views.activities , name='activities'),
+    path('activities/generate-invoice/', views.generate_activities_invoice , name='generate-invoice'),
     path('activities/details/<uuid:history_uuid>/', views.activity_details , name='activity-details'),
     path('cases/', views.cases, name='cases'),
     path('cases/<uuid:issue_uuid>/', views.case_details, name='case-detail'),
