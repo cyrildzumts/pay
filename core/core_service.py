@@ -147,7 +147,7 @@ def generate_invoice(debug=False, output_name=None, user=None, date=datetime.dat
         'SITE_NAME' : settings.SITE_NAME,
         'SITE_HOST': settings.SITE_HOST,
         'CONTACT_MAIL': settings.CONTACT_MAIL,
-        'DATE': now,
+        'DATE': date,
         'orientation' : 'portrait',
         'FRAME_NUMBER' : 2,
         'page_size': 'letter portrait',
