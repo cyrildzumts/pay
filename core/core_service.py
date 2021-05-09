@@ -133,7 +133,7 @@ def generate_invoice(debug=False, output_name=None, user=None, date=datetime.dat
         logger.warn("generate_invoice : no valid order")
         return None
 
-    template_name = "invoices/activities_invoice.html"
+    template_name = "reports/activities_invoice.html"
     filters = {
     #    'activity': activity,
         'balance' : user.balance,
@@ -141,7 +141,7 @@ def generate_invoice(debug=False, output_name=None, user=None, date=datetime.dat
         'created_at__month': date.month
     }
     activities, details = analytics.detailed_activities_reports(**filters)
-    activity_str = payments_tags.balance_activity(activity)
+    activity_str = 'Activities'
     invoice_title = f"Invoice-Activities-{activity_str}-{user.get_full_name()}-{now.year}-{now.month}"
     context = {
         'SITE_NAME' : settings.SITE_NAME,
@@ -157,7 +157,6 @@ def generate_invoice(debug=False, output_name=None, user=None, date=datetime.dat
         'COUNT': details.get('count', 0),
         'CURRENCY': settings.CURRENCY,
         'INVOICE_TITLE' : f"Invoice-Activities-{now.year}-{now.month}",
-        'ACTIVITY': activity,
         'ACTIVITY_NAME': activity_str
     }
     output_name = output_name or f"{invoice_title}.pdf"
