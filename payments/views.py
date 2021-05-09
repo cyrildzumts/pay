@@ -821,7 +821,9 @@ def generate_activities_invoice(request):
         return redirect('payments:activities')
     form = ReportForm(utils.get_postdata(request))
     if form.is_valid():
-        invoice = core_service.generate_invoice(user=request.user, date=form.cleaned_data['date'])
+        date = form.cleaned_data['date']
+        filename = f"Invoice-Activities-{request.user.get_full_name()}-{date.year}-{date.month}"
+        invoice = core_service.generate_invoice(user=request.user, date=form.cleaned_data['date'], output_name=filename)
         response = HttpResponse(invoice.getvalue(), content_type=Constants.INVOICE_CONTENT_TYPE)
         response[Constants.CONTENT_DISPOSITION]= f"inline; filename='{filename}'"
         return response
