@@ -8,16 +8,17 @@
             <caption>{% trans ACTIVITY_NAME %}</caption>
             <thead>
                     <tr>
+                        <th class="pos">{% trans "Pos." %}</th>
                         <th scope="col">{% trans "Name" %}</th>
                         <th scope="col">{% trans "Activity" %}</th>
                         <th scope="col">{% trans "Amount" %}</th>
                         <th scope="col">{% trans "Date" %}</th>
-                        <th scope="col">{% trans "Details" %}</th>
                     </tr>
             </thead>
             <tbody>
                     {% for activity in entry_list %}
                     <tr>
+                     <td class="bold">{{forloop.revcounter}}</td>
                     <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}({{activity.sender.username}}){% else %}{{activity.receiver.get_full_name}}({{activity.receiver.username}}){% endif %}</td>
                     <td data-label="{% trans 'Activity' %}">{{activity.activity|balance_activity}} </td>
                     <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
