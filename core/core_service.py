@@ -142,7 +142,7 @@ def generate_invoice(debug=False, output_name=None, user=None, date=datetime.dat
     }
     activities, details = analytics.detailed_activities_reports(**filters)
     activity_str = 'Activities'
-    invoice_title = f"Invoice-Activities-{activity_str}-{user.get_full_name()}-{now.year}-{now.month}"
+    invoice_title = f"Invoice-Activities-{activity_str}-{user.get_full_name()}-{date.year}-{date.month}"
     context = {
         'SITE_NAME' : settings.SITE_NAME,
         'SITE_HOST': settings.SITE_HOST,
@@ -156,7 +156,7 @@ def generate_invoice(debug=False, output_name=None, user=None, date=datetime.dat
         'TOTAL' : details.get('total', 0),
         'COUNT': details.get('count', 0),
         'CURRENCY': settings.CURRENCY,
-        'INVOICE_TITLE' : f"Invoice-Activities-{now.year}-{now.month}",
+        'INVOICE_TITLE' :invoice_title,
         'ACTIVITY_NAME': activity_str
     }
     output_name = output_name or f"{invoice_title}.pdf"
