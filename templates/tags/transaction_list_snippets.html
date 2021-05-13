@@ -47,7 +47,8 @@
                             <span class="small">{{activity.created_at|naturalday}}</span>
                         </div>
                         <div class="activity-amount">
-                            <span class="incoming">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span>
+                            <span class="outgoing">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>
+                            <span class="small">{{activity.activity|balance_activity}}</span>
                         </div>
                     {% else %}
                         <div class="activity-img">
@@ -55,7 +56,7 @@
                         </div>
                         <div class="activity-info">
                             <span>{{activity.receiver.get_full_name}}</span>
-                            <span class="small">{{activity.created_at|naturalday}}</span>, 
+                            <span class="small">{{activity.created_at|naturalday}}</span>
                         </div>
                         <div class="activity-amount">
                             <span class="outgoing">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>

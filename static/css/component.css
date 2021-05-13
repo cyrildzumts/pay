@@ -3019,7 +3019,14 @@
 	/*padding: 0.5em;*/
 }
 
+.activity-amount{
+
+	justify-content: end;
+	text-align: right;
+}
+
 .activity-info{
+	justify-content: start;
 	min-width: 15em;
 	width: 30%;
 
