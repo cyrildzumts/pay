@@ -47,7 +47,7 @@
                             <span class="small">{{activity.created_at|naturalday}}</span>
                         </div>
                         <div class="activity-amount">
-                            <span class="outgoing">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>
+                            <span class="incoming">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>
                             <span class="small">{{activity.activity|balance_activity}}</span>
                         </div>
                     {% else %}
