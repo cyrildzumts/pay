@@ -92,7 +92,6 @@ ACCOUNTS = {
     'ACCOUNT_TYPE' :  (
         ('A', 'Admin'),
         ('B', 'Business'),
-        ('D', 'Developer'), # create a group Developer instead
         ('I', 'Individual'),
         ('M', 'Manager'), # create a group Manager instead
         ('P', 'Partner'), # create a group Partner instead
@@ -120,8 +119,9 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.humanize',
     'django.contrib.messages',
+    'django.contrib.sessions',
     'django.contrib.staticfiles',
     'accounts',
     'payments.apps.PaymentsConfig',
