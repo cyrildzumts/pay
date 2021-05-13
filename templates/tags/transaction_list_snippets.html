@@ -6,7 +6,7 @@
 {% if activity_list %}
 <div class="container wrapper">
     <div class="activity-list-wrapper full">
-        <div class="row"><h3>{% trans list_title %}</h3> {% if FULL_LIST_LINK %} <a class="mat-button mat-button-text" href="{% url FULL_LIST_LINK %}"><span>{% trans "See all" %}</span></a> {% endif %}</div>
+        <div class="row"><h4>{% trans list_title %}</h4> {% if FULL_LIST_LINK %} <a class="mat-button mat-button-text" href="{% url FULL_LIST_LINK %}"><span>{% trans "See all" %}</span></a> {% endif %}</div>
         <ul class="activity-list js-filter-table full">
             
             {% for activity in activity_list %}
@@ -18,25 +18,30 @@
                         <div class="activity-img">
                         
                         </div>
-                        <div class="activity-info">
-                            <span>{{activity.sender.get_full_name}}</span>
-                            <span class="small">{{activity.created_at|naturalday}}</span>
+                        <div class="row">
+                            <div class="activity-info">
+                                <span>{{activity.sender.get_full_name}}</span>
+                                <span class="small">{{activity.created_at|naturalday}}</span>
+                            </div>
+                            <div class="activity-amount">
+                                <span class="incoming">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>
+                                <span class="small">{{activity.activity|balance_activity}}</span>
+                            </div>
                         </div>
-                        <div class="activity-amount">
-                            <span class="incoming">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>
-                            <span class="small">{{activity.activity|balance_activity}}</span>
-                        </div>
+                        
                     {% else %}
                         <div class="activity-img">
                         
                         </div>
-                        <div class="activity-info">
-                            <span>{{activity.receiver.get_full_name}}</span>
-                            <span class="small">{{activity.created_at|naturalday}}</span>
-                        </div>
-                        <div class="activity-amount">
-                            <span class="outgoing">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>
-                            <span class="small">{{activity.activity|balance_activity}}</span>
+                        <div class="row">
+                            <div class="activity-info">
+                                <span>{{activity.receiver.get_full_name}}</span>
+                                <span class="small">{{activity.created_at|naturalday}}</span>
+                            </div>
+                            <div class="activity-amount">
+                                <span class="outgoing">{{activity.current_amount|floatformat:"-2"}} {% trans CURRENCY %}</span>
+                                <span class="small">{{activity.activity|balance_activity}}</span>
+                            </div>
                         </div>
                     {% endif %}
                     </a>
