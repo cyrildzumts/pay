@@ -35,6 +35,6 @@
     {% comment %}
         {% include 'tags/balance_activities_snippet.html' with OPEN_IN_DASHBOARD=False %}
     {% endcomment %}
-    {% include 'tags/transaction_list_snippets.html' with  list_title={% trans "Recents activities" %} with OPEN_IN_DASHBOARD=False %}
+    {% include 'tags/transaction_list_snippets.html' with  list_title=_("Recents activities") with OPEN_IN_DASHBOARD=False %}
 </div>
 {% endblock MAIN %}
