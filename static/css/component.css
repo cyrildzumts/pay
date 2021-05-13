@@ -3017,7 +3017,7 @@
 	flex-direction: column;
 	justify-content: start;
 	text-align: left;
-	padding: 1em;
+	padding:0 1em;
 }
 
 .activity-amount{
