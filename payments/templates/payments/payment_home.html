@@ -12,7 +12,7 @@
 </div>
 <div class="container">
     {% include "tags/activity_list_snippet.html" with  list_title="Recents activities" OPEN_DASHBOARD_URL=False %}
-    {% include 'tags/transaction_list_snippets.html' with  list_title=_("Recents activities") with OPEN_IN_DASHBOARD=False %}
+    {% include 'tags/transaction_list_snippets.html' with  list_title=_("Recents activities") OPEN_IN_DASHBOARD=False %}
 </div>
 
 {% endblock MAIN %}
