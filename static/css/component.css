@@ -2997,7 +2997,9 @@
   }
 
   .activity-list li .entry{
+	  font-size: 0.875em;
 	  padding: 0 0.5em;
+	  margin-bottom: 0.5em;
   }
   
   .activity-list li .entry a{
@@ -3009,20 +3011,20 @@
   .activity-list .activity-img{
 	width: 3rem;
 }
-.activity-info{
+.activity-info, .activity-amount{
 	display: flex;
-	min-width: 15em;
-	width: 30%;
 	flex-direction: column;
 	justify-content: start;
 	text-align: left;
 	/*padding: 0.5em;*/
 }
 
-.activity-amount{
-	/*padding: 0.5em;*/
-	font-weight: bold;
+.activity-info{
+	min-width: 15em;
+	width: 30%;
+
 }
+
 
   @media only screen and (max-width:40em){
 	  .product-detail-properties{
