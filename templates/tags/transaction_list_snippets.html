@@ -1,0 +1,82 @@
+{% load i18n %}
+{% load humanize %}
+{% load payments_tags %}
+
+
+{% if activity_list %}
+<div class="container wrapper">
+    <div class="mat-table-wrapper">
+        {% comment %}
+            <table id="activity_list" class="mat-table js-filter-table">
+                <caption>{% trans "Activities" %}</caption>
+                <thead>
+                        <tr>
+                                <th scope="col">{% trans "Name" %}</th>
+                                <th scope="col">{% trans "Activity" %}</th>
+                                <th scope="col">{% trans "Amount" %}</th>
+                                <th scope="col">{% trans "Date" %}</th>
+                                <th scope="col">{% trans "Details" %}</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {% for activity in activity_list %}
+                        <tr>
+                        <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}{% else %}{{activity.receiver.get_full_name}}{% endif %}</td>
+                        <td data-label="{% trans 'Activity' %}">{{activity.activity|balance_activity}} </td>
+                        <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
+                        {% comment %}
+                            <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j,Y H:i:s"}}</td>
+                        {% endcomment %}
+                        <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|naturalday}}</td>
+                        <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% if OPEN_IN_DASHBOARD %}{{activity.get_dashboard_url}} {% else %} {{activity.get_absolute_url}} {% endif %}"><i class="fas fa-info icon"></i><span></a></td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        {% endcomment %}
+        <ul class="activity-list js-filter-table">
+            {% for activity in activity_list %}
+            <li class="activity" data-activity="{{activity.activity}}" data-amount="{{activity.current_amount|floatformat:'-2'}}" data-date="{{activity.created_at|naturalday}}">
+                <div class="entry">
+                    <a href="{% if OPEN_IN_DASHBOARD %}{{activity.get_dashboard_url}} {% else %} {{activity.get_absolute_url}} {% endif %}">
+                    
+                    
+                    {% if activity.is_incoming %}
+                        <div class="activity-img">
+                        
+                        </div>
+                        <div>
+                            <span>{{activity.sender.get_full_name}}</span>
+                            <span class="small">{{activity.created_at|naturalday}}</span>
+                        </div>
+                        <div>
+                            <span class="incoming">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span>
+                        </div>
+                    {% else %}
+                        <div class="activity-img">
+                        
+                        </div>
+                        <div class="activity-user">
+                            <span>{{activity.receiver.get_full_name}}</span>
+                            <span class="small">{{activity.created_at|naturalday}}</span>
+                        </div>
+                        <div>
+                            <span class="outgoing">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span>
+                        </div>
+                    {% endif %}
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% include "tags/pagination.html" with page_set=activity_list %}
+    </div><!--End of Table Wrapper-->
+</div>
+
+{% else %}
+<div class="container wrapper">
+    <div class="col-m-12 col-12">
+    <p>{% trans "There is no transactions yet." %}</p>
+    </div>
+</div>
+{% endif %}

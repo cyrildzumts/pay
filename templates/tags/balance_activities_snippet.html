@@ -21,13 +21,13 @@
               <tbody>
                       {% for activity in activity_list %}
                       <tr>
-                        <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}({{activity.sender.username}}){% else %}{{activity.receiver.get_full_name}}({{activity.receiver.username}}){% endif %}</td>
+                        <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}{% else %}{{activity.receiver.get_full_name}}{% endif %}</td>
                         <td data-label="{% trans 'Activity' %}">{{activity.activity|balance_activity}} </td>
                         <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
                         {% comment %}
                             <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j,Y H:i:s"}}</td>
                         {% endcomment %}
-                        <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|naturaltime}}</td>
+                        <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|naturalday}}</td>
                         <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% if OPEN_IN_DASHBOARD %}{{activity.get_dashboard_url}} {% else %} {{activity.get_absolute_url}} {% endif %}"><i class="fas fa-info icon"></i><span></a></td>
                       </tr>
                       {% endfor %}

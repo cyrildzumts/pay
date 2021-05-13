@@ -20,7 +20,10 @@
         </div>
     </form>
   </div>
- {% include 'tags/balance_activities_snippet.html' with OPEN_IN_DASHBOARD=False %}
+ {% comment %}
+     {% include 'tags/balance_activities_snippet.html' with OPEN_IN_DASHBOARD=False %}
+ {% endcomment %}
+ {% include 'tags/transaction_list_snippets.html' with OPEN_IN_DASHBOARD=False %}
 </div>
 {% endif %}
 {% endblock MAIN %}

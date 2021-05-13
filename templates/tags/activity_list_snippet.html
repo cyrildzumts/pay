@@ -20,7 +20,7 @@
             <tbody>
                     {% for activity in activity_list %}
                     <tr>
-                    <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}({{activity.sender.username}}){% else %}{{activity.receiver.get_full_name}}({{activity.receiver.username}}){% endif %}</td>
+                    <td scope="row" data-label="{% trans 'Name' %}">{% if activity.is_incoming %}{{activity.sender.get_full_name}}{% else %}{{activity.receiver.get_full_name}}{% endif %}</td>
                     <td data-label="{% trans 'Activity' %}">{{activity.activity|balance_activity}} </td>
                     <td data-label="{% trans 'Amount' %}"><span class="{% if not activity.is_incoming %}outgoing{% else %}incoming{% endif %}">{{activity.current_amount|floatformat:"-2"}}</span> <span class="currency">{% trans CURRENCY %}</span></td>
                     {% comment %}
