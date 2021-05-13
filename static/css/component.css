@@ -3000,18 +3000,22 @@
 	  display: flex;
 	  width: 100%;
   }
+
   .activity-list .activity-img{
 	width: 3rem;
 }
 .activity-info{
 	display: flex;
+	min-width: 15em;
 	flex-direction: column;
 	justify-content: start;
+	text-align: left;
 	padding: 1em;
 }
 
 .activity-amount{
 	padding: 1em;
+	font-weight: bold;
 }
 
   @media only screen and (max-width:40em){

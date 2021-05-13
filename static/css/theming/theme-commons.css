@@ -290,3 +290,12 @@ a {
 .footer-catalog a{
 	color: #0A0A0A;
 }
+
+.activity-list .entry{
+	background-color: #fafafa;
+    border-bottom: 1px solid #ccc;
+ }
+
+ .activity-info .small{
+     color: #777;
+ }
