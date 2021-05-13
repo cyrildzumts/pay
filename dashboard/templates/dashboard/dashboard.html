@@ -10,28 +10,7 @@
 <div class="container">
         <h3>{% trans "Partners report" %}</h3>
         <div class="mat-table-wrapper">
-            <table id="activity_list" class="mat-table js-filter-table">
-              <caption>{% trans "Activities" %}</caption>
-              <thead>
-                      <tr>
-                              <th scope="col">{% trans "Partner" %}</th>
-
-                              <th scope="col">{% trans "Activity" %}</th>
-                              <th scope="col">{% trans "Total" %}</th>
-                              <th scope="col">{% trans "Year" %}</th>
-                      </tr>
-              </thead>
-              <tbody>
-                      {% for activity in partner_activities %}
-                      <tr>
-                        <td scope="row" data-label="{% trans 'Partner' %}">{{activity.partner}}</td>
-                        <td data-label="{% trans 'Activity' %}">{{activity.activity|balance_activity}}</td>
-                        <td data-label="{% trans 'Total' %}"><span class="currency">{{activity.total_amount}} {% trans CURRENCY %}</span></td>
-                        <td data-label="{% trans 'Year' %}"><span>{{activity.years}}</span></td>
-                      </tr>
-                      {% endfor %}
-              </tbody>
-           </table>
+           {% include 'tags/transaction_list_snippets.html' with activity_list=partner_activities list_title=_("Recents activities") OPEN_IN_DASHBOARD=False %}
         </div><!--End of Table Wrapper-->
         
         
@@ -39,28 +18,7 @@
 <div class="container">
         <h3>{% trans "Customer report" %}</h3>
         <div class="mat-table-wrapper">
-            <table id="activity_list" class="mat-table js-filter-table">
-              <caption>{% trans "Activities" %}</caption>
-              <thead>
-                      <tr>
-                              <th scope="col">{% trans "Partner" %}</th>
-
-                              <th scope="col">{% trans "Activity" %}</th>
-                              <th scope="col">{% trans "Total" %}</th>
-                              <th scope="col">{% trans "Year" %}</th>
-                      </tr>
-              </thead>
-              <tbody>
-                      {% for activity in customer_activities %}
-                      <tr>
-                        <td scope="row" data-label="{% trans 'Partner' %}">{{activity.partner}}</td>
-                        <td data-label="{% trans 'Activity' %}">{{activity.activity|balance_activity}}</td>
-                        <td data-label="{% trans 'Total' %}"><span class="currency">{{activity.total_amount}} {% trans CURRENCY %}</span></td>
-                        <td data-label="{% trans 'Year' %}"><span>{{activity.years}}</span></td>
-                      </tr>
-                      {% endfor %}
-              </tbody>
-           </table>
+            {% include 'tags/transaction_list_snippets.html' with activity_list=customer_activities list_title=_("Recents activities") OPEN_IN_DASHBOARD=False %}
         </div><!--End of Table Wrapper-->
 </div>
 {% endblock CONTENT %}
