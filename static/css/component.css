@@ -3007,6 +3007,7 @@
 .activity-info{
 	display: flex;
 	min-width: 15em;
+	width: 75%;
 	flex-direction: column;
 	justify-content: start;
 	text-align: left;
