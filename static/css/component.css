@@ -2995,9 +2995,14 @@
   .primary-actions a i ~ span{
 	  font-size: 0.7em;
   }
+
+  .activity-list li .entry{
+	  padding: 0 0.5em;
+  }
   
   .activity-list li .entry a{
 	  display: flex;
+	  justify-content: center;
 	  width: 100%;
   }
 
@@ -3011,11 +3016,11 @@
 	flex-direction: column;
 	justify-content: start;
 	text-align: left;
-	/*padding: 1em;*/
+	/*padding: 0.5em;*/
 }
 
 .activity-amount{
-	/*padding: 1em;*/
+	/*padding: 0.5em;*/
 	font-weight: bold;
 }
 
