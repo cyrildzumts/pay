@@ -3017,7 +3017,7 @@
 	flex-direction: column;
 	justify-content: start;
 	text-align: left;
-	/*padding: 0.5em;*/
+	padding: 1em;
 }
 
 .activity-amount{
@@ -3029,8 +3029,6 @@
 .activity-info{
 	justify-content: start;
 	min-width: 15em;
-	width: 30%;
-
 }
 
 
