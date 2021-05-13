@@ -26,7 +26,7 @@
                     {% comment %}
                         <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j,Y H:i:s"}}</td>
                     {% endcomment %}
-                    <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|naturaltime}}</td>
+                    <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|naturalday}}</td>
                     <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% if OPEN_IN_DASHBOARD %}{{activity.get_dashboard_url}} {% else %} {{activity.get_absolute_url}} {% endif %}"><i class="fas fa-info icon"></i><span></a></td>
                     </tr>
                     {% endfor %}
