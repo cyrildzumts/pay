@@ -2996,6 +2996,14 @@
 	  font-size: 0.7em;
   }
   
+  .activity-list li .entry a{
+	  display: flex;
+	  width: 100%;
+  }
+  .activity-list .activity-img{
+	width: 3rem;
+}
+
   @media only screen and (max-width:40em){
 	  .product-detail-properties{
 		  font-size: 0.8em;
