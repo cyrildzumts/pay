@@ -296,6 +296,10 @@ a {
     border-bottom: 1px solid #ccc;
  }
 
+ .activity-list .entry:hover{
+	background-color: #ccc;
+ }
+
  .activity-info .small{
      color: #777;
  }
