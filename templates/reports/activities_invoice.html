@@ -26,7 +26,7 @@
                     {% comment %}
                         <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|date:"F j,Y H:i:s"}}</td>
                     {% endcomment %}
-                    <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|naturalday}}</td>
+                    <td scope="row" data-label="{% trans 'Date' %}">{{activity.created_at|naturaltime}}</td>
                     </tr>
                     {% endfor %}
             </tbody>
