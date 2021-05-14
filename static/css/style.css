@@ -419,8 +419,12 @@
     padding-right: 0.5rem !important;
 }
 
+.big{
+    font-size: 1.1rem !important;
+}
+
 .small{
-    font-size: 0.7rem !important;
+    font-size: 0.6rem !important;
 }
 
 .medium{
