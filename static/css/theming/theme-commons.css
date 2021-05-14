@@ -154,6 +154,16 @@ li.active.selected{
 	color: var(--primary-color) !important;
 }
 
+.dropdown-content{
+    background-color: var(--dropdown-bg-color);
+    color: var(--dropdown-color);
+}
+
+.dropdown-content ul li{
+    border-bottom: 1px solid var(--secondary-color);
+    padding-bottom: 0.5rem;
+}
+
 .docklet:hover{
 
     background-color: var(--light-color);
