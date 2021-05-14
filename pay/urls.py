@@ -15,25 +15,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from django.conf.urls.i18n import i18n_patterns
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from pay import views
 
 
-urlpatterns = [
+urlpatterns = i18n_patterns(*[
     path('', views.home, name='home'),
     path('customer-usage/',views.customer_usage ,name='customer-usage'),
     path('about/', views.about, name='about'),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls', namespace='api')),
-    path('api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('dashboard/',include('dashboard.urls')),
     path('faq/', views.faq, name='faq'),
     path('index/', views.home, name='index'),
-    path('i18n/', include('django.conf.urls.i18n')),
     path('payments/', include('payments.urls')),
     path('voucher/', include('voucher.urls')),
 #   path('issues/', include('issues.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] )
+
+urlpatterns += [
+    path('api/', include('api.urls', namespace='api')),
+    path('api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('i18n/', include('django.conf.urls.i18n')),
+   # path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
