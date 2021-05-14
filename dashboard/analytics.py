@@ -363,7 +363,9 @@ def detailed_activities_reports(**filters):
 def current_month_reports(**filters):
     #current_month = datetime.date.today()
     #filters.update({'created_at__year': current_month.year, 'created_at__month': current_month.month})
+    INCOMING_FILTER = Sum('current_amount', filter=Q(is_incoming=True))
+    OUTGOING_FILTER = Sum('current_amount', filter=Q(is_incoming=False))
     queryset = BalanceHistory.objects.select_related().filter(**filters)
     annotations = queryset.values('activity', 'is_incoming').annotate(total=Sum('current_amount')).order_by()
-    aggregates = queryset.aggregate(total=Sum('current_amount'))
+    aggregates = queryset.aggregate(total_incoming=INCOMING_FILTER, total_outgoing=OUTGOING_FILTER)
     return annotations, aggregates

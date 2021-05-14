@@ -10,7 +10,8 @@
 
 {% block MAIN %}
 <div class="container">
-    <div class="entry"><span>{% trans "Expenses" %}</span> <span>{{global_reports.total}} {% trans CURRENCY %}</span></div>
+    <div class="entry"><span>{% trans "Expenses" %}</span> <span>{{global_reports.total_outgoing}} {% trans CURRENCY %}</span></div>
+    <div class="entry"><span>{% trans "Incomes" %}</span> <span>{{global_reports.total_incoming}} {% trans CURRENCY %}</span></div>
     <div class="tabs-container">
         <div class="tabs">
             <div class="tab"><span class="bold">{% trans "Expenses" %}</span></div>
