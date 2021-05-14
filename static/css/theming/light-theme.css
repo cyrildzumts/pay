@@ -31,7 +31,7 @@
     --button-hover-color: #45A29E;
     --button-hover-border-color: #FAFAFA;
 
-    --button-outlined-bg-color: #FAFAFA;
+    --button-outlined-bg-color: transparent;
     --button-outlined-color: #45A29E;
     --button-outlined-border-color : #45A29E;
 
