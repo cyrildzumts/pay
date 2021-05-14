@@ -1371,13 +1371,6 @@
   }
   
   
-  .entrant, .incoming{
-	  color: #00e676;
-  }
-  .outgoing{
-	  color: #d32f2f;
-  }
-  
   .incoming::before, .outgoing::before{
 	  font-weight: 600;
   }

@@ -54,6 +54,13 @@ body{
     color: var(--primary-color);
 }
 
+.entrant, .incoming{
+    color: var(--secondary-color);
+}
+.outgoing{
+    color: #d32f2f;
+}
+
 .footer{
     background-color: var(--primary-color);
     color: var(--fourth-color);
