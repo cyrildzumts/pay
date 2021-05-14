@@ -4,7 +4,7 @@
     <div class="banner banner-align-left">
 
         {% block  HEADER_BANNER_TITLE %}
-           <div class="flex flex-left"><h4 class="full"> {% trans "Welcome" %} {{name}}</h4> <a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"><span><i class="fas fa-cog icon"></i></span></a></div>
+           <div class="flex flex-left align-baseline"><h4>{% trans "Welcome" %} {{name}}</h4><a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"><span><i class="fas fa-cog icon"></i></span></a></div>
         {% endblock HEADER_BANNER_TITLE %}
         {% if balance %}
         <div class="full padding-v">
