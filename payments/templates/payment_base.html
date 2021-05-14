@@ -23,18 +23,6 @@
             <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"><i class="fas fa-plus icon"></i><span>{% trans "Recharge" %}</span></a></li>
             <li><a class="mat-button mat-button-text" href="{%url 'payments:statistics' %}"><i class="fas fa-chart-bar icon"></i><span>{% trans "Statistics" %}</span></a></li>
         </ul>
-        <div class="collapsible">
-            <span class="open">{% trans "More" %} <i class="fas fa-ellipsis-h icon"></i></span>
-            <ul class="collapse-content">
-                <li><a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:activities' %}"> {% trans "Activities" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Archive" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>   
-        </ul><!--End of actions-->
-        </div>
     </div>
 {% endblock HEADER_BANNER %}
 {% block MAIN %}

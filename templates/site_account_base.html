@@ -4,7 +4,7 @@
     <div class="banner banner-align-left">
 
         {% block  HEADER_BANNER_TITLE %}
-           <h4 class="full"> {% trans "Welcome" %} {{name}}</h4>
+           <div class="flex flex-left"><h4 class="full"> {% trans "Welcome" %} {{name}}</h4> <a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"><span><i class="fas fa-cog icon"></i></span></a></div>
         {% endblock HEADER_BANNER_TITLE %}
         {% if balance %}
         <div class="full padding-v">
@@ -20,18 +20,7 @@
             <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"><i class="fas fa-plus icon"></i><span>{% trans "Recharge" %}</span></a></li>
             <li><a class="mat-button mat-button-text" href="{%url 'payments:statistics' %}"><i class="fas fa-chart-bar icon"></i><span>{% trans "Statistics" %}</span></a></li>
         </ul>
-        <div class="collapsible">
-            <span class="open">{% trans "More" %} <i class="fas fa-ellipsis-h icon"></i></span>
-            <ul class="collapse-content">
-                <li><a class="mat-button mat-button-text" href="{{account.get_absolute_url}}"> {% trans "Account Details" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:activities' %}"> {% trans "Activities" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-archive' %}"> {% trans "Archive" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
-                <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>   
-        </ul><!--End of actions-->
-        </div>
+        
         
         {% block SUB_BANNER %}
         {% endblock SUB_BANNER %}
