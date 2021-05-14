@@ -10,7 +10,7 @@
 
 <div class="actions"><a class="mat-button mat-button-text" href="{% url 'payments:activities' %}"> {% trans "Activities" %} </a></div>
 
-<div class="container">
+<div class="container padding">
         <div class="mat-box medium">
             <div class="entry"><span class="key">{% trans "Sender" %}</span> <span class="value">{{activity.sender.get_full_name}}</span> </div>
             <div class="entry"><span class="key">{% trans "Recipient" %}</span> <span class="value">{{activity.receiver.get_full_name}}</span> </div>
