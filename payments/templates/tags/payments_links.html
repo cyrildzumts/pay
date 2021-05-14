@@ -1,6 +1,12 @@
 {% load i18n %}
-
+{% if class_style %}
+<li class="{{class_style}}"><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
+<li class="{{class_style}}"><a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a></li>
+<li class="{{class_style}}"><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
+<li class="{{class_style}}"><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>
+{% else %}
 <li><a class="mat-button mat-button-text" href="{%url 'payments:transactions' %}"> {% trans "Transactions" %}</a></li>
 <li><a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"> {% trans "Available Services" %}</a></li>
 <li><a class="mat-button mat-button-text" href="{%url 'payments:service-categories' %}"> {% trans "Categories" %}</a></li>
 <li><a class="mat-button mat-button-text" href="{%url 'payments:transaction-verification' %}"> {% trans "Transaction Verification" %}</a></li>
+{% endif %}
