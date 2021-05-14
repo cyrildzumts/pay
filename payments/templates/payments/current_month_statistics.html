@@ -10,8 +10,8 @@
 
 {% block MAIN %}
 <div class="container">
-    <div class="entry"><span>{% trans "Expenses" %}</span> <span class="outgoing">{{global_reports.total_outgoing}} {% trans CURRENCY %}</span></div>
-    <div class="entry"><span>{% trans "Incomes" %}</span> <span class="incoming">{{global_reports.total_incoming}} {% trans CURRENCY %}</span></div>
+    <div class="entry"><span>{% trans "Expenses" %}</span> <span class="outgoing">{{global_reports.total_outgoing|default_if_none:'0'}} {% trans CURRENCY %}</span></div>
+    <div class="entry"><span>{% trans "Incomes" %}</span> <span class="incoming">{{global_reports.total_incoming|default_if_none:'0'}} {% trans CURRENCY %}</span></div>
     <div class="tabs-container">
         <div class="tabs">
             <div class="tab"><span class="bold">{% trans "Expenses" %}</span></div>
@@ -20,10 +20,13 @@
         <div id="expenses" class="tab-content">
             <div class=""><span class="small bold">{% trans "Expenses" %}</span></div>
             <div class="mat-box full">
+
                 {% for entry in detailed_reports %}
                 {% if not entry.is_incoming %}
                 <div class="entry"><span>{{entry.activity|balance_activity}}</span>  <span class="outgoing">{{entry.total}}</span><span>{% trans CURRENCY %}</span></div>
                 {% endif %}
+                {%empty%}
+                <span>{% trans "There are no data to process" %}</span>
                 {% endfor %}
             </div>
         </div>
@@ -34,6 +37,8 @@
                 {% if entry.is_incoming %}
                 <div class="entry"><span>{{entry.activity|balance_activity}}</span>  <span class="incoming">{{entry.total}}</span><span>{% trans CURRENCY %}</span></div>
                 {% endif %}
+                {%empty%}
+                <span>{% trans "There are no data to process" %}</span>
                 {% endfor %}
             </div>
         </div>
