@@ -19,7 +19,7 @@
             <div class="entry"> <span class="key">{% trans "Balance" %}</span><span class="value amount">{{activity.balance_amount}} {% trans CURRENCY %}</span></div>
             {% comment %}<div class="entry"> <span class="key">{% trans "Balance With Fee" %}</span><span class="value amount">{{activity.balance_amount_without_fee}} {% trans CURRENCY %}</span></div>{% endcomment %}
             <div class="entry"><span class="key">{% trans "Activity" %}</span> <span class="value">{{activity.activity|balance_activity}}</span> </div>
-            <div class="entry"> <span class="key">{% trans "Date" %}</span><span  class="value">{{activity.created_at|date:"F, j Y H:i:s"}}</span> </div>
+            <div class="entry"> <span class="key">{% trans "Date" %}</span><span  class="value">{{activity.created_at|date:"F, j Y, H:i:s"}}</span> </div>
         </div>
 </div>
 {% endblock MAIN %}
