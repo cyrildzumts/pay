@@ -59,16 +59,36 @@ body{
     color: var(--fourth-color);
 }
 .mat-button-default{
-    background-color: var(--primary-color);
-    color: var(--third-color);
+    background-color: var(--button-bg-color);
+    color: var(--button-color);
+    border-color: var(--button-border-color);
 }
 .mat-button-text{
-    /*background-color: var(--primary-color);*/
-    color: var(--primary-color);
+    background-color: var(--button-text-bg-color);
+    color: var(--button-text-color);
+    border-color: var(--button-text-border-color);
 }
 .mat-button-outline{
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
+    background-color: var(--button-outline-bg-color);
+    color: var(--button-outline-color);
+    border-color: var(--button-outline-border-color);
+}
+
+.mat-button-default:hover{
+    background-color: var(--button-hover-bg-color);
+    color: var(--button-hover-color);
+    border-color: var(--button-hover-border-color);
+}
+
+.mat-button-text:hover{
+    background-color: var(--button-text-hover-bg-color);
+    color: var(--button-text-hover-color);
+    border-color: var(--button-text-hover-border-color);
+}
+.mat-button-outline:hover{
+    background-color: var(--button-outline-hover-bg-color);
+    color: var(--button-outline-hover-color);
+    border-color: var(--button-outline-hover-border-color);
 }
 
 .mat-button:disabled {

@@ -18,4 +18,29 @@
     --sidebar-color: #0A0A0A;
     --sidebar-active-color: #45A29E;
     --text-grey: #CCC;
+
+    --button-bg-color: #45A29E;
+    --button-color: #FAFAFA;
+    --button-border-color : #45A29E;
+
+    --button-text-bg-color: #FAFAFA;
+    --button-text-color: #45A29E;
+    --button-text-border-color : transparent;
+
+    --button-hover-bg-color: #FAFAFA;
+    --button-hover-color: #45A29E;
+    --button-hover-border-color: #FAFAFA;
+
+    --button-outline-bg-color: #FAFAFA;
+    --button-outline-color: #45A29E;
+    --button-outline-border-color : #45A29E;
+
+    --button-text-hover-bg-color: #FAFAFA;
+    --button-text-hover-color: #0A0A0A;
+    --button-text-hover-border-color: transparent;
+
+    --button-outline-hover-bg-color: #45A29E;
+    --button-outline-hover-color: #FAFAFA;
+    --button-outline-hover-border-color: #45A29E;
+
 }
