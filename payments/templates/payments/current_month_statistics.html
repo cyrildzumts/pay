@@ -17,10 +17,23 @@
             <div class="tab"><span class="bold">{% trans "Expenses" %}</span></div>
             <div class="tab"><span class="bold">{% trans "Incomes" %}</span></div>
         </div>
-        <div class="tab-content">
+        <div id="expenses" class="tab-content">
+            <div class=""><span class="small bold">{% trans "Expenses" %}</span></div>
             <div class="mat-box full">
                 {% for entry in detailed_reports %}
-                <div class="entry"><span>{{entry.activity|balance_activity}}</span>  <span class="{% if not entry.is_incoming %}outgoing{% else %}incoming{% endif %}">{{entry.total}}</span><span>{% trans CURRENCY %}</span></div>
+                {% if not entry.is_incoming %}
+                <div class="entry"><span>{{entry.activity|balance_activity}}</span>  <span class="outgoing">{{entry.total}}</span><span>{% trans CURRENCY %}</span></div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div id="incomin" class="tab-content">
+            <div class=""><span class="small bold">{% trans "Incomes" %}</span></div>
+            <div class="mat-box full">
+                {% for entry in detailed_reports %}
+                {% if entry.is_incoming %}
+                <div class="entry"><span>{{entry.activity|balance_activity}}</span>  <span class="incoming">{{entry.total}}</span><span>{% trans CURRENCY %}</span></div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
