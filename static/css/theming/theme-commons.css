@@ -68,10 +68,10 @@ body{
     color: var(--button-text-color);
     border-color: var(--button-text-border-color);
 }
-.mat-button-outline{
-    background-color: var(--button-outline-bg-color);
-    color: var(--button-outline-color);
-    border-color: var(--button-outline-border-color);
+.mat-button-outlined{
+    background-color: var(--button-outlined-bg-color);
+    color: var(--button-outlined-color);
+    border-color: var(--button-outlined-border-color);
 }
 
 .mat-button-default:hover{
@@ -85,10 +85,10 @@ body{
     color: var(--button-text-hover-color);
     border-color: var(--button-text-hover-border-color);
 }
-.mat-button-outline:hover{
-    background-color: var(--button-outline-hover-bg-color);
-    color: var(--button-outline-hover-color);
-    border-color: var(--button-outline-hover-border-color);
+.mat-button-outlined:hover{
+    background-color: var(--button-outlined-hover-bg-color);
+    color: var(--button-outlined-hover-color);
+    border-color: var(--button-outlined-hover-border-color);
 }
 
 .mat-button:disabled {

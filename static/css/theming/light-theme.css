@@ -31,16 +31,16 @@
     --button-hover-color: #45A29E;
     --button-hover-border-color: #FAFAFA;
 
-    --button-outline-bg-color: #FAFAFA;
-    --button-outline-color: #45A29E;
-    --button-outline-border-color : #45A29E;
+    --button-outlined-bg-color: #FAFAFA;
+    --button-outlined-color: #45A29E;
+    --button-outlined-border-color : #45A29E;
 
     --button-text-hover-bg-color: #FAFAFA;
     --button-text-hover-color: #0A0A0A;
     --button-text-hover-border-color: transparent;
 
-    --button-outline-hover-bg-color: #45A29E;
-    --button-outline-hover-color: #FAFAFA;
-    --button-outline-hover-border-color: #45A29E;
+    --button-outlined-hover-bg-color: #45A29E;
+    --button-outlined-hover-color: #FAFAFA;
+    --button-outlined-hover-border-color: #45A29E;
 
 }
