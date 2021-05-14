@@ -5,7 +5,8 @@
 {% block MAIN %}
 <div class="container">
     <div class="highlight">
-        <span class="label">{% trans "Services Offer" %}</span>
+        
+        <div class="row"><span class="label">{% trans "Services Offer" %}</span> <a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"><span>{% trans "See all" %}</span></a> {% endif %}</div>
         <ul class="row">
             {% for cat in category_list %}
             <li>
