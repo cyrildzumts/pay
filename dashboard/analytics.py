@@ -1,6 +1,6 @@
 from pay import utils
 from django.contrib.auth.models import User
-from django.db.models import F, Q
+from django.db.models import F, Q, aggregates
 from django.db.models import Count, Sum, Avg, Min, Max, IntegerField
 from django.db.models.functions import (
 	ExtractDay, ExtractMonth, ExtractQuarter, ExtractWeek,
@@ -359,3 +359,11 @@ def transaction_years_reports(**filters):
 def detailed_activities_reports(**filters):
     queryset = BalanceHistory.objects.select_related().filter(**filters).order_by('-created_at')
     return queryset, queryset.aggregate(total=Sum('current_amount'), count=Count('activity'))
+
+def current_month_reports(**filters):
+    #current_month = datetime.date.today()
+    #filters.update({'created_at__year': current_month.year, 'created_at__month': current_month.month})
+    queryset = BalanceHistory.objects.select_related().filter(**filters)
+    annotations = queryset.values('activity').annotate(total=Sum('current_amount'))
+    aggregates = queryset.aggregate(total=Sum('current_amount'))
+    return annotations, aggregates

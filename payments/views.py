@@ -37,10 +37,12 @@ from pay import settings, utils, conf
 from core.resources import ui_strings as CORE_UI_STRINGS
 from core.tasks import send_mail_task
 from core import core_service
+from dashboard import analytics
+import datetime
 import logging
 
 logger = logging.getLogger(__name__)
-#from order import checkout
+
 
 # Create your views here.
 
@@ -1168,6 +1170,25 @@ def seller_policygroup_update(request):
         'form': form,
         'p_groups': PolicyGroup.objects.all()
     }
+    return render(request, template_name, context)
+
+
+
+@login_required
+def user_analytics(request):
+    current_month = datetime.date.today()
+    filters = {
+        'created_at__year': current_month.year, 
+        'created_at__month': current_month.month,
+        'balance' : request.user.balance,
+    }
+    detailed_reports, global_reports = analytics.current_month_reports(**filters)
+    context = {
+        'page_title': _('Balance Overview'),
+        'detailed_reports': detailed_reports,
+        'global_reports': global_reports,
+    }
+    template_name = "payments/current_month_statistics.html"
     return render(request, template_name, context)
 
 class PaymentYearArchiveView(YearArchiveView):

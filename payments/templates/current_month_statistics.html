@@ -1,0 +1,29 @@
+{% extends "payment_base.html"%}
+{% load i18n %}
+{% load humanize %}
+{% load payments_tags %}
+
+
+{% block HEADER_BANNER_TITLE %}
+        <h4>{% trans "Statistics" %}</h4>
+{% endblock HEADER_BANNER_TITLE %}
+
+{% block MAIN %}
+<div class="container">
+    <div class="entry"><span>{% trans "Expenses" %}</span> <span>{{global_reports.total}} {% trans CURRENCY %}</span></div>
+    <div class="tabs-container">
+        <div class="tabs">
+            <div class="tab"><span class="bold">{% trans "Expenses" %}</span></div>
+            <div class="tab"><span class="bold">{% trans "Incomes" %}</span></div>
+        </div>
+        <div class="tab-content">
+            <div class="mat-box full">
+                {% for entry in detailed_reports %}
+                <div class="entry"><span>{{entry.activity|balance_activity}}</span> - <span>{{entry.total}} {% trans CURRENCY %}</span></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock MAIN %}
