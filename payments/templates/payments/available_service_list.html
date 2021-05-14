@@ -1,16 +1,16 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
 {% block  HEADER_BANNER_TITLE %}
-    <h4> {% trans "Available Service"%}</h4>
+    <h4> {% trans "Available Services"%}</h4>
 {% endblock HEADER_BANNER_TITLE %}
 {% block MAIN %}
 
 <div class="container">
 {% if available_service_list %}
-<div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">
+        <h4>{% trans "Available Services" %}</h4>
         <table id="service-list" class="mat-table js-filter-table">
-                  <caption>{% trans "Service List" %}</caption>
+                  
                   <thead class="hidden-xs hidden-m">
                           <tr>
                                   <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
@@ -30,19 +30,12 @@
                             <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{service.get_absolute_url}}">{% trans "More" %}</a></td>
                           </tr>
                           {% endfor %}
-                          
                   </tbody>
-                  <tfoot>
-                          
-                  </tfoot>
-
         </table>
     {% include "tags/pagination.html" with page_set=available_service_list %}
     </div>
-
 {% else %}
     <p> {% trans "There is currently no service available" %}</p>
-</div>
 {% endif %}
 </div>
 {% endblock MAIN %}

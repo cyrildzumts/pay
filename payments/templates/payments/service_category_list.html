@@ -6,28 +6,30 @@
 
 {% block MAIN %}
 <div class="container">
-  <div class="col-xs-12 col-6">
-    <ul class="nav">
-      {% for cat in category_list %}
-      <li>
-        <div class="dropdown">
-            <span class="mat-button mat-button-text dropdown-toggle">{{cat.category_name}}</span>
-            <div class="dropdown-content">
-              <ul>
-                {% for service in cat.available_services.all %}
-                <li ><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
-                {% empty %}
-                <li><span class="mat-button mat-button-text disabled">{% trans "No service available" %}</span></li>
-                {% endfor %}
-              </ul>
-            </div>
-        </div>
-        
-        
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
+  <div class="highlight">
+        <span class="label">{% trans "Categories" %}</span>
+        <ul class="row">
+            {% for cat in category_list %}
+            <li>
+                <div class="dropdown">
+                    <span class="mat-button mat-button-text dropdown-toggle">{{cat.category_name}}</span>
+                    <div class="dropdown-content">
+                    <ul>
+                        {% for service in cat.available_services.all %}
+                        <li ><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
+                        {% empty %}
+                        <li><span class="mat-button mat-button-text disabled">{% trans "No service available" %}</span></li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <li>{% trans "Coming soon ..." %}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
 </div>
 
 {% endblock MAIN %}
