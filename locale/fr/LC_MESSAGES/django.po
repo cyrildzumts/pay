@@ -1,0 +1,3861 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-14 20:50+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: api/views.py:163 api/views.py:180 api/views.py:206 api/views.py:228
+#: api/views.py:254 core/resources/ui_strings.py:15
+#: dashboard/templates/dashboard/reports.html:27
+#: dashboard/templates/dashboard_base_old.html:24
+#: dashboard/templates/tags/analytics.html:10
+#: dashboard/templates/tags/dashboard_summary.html:9
+#: dashboard/templates/tags/payment_report.html:5
+#: payments/templates/payments/payment_list.html:4
+#: payments/templates/payments/payment_list.html:14
+#: templates/dashboard_base.html:30
+msgid "Payments"
+msgstr ""
+
+#: api/views.py:164 api/views.py:181 api/views.py:207 api/views.py:229
+#: api/views.py:255 core/resources/ui_strings.py:19
+#: dashboard/templates/dashboard/reports.html:19
+#: dashboard/templates/dashboard_base_old.html:22
+#: dashboard/templates/tags/analytics.html:19
+#: dashboard/templates/tags/dashboard_summary.html:13
+#: dashboard/templates/tags/transfer_report.html:5
+#: templates/dashboard_base.html:28
+msgid "Transfers"
+msgstr ""
+
+#: api/views.py:165 api/views.py:182 core/resources/ui_strings.py:18
+#: dashboard/templates/dashboard/reports.html:35
+#: dashboard/templates/dashboard_base_old.html:25
+#: dashboard/templates/tags/dashboard_summary.html:17
+#: templates/dashboard_base.html:31
+msgid "Payment Requests"
+msgstr ""
+
+#: api/views.py:166 api/views.py:209 api/views.py:231 api/views.py:257
+#: core/resources/ui_strings.py:44
+#: dashboard/templates/dashboard/permission_list.html:49
+#: dashboard/templates/dashboard/reports.html:67
+#: dashboard/templates/dashboard/user_list.html:24
+#: dashboard/templates/dashboard_base_old.html:38
+#: dashboard/templates/tags/dashboard_summary.html:21
+#: templates/dashboard_base.html:40
+msgid "Users"
+msgstr ""
+
+#: api/views.py:167 api/views.py:183 core/resources/ui_strings.py:21
+#: dashboard/templates/dashboard/reports.html:43
+#: dashboard/templates/dashboard_base_old.html:21
+#: dashboard/templates/tags/dashboard_summary.html:25
+#: dashboard/templates/tags/service_report.html:5
+#: templates/dashboard_base.html:27
+msgid "Services"
+msgstr ""
+
+#: api/views.py:168 api/views.py:184 core/resources/ui_strings.py:8
+#: dashboard/templates/dashboard/reports.html:51
+#: dashboard/templates/dashboard_base_old.html:28
+#: dashboard/templates/tags/dashboard_summary.html:29
+#: templates/dashboard_base.html:51 templates/voucher_base.html:21
+#: voucher/models.py:31
+msgid "Vouchers"
+msgstr ""
+
+#: api/views.py:208 api/views.py:230 api/views.py:256
+#: dashboard/templates/tags/analytics.html:28
+msgid "Payments Request"
+msgstr ""
+
+#: core/core_service.py:59
+msgid "Recharge Sumary"
+msgstr ""
+
+#: core/core_service.py:111
+msgid "Sold Voucher Card Sumary"
+msgstr ""
+
+#: core/resources/ui_strings.py:5
+msgid "You are allowed to access this page"
+msgstr ""
+
+#: core/resources/ui_strings.py:6 dashboard/templates/dashboard/reports.html:59
+#: dashboard/templates/dashboard_base_old.html:29
+#: templates/dashboard_base.html:56 templates/voucher_base.html:22
+msgid "Recharges"
+msgstr ""
+
+#: core/resources/ui_strings.py:7 payments/templates/payment_base.html:23
+#: templates/site_account_base.html:20
+#: templates/tags/voucher_recharge_form.html:17
+#: voucher/templates/tags/voucher_recharge_form_del.html:16
+msgid "Recharge"
+msgstr ""
+
+#: core/resources/ui_strings.py:9 dashboard/templates/dashboard/voucher.html:8
+#: dashboard/templates/tags/voucher_report.html:6
+#: templates/tags/recharge_list_table_snippet.html:11
+#: templates/tags/sold_voucher_list_snippet.html:12
+#: templates/tags/used_voucher_list_snippet.html:13 voucher/models.py:30
+#: voucher/templates/voucher_base.html:12
+msgid "Voucher"
+msgstr ""
+
+#: core/resources/ui_strings.py:10 templates/dashboard_base.html:52
+#: templates/voucher_base.html:25 voucher/templates/voucher_base.html:40
+msgid "Sold Vouchers"
+msgstr ""
+
+#: core/resources/ui_strings.py:11
+msgid "Sold Voucher"
+msgstr ""
+
+#: core/resources/ui_strings.py:12 templates/dashboard_base.html:53
+#: templates/voucher_base.html:24 voucher/templates/voucher_base.html:35
+msgid "Used Vouchers"
+msgstr ""
+
+#: core/resources/ui_strings.py:13
+msgid "Used Voucher"
+msgstr ""
+
+#: core/resources/ui_strings.py:14
+msgid "Balance Recharge"
+msgstr ""
+
+#: core/resources/ui_strings.py:16
+#: dashboard/templates/dashboard/payment_detail.html:12
+#: payments/templates/payments/payment_home.html:4
+msgid "Payment"
+msgstr ""
+
+#: core/resources/ui_strings.py:17
+#: dashboard/templates/dashboard/payment_request_detail.html:11
+#: dashboard/templates/tags/payment_request_report.html:5
+#: payments/templates/payments/payment_request.html:26
+#: payments/templates/tags/payment_request_form.html:5 payments/views.py:584
+msgid "Payment Request"
+msgstr ""
+
+#: core/resources/ui_strings.py:20
+#: dashboard/templates/tags/transaction_dialog.html:15
+#: payments/templates/tags/transaction_dialog.html:16
+msgid "Transfer"
+msgstr ""
+
+#: core/resources/ui_strings.py:22
+msgid "Service"
+msgstr ""
+
+#: core/resources/ui_strings.py:23
+#: dashboard/templates/dashboard/category_service_list.html:18
+#: dashboard/templates/dashboard_base_old.html:41
+#: payments/templates/payments/service_category_list.html:10
+#: payments/templates/tags/payments_links.html:5
+#: payments/templates/tags/payments_links.html:10
+#: templates/dashboard_base.html:66
+msgid "Categories"
+msgstr ""
+
+#: core/resources/ui_strings.py:24
+#: dashboard/templates/dashboard/available_service_detail.html:17
+#: dashboard/templates/dashboard/available_service_list.html:26
+#: dashboard/templates/dashboard/service_detail.html:63
+#: dashboard/templates/dashboard/service_list.html:70
+#: dashboard/templates/tags/available_service_creation_form.html:35
+#: dashboard/templates/tags/available_service_remove_form.html:30
+#: dashboard/templates/tags/available_service_update_form.html:31
+#: payments/templates/payments/available_service_detail.html:13
+#: payments/templates/payments/available_service_list.html:18
+#: payments/templates/payments/available_service_list.html:28
+#: payments/templates/payments/service_archive_day.html:28
+#: payments/templates/payments/service_archive_day.html:39
+#: payments/templates/tags/service_snippet.html:9
+msgid "Category"
+msgstr ""
+
+#: core/resources/ui_strings.py:25
+msgid "Category Update"
+msgstr ""
+
+#: core/resources/ui_strings.py:26
+#: dashboard/templates/dashboard/category_service_list.html:10
+msgid "New Category"
+msgstr ""
+
+#: core/resources/ui_strings.py:27
+msgid "Generate Voucher"
+msgstr ""
+
+#: core/resources/ui_strings.py:28
+#: dashboard/templates/dashboard/policy_list.html:20
+#: dashboard/templates/dashboard_base_old.html:33
+#: templates/dashboard_base.html:64
+msgid "Policies"
+msgstr ""
+
+#: core/resources/ui_strings.py:29
+#: dashboard/templates/dashboard/policy_detail.html:15
+#: dashboard/templates/tags/policy_group_creation_form.html:19
+#: dashboard/templates/tags/policy_group_update_form.html:28
+#: payments/templates/payments/policy_detail.html:8
+msgid "Policy"
+msgstr ""
+
+#: core/resources/ui_strings.py:30
+msgid "Policy Update"
+msgstr ""
+
+#: core/resources/ui_strings.py:31
+#: dashboard/templates/dashboard/policy_detail.html:10
+#: dashboard/templates/dashboard/policy_list.html:11
+msgid "New Policy"
+msgstr ""
+
+#: core/resources/ui_strings.py:32
+#: dashboard/templates/dashboard/policy_group_list.html:21
+#: dashboard/templates/dashboard_base_old.html:34
+msgid "Policy Groups"
+msgstr ""
+
+#: core/resources/ui_strings.py:33
+#: dashboard/templates/dashboard/policy_group_detail.html:19
+#: templates/dashboard_base.html:65
+msgid "Policy Group"
+msgstr ""
+
+#: core/resources/ui_strings.py:34
+msgid "Policy Group Update"
+msgstr ""
+
+#: core/resources/ui_strings.py:35
+#: dashboard/templates/dashboard/policy_group_detail.html:11
+#: dashboard/templates/dashboard/policy_group_list.html:12
+msgid "New Policy Group"
+msgstr ""
+
+#: core/resources/ui_strings.py:36
+msgid "Partner Services"
+msgstr ""
+
+#: core/resources/ui_strings.py:37
+msgid "Partner Service"
+msgstr ""
+
+#: core/resources/ui_strings.py:38
+msgid "Partner Service Update"
+msgstr ""
+
+#: core/resources/ui_strings.py:39
+msgid "New Partner Service"
+msgstr ""
+
+#: core/resources/ui_strings.py:40
+#: dashboard/templates/dashboard/permission_detail.html:21
+#: dashboard/templates/dashboard/permission_list.html:48
+#: dashboard/templates/dashboard_base_old.html:20
+#: dashboard/templates/tags/group_update_form.html:9
+#: templates/dashboard_base.html:39
+msgid "Groups"
+msgstr ""
+
+#: core/resources/ui_strings.py:41
+msgid "Group"
+msgstr ""
+
+#: core/resources/ui_strings.py:42
+msgid "Group Update"
+msgstr ""
+
+#: core/resources/ui_strings.py:43
+#: dashboard/templates/dashboard/group_list.html:28
+#: dashboard/templates/dashboard/group_update.html:8
+msgid "New Group"
+msgstr ""
+
+#: core/resources/ui_strings.py:45
+msgid "User"
+msgstr ""
+
+#: core/resources/ui_strings.py:46
+msgid "User Update"
+msgstr ""
+
+#: core/resources/ui_strings.py:47
+#: dashboard/templates/dashboard/user_list.html:15 dashboard/views.py:1752
+msgid "New User"
+msgstr ""
+
+#: core/resources/ui_strings.py:48 templates/dashboard_base.html:41
+msgid "Sellers"
+msgstr ""
+
+#: core/resources/ui_strings.py:49
+#: dashboard/templates/dashboard/payment_request_detail.html:15
+#: dashboard/templates/dashboard/payment_request_list.html:17
+#: dashboard/templates/dashboard/sold_voucher_details.html:27
+#: dashboard/templates/dashboard/used_voucher_details.html:27
+#: payments/templates/payments/payment_request.html:29
+#: payments/templates/tags/payment_request_form.html:8
+#: voucher/templates/voucher/sold_voucher_details.html:28
+#: voucher/templates/voucher/used_voucher_details.html:27
+msgid "Seller"
+msgstr ""
+
+#: core/resources/ui_strings.py:50
+msgid "Seller Update"
+msgstr ""
+
+#: core/resources/ui_strings.py:51
+msgid "New Seller"
+msgstr ""
+
+#: core/resources/ui_strings.py:52
+#: dashboard/templates/dashboard/token_generate.html:20
+#: templates/dashboard_base.html:43
+msgid "Generate Token"
+msgstr ""
+
+#: core/resources/ui_strings.py:53 templates/dashboard_base.html:42
+msgid "Tokens"
+msgstr ""
+
+#: core/resources/ui_strings.py:54
+#: dashboard/templates/dashboard_base_old.html:39
+msgid "Token"
+msgstr ""
+
+#: core/resources/ui_strings.py:55
+#: dashboard/templates/dashboard_base_old.html:37
+#: templates/dashboard_base.html:70
+msgid "Reports"
+msgstr ""
+
+#: core/resources/ui_strings.py:56
+#: dashboard/templates/dashboard/available_service_detail.html:39
+#: dashboard/templates/dashboard/idcard_detail.html:32
+#: dashboard/templates/dashboard/permission_detail.html:14
+#: dashboard/templates/dashboard/service_category_list.html:20
+#: dashboard/templates/dashboard/user_list.html:13
+#: dashboard/templates/dashboard/voucher.html:15
+#: dashboard/templates/dashboard_base_old.html:19
+#: dashboard/templates/tags/analytics.html:5
+#: dashboard/templates/tags/group_update_form.html:8
+#: dashboard/templates/tags/idcard_form.html:21 dashboard/views.py:39
+#: templates/base copy.html:61 templates/base.html:65
+#: templates/dashboard_base.html:23
+msgid "Dashboard"
+msgstr ""
+
+#: core/resources/ui_strings.py:60 payments/resources/ui_strings.py:3
+msgid "WITHDRAW"
+msgstr ""
+
+#: core/resources/ui_strings.py:61 payments/resources/ui_strings.py:4
+msgid "CASHOUT"
+msgstr ""
+
+#: core/resources/ui_strings.py:62 payments/resources/ui_strings.py:5
+msgid "CASHING"
+msgstr ""
+
+#: core/resources/ui_strings.py:64 payments/resources/ui_strings.py:7
+msgid "ACTIVITY TYPE"
+msgstr ""
+
+#: core/resources/ui_strings.py:65 payments/resources/ui_strings.py:8
+msgid "RECHARGE"
+msgstr ""
+
+#: core/resources/ui_strings.py:66 payments/resources/ui_strings.py:9
+msgid "PAYMENT"
+msgstr ""
+
+#: core/resources/ui_strings.py:67 payments/resources/ui_strings.py:11
+msgid "TRANSFER"
+msgstr ""
+
+#: core/resources/ui_strings.py:68 payments/resources/ui_strings.py:12
+msgid "REFUND"
+msgstr ""
+
+#: core/resources/ui_strings.py:74 payments/resources/ui_strings.py:18
+msgid "Invalid cashout data. User and Agent should not be the same"
+msgstr ""
+
+#: core/resources/ui_strings.py:75 payments/resources/ui_strings.py:19
+msgid "User has no suffient balance"
+msgstr ""
+
+#: core/resources/ui_strings.py:76 payments/resources/ui_strings.py:20
+msgid "agent does not belongs to the group of Agents"
+msgstr ""
+
+#: core/resources/ui_strings.py:77 payments/resources/ui_strings.py:21
+msgid "user must not be an agent"
+msgstr ""
+
+#: core/resources/ui_strings.py:78 payments/resources/ui_strings.py:22
+msgid "Invalid user request"
+msgstr ""
+
+#: core/resources/ui_strings.py:79
+msgid "POLICY updated"
+msgstr ""
+
+#: core/resources/ui_strings.py:80
+msgid "User is already a member of the Group"
+msgstr ""
+
+#: core/resources/ui_strings.py:81
+msgid "New Payments"
+msgstr ""
+
+#: core/resources/ui_strings.py:82
+msgid "Invalid Date"
+msgstr ""
+
+#: core/resources/ui_strings.py:83
+msgid "Invalid Request"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:8
+#: dashboard/templates/dashboard/policy_group_list.html:29
+#: dashboard/templates/dashboard/service_category_list.html:11
+#: dashboard/templates/dashboard/sold_voucher_details.html:9
+#: dashboard/templates/dashboard/used_voucher_details.html:9
+#: dashboard/templates/dashboard/user_list.html:29
+#: dashboard/templates/dashboard/user_list.html:40
+#: dashboard/templates/tags/group_form.html:19
+#: dashboard/templates/tags/group_update_form.html:27
+#: payments/templates/payments/available_service_list.html:17
+#: payments/templates/payments/available_service_list.html:27
+#: payments/templates/payments/service_archive_day.html:26
+#: payments/templates/payments/service_archive_day.html:37
+#: templates/reports/activities_invoice.html:13
+#: templates/reports/activities_invoice.html:23
+#: templates/reports/payment_reports.html:19
+#: templates/reports/payment_reports.html:20
+#: templates/tags/activity_list_snippet.html:13
+#: templates/tags/activity_list_snippet.html:23
+#: templates/tags/balance_activities_snippet.html:14
+#: templates/tags/balance_activities_snippet.html:24
+#: templates/tags/sold_voucher_list_snippet.html:10
+#: templates/tags/used_voucher_list_snippet.html:11
+#: voucher/templates/voucher/sold_voucher_details.html:10
+#: voucher/templates/voucher/used_voucher_details.html:9
+msgid "Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:9
+#: dashboard/templates/dashboard/payment_request_detail.html:27
+#: dashboard/templates/dashboard/user_detail.html:43
+#: dashboard/templates/tags/account_update_form.html:30
+msgid "Country"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:9
+msgid "account.country"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:10
+msgid "Current Balance"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:11
+#: dashboard/templates/dashboard/user_detail.html:46
+#: dashboard/templates/tags/account_update_form.html:18
+msgid "City"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:11
+msgid "account.city"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:12
+#: dashboard/templates/dashboard/user_detail.html:49
+#: dashboard/templates/tags/account_update_form.html:26
+#: templates/tags/registration_form.html:37
+msgid "Telefon"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_detail.html:13
+#: dashboard/templates/dashboard/payment_request_detail.html:51
+msgid "UUID"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_recharge_done_email.html:54
+#: payments/templates/payments/recharge_done_email.html:54
+#: payments/templates/payments/service_mail_confirmation_incoming.html:54
+msgid "Hello"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_recharge_done_email.html:55
+#: payments/templates/payments/recharge_done_email.html:55
+#: payments/templates/payments/service_mail_confirmation_incoming.html:55
+msgid "We have a great news for you."
+msgstr ""
+
+#: dashboard/templates/dashboard/account_recharge_done_email.html:61
+#: payments/templates/payments/recharge_done_email.html:61
+msgid "You have successfuly recharged your account "
+msgstr ""
+
+#: dashboard/templates/dashboard/account_recharge_done_email.html:62
+#: payments/templates/payments/recharge_done_email.html:62
+msgid "Below are the details of the recharge"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_recharge_done_email.html:71
+#: payments/templates/payments/recharge_done_email.html:71
+msgid "Recharge amount"
+msgstr ""
+
+#: dashboard/templates/dashboard/account_recharge_done_email.html:80
+#: payments/templates/payments/recharge_done_email.html:80
+msgid "Voucher used"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:11
+#: dashboard/templates/dashboard/available_service_list.html:25
+#: dashboard/templates/dashboard/service_list.html:68
+#: payments/templates/payments/new_service.html:20
+#: payments/templates/tags/service_form.html:13
+msgid "Service Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:12
+#: dashboard/templates/tags/available_service_creation_form.html:17
+#: dashboard/templates/tags/available_service_remove_form.html:18
+#: dashboard/templates/tags/available_service_update_form.html:19
+msgid "Service Code"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:16
+#: dashboard/templates/dashboard/service_detail.html:66
+#: dashboard/templates/tags/available_service_creation_form.html:25
+#: dashboard/templates/tags/available_service_remove_form.html:26
+#: dashboard/templates/tags/available_service_update_form.html:27
+#: payments/templates/payments/available_service_detail.html:12
+#: payments/templates/tags/service_snippet.html:23
+msgid "Operator"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:18
+#: dashboard/templates/dashboard/category_service_detail.html:29
+msgid "Created by"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:19
+#: dashboard/templates/dashboard/claim_list.html:16
+#: dashboard/templates/dashboard/payment_detail.html:25
+#: dashboard/templates/dashboard/payment_list.html:19
+#: dashboard/templates/dashboard/payment_request_detail.html:30
+#: dashboard/templates/dashboard/payment_request_list.html:20
+#: dashboard/templates/dashboard/service_category_list.html:14
+#: dashboard/templates/dashboard/service_detail.html:81
+#: dashboard/templates/dashboard/transfer_detail.html:24
+#: dashboard/templates/dashboard/transfer_list.html:25
+#: payments/templates/payments/available_service_list.html:19
+#: payments/templates/payments/available_service_list.html:29
+#: payments/templates/payments/balance_activities.html:15
+#: payments/templates/payments/balance_activity.html:24
+#: payments/templates/payments/claim_list.html:23
+#: payments/templates/payments/claim_list.html:36
+#: payments/templates/payments/payment_archive_day.html:40
+#: payments/templates/payments/payment_archive_year.html:40
+#: payments/templates/payments/payment_details.html:22
+#: payments/templates/payments/payment_list.html:20
+#: payments/templates/payments/payment_list.html:30
+#: payments/templates/payments/payment_verify.html:77
+#: payments/templates/payments/service_archive_day.html:29
+#: payments/templates/payments/service_archive_day.html:40
+#: payments/templates/payments/transaction_list.html:11
+#: payments/templates/payments/transfer_detail.html:24
+#: payments/templates/payments/transfer_verify.html:80
+#: payments/templates/tags/service_snippet.html:40
+#: templates/reports/activities_invoice.html:16
+#: templates/reports/activities_invoice.html:26
+#: templates/reports/payment_reports.html:13
+#: templates/reports/payment_reports.html:23
+#: templates/reports/recharge_report.html:12
+#: templates/tags/activity_list_snippet.html:16
+#: templates/tags/activity_list_snippet.html:30
+#: templates/tags/balance_activities_snippet.html:17
+#: templates/tags/balance_activities_snippet.html:31
+#: templates/tags/recharge_list_table_snippet.html:13
+msgid "Date"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:21
+#: dashboard/templates/dashboard/category_service_detail.html:26
+msgid "Activated"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:27
+#: dashboard/templates/dashboard/payment_detail.html:31
+#: dashboard/templates/dashboard/payment_request_detail.html:42
+#: dashboard/templates/dashboard/service_detail.html:87
+#: dashboard/templates/dashboard/transfer_detail.html:30
+#: dashboard/templates/tags/available_service_creation_form.html:47
+#: dashboard/templates/tags/available_service_remove_form.html:38
+#: dashboard/templates/tags/available_service_update_form.html:39
+#: dashboard/templates/tags/case_close_form.html:32
+#: dashboard/templates/tags/case_update_form.html:33
+#: dashboard/templates/tags/transaction_dialog.html:12
+#: payments/templates/payments/new_payment.html:23
+#: payments/templates/payments/new_transfer.html:20
+#: payments/templates/payments/payment_details.html:23
+#: payments/templates/payments/payment_verify.html:83
+#: payments/templates/payments/transfer_detail.html:30
+#: payments/templates/payments/transfer_verify.html:86
+#: payments/templates/tags/payment_form.html:13
+#: payments/templates/tags/service_snippet.html:46
+#: payments/templates/tags/transfer_form.html:15
+msgid "Description"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:35
+#: dashboard/templates/dashboard/category_service_detail.html:11
+#: dashboard/templates/tags/available_service_remove_form.html:45
+#: dashboard/templates/tags/category_service_remove_form.html:33
+#: dashboard/templates/tags/policy_remove_form.html:40
+msgid "Remove"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:36
+#: dashboard/templates/dashboard/category_service_detail.html:12
+#: dashboard/templates/dashboard/group_detail.html:7
+#: dashboard/templates/dashboard/permission_detail.html:16
+#: dashboard/templates/dashboard/policy_detail.html:9
+#: dashboard/templates/dashboard/policy_group_detail.html:12
+msgid "Edit"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:37
+msgid "Add new Service"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:38
+#: dashboard/templates/dashboard/available_service_list.html:17
+#: dashboard/templates/dashboard_base_old.html:31
+#: payments/templates/payments/available_service_detail.html:21
+#: payments/templates/payments/available_service_list.html:4
+#: payments/templates/payments/available_service_list.html:11
+#: payments/templates/tags/payments_links.html:4
+#: payments/templates/tags/payments_links.html:9
+#: templates/dashboard_base.html:67
+msgid "Available Services"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:47
+#: dashboard/templates/dashboard/available_service_list.html:54
+#: dashboard/templates/dashboard/category_service_detail.html:56
+#: dashboard/templates/dashboard/category_service_list.html:53
+#: dashboard/templates/dashboard/claim_detail.html:22
+#: dashboard/templates/dashboard/claim_list.html:32
+#: dashboard/templates/dashboard/group_detail.html:48
+#: dashboard/templates/dashboard/group_list.html:71
+#: dashboard/templates/dashboard/idcard_detail.html:47
+#: dashboard/templates/dashboard/new_transaction.html:33
+#: dashboard/templates/dashboard/new_user.html:21
+#: dashboard/templates/dashboard/payment_detail.html:39
+#: dashboard/templates/dashboard/payment_list.html:48
+#: dashboard/templates/dashboard/payment_request_detail.html:59
+#: dashboard/templates/dashboard/payment_request_list.html:49
+#: dashboard/templates/dashboard/permission_detail.html:41
+#: dashboard/templates/dashboard/permission_list.html:83
+#: dashboard/templates/dashboard/policy_detail.html:27
+#: dashboard/templates/dashboard/policy_group_detail.html:57
+#: dashboard/templates/dashboard/policy_group_list.html:58
+#: dashboard/templates/dashboard/policy_list.html:60
+#: dashboard/templates/dashboard/service_detail.html:95
+#: dashboard/templates/dashboard/service_list.html:95
+#: dashboard/templates/dashboard/token_list.html:37
+#: dashboard/templates/dashboard/transfer_detail.html:38
+#: dashboard/templates/dashboard/transfer_list.html:54
+#: dashboard/templates/dashboard/user_list.html:60
+#: dashboard/templates/tags/available_service_creation_form.html:65
+#: dashboard/templates/tags/available_service_update_form.html:56
+#: dashboard/templates/tags/balance_recharge_form.html:27
+#: dashboard/templates/tags/case_close_form.html:50
+#: dashboard/templates/tags/case_update_form.html:51
+#: dashboard/templates/tags/category_service_creation_form.html:47
+#: dashboard/templates/tags/category_service_update_form.html:44
+#: dashboard/templates/tags/group_form.html:122
+#: dashboard/templates/tags/group_update_form.html:133
+#: dashboard/templates/tags/idcard_form.html:28
+#: dashboard/templates/tags/idcard_update_form.html:61
+#: dashboard/templates/tags/payment_form.html:30
+#: dashboard/templates/tags/policy_creation_form.html:52
+#: dashboard/templates/tags/policy_group_creation_form.html:46
+#: dashboard/templates/tags/policy_group_update_form.html:64
+#: dashboard/templates/tags/policy_update_form.html:58
+#: dashboard/templates/tags/service_form.html:37
+#: dashboard/templates/tags/transfer_form.html:34 templates/voucher_base.html:8
+msgid ""
+"The page you requested could not be found or you are not allowed to access "
+"this page."
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_list.html:11
+msgid "New Service"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_list.html:27
+#: dashboard/templates/dashboard/available_service_list.html:37
+#: dashboard/templates/dashboard/category_service_list.html:28
+#: dashboard/templates/dashboard/category_service_list.html:37
+#: dashboard/templates/dashboard/group_list.html:41
+#: dashboard/templates/dashboard/payment_list.html:20
+#: dashboard/templates/dashboard/payment_request_list.html:21
+#: dashboard/templates/dashboard/policy_list.html:32
+#: dashboard/templates/dashboard/service_list.html:72
+#: dashboard/templates/dashboard/service_list.html:83
+#: dashboard/templates/dashboard/transfer_list.html:26
+#: dashboard/templates/dashboard/user_list.html:32
+#: dashboard/templates/dashboard/user_list.html:43
+#: dashboard/templates/tags/transfer_form.html:22
+#: payments/templates/payments/available_service_list.html:20
+#: payments/templates/payments/available_service_list.html:30
+#: payments/templates/payments/claim_list.html:24
+#: payments/templates/payments/claim_list.html:37
+#: payments/templates/payments/payment_archive_day.html:30
+#: payments/templates/payments/payment_archive_day.html:41
+#: payments/templates/payments/payment_archive_year.html:30
+#: payments/templates/payments/payment_archive_year.html:41
+#: payments/templates/payments/payment_list.html:21
+#: payments/templates/payments/payment_list.html:31
+#: payments/templates/payments/service_archive_day.html:30
+#: payments/templates/payments/service_archive_day.html:41
+#: templates/tags/activity_list_snippet.html:17
+#: templates/tags/activity_list_snippet.html:31
+#: templates/tags/balance_activities_snippet.html:18
+#: templates/tags/balance_activities_snippet.html:32
+#: templates/tags/recharge_list_table_snippet.html:14
+#: templates/tags/recharge_list_table_snippet.html:23
+#: templates/tags/sold_voucher_list_snippet.html:14
+#: templates/tags/sold_voucher_list_snippet.html:24
+#: templates/tags/used_voucher_list_snippet.html:15
+#: templates/tags/used_voucher_list_snippet.html:25
+#: templates/tags/voucher_list_snippet.html:17
+#: templates/tags/voucher_list_snippet.html:28
+msgid "Details"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_detail.html:13
+msgid "Add new Category Service"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_detail.html:19
+msgid "Service Category Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_detail.html:20
+msgid "Service Category Code"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_detail.html:30
+msgid "Created at"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_detail.html:37
+msgid "Services Available in this category"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_detail.html:47
+msgid "There are no services available for this category yet"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_list.html:26
+#: dashboard/templates/tags/category_service_creation_form.html:22
+#: dashboard/templates/tags/category_service_remove_form.html:18
+#: dashboard/templates/tags/category_service_update_form.html:20
+msgid "Category Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/category_service_list.html:27
+#: dashboard/templates/tags/category_service_creation_form.html:26
+#: dashboard/templates/tags/category_service_remove_form.html:22
+#: dashboard/templates/tags/category_service_update_form.html:24
+msgid "Category Code"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_detail.html:12
+#: payments/templates/payments/claim_detail.html:8
+msgid "Claim author"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_detail.html:13
+#: payments/templates/payments/claim_detail.html:9
+msgid "Claim participant"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_detail.html:14
+#: dashboard/templates/dashboard/claim_list.html:15
+#: dashboard/templates/dashboard/payment_detail.html:22
+#: dashboard/templates/dashboard/payment_list.html:18
+#: dashboard/templates/dashboard/payment_request_detail.html:24
+#: dashboard/templates/dashboard/payment_request_list.html:18
+#: dashboard/templates/dashboard/service_detail.html:72
+#: dashboard/templates/dashboard/transfer_detail.html:21
+#: dashboard/templates/dashboard/transfer_list.html:24
+#: dashboard/templates/tags/balance_recharge_form.html:13
+#: dashboard/templates/tags/case_close_form.html:22
+#: dashboard/templates/tags/transaction_dialog.html:11
+#: payments/templates/payments/balance_activity.html:17
+#: payments/templates/payments/claim_detail.html:10
+#: payments/templates/payments/claim_list.html:21
+#: payments/templates/payments/claim_list.html:34
+#: payments/templates/payments/new_payment.html:18
+#: payments/templates/payments/new_service.html:32
+#: payments/templates/payments/new_transfer.html:15
+#: payments/templates/payments/payment_archive_day.html:28
+#: payments/templates/payments/payment_archive_day.html:39
+#: payments/templates/payments/payment_archive_year.html:28
+#: payments/templates/payments/payment_archive_year.html:39
+#: payments/templates/payments/payment_list.html:19
+#: payments/templates/payments/payment_list.html:29
+#: payments/templates/payments/payment_request.html:30
+#: payments/templates/payments/payment_verify.html:74
+#: payments/templates/payments/service_archive_day.html:27
+#: payments/templates/payments/service_archive_day.html:38
+#: payments/templates/payments/transaction_list.html:10
+#: payments/templates/payments/transfer_detail.html:21
+#: payments/templates/payments/transfer_verify.html:77
+#: payments/templates/tags/payment_form.html:9
+#: payments/templates/tags/payment_request_form.html:9
+#: payments/templates/tags/service_form.html:25
+#: payments/templates/tags/service_snippet.html:16
+#: payments/templates/tags/service_snippet.html:26
+#: payments/templates/tags/transfer_form.html:11
+#: templates/reports/activities_invoice.html:15
+#: templates/reports/activities_invoice.html:25
+#: templates/reports/payment_reports.html:12
+#: templates/reports/payment_reports.html:22
+#: templates/tags/activity_list_snippet.html:15
+#: templates/tags/activity_list_snippet.html:25
+#: templates/tags/balance_activities_snippet.html:16
+#: templates/tags/balance_activities_snippet.html:26
+#: templates/tags/recharge_list_table_snippet.html:12
+#: templates/tags/recharge_snippet.html:10
+#: templates/tags/voucher_list_snippet.html:13
+#: templates/tags/voucher_recharge_form.html:11
+#: voucher/templates/tags/voucher_recharge_form_del.html:10
+msgid "Amount"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_detail.html:15
+#: dashboard/templates/dashboard/claim_list.html:14
+#: dashboard/templates/tags/case_close_form.html:26
+#: dashboard/templates/tags/case_update_form.html:27
+#: payments/templates/payments/claim_detail.html:11
+#: payments/templates/payments/claim_list.html:20
+#: payments/templates/payments/claim_list.html:33
+msgid "Subject"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_detail.html:16
+#: payments/templates/payments/claim_detail.html:12
+msgid "description"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_list.html:18
+msgid "Closed at "
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_list.html:20
+#: payments/templates/payments/claim_list.html:35
+msgid "Opened"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_list.html:22
+#: dashboard/templates/dashboard/group_list.html:51
+#: dashboard/templates/dashboard/permission_list.html:50
+#: dashboard/templates/dashboard/permission_list.html:62
+#: dashboard/templates/dashboard/policy_group_list.html:41
+#: dashboard/templates/dashboard/policy_list.html:43
+#: payments/templates/payments/payment_list.html:31
+msgid "Detail"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_list.html:25
+msgid "There is no claims now."
+msgstr ""
+
+#: dashboard/templates/dashboard/create_user.html:11
+#: templates/registration/register.html:29
+#: templates/registration/vendor_register.html:22
+msgid "Registration"
+msgstr ""
+
+#: dashboard/templates/dashboard/create_user.html:20
+#: dashboard/templates/dashboard/group_list.html:19
+#: dashboard/templates/dashboard/new_transaction.html:27
+#: dashboard/templates/dashboard/new_user.html:13
+#: dashboard/templates/dashboard/permission_list.html:25
+#: dashboard/templates/dashboard/token_generate.html:19
+#: dashboard/templates/tags/account_update_form.html:53
+#: dashboard/templates/tags/available_service_creation_form.html:53
+#: dashboard/templates/tags/available_service_form.html:24
+#: dashboard/templates/tags/available_service_remove_form.html:44
+#: dashboard/templates/tags/available_service_update_form.html:45
+#: dashboard/templates/tags/balance_recharge_form.html:18
+#: dashboard/templates/tags/case_close_form.html:41
+#: dashboard/templates/tags/case_update_form.html:42
+#: dashboard/templates/tags/caseissue_form.html:18
+#: dashboard/templates/tags/category_service_creation_form.html:36
+#: dashboard/templates/tags/category_service_remove_form.html:32
+#: dashboard/templates/tags/category_service_update_form.html:34
+#: dashboard/templates/tags/group_form.html:15
+#: dashboard/templates/tags/group_update_form.html:23
+#: dashboard/templates/tags/idcard_form.html:20
+#: dashboard/templates/tags/idcard_update_form.html:52
+#: dashboard/templates/tags/payment_form.html:22
+#: dashboard/templates/tags/policy_creation_form.html:41
+#: dashboard/templates/tags/policy_form.html:16
+#: dashboard/templates/tags/policy_group_add_users.html:48
+#: dashboard/templates/tags/policy_group_creation_form.html:36
+#: dashboard/templates/tags/policy_group_update_form.html:54
+#: dashboard/templates/tags/policy_remove_form.html:39
+#: dashboard/templates/tags/policy_update_form.html:47
+#: dashboard/templates/tags/reduction_form.html:15
+#: dashboard/templates/tags/service_category_form.html:15
+#: dashboard/templates/tags/service_form.html:28
+#: dashboard/templates/tags/transaction_dialog.html:16
+#: dashboard/templates/tags/transfer_form.html:25
+#: payments/templates/payments/new_payment.html:27
+#: payments/templates/payments/new_service.html:46
+#: payments/templates/payments/new_transaction.html:26
+#: payments/templates/payments/new_transfer.html:24
+#: payments/templates/payments/payment_verify.html:52
+#: payments/templates/payments/policygroup_update.html:32
+#: payments/templates/payments/recharge.html:19
+#: payments/templates/payments/service_verify.html:52
+#: payments/templates/payments/transfer_verify.html:55
+#: payments/templates/tags/available_service_form.html:24
+#: payments/templates/tags/caseissue_form.html:17
+#: payments/templates/tags/idcard_upload_form.html:29
+#: payments/templates/tags/payment_form.html:17
+#: payments/templates/tags/payment_idcard_update_form.html:38
+#: payments/templates/tags/recharge_form.html:12
+#: payments/templates/tags/reduction_form.html:14
+#: payments/templates/tags/service_category_form.html:19
+#: payments/templates/tags/service_form.html:38
+#: payments/templates/tags/transaction_dialog.html:15
+#: payments/templates/tags/transfer_form.html:19
+#: templates/registration/password_change.html:37
+#: templates/registration/password_reset_confirm.html:28
+#: templates/registration/password_reset_form.html:32
+#: templates/registration/vendor_register.html:45
+#: templates/tags/signup_dialog.html:35 templates/tags/signup_dialog.html:57
+#: templates/tags/voucher_generate_form.html:24
+#: templates/tags/voucher_recharge_form.html:16
+#: voucher/templates/tags/voucher_generate_form_del.html:22
+#: voucher/templates/tags/voucher_recharge_form_del.html:15
+msgid "Cancel"
+msgstr ""
+
+#: dashboard/templates/dashboard/create_user.html:21
+msgid "Create User Account"
+msgstr ""
+
+#: dashboard/templates/dashboard/dashboard.html:11
+msgid "Partners report"
+msgstr ""
+
+#: dashboard/templates/dashboard/dashboard.html:13
+msgid "Recents Partner activities"
+msgstr ""
+
+#: dashboard/templates/dashboard/dashboard.html:19
+msgid "Customer report"
+msgstr ""
+
+#: dashboard/templates/dashboard/dashboard.html:21
+msgid "Recents Customer activities"
+msgstr ""
+
+#: dashboard/templates/dashboard/group_detail.html:6
+#: dashboard/templates/dashboard/group_list.html:20
+#: dashboard/templates/dashboard/permission_detail.html:15
+#: dashboard/templates/dashboard/permission_list.html:26
+#: dashboard/templates/dashboard/permission_list.html:63
+#: dashboard/templates/dashboard/policy_group_detail.html:13
+#: dashboard/templates/dashboard/user_detail.html:6
+msgid "Delete"
+msgstr ""
+
+#: dashboard/templates/dashboard/group_detail.html:16
+#: dashboard/templates/dashboard/group_list.html:39
+#: dashboard/templates/dashboard/permission_list.html:38
+msgid "Permissions"
+msgstr ""
+
+#: dashboard/templates/dashboard/group_detail.html:30
+#: dashboard/templates/dashboard/group_list.html:40
+#: dashboard/templates/dashboard/policy_group_detail.html:23
+#: dashboard/templates/tags/policy_group_update_form.html:45
+msgid "Members"
+msgstr ""
+
+#: dashboard/templates/dashboard/group_list.html:12
+msgid "Group Delete Confirmation"
+msgstr ""
+
+#: dashboard/templates/dashboard/group_list.html:15
+msgid "Do you really want to delete this Group ? "
+msgstr ""
+
+#: dashboard/templates/dashboard/group_list.html:16
+#: dashboard/templates/dashboard/permission_list.html:22
+msgid "This action is irreversible."
+msgstr ""
+
+#: dashboard/templates/dashboard/group_list.html:38
+#: dashboard/templates/tags/policy_group_creation_form.html:14
+#: dashboard/templates/tags/policy_group_update_form.html:23
+msgid "Group Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/group_list.html:65
+#: dashboard/templates/dashboard/permission_list.html:76
+msgid "There is currently no Group"
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:11
+#: payments/templates/payments/idcard_detail.html:31
+msgid "ID number"
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:12
+#: payments/templates/payments/idcard_detail.html:32
+msgid "Delivery Place "
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:13
+#: payments/templates/payments/idcard_detail.html:33
+msgid "Delivered at "
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:14
+#: payments/templates/payments/idcard_detail.html:34
+msgid "Valide until "
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:16
+#: payments/templates/payments/idcard_detail.html:36
+msgid "ID Image"
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:27
+msgid "Image"
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:31
+#: dashboard/templates/tags/available_service_update_form.html:46
+#: dashboard/templates/tags/case_update_form.html:43
+#: dashboard/templates/tags/category_service_update_form.html:35
+#: dashboard/templates/tags/idcard_update_form.html:53
+#: dashboard/templates/tags/policy_group_update_form.html:55
+#: dashboard/templates/tags/policy_update_form.html:48
+#: payments/templates/payments/idcard_detail.html:17
+#: payments/templates/payments/policygroup_update.html:33
+#: payments/templates/tags/payment_idcard_update_form.html:39
+msgid "Update"
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:38
+msgid "Wrong request"
+msgstr ""
+
+#: dashboard/templates/dashboard/new_transaction.html:19
+#: payments/templates/payments/new_transaction.html:18
+#: payments/templates/tags/transaction_dialog.html:10
+msgid "Nom du destinataire"
+msgstr ""
+
+#: dashboard/templates/dashboard/new_transaction.html:20
+#: payments/templates/payments/new_transaction.html:19
+#: payments/templates/tags/transaction_dialog.html:11
+msgid "Montant"
+msgstr ""
+
+#: dashboard/templates/dashboard/new_transaction.html:21
+#: payments/templates/payments/new_transaction.html:20
+#: payments/templates/tags/transaction_dialog.html:12
+msgid "Description du transfert"
+msgstr ""
+
+#: dashboard/templates/dashboard/new_transaction.html:26
+#: dashboard/templates/tags/transfer_form.html:26
+#: payments/templates/payments/new_transaction.html:27
+#: payments/templates/payments/new_transfer.html:25
+#: payments/templates/tags/transfer_form.html:20
+msgid "Send Money"
+msgstr ""
+
+#: dashboard/templates/dashboard/new_user.html:14
+#: templates/registration/register.html:39
+#: templates/registration/vendor_register.html:46
+msgid "Create My Account"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_detail.html:16
+#: dashboard/templates/dashboard/payment_list.html:16
+#: dashboard/templates/dashboard/transfer_detail.html:15
+#: dashboard/templates/dashboard/transfer_list.html:22
+#: payments/templates/payments/balance_activity.html:15
+#: payments/templates/payments/claim_list.html:18
+#: payments/templates/payments/claim_list.html:31
+#: payments/templates/payments/payment_archive_day.html:26
+#: payments/templates/payments/payment_archive_day.html:37
+#: payments/templates/payments/payment_archive_year.html:26
+#: payments/templates/payments/payment_archive_year.html:37
+#: payments/templates/payments/payment_details.html:19
+#: payments/templates/payments/payment_list.html:17
+#: payments/templates/payments/payment_list.html:27
+#: payments/templates/payments/payment_verify.html:68
+#: payments/templates/payments/transaction_list.html:9
+#: payments/templates/payments/transfer_detail.html:15
+#: payments/templates/payments/transfer_verify.html:71
+#: templates/reports/payment_reports.html:9
+msgid "Sender"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_detail.html:19
+#: dashboard/templates/dashboard/payment_list.html:17
+#: dashboard/templates/dashboard/transfer_detail.html:18
+#: dashboard/templates/dashboard/transfer_list.html:23
+#: dashboard/templates/tags/transaction_dialog.html:10
+#: payments/templates/payments/balance_activity.html:16
+#: payments/templates/payments/payment_archive_day.html:27
+#: payments/templates/payments/payment_archive_day.html:38
+#: payments/templates/payments/payment_archive_year.html:27
+#: payments/templates/payments/payment_archive_year.html:38
+#: payments/templates/payments/payment_details.html:16
+#: payments/templates/payments/payment_verify.html:71
+#: payments/templates/payments/transfer_detail.html:18
+#: payments/templates/payments/transfer_verify.html:74
+msgid "Recipient"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_detail.html:28
+#: dashboard/templates/dashboard/payment_request_detail.html:39
+#: dashboard/templates/dashboard/service_detail.html:84
+#: dashboard/templates/dashboard/transfer_detail.html:27
+#: payments/templates/payments/payment_details.html:24
+#: payments/templates/payments/payment_verify.html:31
+#: payments/templates/payments/payment_verify.html:80
+#: payments/templates/payments/service_verify.html:31
+#: payments/templates/payments/transfer_detail.html:27
+#: payments/templates/payments/transfer_verify.html:34
+#: payments/templates/payments/transfer_verify.html:83
+#: payments/templates/tags/service_snippet.html:43
+msgid "Verification Code"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_list.html:12
+#: payments/templates/payments/transactions_home.html:15
+msgid "Payments History"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_list.html:29
+#: dashboard/templates/dashboard/policy_detail.html:18
+#: dashboard/templates/dashboard/policy_detail.html:19
+#: dashboard/templates/dashboard/policy_detail.html:20
+#: dashboard/templates/dashboard/service_detail.html:72
+#: dashboard/templates/dashboard/service_list.html:17
+#: dashboard/templates/dashboard/service_list.html:30
+#: dashboard/templates/dashboard/service_list.html:37
+#: dashboard/templates/dashboard/service_list.html:80
+#: dashboard/templates/dashboard/sold_voucher_details.html:12
+#: dashboard/templates/dashboard/transfer_detail.html:21
+#: dashboard/templates/dashboard/transfer_list.html:35
+#: dashboard/templates/dashboard/used_voucher_details.html:12
+#: dashboard/templates/tags/payment_request_report.html:6
+#: dashboard/templates/tags/payment_request_report.html:14
+#: dashboard/templates/tags/payment_request_report.html:18
+#: dashboard/templates/tags/payment_request_report.html:22
+#: payments/templates/payments/claim_list.html:34
+#: payments/templates/payments/payment_archive.html:29
+#: payments/templates/payments/payment_archive_day.html:39
+#: payments/templates/payments/payment_archive_year.html:39
+#: payments/templates/payments/payment_details.html:17
+#: payments/templates/payments/payment_details.html:20
+#: payments/templates/payments/payment_verify.html:74
+#: payments/templates/payments/policy_detail.html:11
+#: payments/templates/payments/policy_detail.html:12
+#: payments/templates/payments/policy_detail.html:13
+#: payments/templates/payments/policy_detail.html:14
+#: payments/templates/payments/service_archive_day.html:38
+#: payments/templates/payments/transfer_archive.html:27
+#: payments/templates/payments/transfer_detail.html:21
+#: payments/templates/payments/transfer_verify.html:77
+#: payments/templates/tags/payment_request_form.html:9
+#: templates/tags/payments_snippet.html:17
+#: templates/tags/payments_snippet.html:19
+#: templates/tags/service_list_snippet.html:16
+#: templates/tags/service_list_snippet.html:18
+#: templates/tags/transfer_list_snippet.html:17
+#: templates/tags/transfer_list_snippet.html:19
+msgid "XAF"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_list.html:31
+#: dashboard/templates/dashboard/payment_request_list.html:32
+#: dashboard/templates/dashboard/transfer_list.html:37
+#: dashboard/templates/dashboard/user_list.html:43
+#: payments/templates/payments/available_service_list.html:30
+#: payments/templates/payments/claim_list.html:37
+#: payments/templates/payments/payment_archive_day.html:41
+#: payments/templates/payments/payment_archive_year.html:41
+#: payments/templates/payments/service_archive_day.html:41
+msgid "More"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_request_detail.html:18
+msgid "Requester Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_request_detail.html:21
+#: dashboard/templates/dashboard/service_detail.html:69
+#: payments/templates/tags/service_snippet.html:13
+msgid "Customer"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_request_detail.html:33
+#: dashboard/templates/dashboard/policy_detail.html:21
+#: dashboard/templates/dashboard/policy_group_detail.html:24
+#: dashboard/templates/dashboard/policy_list.html:28
+#: dashboard/templates/dashboard/service_detail.html:75
+#: dashboard/templates/tags/policy_creation_form.html:35
+#: dashboard/templates/tags/policy_remove_form.html:33
+#: dashboard/templates/tags/policy_update_form.html:41
+#: payments/templates/payments/policy_detail.html:14
+#: payments/templates/tags/service_snippet.html:19
+msgid "Commission"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_request_detail.html:36
+#: dashboard/templates/dashboard/payment_request_list.html:19
+#: dashboard/templates/dashboard/user_list.html:30
+#: dashboard/templates/dashboard/user_list.html:41
+#: payments/templates/payments/claim_list.html:22
+#: payments/templates/payments/claim_list.html:35
+#: payments/templates/payments/payment_details.html:32
+#: templates/tags/voucher_list_snippet.html:15
+msgid "Status"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_request_detail.html:45
+msgid "Redirect success URL"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_request_detail.html:48
+msgid "Redirect failed URL"
+msgstr ""
+
+#: dashboard/templates/dashboard/payment_request_list.html:13
+msgid "Payment Request History"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_detail.html:10
+msgid "Permission"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_detail.html:13
+#: dashboard/templates/dashboard/permission_list.html:10
+msgid "Go Back"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_detail.html:30
+msgid "Users members"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_list.html:11
+msgid "Create A Group"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_list.html:18
+msgid "Permission Delete Confirmation"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_list.html:21
+msgid "Do you really want to delete this Permission ? "
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_list.html:46
+msgid "Permission Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_list.html:47
+msgid "CodeName"
+msgstr ""
+
+#: dashboard/templates/dashboard/permission_list.html:51
+msgid "Action"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_detail.html:18
+#: dashboard/templates/dashboard/policy_list.html:29
+#: dashboard/templates/tags/policy_creation_form.html:20
+#: dashboard/templates/tags/policy_remove_form.html:18
+#: dashboard/templates/tags/policy_update_form.html:26
+#: payments/templates/payments/policy_detail.html:11
+msgid "Daily Limit"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_detail.html:19
+#: dashboard/templates/dashboard/policy_list.html:30
+#: dashboard/templates/tags/policy_creation_form.html:25
+#: dashboard/templates/tags/policy_remove_form.html:23
+#: dashboard/templates/tags/policy_update_form.html:31
+#: payments/templates/payments/policy_detail.html:12
+msgid "Weekly Limit"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_detail.html:20
+#: dashboard/templates/dashboard/policy_list.html:31
+#: dashboard/templates/tags/policy_creation_form.html:31
+#: dashboard/templates/tags/policy_remove_form.html:29
+#: dashboard/templates/tags/policy_update_form.html:37
+#: payments/templates/payments/policy_detail.html:13
+msgid "Monthly Limit"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_group_detail.html:22
+msgid "Policy Group Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_group_detail.html:28
+msgid "Group Members"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_group_detail.html:29
+msgid "Add members"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_group_detail.html:44
+#: dashboard/templates/tags/case_close_form.html:42
+msgid "Close"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_group_detail.html:46
+msgid "Add Members to policy group"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_group_list.html:30
+msgid "Number of members"
+msgstr ""
+
+#: dashboard/templates/dashboard/policy_group_list.html:31
+msgid "commission"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_category_list.html:19
+msgid "There is no service categories"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:10
+#: dashboard/templates/dashboard/service_list.html:10
+#: templates/reports/activities_invoice.html:32
+#: templates/reports/payment_reports.html:29
+#: templates/reports/recharge_report.html:29
+#: templates/reports/report_content.html:12
+#: templates/reports/sold_vouchers_report.html:31
+msgid "Summary"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:15
+#: dashboard/templates/dashboard/service_list.html:16
+msgid "Money transferred"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:21
+#: dashboard/templates/dashboard/service_list.html:22
+msgid "Service usage"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:28
+#: dashboard/templates/dashboard/service_list.html:29
+msgid "Max paid money"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:35
+#: dashboard/templates/dashboard/service_list.html:36
+msgid "Min paid money"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:42
+#: dashboard/templates/dashboard/service_list.html:43
+msgid "Number of user of the service"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:48
+#: dashboard/templates/dashboard/service_list.html:49
+msgid "Number of operators"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_detail.html:78
+#: payments/templates/payments/new_service.html:37
+#: payments/templates/tags/service_form.html:29
+msgid "Issue Date"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_list.html:61
+msgid "Service History Page"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_list.html:69
+#: payments/templates/payments/payment_details.html:17
+#: payments/templates/payments/payment_details.html:20
+#: payments/templates/payments/service_mail_confirmation_incoming.html:116
+#: templates/reports/recharge_report.html:13
+msgid "Price"
+msgstr ""
+
+#: dashboard/templates/dashboard/service_list.html:71
+#: payments/templates/payments/payment_archive_day.html:29
+#: payments/templates/payments/payment_archive_year.html:29
+msgid "Date of usage"
+msgstr ""
+
+#: dashboard/templates/dashboard/sold_voucher_details.html:12
+#: dashboard/templates/dashboard/used_voucher_details.html:12
+#: templates/reports/sold_vouchers_report.html:15
+#: templates/tags/sold_voucher_list_snippet.html:11
+#: templates/tags/used_voucher_list_snippet.html:12
+#: templates/tags/voucher_snippet.html:11
+#: voucher/templates/voucher/sold_voucher_details.html:13
+#: voucher/templates/voucher/used_voucher_details.html:12
+msgid "Credit"
+msgstr ""
+
+#: dashboard/templates/dashboard/sold_voucher_details.html:15
+#: dashboard/templates/dashboard/used_voucher_details.html:15
+#: payments/templates/payments/recharge.html:14
+#: payments/templates/tags/recharge_form.html:7
+#: templates/tags/voucher_list_snippet.html:14
+#: templates/tags/voucher_snippet.html:14
+#: voucher/templates/voucher/sold_voucher_details.html:16
+#: voucher/templates/voucher/used_voucher_details.html:15
+msgid "Voucher Code"
+msgstr ""
+
+#: dashboard/templates/dashboard/sold_voucher_details.html:18
+#: dashboard/templates/dashboard/used_voucher_details.html:18
+#: templates/tags/voucher_list_snippet.html:16
+#: templates/tags/voucher_snippet.html:17
+#: voucher/templates/voucher/sold_voucher_details.html:19
+#: voucher/templates/voucher/used_voucher_details.html:18
+msgid "Creation Date"
+msgstr ""
+
+#: dashboard/templates/dashboard/sold_voucher_details.html:21
+#: dashboard/templates/dashboard/used_voucher_details.html:21
+#: templates/tags/voucher_snippet.html:21
+#: voucher/templates/voucher/sold_voucher_details.html:22
+#: voucher/templates/voucher/used_voucher_details.html:21
+msgid "Activation Date"
+msgstr ""
+
+#: dashboard/templates/dashboard/sold_voucher_details.html:24
+#: templates/reports/sold_vouchers_report.html:14
+#: templates/tags/sold_voucher_list_snippet.html:13
+#: templates/tags/voucher_snippet.html:27
+#: voucher/templates/voucher/sold_voucher_details.html:25
+msgid "Sold Date"
+msgstr ""
+
+#: dashboard/templates/dashboard/token_generate.html:10
+msgid "Token Generation For User"
+msgstr ""
+
+#: dashboard/templates/dashboard/token_list.html:13
+msgid "Token List"
+msgstr ""
+
+#: dashboard/templates/dashboard/token_list.html:29
+msgid "You is no Token yet."
+msgstr ""
+
+#: dashboard/templates/dashboard/transaction_list.html:7
+#: payments/templates/payments/payment_home.html:14
+#: templates/accounts/account.html:35
+msgid "Recents activities"
+msgstr ""
+
+#: dashboard/templates/dashboard/transfer_detail.html:11
+#: payments/templates/payments/transfer_detail.html:11
+msgid "Transfer Detail"
+msgstr ""
+
+#: dashboard/templates/dashboard/transfer_list.html:13
+msgid "Transfer History Page"
+msgstr ""
+
+#: dashboard/templates/dashboard/transfer_list.html:18
+#: payments/templates/payments/transactions_home.html:14
+#: payments/templates/payments/transfer_list.html:4
+msgid "Transfer History"
+msgstr ""
+
+#: dashboard/templates/dashboard/used_voucher_details.html:24
+#: templates/tags/used_voucher_list_snippet.html:14
+#: templates/tags/voucher_snippet.html:39
+#: voucher/templates/voucher/used_voucher_details.html:24
+msgid "Usage Date"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:7
+msgid "Send Welcome Mail"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:9
+msgid "Send Validation Link"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:19
+msgid "User Information"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:23
+#: dashboard/templates/dashboard/user_list.html:28
+#: dashboard/templates/dashboard/user_list.html:39
+#: templates/registration/login.html:33 templates/tags/registration_form.html:7
+#: templates/tags/signup_dialog.html:30 templates/tags/signup_dialog.html:47
+msgid "Username"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:26
+#: templates/tags/registration_form.html:15
+#: templates/tags/signup_dialog.html:49
+msgid "Lastname"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:29
+#: templates/tags/registration_form.html:11
+#: templates/tags/signup_dialog.html:48
+msgid "Firstname"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:32
+#: templates/tags/registration_form.html:19
+#: templates/tags/signup_dialog.html:52
+msgid "E-Mail"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:35
+msgid "User is Active"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:52
+msgid "Account Type"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:55
+msgid "Email is Validated"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:58
+msgid "Account is Active"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:64
+msgid "USER POLICY GROUPS"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:73
+msgid "USER GROUPS"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:83
+#: payments/templates/payments/balance_activity.html:20
+#: templates/voucher_base.html:14
+msgid "Balance"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:88
+msgid "Products"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:92
+msgid "Date joined"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:95
+msgid "Last login"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_detail.html:103
+msgid "Create Access Token"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_list.html:4
+msgid "Generate Balance"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_list.html:31
+#: dashboard/templates/dashboard/user_list.html:42
+msgid "Date Joined"
+msgstr ""
+
+#: dashboard/templates/dashboard/user_list.html:41
+msgid "active,inactive"
+msgstr ""
+
+#: dashboard/templates/dashboard/voucher.html:14
+#: dashboard/templates/dashboard_base_old.html:18
+#: dashboard/templates/tags/payment_form.html:21
+#: payments/templates/payments/new_payment.html:28
+#: payments/templates/tags/payment_form.html:18
+msgid "PAY"
+msgstr ""
+
+#: dashboard/templates/dashboard/voucher.html:18
+msgid "Generated Voucher List"
+msgstr ""
+
+#: dashboard/templates/dashboard/voucher.html:23
+#: voucher/templates/voucher_base.html:30
+msgid "Recharge Customer Account"
+msgstr ""
+
+#: dashboard/templates/dashboard/voucher.html:28 dashboard/views.py:1937
+#: voucher/views.py:193
+msgid "Used Voucher List"
+msgstr ""
+
+#: dashboard/templates/dashboard/voucher.html:33 dashboard/views.py:1975
+#: voucher/views.py:237
+msgid "Sold Voucher List"
+msgstr ""
+
+#: dashboard/templates/dashboard/voucher.html:39
+#: voucher/templates/voucher_base.html:46
+msgid "Generate new Voucher cards"
+msgstr ""
+
+#: dashboard/templates/dashboard_base_old.html:42
+msgid "Token AUTH API"
+msgstr ""
+
+#: dashboard/templates/dashboard_base_old.html:43 templates/base copy.html:67
+#: templates/base.html:72 templates/dashboard_base.html:73
+msgid "Logout"
+msgstr ""
+
+#: dashboard/templates/tags/account_update_form.html:9
+msgid "Edit my account"
+msgstr ""
+
+#: dashboard/templates/tags/account_update_form.html:22
+msgid "Province"
+msgstr ""
+
+#: dashboard/templates/tags/account_update_form.html:34
+msgid "Address"
+msgstr ""
+
+#: dashboard/templates/tags/account_update_form.html:38
+msgid "Zip Code"
+msgstr ""
+
+#: dashboard/templates/tags/account_update_form.html:42
+msgid "Newsletter"
+msgstr ""
+
+#: dashboard/templates/tags/account_update_form.html:54
+msgid "Update my Account"
+msgstr ""
+
+#: dashboard/templates/tags/analytics.html:37
+msgid "Logged in Users"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_creation_form.html:9
+msgid "Create a new Service"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_creation_form.html:21
+#: dashboard/templates/tags/available_service_remove_form.html:22
+#: dashboard/templates/tags/available_service_update_form.html:23
+#: payments/templates/payments/service_mail_confirmation_incoming.html:71
+msgid "Service name"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_creation_form.html:43
+#: dashboard/templates/tags/available_service_remove_form.html:34
+#: dashboard/templates/tags/available_service_update_form.html:35
+#: dashboard/templates/tags/category_service_creation_form.html:30
+#: dashboard/templates/tags/category_service_remove_form.html:26
+#: dashboard/templates/tags/category_service_update_form.html:28
+msgid "Is Active"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_creation_form.html:54
+#: dashboard/templates/tags/category_service_creation_form.html:37
+#: dashboard/templates/tags/policy_creation_form.html:42
+#: dashboard/templates/tags/policy_group_creation_form.html:37
+msgid "Create"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_form.html:10
+#: payments/templates/tags/available_service_form.html:10
+msgid "Enter the service code"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_form.html:11
+#: payments/templates/tags/available_service_form.html:11
+msgid "Enter the service name"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_form.html:15
+#: payments/templates/tags/available_service_form.html:15
+msgid "Select a category please"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_form.html:17
+#: payments/templates/tags/available_service_form.html:17
+msgid "{{cat.category_name}}"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_form.html:25
+#: payments/templates/tags/available_service_form.html:25
+msgid "Create the Service"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_remove_form.html:9
+msgid "Remove Service"
+msgstr ""
+
+#: dashboard/templates/tags/available_service_update_form.html:10
+msgid "Edit Service"
+msgstr ""
+
+#: dashboard/templates/tags/balance_recharge_form.html:19
+msgid "Recharge User balance"
+msgstr ""
+
+#: dashboard/templates/tags/case_close_form.html:8
+msgid "Close this case"
+msgstr ""
+
+#: dashboard/templates/tags/case_close_form.html:12
+#: dashboard/templates/tags/case_close_form.html:17
+#: payments/templates/payments/claim_list.html:19
+#: payments/templates/payments/claim_list.html:32
+msgid "Participant"
+msgstr ""
+
+#: dashboard/templates/tags/case_close_form.html:36
+#: dashboard/templates/tags/case_update_form.html:37
+#: payments/templates/payments/claim_list.html:35
+msgid "Closed"
+msgstr ""
+
+#: dashboard/templates/tags/case_update_form.html:9
+#: dashboard/templates/tags/caseissue_form.html:6
+#: payments/templates/tags/caseissue_form.html:6
+msgid "Enter the Operator name"
+msgstr ""
+
+#: dashboard/templates/tags/caseissue_form.html:12
+#: payments/templates/tags/caseissue_form.html:12
+msgid "Enter the transaction number"
+msgstr ""
+
+#: dashboard/templates/tags/caseissue_form.html:13
+#: payments/templates/tags/caseissue_form.html:13
+msgid "Enter the subject for the case"
+msgstr ""
+
+#: dashboard/templates/tags/caseissue_form.html:14
+#: payments/templates/tags/caseissue_form.html:14
+msgid "Enter the description of the issue"
+msgstr ""
+
+#: dashboard/templates/tags/caseissue_form.html:17
+#: dashboard/templates/tags/idcard_form.html:19
+#: payments/templates/tags/caseissue_form.html:18
+#: payments/templates/tags/idcard_upload_form.html:30
+msgid "Send"
+msgstr ""
+
+#: dashboard/templates/tags/category_service_creation_form.html:11
+msgid "Create a new Category Service"
+msgstr ""
+
+#: dashboard/templates/tags/category_service_remove_form.html:9
+msgid "Remove Category Service"
+msgstr ""
+
+#: dashboard/templates/tags/category_service_update_form.html:11
+#: dashboard/views.py:586
+msgid "Edit Category Service"
+msgstr ""
+
+#: dashboard/templates/tags/group_form.html:16
+msgid "Create Group"
+msgstr ""
+
+#: dashboard/templates/tags/group_form.html:32
+#: dashboard/templates/tags/group_update_form.html:40
+msgid "Select Permissions to add"
+msgstr ""
+
+#: dashboard/templates/tags/group_form.html:36
+#: dashboard/templates/tags/group_form.html:58
+#: dashboard/templates/tags/group_form.html:80
+#: dashboard/templates/tags/group_form.html:102
+#: dashboard/templates/tags/group_update_form.html:44
+#: dashboard/templates/tags/group_update_form.html:66
+#: dashboard/templates/tags/group_update_form.html:90
+#: dashboard/templates/tags/group_update_form.html:112
+msgid "Filter"
+msgstr ""
+
+#: dashboard/templates/tags/group_form.html:39
+#: dashboard/templates/tags/group_form.html:61
+#: dashboard/templates/tags/group_form.html:83
+#: dashboard/templates/tags/group_form.html:105
+#: dashboard/templates/tags/group_update_form.html:47
+#: dashboard/templates/tags/group_update_form.html:69
+#: dashboard/templates/tags/group_update_form.html:93
+#: dashboard/templates/tags/group_update_form.html:115
+msgid "Enter the term to filter"
+msgstr ""
+
+#: dashboard/templates/tags/group_form.html:54
+#: dashboard/templates/tags/group_update_form.html:62
+msgid "Selected Permissions"
+msgstr ""
+
+#: dashboard/templates/tags/group_form.html:76
+#: dashboard/templates/tags/group_update_form.html:86
+msgid "Select Users to add"
+msgstr ""
+
+#: dashboard/templates/tags/group_form.html:98
+#: dashboard/templates/tags/group_update_form.html:108
+#: dashboard/templates/tags/policy_group_add_users.html:25
+msgid "Selected Users"
+msgstr ""
+
+#: dashboard/templates/tags/group_update_form.html:24
+#: dashboard/templates/tags/policy_group_add_users.html:49
+msgid "Update Group"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_form.html:13
+msgid "Enter your ID Card number"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_form.html:14
+msgid "Select your ID card image :"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_update_form.html:18
+#: payments/templates/payments/idcard_detail.html:17
+msgid "Update my ID Card"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_update_form.html:28
+#: payments/templates/tags/idcard_upload_form.html:8
+#: payments/templates/tags/payment_idcard_update_form.html:12
+msgid "Card Number"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_update_form.html:31
+#: payments/templates/tags/idcard_upload_form.html:12
+#: payments/templates/tags/payment_idcard_update_form.html:16
+msgid "Issued Date"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_update_form.html:34
+#: payments/templates/tags/payment_idcard_update_form.html:20
+msgid "Epire at "
+msgstr ""
+
+#: dashboard/templates/tags/idcard_update_form.html:37
+#: payments/templates/tags/payment_idcard_update_form.html:24
+msgid "Delivrance place"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_update_form.html:40
+#: payments/templates/tags/payment_idcard_update_form.html:34
+msgid "ID card Picture"
+msgstr ""
+
+#: dashboard/templates/tags/idcard_update_form.html:46
+#: payments/templates/tags/payment_idcard_update_form.html:28
+msgid "Current ID image"
+msgstr ""
+
+#: dashboard/templates/tags/payment_form.html:10
+msgid "Enter the customer name"
+msgstr ""
+
+#: dashboard/templates/tags/payment_form.html:17
+msgid "Enter the amount to be paid"
+msgstr ""
+
+#: dashboard/templates/tags/payment_form.html:18
+msgid "Payment description"
+msgstr ""
+
+#: dashboard/templates/tags/payment_report.html:10
+msgid "Payments Count"
+msgstr ""
+
+#: dashboard/templates/tags/payment_report.html:14
+msgid "Average Payments"
+msgstr ""
+
+#: dashboard/templates/tags/payment_report.html:18
+msgid "Min Payments"
+msgstr ""
+
+#: dashboard/templates/tags/payment_report.html:22
+msgid "Max Payments"
+msgstr ""
+
+#: dashboard/templates/tags/payment_request_report.html:9
+msgid "Payment Request Count"
+msgstr ""
+
+#: dashboard/templates/tags/payment_request_report.html:13
+msgid "Average Payment Request"
+msgstr ""
+
+#: dashboard/templates/tags/payment_request_report.html:17
+msgid "Min Payment Request"
+msgstr ""
+
+#: dashboard/templates/tags/payment_request_report.html:21
+msgid "Max Payment Request"
+msgstr ""
+
+#: dashboard/templates/tags/policy_creation_form.html:11
+msgid "Create new Policy"
+msgstr ""
+
+#: dashboard/templates/tags/policy_form.html:10
+msgid "Enter the daily limit"
+msgstr ""
+
+#: dashboard/templates/tags/policy_form.html:11
+msgid "Enter the weekly limit"
+msgstr ""
+
+#: dashboard/templates/tags/policy_form.html:12
+msgid "Enter the monthly limit"
+msgstr ""
+
+#: dashboard/templates/tags/policy_form.html:13
+msgid "Enter the commision"
+msgstr ""
+
+#: dashboard/templates/tags/policy_form.html:17
+msgid "Create the Policy"
+msgstr ""
+
+#: dashboard/templates/tags/policy_group_add_users.html:9
+msgid "Available Users"
+msgstr ""
+
+#: dashboard/templates/tags/policy_group_add_users.html:11
+msgid "Click on a user to add it to a the group"
+msgstr ""
+
+#: dashboard/templates/tags/policy_group_add_users.html:27
+msgid "Click on a user to remove it from the group"
+msgstr ""
+
+#: dashboard/templates/tags/policy_group_creation_form.html:9
+msgid "Create new Policy Group"
+msgstr ""
+
+#: dashboard/templates/tags/policy_group_creation_form.html:27
+#: dashboard/templates/tags/policy_group_update_form.html:37
+msgid "Type"
+msgstr ""
+
+#: dashboard/templates/tags/policy_group_update_form.html:11
+#: dashboard/views.py:999 dashboard/views.py:1036
+msgid "Edit Policy Group"
+msgstr ""
+
+#: dashboard/templates/tags/policy_remove_form.html:9
+msgid "Removing Policy"
+msgstr ""
+
+#: dashboard/templates/tags/policy_update_form.html:11 dashboard/views.py:776
+msgid "Edit Policy"
+msgstr ""
+
+#: dashboard/templates/tags/reduction_form.html:11
+#: payments/templates/tags/reduction_form.html:11
+msgid "Enter the percent to apply"
+msgstr ""
+
+#: dashboard/templates/tags/reduction_form.html:14
+#: payments/templates/tags/reduction_form.html:15
+msgid "Create reduction"
+msgstr ""
+
+#: dashboard/templates/tags/service_category_form.html:10
+#: payments/templates/tags/service_category_form.html:10
+msgid "Enter the service category"
+msgstr ""
+
+#: dashboard/templates/tags/service_category_form.html:11
+#: payments/templates/tags/service_category_form.html:13
+msgid "Enter the category name"
+msgstr ""
+
+#: dashboard/templates/tags/service_category_form.html:16
+#: payments/templates/tags/service_category_form.html:20
+msgid "Create category"
+msgstr ""
+
+#: dashboard/templates/tags/service_form.html:21
+msgid "You bill Reference number if applicable"
+msgstr ""
+
+#: dashboard/templates/tags/service_form.html:22
+#: payments/templates/payments/new_service.html:29
+#: payments/templates/tags/service_form.html:22
+msgid "your customer number as known by the operator"
+msgstr ""
+
+#: dashboard/templates/tags/service_form.html:23
+#: payments/templates/payments/new_service.html:33
+#: payments/templates/tags/service_form.html:26
+msgid "Enter the price of the service"
+msgstr ""
+
+#: dashboard/templates/tags/service_form.html:24
+#: payments/templates/payments/new_service.html:38
+#: payments/templates/tags/service_form.html:30
+msgid "Enter the date when the bill was delivered, if applicable"
+msgstr ""
+
+#: dashboard/templates/tags/service_form.html:25
+msgid "Service description"
+msgstr ""
+
+#: dashboard/templates/tags/service_form.html:29
+msgid "Apply"
+msgstr ""
+
+#: dashboard/templates/tags/service_report.html:10
+msgid "Services Count"
+msgstr ""
+
+#: dashboard/templates/tags/service_report.html:14
+msgid "Average Services"
+msgstr ""
+
+#: dashboard/templates/tags/service_report.html:18
+msgid "Min Services"
+msgstr ""
+
+#: dashboard/templates/tags/service_report.html:22
+msgid "Max Services"
+msgstr ""
+
+#: dashboard/templates/tags/transfer_form.html:15
+msgid "Select the Recipient"
+msgstr ""
+
+#: dashboard/templates/tags/transfer_form.html:21
+msgid "Amout in FCFA"
+msgstr ""
+
+#: dashboard/templates/tags/transfer_report.html:10
+msgid "Transfers Count"
+msgstr ""
+
+#: dashboard/templates/tags/transfer_report.html:14
+msgid "Average Transfers"
+msgstr ""
+
+#: dashboard/templates/tags/transfer_report.html:18
+msgid "Min Transfers"
+msgstr ""
+
+#: dashboard/templates/tags/transfer_report.html:22
+msgid "Max Transfers"
+msgstr ""
+
+#: dashboard/templates/tags/voucher_report.html:10
+msgid "Voucher Count"
+msgstr ""
+
+#: dashboard/templates/tags/voucher_report.html:14
+msgid "Average Voucher"
+msgstr ""
+
+#: dashboard/templates/tags/voucher_report.html:18
+msgid "Min Voucher"
+msgstr ""
+
+#: dashboard/templates/tags/voucher_report.html:22
+msgid "Max Voucher"
+msgstr ""
+
+#: dashboard/views.py:77
+msgid "Dashboard Users Tokens"
+msgstr ""
+
+#: dashboard/views.py:106
+msgid "User Token Generation"
+msgstr ""
+
+#: dashboard/views.py:117
+msgid "Token successfully generated for user {}"
+msgstr ""
+
+#: dashboard/views.py:121
+msgid "The submitted form is not valid"
+msgstr ""
+
+#: dashboard/views.py:144
+msgid "Dashboard Reports"
+msgstr ""
+
+#: dashboard/views.py:214 dashboard/views.py:266
+msgid "Dashboard Users"
+msgstr ""
+
+#: dashboard/views.py:339
+msgid "Dashboard Services"
+msgstr ""
+
+#: dashboard/views.py:400
+msgid "Edit Available Service"
+msgstr ""
+
+#: dashboard/views.py:440
+msgid "Create Available Service"
+msgstr ""
+
+#: dashboard/views.py:676
+msgid "Create Category Service"
+msgstr ""
+
+#: dashboard/views.py:864
+msgid "Create Policy"
+msgstr ""
+
+#: dashboard/views.py:962
+msgid "Create Policy Group"
+msgstr ""
+
+#: dashboard/views.py:1767
+#, python-brace-format
+msgid "User {name} created"
+msgstr ""
+
+#: dashboard/views.py:1792 voucher/views.py:36
+msgid "Voucher Dashboard"
+msgstr ""
+
+#: dashboard/views.py:1794 voucher/views.py:39
+msgid "Welcome back to voucher page"
+msgstr ""
+
+#: dashboard/views.py:1807 voucher/templates/voucher_base.html:20
+#: voucher/views.py:53
+msgid "Voucher List"
+msgstr ""
+
+#: dashboard/views.py:1825 voucher/views.py:77
+msgid "Voucher Details"
+msgstr ""
+
+#: dashboard/views.py:1842 voucher/views.py:96
+msgid "Voucher activated"
+msgstr ""
+
+#: dashboard/views.py:1845 voucher/views.py:99
+msgid "Voucher not activated"
+msgstr ""
+
+#: dashboard/views.py:1854 voucher/views.py:111
+msgid "Recharge User Account"
+msgstr ""
+
+#: dashboard/views.py:1875
+msgid "The customer account has been successfuly recharged"
+msgstr ""
+
+#: dashboard/views.py:1879 voucher/views.py:133
+msgid ""
+"Your request could not processed. You might need to check that the submitted "
+"data are correct."
+msgstr ""
+
+#: dashboard/views.py:1883 dashboard/views.py:1885 voucher/views.py:137
+#: voucher/views.py:139
+msgid "The submitted form is not valid. Verify the form fields"
+msgstr ""
+
+#: dashboard/views.py:1946 voucher/views.py:205
+msgid "Used Voucher Details"
+msgstr ""
+
+#: dashboard/views.py:1984 dashboard/views.py:2057 voucher/views.py:249
+msgid "Sold Voucher Details"
+msgstr ""
+
+#: dashboard/views.py:1998 voucher/views.py:266
+msgid "Voucher Generator"
+msgstr ""
+
+#: dashboard/views.py:2048 voucher/views.py:317
+msgid "Recharge List"
+msgstr ""
+
+#: pay/settings.py:327
+msgid "English"
+msgstr ""
+
+#: pay/settings.py:328
+msgid "French"
+msgstr ""
+
+#: payments/resources/ui_strings.py:10
+msgid "SERVICE"
+msgstr ""
+
+#: payments/templates/payment_base.html:16 templates/site_account_base.html:13
+msgid "Current balance"
+msgstr ""
+
+#: payments/templates/payment_base.html:21 templates/site_account_base.html:18
+msgid "Send money"
+msgstr ""
+
+#: payments/templates/payment_base.html:22 templates/site_account_base.html:19
+msgid "Make Payment"
+msgstr ""
+
+#: payments/templates/payment_base.html:24
+#: payments/templates/payments/current_month_statistics.html:8
+#: templates/site_account_base.html:21
+msgid "Statistics"
+msgstr ""
+
+#: payments/templates/payments/available_service_detail.html:14
+msgid "Available since"
+msgstr ""
+
+#: payments/templates/payments/available_service_detail.html:19
+msgid "Add to my favorite"
+msgstr ""
+
+#: payments/templates/payments/available_service_detail.html:22
+msgid "Use this service"
+msgstr ""
+
+#: payments/templates/payments/available_service_list.html:38
+msgid "There is currently no service available"
+msgstr ""
+
+#: payments/templates/payments/balance_activities.html:4
+msgid "Balance Activities"
+msgstr ""
+
+#: payments/templates/payments/balance_activities.html:19
+msgid "Generate Invoice"
+msgstr ""
+
+#: payments/templates/payments/balance_activity.html:6
+msgid "ACTIVITY"
+msgstr ""
+
+#: payments/templates/payments/balance_activity.html:11
+#: templates/tags/activity_list_snippet.html:10
+#: templates/tags/balance_activities_snippet.html:11
+msgid "Activities"
+msgstr ""
+
+#: payments/templates/payments/balance_activity.html:23
+#: templates/reports/activities_invoice.html:14
+#: templates/reports/activities_invoice.html:24
+#: templates/reports/payment_reports.html:11
+#: templates/reports/payment_reports.html:21
+#: templates/tags/activity_list_snippet.html:14
+#: templates/tags/activity_list_snippet.html:24
+#: templates/tags/balance_activities_snippet.html:15
+#: templates/tags/balance_activities_snippet.html:25
+msgid "Activity"
+msgstr ""
+
+#: payments/templates/payments/claim_list.html:4
+msgid "Claim History"
+msgstr ""
+
+#: payments/templates/payments/claim_list.html:14
+msgid "Claim List"
+msgstr ""
+
+#: payments/templates/payments/claim_list.html:50
+msgid "There is no claim yet"
+msgstr ""
+
+#: payments/templates/payments/current_month_statistics.html:13
+#: payments/templates/payments/current_month_statistics.html:24
+msgid "Expenses"
+msgstr ""
+
+#: payments/templates/payments/current_month_statistics.html:14
+#: payments/templates/payments/current_month_statistics.html:37
+msgid "Incomes"
+msgstr ""
+
+#: payments/templates/payments/current_month_statistics.html:32
+#: payments/templates/payments/current_month_statistics.html:44
+msgid "There are no data to process"
+msgstr ""
+
+#: payments/templates/payments/idcard_detail.html:5
+msgid "MY ID CARD"
+msgstr ""
+
+#: payments/templates/payments/idcard_detail.html:15
+msgid "Your ID Card has expiered since"
+msgstr ""
+
+#: payments/templates/payments/idcard_detail.html:27
+msgid "ID CARD INFO"
+msgstr ""
+
+#: payments/templates/payments/idcard_detail.html:50
+msgid "You have not uploaded an ID Card yet."
+msgstr ""
+
+#: payments/templates/payments/idcard_detail.html:51
+msgid "You will not be able to use some features of PAY"
+msgstr ""
+
+#: payments/templates/payments/idcard_detail.html:52
+msgid "Follow this link to add your ID Card."
+msgstr ""
+
+#: payments/templates/payments/idcard_detail.html:52
+msgid "Add my ID Card"
+msgstr ""
+
+#: payments/templates/payments/idcard_update.html:5
+msgid "ID CARD UPDATE"
+msgstr ""
+
+#: payments/templates/payments/new_payment.html:4
+msgid "NEW PAYMENT"
+msgstr ""
+
+#: payments/templates/payments/new_payment.html:20
+#: payments/templates/payments/new_service.html:34
+#: payments/templates/payments/new_transfer.html:17
+msgid "You don't have sufficient balance to process this action"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:4 payments/views.py:329
+#: payments/views.py:370
+msgid "Service Usage"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:24
+#: payments/templates/tags/service_form.html:17
+#: payments/templates/tags/service_snippet.html:31
+msgid "Reference Number"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:25
+#: payments/templates/tags/service_form.html:18
+msgid "Your bill Reference number if applicable"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:28
+#: payments/templates/tags/service_form.html:21
+msgid "Your customer reference"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:41
+#: payments/templates/tags/service_form.html:33
+msgid "Payment Description"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:42
+#: payments/templates/tags/service_form.html:34
+msgid "Enter Service description here"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:47
+#: payments/templates/payments/payment_request.html:35
+#: payments/templates/tags/payment_request_form.html:14
+#: payments/templates/tags/service_form.html:39
+msgid "Pay"
+msgstr ""
+
+#: payments/templates/payments/new_transfer.html:4
+msgid "SEND MONEY"
+msgstr ""
+
+#: payments/templates/payments/payment_archive.html:4
+#: payments/templates/payments/transaction_archive.html:15
+msgid "Payment Archive"
+msgstr ""
+
+#: payments/templates/payments/payment_archive.html:8
+#: payments/templates/payments/transfer_list.html:8
+msgid "Make a Transfer"
+msgstr ""
+
+#: payments/templates/payments/payment_archive.html:13
+#: payments/templates/payments/service_archive.html:11
+#: payments/templates/payments/transfer_archive.html:11
+msgid "Years"
+msgstr ""
+
+#: payments/templates/payments/payment_archive.html:24
+msgid "Latest Payments"
+msgstr ""
+
+#: payments/templates/payments/payment_archive.html:37
+#: payments/templates/payments/transfer_archive.html:35
+msgid "You haven't made any transfer yet"
+msgstr ""
+
+#: payments/templates/payments/payment_archive_day.html:4
+#: payments/views.py:1244
+msgid "Payment Day Archive"
+msgstr ""
+
+#: payments/templates/payments/payment_archive_day.html:22
+msgid "Payment List"
+msgstr ""
+
+#: payments/templates/payments/payment_archive_month.html:4
+#: payments/views.py:1217 payments/views.py:1231
+msgid "Payment Month Archive"
+msgstr ""
+
+#: payments/templates/payments/payment_archive_month.html:10
+#: payments/templates/payments/service_archive_month.html:10
+#: payments/templates/payments/transfer_archive_month.html:10
+msgid "Days"
+msgstr ""
+
+#: payments/templates/payments/payment_archive_year.html:4
+msgid "Payments for year "
+msgstr ""
+
+#: payments/templates/payments/payment_archive_year.html:11
+#: payments/templates/payments/service_archive_year.html:11
+#: payments/templates/payments/transfer_archive_year.html:11
+msgid "Month"
+msgstr ""
+
+#: payments/templates/payments/payment_archive_year.html:22
+msgid "Payments List"
+msgstr ""
+
+#: payments/templates/payments/payment_details.html:7
+msgid "My Payments"
+msgstr ""
+
+#: payments/templates/payments/payment_details.html:8
+#: payments/templates/payments/payment_details.html:31
+msgid "Refund"
+msgstr ""
+
+#: payments/templates/payments/payment_details.html:33
+msgid "Last Change"
+msgstr ""
+
+#: payments/templates/payments/payment_details.html:35
+msgid "Declined Reason"
+msgstr ""
+
+#: payments/templates/payments/payment_home.html:10
+msgid "Update Subscription Plan"
+msgstr ""
+
+#: payments/templates/payments/payment_list.html:18
+#: payments/templates/payments/payment_list.html:28
+#: templates/reports/payment_reports.html:10
+msgid "Receiver"
+msgstr ""
+
+#: payments/templates/payments/payment_list.html:46
+msgid "There is no payments yet."
+msgstr ""
+
+#: payments/templates/payments/payment_list.html:49
+msgid "Recents payments will be displayed here."
+msgstr ""
+
+#: payments/templates/payments/payment_request.html:14
+msgid "PAYMENT REQUEST"
+msgstr ""
+
+#: payments/templates/payments/payment_request.html:34
+#: payments/templates/tags/payment_request_form.html:13
+msgid "Decline"
+msgstr ""
+
+#: payments/templates/payments/payment_request_done.html:18
+msgid "Your Payment was succesfull."
+msgstr ""
+
+#: payments/templates/payments/payment_request_done.html:22
+msgid "Your Payment could not be procceed."
+msgstr ""
+
+#: payments/templates/payments/payment_request_done.html:26
+msgid "You will be redirected to the merchant site."
+msgstr ""
+
+#: payments/templates/payments/payment_request_done.html:27
+msgid ""
+"Click here to directly go to the merchant site if you don't want to way."
+msgstr ""
+
+#: payments/templates/payments/payment_request_done.html:27
+msgid "Merchant"
+msgstr ""
+
+#: payments/templates/payments/payment_request_done.html:30
+msgid "Go To Marchant"
+msgstr ""
+
+#: payments/templates/payments/payment_verify.html:4
+msgid "PAYMENT VERIFICATION"
+msgstr ""
+
+#: payments/templates/payments/payment_verify.html:47
+#: payments/templates/payments/service_verify.html:47
+#: payments/templates/payments/transfer_verify.html:50
+msgid "Operator reference"
+msgstr ""
+
+#: payments/templates/payments/payment_verify.html:53
+#: payments/templates/payments/service_verify.html:53
+#: payments/templates/payments/transfer_verify.html:56
+msgid "Verify"
+msgstr ""
+
+#: payments/templates/payments/payment_verify.html:64
+msgid "Payment successdfully verified."
+msgstr ""
+
+#: payments/templates/payments/payment_verify.html:91
+#: payments/templates/payments/service_verify.html:69
+msgid "Payment could not be verified."
+msgstr ""
+
+#: payments/templates/payments/payment_verify.html:94
+#: payments/templates/payments/service_verify.html:72
+msgid "No payment could be found."
+msgstr ""
+
+#: payments/templates/payments/payment_verify.html:95
+#: payments/templates/payments/service_verify.html:73
+#: payments/templates/payments/transfer_verify.html:98
+msgid ""
+"Make sure that you entered the correct verification code or operator "
+"reference"
+msgstr ""
+
+#: payments/templates/payments/policygroup_update.html:10
+msgid "Change Partner Subscription"
+msgstr ""
+
+#: payments/templates/payments/policygroup_update.html:23
+msgid "Subscription Plan"
+msgstr ""
+
+#: payments/templates/payments/policygroup_update.html:25
+msgid "Select a Subscription Plan"
+msgstr ""
+
+#: payments/templates/payments/recharge.html:4
+msgid "BALANCE RECHARGE"
+msgstr ""
+
+#: payments/templates/payments/recharge.html:20
+#: payments/templates/tags/recharge_form.html:13
+msgid "Recharge my Account"
+msgstr ""
+
+#: payments/templates/payments/service_archive.html:4
+msgid "Service Payment Archive"
+msgstr ""
+
+#: payments/templates/payments/service_archive_day.html:4
+msgid "Service Payments Day Archive"
+msgstr ""
+
+#: payments/templates/payments/service_archive_day.html:22
+msgid "Service List"
+msgstr ""
+
+#: payments/templates/payments/service_archive_month.html:4
+msgid "Service Payments Month Archive"
+msgstr ""
+
+#: payments/templates/payments/service_archive_year.html:4
+msgid "Service Payments for year "
+msgstr ""
+
+#: payments/templates/payments/service_category_list.html:4
+msgid "CATEGORIES"
+msgstr ""
+
+#: payments/templates/payments/service_category_list.html:21
+#: templates/accounts/account.html:20
+msgid "No service available"
+msgstr ""
+
+#: payments/templates/payments/service_category_list.html:28
+#: templates/accounts/account.html:27
+msgid "Coming soon ..."
+msgstr ""
+
+#: payments/templates/payments/service_list.html:4
+#: payments/templates/payments/transactions_home.html:16
+msgid "Service Usage History"
+msgstr ""
+
+#: payments/templates/payments/service_list.html:9
+msgid "Available services"
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:61
+msgid "You have received a new payment from "
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:62
+msgid "Below are the details of the payment you have received"
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:80
+msgid "Client name"
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:89
+msgid "Invoice Reference Number"
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:98
+msgid "Invoice issue Date"
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:107
+msgid "Service category"
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:125
+msgid "Pay commision "
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:134
+msgid "PAY Fee "
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:143
+msgid "Payment Date"
+msgstr ""
+
+#: payments/templates/payments/service_mail_confirmation_incoming.html:152
+msgid "Paymnt description"
+msgstr ""
+
+#: payments/templates/payments/service_verify.html:4
+msgid "SERVICE PAYMENT VERIFICATION"
+msgstr ""
+
+#: payments/templates/payments/transaction_archive.html:5
+msgid "TRANSACTIONS ARCHIVE"
+msgstr ""
+
+#: payments/templates/payments/transaction_archive.html:14
+#: payments/templates/payments/transfer_archive.html:4 payments/views.py:1277
+msgid "Transfer Archive"
+msgstr ""
+
+#: payments/templates/payments/transaction_archive.html:16
+msgid "Service Archive"
+msgstr ""
+
+#: payments/templates/payments/transaction_verification.html:5
+msgid "TRANSACTION VERIFICATION"
+msgstr ""
+
+#: payments/templates/payments/transactions_home.html:5
+msgid "TRANSACTIONS"
+msgstr ""
+
+#: payments/templates/payments/transactions_home.html:17
+msgid "Archive"
+msgstr ""
+
+#: payments/templates/payments/transactions_home.html:18
+#: payments/templates/tags/verification_links.html:4
+msgid "Verify Transfer"
+msgstr ""
+
+#: payments/templates/payments/transactions_home.html:19
+#: payments/templates/tags/verification_links.html:5
+msgid "Verify Payment"
+msgstr ""
+
+#: payments/templates/payments/transactions_home.html:20
+#: payments/templates/tags/verification_links.html:6
+msgid "Verify Service Payment"
+msgstr ""
+
+#: payments/templates/payments/transfer_archive.html:22
+msgid "Latest Transfers"
+msgstr ""
+
+#: payments/templates/payments/transfer_archive_day.html:4
+msgid "Transfers Day Archive"
+msgstr ""
+
+#: payments/templates/payments/transfer_archive_month.html:4
+msgid "Transfers for Month Archive"
+msgstr ""
+
+#: payments/templates/payments/transfer_archive_year.html:4
+msgid "Transfers for year "
+msgstr ""
+
+#: payments/templates/payments/transfer_detail.html:4
+msgid "TRANSFER DETAILS"
+msgstr ""
+
+#: payments/templates/payments/transfer_verify.html:5
+msgid "TRANSFER VERIFICATION"
+msgstr ""
+
+#: payments/templates/payments/transfer_verify.html:67
+msgid "Transfer successdfully verified."
+msgstr ""
+
+#: payments/templates/payments/transfer_verify.html:94
+msgid "Transfer could not be verified."
+msgstr ""
+
+#: payments/templates/payments/transfer_verify.html:97
+msgid "No transfer could be found."
+msgstr ""
+
+#: payments/templates/payments/upload_idcard.html:4
+msgid "NEW ID CARD  UPLOAD"
+msgstr ""
+
+#: payments/templates/tags/available_service_form.html:12
+msgid "Enter the operator name"
+msgstr ""
+
+#: payments/templates/tags/idcard_upload_form.html:16
+msgid "Valid until "
+msgstr ""
+
+#: payments/templates/tags/idcard_upload_form.html:20
+msgid "Where was it delivered ?"
+msgstr ""
+
+#: payments/templates/tags/idcard_upload_form.html:25
+msgid "Select your ID card image"
+msgstr ""
+
+#: payments/templates/tags/payments_links.html:3
+#: payments/templates/tags/payments_links.html:8
+msgid "Transactions"
+msgstr ""
+
+#: payments/templates/tags/payments_links.html:6
+#: payments/templates/tags/payments_links.html:11
+msgid "Transaction Verification"
+msgstr ""
+
+#: payments/templates/tags/service_snippet.html:36
+msgid "Customer Reference"
+msgstr ""
+
+#: payments/templates/tags/transaction_done_content.html:4
+msgid "Your transaction was succesfull."
+msgstr ""
+
+#: payments/templates/tags/transaction_done_content.html:5
+#: payments/templates/tags/transfer_done_content.html:6
+msgid "You will be redirected to your account page in an instant."
+msgstr ""
+
+#: payments/templates/tags/transaction_done_content.html:6
+#: payments/templates/tags/transfer_done_content.html:7
+msgid "Click here to directly go to your Account if you don't want to way."
+msgstr ""
+
+#: payments/templates/tags/transaction_done_content.html:6
+#: payments/templates/tags/transfer_done_content.html:7 templates/base
+#: copy.html:66 templates/base.html:71
+#: templates/registration/email_validation.html:19
+msgid "My Account"
+msgstr ""
+
+#: payments/templates/tags/transfer_done_content.html:5
+msgid "Your transaction was succesfull. "
+msgstr ""
+
+#: payments/templates/tags/upload_idcard_done_content.html:4
+msgid "Your Id  was succesfull uploaded."
+msgstr ""
+
+#: payments/templates/tags/upload_idcard_done_content.html:5
+msgid "You will be redirected to the home page in an instant."
+msgstr ""
+
+#: payments/templates/tags/upload_idcard_done_content.html:6
+msgid "Click here to directly go to your"
+msgstr ""
+
+#: payments/views.py:55
+msgid "Payment - "
+msgstr ""
+
+#: payments/views.py:108
+msgid "Transactions - "
+msgstr ""
+
+#: payments/views.py:120
+msgid "Transaction Archive - "
+msgstr ""
+
+#: payments/views.py:168
+msgid "Transaction Confirmation - "
+msgstr ""
+
+#: payments/views.py:181
+msgid "Transaction Details - "
+msgstr ""
+
+#: payments/views.py:193
+msgid "My Transers - "
+msgstr ""
+
+#: payments/views.py:221
+msgid "New Transfer - "
+msgstr ""
+
+#: payments/views.py:244
+msgid "Transfer Confirmation - "
+msgstr ""
+
+#: payments/views.py:261
+msgid "Transfer Details - "
+msgstr ""
+
+#: payments/views.py:279
+msgid "Services - "
+msgstr ""
+
+#: payments/views.py:290
+msgid "Transfer Verification + "
+msgstr ""
+
+#: payments/views.py:337 payments/views.py:383
+msgid ""
+"We have send you a confirmation E-Mail. You will receive it in an instant"
+msgstr ""
+
+#: payments/views.py:425
+msgid "Service Payment Confirmation - "
+msgstr ""
+
+#: payments/views.py:436
+msgid "Service Details - "
+msgstr ""
+
+#: payments/views.py:446
+msgid "Service Verification + "
+msgstr ""
+
+#: payments/views.py:929
+msgid "Account Recharge"
+msgstr ""
+
+#: payments/views.py:942
+msgid "Recharge Confirmation"
+msgstr ""
+
+#: payments/views.py:962
+msgid "Voucher couldn't be used"
+msgstr ""
+
+#: payments/views.py:1088
+msgid "Transaction Verification - "
+msgstr ""
+
+#: payments/views.py:1187
+msgid "Balance Overview"
+msgstr ""
+
+#: payments/views.py:1204
+msgid "Payment Year Archive"
+msgstr ""
+
+#: payments/views.py:1259
+msgid "Payment Archive from Today"
+msgstr ""
+
+#: payments/views.py:1291
+msgid "Transfer Year Archive"
+msgstr ""
+
+#: payments/views.py:1306
+msgid "Transfer Month Archive"
+msgstr ""
+
+#: payments/views.py:1322
+msgid "Transfer Day Archive"
+msgstr ""
+
+#: payments/views.py:1338
+msgid "Transfer Archive of Today"
+msgstr ""
+
+#: payments/views.py:1354
+msgid "Service Year Archive"
+msgstr ""
+
+#: payments/views.py:1367 payments/views.py:1381
+msgid "Service Month Archive"
+msgstr ""
+
+#: payments/views.py:1394
+msgid "Service Day Archive"
+msgstr ""
+
+#: payments/views.py:1409
+msgid "Service Archive from Today"
+msgstr ""
+
+#: templates/400.html:7
+msgid "Bad Request ! "
+msgstr ""
+
+#: templates/400.html:10
+msgid "The server did not understand your request."
+msgstr ""
+
+#: templates/400.html:13 templates/403.html:13 templates/404.html:13
+#: templates/500.html:15
+msgid "Go back to Home Page"
+msgstr ""
+
+#: templates/403.html:7
+msgid "Access Forbidden ! "
+msgstr ""
+
+#: templates/403.html:10
+msgid "You are not allowed to access this page."
+msgstr ""
+
+#: templates/404.html:7
+msgid "Resource not found ! "
+msgstr ""
+
+#: templates/404.html:10
+msgid "The content you requested does not exist."
+msgstr ""
+
+#: templates/500.html:7
+msgid "Internal Server Error ! "
+msgstr ""
+
+#: templates/500.html:10
+msgid "The server has encountered an internal error."
+msgstr ""
+
+#: templates/500.html:11
+msgid "If this problem persists please contact us."
+msgstr ""
+
+#: templates/500.html:12
+msgid "Our technicians are working on the problem."
+msgstr ""
+
+#: templates/accounts/account.html:9
+msgid "Services Offer"
+msgstr ""
+
+#: templates/accounts/account.html:9 templates/tags/payment_list_snippet.html:8
+#: templates/tags/service_list_snippet.html:8
+#: templates/tags/transaction_list_snippets.html:9
+#: templates/tags/transfer_list_snippet.html:9
+msgid "See all"
+msgstr ""
+
+#: templates/base copy.html:53 templates/base.html:57
+msgid "Discover our services"
+msgstr ""
+
+#: templates/base copy.html:64 templates/base.html:68
+msgid "Marchand"
+msgstr ""
+
+#: templates/base copy.html:69 templates/base.html:74
+msgid "Create an Account"
+msgstr ""
+
+#: templates/base copy.html:70 copy.html:101 templates/base.html:75
+#: templates/base.html:91 templates/registration/login.html:42
+#: templates/registration/password_reset_complete.html:11
+#: templates/tags/signup_dialog.html:34
+msgid "Login"
+msgstr ""
+
+#: templates/base copy.html:93 templates/base.html:83
+msgid "Enable Grid"
+msgstr ""
+
+#: templates/base copy.html:133
+msgid "Close all"
+msgstr ""
+
+#: templates/base copy.html:169
+msgid "ONLINE SHOP"
+msgstr ""
+
+#: templates/base copy.html:172 templates/base.html:154
+#: templates/dashboard_base.html:83
+msgid "About us"
+msgstr ""
+
+#: templates/base copy.html:173 templates/base.html:155
+#: templates/dashboard_base.html:84
+msgid "FAQ"
+msgstr ""
+
+#: templates/base.html:151
+msgid "ONLINE PAYMENT"
+msgstr ""
+
+#: templates/customer_usage.html:10 templates/home.html:7
+msgid "Welcome to PAY"
+msgstr ""
+
+#: templates/customer_usage.html:11 templates/home.html:8
+msgid "Your Payment Solution"
+msgstr ""
+
+#: templates/customer_usage.html:14
+msgid "Advantages for individuals"
+msgstr ""
+
+#: templates/customer_usage.html:16
+msgid "Do not waste your time queuing to pay your bill."
+msgstr ""
+
+#: templates/customer_usage.html:17
+msgid "No need to move."
+msgstr ""
+
+#: templates/customer_usage.html:18
+msgid "Pay your bills from your chair."
+msgstr ""
+
+#: templates/customer_usage.html:30
+msgid ""
+"No more petite monaies problems, wherever you are, pay in a simple click"
+msgstr ""
+
+#: templates/customer_usage.html:42 templates/home.html:24
+#: templates/home.html:55
+msgid "Discover PAY"
+msgstr ""
+
+#: templates/customer_usage.html:46 templates/home.html:58
+msgid "Charge your PAY account and enjoy simplified payment."
+msgstr ""
+
+#: templates/customer_usage.html:55
+msgid "More..."
+msgstr ""
+
+#: templates/customer_usage.html:71 templates/home.html:74
+#: templates/home.html:93
+msgid "For individuals"
+msgstr ""
+
+#: templates/customer_usage.html:75
+msgid "As a user, just reload your account at one of our offices."
+msgstr ""
+
+#: templates/customer_usage.html:84 templates/home.html:64
+#: templates/home.html:83
+msgid "Learn more"
+msgstr ""
+
+#: templates/customer_usage.html:100
+msgid "Create your PAY account for free"
+msgstr ""
+
+#: templates/customer_usage.html:101
+msgid "with your e-mail address and a password"
+msgstr ""
+
+#: templates/customer_usage.html:114
+msgid "Charge your PAY account at one of our offices"
+msgstr ""
+
+#: templates/customer_usage.html:126
+msgid "Make your purchases or pay your bills with your PAY account"
+msgstr ""
+
+#: templates/dashboard_base.html:25
+msgid "Transations"
+msgstr ""
+
+#: templates/dashboard_base.html:37
+msgid "Users Settings"
+msgstr ""
+
+#: templates/dashboard_base.html:48
+msgid "Vouchers Settings"
+msgstr ""
+
+#: templates/dashboard_base.html:57
+msgid "Recharge Balance"
+msgstr ""
+
+#: templates/dashboard_base.html:58 templates/voucher_base.html:26
+msgid "Generate Vouchers"
+msgstr ""
+
+#: templates/dashboard_base.html:62
+msgid "Partner Settings"
+msgstr ""
+
+#: templates/dashboard_base.html:72
+msgid "Pay Site"
+msgstr ""
+
+#: templates/dashboard_base.html:80
+msgid "ONLINE PAYMENT SYSTEM"
+msgstr ""
+
+#: templates/dashboard_base.html:100
+msgid "Search"
+msgstr ""
+
+#: templates/dashboard_base.html:106
+msgid "Administrator"
+msgstr ""
+
+#: templates/faq_flat.html:35
+msgid "Knowledge Base"
+msgstr ""
+
+#: templates/faq_flat.html:47
+msgid "What is a Transfer ?"
+msgstr ""
+
+#: templates/faq_flat.html:51
+msgid ""
+"\n"
+"                    A Transfer is transaction where a user A sends money to "
+"a User B. \n"
+"                    The User A is debited with the amount to send while the "
+"User B Account is augmented with the received amount. \n"
+"                    This Operation is not cancelable.\n"
+"                    "
+msgstr ""
+
+#: templates/faq_flat.html:63
+msgid "What is a Payment ?"
+msgstr ""
+
+#: templates/faq_flat.html:67
+msgid ""
+"\n"
+"                    A Payment is a trade of values from one party to another "
+"for goods or services. \n"
+"                    The mean of payment is money. The user receiving the "
+"payment must have a business account.\n"
+"                    "
+msgstr ""
+
+#: templates/faq_flat.html:78
+msgid "What is a Service ?"
+msgstr ""
+
+#: templates/faq_flat.html:82
+msgid ""
+"\n"
+"                    A service is offered by one or more entities in exchange "
+"for money.\n"
+"                    A service is a transaction in which no physical good is "
+"transferred from the seller to the buyer. \n"
+"                    To offer a service the seller must have a business "
+"account.\n"
+"                    \n"
+"                    "
+msgstr ""
+
+#: templates/faq_flat.html:95
+msgid "How do I find the available services ?"
+msgstr ""
+
+#: templates/faq_flat.html:99
+msgid ""
+"\n"
+"                    From the home Page it is possible to navigate to list of "
+"available services that can be consumed by the users. \n"
+"                    On the main top bar header, click on the Available "
+"Services link.\n"
+"                    "
+msgstr ""
+
+#: templates/faq_flat.html:110
+msgid "How do I recharge my Account with credit ?"
+msgstr ""
+
+#: templates/faq_flat.html:114
+msgid ""
+"To recharge your Account Balance you can buy Voucher Code from our sell "
+"points in Douala. Once you get your Voucher Code, you log in your Account "
+"and click to \"RECHARGE MY BALANCE\" link. From there now enter your Voucher "
+"Code and validate.If the code is valid your Balance will be updated to the "
+"new amount. A confirmation message is sent your registered email."
+msgstr ""
+
+#: templates/faq_flat.html:121
+msgid ""
+"You also have the possibility to let one of our Agent to recharge your "
+"account directly."
+msgstr ""
+
+#: templates/faq_flat.html:128
+msgid "Where can I buy voucher ?"
+msgstr ""
+
+#: templates/faq_flat.html:131
+msgid "You can buy Voucher Code from our sell points in Douala."
+msgstr ""
+
+#: templates/faq_flat.html:146
+msgid "Who can make Transfer ?"
+msgstr ""
+
+#: templates/faq_flat.html:150
+msgid ""
+"Only user with private account can make Transfer. Transfer Transactions are "
+"not allowed for business Account."
+msgstr ""
+
+#: templates/home.html:12
+msgid "Don't waste your time waiting in line to pay your bill"
+msgstr ""
+
+#: templates/home.html:17
+msgid "Pay your bills from your chair"
+msgstr ""
+
+#: templates/home.html:34
+msgid "An ideal payment solution for everyone"
+msgstr ""
+
+#: templates/home.html:36
+msgid "No more change problems"
+msgstr ""
+
+#: templates/home.html:41
+msgid "Wherever you are, pay with just one click"
+msgstr ""
+
+#: templates/home.html:77
+msgid ""
+"As a user, just recharge your balance from your chair with a voucher card."
+msgstr ""
+
+#: templates/home.html:90
+msgid "Usage"
+msgstr ""
+
+#: templates/home.html:94
+msgid "For Business"
+msgstr ""
+
+#: templates/home.html:110
+msgid "Create your free account"
+msgstr ""
+
+#: templates/home.html:124
+msgid "Load your account from your sofa"
+msgstr ""
+
+#: templates/home.html:138
+msgid "Make your purchases or pay your bills comfortably"
+msgstr ""
+
+#: templates/home.html:157
+msgid "Create your Business PAY account for free"
+msgstr ""
+
+#: templates/home.html:172
+msgid "Choose the PAY option that suits your business"
+msgstr ""
+
+#: templates/home.html:185
+msgid "Receive your payments while you are traveling"
+msgstr ""
+
+#: templates/home.html:192
+msgid "Tell me More"
+msgstr ""
+
+#: templates/home.html:200
+msgid "More security"
+msgstr ""
+
+#: templates/home.html:202
+msgid ""
+"Your payments are secure. In case of non-delivery, your payment will be "
+"refunded"
+msgstr ""
+
+#: templates/home.html:207
+msgid "Customer protection"
+msgstr ""
+
+#: templates/home.html:211
+msgid "More security for your business"
+msgstr ""
+
+#: templates/home.html:213
+msgid "You can check the validity of each transaction"
+msgstr ""
+
+#: templates/home.html:217
+msgid "Protection for business"
+msgstr ""
+
+#: templates/registration/email_validation.html:7
+#: templates/registration/registration_complete.html:7
+msgid "Registration successful"
+msgstr ""
+
+#: templates/registration/email_validation.html:17
+msgid ""
+"Great! Your email address has been verified. You can now log to your account."
+msgstr ""
+
+#: templates/registration/email_validation.html:18
+msgid "Go to your Account by folowing this Link "
+msgstr ""
+
+#: templates/registration/email_validation.html:21
+msgid "Sorry! Your email address could not be verified."
+msgstr ""
+
+#: templates/registration/email_validation.html:22
+msgid "Click on this link to get a new activation link "
+msgstr ""
+
+#: templates/registration/email_validation.html:23
+msgid "Send me a Validation link"
+msgstr ""
+
+#: templates/registration/email_validation.html:24
+msgid "Home Page"
+msgstr ""
+
+#: templates/registration/login.html:37
+#: templates/tags/registration_form.html:23
+#: templates/tags/signup_dialog.html:31
+msgid "Password"
+msgstr ""
+
+#: templates/registration/login.html:45
+#: templates/registration/password_reset_form.html:16
+msgid "Forgot your password ?"
+msgstr ""
+
+#: templates/registration/login.html:48
+msgid "New here ? "
+msgstr ""
+
+#: templates/registration/login.html:48
+msgid "Register"
+msgstr ""
+
+#: templates/registration/password_change.html:7
+msgid "CHANGE PASSWORD"
+msgstr ""
+
+#: templates/registration/password_change.html:19
+msgid ""
+"Your password should not be too similar to your other personal information"
+msgstr ""
+
+#: templates/registration/password_change.html:20
+msgid "Your password must contain at least 8 characters"
+msgstr ""
+
+#: templates/registration/password_change.html:21
+msgid "Your password cannot be a commonly used password"
+msgstr ""
+
+#: templates/registration/password_change.html:22
+msgid "Your password must not be entirely numeric"
+msgstr ""
+
+#: templates/registration/password_change.html:27
+msgid "Old password"
+msgstr ""
+
+#: templates/registration/password_change.html:30
+#: templates/registration/password_reset_confirm.html:20
+msgid "New password"
+msgstr ""
+
+#: templates/registration/password_change.html:33
+#: templates/registration/password_reset_confirm.html:24
+msgid "Confirm password"
+msgstr ""
+
+#: templates/registration/password_change.html:38
+msgid "Change Password"
+msgstr ""
+
+#: templates/registration/password_change_done.html:7
+msgid "PASSWORD CHANGED"
+msgstr ""
+
+#: templates/registration/password_change_done.html:16
+msgid "Your password has been changed successfully"
+msgstr ""
+
+#: templates/registration/password_change_done.html:17
+#: templates/registration/password_reset_complete.html:7
+msgid "Back to home page"
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:6
+msgid "Password changed"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:7
+#: templates/registration/password_reset_done.html:8
+msgid "Confirmation"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:8
+#: templates/registration/password_reset_done.html:9
+#: templates/registration/password_reset_form.html:9
+msgid "Home page"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:17
+msgid "Please enter your new password twice."
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:29
+msgid "Change"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:34
+msgid ""
+"The reset password link is invalid. Make a new request if you want to reset "
+"your password"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:6
+#: templates/registration/password_reset_form.html:8
+#: templates/registration/password_reset_subject.txt:2
+msgid "Password reset"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:17
+msgid ""
+"We have sent you an email with instructions on how to reset your password."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:18
+msgid "You should receive it in a moment."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:20
+msgid ""
+"Check that you have given the correct email address, the one with which you "
+"registered with us."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:22
+msgid "Also check your spam."
+msgstr ""
+
+#: templates/registration/password_reset_email.html:5
+msgid ""
+"You are receiving this email because you requested to reset your password"
+msgstr ""
+
+#: templates/registration/password_reset_email.html:7
+msgid "Please follow this link and choose a new password"
+msgstr ""
+
+#: templates/registration/password_reset_email.html:10
+msgid "Your username, in case you forgot it"
+msgstr ""
+
+#: templates/registration/password_reset_email.html:12
+msgid "Thank you for using our site!"
+msgstr ""
+
+#: templates/registration/password_reset_email.html:14
+msgid "Sincerely"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:17
+msgid ""
+"Fill in your Email address in the field below and we'll send you "
+"instructions on how to reset your password."
+msgstr ""
+
+#: templates/registration/password_reset_form.html:22
+msgid "We will never ask you for your password."
+msgstr ""
+
+#: templates/registration/password_reset_form.html:27
+msgid "Email"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:33
+msgid "Reset"
+msgstr ""
+
+#: templates/registration/register.html:42
+#: templates/registration/vendor_register.html:49
+msgid "Already have an account ? "
+msgstr ""
+
+#: templates/registration/register.html:42
+#: templates/registration/vendor_register.html:49
+msgid "Sign In"
+msgstr ""
+
+#: templates/registration/registration_complete.html:15
+msgid "You account has been successfully created."
+msgstr ""
+
+#: templates/registration/registration_complete.html:16
+msgid "A verification mail has been sent to your email"
+msgstr ""
+
+#: templates/registration/registration_complete.html:17
+msgid "Please open email and follows the described steps"
+msgstr ""
+
+#: templates/registration/registration_complete.html:18
+msgid "Once your email has been verified, you will able to place orders."
+msgstr ""
+
+#: templates/registration/registration_complete.html:19
+msgid "Home"
+msgstr ""
+
+#: templates/registration/vendor_register.html:33
+#: templates/tags/registration_form.html:45
+msgid "Account type"
+msgstr ""
+
+#: templates/registration/vendor_register.html:35
+#: templates/tags/registration_form.html:47
+msgid "Select an Account Type"
+msgstr ""
+
+#: templates/reports/activities_invoice.html:12
+#: templates/reports/recharge_report.html:9
+#: templates/reports/sold_vouchers_report.html:11
+msgid "Pos."
+msgstr ""
+
+#: templates/reports/activities_invoice.html:34
+#: templates/reports/payment_reports.html:31
+#: templates/reports/recharge_report.html:31
+#: templates/reports/report_content.html:13
+#: templates/reports/sold_vouchers_report.html:33
+msgid "Total"
+msgstr ""
+
+#: templates/reports/recharge_report.html:10
+#: templates/reports/sold_vouchers_report.html:12
+msgid "Card Name"
+msgstr ""
+
+#: templates/reports/recharge_report.html:11
+#: templates/reports/sold_vouchers_report.html:13
+msgid "Code"
+msgstr ""
+
+#: templates/reports/report_footer.html:7
+msgid "Your online payment solution !"
+msgstr ""
+
+#: templates/reports/report_header.html:7
+msgid "Date interval"
+msgstr ""
+
+#: templates/reports/sold_vouchers_report.html:8
+msgid "Voucher Card Listing"
+msgstr ""
+
+#: templates/reports/sold_vouchers_report.html:34
+msgid "Numbers of card sold"
+msgstr ""
+
+#: templates/site_account_base.html:7
+msgid "Welcome"
+msgstr ""
+
+#: templates/tags/activity_list_snippet.html:43
+msgid "There is no activities yet."
+msgstr ""
+
+#: templates/tags/balance_activities_snippet.html:44
+msgid "There is no Balance activities yet."
+msgstr ""
+
+#: templates/tags/balance_activities_snippet.html:50
+#: templates/tags/payment_list_snippet.html:34
+#: templates/tags/payments_snippet.html:35
+#: templates/tags/recharge_list_table_snippet.html:35
+#: templates/tags/sold_voucher_list_snippet.html:36
+#: templates/tags/transfer_list_snippet.html:36
+#: templates/tags/used_voucher_list_snippet.html:37
+#: templates/tags/voucher_generate_form.html:32
+#: templates/tags/voucher_list_snippet.html:47
+#: templates/tags/voucher_recharge_form.html:23
+#: templates/tags/voucher_snippet.html:89
+msgid "You are not allowed to access this page"
+msgstr ""
+
+#: templates/tags/channel.html:3
+msgid "Send Mail"
+msgstr ""
+
+#: templates/tags/channel.html:4
+msgid "Contact us on Facebook"
+msgstr ""
+
+#: templates/tags/footer_content.html:6
+msgid "Our Engagement"
+msgstr ""
+
+#: templates/tags/footer_content.html:12
+msgid "Partners"
+msgstr ""
+
+#: templates/tags/footer_content.html:18
+msgid "Security"
+msgstr ""
+
+#: templates/tags/footer_content.html:24
+msgid "Contact"
+msgstr ""
+
+#: templates/tags/language.html:14
+msgid "Current language : "
+msgstr ""
+
+#: templates/tags/language.html:16
+msgid "Select language : "
+msgstr ""
+
+#: templates/tags/pagination.html:13
+msgid "current"
+msgstr ""
+
+#: templates/tags/payment_list_snippet.html:30
+#: templates/tags/payments_snippet.html:31
+msgid "You haven't made any Payments"
+msgstr ""
+
+#: templates/tags/recharge_list_table_snippet.html:31
+#: templates/tags/sold_voucher_list_snippet.html:32
+#: templates/tags/voucher_list_snippet.html:42
+msgid "There are no Voucher sold now."
+msgstr ""
+
+#: templates/tags/recharge_snippet.html:7 voucher/views.py:329
+msgid "Recharge Info"
+msgstr ""
+
+#: templates/tags/recharge_snippet.html:13
+msgid "Recharge Date"
+msgstr ""
+
+#: templates/tags/recharge_snippet.html:16
+msgid "Executed by"
+msgstr ""
+
+#: templates/tags/recharge_snippet.html:19
+msgid "Recharged User"
+msgstr ""
+
+#: templates/tags/registration_form.html:28
+msgid "Password Confirmation"
+msgstr ""
+
+#: templates/tags/registration_form.html:41
+msgid "Date of birth"
+msgstr ""
+
+#: templates/tags/service_list_snippet.html:30
+msgid "There is no transactions yet"
+msgstr ""
+
+#: templates/tags/signup_dialog.html:7
+msgid "Accedez à PAY"
+msgstr ""
+
+#: templates/tags/signup_dialog.html:13
+msgid "I have a PAY account"
+msgstr ""
+
+#: templates/tags/signup_dialog.html:16
+msgid "I want to create an PAY account"
+msgstr ""
+
+#: templates/tags/signup_dialog.html:50
+msgid "Your Password"
+msgstr ""
+
+#: templates/tags/signup_dialog.html:51
+msgid "Enter Your Password again"
+msgstr ""
+
+#: templates/tags/signup_dialog.html:53
+msgid "Phone-Number"
+msgstr ""
+
+#: templates/tags/signup_dialog.html:56
+msgid "Create My PAY Account"
+msgstr ""
+
+#: templates/tags/transaction_list_snippets.html:59
+msgid "There is no transactions yet."
+msgstr ""
+
+#: templates/tags/transfer_list_snippet.html:31
+msgid "You haven't made any Transfers"
+msgstr ""
+
+#: templates/tags/unauthorized.html:4
+msgid "The requested Page was not found."
+msgstr ""
+
+#: templates/tags/used_voucher_list_snippet.html:33
+msgid "There are no used Voucher now."
+msgstr ""
+
+#: templates/tags/voucher_generate_form.html:9
+#: voucher/templates/tags/voucher_generate_form_del.html:7
+msgid "Voucher Card Name"
+msgstr ""
+
+#: templates/tags/voucher_generate_form.html:14
+#: voucher/templates/tags/voucher_generate_form_del.html:12
+msgid "Voucher Recharge Credit"
+msgstr ""
+
+#: templates/tags/voucher_generate_form.html:19
+#: voucher/templates/tags/voucher_generate_form_del.html:17
+msgid "Number of Voucher card to generate"
+msgstr ""
+
+#: templates/tags/voucher_generate_form.html:25
+#: voucher/templates/tags/voucher_generate_form_del.html:23
+msgid "Generate"
+msgstr ""
+
+#: templates/tags/voucher_list_snippet.html:12
+msgid "Voucher Name"
+msgstr ""
+
+#: templates/tags/voucher_list_snippet.html:26
+msgid "activated,deactivated"
+msgstr ""
+
+#: templates/tags/voucher_snippet.html:24
+msgid "Activated by"
+msgstr ""
+
+#: templates/tags/voucher_snippet.html:31
+msgid "Sold by"
+msgstr ""
+
+#: templates/tags/voucher_snippet.html:36
+msgid "Used by"
+msgstr ""
+
+#: templates/tags/voucher_snippet.html:46
+msgid "Activate this Voucher"
+msgstr ""
+
+#: templates/voucher_base.html:23 templates/voucher_base.html:32
+msgid "Recharge Account"
+msgstr ""
+
+#: voucher/models.py:53
+msgid "SoldVoucher"
+msgstr ""
+
+#: voucher/models.py:54
+msgid "SoldVouchers"
+msgstr ""
+
+#: voucher/models.py:73
+msgid "UsedVoucher"
+msgstr ""
+
+#: voucher/models.py:74
+msgid "UsedVouchers"
+msgstr ""
+
+#: voucher/templates/voucher_base.html:25
+msgid "Recharges History"
+msgstr ""
+
+#: voucher/views.py:129
+msgid "The customer balance has been successfully recharged"
+msgstr ""
