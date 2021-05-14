@@ -6,7 +6,7 @@
 <div class="container">
     <div class="highlight">
         
-        <div class="row align-center label"><span class="label">{% trans "Services Offer" %}</span> <a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"><span>{% trans "See all" %}</span></a></div>
+        <div class="flex align-center label"><span class="label">{% trans "Services Offer" %}</span> <a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"><span>{% trans "See all" %}</span></a></div>
         <ul class="row">
             {% for cat in category_list %}
             <li>
