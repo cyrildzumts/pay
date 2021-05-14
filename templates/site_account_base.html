@@ -9,15 +9,16 @@
         {% if balance %}
         <div class="full padding-v">
             <div class="balance-info">
-                <div class="row flex-left"><h4>{% trans "Balance" %}</h4></div>
                 <div class="row flex-left balance"><span class="money">{{balance.balance|floatformat:"-2"}}</span><span class="currency">{% trans CURRENCY %}</span></div>
+                <div class="row flex-left"><span class="small text-gray">{% trans "Current balance" %}</span></div>
             </div><!--End of Banner-Content-->
         </div>
         {% endif %}
         <ul class="primary-actions grid padding">
-            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"><i class="fas fa-paper-plane padding"></i><span>{% trans "Send money" %}</span></a></li>
-            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"><i class="fas fa-money-check-alt padding"></i><span>{% trans "Make Payment" %}</span></a></li>
-            <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"><i class="fas fa-money-bill padding"></i><span>{% trans "Recharge" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-transfer' %}"><i class="fas fa-paper-plane icon"></i><span>{% trans "Send money" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:new-payment' %}"><i class="fas fa-money-check-alt icon"></i><span>{% trans "Make Payment" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:recharge' %}"><i class="fas fa-plus icon"></i><span>{% trans "Recharge" %}</span></a></li>
+            <li><a class="mat-button mat-button-text" href="{%url 'payments:statistics' %}"><i class="fas fa-chart-bar icon"></i><span>{% trans "Statistics" %}</span></a></li>
         </ul>
         <div class="collapsible">
             <span class="open">{% trans "More" %} <i class="fas fa-ellipsis-h icon"></i></span>
