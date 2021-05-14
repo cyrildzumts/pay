@@ -364,6 +364,6 @@ def current_month_reports(**filters):
     #current_month = datetime.date.today()
     #filters.update({'created_at__year': current_month.year, 'created_at__month': current_month.month})
     queryset = BalanceHistory.objects.select_related().filter(**filters)
-    annotations = queryset.values('activity').annotate(total=Sum('current_amount'))
+    annotations = queryset.values('activity', 'is_incoming').annotate(total=Sum('current_amount'))
     aggregates = queryset.aggregate(total=Sum('current_amount'))
     return annotations, aggregates

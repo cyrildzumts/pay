@@ -19,7 +19,7 @@
         <div class="tab-content">
             <div class="mat-box full">
                 {% for entry in detailed_reports %}
-                <div class="entry"><span>{{entry.activity|balance_activity}}</span> - <span>{{entry.total}} {% trans CURRENCY %}</span></div>
+                <div class="entry"><span>{{entry.activity|balance_activity}}</span>  <span class="{% if not entry.is_incoming %}outgoing{% else %}incoming{% endif %}">{{entry.total}}</span><span>{% trans CURRENCY %}</span></div>
                 {% endfor %}
             </div>
         </div>
