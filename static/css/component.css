@@ -2475,7 +2475,6 @@
   .dropdown-content{
 	  display: none;
 	  position: fixed;
-	  width: 100%;
 	  list-style-type: none;
 	  z-index: 100;
   }
