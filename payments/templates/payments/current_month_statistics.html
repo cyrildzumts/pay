@@ -14,8 +14,10 @@
     <div class="entry"><span>{% trans "Incomes" %}</span> <span class="incoming">{{global_reports.total_incoming|default_if_none:'0'}} {% trans CURRENCY %}</span></div>
     <div class="tabs-container">
         <div class="tabs">
-            <div class="tab"><span class="bold">{% trans "Expenses" %}</span></div>
-            <div class="tab"><span class="bold">{% trans "Incomes" %}</span></div>
+            {% comment %}
+                <div class="tab"><span class="bold">{% trans "Expenses" %}</span></div>
+                <div class="tab"><span class="bold">{% trans "Incomes" %}</span></div>
+            {% endcomment %}
         </div>
         <div id="expenses" class="tab-content">
             <div class=""><span class="small bold">{% trans "Expenses" %}</span></div>
