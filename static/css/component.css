@@ -1,52 +1,4 @@
 /* Utility */
-
-:root{
-	--active-border-color: #45A29E;
-	--body-bg:#fff;
-	--header-hover-color: #66FCF1; 
-	--header-bg: #fafafa;
-	--header-color: #242424;
-	--header-panel-bg :#fafafa;
-	--header-panel-color: #242424;
-	--banner-bg: #45A29E;
-	--banner-color: #fff;
-	--card-bg : transparent;
-	--card-color : #616161;
-	--btn-border : 1px solid #ccc;
-	--btn-color: #242424;
-	--input-border : 1px solid #ccc;
-	--btn-hover-border : 1px solid #454545;
-	--btn-hover-color: #454545;
-	--box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-					0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-					0px 1px 3px 0px rgba(65, 40, 40, 0.12);
-	--in-bg : #4caf50;
-	--in-color: #eeeeee;
-	--out-bg:#e91e63;
-	--out-color:#eeeeee;
-	--logo-bg: #fff;
-	--logo-color: #242424;
-	--nav-link-color: #fff;
-	--nav-link-hover-color: #242424;
-	--form-bg: transparent;
-	--form-color: #242424;
-	--disabled-color: #ccc;
-	--disabled-bg-color: #fafafa;
-	--disabled-hover-bg-color: #aaaaaa;
-	--mat-list-item-hover-bg : #ccc;
-	--mat-list-item-hover-color : #aaa;
-	--mat-list-item-active-bg : #fafafa;
-	--mat-list-item-active-color : #242424;
-	--on-drag-border-color : #3498db;
-	--drag-area-non-empty : #1abc9c;
-	--active : #26c6da;
-	--active-selected: #ef5350;
-	--filter-background-color : #fafafa;
-	--filter-color : #242424;
-	--mat-button-bg : #3498db;
-	--mat-button-color : #fafafa;
-  
-  }
   
   canvas{
 	  width: 100%;
@@ -1977,9 +1929,9 @@
 	  text-align: center;
 	  text-transform: uppercase;
 	  text-decoration: none;
-	  font-size: 0.75em;
+	  font-size: 0.75rem;
 	  font-weight: 500;
-	  letter-spacing: 0.15em;
+	  letter-spacing: 0.15rem;
 	  font-family: 'Monserrat', sans-serif;
 	  padding: 0 16px;
 	  margin: 8px;
