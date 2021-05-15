@@ -4,31 +4,7 @@
 
 {% block MAIN %}
 <div class="container">
-    <div class="highlight">
-        
-        <div class="flex align-center label"><span class="label">{% trans "Services Offer" %}</span> <a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"><span>{% trans "See all" %}</span></a></div>
-        <ul class="row">
-            {% for cat in category_list %}
-            <li>
-                <div class="dropdown">
-                    <span class="mat-button mat-button-text dropdown-toggle">{% trans cat.category_name %}</span>
-                    <div class="dropdown-content">
-                    <ul>
-                        {% for service in cat.available_services.all %}
-                        <li ><a class="mat-button mat-button-text" href="{{service.get_usage_url}}">{{service.name}}</a></li>
-                        {% empty %}
-                        <li><span class="mat-button mat-button-text disabled">{% trans "No service available" %}</span></li>
-                        {% endfor %}
-                    </ul>
-                    </div>
-                </div>
-            </li>
-            {% empty %}
-            <li>{% trans "Coming soon ..." %}</li>
-            {% endfor %}
-        </ul>
-
-    </div>
+    {% include "tags/category_list_snippet.html" with SHOW_SERVICES_LINK=True %}
 </div>
 
 <div class="container">

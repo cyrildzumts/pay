@@ -1,5 +1,6 @@
 {% extends "payment_base.html"%}
 {% load i18n %}
+{% load humanize %}
 {% block  HEADER_BANNER_TITLE %}
     <h4> {% trans "Available Services"%}</h4>
 {% endblock HEADER_BANNER_TITLE %}
@@ -25,8 +26,8 @@
                           <tr>
                             <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                             <td data-label="{% trans 'Name' %}">{{service.name}}</td>
-                            <td data-label="{% trans 'Category' %}">{{service.category.category_name}} </td>
-                            <td data-label="{% trans 'Date' %}">{{service.created_at}}</td>
+                            <td data-label="{% trans 'Category' %}">{% trans service.category.category_name %}</td>
+                            <td data-label="{% trans 'Date' %}">{{service.created_at|naturalday}}</td>
                             <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{service.get_absolute_url}}">{% trans "More" %}</a></td>
                           </tr>
                           {% endfor %}
