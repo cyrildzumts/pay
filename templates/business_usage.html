@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+{% load i18n %} 
+{% block META_REDIRECT %}
+        
+{% endblock META_REDIRECT %}
+
+{% block HEADER_BANNER %}
+<div class="banner">
+    <div class="banner--title">
+      <h1> {%trans 'Welcome to PAY'%} </h1>
+      <h3>{% trans 'Your Payment Solution' %}</h3>
+    </div><!--End of Banner Titlte-->
+    <div class="banner--content">
+        <h3>{% trans "Advantages for individuals" %}</h3>
+        <div class="content">
+          <p>{% trans "Do not waste your time queuing to pay your bill." %}</p>
+          <p>{% trans "No need to move." %}</p>
+          <p>{% trans "Pay your bills from your chair." %}</p>
+        </div>
+    </div><!--End of Banner Content-->
+</div><!--End of Banner-->
+{% endblock HEADER_BANNER %}
+
+{% block MAIN %}
+<div class="container">
+  <div class="mat-box">
+    <p>{% trans "Coming soon ..." %}</p>
+  </div>
+</div>
+{% endblock MAIN %}

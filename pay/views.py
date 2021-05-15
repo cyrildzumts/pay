@@ -73,3 +73,19 @@ def customer_usage(request):
         'page_title': page_title
     }
     return render(request, template_name,context)
+
+def discover(request):
+    template_name = "discover.html"
+    page_title =  "Discover" + '|' + settings.SITE_NAME
+    context = {
+        'page_title': page_title
+    }
+    return render(request, template_name,context)
+
+def partner_usage(request):
+    template_name = "business_usage.html"
+    page_title =  "Business Usage | " + settings.SITE_NAME
+    context = {
+        'page_title': page_title
+    }
+    return render(request, template_name,context)

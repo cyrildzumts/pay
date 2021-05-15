@@ -25,6 +25,8 @@ from pay import views
 urlpatterns = i18n_patterns(*[
     path('', views.home, name='home'),
     path('customer-usage/',views.customer_usage ,name='customer-usage'),
+    path('discover/',views.discover ,name='discover'),
+    path('partner-usage/',views.partner_usage ,name='partner-usage'),
     path('about/', views.about, name='about'),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
