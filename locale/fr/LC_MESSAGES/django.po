@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-15 03:08+0200\n"
+"POT-Creation-Date: 2021-05-15 03:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2315,7 +2315,7 @@ msgstr "Payer"
 #: payments/resources/ui_strings.py:21 payments/templates/payment_base.html:16
 #: templates/site_account_base.html:13
 msgid "Current balance"
-msgstr "Solde actuell"
+msgstr "Solde actuel"
 
 #: payments/resources/ui_strings.py:22 payments/templates/payment_base.html:24
 #: payments/templates/payments/current_month_statistics.html:8
