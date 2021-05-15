@@ -1954,7 +1954,7 @@
   
   .mat-button .btn-icon, .mat-button .icon, .mat-button .fas, .mat-button .far, button .btn-icon, button .icon{
 	  font-weight: 700;
-	  /*margin-left: 0.5em;*/
+	  margin-left: 0.5em;
 	  margin-right: 0.5em;
   
   }
