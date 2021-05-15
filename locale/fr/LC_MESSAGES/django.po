@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-15 03:12+0200\n"
+"POT-Creation-Date: 2021-05-16 00:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,7 +178,6 @@ msgstr "Service"
 #: dashboard/templates/dashboard/category_service_list.html:18
 #: dashboard/templates/dashboard_base_old.html:41
 #: payments/resources/ui_strings.py:26
-#: payments/templates/payments/service_category_list.html:10
 #: payments/templates/tags/payments_links.html:5
 #: payments/templates/tags/payments_links.html:10
 #: templates/dashboard_base.html:66
@@ -194,8 +193,8 @@ msgstr "Categories"
 #: dashboard/templates/tags/available_service_remove_form.html:30
 #: dashboard/templates/tags/available_service_update_form.html:31
 #: payments/templates/payments/available_service_detail.html:13
-#: payments/templates/payments/available_service_list.html:18
-#: payments/templates/payments/available_service_list.html:28
+#: payments/templates/payments/available_service_list.html:19
+#: payments/templates/payments/available_service_list.html:29
 #: payments/templates/payments/service_archive_day.html:28
 #: payments/templates/payments/service_archive_day.html:39
 #: payments/templates/tags/service_snippet.html:9
@@ -461,8 +460,8 @@ msgstr "Demande invalide"
 #: dashboard/templates/dashboard/user_list.html:40
 #: dashboard/templates/tags/group_form.html:19
 #: dashboard/templates/tags/group_update_form.html:27
-#: payments/templates/payments/available_service_list.html:17
-#: payments/templates/payments/available_service_list.html:27
+#: payments/templates/payments/available_service_list.html:18
+#: payments/templates/payments/available_service_list.html:28
 #: payments/templates/payments/service_archive_day.html:26
 #: payments/templates/payments/service_archive_day.html:37
 #: templates/reports/activities_invoice.html:13
@@ -582,8 +581,8 @@ msgstr "Créé par"
 #: dashboard/templates/dashboard/service_detail.html:81
 #: dashboard/templates/dashboard/transfer_detail.html:24
 #: dashboard/templates/dashboard/transfer_list.html:25
-#: payments/templates/payments/available_service_list.html:19
-#: payments/templates/payments/available_service_list.html:29
+#: payments/templates/payments/available_service_list.html:20
+#: payments/templates/payments/available_service_list.html:30
 #: payments/templates/payments/balance_activities.html:15
 #: payments/templates/payments/balance_activity.html:24
 #: payments/templates/payments/claim_list.html:23
@@ -668,8 +667,8 @@ msgstr "Ajouter un service"
 #: dashboard/templates/dashboard_base_old.html:31
 #: payments/resources/ui_strings.py:25
 #: payments/templates/payments/available_service_detail.html:21
-#: payments/templates/payments/available_service_list.html:4
-#: payments/templates/payments/available_service_list.html:11
+#: payments/templates/payments/available_service_list.html:5
+#: payments/templates/payments/available_service_list.html:12
 #: payments/templates/tags/payments_links.html:4
 #: payments/templates/tags/payments_links.html:9
 #: templates/dashboard_base.html:67
@@ -746,8 +745,8 @@ msgstr "Nouveau Service"
 #: dashboard/templates/dashboard/user_list.html:32
 #: dashboard/templates/dashboard/user_list.html:43
 #: dashboard/templates/tags/transfer_form.html:22
-#: payments/templates/payments/available_service_list.html:20
-#: payments/templates/payments/available_service_list.html:30
+#: payments/templates/payments/available_service_list.html:21
+#: payments/templates/payments/available_service_list.html:31
 #: payments/templates/payments/claim_list.html:24
 #: payments/templates/payments/claim_list.html:37
 #: payments/templates/payments/payment_archive_day.html:30
@@ -1124,7 +1123,7 @@ msgstr ""
 #: payments/templates/payments/new_transfer.html:25
 #: payments/templates/tags/transfer_form.html:20
 msgid "Send Money"
-msgstr "Envoyer de l'argent"
+msgstr "Transfert"
 
 #: dashboard/templates/dashboard/new_user.html:14
 #: templates/registration/register.html:39
@@ -1238,7 +1237,7 @@ msgstr "FCFA"
 #: dashboard/templates/dashboard/payment_request_list.html:32
 #: dashboard/templates/dashboard/transfer_list.html:37
 #: dashboard/templates/dashboard/user_list.html:43
-#: payments/templates/payments/available_service_list.html:30
+#: payments/templates/payments/available_service_list.html:31
 #: payments/templates/payments/claim_list.html:37
 #: payments/templates/payments/payment_archive_day.html:41
 #: payments/templates/payments/payment_archive_year.html:41
@@ -1515,7 +1514,7 @@ msgstr ""
 
 #: dashboard/templates/dashboard/transaction_list.html:7
 #: payments/templates/payments/payment_home.html:14
-#: templates/accounts/account.html:35
+#: templates/accounts/account.html:11
 msgid "Recents activities"
 msgstr ""
 
@@ -2266,8 +2265,7 @@ msgid "There is no transactions yet"
 msgstr "Il n'y a aucune transactions"
 
 #: payments/resources/ui_strings.py:5
-#: payments/templates/payments/service_category_list.html:21
-#: templates/accounts/account.html:20
+#: payments/templates/tags/category_list_snippet.html:15
 msgid "No service available"
 msgstr "Aucun service disponible"
 
@@ -2306,7 +2304,7 @@ msgstr "E-Commerce"
 #: payments/resources/ui_strings.py:18 payments/templates/payment_base.html:21
 #: templates/site_account_base.html:18
 msgid "Send money"
-msgstr "Envoyer l'argent"
+msgstr "Transfert"
 
 #: payments/resources/ui_strings.py:19
 msgid "Make payment"
@@ -2349,7 +2347,7 @@ msgstr ""
 msgid "Use this service"
 msgstr "Utilise ce service"
 
-#: payments/templates/payments/available_service_list.html:38
+#: payments/templates/payments/available_service_list.html:39
 msgid "There is currently no service available"
 msgstr "Il n'y a aucun service"
 
@@ -2492,7 +2490,7 @@ msgstr "Payer"
 
 #: payments/templates/payments/new_transfer.html:4
 msgid "SEND MONEY"
-msgstr "Envoyer de l'argent"
+msgstr "TRANSFERT"
 
 #: payments/templates/payments/payment_archive.html:4
 #: payments/templates/payments/transaction_archive.html:15
@@ -2715,11 +2713,6 @@ msgstr ""
 msgid "CATEGORIES"
 msgstr "Categories"
 
-#: payments/templates/payments/service_category_list.html:28
-#: templates/accounts/account.html:27
-msgid "Coming soon ..."
-msgstr "Bientôt disponible ..."
-
 #: payments/templates/payments/service_list.html:4
 #: payments/templates/payments/transactions_home.html:16
 msgid "Service Usage History"
@@ -2856,6 +2849,22 @@ msgstr ""
 #: payments/templates/tags/available_service_form.html:12
 msgid "Enter the operator name"
 msgstr ""
+
+#: payments/templates/tags/category_list_snippet.html:4
+msgid "Services Offer"
+msgstr "Offres de services"
+
+#: payments/templates/tags/category_list_snippet.html:4
+#: templates/tags/payment_list_snippet.html:8
+#: templates/tags/service_list_snippet.html:8
+#: templates/tags/transaction_list_snippets.html:9
+#: templates/tags/transfer_list_snippet.html:9
+msgid "See all"
+msgstr "Tout voir"
+
+#: payments/templates/tags/category_list_snippet.html:22
+msgid "Coming soon ..."
+msgstr "Bientôt disponible ..."
 
 #: payments/templates/tags/idcard_upload_form.html:16
 msgid "Valid until "
@@ -3080,17 +3089,6 @@ msgstr ""
 #: templates/500.html:12
 msgid "Our technicians are working on the problem."
 msgstr ""
-
-#: templates/accounts/account.html:9
-msgid "Services Offer"
-msgstr "Offres de services"
-
-#: templates/accounts/account.html:9 templates/tags/payment_list_snippet.html:8
-#: templates/tags/service_list_snippet.html:8
-#: templates/tags/transaction_list_snippets.html:9
-#: templates/tags/transfer_list_snippet.html:9
-msgid "See all"
-msgstr "Tout voir"
 
 #: templates/base copy.html:53 templates/base.html:57
 msgid "Discover our services"
