@@ -1,4 +1,4 @@
-from payments.resources import ui_strings
+from core.resources import ui_strings
 
 HELP_TEXT_FOR_DATE ="Please use the following format: <em>YYYY-MM-DD</em>."
 HELP_TEXT_FOR_SERVICE_REF_NUMBER = 'Please enter the reference number issued by the operation.'
