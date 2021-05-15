@@ -2941,8 +2941,13 @@
 	margin: 0 0.2rem !important;
   }
 
+  .primary-actions a .fas, .primary-actions a .icon{
+	font-size: 1.5rem;
+}
+
   .primary-actions a i ~ span{
-	  font-size: 0.7em;
+	  font-size: 0.4rem;
+	  padding: 0.5rem 0.1rem;
   }
 
   .activity-list li .entry{
