@@ -1,11 +1,7 @@
 import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseBadRequest
 from django.http import HttpResponse
-from django.urls import reverse, resolve
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.views.generic.dates import (
     YearArchiveView, MonthArchiveView, DayArchiveView, 
@@ -19,7 +15,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.db.models import F, Q
-from rest_framework.authtoken.models import Token
 from accounts.models import Account
 from payments.models import (
     Transaction, Transfer, AvailableService, Payment, 
@@ -70,7 +65,7 @@ def show_payments(request):
     balance = Balance.objects.get(user=request.user)
     #activity_list = BalanceHistory.objects.filter(balance=balance).order_by('-created_at')[:Constants.RECENT_LIMIT]
     context = {
-        'page_title' : page_title,
+        'page_title' : "Payments",
     #    'activity_list' : activity_list
     }
 

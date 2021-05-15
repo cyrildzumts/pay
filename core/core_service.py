@@ -56,7 +56,7 @@ def generate_recharge_reports(template_name, output_name, seller=None):
         'TOTAL' : total,
         'COUNT': entry_list.count(),
         'CURRENCY': settings.CURRENCY,
-        'REPORT_TITLE' : _('Recharge Sumary'),
+        'REPORT_TITLE' : _('Recharge Summary'),
         'start_date': start_date,
         'end_date': end_date
     }
@@ -108,7 +108,7 @@ def generate_sold_voucher_reports(template_name, output_name, seller=None):
         'TOTAL' : total,
         'COUNT': entry_list.count(),
         'CURRENCY': settings.CURRENCY,
-        'REPORT_TITLE' : _('Sold Voucher Card Sumary'),
+        'REPORT_TITLE' : _('Sold Vouchers Summary'),
         'start_date': start_date,
         'end_date': end_date
     }
