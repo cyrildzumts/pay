@@ -11,7 +11,7 @@
             {% for cat in category_list %}
             <li>
                 <div class="dropdown">
-                    <span class="mat-button mat-button-text dropdown-toggle">{{cat.category_name}}</span>
+                    <span class="mat-button mat-button-text dropdown-toggle">{% trans cat.category_name %}</span>
                     <div class="dropdown-content">
                     <ul>
                         {% for service in cat.available_services.all %}

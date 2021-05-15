@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-15 02:54+0200\n"
+"POT-Creation-Date: 2021-05-15 03:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -405,46 +405,50 @@ msgid "TRANSFER"
 msgstr "TRANSFERT"
 
 #: core/resources/ui_strings.py:68
+msgid "SERVICE"
+msgstr "SERVICE"
+
+#: core/resources/ui_strings.py:69
 msgid "REFUND"
 msgstr "REMBOURSSEMENT"
 
-#: core/resources/ui_strings.py:74
+#: core/resources/ui_strings.py:75
 msgid "User and Agent should not be the same"
 msgstr "L'utilisateur et l'agent ne doivent pas être identiques"
 
-#: core/resources/ui_strings.py:75
+#: core/resources/ui_strings.py:76
 msgid "User has no sufficient balance"
 msgstr "L'utilisateur n'a pas de solde suffisant"
 
-#: core/resources/ui_strings.py:76
+#: core/resources/ui_strings.py:77
 msgid "agent does not belongs to the group of Agents"
 msgstr "l'agent n'appartient pas au groupe d'agents"
 
-#: core/resources/ui_strings.py:77
+#: core/resources/ui_strings.py:78
 msgid "user must not be an agent"
 msgstr "l'utilisateur doit être un agent"
 
-#: core/resources/ui_strings.py:78
+#: core/resources/ui_strings.py:79
 msgid "Invalid user request"
 msgstr "Demande invalide"
 
-#: core/resources/ui_strings.py:79
+#: core/resources/ui_strings.py:80
 msgid "POLICY updated"
 msgstr "Mise à jour de la règle"
 
-#: core/resources/ui_strings.py:80
+#: core/resources/ui_strings.py:81
 msgid "User is already a member of the Group"
 msgstr "L'utilisateur est déjà un membre du groupe"
 
-#: core/resources/ui_strings.py:81
+#: core/resources/ui_strings.py:82
 msgid "New Payments"
 msgstr "Nouveau Paiements"
 
-#: core/resources/ui_strings.py:82
+#: core/resources/ui_strings.py:83
 msgid "Invalid Date"
 msgstr "Date invalide"
 
-#: core/resources/ui_strings.py:83
+#: core/resources/ui_strings.py:84
 msgid "Invalid Request"
 msgstr "Demande invalide"
 
@@ -3832,7 +3836,7 @@ msgstr ""
 
 #: templates/tags/transaction_list_snippets.html:59
 msgid "There is no transactions yet."
-msgstr ""
+msgstr "Aucune transactions"
 
 #: templates/tags/transfer_list_snippet.html:31
 msgid "You haven't made any Transfers"
@@ -3917,6 +3921,3 @@ msgstr ""
 #: voucher/views.py:129
 msgid "The customer balance has been successfully recharged"
 msgstr ""
-
-#~ msgid "SERVICE"
-#~ msgstr "SERVICE"
