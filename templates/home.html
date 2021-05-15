@@ -21,7 +21,7 @@
     </div><!--End of Banner Content-->
       
   <div class="banner--actions">
-    <a class="mat-button mat-button-default" href="#"> {% trans 'Discover PAY' %} </a>
+    <a class="mat-button mat-button-default" href="{% url 'discover' %}"> {% trans 'Discover PAY' %} </a>
   </div><!--End of Banner Actions-->
   
 </div><!--End of Banner-->
@@ -59,11 +59,6 @@
                   </p>
                 </div>
             </div>
-            <div class="actions">
-              <button class="mat-button mat-button-outlined">
-                  {% trans "Learn more" %}
-              </button>
-            </div>
         </div>    <!--End of box-->
         <div id="customer" class="mat-box">
             <div class="img-wrapper">
@@ -77,11 +72,6 @@
                       {%trans "As a user, just recharge your balance from your chair with a voucher card."%}
                   </p>
                 </div>
-            </div>
-            <div class="actions">
-              <button class="mat-button mat-button-outlined">
-                  {% trans "Learn more" %}
-              </button>
             </div>
       </div><!--End of box-->
     </div>    <!--End of Grid-->
@@ -169,7 +159,7 @@
               <div class="flex flex-column">
                 <div class="circle">2</div>
                 <div class="usage-description">
-                  <a class="mat-button mat-button-text" href="#"> {%trans "Choose the PAY option that suits your business"%} </a>
+                  <span>{%trans "Choose the PAY option that suits your business"%}</span>
                 </div>
               </div>
           </div>
@@ -182,14 +172,11 @@
             <div class="flex flex-column">
               <div class="circle">3</div>
               <div class="usage-description">
-                <a class="mat-button mat-button-text" href="#"> {%trans 'Receive your payments while you are traveling'%}</a>
+                <span>{%trans 'Receive your payments while you are traveling'%}</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <span class="mat-button mat-button-outlined">{% trans "Tell me More" %}</span>
       </div>
     </div>
   </div> <!--End of tabs-->
@@ -204,7 +191,6 @@
 In case of non-delivery, your payment will be refunded
     {% endblocktrans %}
     </p>
-    <span class="mat-button mat-button-outlined">{% trans "Customer protection" %}</span>
   </div>
     <!--End of advantage-->
   <div class="advantage mat-box">
@@ -214,7 +200,6 @@ In case of non-delivery, your payment will be refunded
       You can check the validity of each transaction
     {% endblocktrans %}
     </p>
-    <span class="mat-button mat-button-outlined">{% trans "Protection for business" %}</span>
   </div>
   <!--End of advantage-->
 </div>
