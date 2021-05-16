@@ -6,7 +6,7 @@
 {% if activity_list %}
 <div class="container wrapper">
     <div class="activity-list-wrapper full">
-        <div class="row"><h4>{% trans list_title %}</h4> {% if FULL_LIST_LINK %} <a class="mat-button mat-button-text" href="{% url FULL_LIST_LINK %}"><span>{% trans "See all" %}</span></a> {% endif %}</div>
+        <div class="row"><h5>{% trans list_title %}</h5> {% if FULL_LIST_LINK %} <a class="mat-button mat-button-text" href="{% url FULL_LIST_LINK %}"><span>{% trans "See all" %}</span></a> {% endif %}</div>
         <ul class="activity-list js-filter-table full">
             
             {% for activity in activity_list %}
