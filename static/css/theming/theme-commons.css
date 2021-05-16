@@ -49,8 +49,12 @@ body{
 	background-color: var(--sidebar-active-color);
 }
 .active{
-    color: var(--secondary-color);
+    color: var(--secondary-color) !important;
 	border-bottom: 2px solid var(--secondary-color);
+}
+
+.link{
+    color: var(--secondary-color);
 }
 
 .circle{
