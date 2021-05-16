@@ -25,7 +25,7 @@ def payment_context(request):
             
         if hasattr(request.user,'balance'):
             balance = request.user.balance
-            if request.path in REQUEST_PATH:
+            if any(filter(lambda s : s in request.path, REQUEST_PATH )):
                 activity_list = BalanceHistory.objects.filter(balance=balance).order_by('-created_at')[:RECENT_LIMIT]
         
         
