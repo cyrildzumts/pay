@@ -54,10 +54,10 @@
         </div>
   </div>
     <ul class="mat-list site-panel">
-       <li class="mat-list-item"><a class="mat-button mat-button-text" href="#discover">{% trans 'Discover our services'%}</a></li>
+       <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'discover' %}">{% trans 'Discover our services'%}</a></li>
       
         {% comment %} <li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'customer-usage' %}">{% trans 'For Individuals'%}</a></li>{% endcomment %}
-        {% comment %}<li class="mat-list-item"><a class="mat-button mat-button-text" href="#enterprise">{% trans 'For Businesses'%}</a></li>{% endcomment %}
+        {% comment %}<li class="mat-list-item"><a class="mat-button mat-button-text" href="{% url 'partner-usage' %}">{% trans 'For Businesses'%}</a></li>{% endcomment %}
       {% if request.user.is_authenticated %}
         {% if is_dashboard_allowed %}
         <li class="mat-list-item"><a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a></li>
