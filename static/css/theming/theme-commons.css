@@ -49,6 +49,7 @@ body{
 	background-color: var(--sidebar-active-color);
 }
 .active{
+    color: var(--secondary-color);
 	border-bottom: 2px solid var(--secondary-color);
 }
 
