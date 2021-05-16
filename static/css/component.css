@@ -762,16 +762,6 @@
 	text-align: right;
   }
   
-  .circle{
-	display: flex;
-	width: 32px;
-	height: 32px;
-	border-radius: 50%;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	border: var(--btn-border);
-  }
   
   .add-shadow{
 	box-shadow: var(--box-shadow);
@@ -1462,12 +1452,18 @@
   }
   
   .circle{
-	  padding: 16px;
-	  font-size: 30px;
-	  /*width: 30px;*/
-	  text-align: center;
-	  text-decoration: none;
-	  border-radius: 50%;
+	display: flex;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 30px;
+	padding: 1em;
+	/*width: 30px;*/
+	text-align: center;
+	text-decoration: none;
   }
   
   #recipient-error, #amount-error, #description-error,

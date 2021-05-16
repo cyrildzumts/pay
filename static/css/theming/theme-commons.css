@@ -50,6 +50,11 @@ body{
 }
 .active{
 	border-bottom: 2px solid var(--secondary-color);
+}
+
+.circle{
+    color: var(--secondary-color);
+	border: 2px solid var(--secondary-color);
   }
 .page--banner{
     background-color: var(--third-color);
