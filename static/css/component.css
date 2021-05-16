@@ -777,9 +777,7 @@
 	box-shadow: var(--box-shadow);
   }
   
-  .active{
-	border-bottom: 2px solid var(--btn-color);
-  }
+
   
   .disabled{
 	  color:var(--disabled-color) !important;

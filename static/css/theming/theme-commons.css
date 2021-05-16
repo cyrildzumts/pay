@@ -48,7 +48,9 @@ body{
 	color: #fafafa;
 	background-color: var(--sidebar-active-color);
 }
-
+.active{
+	border-bottom: 2px solid var(--secondary-color);
+  }
 .page--banner{
     background-color: var(--third-color);
     color: var(--primary-color);
