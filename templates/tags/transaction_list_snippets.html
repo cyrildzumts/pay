@@ -4,9 +4,9 @@
 
 
 {% if activity_list %}
-<div class="container">
+<div class="container padding">
     <div class="activity-list-wrapper full">
-        <div class="flex align-center"><span class="medium">{% trans list_title %}</span> {% if FULL_LIST_LINK %} <a class="mat-button mat-button-text" href="{% url FULL_LIST_LINK %}"><span class="small">{% trans "See all" %}</span></a> {% endif %}</div>
+        <div class="flex align-center flex-left"><span class="medium">{% trans list_title %}</span> {% if FULL_LIST_LINK %} <a class="mat-button mat-button-text" href="{% url FULL_LIST_LINK %}"><span class="small">{% trans "See all" %}</span></a> {% endif %}</div>
         <ul class="activity-list js-filter-table full">
             
             {% for activity in activity_list %}
