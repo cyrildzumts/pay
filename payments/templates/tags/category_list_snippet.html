@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="highlight">
-    <div class="flex align-center label"><span class="label">{% trans "Services Offer" %}</span>{% if SHOW_SERVICES_LINK %}<a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"><span>{% trans "See all" %}</span></a>{% endif %}</div>
+    <div class="flex align-center label"><span class="medium">{% trans "Services Offer" %}</span>{% if SHOW_SERVICES_LINK %}<a class="mat-button mat-button-text" href="{%url 'payments:available-services' %}"><span class="small">{% trans "See all" %}</span></a>{% endif %}</div>
     <ul class="row">
         {% for cat in category_list %}
         <li>

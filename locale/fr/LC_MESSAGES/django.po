@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-16 00:47+0200\n"
+"POT-Creation-Date: 2021-05-16 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -583,7 +583,6 @@ msgstr "Créé par"
 #: dashboard/templates/dashboard/transfer_list.html:25
 #: payments/templates/payments/available_service_list.html:20
 #: payments/templates/payments/available_service_list.html:30
-#: payments/templates/payments/balance_activities.html:15
 #: payments/templates/payments/balance_activity.html:24
 #: payments/templates/payments/claim_list.html:23
 #: payments/templates/payments/claim_list.html:36
@@ -1514,39 +1513,38 @@ msgstr ""
 
 #: dashboard/templates/dashboard/transaction_list.html:7
 #: payments/templates/payments/payment_home.html:14
-#: templates/accounts/account.html:11
 msgid "Recents activities"
-msgstr ""
+msgstr "Activités récentes"
 
 #: dashboard/templates/dashboard/transfer_detail.html:11
 #: payments/templates/payments/transfer_detail.html:11
 msgid "Transfer Detail"
-msgstr ""
+msgstr "Transfert"
 
 #: dashboard/templates/dashboard/transfer_list.html:13
 msgid "Transfer History Page"
-msgstr ""
+msgstr "Historiques des transferts"
 
 #: dashboard/templates/dashboard/transfer_list.html:18
 #: payments/templates/payments/transactions_home.html:14
 #: payments/templates/payments/transfer_list.html:4
 msgid "Transfer History"
-msgstr ""
+msgstr "Historiques des transferts"
 
 #: dashboard/templates/dashboard/used_voucher_details.html:24
 #: templates/tags/used_voucher_list_snippet.html:14
 #: templates/tags/voucher_snippet.html:39
 #: voucher/templates/voucher/used_voucher_details.html:24
 msgid "Usage Date"
-msgstr ""
+msgstr "Date d'utilisation"
 
 #: dashboard/templates/dashboard/user_detail.html:7
 msgid "Send Welcome Mail"
-msgstr ""
+msgstr "Envoyer une mail de bienvenu"
 
 #: dashboard/templates/dashboard/user_detail.html:9
 msgid "Send Validation Link"
-msgstr ""
+msgstr "Envoyer un lien de validation"
 
 #: dashboard/templates/dashboard/user_detail.html:19
 msgid "User Information"
@@ -2322,6 +2320,7 @@ msgid "Statistics"
 msgstr "Statistiques"
 
 #: payments/resources/ui_strings.py:24
+#: payments/templates/payments/balance_activities.html:29
 #: payments/templates/tags/payments_links.html:3
 #: payments/templates/tags/payments_links.html:8
 msgid "Transactions"
@@ -2350,14 +2349,6 @@ msgstr "Utilise ce service"
 #: payments/templates/payments/available_service_list.html:39
 msgid "There is currently no service available"
 msgstr "Il n'y a aucun service"
-
-#: payments/templates/payments/balance_activities.html:4
-msgid "Balance Activities"
-msgstr "Historique de votre solde"
-
-#: payments/templates/payments/balance_activities.html:19
-msgid "Generate Invoice"
-msgstr "Créer un Rapport"
 
 #: payments/templates/payments/balance_activity.html:6
 msgid "ACTIVITY"
@@ -2863,6 +2854,8 @@ msgid "See all"
 msgstr "Tout voir"
 
 #: payments/templates/tags/category_list_snippet.html:22
+#: templates/business_usage.html:27 templates/customer_usage.html:27
+#: templates/discover.html:27
 msgid "Coming soon ..."
 msgstr "Bientôt disponible ..."
 
@@ -3090,6 +3083,10 @@ msgstr ""
 msgid "Our technicians are working on the problem."
 msgstr ""
 
+#: templates/accounts/account.html:11
+msgid "Recents Transactions"
+msgstr "Transactions récentes"
+
 #: templates/base copy.html:53 templates/base.html:57
 msgid "Discover our services"
 msgstr "Decouvrir nos services"
@@ -3135,81 +3132,35 @@ msgstr "FAQ"
 msgid "ONLINE PAYMENT"
 msgstr "PAIMENT EN LIGNE"
 
-#: templates/customer_usage.html:10 templates/home.html:7
+#: templates/business_usage.html:10 templates/customer_usage.html:10
+#: templates/discover.html:10 templates/home.html:7
 msgid "Welcome to PAY"
 msgstr "Bienvenu chez PAY"
 
-#: templates/customer_usage.html:11 templates/home.html:8
+#: templates/business_usage.html:11 templates/customer_usage.html:11
+#: templates/discover.html:11 templates/home.html:8
 msgid "Your Payment Solution"
 msgstr "Votre solution de paiement"
 
-#: templates/customer_usage.html:14
+#: templates/business_usage.html:14 templates/customer_usage.html:14
+#: templates/discover.html:14
 msgid "Advantages for individuals"
 msgstr "Advantagespour les clients"
 
-#: templates/customer_usage.html:16
+#: templates/business_usage.html:16 templates/customer_usage.html:16
+#: templates/discover.html:16
 msgid "Do not waste your time queuing to pay your bill."
 msgstr "Ne perdez pas votre temps à la queue pour payer vos facture."
 
-#: templates/customer_usage.html:17
+#: templates/business_usage.html:17 templates/customer_usage.html:17
+#: templates/discover.html:17
 msgid "No need to move."
 msgstr "Pas besoin de vous déplacer."
 
-#: templates/customer_usage.html:18
+#: templates/business_usage.html:18 templates/customer_usage.html:18
+#: templates/discover.html:18
 msgid "Pay your bills from your chair."
 msgstr "Payer vos factures depuis votre fauteuil"
-
-#: templates/customer_usage.html:30
-msgid ""
-"No more petite monaies problems, wherever you are, pay in a simple click"
-msgstr ""
-"Plus de problèmes de petite monaies, où que vous soyez, payer en un simple "
-"clique"
-
-#: templates/customer_usage.html:42 templates/home.html:24
-#: templates/home.html:55
-msgid "Discover PAY"
-msgstr "Decouvrir PAY"
-
-#: templates/customer_usage.html:46 templates/home.html:58
-msgid "Charge your PAY account and enjoy simplified payment."
-msgstr "Chargez votre compte PAY et profitez d'un paiement simplifié."
-
-#: templates/customer_usage.html:55
-msgid "More..."
-msgstr "Plus ..."
-
-#: templates/customer_usage.html:71 templates/home.html:74
-#: templates/home.html:93
-msgid "For individuals"
-msgstr "Pour particuliers"
-
-#: templates/customer_usage.html:75
-msgid "As a user, just reload your account at one of our offices."
-msgstr ""
-"En tant qu'utilisateur, il vous suffit de recharger votre compte dans l'un "
-"de nos bureaux."
-
-#: templates/customer_usage.html:84 templates/home.html:64
-#: templates/home.html:83
-msgid "Learn more"
-msgstr "En savoir plus"
-
-#: templates/customer_usage.html:100
-msgid "Create your PAY account for free"
-msgstr "Créer votre compte PAY gratuitement"
-
-#: templates/customer_usage.html:101
-msgid "with your e-mail address and a password"
-msgstr "avec votre adresse email et un mot de passe"
-
-#: templates/customer_usage.html:114
-msgid "Charge your PAY account at one of our offices"
-msgstr "Chargez votre compte PAY dans l'un de nos bureaux"
-
-#: templates/customer_usage.html:126
-msgid "Make your purchases or pay your bills with your PAY account"
-msgstr "Faites vos achats ou payez vos factures avec votre compte PAY"
 
 #: templates/dashboard_base.html:25
 msgid "Transations"
@@ -3360,6 +3311,10 @@ msgstr "Ne perdez pas votre temps à faire la queue pour payer votre facture"
 msgid "Pay your bills from your chair"
 msgstr "Payez vos factures depuis votre chaise"
 
+#: templates/home.html:24 templates/home.html:55
+msgid "Discover PAY"
+msgstr "Decouvrir PAY"
+
 #: templates/home.html:34
 msgid "An ideal payment solution for everyone"
 msgstr "Une solution de paiement idéale pour tous"
@@ -3372,54 +3327,58 @@ msgstr "Fini les problèmes de petite monnaies"
 msgid "Wherever you are, pay with just one click"
 msgstr "Où que vous soyez, payez en un seul clic"
 
-#: templates/home.html:77
+#: templates/home.html:58
+msgid "Charge your PAY account and enjoy simplified payment."
+msgstr "Chargez votre compte PAY et profitez d'un paiement simplifié."
+
+#: templates/home.html:69 templates/home.html:83
+msgid "For individuals"
+msgstr "Pour particuliers"
+
+#: templates/home.html:72
 msgid ""
 "As a user, just recharge your balance from your chair with a voucher card."
 msgstr ""
 "En tant qu'utilisateur, il vous suffit de recharger votre solde depuis votre "
 "chaise avec une carte de bon."
 
-#: templates/home.html:90
+#: templates/home.html:80
 msgid "Usage"
 msgstr "Utilisation"
 
-#: templates/home.html:94
+#: templates/home.html:84
 msgid "For Business"
 msgstr "Pour Les Business"
 
-#: templates/home.html:110
+#: templates/home.html:100
 msgid "Create your free account"
 msgstr "Créer votre compte gratuitement"
 
-#: templates/home.html:124
+#: templates/home.html:114
 msgid "Load your account from your sofa"
 msgstr "Chargez votre compte depuis votre canapé"
 
-#: templates/home.html:138
+#: templates/home.html:128
 msgid "Make your purchases or pay your bills comfortably"
 msgstr "Faites vos achats ou payez vos factures confortablement"
 
-#: templates/home.html:157
+#: templates/home.html:147
 msgid "Create your Business PAY account for free"
 msgstr "Créez votre compte Business PAY gratuitement"
 
-#: templates/home.html:172
+#: templates/home.html:162
 msgid "Choose the PAY option that suits your business"
 msgstr "Choisissez l'option PAY qui convient à votre entreprise"
 
-#: templates/home.html:185
+#: templates/home.html:175
 msgid "Receive your payments while you are traveling"
 msgstr "Recevez vos paiements pendant que vous voyagez"
 
-#: templates/home.html:192
-msgid "Tell me More"
-msgstr "Dis m'en plus"
-
-#: templates/home.html:200
+#: templates/home.html:187
 msgid "More security"
 msgstr "Plus de sécurité"
 
-#: templates/home.html:202
+#: templates/home.html:189
 msgid ""
 "Your payments are secure. In case of non-delivery, your payment will be "
 "refunded"
@@ -3427,21 +3386,13 @@ msgstr ""
 "Vos paiements sont sécurisés. En cas de non-livraison, votre règlement sera "
 "remboursé"
 
-#: templates/home.html:207
-msgid "Customer protection"
-msgstr "Protection client"
-
-#: templates/home.html:211
+#: templates/home.html:197
 msgid "More security for your business"
 msgstr "Plus de sécurité pour vos affaires"
 
-#: templates/home.html:213
+#: templates/home.html:199
 msgid "You can check the validity of each transaction"
 msgstr "Vous pouvez vérifier la validité de chaque transaction"
-
-#: templates/home.html:217
-msgid "Protection for business"
-msgstr "Protection pour nos partenaires"
 
 #: templates/registration/email_validation.html:7
 #: templates/registration/registration_complete.html:7
@@ -3919,3 +3870,47 @@ msgstr ""
 #: voucher/views.py:129
 msgid "The customer balance has been successfully recharged"
 msgstr ""
+
+#~ msgid "Balance Activities"
+#~ msgstr "Historique de votre solde"
+
+#~ msgid "Generate Invoice"
+#~ msgstr "Créer un Rapport"
+
+#~ msgid ""
+#~ "No more petite monaies problems, wherever you are, pay in a simple click"
+#~ msgstr ""
+#~ "Plus de problèmes de petite monaies, où que vous soyez, payer en un "
+#~ "simple clique"
+
+#~ msgid "More..."
+#~ msgstr "Plus ..."
+
+#~ msgid "As a user, just reload your account at one of our offices."
+#~ msgstr ""
+#~ "En tant qu'utilisateur, il vous suffit de recharger votre compte dans "
+#~ "l'un de nos bureaux."
+
+#~ msgid "Learn more"
+#~ msgstr "En savoir plus"
+
+#~ msgid "Create your PAY account for free"
+#~ msgstr "Créer votre compte PAY gratuitement"
+
+#~ msgid "with your e-mail address and a password"
+#~ msgstr "avec votre adresse email et un mot de passe"
+
+#~ msgid "Charge your PAY account at one of our offices"
+#~ msgstr "Chargez votre compte PAY dans l'un de nos bureaux"
+
+#~ msgid "Make your purchases or pay your bills with your PAY account"
+#~ msgstr "Faites vos achats ou payez vos factures avec votre compte PAY"
+
+#~ msgid "Tell me More"
+#~ msgstr "Dis m'en plus"
+
+#~ msgid "Customer protection"
+#~ msgstr "Protection client"
+
+#~ msgid "Protection for business"
+#~ msgstr "Protection pour nos partenaires"
