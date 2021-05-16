@@ -11,7 +11,7 @@ body{
 
 .banner{
     background-color: var(--banner-bg-color);
-    color: var(--banner-color);
+    color: var(--secondary-color);
 }
 
 .banner a.cta-button{
