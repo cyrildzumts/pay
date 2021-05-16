@@ -2599,7 +2599,7 @@
   
   .highlight > .label{
 	  top: 0.5em;
-	  left: 0.5em;
+	  /*left: 0.5em;*/
 	  position: absolute;
 	  padding: 0.2em;
 	  font-size: 0.875em;
