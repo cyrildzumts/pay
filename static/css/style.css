@@ -4,6 +4,8 @@
 }
 
 .link{
+    display: inline-flex;
+    justify-content: center;
     text-transform: uppercase;
     text-align: center;
     text-decoration: none;
