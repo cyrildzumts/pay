@@ -2940,20 +2940,28 @@
 }
 
   .primary-actions a i ~ span{
-	  font-size: 0.6rem;
-	  padding: 0.5rem 0.1rem;
+	font-size: 0.6rem;
+	padding: 0.5rem 0.1rem;
+  }
+
+  .activity-info-wrapper{
+	display: flex;
+	justify-content: flex-start;
+	width: calc(100% - 3em);
+	margin: 0;
   }
 
   .activity-list li .entry{
-	  font-size: 0.7em;
-	  padding: 0 0.5em;
-	  margin-bottom: 0.5em;
+	font-size: 0.7em;
+	padding: 0 0.5em;
+	margin-bottom: 0.5em;
   }
   
   .activity-list li .entry a{
-	  display: flex;
-	  justify-content: center;
-	  width: 100%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 0 1em;
   }
 
   .activity-list .activity-img{
