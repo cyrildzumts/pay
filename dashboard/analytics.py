@@ -369,3 +369,14 @@ def current_month_reports(**filters):
     annotations = queryset.values('activity', 'is_incoming').annotate(total=Sum('current_amount')).order_by()
     aggregates = queryset.aggregate(total_incoming=INCOMING_FILTER, total_outgoing=OUTGOING_FILTER)
     return annotations, aggregates
+
+
+def dashboard_reports(**filters):
+    #INCOMING_FILTER = Sum('current_amount', filter=Q(is_incoming=True))
+    OUTGOING_FILTER = Sum('current_amount')
+    ACTIVITY_COUNT = Count('activity')
+    queryset = BalanceHistory.objects.select_related().filter(**filters)
+    annotations = queryset.values('activity').annotate(total_amount=OUTGOING_FILTER, activity_count=ACTIVITY_COUNT, min_amount=Min('current_amount'),
+    max_amount=Max('current_amount'), avg_amount=Avg('current_amount')).order_by('activity')
+    
+    return annotations

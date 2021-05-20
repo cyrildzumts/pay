@@ -1,17 +1,20 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
 {% load static %}
-
+{% load payments_tags %}
 {% if perms.dashboard.can_view_dashboard %}
 
     {% block CONTENT %}
     <div class="container">
         <div id="reports" class="container">
-        {% include "tags/payment_report.html" %}
-        {% include "tags/transfer_report.html" %}
-        {% include "tags/service_report.html" %}
-        {% include "tags/voucher_report.html" %}
-        {% include "tags/payment_request_report.html" %}
+        {% for entry_report in reports %}{% include "tags/transaction_summary.html" with ACTIVITY=entry_report.activity|balance_activity %}{% endfor %}
+        {% comment %}
+            {% include "tags/payment_report.html" %}
+            {% include "tags/transfer_report.html" %}
+            {% include "tags/service_report.html" %}
+            {% include "tags/voucher_report.html" %}
+            {% include "tags/payment_request_report.html" %}
+        {% endcomment %}
         </div>
         <div id="graphic-reports" class="container">
             <div class="col-m-12 col-5">

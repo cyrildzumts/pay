@@ -136,8 +136,8 @@ body{
 }
 
 .mat-table thead{
-    background-color: var(--primary-color);
-    color: var(--fourth-color);
+    background-color: var(--secondary-color);
+    color: #fafafa;
     font-weight: 700;
 }
 

@@ -17,7 +17,6 @@ from payments import payment_service, constants as PAYMENTS_CONSTANTS
 from payments.models import PaymentRequest, Balance
 from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
-import logging
 from core.tasks import send_mail_task
 from core.resources import ui_strings as CORE_UI_STRINGS
 from accounts.account_services import AccountService
@@ -28,6 +27,8 @@ from voucher.models import Voucher, Recharge
 from voucher import voucher_service
 from voucher.tasks import generate_voucher
 from voucher.forms import RechargeCustomerAccountByStaff, RechargeCustomerAccount, VoucherCreationForm
+import logging
+from datetime import datetime
 logger = logging.getLogger(__name__)
 # Create your views here.
 
@@ -140,11 +141,13 @@ def reports(request):
 
     context = {}
     queryset = User.objects.all()
+
     template_name = "dashboard/reports.html"
     page_title = _("Dashboard Reports") + " - " + settings.SITE_NAME
     
     context['page_title'] = page_title
     context['content_title'] = CORE_UI_STRINGS.UI_REPORT_TITLE
+    context['reports'] = analytics.dashboard_reports(**{'is_incoming': False, 'created_at__year': datetime.date.today().year})
     return render(request,template_name, context)
 
 @login_required
