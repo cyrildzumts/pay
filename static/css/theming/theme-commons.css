@@ -241,12 +241,12 @@ li.active.selected{
 }
 
 .metric{
-    background-color:var(--secondary-color);
-    color: #fafafa;
+    background-color:var(--metrics-bg-color);
+    color: var(--metrics-color);
 }
 
 .metric h1, .metric h2, .metric h3, .metric h4, .metric h5, .metric h6{
-    color: var(--secondary-color);
+    color: var(--metrics-color);
 }
 
 .banner-action .mat-button{
@@ -302,7 +302,7 @@ li.active.selected{
 }
 
 .metric-title, .dashboard-metrics span{
-    color: var(--text-grey);
+    color: var(--metrics-color );
 }
 
 .dashboard-metrics .fas, .dashboard-metrics .icon {
