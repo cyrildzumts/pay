@@ -287,7 +287,7 @@ padding-right: 1rem;
 display: flex;
 align-items: center;
 overflow-x: hidden;
-height: 48px;
+/*height: 48px;*/
 border: 1px solid #ccc;
 border-radius: 30px;
 }
