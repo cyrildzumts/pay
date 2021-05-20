@@ -28,7 +28,7 @@ from voucher import voucher_service
 from voucher.tasks import generate_voucher
 from voucher.forms import RechargeCustomerAccountByStaff, RechargeCustomerAccount, VoucherCreationForm
 import logging
-from datetime import datetime
+import datetime
 logger = logging.getLogger(__name__)
 # Create your views here.
 
@@ -1907,7 +1907,7 @@ def sell_voucher_view(request):
     if request_type == "ACTIVATE":
         pk = int(postdata.get('pk', -1))
         if pk > 0:
-            now = datetime.now()
+            now = datetime.datetime.now()
             c = Voucher.objects.filter(pk=pk, activated=False, is_used=False).update(activated=True,
                                                                                      activated_at=now, activated_by=request.user, is_sold=True, sold_at=now, sold_by=request.user)
             SoldVoucher.objects.create(voucher=pk, seller=request.user)
