@@ -3,5 +3,8 @@
 
 
 {% block CONTENT %}
+<div class="actions">
+<a class="mat-button mat-button-outlined" href="{% url 'dashboard:recharges' %}"><i class="fas fa-list icon"></i>{% trans "Recharges" %}</a>
+</div>
 {% include 'tags/recharge_snippet.html' %}
 {% endblock CONTENT %}

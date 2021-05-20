@@ -6,16 +6,8 @@
 {% if perms.payments.view_transfer %}
 
 <div class="container">
-<div class="col-m-12 col-8">
     <div class="mat-table-wrapper">
-        <div class="row">
-            <div class="mat-table-title">
-                {% trans "Transfer History Page" %}
-            </div>
-        </div><!--End of Row-->
-        
         <table id="service-list" class="mat-table js-filter-table">
-          <caption>{% trans "Transfer History" %}</caption>
           <thead>
                   <tr>
                           <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
@@ -32,9 +24,9 @@
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
                     <td scope="row" data-label="Sender">{{xfer.sender.username}}</td>
                     <td data-label="Recipient">{{xfer.recipient.username}}</td>
-                    <td data-label="Amount">{{xfer.amount}} {% trans "XAF" %}</td>
-                    <td data-label="Date">{{xfer.created_at|date:"F j, Y"}}</td>
-                    <td data-label="Details"><a class="mat-button mat-button-default" href="{{xfer.get_dashboard_absolute_url}}">{% trans "More" %} ...</a></td>
+                    <td data-label="Amount">{{xfer.amount}} {% trans CURRENCY %}</td>
+                    <td data-label="Date">{{xfer.created_at|date:"F ,j Y, H:i:s"}}</td>
+                    <td data-label="Details"><a class="mat-button mat-button-default" href="{{xfer.get_dashboard_absolute_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -46,7 +38,6 @@
     </table>
     {% include "tags/pagination.html" with page_set=transfers %}
     </div><!--End of Table Wrapper-->
-  </div>
 </div>
 
 {% else %}

@@ -13,22 +13,25 @@
 {% if perms.payments.add_servicecategory %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "Add new Category Service" %} </a>{% endif %}
 </div>
 
-<div class="container flex column">
-        <div class="card">
-          <div class="card__title">
-            <h4> {% trans "Service Category Name" %} : {{category.category_name}} </h4>
-            <i> {% trans "Service Category Code" %} : {{category.category_code}}</i>
-          </div>
-          <div class="card__body">
-              <ul class="mat-list" role="navigation">
-                
-                <li class="mat-list-item"> 
-                    <label for="is_active">{% trans "Activated" %} : </label>
-                    <input type="checkbox" name="is_active" id="is_active" {% if category.is_active %}checked{% endif %} disabled>
-                 </li>
-                <li class="mat-list-item"> {% trans "Created by" %}: {{category.created_by.username}} </li>
-                <li class="at-list-item"> {% trans "Created at" %} : {{category.created_at|date:"F j, Y"}} </li>
-              </ul>
+<div class="container">
+        <div class="mat-box full">
+          <div class="mat-box-content">
+              <div class="entry">
+                  <span class="key">{% trans "Category" %}</span><span class="value">{{category.category_name}}</span>
+              </div>
+              <div class="entry">
+                  <span class="key">{% trans "Code" %}</span><span class="value">{{category.category_code}}</span>
+              </div>
+              <div class="entry">
+                  <span class="key">{% trans "Status" %}</span><span class="value"> <i class="fas fa-bullet icon {% if category.is_active %}success {% else %}error{% endif %}"></i> {{category.is_active|yesno:_('active,inactive')}}</span>
+              </div>
+              <div class="entry">
+                  <span class="key">{% trans "Created by" %}</span><span class="value">{{category.created_by.username}}</span>
+              </div>
+              <div class="entry">
+                  <span class="key">{% trans "Created at" %}</span><span class="value">{{category.created_at|date:"F j, Y"}}</span>
+              </div>
+
               {% if has_services %}
               
               <div class="mat-list-wrapper">

@@ -3,7 +3,9 @@
 
 {% block CONTENT %}
 {% if  perms.payments.view_service %}
-
+<div class="actions">
+<a class="mat-button mat-button-outlined" href="{% url 'dashboard:services' %}"><i class="fas fa-list icon"></i>{% trans "Services" %}</a>
+</div>
 
 <div class="mat-box">
   <div class="row">

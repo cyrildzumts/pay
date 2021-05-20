@@ -3,40 +3,44 @@
 
 {% block CONTENT %}
 {% if perms.payments.view_availableservice %}
+<div class="actions">
+    <a class="mat-button mat-button-text" href="{{service.get_dashboard_remove_url}}">{% trans "Remove" %}</a>
+    {% if can_change_available_service %}<a class="mat-button mat-button-text" href="{{service.get_dashboard_update_url}}">{% trans "Edit" %}</a>{% endif %}
+    {% if can_add_available_service %}<a class="mat-button mat-button-text" href="{% url 'dashboard:available-service-create' %}">{% trans "Add new Service" %}</a>{% endif %}
+    <a class="mat-button mat-button-text" href="{% url 'dashboard:available-services' %}">{% trans "Available Services" %}</a>
+    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+</div>
 
+<div class="container">
+        <div class="mat-box full">
 
-<div class="container flex column">
-        <div class="mat-box">
-          <h3> {% trans "Service Name" %} : {{service.name}} </h3>
-            <h4> {% trans "Service Code" %} : {{service.service_code}}</h4>
           <div class="mat-box-content">
-              <ul class="listview" role="navigation">
-                <li class="list-item"> {% trans "Operator" %} : {{service.operator.get_full_name}} </li>
-                <li class="list-item"> {% trans "Category" %}: {{service.category.category_name}} </li>
-                <li class="list-item"> {% trans "Created by" %}: {{service.created_by.username}} </li>
-                <li class="list-item"> {% trans "Date" %} : {{service.created_at}} </li>
-                <li class="list-item"> 
-                    <label for="is_active">{% trans "Activated" %} : </label>
-                    <input type="checkbox" name="is_active" id="is_active" {% if service.is_active %}checked{% endif %} disabled>
-                 </li>
-                
-                <li class="list-item"> 
-                    <div class="">
-                      <p> {% trans "Description" %} : </p>
-                      <p> {{service.description}} </p>
-                    </div>
-                 </li>
-              </ul>
+              <div class="entry">
+                <span class="key">{% trans "Service Name" %}</span><span class="value">{{service.name}}</span>
+              </div>
+              <div class="entry">
+                <span class="key">{% trans "Service Code" %}</span><span class="value">{{service.service_code}}</span>
+              </div>
+              <div class="entry">
+                <span class="key">{% trans "Operator" %}</span><span class="value">{{service.operator.get_full_name}}</span>
+              </div>
+              <div class="entry">
+                <span class="key">{% trans "Category" %}</span><span class="value">{{service.category.category_name}}</span>
+              </div>
+              <div class="entry">
+                <span class="key">{% trans "Created by" %}</span><span class="value">{{service.created_by.username}}</span>
+              </div>
+              <div class="entry">
+                <span class="key">{% trans "Date" %}</span><span class="value">{{service.created_at|date:'F, j Y, H:i:s'}}</span>
+              </div>
+              <div class="entry">
+                <span class="key">{% trans "Status" %}</span><span class="value"> <i class="fas fa-bullet icon {% if service.is_active %}success {% else %}error{% endif %}"></i> {{service.is_active|yesno:_('active,inactive')}}</span>
+              </div>
+              <div class="entry">
+                <span class="key">{% trans "Description" %}</span><span class="value">{{service.description}}</span>
+              </div>
           </div>
-          <div class="">
-              <ul class="actions" role="navigation">
-                  <li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_remove_url}}"> {% trans "Remove" %} </a> </li>
-                  {% if can_change_available_service %}<li class="list-item"><a class="mat-button mat-button-text" href="{{service.get_dashboard_update_url}}"> {% trans "Edit" %} </a> </li>{% endif %}
-                  {% if can_add_available_service %}<li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:available-service-create' %}"> {% trans "Add new Service" %} </a> </li>{% endif %}
-                  <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:available-services' %}"> {% trans "Available Services" %} </a> </li>
-                  <li class="list-item"> <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a></li>
-              </ul>
-          </div>
+          
         </div>
 </div>
 

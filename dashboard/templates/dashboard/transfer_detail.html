@@ -5,6 +5,9 @@
 {% block CONTENT %}
 
 {% if perms.payments.view_transfer %}
+<div class="actions">
+<a class="mat-button mat-button-outlined" href="{% url 'dashboard:transfers' %}"><i class="fas fa-list icon"></i>{% trans "Transfers" %}</a>
+</div>
 <div class="container">
         <div class="mat-box">
                 <div class="title">
@@ -18,10 +21,10 @@
                         <span class="key">{% trans "Recipient" %} :</span> <span class="value">{{transfer.recipient.get_full_name}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{transfer.amount}} {% trans "XAF" %}</span>
+                        <span class="key">{% trans "Amount" %} :</span> <span class="value">{{transfer.amount}} {% trans CURRENCY %}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{transfer.created_at|date:"F j, Y"}}</span>
+                        <span class="key">{% trans "Date" %} :</span> <span class="value">{{transfer.created_at|date:"F j, Y, H:i:s"}}</span>
                     </div>
                     <div class="entry">
                         <span class="key">{% trans "Verification Code" %} :</span> <span class="value">{{transfer.verification_code}}</span>

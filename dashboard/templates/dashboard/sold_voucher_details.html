@@ -2,6 +2,9 @@
 {% load i18n %}
 
 {% block CONTENT %}
+<div class="actions">
+<a class="mat-button mat-button-outlined" href="{% url 'dashboard:sold-vouchers' %}"><i class="fas fa-list icon"></i>{% trans "Sold Vouchers" %}</a>
+</div>
 
 <div class="container">
     <div class="mat-box">

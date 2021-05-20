@@ -1,9 +1,9 @@
-{% extends "account_base.html"%}
+{% extends "dashboard_base.html"%}
 {% load i18n %}
 
-{% block MAIN_CONTENT %}
+{% block CONTENT %}
 
 <div class="container">
    {% include 'tags/transaction_list_snippets.html' with  list_title=_("Recents activities") OPEN_IN_DASHBOARD=True %}
 </div>
-{% endblock MAIN_CONTENT %}
+{% endblock CONTENT %}
