@@ -236,9 +236,17 @@ li.active.selected{
     color: var(--notification-color);
 }
 
+.diagram-wrapper .title{
+    color:var(--secondary-color);
+}
+
 .metric{
-    background-color:var(--primary-color);
-    color: var(--third-color);
+    background-color:var(--secondary-color);
+    color: #fafafa;
+}
+
+.metric h1, .metric h2, .metric h3, .metric h4, .metric h5, .metric h6{
+    color: var(--secondary-color);
 }
 
 .banner-action .mat-button{

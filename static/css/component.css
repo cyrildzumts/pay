@@ -40,6 +40,11 @@
   
   .diagram-wrapper{
 	  width: 100%;
+	  padding: 1em;
+  }
+
+  .diagram-wrapper .title{
+	  padding-bottom: 1em;
   }
   
   .diagram{
