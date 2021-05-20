@@ -14,6 +14,8 @@
     --banner-bg-color : #FAFAFA;
     --banner-color : #0A0A0A;
     --action-color : #45A29E;
+    --sidebar-brand-bg-color: #45A29E;
+    --sidebar-brand-color: #fafafa;
     --sidebar-bg-color: #fafafa;
     --sidebar-color: #0A0A0A;
     --sidebar-active-color: #45A29E;
@@ -47,5 +49,7 @@
     --button-outlined-hover-border-color: #45A29E;
     --metrics-color : #FAFAFA;
     --metrics-bg-color : #45A29E;
+    --dashboard-header-color : #fafafa;
+    --dashboard-header-bg-color : #45A29E;
 
 }

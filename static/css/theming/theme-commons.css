@@ -43,9 +43,14 @@ body{
     color: var(--secondary-color);
 }
 
+.sidebar-brand{
+    background-color: var(--sidebar-brand-bg-color) !important;
+    color: var(--sidebar-brand-color) !important;
+}
+
 .sidebar-menu a.active{
 
-	color: #fafafa;
+	color: #fafafa !important;
 	background-color: var(--sidebar-active-color);
 }
 .active{
@@ -296,9 +301,17 @@ li.active.selected{
 }
 
 .dashboard-header{
-    background-color: #fff;
-    color: var(--primary-color) ;
+    background-color: var(--dashboard-header-bg-color);
+    color: var(--dashboard-header-color)
 
+}
+
+.dashboard-header .search-wrapper{
+    border: 1px solid #fafafa;
+ }
+
+.dashboard-header .search-wrapper input{
+   background-color: transparent; 
 }
 
 .metric-title, .dashboard-metrics span{
