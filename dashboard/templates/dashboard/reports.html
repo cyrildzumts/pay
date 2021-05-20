@@ -7,7 +7,11 @@
     {% block CONTENT %}
     <div class="container">
         <div id="reports" class="container">
-        {% for entry_report in reports %}{% include "tags/transaction_summary.html" with ACTIVITY=entry_report.activity|balance_activity %}{% endfor %}
+        {% for entry_report in reports %}
+        {% include "tags/transaction_summary.html" with ACTIVITY=entry_report.activity|balance_activity %}
+        {% empty %}
+        {% trans "No Transactions yet" %}
+        {% endfor %}
         {% comment %}
             {% include "tags/payment_report.html" %}
             {% include "tags/transfer_report.html" %}
