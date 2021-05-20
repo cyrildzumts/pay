@@ -40,7 +40,7 @@ body{
 }
 
 .sidebar-brand .balance-info small{
-    color: var(--secondary-color);
+    color: #fafafa;
 }
 
 .sidebar-brand{
