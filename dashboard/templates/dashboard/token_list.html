@@ -5,9 +5,9 @@
 {% block CONTENT %}
 
 {% if perms.authtoken.view_token %}
-
+<div class="container">
 {% if token_list %}
-    <div class="col-m-12 col-6">
+    <div class="full">
         <div class="mat-list-wrapper">
             <div class="mat-list-header">
                 <span class="title">{% trans "Token List" %}</span>

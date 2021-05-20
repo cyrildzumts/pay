@@ -6,19 +6,16 @@
 {% if perms.payments.view_policy %}
 
 <div class="actions">
-<a class="mat-button mat-button-text" href="{{policy.get_dashboard_update_url}}"><span class="pen"></span>{% trans "Edit" %}</a>
-<a class="mat-button mat-button-text" href="{% url 'dashboard:policy-create'%}"><span class="add"></span>{% trans "New Policy" %}</a>
+<a class="mat-button mat-button-outlined" href="{{policy.get_dashboard_update_url}}"><i class="fas fa-pen icon"></i>{% trans "Edit" %}</a>
+<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create'%}"><i class="fas fa-plus icon"></i>{% trans "New Policy" %}</a>
+<a class="mat-button mat-button-text" href="{% url 'dashboard:policies'%}"><i class="fas fa-list icon"></i>{% trans "Policies" %}</a>
 </div>
 <div class="container">
-        <div class="card">
-          <div class="card__title">
-              <h3>{% trans "Policy" %}</h3>
-          </div>
-          <div class="card__body">
-            <p> {% trans "Daily Limit" %} : {{policy.daily_limit}} {% trans "XAF" %} </p>
-            <p> {% trans "Weekly Limit" %} : {{policy.weekly_limit}} {% trans "XAF" %} </p>
-            <p> {% trans "Monthly Limit" %} : {{policy.monthly_limit}} {% trans "XAF" %} </p>
-            <p> {% trans "Commission" %} : {{policy.commission}}</p>  
+        <div class="mat-box">
+          <h3>{% trans "Policy" %}</h3>
+          <div class="mat-box-content">
+            <p class="entry"><span>{% trans "Monthly Limit" %}</span><span>{{policy.monthly_limit}} {% trans CURRENCY %}</span></p>
+            <p class="entry"><span>{% trans "Commission" %}</span><span>{{policy.commission}}</span></p>  
           </div>
         </div>
 </div>

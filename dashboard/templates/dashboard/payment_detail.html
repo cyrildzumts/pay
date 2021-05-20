@@ -4,13 +4,14 @@
 {% block CONTENT %}
 
 {% if perms.payments.view_payment  %}
+<div class="actions">
+    <a  class="mat-button mat-button-text" href="{% url 'dashboard:payments' %}">{% trans "Payments" %}</a>
+</div>
 <div class="container">
 
 
-        <div class="box">
-                <div class="title">
-                    <span class="success">{% trans "Payment" %}</span>
-                </div>
+        <div class="mat-box">
+                <h4>{% trans "Payment" %}</h4>
                 <div class="box-content">
                     <div class="entry">
                         <span class="key">{% trans "Sender" %}</span> <span class="value">{{payment.sender.get_full_name}}</span>

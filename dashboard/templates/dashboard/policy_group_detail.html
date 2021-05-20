@@ -11,17 +11,15 @@
 <a class="mat-button mat-button-default" href="{% url 'dashboard:policy-group-create'%}"><i class="fas fa-plus icon"></i>{% trans "New Policy Group" %}</a>
 <a class="mat-button mat-button-default" href="{{group.get_dashboard_update_url}}"><i class="fas fa-pen icon"></i>{% trans "Edit" %}</a>
 <a class="mat-button mat-button-default" href="{{group.get_dashboard_remove_url}}"><i class="fas fa-trash icon"></i>{% trans "Delete" %}</a>
+<a class="mat-button mat-button-default" href="{% url 'dashboard:policy-groups' %}"><i class="fas fa-list icon"></i>{% trans "Policy Groups" %}</a>
 {% endblock ACTIONS %}
 </div>
 <div class="container">
         <div class="mat-box">
-          <div class="mat-box-title">
-              <h3>{% trans "Policy Group" %}</h3>
-          </div>
           <div class="mat-box-content">
-            <p> {% trans "Policy Group Name" %} : {{group.name}}</p>
-            <p> {% trans "Members" %} : {{group.members.count}} </p>
-            <p> {% trans "Commission" %} : {{group.policy.commission}}</p>
+            <p class="entry"><span>{% trans "Policy Group Name" %}</span><span>{{group.name}}</span></p>
+            <p class="entry"><span>{% trans "Members" %}</span><span>{{group.members.count}}</span></p>
+            <p class="entry"><span>{% trans "Commission" %}</span><span>{{group.policy.commission}}</span></p>
 
             <div class="mat-list-wrapper">
               <div class="mat-list-header">

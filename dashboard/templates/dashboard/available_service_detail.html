@@ -7,10 +7,8 @@
 
 <div class="container flex column">
         <div class="mat-box">
-          <div class="card__title">
-            <h3> {% trans "Service Name" %} : {{service.name}} </h3>
+          <h3> {% trans "Service Name" %} : {{service.name}} </h3>
             <h4> {% trans "Service Code" %} : {{service.service_code}}</h4>
-          </div>
           <div class="mat-box-content">
               <ul class="listview" role="navigation">
                 <li class="list-item"> {% trans "Operator" %} : {{service.operator.get_full_name}} </li>
