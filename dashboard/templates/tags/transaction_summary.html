@@ -1,26 +1,26 @@
 {% load i18n %}
 {% load payments_tags %}
-<div class="report-wrapper container">
+<div class="report-wrapper full">
     <h3>{{ACTIVITY_NAME}}</h3>
     <div id="reports-activity-{{entry_report.activity}}" class="flex flex-wrap">
-        <div id="activity-{{entry_report.activity}}-total" class="metric mat-box">
-                <h4 class="metric-value"><span>{{entry_report.total_amount}}</span><span>{% trans CURRENCY %}</span></h4>
-                <span class="metric-title">{% trans "Total" %}</span>
-        </div>
         <div id="activity-{{entry_report.activity}}-count" class="metric mat-box">
                 <h4 class="metric-value"><span>{{entry_report.activity_count}}</span></h4>
                 <span class="metric-title">{% trans "Count" %}</span>
         </div>
+        <div id="activity-{{entry_report.activity}}-total" class="metric mat-box">
+                <h4 class="metric-value"><span>{{entry_report.total_amount|floatformat:'-2'}}</span><span class="currency">{% trans CURRENCY %}</span></h4>
+                <span class="metric-title">{% trans "Total" %}</span>
+        </div>
         <div id="activity-{{entry_report.activity}}-average" class="metric mat-box">
-                <h4 class="metric-value"><span>{{entry_report.avg_amount}}</span><span>{% trans CURRENCY %}</span></h4>
+                <h4 class="metric-value"><span>{{entry_report.avg_amount|floatformat:'-2'}}</span><span class="currency">{% trans CURRENCY %}</span></h4>
                 <span class="metric-title">{% trans "Avg" %}</span>
         </div>
         <div id="activity-{{entry_report.activity}}-min" class="metric mat-box">
-                <h4 class="metric-value"><span>{{entry_report.min_amount}}</span><span>{% trans CURRENCY %}</span></h4>
+                <h4 class="metric-value"><span>{{entry_report.min_amount|floatformat:'-2'}}</span><span class="currency">{% trans CURRENCY %}</span></h4>
                 <span class="metric-title">{% trans "Min" %}</span>
         </div>
         <div id="activity-{{entry_report.activity}}-max" class="metric mat-box">
-                <h4 class="metric-value"><span>{{entry_report.max_amount}}</span><span>{% trans CURRENCY %}</span></h4>
+                <h4 class="metric-value"><span>{{entry_report.max_amount|floatformat:'-2'}}</span><span class="currency">{% trans CURRENCY %}</span></h4>
                 <span class="metric-title">{% trans "Max" %}</span>
         </div>
     </div>
