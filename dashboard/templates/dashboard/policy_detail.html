@@ -8,14 +8,14 @@
 <div class="actions">
 <a class="mat-button mat-button-outlined" href="{{policy.get_dashboard_update_url}}"><i class="fas fa-pen icon"></i>{% trans "Edit" %}</a>
 <a class="mat-button mat-button-outlined" href="{% url 'dashboard:policy-create'%}"><i class="fas fa-plus icon"></i>{% trans "New Policy" %}</a>
-<a class="mat-button mat-button-text" href="{% url 'dashboard:policies'%}"><i class="fas fa-list icon"></i>{% trans "Policies" %}</a>
+<a class="mat-button mat-button-outlined" href="{% url 'dashboard:policies'%}"><i class="fas fa-list icon"></i>{% trans "Policies" %}</a>
 </div>
 <div class="container">
         <div class="mat-box">
           <h3>{% trans "Policy" %}</h3>
           <div class="mat-box-content">
-            <p class="entry"><span>{% trans "Monthly Limit" %}</span><span>{{policy.monthly_limit}} {% trans CURRENCY %}</span></p>
-            <p class="entry"><span>{% trans "Commission" %}</span><span>{{policy.commission}}</span></p>  
+            <p class="entry"><span class="key">{% trans "Monthly Limit" %}</span><span class="value">{{policy.monthly_limit}} {% trans CURRENCY %}</span></p>
+            <p class="entry"><span class="key">{% trans "Commission" %}</span><span class="value">{{policy.commission}}</span></p>  
           </div>
         </div>
 </div>

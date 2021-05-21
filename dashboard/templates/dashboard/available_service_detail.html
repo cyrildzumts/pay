@@ -4,11 +4,10 @@
 {% block CONTENT %}
 {% if perms.payments.view_availableservice %}
 <div class="actions">
-    <a class="mat-button mat-button-text" href="{{service.get_dashboard_remove_url}}">{% trans "Remove" %}</a>
-    {% if can_change_available_service %}<a class="mat-button mat-button-text" href="{{service.get_dashboard_update_url}}">{% trans "Edit" %}</a>{% endif %}
-    {% if can_add_available_service %}<a class="mat-button mat-button-text" href="{% url 'dashboard:available-service-create' %}">{% trans "Add new Service" %}</a>{% endif %}
-    <a class="mat-button mat-button-text" href="{% url 'dashboard:available-services' %}">{% trans "Available Services" %}</a>
-    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Dashboard" %}</a>
+    {% if perms.payments.delete_availableservice %}<a class="mat-button mat-button-outlined warn" href="{{service.get_dashboard_remove_url}}">{% trans "Remove" %}</a>{% endif %}
+    {% if perms.payments.change_availableservice %}<a class="mat-button mat-button-outlined" href="{{service.get_dashboard_update_url}}">{% trans "Edit" %}</a>{% endif %}
+    {% if perms.payments.add_availableservice %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:available-service-create' %}">{% trans "Add new Service" %}</a>{% endif %}
+    <a class="mat-button mat-button-outlined" href="{% url 'dashboard:available-services' %}">{% trans "Available Services" %}</a>
 </div>
 
 <div class="container">

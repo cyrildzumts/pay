@@ -4,18 +4,13 @@
 {% if perms.payments.change_servicecategory %}
 
 
-<div class="responsive">
+<div class="container">
 
-    <div class="card">
-        <div class="card__title">
-            <h1>{% trans "Edit Category Service" %}</h1>
-        </div>
-        <div class="card__body">
-        
-        
+    <div class="mat-box">
+        <h1>{% trans "Edit Category" %}</h1>
+        <div class="mat-box-content">
                 <form class="form card" name="category_service" action="{{category.get_dashboard_update_url}}" method="POST">{% csrf_token %}
-                    <div class="card__body">
-                    
+
                     <div class="form-group">
                         <label for="category_name">{% trans "Category Name" %}</label>
                         <input id="category_name" type="text"  name="category_name" value="{{category.category_name}}">
@@ -28,13 +23,10 @@
                         <label for="is_active">{% trans "Is Active" %}</label>
                         <input id="is_active" type="checkbox"  name="is_active" {% if category.is_active %}checked{% endif %}>
                     </div>
-                    </div><!-- End of Card-body-->
-
-                    <div class="card__actions">
-                            <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
-                            <button class="mat-button mat-button-default" type="submit">{% trans "Update" %}</button>
-                        </div>
-                    
+                    <div class="actions">
+                        <a class="mat-button mat-button-outlined js-cancel" href="{{category.get_dashboard_url}}">{% trans "Cancel" %}</a>
+                        <button class="mat-button mat-button-default" type="submit">{% trans "Update" %}</button>
+                    </div>
                 </form>
             </div>
     </div>          
