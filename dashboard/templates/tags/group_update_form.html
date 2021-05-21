@@ -3,7 +3,10 @@
 {% if perms.auth.change_group %}
 <div class="container">
      <div class="actions">
-        <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
+        {% if perms.change_group %}
+        <a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"><i class="fas fa-plus icon"></i><span>{% trans "New Group" %}</span> </a>
+        {% endif %}
+        <a class="mat-button mat-button-outlined" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
     </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
         <select id="selected-permission-list" name="permissions" class="hidden" multiple>
