@@ -3,10 +3,13 @@
 
 {% block CONTENT %}
 
-{% if can_view_idcard %}
-<div class="container flex column">
+{% if perms.payments.view_idcard %}
+<div class="actions">
+    {% if perms.payments.change_idcard %}<a class="mat-button mat-button-text" href="{{idcard.get_dashboard_update_url}}"> {% trans "Update" %}</a>{% endif %}
+</div>
+<div class="container">
         {% if has_idcard %}
-            <div class="mat-box">
+            <div class="mat-box full">
                 <div class="box">
                     <div class="entry"><span class="key">{% trans "ID number" %}</span><span class="value">{{idcard.card_number}}</span></div>
                     <div class="entry"><span class="key">{% trans "Delivery Place " %}</span><span class="value">{{idcard.delivery_place}}</span></div>
@@ -27,10 +30,7 @@
                     <p>{% trans "Image" %}: </p>
                     <img class="full js-zoom" src="{{idcard.image.url}}"/>
                 </div>
-                <div class="actions">
-                    {% if can_change_idcard %}<a class="mat-button mat-button-text" href="{{idcard.get_dashboard_update_url}}"> {% trans "Update" %}</a>{% endif %}
-                    <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-                </div>
+                
 
             </div>
             

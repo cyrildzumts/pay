@@ -5,11 +5,11 @@
 
 {% if perms.payments.view_payment  %}
 <div class="actions">
-    <a  class="mat-button mat-button-text" href="{% url 'dashboard:payments' %}">{% trans "Payments" %}</a>
+    <a  class="mat-button mat-button-outlined" href="{% url 'dashboard:payments' %}">{% trans "Payments" %}</a>
 </div>
 <div class="container">
 
-        <div class="mat-box">
+        <div class="mat-box full">
                 <h4>{% trans "Payment" %}</h4>
                 <div class="box-content">
                     <div class="entry">
@@ -19,7 +19,7 @@
                         <span class="key">{% trans "Recipient" %}</span> <span class="value">{{payment.recipient.get_full_name}}</span>
                     </div>
                     <div class="entry">
-                        <span class="key">{% trans "Amount" %}</span> <span class="value">{{payment.amount}} {% trans CURRENCY %}</span>
+                        <span class="key">{% trans "Amount" %}</span> <span class="value">{{payment.amount|floatformat:'-2'}} {% trans CURRENCY %}</span>
                     </div>
                     <div class="entry">
                         <span class="key">{% trans "Date" %}</span> <span class="value">{{payment.created_at|date:"F j,Y H:i:s"}}</span>
