@@ -4,43 +4,23 @@
 
 <div class="container">
 
-    <div class="mat-box full">
-        <h3>{% trans "Create new Policy" %}</h3>
-        <div class="mat-box-content">
-        
-        
-                <form id="policy-form" class="form" name="policy" action="{% url 'dashboard:policy-create' %}" method="POST">{% csrf_token %}
-                    <div class="container">
-                    
-                        <div class="form-group">
-                            <label for="daily-limit">{% trans "Daily Limit" %}</label>
-                            <input id="daily-limit" type="text"  name="daily_limit" value="{{policy.daily_limit}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="weekly-limit">{% trans "Weekly Limit" %}</label>
-                            <input id="weekly-limit" type="text"  name="weekly_limit" value="{{policy.weekly_limit}}">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="monthly-limit">{% trans "Monthly Limit" %}</label>
-                            <input id="monthly-limit" type="text"  name="monthly_limit" value="{{policy.monthly_limit}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="commission">{% trans "Commission" %}</label>
-                            <input id="commission" type="text"  name="commission" value="{{policy.commission}}">
-                        </div>
-                    </div>
-
-                    <div class="actions">
-                        <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
-                        <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Create" %}</button>
-                    </div>
-                    
-                </form>
+    <div class="mat-box">
+        <form id="policy-form" name="available_services" action="{% url 'dashboard:policies' %}" method="POST">{% csrf_token %}
+            <input type="hidden" name="created_by" value="{{request.user.pk}}">
+            <div class="form-group">
+                <label for="commission">{% trans "Transaction Commission" %}</label>
+                <input type="number" name="commision" id="commission">
             </div>
-    </div>          
+            <div class="form-group">
+                <label for="monthy_limit">{% trans "Monthly Transaction" %}</label>
+                <input type="number" name="monthly_limit" id="monthly_limit">
+            </div>
+            <div class="actions">
+                <a class="mat-button mat-button-outlined" href="{%url 'dashboard:policies'%}">{% trans "Cancel" %}</a>
+                <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Create the Policy" %}</button>
+            </div>
+        </form>
+    </div>        
 </div>
 
 {% else %}
