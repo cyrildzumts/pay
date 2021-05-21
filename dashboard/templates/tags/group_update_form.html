@@ -8,7 +8,7 @@
         {% endif %}
         <a class="mat-button mat-button-outlined" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
     </div>
-    <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
+    <form id="group-form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
         <select id="selected-permission-list" name="permissions" class="hidden" multiple>
             {% for p in permissions  %}
                 <option value="{{p.pk}}" selected>{{p.content_type.app_label}} - {{p.content_type.model}} - {{p.codename}}</option>
