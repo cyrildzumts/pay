@@ -34,7 +34,7 @@
                   <!--<td class="checkbox"><input type="checkbox" name="selected-category"></td>-->
                   <td>{{category.category_name}}</td>
                   <td>{{category.category_code}}</td>
-                  <td><a class="mat-button mat-button-default" href="{{category.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
+                  <td><a class="mat-button mat-button-default" href="{{category.get_dashboard_url}}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
                   
