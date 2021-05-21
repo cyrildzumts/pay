@@ -14,7 +14,7 @@ from rest_framework.authtoken.models import Token
 from pay import utils, settings, conf
 from dashboard import forms
 from payments import payment_service, constants as PAYMENTS_CONSTANTS
-from payments.models import PaymentRequest, Balance
+from payments.models import PaymentRequest, Balance, BalanceHistory
 from dashboard import analytics
 from dashboard.permissions import PermissionManager, get_view_permissions
 from core.tasks import send_mail_task
@@ -126,6 +126,57 @@ def generate_token(request):
 
     return render(request, template_name, context)
 
+
+
+@login_required
+def activities(request):
+    context = {}
+    queryset = payment_service.get_balance_activities(request.user)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, conf.PAGINATED_BY)
+    try:
+        list_set = paginator.page(page)
+    except PageNotAnInteger:
+        list_set = paginator.page(1)
+    except EmptyPage:
+        list_set = None
+    template_name = "dashboard/balance_activities.html"
+    page_title = "Activities" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['activity_list'] = list_set
+    return render(request,template_name, context)
+
+
+
+@login_required
+def activity_details(request, history_uuid):
+    context = {}
+    activity = get_object_or_404(BalanceHistory, history_uuid=history_uuid)
+    template_name = "dashboard/balance_activity.html"
+    page_title = "Activity" + " - " + settings.SITE_NAME
+    context['page_title'] = page_title
+    context['activity'] = activity
+    return render(request,template_name, context)
+
+
+'''
+@login_required
+def generate_activities_invoice(request):
+    if request.method != 'POST':
+        messages.error(request, CORE_UI_STRINGS.UI_INVALID_REQUEST)
+        return redirect('payments:activities')
+    form = ReportForm(utils.get_postdata(request))
+    if form.is_valid():
+        date = form.cleaned_data['date']
+        filename = f"Invoice-Activities-{request.user.get_full_name()}-{date.year}-{date.month}"
+        invoice = core_service.generate_invoice(user=request.user, date=form.cleaned_data['date'], output_name=filename)
+        response = HttpResponse(invoice.getvalue(), content_type=Constants.INVOICE_CONTENT_TYPE)
+        response[Constants.CONTENT_DISPOSITION]= f"attachment; filename='{filename}'"
+        return response
+    else:
+        messages.error(request, CORE_UI_STRINGS.UI_INVALID_REQUEST)
+        return redirect('payments:activities')
+'''
 
 @login_required
 def reports(request):
