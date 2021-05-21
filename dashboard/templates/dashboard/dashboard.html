@@ -10,7 +10,7 @@
 <div class="container">
         <h3>{% trans "Partners report" %}</h3>
         <div class="mat-table-wrapper">
-           {% include 'tags/transaction_list_snippets.html' with activity_list=partner_activities list_title=_("Recents Partner activities") OPEN_IN_DASHBOARD=False %}
+           {% include 'tags/transaction_list_snippets.html' with activity_list=partner_activities list_title=_("Recents Partner activities") OPEN_IN_DASHBOARD=True %}
         </div><!--End of Table Wrapper-->
         
         
@@ -18,7 +18,7 @@
 <div class="container">
         <h3>{% trans "Customer report" %}</h3>
         <div class="mat-table-wrapper">
-            {% include 'tags/transaction_list_snippets.html' with activity_list=customer_activities list_title=_("Recents Customer activities") OPEN_IN_DASHBOARD=False %}
+            {% include 'tags/transaction_list_snippets.html' with activity_list=customer_activities list_title=_("Recents Customer activities") OPEN_IN_DASHBOARD=True %}
         </div><!--End of Table Wrapper-->
 </div>
 {% endblock CONTENT %}
