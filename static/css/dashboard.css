@@ -255,6 +255,7 @@ width: unset !important;
 .dash-main-content{
 position: relative;
 transition: margin-left 300ms;
+width: 100%;
 margin-left: 345px;
 }
 
