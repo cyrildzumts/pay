@@ -7,54 +7,6 @@
 <a class="mat-button mat-button-outlined" href="{% url 'dashboard:services' %}"><i class="fas fa-list icon"></i>{% trans "Services" %}</a>
 </div>
 
-<div class="mat-box">
-  <div class="row">
-    <h3>{% trans "Summary" %}</h3>
-  </div>
-  <div class="row">
-    <div class="responsive">
-        <div class="entry flex-column">
-          <div class="title">{% trans "Money transferred" %}</div>
-          <div class="subtitle">{{service_summary.total_amount}} FCFA</div>
-        </div>
-    </div>
-    <div class="responsive">
-        <div class="entry flex-column">
-          <div class="title">{% trans "Service usage" %}</div>
-          <div class="subtitle">{{service_summary.usage_count}}</div>
-        </div>
-    </div>
-
-    <div class="responsive">
-        <div class="entry flex-column">
-          <div class="title">{% trans "Max paid money" %}</div>
-          <div class="subtitle">{{service_summary.max_paid_amount}} FCFA</div>
-        </div>
-    </div>
-
-    <div class="responsive">
-        <div class="entry flex-column">
-          <div class="title">{% trans "Min paid money" %}</div>
-          <div class="subtitle">{{service_summary.min_paid_amount}} FCFA</div>
-        </div>
-    </div>
-
-    <div class="responsive">
-        <div class="entry flex-column">
-          <div class="title">{% trans "Number of user of the service" %}</div>
-          <div class="subtitle">{{service_summary.number_of_customer}}</div>
-        </div>
-    </div> 
-    <div class="responsive">
-        <div class="entry flex-column">
-          <div class="title">{% trans "Number of operators" %}</div>
-          <div class="subtitle">{{service_summary.number_of_operator}}</div>
-        </div>
-    </div>         
-        
-    </div> <!--End of row-->
-  </div><!--End of Container-->
-
 <div class="container">
         <div class="mat-box">
             <div class="title">
@@ -71,16 +23,16 @@
                   <span class="key">{% trans "Customer" %}</span><span class="value">{{service.customer.get_full_name}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Amount" %}</span><span class="value">{{service.price}} {% trans "XAF" %}</span>
+                  <span class="key">{% trans "Amount" %}</span><span class="value">{{service.price|floatformat:'-2'}} {% trans CURRENCY %}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Commission" %}</span><span class="value">{{service.commission}}</span>
+                  <span class="key">{% trans "Commission" %}</span><span class="value">{{service.commission|floatformat:'-3'}}</span>
                 </div>
                 <div class="entry">
                   <span class="key">{% trans "Issue Date" %}</span><span class="value">{{service.issued_at}}</span>
                 </div>
                 <div class="entry">
-                  <span class="key">{% trans "Date" %}</span><span class="value">{{service.created_at|date:"F j, Y"}}</span>
+                  <span class="key">{% trans "Date" %}</span><span class="value">{{service.created_at|date:"F j, Y, H:i:s"}}</span>
                 </div>
                 <div class="entry">
                   <span class="key">{% trans "Verification Code" %}</span><span class="value">{{service.verification_code}}</span>

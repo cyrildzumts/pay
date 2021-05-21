@@ -1,11 +1,8 @@
 {% load i18n %} 
 
 {% if perms.auth.change_group %}
-
-<div class="col-m-12 col-8">
 <div class="container">
      <div class="actions">
-        <a class="mat-button mat-button-text" href="{%url 'dashboard:home'%}">{% trans "Dashboard" %}</a>
         <a class="mat-button mat-button-text" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>
     </div>
     <form id="group-form" class="group-form form" name="group" action="{% url 'dashboard:group-update' group.pk %}" method="POST">{% csrf_token %}
@@ -126,7 +123,6 @@
             </div>
         </div>
     </form>
-</div>
 </div>
 {% else %}
 <div class="col-m-12 col-8 access-error">

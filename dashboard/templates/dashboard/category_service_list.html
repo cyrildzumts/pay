@@ -7,18 +7,11 @@
 
 {% if perms.payments.view_servicecategory  %}
 <div class="actions">
-{% if perms.payments.add_servicecategory %}<a class="mat-button mat-button-text" href="{% url 'dashboard:category-service-create' %}"> {% trans "New Category" %}</a>{% endif %}
+{% if perms.payments.add_servicecategory %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:category-service-create' %}"><i class="fas fa-plus icon"></i>{% trans "New Category" %}</a>{% endif %}
 </div>
 
 <div class="container">
-<div class="col-xs-12">
     <div class="mat-table-wrapper">
-        <div class="row">
-            <div class="mat-table-title">
-                {% trans "Categories" %}
-            </div>
-        </div><!--End of Row-->
-        
         <table id="available-category-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
@@ -46,7 +39,6 @@
     </table>
     {% include "tags/pagination.html" with page_set=categories %}
     </div><!--End of Table Wrapper-->
-  </div>
 </div>
 {% else %}
 <div class="error">

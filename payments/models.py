@@ -521,7 +521,7 @@ class Transfer(models.Model):
     def get_absolute_url(self):
         return reverse('payments:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
 
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         return reverse('dashboard:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
 
     @staticmethod

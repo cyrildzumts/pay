@@ -3,17 +3,13 @@
 
 {% if perms.payments.change_availableservice %}
 
-<div class="responsive">
-
-    <div class="card">
-        <div class="card__title">
-            <h1>{% trans "Edit Service" %}</h1>
-        </div>
-        <div class="card__body">
+<div class="container">
+    <h1>{% trans "Edit Service" %}</h1>
+    <div class="mat-box">
+        <div class="mat-box-content">
         
         
-                <form class="form card" name="available_service" action="{{service.get_dashboard_update_url}}" method="POST">{% csrf_token %}
-                    <div class="card__body">
+                <form class="form" name="available_service" action="{{service.get_dashboard_update_url}}" method="POST">{% csrf_token %}
                     
                     <div class="form-group">
                         <label for="service_code">{% trans "Service Code" %}</label>
@@ -39,10 +35,9 @@
                         <label for="description">{% trans "Description" %}</label>
                         <input id="description" type="text"  name="description" value="{{service.description}}">
                     </div>
-                    </div><!-- End of Card-body-->
 
-                    <div class="card__actions">
-                            <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
+                    <div class="actions">
+                            <a class="mat-button mat-button-outlined js-cancel" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
                             <button class="mat-button mat-button-default" type="submit">{% trans "Update" %}</button>
                         </div>
                     

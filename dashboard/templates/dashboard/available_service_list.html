@@ -5,18 +5,14 @@
 {% block CONTENT %}
 {% if perms.payments.view_availableservice %}
 <div class="container">
-<div class="col-xs-12">
+    <div class="actions">
     {% if perms.payments.add_availableservice %}
         {% block ACTIONS %}
         <a class="mat-button mat-button-default" href="{% url 'dashboard:available-service-create'%}"> <i class="fas fa-money-check icon"></i><span>{% trans "New Service" %}</span></a>
         {% endblock ACTIONS %}
-    {% endif %}  
+    {% endif %}
+    </div>
     <div class="mat-table-wrapper">
-        <div class="row">
-            <div class="mat-table-title">
-                {% trans "Available Services" %}
-            </div>
-        </div><!--End of Row-->
         <table id="available-service-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
@@ -33,19 +29,12 @@
                   <td>{{avs.name}}</td>
                   <td>{{avs.category.category_name}}</td>
                   <td><a class="mat-button mat-button-default" href="{{avs.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
-                  
                   </tr>
                   {% endfor %}
-                  
           </tbody>
-          <tfoot>
-                  
-          </tfoot>
-
-    </table>
+        </table>
     {% include "tags/pagination.html" with page_set=available_services %}
     </div><!--End of Table Wrapper-->
-  </div>
 </div>
 {% else %}
 <div class="access-error">

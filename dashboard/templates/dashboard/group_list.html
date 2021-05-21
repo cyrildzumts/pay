@@ -28,7 +28,6 @@
     {% if perms.auth.add_group %}<a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"> <i class="fas fa-plus icon"></i> <span>{% trans "New Group" %}</span> </a>{% endif %}
     </div>
     {% if groups %}
-    <div class="col-m-12 col-8">
     <div class="mat-table-wrapper">
        
         <table id="group-list" class="mat-table js-filter-table">
@@ -64,7 +63,6 @@
     {% else %}
     <p> {% trans "There is currently no Group" %} ...</p>
     {% endif %}
-    </div>
 </div>
 {% else %}
 <div class="access-error">

@@ -1,24 +1,20 @@
 {% extends "dashboard_base.html"%}
 {% load i18n %}
-{% block ACTIONS %}
-<a class="mat-button mat-button-text" href="{% url 'dashboard:generate-balance' %}">{% trans "Generate Balance" %}</a>
-{% endblock ACTIONS %}
+
 
 {% block CONTENT %}
 
 {% if perms.auth.view_user %}
 
-<div class="row">
-  <div class="nav">
-    <a class="mat-button mat-button-default" href="{% url 'dashboard:home' %}"> {% trans "Dashboard" %} </a>
-    {% if perms.auth.add_user %}
-    <a class="mat-button mat-button-default" href="{% url 'dashboard:create-user' %}"> <i class="fas fa-user-plus"></i><span>{% trans "New User" %}</span></a>
-    {% endif %}
-  </div>
+
+<div class="actions">
+  <a class="mat-button mat-button-text" href="{% url 'dashboard:generate-balance' %}">{% trans "Generate Balance" %}</a>
+  {% if perms.auth.add_user %}
+  <a class="mat-button mat-button-default" href="{% url 'dashboard:create-user' %}"><i class="fas fa-user-plus"></i><span>{% trans "New User" %}</span></a>
+  {% endif %}
 </div>
 
 <div class="container">
-<div class="col-m-12 col-8">
     <div class="mat-table-wrapper">
         <table id="service-list" class="mat-table js-filter-table">
           <caption>{% trans "Users" %}</caption>
@@ -45,14 +41,9 @@
                   {% endfor %}
                   
           </tbody>
-          <tfoot>
-                  
-          </tfoot>
-
     </table>
     {% include "tags/pagination.html" with page_set=users %}
     </div><!--End of Table Wrapper-->
-  </div>
 </div>
 
 {% else %}
