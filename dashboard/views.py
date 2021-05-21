@@ -51,8 +51,8 @@ def dashboard(request):
             'recent_services' : analytics.get_recent_services(),
             'is_allowed'     : can_view_dashboard,
             'content_title' : CORE_UI_STRINGS.UI_DASHBOARD_TITLE,
-            'partner_activities' : analytics.detailed_activities_reports(**{'user__groups__name': conf.PARTNER_GROUP})[0],
-            'customer_activities' : analytics.detailed_activities_reports(**{'user__groups': None})[0],
+            'partner_activities' : analytics.detailed_activities_reports(**{'balance__user__groups__name': conf.PARTNER_GROUP})[0],
+            'customer_activities' : analytics.detailed_activities_reports(**{'balance__user__groups': None})[0],
         }
 
     logger.info("Authorized Access : User %s has requested the Dashboard Page", username)
