@@ -11,8 +11,8 @@
             
             {% for activity in activity_list %}
             <li class="activity full" data-activity="{{activity.activity}}" data-amount="{{activity.current_amount|floatformat:'-2'}}" data-date="{{activity.created_at|naturalday}}">
-                <div class="entry">
-                    <a class="" href="{% if OPEN_IN_DASHBOARD %}{{activity.get_dashboard_url}}{% else %}{{activity.get_absolute_url}}{% endif %}">
+                <a class="full" href="{% if OPEN_IN_DASHBOARD %}{{activity.get_dashboard_url}}{% else %}{{activity.get_absolute_url}}{% endif %}">
+                    <div class="entry">
                     
                     {% if activity.is_incoming %}
                         <div class="activity-img">
@@ -44,8 +44,8 @@
                             </div>
                         </div>
                     {% endif %}
-                    </a>
-                </div>
+                    </div>
+                </a>
             </li>
             {% endfor %}
         </ul>

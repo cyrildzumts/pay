@@ -6,7 +6,6 @@
 {% if perms.payments.view_payment %}
 
 <div class="container">
-<div class="col-xs-12">
     <div class="mat-table-wrapper">
         <table id="service-list" class="mat-table js-filter-table">
           <thead>
@@ -27,7 +26,7 @@
                     <td data-label="Recipient">{{p.recipient.get_full_name}}</td>
                     <td data-label="Amount">{{p.amount}} {% trans "XAF" %}</td>
                     <td data-label="Date">{{p.created_at|date:"F j,Y H:i:s"}}</td>
-                    <td data-label="Details"><a class="mat-button mat-button-default" href="{{p.get_dashboard_absolute_url}}">{% trans "More" %}</a></td>
+                    <td data-label="Details"><a class="mat-button mat-button-default" href="{{p.get_dashboard_url}}">{% trans "More" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -39,7 +38,6 @@
     </table>
     {% include "tags/pagination.html" with page_set=payments %}
     </div><!--End of Table Wrapper-->
-  </div>
 </div>
 
 {% else %}
