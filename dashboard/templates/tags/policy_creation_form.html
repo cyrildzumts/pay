@@ -1,15 +1,11 @@
 {% load i18n %} 
 
-{% if can_add_policy %}
-
-
+{% if perms.payments.add_policy %}
 
 <div class="container">
 
-    <div class="mat-box">
-        <div class="title">
-            <h3>{% trans "Create new Policy" %}</h3>
-        </div>
+    <div class="mat-box full">
+        <h3>{% trans "Create new Policy" %}</h3>
         <div class="mat-box-content">
         
         
@@ -38,7 +34,7 @@
                     </div>
 
                     <div class="actions">
-                        <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
+                        <a class="mat-button mat-button-outlined" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
                         <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Create" %}</button>
                     </div>
                     

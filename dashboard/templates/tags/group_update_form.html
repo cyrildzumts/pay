@@ -3,7 +3,7 @@
 {% if perms.auth.change_group %}
 <div class="container">
      <div class="actions">
-        {% if perms.change_group %}
+        {% if perms.auth.add_group %}
         <a class="mat-button mat-button-default" href="{% url 'dashboard:group-create' %}"><i class="fas fa-plus icon"></i><span>{% trans "New Group" %}</span> </a>
         {% endif %}
         <a class="mat-button mat-button-outlined" href="{%url 'dashboard:groups'%}">{% trans "Groups" %}</a>

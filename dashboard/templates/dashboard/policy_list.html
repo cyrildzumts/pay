@@ -13,16 +13,13 @@
 </div>
 
 <div class="container">
-  <div class="col-xs-12 col-6">
     <div class="mat-table-wrapper">
         <table id="policy-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
                           <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                           <th>{% trans "Commission" %}</th>
-                          <th>{% trans "Daily Limit" %}</th>
-                          <th>{% trans "Weekly Limit" %}</th>
-                          <th>{% trans "Monthly Limit" %}</th>
+                          <th>{% trans "Monthly Transaction" %}</th>
                           <th>{% trans "Details" %}</th>
                   </tr>
           </thead>
@@ -31,10 +28,8 @@
                   <tr>
                   <!--<td class="checkbox"><input type="checkbox" name="selected-policy"></td>-->
                   <td>{{policy.commission}}</td>
-                  <td>{{policy.daily_limit}} {% trans CURRENCY %}</td>
-                  <td>{{policy.weekly_limit}} {% trans CURRENCY %}</td>
-                  <td>{{policy.monthly_limit}} {% trans CURRENCY %}</td>
-                  <td><a class="mat-button mat-button-default" href="{{policy.get_dashboard_absolute_url}}"> {% trans "Detail" %}</a></td>
+                  <td>{{policy.monthly_limit|floatformat:'-2'}} {% trans CURRENCY %}</td>
+                  <td><a class="mat-button mat-button-default" href="{{policy.get_dashboard_url}}"> {% trans "Detail" %}</a></td>
                   </tr>
                   {% endfor %}
                   
@@ -46,7 +41,6 @@
     </table>
     {% include "tags/pagination.html" with page_set=policies %}
     </div><!--End of Table Wrapper-->
-</div>
 </div>
 
 {% else %}

@@ -131,8 +131,8 @@ class IDCard(models.Model):
     def get_update_url(self):
         return reverse('payments:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
     
-    def get_dashboard_update_url(self):
-        return reverse('dashboard:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
+    def get_dashboard_url(self):
+        return reverse('dashboard:idcard-details', kwargs={'idcard_uuid':self.idcard_uuid})
     
     def get_dashboard_update_url(self):
         return reverse('dashboard:idcard-update', kwargs={'idcard_uuid':self.idcard_uuid})
@@ -155,8 +155,8 @@ class Policy(models.Model):
         The commission is a percent value that is to be taken from the transfer amount.
 
     """
-    daily_limit = models.IntegerField(blank=False)
-    weekly_limit = models.IntegerField(blank=False)
+    daily_limit = models.IntegerField(blank=True, null=True)
+    weekly_limit = models.IntegerField(blank=True, null=True)
     monthly_limit = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=Constants.COMMISSION_MAX_DIGITS, decimal_places=Constants.COMMISSION_DECIMAL_PLACES, default=Constants.COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -172,7 +172,7 @@ class Policy(models.Model):
     def get_absolute_url(self):
         return reverse("payments:policy-detail", kwargs={"policy_uuid": self.policy_uuid})
     
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         return reverse("dashboard:policy-detail", kwargs={"policy_uuid": self.policy_uuid})
     
     def get_dashboard_remove_url(self):
@@ -198,12 +198,12 @@ class PolicyGroup(models.Model):
     #   ordering = ["-created_at"]
 
     def __str__(self):
-        return self.name
+        return f"PolicyGroup {self.name}"
     
     def get_absolute_url(self):
         return reverse("payments:policy-group", kwargs={"group_uuid": self.policy_group_uuid})
     
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         return reverse("dashboard:policy-group-detail", kwargs={"group_uuid": self.policy_group_uuid})
 
     def get_dashboard_update_url(self):
@@ -239,7 +239,7 @@ class ServiceCategory(models.Model):
 
 
     def __str__(self):
-        return "ServiceCategory " + self.category_name
+        return f"ServiceCategory {self.category_name}"
     
     def get_absolute_url(self):
         return reverse("payments:service-categories-detail", kwargs={"category_uuid": self.category_uuid})
@@ -279,7 +279,7 @@ class AvailableService(models.Model):
 
 
     def __str__(self):
-        return "AvailableService " + self.name
+        return f"AvailableService {self.name}"
     
     def get_absolute_url(self):
         """
@@ -293,7 +293,7 @@ class AvailableService(models.Model):
         """
         return reverse('payments:new-service', kwargs={'available_service_uuid':self.available_uuid})
 
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         """
         This method returns the url that is used to query the details of this models.
         """
@@ -353,12 +353,12 @@ class Service(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return "Service " + self.name
+        return f"Service {self.name}"
     
     def get_absolute_url(self):
         return reverse('payments:service-detail', kwargs={'service_uuid':self.service_uuid})
 
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         return reverse('dashboard:service-detail', kwargs={'service_uuid':self.service_uuid})
     
     @staticmethod
@@ -471,7 +471,7 @@ class PaymentRequest(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return "Payment Request id : {0} - Amount : {1}".format(self.pk, self.amount)
+        return f"PaymentRequest - {self.pk}"
     
     #def get_absolute_url(self):
     #    return reverse('payments:payment-detail', kwargs={'payment_uuid':self.payment_uuid})
@@ -516,7 +516,7 @@ class Transfer(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return "Transfer  - Amount : {}".format(self.amount)
+        return f"Transfer  - Amount : {self.amount}"
 
     def get_absolute_url(self):
         return reverse('payments:transfer-detail', kwargs={'transfer_uuid':self.transfer_uuid})
@@ -550,7 +550,7 @@ class Refund(models.Model):
     def get_absolute_url(self):
         return reverse('payments:refund-detail', kwargs={'refund_uuid':self.refund_uuid})
 
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         return reverse('dashboard:refund-detail', kwargs={'refund_uuid':self.refund_uuid})
 
 
@@ -566,12 +566,12 @@ class CaseIssue(models.Model):
     issue_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
-        return "CaseIssue id : {0} - Participant 1 : {1}, Participant 2 : {2}".format(self.pk, self.participant_1, self.participant_2)
+        return f"CaseIssue id : {self.pk}"
 
     def get_absolute_url(self):
         return reverse('payments:case-detail', kwargs={'issue_uuid':self.issue_uuid})
 
-    def get_dashboard_absolute_url(self):
+    def get_dashboard_url(self):
         return reverse('dashboard:case-detail', kwargs={'issue_uuid':self.issue_uuid})
 
     def get_dashboard_close_url(self):

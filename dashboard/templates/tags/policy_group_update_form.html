@@ -1,7 +1,7 @@
 {% load i18n %} 
 
 
-{% if can_change_policy %}
+{% if perms.payments.change_policygroup %}
 
 
 <div class="container">
@@ -11,7 +11,7 @@
             <h3>{% trans "Edit Policy Group" %}</h3>
         </div>
 
-                <form class="form card" action="{{group.get_dashboard_update_url}}" method="POST">{% csrf_token %}
+                <form  action="{{group.get_dashboard_update_url}}" method="POST">{% csrf_token %}
                     {% if form.errors %}
                     <ul class="errorlist">
                         {% for error in form.errors %}
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="actions">
-                            <a class="mat-button mat-button-text" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>
+                            <a class="mat-button mat-button-outlined" href="{{group.get_dashboard_url}}">{% trans "Cancel" %}</a>
                             <button id="js-submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Update" %}</button>
                         </div>
                     
