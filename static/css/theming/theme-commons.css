@@ -338,6 +338,7 @@ li.active.selected{
 
 .dashboard-header .search-wrapper input{
    background-color: transparent; 
+   color: #fafafa;
 }
 
 .metric-title, .dashboard-metrics span{
