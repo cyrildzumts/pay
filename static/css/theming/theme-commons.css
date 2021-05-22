@@ -53,6 +53,32 @@ body{
 	color: #fafafa !important;
 	background-color: var(--sidebar-active-color);
 }
+
+.info{
+    
+    /*border: 2px solid #616161;*/
+    color: var(--info-color) !important;
+}
+.success{
+    /*border: 2px solid #388e3c !important;*/
+    color: var(--success-color) !important;
+}
+
+.warning, .warn{
+    /*border: 2px solid #e64a19 !important;*/
+    color: var(--warning-color) !important;
+}
+.debug{
+    color: var(--debug-color) !important;
+}
+
+.error{
+    color:var(--error-color) !important;
+}
+
+.danger, .danger *, .saled-price, .sale, .sale-price{
+    color: var(--warning-color) !important;
+}
 .active{
     color: var(--secondary-color) !important;
 	border-bottom: 2px solid var(--secondary-color);

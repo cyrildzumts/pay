@@ -51,5 +51,10 @@
     --metrics-bg-color : #45A29E;
     --dashboard-header-color : #fafafa;
     --dashboard-header-bg-color : #45A29E;
+    --warning-color : #FF0D00;
+    --error-color : #FF0D00;
+    --success-color :#45A29E ;
+    --info-color: #45A29E;
+    --debug-color: #1e88e5;
 
 }
