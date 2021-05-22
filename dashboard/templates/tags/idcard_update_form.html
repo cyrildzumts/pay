@@ -1,55 +1,51 @@
 {% load i18n %} 
 
 
-{% if can_change_idcard %}
+{% if perms.payments.change_idcard %}
 
 
-<div class="responsive">
-    <div class="form-group">
-            
-    </div>
+<div class="container">
+
     <form id="idcard-form-update" class="idcard-form form" name="idcard" action="{{idcard.get_dashboard_update_url}}" enctype="multipart/form-data" method="POST">{% csrf_token %}
          {% comment "" %}
          <input type="hidden" name="user" value="{{request.user.pk}}">
          {% endcomment %}
          
-        <div class="card">
-            <div class="card__title">
-                {% trans "Update my ID Card" %}
-            </div>
-            <div class="card__body">
-                {% comment "" %}
-                <table>
-                    {{form}}
-                 </table>
-                {% endcomment %}
-                 <div class="container">
+        <div class="mat-box">
+            <h3>{% trans "Update my ID Card" %}</h3>
+            <div class="mat-box-content">
                     <div class="form-group">
                         <label for="card_number">{% trans "Card Number" %}</label>
                         <input id="card_number" type="text" name="card_number" placeholder="{{idcard.card_number}}">
-                        
+                    </div>
+                    <div class="form-group">
                         <label for="delivery_at">{% trans "Issued Date" %} : </label>
                         <input id="delivery_at" type="date" name="delivery_at" id="delivery_at" placeholder="{{idcard.delivery_at}}">
-                        
-                        <label for="expire_at">{% trans "Epire at " %} : </label>
-                        <input id="expire_at" type="date" name="expire_at" id="expire_at" placeholder="{{idcard.expire_at}}">
-                        
-                        <label for="delivery_place">{% trans "Delivrance place" %} : </label>
-                        <input id="delivery_place" type="text" name="delivery_place" id="delivery_place" placeholder="{{idcard.delivery_place}}">
-                        
-                        <label for="image">{% trans "ID card Picture" %} : </label>
-                        <input id="image" type="file" name="image">
-
                     </div>
 
-                    <div class="form-group responsive">
+                    <div class="form-group">
+                        <label for="expire_at">{% trans "Expire at " %} : </label>
+                        <input id="expire_at" type="date" name="expire_at" id="expire_at" placeholder="{{idcard.expire_at}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delivery_place">{% trans "Delivrance place" %} : </label>
+                        <input id="delivery_place" type="text" name="delivery_place" id="delivery_place" placeholder="{{idcard.delivery_place}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">{% trans "ID card Picture" %} : </label>
+                        <input id="image" type="file" name="image">
+                    </div>
+
+                    <div class="form-group">
                         <label for="old_image">{% trans "Current ID image" %}</label>
                        <img id="old_image" class="full js-zoom" src="{{idcard.image.url}}"/>
                     </div>
                  </div>
             </div>
-            <div class="card__actions">
-                <a class="mat-button mat-button-text" href="{%url 'dashboard:idcards'%}">{% trans "Cancel" %}</a>
+            <div class="actions">
+                <a class="mat-button mat-button-outlined" href="{%url 'dashboard:idcards'%}">{% trans "Cancel" %}</a>
                 <button class="mat-button mat-button-default" type="submit">{% trans "Update" %}</button>
             </div>
         </div>

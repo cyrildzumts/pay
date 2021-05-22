@@ -9,7 +9,7 @@
     <div class="mat-box">
         <h1>{% trans "Edit Category" %}</h1>
         <div class="mat-box-content">
-                <form class="form card" name="category_service" action="{{category.get_dashboard_update_url}}" method="POST">{% csrf_token %}
+                <form name="category_service" action="{{category.get_dashboard_update_url}}" method="POST">{% csrf_token %}
 
                     <div class="form-group">
                         <label for="category_name">{% trans "Category Name" %}</label>

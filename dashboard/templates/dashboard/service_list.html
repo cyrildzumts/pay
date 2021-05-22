@@ -4,66 +4,14 @@
 {% block CONTENT %}
 {% if perms.payments.view_service %}
 
-<div class="mat-box">
-    <div class="row">
-        <div class ="panel">
-          <h3>{% trans "Summary" %}</h3>
-        </div>
-    </div>
-  <div class="row">
-      <div class="responsive">
-          <div class="mat-box flex-column">
-            <div class="title">{% trans "Money transferred" %}</div>
-            <div class="subtitle highlight">{{service_summary.total_amount}}  {% trans "XAF" %}</div>
-          </div>
-      </div>
-      <div class="responsive">
-          <div class="mat-box flex-column">
-            <div class="title">{% trans "Service usage" %}</div>
-            <div class="subtitle highlight">{{service_summary.usage_count}}</div>
-          </div>
-      </div>
-
-      <div class="responsive">
-          <div class="mat-box flex-column">
-            <div class="title">{% trans "Max paid money" %}</div>
-            <div class="subtitle highlight">{{service_summary.max_paid_amount}}  {% trans "XAF" %}</div>
-          </div>
-      </div>
-
-      <div class="responsive">
-          <div class="box shadow flex-column">
-            <div class="title">{% trans "Min paid money" %}</div>
-            <div class="subtitle highlight">{{service_summary.min_paid_amount}}  {% trans "XAF" %}</div>
-          </div>
-      </div>
-
-      <div class="responsive">
-          <div class="box shadow flex-column">
-            <div class="title">{% trans "Number of user of the service" %}</div>
-            <div class="subtitle highlight">{{service_summary.number_of_customer}}</div>
-          </div>
-      </div> 
-      <div class="responsive">
-          <div class="box shadow flex-column">
-            <div class="title">{% trans "Number of operators" %}</div>
-            <div class="subtitle highlight">{{service_summary.number_of_operator}}</div>
-          </div>
-      </div>         
-    </div> <!--End of row-->
-</div>
-
 <div class="container">
     <div class="mat-table-wrapper">
-        <div class="row">
-          
-        </div><!--End of Row-->
         <table id="service-list" class="mat-table js-filter-table">
           <thead>
                   <tr>
                       <!-- <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
                       <th>{% trans "Service Name" %}</th>
-                      <th>{% trans "Price" %}</th>
+                      <th>{% trans "Amount" %}</th>
                       <th>{% trans "Category" %}</th>
                       <th>{% trans "Date of usage" %}</th>
                       <th>{% trans "Details" %}</th>
@@ -74,10 +22,10 @@
                   <tr>
                   <!-- <td class="checkbox hidden"><input type="checkbox" name="selected-service"></td>-->
                   <td>{{s.name}}</td>
-                  <td>{{s.price}} {% trans "XAF" %}</td>
+                  <td>{{s.price|floatformat:'-2'}} {% trans CURRENCY %}</td>
                   <td>{{s.category.category_name}}</td>
-                  <td>{{s.created_at|date:"F j, Y"}}</td>
-                  <td><a class="mat-button mat-button-default" href="{{s.get_dashboard_absolute_url}}"> {% trans "Details" %}</a></td>
+                  <td>{{s.created_at|date:"F j, Y, H:i:s"}}</td>
+                  <td><a class="mat-button mat-button-outlined" href="{{s.get_dashboard_url}}"> {% trans "Details" %}</a></td>
                   </tr>
                   {% endfor %}
           </tbody>
