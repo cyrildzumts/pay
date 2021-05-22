@@ -27,7 +27,7 @@
                   {% for policy in policies  %}
                   <tr>
                   <!--<td class="checkbox"><input type="checkbox" name="selected-policy"></td>-->
-                  <td>{{policy.commission}}</td>
+                  <td>{{policy.commission|floatformat:'-3'}}</td>
                   <td>{{policy.monthly_limit|floatformat:'-2'}} {% trans CURRENCY %}</td>
                   <td><a class="mat-button mat-button-default" href="{{policy.get_dashboard_url}}"> {% trans "Detail" %}</a></td>
                   </tr>
