@@ -10,6 +10,7 @@
                                 <th scope="col">{% trans "Name" %}</th>
                                 <th scope="col">{% trans "Credit" %}</th>
                                 <th scope="col">{% trans "Voucher" %}</th>
+                                <th scope="col">{% trans "Status" %}</th>
                                 <th scope="col">{% trans "Sold Date" %}</th>
                                 <th scope="col">{% trans "Details" %}</th>
                         </tr>
@@ -20,6 +21,7 @@
                         <td scope="row" data-label="{% trans 'Name' %}"><span>{{v.name}}</span></td>
                         <td data-label="{% trans 'Amount' %}"><span>{{v.amount}} {% trans CURRENCY %}</span></td>
                         <td data-label="{% trans 'Voucher' %}"><span>{{v.voucher_code}}</span></td>
+                        <td data-label="{% trans 'Status' %}"><span><i class="fas fa-circle icon {% if v.activated %}success{% else %}warning{% endif %}"></i><span>{{v.activated|yesno:_('activated,deactivated')}}</span></span></td>
                         <td data-label="{% trans 'Sold Date' %}"><span>{{v.sold_at|date:"F j, Y H:i:s"}}</span></td>
                         <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-outlined" href="{% url VOUCHER_URL v.voucher_uuid %}"><span>{% trans "Details" %}</span></a></td>
                         </tr>
