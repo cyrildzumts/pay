@@ -8,7 +8,7 @@
 {% if perms.payments.view_servicecategory %}
 <div class="actions">
 
-{% if perms.payments.delete_servicecategory %}<a class="mat-button mat-button-outlined warn" href="{{category.get_dashboard_remove_url}}"><i class="fas fa-trash icon"></i>{% trans "Remove" %}</a>{% endif %}
+{% if perms.payments.delete_servicecategory %}<a class="mat-button mat-button-outlined warn" href="{{category.get_dashboard_remove_url}}"><i class="fas fa-trash icon"></i>{% trans "Delete" %}</a>{% endif %}
 {% if perms.payments.change_servicecategory %}<a class="mat-button mat-button-outlined" href="{{category.get_dashboard_update_url}}"><i class="fas fa-pen icon"></i>{% trans "Edit" %} </a>{% endif %}
 {% if perms.payments.add_servicecategory %}<a class="mat-button mat-button-outlined" href="{% url 'dashboard:category-service-create' %}"><i class="fas fa-plus icon"></i>{% trans "New Category" %}</a>{% endif %}
 <a class="mat-button mat-button-outlined" href="{% url 'dashboard:category-services' %}"><i class="fas fa-list icon"></i>{% trans "Categories" %} </a>
