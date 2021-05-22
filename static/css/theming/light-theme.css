@@ -57,4 +57,7 @@
     --info-color: #45A29E;
     --debug-color: #1e88e5;
 
+    --sidebar-width : 18em;
+    --sidebar--mobile-width : 6.25em;
+
 }
