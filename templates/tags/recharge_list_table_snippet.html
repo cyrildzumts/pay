@@ -20,7 +20,7 @@
                     <td scope="row" data-label="{% trans 'Voucher' %}"><span>{{recharge.voucher.name}}</span></td>
                     <td data-label="{% trans 'Amount' %}"><span>{{recharge.amount}} {% trans CURRENCY %}</span></td>
                     <td data-label="{% trans 'Date' %}"><span>{{recharge.created_at|date:"F j,Y H:i:s"}}</span></td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-text" href="{% if OPEN_DASHBOARD_URL %}{{recharge.get_dashboard_url}}{% else %}{{recharge.get_absolute_url}}{% endif %}"><span>{% trans "Details" %}</span></a></td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-outlined" href="{% if OPEN_DASHBOARD_URL %}{{recharge.get_dashboard_url}}{% else %}{{recharge.get_absolute_url}}{% endif %}"><span>{% trans "Details" %}</span></a></td>
                     </tr>
                     {% endfor %}
             </tbody>
