@@ -47,7 +47,7 @@
                   <td scope="row" data-label="{% trans 'Name' %}"><span>{{g.name}}</span></td>
                   <td data-label="{% trans 'Permissions' %}"><span>{{g.permissions.count}}</span></td>
                   <td data-label="{% trans 'Members' %}"><span>{{g.user_set.count}}</span></td>
-                  <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
+                  <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-outlined" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
                   
                   </tr>
                   {% endfor %}

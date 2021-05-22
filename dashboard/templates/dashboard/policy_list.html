@@ -29,7 +29,7 @@
                   <!--<td class="checkbox"><input type="checkbox" name="selected-policy"></td>-->
                   <td scope="row" data-label="{% trans 'Commission' %}"><span>{{policy.commission|floatformat:'-3'}}</span></td>
                   <td data-label="{% trans 'Monthly Transaction' %}"><span>{{policy.monthly_limit|floatformat:'-2'}} {% trans CURRENCY %}</span></td>
-                  <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{{policy.get_dashboard_url}}"><span>{% trans "Detail" %}</span></a></td>
+                  <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-outlined" href="{{policy.get_dashboard_url}}"><span>{% trans "Detail" %}</span></a></td>
                   </tr>
                   {% endfor %}
                   
