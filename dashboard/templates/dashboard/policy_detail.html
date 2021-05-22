@@ -15,7 +15,12 @@
           <h3>{% trans "Policy" %}</h3>
           <div class="mat-box-content">
             <p class="entry"><span class="key">{% trans "Monthly Limit" %}</span><span class="value">{{policy.monthly_limit|floatformat:'-2'}} {% trans CURRENCY %}</span></p>
-            <p class="entry"><span class="key">{% trans "Commission" %}</span><span class="value">{{policy.commission|floatformat:'-3'}}</span></p>  
+            <p class="entry"><span class="key">{% trans "Commission" %}</span><span class="value">{{policy.commission|floatformat:'-3'}}</span></p>
+            <p class="entry"><span class="key">{% trans "Created at" %}</span><span class="value">{{policy.created_at|date:'F, j Y, H:i:s'}}</span></p>
+            <p class="entry"><span class="key">{% trans "Created By" %}</span><span class="value">{{policy.created_by.username}}</span></p>
+            <p class="entry"><span class="key">{% trans "Last Modified" %}</span><span class="value">{{policy.modified_at|date:'F, j Y, H:i:s'}}</span></p>
+            <p class="entry"><span class="key">{% trans "Last Modified By" %}</span><span class="value">{{policy.modified_by.username}}</span></p>
+
           </div>
         </div>
 </div>

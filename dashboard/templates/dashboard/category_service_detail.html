@@ -17,21 +17,16 @@
 <div class="container">
         <div class="mat-box full">
           <div class="mat-box-content">
+              <div class="entry"><span class="key">{% trans "Category" %}</span><span class="value">{% trans category.category_name %}</span></div>
+              <div class="entry"><span class="key">{% trans "Code" %}</span><span class="value">{{category.category_code}}</span></div>
               <div class="entry">
-                  <span class="key">{% trans "Category" %}</span><span class="value">{% trans category.category_name %}</span>
+                  <span class="key">{% trans "Status" %}</span><span class="value"> <i class="fas fa-circle icon {% if category.is_active %}success{% else %}error{% endif %}"></i> {{category.is_active|yesno:_('active,inactive')}}</span>
               </div>
-              <div class="entry">
-                  <span class="key">{% trans "Code" %}</span><span class="value">{{category.category_code}}</span>
-              </div>
-              <div class="entry">
-                  <span class="key">{% trans "Status" %}</span><span class="value"> <i class="fas fa-bullet icon {% if category.is_active %}success {% else %}error{% endif %}"></i> {{category.is_active|yesno:_('active,inactive')}}</span>
-              </div>
-              <div class="entry">
-                  <span class="key">{% trans "Created by" %}</span><span class="value">{{category.created_by.username}}</span>
-              </div>
-              <div class="entry">
-                  <span class="key">{% trans "Created at" %}</span><span class="value">{{category.created_at|date:"F j, Y"}}</span>
-              </div>
+              <div class="entry"><span class="key">{% trans "Created at" %}</span><span class="value">{{category.created_at|date:'F, j Y, H:i:s'}}</span></div>
+              <div class="entry"><span class="key">{% trans "Created By" %}</span><span class="value">{{category.created_by.username}}</span></div>
+              <div class="entry"><span class="key">{% trans "Last Modified" %}</span><span class="value">{{category.modified_at|date:'F, j Y, H:i:s'}}</span></div>
+              <div class="entry"><span class="key">{% trans "Last Modified By" %}</span><span class="value">{{category.modified_by.username}}</span></div>
+              
 
               {% if has_services %}
               

@@ -190,7 +190,7 @@ class PolicyGroup(models.Model):
     policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
     group_type = models.IntegerField(default=Constants.POLICY_GROUP_BASIC, choices=Constants.POLICY_GROUP_TYPE)
     members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True,blank=True)
     created_by = models.ForeignKey(User, related_name="created_policygroups", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_policygroups", unique=False, null=True,blank=True, on_delete=models.SET_NULL)

@@ -20,6 +20,10 @@
             <p class="entry"><span>{% trans "Policy Group Name" %}</span><span>{{group.name}}</span></p>
             <p class="entry"><span>{% trans "Members" %}</span><span>{{group.members.count}}</span></p>
             <p class="entry"><span>{% trans "Commission" %}</span><span>{{group.policy.commission|floatformat:'-3'}}</span></p>
+            <p class="entry"><span class="key">{% trans "Created at" %}</span><span class="value">{{group.created_at|date:'F, j Y, H:i:s'}}</span></p>
+            <p class="entry"><span class="key">{% trans "Created By" %}</span><span class="value">{{group.created_by.username}}</span></p>
+            <p class="entry"><span class="key">{% trans "Last Modified" %}</span><span class="value">{{group.modified_at|date:'F, j Y, H:i:s'}}</span></p>
+            <p class="entry"><span class="key">{% trans "Last Modified By" %}</span><span class="value">{{group.modified_by.username}}</span></p>
 
             <div class="mat-list-wrapper">
               <div class="mat-list-header">
