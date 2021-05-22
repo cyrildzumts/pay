@@ -12,6 +12,7 @@
         </div>
 
                 <form  action="{{group.get_dashboard_update_url}}" method="POST">{% csrf_token %}
+                    <input type="hidden" name="modified_by" value="{{request.user.pk}}">
                     {% if form.errors %}
                     <ul class="errorlist">
                         {% for error in form.errors %}

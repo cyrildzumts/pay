@@ -10,7 +10,7 @@
         
         
                 <form name="available_service" action="{{service.get_dashboard_update_url}}" method="POST">{% csrf_token %}
-                    
+                    <input type="hidden" name="modified_by" value="{{request.user.pk}}">
                     <div class="form-group">
                         <label for="service_code">{% trans "Service Code" %}</label>
                         <input id="service_code" type="text"  name="service_code" value="{{service.service_code}}">

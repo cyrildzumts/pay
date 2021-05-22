@@ -11,15 +11,15 @@
         
         
                 <form id="available-service-form" name="available_service" action="{% url 'dashboard:available-service-create' %}" method="POST">{% csrf_token %}
-                    <div class="container">
+                    <input type="hidden" name="created_by" value="{{request.user.pk}}">
                     
                     <div class="form-group">
                         <label for="service-code">{% trans "Service Code" %}</label>
-                        <input id="service-code" type="text"  name="service_code" value="{{service.service_code}}">
+                        <input id="service-code" type="text"  name="service_code" value="">
                     </div>
                     <div class="form-group">
                         <label for="name">{% trans "Service name" %}</label>
-                        <input id="name" type="text"  name="name" value="{{service.name}}">
+                        <input id="name" type="text"  name="name" value="">
                     </div>
                     <div class="form-group">
                         <label for="operator">{% trans "Operator" %}</label>
@@ -35,7 +35,7 @@
                         <label for="category">{% trans "Category" %}</label>
                         <select name="category" id="category">
                             {% for c in categories %}
-                                <option value="{{c.pk}}">{{c.category_name}}</option>
+                                <option value="{{c.pk}}">{% trans c.category_name %}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -45,12 +45,11 @@
                     </div>
                     <div class="form-group">
                         <label for="description">{% trans "Description" %}</label>
-                        <input id="description" type="text"  name="description" value="{{service.description}}">
+                        <input id="description" type="text"  name="description" value="">
                     </div>
-                    </div><!-- End of Card-body-->
 
                     <div class="actions">
-                            <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:available-services' %}">{% trans "Cancel" %}</a>
+                            <a class="mat-button mat-button-outlined js-cancel" href="{% url 'dashboard:available-services' %}">{% trans "Cancel" %}</a>
                             <button id="submit-btn" class="mat-button mat-button-default" type="submit">{% trans "Create" %}</button>
                         </div>
                     

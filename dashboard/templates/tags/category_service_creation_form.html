@@ -12,7 +12,6 @@
         
         
                 <form id="category-form" class="category-form" name="category_service" action="{% url 'dashboard:category-service-create' %}" method="POST">{% csrf_token %}
-                    <div class="container">
                     <div class="form-group">
                         <input id="created-by" type="hidden" name="created_by" value="{{request.user.pk}}">
                     </div>
@@ -28,7 +27,6 @@
                         <label for="is-active">{% trans "Is Active" %}</label>
                         <input id="is-active" type="checkbox"  name="is_active">
                     </div>
-                    </div><!-- End of Card-body-->
 
                     <div class="actions">
                             <a class="mat-button mat-button-text js-cancel" href="{% url 'dashboard:home' %}">{% trans "Cancel" %}</a>

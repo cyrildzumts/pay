@@ -10,7 +10,7 @@
         <h1>{% trans "Edit Category" %}</h1>
         <div class="mat-box-content">
                 <form name="category_service" action="{{category.get_dashboard_update_url}}" method="POST">{% csrf_token %}
-
+                    <input id="modufied_by" type="hidden" name="modified_by" value="{{request.user.pk}}">
                     <div class="form-group">
                         <label for="category_name">{% trans "Category Name" %}</label>
                         <input id="category_name" type="text"  name="category_name" value="{{category.category_name}}">

@@ -9,7 +9,7 @@
             <h3>{% trans "Create new Policy Group" %}</h3>
         </div>
         <form class="form card" action="{% url 'dashboard:policy-group-create' %}" method="POST">{% csrf_token %}
-            
+            <input type="hidden" name="created_by" value="{{request.user.pk}}">
             <div class="form-group">
                 <label for="name">{% trans "Group Name" %}</label>
                 <input id="name" type="text"  name="name" >

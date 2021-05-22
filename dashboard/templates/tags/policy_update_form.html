@@ -8,6 +8,7 @@
 
 
     <form id="policy-form" name="policy" action="{{policy.get_dashboard_update_url}}" method="POST">{% csrf_token %}
+        <input type="hidden" name="modified_by" value="{{request.user.pk}}">
         {% if form.errors %}
             <ul class="errorlist">
                 {% for error in form.errors %}
@@ -17,7 +18,7 @@
         {% endif %}
         
         <div class="form-group">
-            <label for="monthly_limit">{% trans "Monthly Transactions" %}</label>
+            <label for="monthly_limit">{% trans "Monthly Transactions" %}({% trans CURRENCY %})</label>
             <input id="monthly_limit" type="text"  name="monthly_limit" value="{{policy.monthly_limit}}">
         </div>
         <div class="form-group">

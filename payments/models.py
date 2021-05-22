@@ -160,6 +160,7 @@ class Policy(models.Model):
     monthly_limit = models.IntegerField(blank=False)
     commission = models.DecimalField(max_digits=Constants.COMMISSION_MAX_DIGITS, decimal_places=Constants.COMMISSION_DECIMAL_PLACES, default=Constants.COMMISSION_DEFAULT)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name="created_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     policy_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -189,10 +190,11 @@ class PolicyGroup(models.Model):
     policy = models.ForeignKey(Policy, on_delete=models.CASCADE, related_name='policy_group')
     group_type = models.IntegerField(default=Constants.POLICY_GROUP_BASIC, choices=Constants.POLICY_GROUP_TYPE)
     members = models.ManyToManyField(User, through='PolicyMembership', through_fields=('group', 'user'), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name="created_policygroups", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_by = models.ForeignKey(User, related_name="modified_policygroups", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
     policy_group_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    #created_at = models.DateTimeField(auto_now_add=True)
-    #modified_at = models.DateTimeField(auto_now=True)
-    #modified_by = models.ForeignKey(User, related_name="modified_policies", unique=False, null=True,blank=True, on_delete=models.SET_NULL)
 
     #class Meta:
     #   ordering = ["-created_at"]
