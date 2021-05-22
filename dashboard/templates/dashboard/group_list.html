@@ -34,20 +34,20 @@
           <thead>
                   <tr>
                           <!-- <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                          <th>{% trans "Group Name" %}</th>
-                          <th>{% trans "Permissions" %}</th>
-                          <th>{% trans "Members" %}</th>
-                          <th>{% trans "Details" %}</th>
+                          <th scope="col">{% trans "Name" %}</th>
+                          <th scope="col">{% trans "Permissions" %}</th>
+                          <th scope="col">{% trans "Members" %}</th>
+                          <th scope="col">{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
                   {% for g in groups  %}
                   <tr>
                   <!-- <td class="checkbox hidden"><input type="checkbox" name="selected-service"></td>-->
-                  <td>{{g.name}}</td>
-                  <td>{{g.permissions.count}}</td>
-                  <td>{{g.user_set.count}}</td>
-                  <td><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
+                  <td scope="row" data-label="{% trans 'Name' %}"><span>{{g.name}}</span></td>
+                  <td data-label="{% trans 'Permissions' %}"><span>{{g.permissions.count}}</span></td>
+                  <td data-label="{% trans 'Members' %}"><span>{{g.user_set.count}}</span></td>
+                  <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-text" href="{% url 'dashboard:group-detail' g.pk %}"><i class="fas fa-info"></i><span>{% trans "Detail" %}</span></a></td>
                   
                   </tr>
                   {% endfor %}

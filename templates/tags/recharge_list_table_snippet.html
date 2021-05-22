@@ -8,19 +8,19 @@
           <table id="voucher-list" class="mat-table js-filter-table">
             <thead>
               <tr>
-                  <th>{% trans "Voucher" %}</th>
-                  <th>{% trans "Amount" %}</th>
-                  <th>{% trans "Date" %}</th>
-                  <th>{% trans "Details" %}</th>
+                  <th scope="col">{% trans "Voucher" %}</th>
+                  <th scope="col">{% trans "Amount" %}</th>
+                  <th scope="col">{% trans "Date" %}</th>
+                  <th scope="col">{% trans "Details" %}</th>
               </tr>
             </thead>
             <tbody>
                     {% for recharge in recharge_list  %}
                     <tr>
-                    <td>{{recharge.voucher.name}}</td>
-                    <td>{{recharge.amount}} {% trans CURRENCY %}</td>
-                    <td>{{recharge.created_at|date:"F j,Y H:i:s"}}</td>
-                    <td><a class="mat-button mat-button-text" href="{% if OPEN_DASHBOARD_URL %}{{recharge.get_dashboard_url}}{% else %}{{recharge.get_absolute_url}}{% endif %}"> {% trans "Details" %}</a></td>
+                    <td scope="row" data-label="{% trans 'Voucher' %}"><span>{{recharge.voucher.name}}</span></td>
+                    <td data-label="{% trans 'Amount' %}"><span>{{recharge.amount}} {% trans CURRENCY %}</span></td>
+                    <td data-label="{% trans 'Date' %}"><span>{{recharge.created_at|date:"F j,Y H:i:s"}}</span></td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-text" href="{% if OPEN_DASHBOARD_URL %}{{recharge.get_dashboard_url}}{% else %}{{recharge.get_absolute_url}}{% endif %}"><span>{% trans "Details" %}</span></a></td>
                     </tr>
                     {% endfor %}
             </tbody>

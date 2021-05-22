@@ -17,18 +17,18 @@
           <thead>
                   <tr>
                           {% comment %}<th><input id="filter-select-all" type="checkbox" name="allselected"></th>{% endcomment %}
-                          <th>{% trans "Service Name" %}</th>
-                          <th>{% trans "Category" %}</th>
-                          <th>{% trans "Details" %}</th>
+                          <th scope="col">{% trans "Service Name" %}</th>
+                          <th scope="col">{% trans "Category" %}</th>
+                          <th scope="col">{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
                   {% for avs in available_services  %}
                   <tr>
                   {% comment %}<td class="checkbox"><input type="checkbox" name="selected-service"></td>{% endcomment %}
-                  <td>{{avs.name}}</td>
-                  <td>{{avs.category.category_name}}</td>
-                  <td><a class="mat-button mat-button-default" href="{{avs.get_dashboard_url}}"> {% trans "Details" %}</a></td>
+                  <td scope="row" data-label="{% trans 'Name' %}"><span>{{avs.name}}</span></td>
+                  <td data-label="{% trans 'Category' %}"><span>{{avs.category.category_name}}</span></td>
+                  <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-outlined" href="{{avs.get_dashboard_url}}"><span>{% trans "Details" %}</span></a></td>
                   </tr>
                   {% endfor %}
           </tbody>

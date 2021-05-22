@@ -16,18 +16,18 @@
           <thead>
                   <tr>
                           <!--<th><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                          <th>{% trans "Name" %}</th>
-                          <th>{% trans "Code" %}</th>
-                          <th>{% trans "Details" %}</th>
+                          <th scope="col">{% trans "Name" %}</th>
+                          <th scope="col">{% trans "Code" %}</th>
+                          <th scope="col">{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
                   {% for category in categories  %}
                   <tr>
                   <!--<td class="checkbox"><input type="checkbox" name="selected-category"></td>-->
-                  <td><span>{% trans category.category_name %}</span></td>
-                  <td>{{category.category_code}}</td>
-                  <td><a class="mat-button mat-button-default" href="{{category.get_dashboard_url}}"> {% trans "Details" %}</a></td>
+                  <td scope="row" data-label="{% trans 'Name' %}"><span>{% trans category.category_name %}</span></td>
+                  <td data-label="{% trans 'Code' %}"><span>{{category.category_code}}</span></td>
+                  <td data-label="{% trans 'Ddetails' %}"><a class="mat-button mat-button-default" href="{{category.get_dashboard_url}}"><span>{% trans "Details" %}</span></a></td>
                   </tr>
                   {% endfor %}
                   

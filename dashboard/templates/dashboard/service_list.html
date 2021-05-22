@@ -10,22 +10,22 @@
           <thead>
                   <tr>
                       <!-- <th class="hidden"><input id="filter-select-all" type="checkbox" name="allselected"></th>-->
-                      <th>{% trans "Service Name" %}</th>
-                      <th>{% trans "Amount" %}</th>
-                      <th>{% trans "Category" %}</th>
-                      <th>{% trans "Date of usage" %}</th>
-                      <th>{% trans "Details" %}</th>
+                      <th scope="col">{% trans "Name" %}</th>
+                      <th scope="col">{% trans "Amount" %}</th>
+                      <th scope="col">{% trans "Category" %}</th>
+                      <th scope="col">{% trans "Date of usage" %}</th>
+                      <th scope="col">{% trans "Details" %}</th>
                   </tr>
           </thead>
           <tbody>
                   {% for s in services  %}
                   <tr>
                   <!-- <td class="checkbox hidden"><input type="checkbox" name="selected-service"></td>-->
-                  <td>{{s.name}}</td>
-                  <td>{{s.price|floatformat:'-2'}} {% trans CURRENCY %}</td>
-                  <td>{{s.category.category_name}}</td>
-                  <td>{{s.created_at|date:"F j, Y, H:i:s"}}</td>
-                  <td><a class="mat-button mat-button-outlined" href="{{s.get_dashboard_url}}"> {% trans "Details" %}</a></td>
+                  <td scope="row" data-label="{% trans 'Name' %}"><span>{{s.name}}</span></td>
+                  <td data-label="{% trans 'Amount' %}"><span>{{s.price|floatformat:'-2'}} {% trans CURRENCY %}</span></td>
+                  <td data-label="{% trans 'Category' %}"><span>{{s.category.category_name}}</span></td>
+                  <td data-label="{% trans 'Date of usage' %}"><span>{{s.created_at|date:"F j, Y, H:i:s"}}</span></td>
+                  <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-outlined" href="{{s.get_dashboard_url}}"><span>{% trans "Details" %}</span></a></td>
                   </tr>
                   {% endfor %}
           </tbody>
