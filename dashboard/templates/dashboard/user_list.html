@@ -32,11 +32,11 @@
                   {% for u in users  %}
                   <tr>
                     <!--<td class="checkbox"><input type="checkbox" name="selected-service"></td>-->
-                    <td scope="row" data-label="{% trans 'Username' %}">{{u.username}}</td>
-                    <td data-label="{% trans 'Name' %}">{{u.get_full_name}}</td>
+                    <td scope="row" data-label="{% trans 'Username' %}"><span>{{u.username}}</span></td>
+                    <td data-label="{% trans 'Name' %}"><span>{{u.get_full_name}}</span></td>
                     <td data-label="{% trans 'Status' %}"><span><i class="fas fa-circle icon {% if u.is_active %}success{% else %}warning{% endif %}"></i>{{u.is_active|yesno:_('active,inactive')}}</span></td>
-                    <td data-label="{% trans 'Date Joined' %}">{{u.date_joined|date}}</td>
-                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% url 'dashboard:user-detail' u.pk %}">{% trans "More" %} </a></td>
+                    <td data-label="{% trans 'Date Joined' %}"><span>{{u.date_joined|date}}</span></td>
+                    <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% url 'dashboard:user-detail' u.pk %}"><span>{% trans "More" %}</span></a></td>
                   </tr>
                   {% endfor %}
                   
