@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-16 12:06+0000\n"
+"POT-Creation-Date: 2021-05-22 08:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,8 @@ msgstr ""
 
 #: api/views.py:163 api/views.py:180 api/views.py:206 api/views.py:228
 #: api/views.py:254 core/resources/ui_strings.py:15
-#: dashboard/templates/dashboard/reports.html:27
+#: dashboard/templates/dashboard/payment_detail.html:8
+#: dashboard/templates/dashboard/reports.html:35
 #: dashboard/templates/dashboard_base_old.html:24
 #: dashboard/templates/tags/analytics.html:10
 #: dashboard/templates/tags/dashboard_summary.html:9
@@ -32,7 +33,8 @@ msgstr "Paiements"
 
 #: api/views.py:164 api/views.py:181 api/views.py:207 api/views.py:229
 #: api/views.py:255 core/resources/ui_strings.py:19
-#: dashboard/templates/dashboard/reports.html:19
+#: dashboard/templates/dashboard/reports.html:27
+#: dashboard/templates/dashboard/transfer_detail.html:9
 #: dashboard/templates/dashboard_base_old.html:22
 #: dashboard/templates/tags/analytics.html:19
 #: dashboard/templates/tags/dashboard_summary.html:13
@@ -42,7 +44,7 @@ msgid "Transfers"
 msgstr "Transferts"
 
 #: api/views.py:165 api/views.py:182 core/resources/ui_strings.py:18
-#: dashboard/templates/dashboard/reports.html:35
+#: dashboard/templates/dashboard/reports.html:43
 #: dashboard/templates/dashboard_base_old.html:25
 #: dashboard/templates/tags/dashboard_summary.html:17
 #: templates/dashboard_base.html:31
@@ -52,8 +54,8 @@ msgstr "Demandes de paiement"
 #: api/views.py:166 api/views.py:209 api/views.py:231 api/views.py:257
 #: core/resources/ui_strings.py:44
 #: dashboard/templates/dashboard/permission_list.html:49
-#: dashboard/templates/dashboard/reports.html:67
-#: dashboard/templates/dashboard/user_list.html:24
+#: dashboard/templates/dashboard/reports.html:75
+#: dashboard/templates/dashboard/user_list.html:20
 #: dashboard/templates/dashboard_base_old.html:38
 #: dashboard/templates/tags/dashboard_summary.html:21
 #: templates/dashboard_base.html:40
@@ -61,7 +63,8 @@ msgid "Users"
 msgstr "Utilisateurs"
 
 #: api/views.py:167 api/views.py:183 core/resources/ui_strings.py:21
-#: dashboard/templates/dashboard/reports.html:43
+#: dashboard/templates/dashboard/reports.html:51
+#: dashboard/templates/dashboard/service_detail.html:7
 #: dashboard/templates/dashboard_base_old.html:21
 #: dashboard/templates/tags/dashboard_summary.html:25
 #: dashboard/templates/tags/service_report.html:5
@@ -70,7 +73,7 @@ msgid "Services"
 msgstr "Services"
 
 #: api/views.py:168 api/views.py:184 core/resources/ui_strings.py:8
-#: dashboard/templates/dashboard/reports.html:51
+#: dashboard/templates/dashboard/reports.html:59
 #: dashboard/templates/dashboard_base_old.html:28
 #: dashboard/templates/tags/dashboard_summary.html:29
 #: templates/dashboard_base.html:51 templates/voucher_base.html:21
@@ -98,7 +101,7 @@ msgstr "Récapitulatif des bons vendus"
 #: templates/tags/recharge_list_table_snippet.html:35
 #: templates/tags/sold_voucher_list_snippet.html:36
 #: templates/tags/transfer_list_snippet.html:36
-#: templates/tags/used_voucher_list_snippet.html:37
+#: templates/tags/used_voucher_list_snippet.html:39
 #: templates/tags/voucher_generate_form.html:32
 #: templates/tags/voucher_list_snippet.html:47
 #: templates/tags/voucher_recharge_form.html:23
@@ -106,7 +109,9 @@ msgstr "Récapitulatif des bons vendus"
 msgid "You are not allowed to access this page"
 msgstr "Vous n'êtes pas autorisé à accéder à cette page"
 
-#: core/resources/ui_strings.py:6 dashboard/templates/dashboard/reports.html:59
+#: core/resources/ui_strings.py:6
+#: dashboard/templates/dashboard/recharge_details.html:7
+#: dashboard/templates/dashboard/reports.html:67
 #: dashboard/templates/dashboard_base_old.html:29
 #: templates/dashboard_base.html:56 templates/voucher_base.html:22
 msgid "Recharges"
@@ -122,14 +127,20 @@ msgstr "Recharge"
 #: core/resources/ui_strings.py:9 dashboard/templates/dashboard/voucher.html:8
 #: dashboard/templates/tags/voucher_report.html:6
 #: templates/tags/recharge_list_table_snippet.html:11
+#: templates/tags/recharge_list_table_snippet.html:20
 #: templates/tags/sold_voucher_list_snippet.html:12
-#: templates/tags/used_voucher_list_snippet.html:13 voucher/models.py:30
+#: templates/tags/used_voucher_list_snippet.html:13
+#: templates/tags/used_voucher_list_snippet.html:24
+#: templates/tags/voucher_list_snippet.html:14
+#: templates/tags/voucher_list_snippet.html:25 voucher/models.py:30
 #: voucher/templates/voucher_base.html:12
 msgid "Voucher"
 msgstr "Bon"
 
-#: core/resources/ui_strings.py:10 templates/dashboard_base.html:52
-#: templates/voucher_base.html:25 voucher/templates/voucher_base.html:40
+#: core/resources/ui_strings.py:10
+#: dashboard/templates/dashboard/sold_voucher_details.html:6
+#: templates/dashboard_base.html:52 templates/voucher_base.html:25
+#: voucher/templates/voucher_base.html:40
 msgid "Sold Vouchers"
 msgstr "Bons vendus"
 
@@ -151,7 +162,7 @@ msgid "Balance Recharge"
 msgstr "Recharge de la balance"
 
 #: core/resources/ui_strings.py:16
-#: dashboard/templates/dashboard/payment_detail.html:12
+#: dashboard/templates/dashboard/payment_detail.html:13
 #: payments/templates/payments/payment_home.html:4
 msgid "Payment"
 msgstr "Paiment"
@@ -165,7 +176,6 @@ msgid "Payment Request"
 msgstr "Demande de paiement"
 
 #: core/resources/ui_strings.py:20
-#: dashboard/templates/tags/transaction_dialog.html:15
 #: payments/templates/tags/transaction_dialog.html:16
 msgid "Transfer"
 msgstr "Transfert"
@@ -175,7 +185,7 @@ msgid "Service"
 msgstr "Service"
 
 #: core/resources/ui_strings.py:23
-#: dashboard/templates/dashboard/category_service_list.html:18
+#: dashboard/templates/dashboard/category_service_detail.html:14
 #: dashboard/templates/dashboard_base_old.html:41
 #: payments/resources/ui_strings.py:26
 #: payments/templates/tags/payments_links.html:5
@@ -185,13 +195,16 @@ msgid "Categories"
 msgstr "Categories"
 
 #: core/resources/ui_strings.py:24
-#: dashboard/templates/dashboard/available_service_detail.html:17
-#: dashboard/templates/dashboard/available_service_list.html:26
-#: dashboard/templates/dashboard/service_detail.html:63
-#: dashboard/templates/dashboard/service_list.html:70
+#: dashboard/templates/dashboard/available_service_detail.html:20
+#: dashboard/templates/dashboard/available_service_list.html:22
+#: dashboard/templates/dashboard/available_service_list.html:32
+#: dashboard/templates/dashboard/category_service_detail.html:20
+#: dashboard/templates/dashboard/service_detail.html:17
+#: dashboard/templates/dashboard/service_list.html:15
+#: dashboard/templates/dashboard/service_list.html:26
 #: dashboard/templates/tags/available_service_creation_form.html:35
 #: dashboard/templates/tags/available_service_remove_form.html:30
-#: dashboard/templates/tags/available_service_update_form.html:31
+#: dashboard/templates/tags/available_service_update_form.html:27
 #: payments/templates/payments/available_service_detail.html:13
 #: payments/templates/payments/available_service_list.html:19
 #: payments/templates/payments/available_service_list.html:29
@@ -206,6 +219,7 @@ msgid "Category Update"
 msgstr "Mise à jour de la catégorie"
 
 #: core/resources/ui_strings.py:26
+#: dashboard/templates/dashboard/category_service_detail.html:13
 #: dashboard/templates/dashboard/category_service_list.html:10
 msgid "New Category"
 msgstr "Nouvelle Categorie"
@@ -215,7 +229,7 @@ msgid "Generate Voucher"
 msgstr "Générer un bon"
 
 #: core/resources/ui_strings.py:28
-#: dashboard/templates/dashboard/policy_list.html:20
+#: dashboard/templates/dashboard/policy_detail.html:11
 #: dashboard/templates/dashboard_base_old.html:33
 #: templates/dashboard_base.html:64
 msgid "Policies"
@@ -224,7 +238,7 @@ msgstr "Règles"
 #: core/resources/ui_strings.py:29
 #: dashboard/templates/dashboard/policy_detail.html:15
 #: dashboard/templates/tags/policy_group_creation_form.html:19
-#: dashboard/templates/tags/policy_group_update_form.html:28
+#: dashboard/templates/tags/policy_group_update_form.html:29
 #: payments/templates/payments/policy_detail.html:8
 msgid "Policy"
 msgstr "Règle"
@@ -240,14 +254,12 @@ msgid "New Policy"
 msgstr "Nouvelle règle"
 
 #: core/resources/ui_strings.py:32
-#: dashboard/templates/dashboard/policy_group_list.html:21
+#: dashboard/templates/dashboard/policy_group_detail.html:14
 #: dashboard/templates/dashboard_base_old.html:34
 msgid "Policy Groups"
 msgstr "Groupes de règle"
 
-#: core/resources/ui_strings.py:33
-#: dashboard/templates/dashboard/policy_group_detail.html:19
-#: templates/dashboard_base.html:65
+#: core/resources/ui_strings.py:33 templates/dashboard_base.html:65
 msgid "Policy Group"
 msgstr "Groupe de règle"
 
@@ -278,6 +290,7 @@ msgid "New Partner Service"
 msgstr "Nouveau Service"
 
 #: core/resources/ui_strings.py:40
+#: dashboard/templates/dashboard/group_detail.html:9
 #: dashboard/templates/dashboard/permission_detail.html:21
 #: dashboard/templates/dashboard/permission_list.html:48
 #: dashboard/templates/dashboard_base_old.html:20
@@ -296,7 +309,7 @@ msgstr "Mise à jour du groupe"
 
 #: core/resources/ui_strings.py:43
 #: dashboard/templates/dashboard/group_list.html:28
-#: dashboard/templates/dashboard/group_update.html:8
+#: dashboard/templates/tags/group_update_form.html:7
 msgid "New Group"
 msgstr "Nouveau groupe"
 
@@ -309,7 +322,7 @@ msgid "User Update"
 msgstr "Mise à jour de l'utilisateur"
 
 #: core/resources/ui_strings.py:47
-#: dashboard/templates/dashboard/user_list.html:15 dashboard/views.py:1752
+#: dashboard/templates/dashboard/user_list.html:13 dashboard/views.py:1806
 msgid "New User"
 msgstr "Nouvelle utilisateur"
 
@@ -320,7 +333,7 @@ msgstr "Vendeurs"
 #: core/resources/ui_strings.py:49
 #: dashboard/templates/dashboard/payment_request_detail.html:15
 #: dashboard/templates/dashboard/payment_request_list.html:17
-#: dashboard/templates/dashboard/sold_voucher_details.html:27
+#: dashboard/templates/dashboard/sold_voucher_details.html:30
 #: dashboard/templates/dashboard/used_voucher_details.html:27
 #: payments/resources/ui_strings.py:29
 #: payments/templates/payments/payment_request.html:29
@@ -360,16 +373,11 @@ msgid "Reports"
 msgstr "Rapports"
 
 #: core/resources/ui_strings.py:56
-#: dashboard/templates/dashboard/available_service_detail.html:39
-#: dashboard/templates/dashboard/idcard_detail.html:32
 #: dashboard/templates/dashboard/permission_detail.html:14
-#: dashboard/templates/dashboard/service_category_list.html:20
-#: dashboard/templates/dashboard/user_list.html:13
 #: dashboard/templates/dashboard/voucher.html:15
 #: dashboard/templates/dashboard_base_old.html:19
 #: dashboard/templates/tags/analytics.html:5
-#: dashboard/templates/tags/group_update_form.html:8
-#: dashboard/templates/tags/idcard_form.html:21 dashboard/views.py:39
+#: dashboard/templates/tags/idcard_form.html:21 dashboard/views.py:40
 #: templates/base copy.html:61 templates/base.html:65
 #: templates/dashboard_base.html:23
 msgid "Dashboard"
@@ -452,13 +460,20 @@ msgid "Invalid Request"
 msgstr "Demande invalide"
 
 #: dashboard/templates/dashboard/account_detail.html:8
-#: dashboard/templates/dashboard/policy_group_list.html:29
-#: dashboard/templates/dashboard/service_category_list.html:11
-#: dashboard/templates/dashboard/sold_voucher_details.html:9
+#: dashboard/templates/dashboard/available_service_list.html:31
+#: dashboard/templates/dashboard/category_service_list.html:19
+#: dashboard/templates/dashboard/category_service_list.html:28
+#: dashboard/templates/dashboard/group_list.html:37
+#: dashboard/templates/dashboard/group_list.html:47
+#: dashboard/templates/dashboard/policy_group_list.html:23
+#: dashboard/templates/dashboard/policy_group_list.html:33
+#: dashboard/templates/dashboard/service_list.html:13
+#: dashboard/templates/dashboard/service_list.html:24
+#: dashboard/templates/dashboard/sold_voucher_details.html:12
 #: dashboard/templates/dashboard/used_voucher_details.html:9
-#: dashboard/templates/dashboard/user_list.html:29
-#: dashboard/templates/dashboard/user_list.html:40
-#: dashboard/templates/tags/group_form.html:19
+#: dashboard/templates/dashboard/user_list.html:25
+#: dashboard/templates/dashboard/user_list.html:36
+#: dashboard/templates/tags/group_form.html:17
 #: dashboard/templates/tags/group_update_form.html:27
 #: payments/templates/payments/available_service_list.html:18
 #: payments/templates/payments/available_service_list.html:28
@@ -474,10 +489,13 @@ msgstr "Demande invalide"
 #: templates/tags/balance_activities_snippet.html:24
 #: templates/tags/sold_voucher_list_snippet.html:10
 #: templates/tags/used_voucher_list_snippet.html:11
+#: templates/tags/used_voucher_list_snippet.html:22
+#: templates/tags/voucher_list_snippet.html:12
+#: templates/tags/voucher_list_snippet.html:23
 #: voucher/templates/voucher/sold_voucher_details.html:10
 #: voucher/templates/voucher/used_voucher_details.html:9
 msgid "Name"
-msgstr "Nome"
+msgstr "Nom"
 
 #: dashboard/templates/dashboard/account_detail.html:9
 #: dashboard/templates/dashboard/payment_request_detail.html:27
@@ -521,9 +539,10 @@ msgid "We have a great news for you."
 msgstr "Nous avons une excellente nouvelle pour vous"
 
 #: dashboard/templates/dashboard/account_recharge_done_email.html:61
+#: payments/templates/payments/recharge_done_email.html:61
 #, fuzzy
-#| msgid "You have successfully recharged your account"
-msgid "You have successfuly recharged your account"
+#| msgid "You have successfully recharged your account "
+msgid "You have successfully recharged your account"
 msgstr "Vous avez rechargé votre compte avec succès"
 
 #: dashboard/templates/dashboard/account_recharge_done_email.html:62
@@ -541,92 +560,125 @@ msgstr "Montant"
 msgid "Voucher used"
 msgstr "Bon utilisé"
 
-#: dashboard/templates/dashboard/available_service_detail.html:11
-#: dashboard/templates/dashboard/available_service_list.html:25
-#: dashboard/templates/dashboard/service_list.html:68
+#: dashboard/templates/dashboard/available_service_detail.html:7
+#: dashboard/templates/dashboard/category_service_detail.html:11
+#: dashboard/templates/tags/available_service_remove_form.html:45
+#: dashboard/templates/tags/category_service_remove_form.html:33
+#: dashboard/templates/tags/policy_remove_form.html:40
+msgid "Remove"
+msgstr "Retirer"
+
+#: dashboard/templates/dashboard/available_service_detail.html:8
+#: dashboard/templates/dashboard/category_service_detail.html:12
+#: dashboard/templates/dashboard/group_detail.html:8
+#: dashboard/templates/dashboard/permission_detail.html:16
+#: dashboard/templates/dashboard/policy_detail.html:9
+#: dashboard/templates/dashboard/policy_group_detail.html:12
+msgid "Edit"
+msgstr "Editer"
+
+#: dashboard/templates/dashboard/available_service_detail.html:9
+msgid "Add new Service"
+msgstr "Ajouter un service"
+
+#: dashboard/templates/dashboard/available_service_detail.html:10
+#: dashboard/templates/dashboard_base_old.html:31
+#: payments/resources/ui_strings.py:25
+#: payments/templates/payments/available_service_detail.html:21
+#: payments/templates/payments/available_service_list.html:5
+#: payments/templates/payments/available_service_list.html:12
+#: payments/templates/tags/payments_links.html:4
+#: payments/templates/tags/payments_links.html:9
+#: templates/dashboard_base.html:67
+msgid "Available Services"
+msgstr "Services disponible"
+
+#: dashboard/templates/dashboard/available_service_detail.html:17
+#: dashboard/templates/dashboard/available_service_list.html:21
 #: payments/templates/payments/new_service.html:20
 #: payments/templates/tags/service_form.html:13
 msgid "Service Name"
 msgstr "Nom du service"
 
-#: dashboard/templates/dashboard/available_service_detail.html:12
+#: dashboard/templates/dashboard/available_service_detail.html:18
 #: dashboard/templates/tags/available_service_creation_form.html:17
 #: dashboard/templates/tags/available_service_remove_form.html:18
-#: dashboard/templates/tags/available_service_update_form.html:19
+#: dashboard/templates/tags/available_service_update_form.html:15
 msgid "Service Code"
 msgstr "Code du service"
 
-#: dashboard/templates/dashboard/available_service_detail.html:16
-#: dashboard/templates/dashboard/service_detail.html:66
+#: dashboard/templates/dashboard/available_service_detail.html:19
+#: dashboard/templates/dashboard/service_detail.html:20
 #: dashboard/templates/tags/available_service_creation_form.html:25
 #: dashboard/templates/tags/available_service_remove_form.html:26
-#: dashboard/templates/tags/available_service_update_form.html:27
+#: dashboard/templates/tags/available_service_update_form.html:23
 #: payments/templates/payments/available_service_detail.html:12
 #: payments/templates/tags/service_snippet.html:23
 msgid "Operator"
 msgstr "Operateur"
 
-#: dashboard/templates/dashboard/available_service_detail.html:18
-#: dashboard/templates/dashboard/category_service_detail.html:29
-msgid "Created by"
+#: dashboard/templates/dashboard/available_service_detail.html:22
+#: dashboard/templates/dashboard/category_service_detail.html:23
+#: dashboard/templates/dashboard/payment_request_detail.html:36
+#: dashboard/templates/dashboard/payment_request_list.html:19
+#: dashboard/templates/dashboard/user_list.html:26
+#: dashboard/templates/dashboard/user_list.html:37
+#: payments/templates/payments/claim_list.html:22
+#: payments/templates/payments/claim_list.html:35
+#: payments/templates/payments/payment_details.html:32
+#: templates/tags/used_voucher_list_snippet.html:14
+#: templates/tags/used_voucher_list_snippet.html:25
+#: templates/tags/voucher_list_snippet.html:15
+#: templates/tags/voucher_list_snippet.html:26
+msgid "Status"
+msgstr "Statut"
+
+#: dashboard/templates/dashboard/available_service_detail.html:22
+#: dashboard/templates/dashboard/category_service_detail.html:23
+#: dashboard/templates/dashboard/user_list.html:37
+msgid "active,inactive"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:24
+#: dashboard/templates/dashboard/category_service_detail.html:25
+#: dashboard/templates/dashboard/policy_detail.html:19
+#: dashboard/templates/dashboard/policy_group_detail.html:23
+msgid "Created at"
+msgstr "Créé le"
+
+#: dashboard/templates/dashboard/available_service_detail.html:25
+#: dashboard/templates/dashboard/category_service_detail.html:26
+#: dashboard/templates/dashboard/policy_detail.html:20
+#: dashboard/templates/dashboard/policy_group_detail.html:24
+#, fuzzy
+#| msgid "Created by"
+msgid "Created By"
 msgstr "Créé par"
 
-#: dashboard/templates/dashboard/available_service_detail.html:19
-#: dashboard/templates/dashboard/claim_list.html:16
-#: dashboard/templates/dashboard/payment_detail.html:25
-#: dashboard/templates/dashboard/payment_list.html:19
-#: dashboard/templates/dashboard/payment_request_detail.html:30
-#: dashboard/templates/dashboard/payment_request_list.html:20
-#: dashboard/templates/dashboard/service_category_list.html:14
-#: dashboard/templates/dashboard/service_detail.html:81
-#: dashboard/templates/dashboard/transfer_detail.html:24
-#: dashboard/templates/dashboard/transfer_list.html:25
-#: payments/templates/payments/available_service_list.html:20
-#: payments/templates/payments/available_service_list.html:30
-#: payments/templates/payments/balance_activity.html:24
-#: payments/templates/payments/claim_list.html:23
-#: payments/templates/payments/claim_list.html:36
-#: payments/templates/payments/payment_archive_day.html:40
-#: payments/templates/payments/payment_archive_year.html:40
-#: payments/templates/payments/payment_details.html:22
-#: payments/templates/payments/payment_list.html:20
-#: payments/templates/payments/payment_list.html:30
-#: payments/templates/payments/payment_verify.html:77
-#: payments/templates/payments/service_archive_day.html:29
-#: payments/templates/payments/service_archive_day.html:40
-#: payments/templates/payments/transaction_list.html:11
-#: payments/templates/payments/transfer_detail.html:24
-#: payments/templates/payments/transfer_verify.html:80
-#: payments/templates/tags/service_snippet.html:40
-#: templates/reports/activities_invoice.html:16
-#: templates/reports/activities_invoice.html:26
-#: templates/reports/payment_reports.html:13
-#: templates/reports/payment_reports.html:23
-#: templates/reports/recharge_report.html:12
-#: templates/tags/activity_list_snippet.html:16
-#: templates/tags/activity_list_snippet.html:30
-#: templates/tags/balance_activities_snippet.html:17
-#: templates/tags/balance_activities_snippet.html:31
-#: templates/tags/recharge_list_table_snippet.html:13
-msgid "Date"
-msgstr "Date"
-
-#: dashboard/templates/dashboard/available_service_detail.html:21
-#: dashboard/templates/dashboard/category_service_detail.html:26
-msgid "Activated"
-msgstr "Activé"
+#: dashboard/templates/dashboard/available_service_detail.html:26
+#: dashboard/templates/dashboard/category_service_detail.html:27
+#: dashboard/templates/dashboard/policy_detail.html:21
+#: dashboard/templates/dashboard/policy_group_detail.html:25
+msgid "Last Modified"
+msgstr ""
 
 #: dashboard/templates/dashboard/available_service_detail.html:27
+#: dashboard/templates/dashboard/category_service_detail.html:28
+#: dashboard/templates/dashboard/policy_detail.html:22
+#: dashboard/templates/dashboard/policy_group_detail.html:26
+msgid "Last Modified By"
+msgstr ""
+
+#: dashboard/templates/dashboard/available_service_detail.html:29
 #: dashboard/templates/dashboard/payment_detail.html:31
 #: dashboard/templates/dashboard/payment_request_detail.html:42
-#: dashboard/templates/dashboard/service_detail.html:87
-#: dashboard/templates/dashboard/transfer_detail.html:30
+#: dashboard/templates/dashboard/service_detail.html:41
+#: dashboard/templates/dashboard/transfer_detail.html:33
 #: dashboard/templates/tags/available_service_creation_form.html:47
 #: dashboard/templates/tags/available_service_remove_form.html:38
-#: dashboard/templates/tags/available_service_update_form.html:39
+#: dashboard/templates/tags/available_service_update_form.html:35
 #: dashboard/templates/tags/case_close_form.html:32
 #: dashboard/templates/tags/case_update_form.html:33
-#: dashboard/templates/tags/transaction_dialog.html:12
 #: payments/resources/ui_strings.py:31
 #: payments/templates/payments/new_payment.html:23
 #: payments/templates/payments/new_transfer.html:20
@@ -640,85 +692,48 @@ msgstr "Activé"
 msgid "Description"
 msgstr "Description"
 
-#: dashboard/templates/dashboard/available_service_detail.html:35
-#: dashboard/templates/dashboard/category_service_detail.html:11
-#: dashboard/templates/tags/available_service_remove_form.html:45
-#: dashboard/templates/tags/category_service_remove_form.html:33
-#: dashboard/templates/tags/policy_remove_form.html:40
-msgid "Remove"
-msgstr "Retirer"
-
-#: dashboard/templates/dashboard/available_service_detail.html:36
-#: dashboard/templates/dashboard/category_service_detail.html:12
-#: dashboard/templates/dashboard/group_detail.html:7
-#: dashboard/templates/dashboard/permission_detail.html:16
-#: dashboard/templates/dashboard/policy_detail.html:9
-#: dashboard/templates/dashboard/policy_group_detail.html:12
-msgid "Edit"
-msgstr "Editer"
-
-#: dashboard/templates/dashboard/available_service_detail.html:37
-msgid "Add new Service"
-msgstr "Ajouter un service"
-
 #: dashboard/templates/dashboard/available_service_detail.html:38
-#: dashboard/templates/dashboard/available_service_list.html:17
-#: dashboard/templates/dashboard_base_old.html:31
-#: payments/resources/ui_strings.py:25
-#: payments/templates/payments/available_service_detail.html:21
-#: payments/templates/payments/available_service_list.html:5
-#: payments/templates/payments/available_service_list.html:12
-#: payments/templates/tags/payments_links.html:4
-#: payments/templates/tags/payments_links.html:9
-#: templates/dashboard_base.html:67
-msgid "Available Services"
-msgstr "Services disponible"
-
-#: dashboard/templates/dashboard/available_service_detail.html:47
-#: dashboard/templates/dashboard/available_service_list.html:54
-#: dashboard/templates/dashboard/category_service_detail.html:56
-#: dashboard/templates/dashboard/category_service_list.html:53
+#: dashboard/templates/dashboard/available_service_list.html:43
+#: dashboard/templates/dashboard/category_service_detail.html:55
+#: dashboard/templates/dashboard/category_service_list.html:45
 #: dashboard/templates/dashboard/claim_detail.html:22
 #: dashboard/templates/dashboard/claim_list.html:32
-#: dashboard/templates/dashboard/group_detail.html:48
-#: dashboard/templates/dashboard/group_list.html:71
+#: dashboard/templates/dashboard/group_detail.html:55
+#: dashboard/templates/dashboard/group_list.html:69
 #: dashboard/templates/dashboard/idcard_detail.html:47
-#: dashboard/templates/dashboard/new_transaction.html:33
 #: dashboard/templates/dashboard/new_user.html:21
 #: dashboard/templates/dashboard/payment_detail.html:39
-#: dashboard/templates/dashboard/payment_list.html:48
+#: dashboard/templates/dashboard/payment_list.html:45
 #: dashboard/templates/dashboard/payment_request_detail.html:59
 #: dashboard/templates/dashboard/payment_request_list.html:49
 #: dashboard/templates/dashboard/permission_detail.html:41
 #: dashboard/templates/dashboard/permission_list.html:83
-#: dashboard/templates/dashboard/policy_detail.html:27
-#: dashboard/templates/dashboard/policy_group_detail.html:57
-#: dashboard/templates/dashboard/policy_group_list.html:58
-#: dashboard/templates/dashboard/policy_list.html:60
-#: dashboard/templates/dashboard/service_detail.html:95
-#: dashboard/templates/dashboard/service_list.html:95
+#: dashboard/templates/dashboard/policy_detail.html:29
+#: dashboard/templates/dashboard/policy_group_detail.html:59
+#: dashboard/templates/dashboard/policy_group_list.html:48
+#: dashboard/templates/dashboard/policy_list.html:48
+#: dashboard/templates/dashboard/service_detail.html:49
+#: dashboard/templates/dashboard/service_list.html:39
 #: dashboard/templates/dashboard/token_list.html:37
-#: dashboard/templates/dashboard/transfer_detail.html:38
-#: dashboard/templates/dashboard/transfer_list.html:54
-#: dashboard/templates/dashboard/user_list.html:60
-#: dashboard/templates/tags/available_service_creation_form.html:65
-#: dashboard/templates/tags/available_service_update_form.html:56
-#: dashboard/templates/tags/balance_recharge_form.html:27
+#: dashboard/templates/dashboard/transfer_detail.html:41
+#: dashboard/templates/dashboard/transfer_list.html:45
+#: dashboard/templates/dashboard/user_list.html:51
+#: dashboard/templates/tags/available_service_creation_form.html:64
+#: dashboard/templates/tags/available_service_update_form.html:51
+#: dashboard/templates/tags/balance_recharge_form.html:30
 #: dashboard/templates/tags/case_close_form.html:50
 #: dashboard/templates/tags/case_update_form.html:51
-#: dashboard/templates/tags/category_service_creation_form.html:47
-#: dashboard/templates/tags/category_service_update_form.html:44
-#: dashboard/templates/tags/group_form.html:122
-#: dashboard/templates/tags/group_update_form.html:133
+#: dashboard/templates/tags/category_service_creation_form.html:43
+#: dashboard/templates/tags/category_service_update_form.html:36
+#: dashboard/templates/tags/group_form.html:118
+#: dashboard/templates/tags/group_update_form.html:132
 #: dashboard/templates/tags/idcard_form.html:28
-#: dashboard/templates/tags/idcard_update_form.html:61
-#: dashboard/templates/tags/payment_form.html:30
-#: dashboard/templates/tags/policy_creation_form.html:52
+#: dashboard/templates/tags/idcard_update_form.html:57
+#: dashboard/templates/tags/policy_creation_form.html:28
 #: dashboard/templates/tags/policy_group_creation_form.html:46
-#: dashboard/templates/tags/policy_group_update_form.html:64
-#: dashboard/templates/tags/policy_update_form.html:58
-#: dashboard/templates/tags/service_form.html:37
-#: dashboard/templates/tags/transfer_form.html:34 templates/voucher_base.html:8
+#: dashboard/templates/tags/policy_group_update_form.html:65
+#: dashboard/templates/tags/policy_update_form.html:39
+#: templates/voucher_base.html:8
 msgid ""
 "The page you requested could not be found or you are not allowed to access "
 "this page."
@@ -730,20 +745,23 @@ msgstr ""
 msgid "New Service"
 msgstr "Nouveau Service"
 
-#: dashboard/templates/dashboard/available_service_list.html:27
-#: dashboard/templates/dashboard/available_service_list.html:37
-#: dashboard/templates/dashboard/category_service_list.html:28
-#: dashboard/templates/dashboard/category_service_list.html:37
-#: dashboard/templates/dashboard/group_list.html:41
-#: dashboard/templates/dashboard/payment_list.html:20
+#: dashboard/templates/dashboard/available_service_list.html:23
+#: dashboard/templates/dashboard/available_service_list.html:33
+#: dashboard/templates/dashboard/category_service_list.html:21
+#: dashboard/templates/dashboard/category_service_list.html:30
+#: dashboard/templates/dashboard/group_list.html:40
+#: dashboard/templates/dashboard/group_list.html:50
+#: dashboard/templates/dashboard/payment_list.html:18
 #: dashboard/templates/dashboard/payment_request_list.html:21
+#: dashboard/templates/dashboard/policy_group_list.html:26
+#: dashboard/templates/dashboard/policy_group_list.html:36
+#: dashboard/templates/dashboard/policy_list.html:23
 #: dashboard/templates/dashboard/policy_list.html:32
-#: dashboard/templates/dashboard/service_list.html:72
-#: dashboard/templates/dashboard/service_list.html:83
-#: dashboard/templates/dashboard/transfer_list.html:26
-#: dashboard/templates/dashboard/user_list.html:32
-#: dashboard/templates/dashboard/user_list.html:43
-#: dashboard/templates/tags/transfer_form.html:22
+#: dashboard/templates/dashboard/service_list.html:17
+#: dashboard/templates/dashboard/service_list.html:28
+#: dashboard/templates/dashboard/transfer_list.html:18
+#: dashboard/templates/dashboard/user_list.html:28
+#: dashboard/templates/dashboard/user_list.html:39
 #: payments/templates/payments/available_service_list.html:21
 #: payments/templates/payments/available_service_list.html:31
 #: payments/templates/payments/claim_list.html:24
@@ -764,73 +782,88 @@ msgstr "Nouveau Service"
 #: templates/tags/recharge_list_table_snippet.html:23
 #: templates/tags/sold_voucher_list_snippet.html:14
 #: templates/tags/sold_voucher_list_snippet.html:24
-#: templates/tags/used_voucher_list_snippet.html:15
-#: templates/tags/used_voucher_list_snippet.html:25
+#: templates/tags/used_voucher_list_snippet.html:16
+#: templates/tags/used_voucher_list_snippet.html:27
 #: templates/tags/voucher_list_snippet.html:17
 #: templates/tags/voucher_list_snippet.html:28
 msgid "Details"
 msgstr "Details"
 
-#: dashboard/templates/dashboard/category_service_detail.html:13
-msgid "Add new Category Service"
-msgstr "Ajouter une categorie"
+#: dashboard/templates/dashboard/balance_activities.html:29
+#: payments/resources/ui_strings.py:24
+#: payments/templates/payments/balance_activities.html:29
+#: payments/templates/tags/payments_links.html:3
+#: payments/templates/tags/payments_links.html:8
+msgid "Transactions"
+msgstr "Transactions"
 
-#: dashboard/templates/dashboard/category_service_detail.html:19
-msgid "Service Category Name"
-msgstr "Nom"
+#: dashboard/templates/dashboard/balance_activity.html:6
+#: payments/templates/payments/balance_activity.html:6
+msgid "ACTIVITY"
+msgstr "Activité"
 
-#: dashboard/templates/dashboard/category_service_detail.html:20
-msgid "Service Category Code"
-msgstr "Code"
+#: dashboard/templates/dashboard/balance_activity.html:11
+#: payments/templates/payments/balance_activity.html:11
+#: templates/tags/activity_list_snippet.html:10
+#: templates/tags/balance_activities_snippet.html:11
+msgid "Activities"
+msgstr "Activitées"
 
-#: dashboard/templates/dashboard/category_service_detail.html:30
-msgid "Created at"
-msgstr "Créé le"
+#: dashboard/templates/dashboard/balance_activity.html:15
+#: dashboard/templates/dashboard/payment_detail.html:16
+#: dashboard/templates/dashboard/payment_list.html:14
+#: dashboard/templates/dashboard/transfer_detail.html:18
+#: dashboard/templates/dashboard/transfer_list.html:14
+#: payments/templates/payments/balance_activity.html:15
+#: payments/templates/payments/claim_list.html:18
+#: payments/templates/payments/claim_list.html:31
+#: payments/templates/payments/payment_archive_day.html:26
+#: payments/templates/payments/payment_archive_day.html:37
+#: payments/templates/payments/payment_archive_year.html:26
+#: payments/templates/payments/payment_archive_year.html:37
+#: payments/templates/payments/payment_details.html:19
+#: payments/templates/payments/payment_list.html:17
+#: payments/templates/payments/payment_list.html:27
+#: payments/templates/payments/payment_verify.html:68
+#: payments/templates/payments/transaction_list.html:9
+#: payments/templates/payments/transfer_detail.html:15
+#: payments/templates/payments/transfer_verify.html:71
+#: templates/reports/payment_reports.html:9
+msgid "Sender"
+msgstr "Expediteur"
 
-#: dashboard/templates/dashboard/category_service_detail.html:37
-msgid "Services Available in this category"
-msgstr "Services disponible"
+#: dashboard/templates/dashboard/balance_activity.html:16
+#: dashboard/templates/dashboard/payment_detail.html:19
+#: dashboard/templates/dashboard/payment_list.html:15
+#: dashboard/templates/dashboard/transfer_detail.html:21
+#: dashboard/templates/dashboard/transfer_list.html:15
+#: payments/resources/ui_strings.py:28
+#: payments/templates/payments/balance_activity.html:16
+#: payments/templates/payments/payment_archive_day.html:27
+#: payments/templates/payments/payment_archive_day.html:38
+#: payments/templates/payments/payment_archive_year.html:27
+#: payments/templates/payments/payment_archive_year.html:38
+#: payments/templates/payments/payment_details.html:16
+#: payments/templates/payments/payment_verify.html:71
+#: payments/templates/payments/transfer_detail.html:18
+#: payments/templates/payments/transfer_verify.html:74
+msgid "Recipient"
+msgstr "Destinataire"
 
-#: dashboard/templates/dashboard/category_service_detail.html:47
-msgid "There are no services available for this category yet"
-msgstr "Il n'y a pas de services disponible pour cet categorie"
-
-#: dashboard/templates/dashboard/category_service_list.html:26
-#: dashboard/templates/tags/category_service_creation_form.html:22
-#: dashboard/templates/tags/category_service_remove_form.html:18
-#: dashboard/templates/tags/category_service_update_form.html:20
-msgid "Category Name"
-msgstr "Nome"
-
-#: dashboard/templates/dashboard/category_service_list.html:27
-#: dashboard/templates/tags/category_service_creation_form.html:26
-#: dashboard/templates/tags/category_service_remove_form.html:22
-#: dashboard/templates/tags/category_service_update_form.html:24
-msgid "Category Code"
-msgstr ""
-
-#: dashboard/templates/dashboard/claim_detail.html:12
-#: payments/templates/payments/claim_detail.html:8
-msgid "Claim author"
-msgstr ""
-
-#: dashboard/templates/dashboard/claim_detail.html:13
-#: payments/templates/payments/claim_detail.html:9
-msgid "Claim participant"
-msgstr ""
-
+#: dashboard/templates/dashboard/balance_activity.html:17
 #: dashboard/templates/dashboard/claim_detail.html:14
 #: dashboard/templates/dashboard/claim_list.html:15
 #: dashboard/templates/dashboard/payment_detail.html:22
-#: dashboard/templates/dashboard/payment_list.html:18
+#: dashboard/templates/dashboard/payment_list.html:16
 #: dashboard/templates/dashboard/payment_request_detail.html:24
 #: dashboard/templates/dashboard/payment_request_list.html:18
-#: dashboard/templates/dashboard/service_detail.html:72
-#: dashboard/templates/dashboard/transfer_detail.html:21
-#: dashboard/templates/dashboard/transfer_list.html:24
-#: dashboard/templates/tags/balance_recharge_form.html:13
+#: dashboard/templates/dashboard/service_detail.html:26
+#: dashboard/templates/dashboard/service_list.html:14
+#: dashboard/templates/dashboard/service_list.html:25
+#: dashboard/templates/dashboard/transfer_detail.html:24
+#: dashboard/templates/dashboard/transfer_list.html:16
+#: dashboard/templates/tags/balance_recharge_form.html:15
 #: dashboard/templates/tags/case_close_form.html:22
-#: dashboard/templates/tags/transaction_dialog.html:11
 #: payments/resources/ui_strings.py:30
 #: payments/templates/payments/balance_activity.html:17
 #: payments/templates/payments/claim_detail.html:10
@@ -867,12 +900,108 @@ msgstr ""
 #: templates/tags/balance_activities_snippet.html:16
 #: templates/tags/balance_activities_snippet.html:26
 #: templates/tags/recharge_list_table_snippet.html:12
+#: templates/tags/recharge_list_table_snippet.html:21
 #: templates/tags/recharge_snippet.html:10
+#: templates/tags/used_voucher_list_snippet.html:12
+#: templates/tags/used_voucher_list_snippet.html:23
 #: templates/tags/voucher_list_snippet.html:13
+#: templates/tags/voucher_list_snippet.html:24
 #: templates/tags/voucher_recharge_form.html:11
 #: voucher/templates/tags/voucher_recharge_form_del.html:10
 msgid "Amount"
 msgstr "Montant"
+
+#: dashboard/templates/dashboard/balance_activity.html:20
+#: dashboard/templates/dashboard/user_detail.html:83
+#: payments/templates/payments/balance_activity.html:20
+#: templates/voucher_base.html:14
+msgid "Balance"
+msgstr "Solde"
+
+#: dashboard/templates/dashboard/balance_activity.html:23
+#: payments/templates/payments/balance_activity.html:23
+#: templates/reports/activities_invoice.html:14
+#: templates/reports/activities_invoice.html:24
+#: templates/reports/payment_reports.html:11
+#: templates/reports/payment_reports.html:21
+#: templates/tags/activity_list_snippet.html:14
+#: templates/tags/activity_list_snippet.html:24
+#: templates/tags/balance_activities_snippet.html:15
+#: templates/tags/balance_activities_snippet.html:25
+msgid "Activity"
+msgstr "Activité"
+
+#: dashboard/templates/dashboard/balance_activity.html:24
+#: dashboard/templates/dashboard/claim_list.html:16
+#: dashboard/templates/dashboard/payment_detail.html:25
+#: dashboard/templates/dashboard/payment_list.html:17
+#: dashboard/templates/dashboard/payment_request_detail.html:30
+#: dashboard/templates/dashboard/payment_request_list.html:20
+#: dashboard/templates/dashboard/service_detail.html:35
+#: dashboard/templates/dashboard/transfer_detail.html:27
+#: dashboard/templates/dashboard/transfer_list.html:17
+#: payments/templates/payments/available_service_list.html:20
+#: payments/templates/payments/available_service_list.html:30
+#: payments/templates/payments/balance_activity.html:24
+#: payments/templates/payments/claim_list.html:23
+#: payments/templates/payments/claim_list.html:36
+#: payments/templates/payments/payment_archive_day.html:40
+#: payments/templates/payments/payment_archive_year.html:40
+#: payments/templates/payments/payment_details.html:22
+#: payments/templates/payments/payment_list.html:20
+#: payments/templates/payments/payment_list.html:30
+#: payments/templates/payments/payment_verify.html:77
+#: payments/templates/payments/service_archive_day.html:29
+#: payments/templates/payments/service_archive_day.html:40
+#: payments/templates/payments/transaction_list.html:11
+#: payments/templates/payments/transfer_detail.html:24
+#: payments/templates/payments/transfer_verify.html:80
+#: payments/templates/tags/service_snippet.html:40
+#: templates/reports/activities_invoice.html:16
+#: templates/reports/activities_invoice.html:26
+#: templates/reports/payment_reports.html:13
+#: templates/reports/payment_reports.html:23
+#: templates/reports/recharge_report.html:12
+#: templates/tags/activity_list_snippet.html:16
+#: templates/tags/activity_list_snippet.html:30
+#: templates/tags/balance_activities_snippet.html:17
+#: templates/tags/balance_activities_snippet.html:31
+#: templates/tags/recharge_list_table_snippet.html:13
+#: templates/tags/recharge_list_table_snippet.html:22
+msgid "Date"
+msgstr "Date"
+
+#: dashboard/templates/dashboard/category_service_detail.html:21
+#: dashboard/templates/dashboard/category_service_list.html:20
+#: dashboard/templates/dashboard/category_service_list.html:29
+#: templates/reports/recharge_report.html:11
+#: templates/reports/sold_vouchers_report.html:13
+msgid "Code"
+msgstr "Code"
+
+#: dashboard/templates/dashboard/category_service_detail.html:36
+msgid "Services Available in this category"
+msgstr "Services disponible"
+
+#: dashboard/templates/dashboard/category_service_detail.html:46
+msgid "There are no services available for this category yet"
+msgstr "Il n'y a pas de services disponible pour cet categorie"
+
+#: dashboard/templates/dashboard/category_service_list.html:30
+#, fuzzy
+#| msgid "Details"
+msgid "Ddetails"
+msgstr "Details"
+
+#: dashboard/templates/dashboard/claim_detail.html:12
+#: payments/templates/payments/claim_detail.html:8
+msgid "Claim author"
+msgstr ""
+
+#: dashboard/templates/dashboard/claim_detail.html:13
+#: payments/templates/payments/claim_detail.html:9
+msgid "Claim participant"
+msgstr ""
 
 #: dashboard/templates/dashboard/claim_detail.html:15
 #: dashboard/templates/dashboard/claim_list.html:14
@@ -899,11 +1028,10 @@ msgid "Opened"
 msgstr ""
 
 #: dashboard/templates/dashboard/claim_list.html:22
-#: dashboard/templates/dashboard/group_list.html:51
+#: dashboard/templates/dashboard/group_list.html:50
 #: dashboard/templates/dashboard/permission_list.html:50
 #: dashboard/templates/dashboard/permission_list.html:62
-#: dashboard/templates/dashboard/policy_group_list.html:41
-#: dashboard/templates/dashboard/policy_list.html:43
+#: dashboard/templates/dashboard/policy_list.html:32
 #: payments/templates/payments/payment_list.html:31
 msgid "Detail"
 msgstr "Detail"
@@ -920,39 +1048,31 @@ msgstr "Création du compte"
 
 #: dashboard/templates/dashboard/create_user.html:20
 #: dashboard/templates/dashboard/group_list.html:19
-#: dashboard/templates/dashboard/new_transaction.html:27
 #: dashboard/templates/dashboard/new_user.html:13
 #: dashboard/templates/dashboard/permission_list.html:25
 #: dashboard/templates/dashboard/token_generate.html:19
 #: dashboard/templates/tags/account_update_form.html:53
-#: dashboard/templates/tags/available_service_creation_form.html:53
-#: dashboard/templates/tags/available_service_form.html:24
+#: dashboard/templates/tags/available_service_creation_form.html:52
 #: dashboard/templates/tags/available_service_remove_form.html:44
-#: dashboard/templates/tags/available_service_update_form.html:45
-#: dashboard/templates/tags/balance_recharge_form.html:18
+#: dashboard/templates/tags/available_service_update_form.html:40
+#: dashboard/templates/tags/balance_recharge_form.html:20
 #: dashboard/templates/tags/case_close_form.html:41
 #: dashboard/templates/tags/case_update_form.html:42
 #: dashboard/templates/tags/caseissue_form.html:18
-#: dashboard/templates/tags/category_service_creation_form.html:36
+#: dashboard/templates/tags/category_service_creation_form.html:32
 #: dashboard/templates/tags/category_service_remove_form.html:32
-#: dashboard/templates/tags/category_service_update_form.html:34
-#: dashboard/templates/tags/group_form.html:15
+#: dashboard/templates/tags/category_service_update_form.html:27
+#: dashboard/templates/tags/group_form.html:13
 #: dashboard/templates/tags/group_update_form.html:23
 #: dashboard/templates/tags/idcard_form.html:20
-#: dashboard/templates/tags/idcard_update_form.html:52
-#: dashboard/templates/tags/payment_form.html:22
-#: dashboard/templates/tags/policy_creation_form.html:41
-#: dashboard/templates/tags/policy_form.html:16
+#: dashboard/templates/tags/idcard_update_form.html:48
+#: dashboard/templates/tags/policy_creation_form.html:19
+#: dashboard/templates/tags/policy_form.html:15
 #: dashboard/templates/tags/policy_group_add_users.html:48
 #: dashboard/templates/tags/policy_group_creation_form.html:36
-#: dashboard/templates/tags/policy_group_update_form.html:54
+#: dashboard/templates/tags/policy_group_update_form.html:55
 #: dashboard/templates/tags/policy_remove_form.html:39
-#: dashboard/templates/tags/policy_update_form.html:47
-#: dashboard/templates/tags/reduction_form.html:15
-#: dashboard/templates/tags/service_category_form.html:15
-#: dashboard/templates/tags/service_form.html:28
-#: dashboard/templates/tags/transaction_dialog.html:16
-#: dashboard/templates/tags/transfer_form.html:25
+#: dashboard/templates/tags/policy_update_form.html:30
 #: payments/templates/payments/new_payment.html:27
 #: payments/templates/payments/new_service.html:46
 #: payments/templates/payments/new_transaction.html:26
@@ -1005,7 +1125,7 @@ msgstr "Rapport sur les clients"
 msgid "Recents Customer activities"
 msgstr "Activités recentes des clients"
 
-#: dashboard/templates/dashboard/group_detail.html:6
+#: dashboard/templates/dashboard/group_detail.html:7
 #: dashboard/templates/dashboard/group_list.html:20
 #: dashboard/templates/dashboard/permission_detail.html:15
 #: dashboard/templates/dashboard/permission_list.html:26
@@ -1015,17 +1135,31 @@ msgstr "Activités recentes des clients"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: dashboard/templates/dashboard/group_detail.html:16
-#: dashboard/templates/dashboard/group_list.html:39
+#: dashboard/templates/dashboard/group_detail.html:19
+#: dashboard/templates/dashboard/group_list.html:38
+#: dashboard/templates/dashboard/group_list.html:48
 #: dashboard/templates/dashboard/permission_list.html:38
 msgid "Permissions"
 msgstr "Permissions"
 
-#: dashboard/templates/dashboard/group_detail.html:30
-#: dashboard/templates/dashboard/group_list.html:40
-#: dashboard/templates/dashboard/policy_group_detail.html:23
-#: dashboard/templates/tags/policy_group_update_form.html:45
+#: dashboard/templates/dashboard/group_detail.html:25
+#, fuzzy
+#| msgid "Permissions"
+msgid "No Permissions"
+msgstr "Permissions"
+
+#: dashboard/templates/dashboard/group_detail.html:35
+#: dashboard/templates/dashboard/group_list.html:39
+#: dashboard/templates/dashboard/group_list.html:49
+#: dashboard/templates/dashboard/policy_group_detail.html:21
+#: dashboard/templates/tags/policy_group_update_form.html:46
 msgid "Members"
+msgstr "Membres"
+
+#: dashboard/templates/dashboard/group_detail.html:41
+#, fuzzy
+#| msgid "Members"
+msgid "No Members"
 msgstr "Membres"
 
 #: dashboard/templates/dashboard/group_list.html:12
@@ -1041,88 +1175,56 @@ msgstr "Voulez-vous vraiment supprimer ce groupe ?"
 msgid "This action is irreversible."
 msgstr "Cette action est irréversible"
 
-#: dashboard/templates/dashboard/group_list.html:38
-#: dashboard/templates/tags/policy_group_creation_form.html:14
-#: dashboard/templates/tags/policy_group_update_form.html:23
-msgid "Group Name"
-msgstr "Nom"
-
-#: dashboard/templates/dashboard/group_list.html:65
+#: dashboard/templates/dashboard/group_list.html:64
 #: dashboard/templates/dashboard/permission_list.html:76
 msgid "There is currently no Group"
 msgstr "Il n'y a aucun groupe"
 
-#: dashboard/templates/dashboard/idcard_detail.html:11
-#: payments/templates/payments/idcard_detail.html:31
-msgid "ID number"
-msgstr ""
-
-#: dashboard/templates/dashboard/idcard_detail.html:12
-#: payments/templates/payments/idcard_detail.html:32
-msgid "Delivery Place "
-msgstr "Lieu de délivrance"
-
-#: dashboard/templates/dashboard/idcard_detail.html:13
-#: payments/templates/payments/idcard_detail.html:33
-msgid "Delivered at "
-msgstr "Délivré le"
-
-#: dashboard/templates/dashboard/idcard_detail.html:14
-#: payments/templates/payments/idcard_detail.html:34
-msgid "Valide until "
-msgstr "Valide jusqu'au"
-
-#: dashboard/templates/dashboard/idcard_detail.html:16
-#: payments/templates/payments/idcard_detail.html:36
-msgid "ID Image"
-msgstr "Image"
-
-#: dashboard/templates/dashboard/idcard_detail.html:27
-msgid "Image"
-msgstr "Image"
-
-#: dashboard/templates/dashboard/idcard_detail.html:31
-#: dashboard/templates/tags/available_service_update_form.html:46
+#: dashboard/templates/dashboard/idcard_detail.html:8
+#: dashboard/templates/tags/available_service_update_form.html:41
 #: dashboard/templates/tags/case_update_form.html:43
-#: dashboard/templates/tags/category_service_update_form.html:35
-#: dashboard/templates/tags/idcard_update_form.html:53
-#: dashboard/templates/tags/policy_group_update_form.html:55
-#: dashboard/templates/tags/policy_update_form.html:48
+#: dashboard/templates/tags/category_service_update_form.html:28
+#: dashboard/templates/tags/idcard_update_form.html:49
+#: dashboard/templates/tags/policy_group_update_form.html:56
+#: dashboard/templates/tags/policy_update_form.html:31
 #: payments/templates/payments/idcard_detail.html:17
 #: payments/templates/payments/policygroup_update.html:33
 #: payments/templates/tags/payment_idcard_update_form.html:39
 msgid "Update"
 msgstr "Actualiser"
 
+#: dashboard/templates/dashboard/idcard_detail.html:14
+#: payments/templates/payments/idcard_detail.html:31
+msgid "ID number"
+msgstr ""
+
+#: dashboard/templates/dashboard/idcard_detail.html:15
+#: payments/templates/payments/idcard_detail.html:32
+msgid "Delivery Place "
+msgstr "Lieu de délivrance"
+
+#: dashboard/templates/dashboard/idcard_detail.html:16
+#: payments/templates/payments/idcard_detail.html:33
+msgid "Delivered at "
+msgstr "Délivré le"
+
+#: dashboard/templates/dashboard/idcard_detail.html:17
+#: payments/templates/payments/idcard_detail.html:34
+msgid "Valide until "
+msgstr "Valide jusqu'au"
+
+#: dashboard/templates/dashboard/idcard_detail.html:19
+#: payments/templates/payments/idcard_detail.html:36
+msgid "ID Image"
+msgstr "Image"
+
+#: dashboard/templates/dashboard/idcard_detail.html:30
+msgid "Image"
+msgstr "Image"
+
 #: dashboard/templates/dashboard/idcard_detail.html:38
 msgid "Wrong request"
 msgstr "Mauvaise demande"
-
-#: dashboard/templates/dashboard/new_transaction.html:19
-#: payments/templates/payments/new_transaction.html:18
-#: payments/templates/tags/transaction_dialog.html:10
-msgid "Nom du destinataire"
-msgstr ""
-
-#: dashboard/templates/dashboard/new_transaction.html:20
-#: payments/templates/payments/new_transaction.html:19
-#: payments/templates/tags/transaction_dialog.html:11
-msgid "Montant"
-msgstr ""
-
-#: dashboard/templates/dashboard/new_transaction.html:21
-#: payments/templates/payments/new_transaction.html:20
-#: payments/templates/tags/transaction_dialog.html:12
-msgid "Description du transfert"
-msgstr ""
-
-#: dashboard/templates/dashboard/new_transaction.html:26
-#: dashboard/templates/tags/transfer_form.html:26
-#: payments/templates/payments/new_transaction.html:27
-#: payments/templates/payments/new_transfer.html:25
-#: payments/templates/tags/transfer_form.html:20
-msgid "Send Money"
-msgstr "Transfert"
 
 #: dashboard/templates/dashboard/new_user.html:14
 #: templates/registration/register.html:39
@@ -1130,50 +1232,10 @@ msgstr "Transfert"
 msgid "Create My Account"
 msgstr "Créer mon compte"
 
-#: dashboard/templates/dashboard/payment_detail.html:16
-#: dashboard/templates/dashboard/payment_list.html:16
-#: dashboard/templates/dashboard/transfer_detail.html:15
-#: dashboard/templates/dashboard/transfer_list.html:22
-#: payments/templates/payments/balance_activity.html:15
-#: payments/templates/payments/claim_list.html:18
-#: payments/templates/payments/claim_list.html:31
-#: payments/templates/payments/payment_archive_day.html:26
-#: payments/templates/payments/payment_archive_day.html:37
-#: payments/templates/payments/payment_archive_year.html:26
-#: payments/templates/payments/payment_archive_year.html:37
-#: payments/templates/payments/payment_details.html:19
-#: payments/templates/payments/payment_list.html:17
-#: payments/templates/payments/payment_list.html:27
-#: payments/templates/payments/payment_verify.html:68
-#: payments/templates/payments/transaction_list.html:9
-#: payments/templates/payments/transfer_detail.html:15
-#: payments/templates/payments/transfer_verify.html:71
-#: templates/reports/payment_reports.html:9
-msgid "Sender"
-msgstr "Expediteur"
-
-#: dashboard/templates/dashboard/payment_detail.html:19
-#: dashboard/templates/dashboard/payment_list.html:17
-#: dashboard/templates/dashboard/transfer_detail.html:18
-#: dashboard/templates/dashboard/transfer_list.html:23
-#: dashboard/templates/tags/transaction_dialog.html:10
-#: payments/resources/ui_strings.py:28
-#: payments/templates/payments/balance_activity.html:16
-#: payments/templates/payments/payment_archive_day.html:27
-#: payments/templates/payments/payment_archive_day.html:38
-#: payments/templates/payments/payment_archive_year.html:27
-#: payments/templates/payments/payment_archive_year.html:38
-#: payments/templates/payments/payment_details.html:16
-#: payments/templates/payments/payment_verify.html:71
-#: payments/templates/payments/transfer_detail.html:18
-#: payments/templates/payments/transfer_verify.html:74
-msgid "Recipient"
-msgstr "Destinataire"
-
 #: dashboard/templates/dashboard/payment_detail.html:28
 #: dashboard/templates/dashboard/payment_request_detail.html:39
-#: dashboard/templates/dashboard/service_detail.html:84
-#: dashboard/templates/dashboard/transfer_detail.html:27
+#: dashboard/templates/dashboard/service_detail.html:38
+#: dashboard/templates/dashboard/transfer_detail.html:30
 #: payments/templates/payments/payment_details.html:24
 #: payments/templates/payments/payment_verify.html:31
 #: payments/templates/payments/payment_verify.html:80
@@ -1185,24 +1247,7 @@ msgstr "Destinataire"
 msgid "Verification Code"
 msgstr "Code de vérification"
 
-#: dashboard/templates/dashboard/payment_list.html:12
-#: payments/templates/payments/transactions_home.html:15
-msgid "Payments History"
-msgstr "Historique de paiements"
-
-#: dashboard/templates/dashboard/payment_list.html:29
-#: dashboard/templates/dashboard/policy_detail.html:18
-#: dashboard/templates/dashboard/policy_detail.html:19
-#: dashboard/templates/dashboard/policy_detail.html:20
-#: dashboard/templates/dashboard/service_detail.html:72
-#: dashboard/templates/dashboard/service_list.html:17
-#: dashboard/templates/dashboard/service_list.html:30
-#: dashboard/templates/dashboard/service_list.html:37
-#: dashboard/templates/dashboard/service_list.html:80
-#: dashboard/templates/dashboard/sold_voucher_details.html:12
-#: dashboard/templates/dashboard/transfer_detail.html:21
-#: dashboard/templates/dashboard/transfer_list.html:35
-#: dashboard/templates/dashboard/used_voucher_details.html:12
+#: dashboard/templates/dashboard/payment_list.html:27
 #: dashboard/templates/tags/payment_request_report.html:6
 #: dashboard/templates/tags/payment_request_report.html:14
 #: dashboard/templates/tags/payment_request_report.html:18
@@ -1232,10 +1277,10 @@ msgstr "Historique de paiements"
 msgid "XAF"
 msgstr "FCFA"
 
-#: dashboard/templates/dashboard/payment_list.html:31
+#: dashboard/templates/dashboard/payment_list.html:29
 #: dashboard/templates/dashboard/payment_request_list.html:32
-#: dashboard/templates/dashboard/transfer_list.html:37
-#: dashboard/templates/dashboard/user_list.html:43
+#: dashboard/templates/dashboard/transfer_list.html:29
+#: dashboard/templates/dashboard/user_list.html:39
 #: payments/templates/payments/available_service_list.html:31
 #: payments/templates/payments/claim_list.html:37
 #: payments/templates/payments/payment_archive_day.html:41
@@ -1249,34 +1294,23 @@ msgid "Requester Name"
 msgstr "Nom du demandeur"
 
 #: dashboard/templates/dashboard/payment_request_detail.html:21
-#: dashboard/templates/dashboard/service_detail.html:69
+#: dashboard/templates/dashboard/service_detail.html:23
 #: payments/templates/tags/service_snippet.html:13
 msgid "Customer"
 msgstr "Client"
 
 #: dashboard/templates/dashboard/payment_request_detail.html:33
-#: dashboard/templates/dashboard/policy_detail.html:21
-#: dashboard/templates/dashboard/policy_group_detail.html:24
-#: dashboard/templates/dashboard/policy_list.html:28
-#: dashboard/templates/dashboard/service_detail.html:75
-#: dashboard/templates/tags/policy_creation_form.html:35
+#: dashboard/templates/dashboard/policy_detail.html:18
+#: dashboard/templates/dashboard/policy_group_detail.html:22
+#: dashboard/templates/dashboard/policy_group_list.html:35
+#: dashboard/templates/dashboard/policy_list.html:21
+#: dashboard/templates/dashboard/policy_list.html:30
+#: dashboard/templates/dashboard/service_detail.html:29
 #: dashboard/templates/tags/policy_remove_form.html:33
-#: dashboard/templates/tags/policy_update_form.html:41
 #: payments/templates/payments/policy_detail.html:14
 #: payments/templates/tags/service_snippet.html:19
 msgid "Commission"
 msgstr "Commission"
-
-#: dashboard/templates/dashboard/payment_request_detail.html:36
-#: dashboard/templates/dashboard/payment_request_list.html:19
-#: dashboard/templates/dashboard/user_list.html:30
-#: dashboard/templates/dashboard/user_list.html:41
-#: payments/templates/payments/claim_list.html:22
-#: payments/templates/payments/claim_list.html:35
-#: payments/templates/payments/payment_details.html:32
-#: templates/tags/voucher_list_snippet.html:15
-msgid "Status"
-msgstr "Statut"
 
 #: dashboard/templates/dashboard/payment_request_detail.html:45
 msgid "Redirect success URL"
@@ -1327,163 +1361,107 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: dashboard/templates/dashboard/policy_detail.html:18
-#: dashboard/templates/dashboard/policy_list.html:29
-#: dashboard/templates/tags/policy_creation_form.html:20
-#: dashboard/templates/tags/policy_remove_form.html:18
-#: dashboard/templates/tags/policy_update_form.html:26
-#: payments/templates/payments/policy_detail.html:11
-msgid "Daily Limit"
-msgstr "Limite journalliere"
-
-#: dashboard/templates/dashboard/policy_detail.html:19
-#: dashboard/templates/dashboard/policy_list.html:30
-#: dashboard/templates/tags/policy_creation_form.html:25
-#: dashboard/templates/tags/policy_remove_form.html:23
-#: dashboard/templates/tags/policy_update_form.html:31
-#: payments/templates/payments/policy_detail.html:12
-msgid "Weekly Limit"
-msgstr "Limite hebdomadaire"
-
-#: dashboard/templates/dashboard/policy_detail.html:20
-#: dashboard/templates/dashboard/policy_list.html:31
-#: dashboard/templates/tags/policy_creation_form.html:31
+#: dashboard/templates/dashboard/policy_detail.html:17
 #: dashboard/templates/tags/policy_remove_form.html:29
-#: dashboard/templates/tags/policy_update_form.html:37
 #: payments/templates/payments/policy_detail.html:13
 msgid "Monthly Limit"
 msgstr "Limite mensuelle"
 
-#: dashboard/templates/dashboard/policy_group_detail.html:22
+#: dashboard/templates/dashboard/policy_group_detail.html:20
 msgid "Policy Group Name"
 msgstr ""
 
-#: dashboard/templates/dashboard/policy_group_detail.html:28
+#: dashboard/templates/dashboard/policy_group_detail.html:30
 msgid "Group Members"
 msgstr ""
 
-#: dashboard/templates/dashboard/policy_group_detail.html:29
+#: dashboard/templates/dashboard/policy_group_detail.html:31
 msgid "Add members"
 msgstr ""
 
-#: dashboard/templates/dashboard/policy_group_detail.html:44
+#: dashboard/templates/dashboard/policy_group_detail.html:46
 #: dashboard/templates/tags/case_close_form.html:42
 msgid "Close"
 msgstr ""
 
-#: dashboard/templates/dashboard/policy_group_detail.html:46
+#: dashboard/templates/dashboard/policy_group_detail.html:48
 msgid "Add Members to policy group"
 msgstr ""
 
-#: dashboard/templates/dashboard/policy_group_list.html:30
+#: dashboard/templates/dashboard/policy_group_list.html:24
 msgid "Number of members"
 msgstr ""
 
-#: dashboard/templates/dashboard/policy_group_list.html:31
+#: dashboard/templates/dashboard/policy_group_list.html:25
 msgid "commission"
 msgstr ""
 
-#: dashboard/templates/dashboard/service_category_list.html:19
-msgid "There is no service categories"
-msgstr ""
+#: dashboard/templates/dashboard/policy_group_list.html:34
+#, fuzzy
+#| msgid "Numbers of card sold"
+msgid "Number of Members"
+msgstr "Nombre de bon vendu"
 
-#: dashboard/templates/dashboard/service_detail.html:10
-#: dashboard/templates/dashboard/service_list.html:10
-#: templates/reports/activities_invoice.html:32
-#: templates/reports/payment_reports.html:29
-#: templates/reports/recharge_report.html:29
-#: templates/reports/report_content.html:12
-#: templates/reports/sold_vouchers_report.html:31
-msgid "Summary"
-msgstr "Resumé"
+#: dashboard/templates/dashboard/policy_list.html:22
+#: dashboard/templates/dashboard/policy_list.html:31
+#: dashboard/templates/tags/policy_creation_form.html:15
+#: dashboard/templates/tags/policy_form.html:11
+#, fuzzy
+#| msgid "Recents Transactions"
+msgid "Monthly Transaction"
+msgstr "Transactions récentes"
 
-#: dashboard/templates/dashboard/service_detail.html:15
-#: dashboard/templates/dashboard/service_list.html:16
-msgid "Money transferred"
-msgstr ""
+#: dashboard/templates/dashboard/reports.html:13
+#, fuzzy
+#| msgid "Transactions"
+msgid "No Transactions yet"
+msgstr "Transactions"
 
-#: dashboard/templates/dashboard/service_detail.html:21
-#: dashboard/templates/dashboard/service_list.html:22
-msgid "Service usage"
-msgstr ""
-
-#: dashboard/templates/dashboard/service_detail.html:28
-#: dashboard/templates/dashboard/service_list.html:29
-msgid "Max paid money"
-msgstr ""
-
-#: dashboard/templates/dashboard/service_detail.html:35
-#: dashboard/templates/dashboard/service_list.html:36
-msgid "Min paid money"
-msgstr ""
-
-#: dashboard/templates/dashboard/service_detail.html:42
-#: dashboard/templates/dashboard/service_list.html:43
-msgid "Number of user of the service"
-msgstr ""
-
-#: dashboard/templates/dashboard/service_detail.html:48
-#: dashboard/templates/dashboard/service_list.html:49
-msgid "Number of operators"
-msgstr ""
-
-#: dashboard/templates/dashboard/service_detail.html:78
+#: dashboard/templates/dashboard/service_detail.html:32
 #: payments/templates/payments/new_service.html:37
 #: payments/templates/tags/service_form.html:29
 msgid "Issue Date"
 msgstr ""
 
-#: dashboard/templates/dashboard/service_list.html:61
-msgid "Service History Page"
-msgstr ""
-
-#: dashboard/templates/dashboard/service_list.html:69
-#: payments/templates/payments/payment_details.html:17
-#: payments/templates/payments/payment_details.html:20
-#: payments/templates/payments/service_mail_confirmation_incoming.html:116
-#: templates/reports/recharge_report.html:13
-msgid "Price"
-msgstr ""
-
-#: dashboard/templates/dashboard/service_list.html:71
+#: dashboard/templates/dashboard/service_list.html:16
+#: dashboard/templates/dashboard/service_list.html:27
 #: payments/templates/payments/payment_archive_day.html:29
 #: payments/templates/payments/payment_archive_year.html:29
 msgid "Date of usage"
 msgstr ""
 
-#: dashboard/templates/dashboard/sold_voucher_details.html:12
+#: dashboard/templates/dashboard/sold_voucher_details.html:15
 #: dashboard/templates/dashboard/used_voucher_details.html:12
 #: templates/reports/sold_vouchers_report.html:15
 #: templates/tags/sold_voucher_list_snippet.html:11
-#: templates/tags/used_voucher_list_snippet.html:12
 #: templates/tags/voucher_snippet.html:11
 #: voucher/templates/voucher/sold_voucher_details.html:13
 #: voucher/templates/voucher/used_voucher_details.html:12
 msgid "Credit"
 msgstr ""
 
-#: dashboard/templates/dashboard/sold_voucher_details.html:15
+#: dashboard/templates/dashboard/sold_voucher_details.html:18
 #: dashboard/templates/dashboard/used_voucher_details.html:15
 #: payments/resources/ui_strings.py:32
 #: payments/templates/payments/recharge.html:14
 #: payments/templates/tags/recharge_form.html:7
-#: templates/tags/voucher_list_snippet.html:14
 #: templates/tags/voucher_snippet.html:14
 #: voucher/templates/voucher/sold_voucher_details.html:16
 #: voucher/templates/voucher/used_voucher_details.html:15
 msgid "Voucher Code"
 msgstr "Code du bon"
 
-#: dashboard/templates/dashboard/sold_voucher_details.html:18
+#: dashboard/templates/dashboard/sold_voucher_details.html:21
 #: dashboard/templates/dashboard/used_voucher_details.html:18
 #: templates/tags/voucher_list_snippet.html:16
+#: templates/tags/voucher_list_snippet.html:27
 #: templates/tags/voucher_snippet.html:17
 #: voucher/templates/voucher/sold_voucher_details.html:19
 #: voucher/templates/voucher/used_voucher_details.html:18
 msgid "Creation Date"
 msgstr ""
 
-#: dashboard/templates/dashboard/sold_voucher_details.html:21
+#: dashboard/templates/dashboard/sold_voucher_details.html:24
 #: dashboard/templates/dashboard/used_voucher_details.html:21
 #: templates/tags/voucher_snippet.html:21
 #: voucher/templates/voucher/sold_voucher_details.html:22
@@ -1491,7 +1469,7 @@ msgstr ""
 msgid "Activation Date"
 msgstr ""
 
-#: dashboard/templates/dashboard/sold_voucher_details.html:24
+#: dashboard/templates/dashboard/sold_voucher_details.html:27
 #: templates/reports/sold_vouchers_report.html:14
 #: templates/tags/sold_voucher_list_snippet.html:13
 #: templates/tags/voucher_snippet.html:27
@@ -1516,23 +1494,14 @@ msgstr ""
 msgid "Recents activities"
 msgstr "Activités récentes"
 
-#: dashboard/templates/dashboard/transfer_detail.html:11
+#: dashboard/templates/dashboard/transfer_detail.html:14
 #: payments/templates/payments/transfer_detail.html:11
 msgid "Transfer Detail"
 msgstr "Transfert"
 
-#: dashboard/templates/dashboard/transfer_list.html:13
-msgid "Transfer History Page"
-msgstr "Historiques des transferts"
-
-#: dashboard/templates/dashboard/transfer_list.html:18
-#: payments/templates/payments/transactions_home.html:14
-#: payments/templates/payments/transfer_list.html:4
-msgid "Transfer History"
-msgstr "Historiques des transferts"
-
 #: dashboard/templates/dashboard/used_voucher_details.html:24
-#: templates/tags/used_voucher_list_snippet.html:14
+#: templates/tags/used_voucher_list_snippet.html:15
+#: templates/tags/used_voucher_list_snippet.html:26
 #: templates/tags/voucher_snippet.html:39
 #: voucher/templates/voucher/used_voucher_details.html:24
 msgid "Usage Date"
@@ -1551,8 +1520,8 @@ msgid "User Information"
 msgstr ""
 
 #: dashboard/templates/dashboard/user_detail.html:23
-#: dashboard/templates/dashboard/user_list.html:28
-#: dashboard/templates/dashboard/user_list.html:39
+#: dashboard/templates/dashboard/user_list.html:24
+#: dashboard/templates/dashboard/user_list.html:35
 #: templates/registration/login.html:33 templates/tags/registration_form.html:7
 #: templates/tags/signup_dialog.html:30 templates/tags/signup_dialog.html:47
 msgid "Username"
@@ -1600,16 +1569,6 @@ msgstr ""
 msgid "USER GROUPS"
 msgstr ""
 
-#: dashboard/templates/dashboard/user_detail.html:83
-#: payments/templates/payments/balance_activity.html:20
-#: templates/voucher_base.html:14
-msgid "Balance"
-msgstr "Solde"
-
-#: dashboard/templates/dashboard/user_detail.html:88
-msgid "Products"
-msgstr ""
-
 #: dashboard/templates/dashboard/user_detail.html:92
 msgid "Date joined"
 msgstr ""
@@ -1622,22 +1581,17 @@ msgstr ""
 msgid "Create Access Token"
 msgstr ""
 
-#: dashboard/templates/dashboard/user_list.html:4
+#: dashboard/templates/dashboard/user_list.html:11
 msgid "Generate Balance"
 msgstr ""
 
-#: dashboard/templates/dashboard/user_list.html:31
-#: dashboard/templates/dashboard/user_list.html:42
+#: dashboard/templates/dashboard/user_list.html:27
+#: dashboard/templates/dashboard/user_list.html:38
 msgid "Date Joined"
-msgstr ""
-
-#: dashboard/templates/dashboard/user_list.html:41
-msgid "active,inactive"
 msgstr ""
 
 #: dashboard/templates/dashboard/voucher.html:14
 #: dashboard/templates/dashboard_base_old.html:18
-#: dashboard/templates/tags/payment_form.html:21
 #: payments/templates/payments/new_payment.html:28
 #: payments/templates/tags/payment_form.html:18
 msgid "PAY"
@@ -1652,12 +1606,12 @@ msgstr ""
 msgid "Recharge Customer Account"
 msgstr ""
 
-#: dashboard/templates/dashboard/voucher.html:28 dashboard/views.py:1937
+#: dashboard/templates/dashboard/voucher.html:28 dashboard/views.py:1991
 #: voucher/views.py:193
 msgid "Used Voucher List"
 msgstr ""
 
-#: dashboard/templates/dashboard/voucher.html:33 dashboard/views.py:1975
+#: dashboard/templates/dashboard/voucher.html:33 dashboard/views.py:2029
 #: voucher/views.py:237
 msgid "Sold Voucher List"
 msgstr ""
@@ -1710,61 +1664,35 @@ msgstr ""
 
 #: dashboard/templates/tags/available_service_creation_form.html:21
 #: dashboard/templates/tags/available_service_remove_form.html:22
-#: dashboard/templates/tags/available_service_update_form.html:23
+#: dashboard/templates/tags/available_service_update_form.html:19
 #: payments/templates/payments/service_mail_confirmation_incoming.html:71
 msgid "Service name"
 msgstr ""
 
 #: dashboard/templates/tags/available_service_creation_form.html:43
 #: dashboard/templates/tags/available_service_remove_form.html:34
-#: dashboard/templates/tags/available_service_update_form.html:35
-#: dashboard/templates/tags/category_service_creation_form.html:30
+#: dashboard/templates/tags/available_service_update_form.html:31
+#: dashboard/templates/tags/category_service_creation_form.html:27
 #: dashboard/templates/tags/category_service_remove_form.html:26
-#: dashboard/templates/tags/category_service_update_form.html:28
+#: dashboard/templates/tags/category_service_update_form.html:23
 msgid "Is Active"
 msgstr ""
 
-#: dashboard/templates/tags/available_service_creation_form.html:54
-#: dashboard/templates/tags/category_service_creation_form.html:37
-#: dashboard/templates/tags/policy_creation_form.html:42
+#: dashboard/templates/tags/available_service_creation_form.html:53
+#: dashboard/templates/tags/category_service_creation_form.html:33
 #: dashboard/templates/tags/policy_group_creation_form.html:37
 msgid "Create"
-msgstr ""
-
-#: dashboard/templates/tags/available_service_form.html:10
-#: payments/templates/tags/available_service_form.html:10
-msgid "Enter the service code"
-msgstr ""
-
-#: dashboard/templates/tags/available_service_form.html:11
-#: payments/templates/tags/available_service_form.html:11
-msgid "Enter the service name"
-msgstr ""
-
-#: dashboard/templates/tags/available_service_form.html:15
-#: payments/templates/tags/available_service_form.html:15
-msgid "Select a category please"
-msgstr ""
-
-#: dashboard/templates/tags/available_service_form.html:17
-#: payments/templates/tags/available_service_form.html:17
-msgid "{{cat.category_name}}"
-msgstr ""
-
-#: dashboard/templates/tags/available_service_form.html:25
-#: payments/templates/tags/available_service_form.html:25
-msgid "Create the Service"
 msgstr ""
 
 #: dashboard/templates/tags/available_service_remove_form.html:9
 msgid "Remove Service"
 msgstr ""
 
-#: dashboard/templates/tags/available_service_update_form.html:10
+#: dashboard/templates/tags/available_service_update_form.html:7
 msgid "Edit Service"
 msgstr ""
 
-#: dashboard/templates/tags/balance_recharge_form.html:19
+#: dashboard/templates/tags/balance_recharge_form.html:21
 msgid "Recharge User balance"
 msgstr ""
 
@@ -1813,32 +1741,47 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: dashboard/templates/tags/category_service_creation_form.html:11
-msgid "Create a new Category Service"
+#: dashboard/templates/tags/category_service_creation_form.html:10
+#, fuzzy
+#| msgid "New Category"
+msgid "Create a new Category"
+msgstr "Nouvelle Categorie"
+
+#: dashboard/templates/tags/category_service_creation_form.html:19
+#: dashboard/templates/tags/category_service_remove_form.html:18
+#: dashboard/templates/tags/category_service_update_form.html:15
+msgid "Category Name"
+msgstr "Nome"
+
+#: dashboard/templates/tags/category_service_creation_form.html:23
+#: dashboard/templates/tags/category_service_remove_form.html:22
+#: dashboard/templates/tags/category_service_update_form.html:19
+msgid "Category Code"
 msgstr ""
 
 #: dashboard/templates/tags/category_service_remove_form.html:9
 msgid "Remove Category Service"
 msgstr ""
 
-#: dashboard/templates/tags/category_service_update_form.html:11
-#: dashboard/views.py:586
-msgid "Edit Category Service"
-msgstr ""
+#: dashboard/templates/tags/category_service_update_form.html:10
+#, fuzzy
+#| msgid "Category"
+msgid "Edit Category"
+msgstr "Categorie"
 
-#: dashboard/templates/tags/group_form.html:16
+#: dashboard/templates/tags/group_form.html:14
 msgid "Create Group"
 msgstr ""
 
-#: dashboard/templates/tags/group_form.html:32
+#: dashboard/templates/tags/group_form.html:30
 #: dashboard/templates/tags/group_update_form.html:40
 msgid "Select Permissions to add"
 msgstr ""
 
-#: dashboard/templates/tags/group_form.html:36
-#: dashboard/templates/tags/group_form.html:58
-#: dashboard/templates/tags/group_form.html:80
-#: dashboard/templates/tags/group_form.html:102
+#: dashboard/templates/tags/group_form.html:34
+#: dashboard/templates/tags/group_form.html:56
+#: dashboard/templates/tags/group_form.html:78
+#: dashboard/templates/tags/group_form.html:100
 #: dashboard/templates/tags/group_update_form.html:44
 #: dashboard/templates/tags/group_update_form.html:66
 #: dashboard/templates/tags/group_update_form.html:90
@@ -1846,10 +1789,10 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: dashboard/templates/tags/group_form.html:39
-#: dashboard/templates/tags/group_form.html:61
-#: dashboard/templates/tags/group_form.html:83
-#: dashboard/templates/tags/group_form.html:105
+#: dashboard/templates/tags/group_form.html:37
+#: dashboard/templates/tags/group_form.html:59
+#: dashboard/templates/tags/group_form.html:81
+#: dashboard/templates/tags/group_form.html:103
 #: dashboard/templates/tags/group_update_form.html:47
 #: dashboard/templates/tags/group_update_form.html:69
 #: dashboard/templates/tags/group_update_form.html:93
@@ -1857,17 +1800,17 @@ msgstr ""
 msgid "Enter the term to filter"
 msgstr ""
 
-#: dashboard/templates/tags/group_form.html:54
+#: dashboard/templates/tags/group_form.html:52
 #: dashboard/templates/tags/group_update_form.html:62
 msgid "Selected Permissions"
 msgstr ""
 
-#: dashboard/templates/tags/group_form.html:76
+#: dashboard/templates/tags/group_form.html:74
 #: dashboard/templates/tags/group_update_form.html:86
 msgid "Select Users to add"
 msgstr ""
 
-#: dashboard/templates/tags/group_form.html:98
+#: dashboard/templates/tags/group_form.html:96
 #: dashboard/templates/tags/group_update_form.html:108
 #: dashboard/templates/tags/policy_group_add_users.html:25
 msgid "Selected Users"
@@ -1886,53 +1829,42 @@ msgstr ""
 msgid "Select your ID card image :"
 msgstr ""
 
-#: dashboard/templates/tags/idcard_update_form.html:18
+#: dashboard/templates/tags/idcard_update_form.html:15
 #: payments/templates/payments/idcard_detail.html:17
 msgid "Update my ID Card"
 msgstr ""
 
-#: dashboard/templates/tags/idcard_update_form.html:28
+#: dashboard/templates/tags/idcard_update_form.html:18
 #: payments/templates/tags/idcard_upload_form.html:8
 #: payments/templates/tags/payment_idcard_update_form.html:12
 msgid "Card Number"
 msgstr ""
 
-#: dashboard/templates/tags/idcard_update_form.html:31
+#: dashboard/templates/tags/idcard_update_form.html:22
 #: payments/templates/tags/idcard_upload_form.html:12
 #: payments/templates/tags/payment_idcard_update_form.html:16
 msgid "Issued Date"
 msgstr ""
 
-#: dashboard/templates/tags/idcard_update_form.html:34
-#: payments/templates/tags/payment_idcard_update_form.html:20
-msgid "Epire at "
-msgstr ""
+#: dashboard/templates/tags/idcard_update_form.html:27
+#, fuzzy
+#| msgid "Delivered at "
+msgid "Expire at "
+msgstr "Délivré le"
 
-#: dashboard/templates/tags/idcard_update_form.html:37
+#: dashboard/templates/tags/idcard_update_form.html:32
 #: payments/templates/tags/payment_idcard_update_form.html:24
 msgid "Delivrance place"
 msgstr ""
 
-#: dashboard/templates/tags/idcard_update_form.html:40
+#: dashboard/templates/tags/idcard_update_form.html:37
 #: payments/templates/tags/payment_idcard_update_form.html:34
 msgid "ID card Picture"
 msgstr ""
 
-#: dashboard/templates/tags/idcard_update_form.html:46
+#: dashboard/templates/tags/idcard_update_form.html:42
 #: payments/templates/tags/payment_idcard_update_form.html:28
 msgid "Current ID image"
-msgstr ""
-
-#: dashboard/templates/tags/payment_form.html:10
-msgid "Enter the customer name"
-msgstr ""
-
-#: dashboard/templates/tags/payment_form.html:17
-msgid "Enter the amount to be paid"
-msgstr ""
-
-#: dashboard/templates/tags/payment_form.html:18
-msgid "Payment description"
 msgstr ""
 
 #: dashboard/templates/tags/payment_report.html:10
@@ -1968,26 +1900,15 @@ msgid "Max Payment Request"
 msgstr ""
 
 #: dashboard/templates/tags/policy_creation_form.html:11
-msgid "Create new Policy"
-msgstr ""
+#: dashboard/templates/tags/policy_form.html:7
+#: dashboard/templates/tags/policy_update_form.html:25
+#, fuzzy
+#| msgid "Transactions"
+msgid "Transaction Commission"
+msgstr "Transactions"
 
-#: dashboard/templates/tags/policy_form.html:10
-msgid "Enter the daily limit"
-msgstr ""
-
-#: dashboard/templates/tags/policy_form.html:11
-msgid "Enter the weekly limit"
-msgstr ""
-
-#: dashboard/templates/tags/policy_form.html:12
-msgid "Enter the monthly limit"
-msgstr ""
-
-#: dashboard/templates/tags/policy_form.html:13
-msgid "Enter the commision"
-msgstr ""
-
-#: dashboard/templates/tags/policy_form.html:17
+#: dashboard/templates/tags/policy_creation_form.html:20
+#: dashboard/templates/tags/policy_form.html:16
 msgid "Create the Policy"
 msgstr ""
 
@@ -2007,13 +1928,18 @@ msgstr ""
 msgid "Create new Policy Group"
 msgstr ""
 
+#: dashboard/templates/tags/policy_group_creation_form.html:14
+#: dashboard/templates/tags/policy_group_update_form.html:24
+msgid "Group Name"
+msgstr "Nom"
+
 #: dashboard/templates/tags/policy_group_creation_form.html:27
-#: dashboard/templates/tags/policy_group_update_form.html:37
+#: dashboard/templates/tags/policy_group_update_form.html:38
 msgid "Type"
 msgstr ""
 
 #: dashboard/templates/tags/policy_group_update_form.html:11
-#: dashboard/views.py:999 dashboard/views.py:1036
+#: dashboard/views.py:1053 dashboard/views.py:1090
 msgid "Edit Policy Group"
 msgstr ""
 
@@ -2021,64 +1947,21 @@ msgstr ""
 msgid "Removing Policy"
 msgstr ""
 
-#: dashboard/templates/tags/policy_update_form.html:11 dashboard/views.py:776
-msgid "Edit Policy"
-msgstr ""
+#: dashboard/templates/tags/policy_remove_form.html:18
+#: payments/templates/payments/policy_detail.html:11
+msgid "Daily Limit"
+msgstr "Limite journalliere"
 
-#: dashboard/templates/tags/reduction_form.html:11
-#: payments/templates/tags/reduction_form.html:11
-msgid "Enter the percent to apply"
-msgstr ""
+#: dashboard/templates/tags/policy_remove_form.html:23
+#: payments/templates/payments/policy_detail.html:12
+msgid "Weekly Limit"
+msgstr "Limite hebdomadaire"
 
-#: dashboard/templates/tags/reduction_form.html:14
-#: payments/templates/tags/reduction_form.html:15
-msgid "Create reduction"
-msgstr ""
-
-#: dashboard/templates/tags/service_category_form.html:10
-#: payments/templates/tags/service_category_form.html:10
-msgid "Enter the service category"
-msgstr ""
-
-#: dashboard/templates/tags/service_category_form.html:11
-#: payments/templates/tags/service_category_form.html:13
-msgid "Enter the category name"
-msgstr ""
-
-#: dashboard/templates/tags/service_category_form.html:16
-#: payments/templates/tags/service_category_form.html:20
-msgid "Create category"
-msgstr ""
-
-#: dashboard/templates/tags/service_form.html:21
-msgid "You bill Reference number if applicable"
-msgstr ""
-
-#: dashboard/templates/tags/service_form.html:22
-#: payments/templates/payments/new_service.html:29
-#: payments/templates/tags/service_form.html:22
-msgid "your customer number as known by the operator"
-msgstr ""
-
-#: dashboard/templates/tags/service_form.html:23
-#: payments/templates/payments/new_service.html:33
-#: payments/templates/tags/service_form.html:26
-msgid "Enter the price of the service"
-msgstr ""
-
-#: dashboard/templates/tags/service_form.html:24
-#: payments/templates/payments/new_service.html:38
-#: payments/templates/tags/service_form.html:30
-msgid "Enter the date when the bill was delivered, if applicable"
-msgstr ""
-
-#: dashboard/templates/tags/service_form.html:25
-msgid "Service description"
-msgstr ""
-
-#: dashboard/templates/tags/service_form.html:29
-msgid "Apply"
-msgstr ""
+#: dashboard/templates/tags/policy_update_form.html:21
+#, fuzzy
+#| msgid "Recents Transactions"
+msgid "Monthly Transactions"
+msgstr "Transactions récentes"
 
 #: dashboard/templates/tags/service_report.html:10
 msgid "Services Count"
@@ -2096,12 +1979,31 @@ msgstr ""
 msgid "Max Services"
 msgstr ""
 
-#: dashboard/templates/tags/transfer_form.html:15
-msgid "Select the Recipient"
+#: dashboard/templates/tags/transaction_summary.html:8
+#, fuzzy
+#| msgid "Country"
+msgid "Count"
+msgstr "Pays"
+
+#: dashboard/templates/tags/transaction_summary.html:12
+#: templates/reports/activities_invoice.html:34
+#: templates/reports/payment_reports.html:31
+#: templates/reports/recharge_report.html:31
+#: templates/reports/report_content.html:13
+#: templates/reports/sold_vouchers_report.html:33
+msgid "Total"
+msgstr "Total"
+
+#: dashboard/templates/tags/transaction_summary.html:16
+msgid "Avg"
 msgstr ""
 
-#: dashboard/templates/tags/transfer_form.html:21
-msgid "Amout in FCFA"
+#: dashboard/templates/tags/transaction_summary.html:20
+msgid "Min"
+msgstr ""
+
+#: dashboard/templates/tags/transaction_summary.html:24
+msgid "Max"
 msgstr ""
 
 #: dashboard/templates/tags/transfer_report.html:10
@@ -2136,116 +2038,124 @@ msgstr ""
 msgid "Max Voucher"
 msgstr ""
 
-#: dashboard/views.py:77
+#: dashboard/views.py:78
 msgid "Dashboard Users Tokens"
 msgstr ""
 
-#: dashboard/views.py:106
+#: dashboard/views.py:107
 msgid "User Token Generation"
 msgstr ""
 
-#: dashboard/views.py:117
+#: dashboard/views.py:118
 msgid "Token successfully generated for user {}"
 msgstr ""
 
-#: dashboard/views.py:121
+#: dashboard/views.py:122
 msgid "The submitted form is not valid"
 msgstr ""
 
-#: dashboard/views.py:144
+#: dashboard/views.py:197
 msgid "Dashboard Reports"
 msgstr ""
 
-#: dashboard/views.py:214 dashboard/views.py:266
+#: dashboard/views.py:268 dashboard/views.py:320
 msgid "Dashboard Users"
 msgstr ""
 
-#: dashboard/views.py:339
+#: dashboard/views.py:393
 msgid "Dashboard Services"
 msgstr ""
 
-#: dashboard/views.py:400
+#: dashboard/views.py:454
 msgid "Edit Available Service"
 msgstr ""
 
-#: dashboard/views.py:440
+#: dashboard/views.py:494
 msgid "Create Available Service"
 msgstr ""
 
-#: dashboard/views.py:676
+#: dashboard/views.py:640
+msgid "Edit Category Service"
+msgstr ""
+
+#: dashboard/views.py:730
 msgid "Create Category Service"
 msgstr ""
 
-#: dashboard/views.py:864
+#: dashboard/views.py:830
+msgid "Edit Policy"
+msgstr ""
+
+#: dashboard/views.py:918
 msgid "Create Policy"
 msgstr ""
 
-#: dashboard/views.py:962
+#: dashboard/views.py:1016
 msgid "Create Policy Group"
 msgstr ""
 
-#: dashboard/views.py:1767
+#: dashboard/views.py:1821
 #, python-brace-format
 msgid "User {name} created"
 msgstr ""
 
-#: dashboard/views.py:1792 voucher/views.py:36
+#: dashboard/views.py:1846 voucher/views.py:36
 msgid "Voucher Dashboard"
 msgstr ""
 
-#: dashboard/views.py:1794 voucher/views.py:39
+#: dashboard/views.py:1848 voucher/views.py:39
 msgid "Welcome back to voucher page"
 msgstr ""
 
-#: dashboard/views.py:1807 voucher/templates/voucher_base.html:20
+#: dashboard/views.py:1861 voucher/templates/voucher_base.html:20
 #: voucher/views.py:53
 msgid "Voucher List"
 msgstr ""
 
-#: dashboard/views.py:1825 voucher/views.py:77
+#: dashboard/views.py:1879 voucher/views.py:77
 msgid "Voucher Details"
 msgstr ""
 
-#: dashboard/views.py:1842 voucher/views.py:96
+#: dashboard/views.py:1896 voucher/views.py:96
 msgid "Voucher activated"
 msgstr ""
 
-#: dashboard/views.py:1845 voucher/views.py:99
+#: dashboard/views.py:1899 voucher/views.py:99
 msgid "Voucher not activated"
 msgstr ""
 
-#: dashboard/views.py:1854 voucher/views.py:111
+#: dashboard/views.py:1908 voucher/views.py:111
 msgid "Recharge User Account"
 msgstr ""
 
-#: dashboard/views.py:1875
+#: dashboard/views.py:1929
 msgid "The customer account has been successfuly recharged"
 msgstr ""
 
-#: dashboard/views.py:1879 voucher/views.py:133
+#: dashboard/views.py:1933 voucher/views.py:133
 msgid ""
 "Your request could not processed. You might need to check that the submitted "
 "data are correct."
 msgstr ""
 
-#: dashboard/views.py:1883 dashboard/views.py:1885 voucher/views.py:137
+#: dashboard/views.py:1937 dashboard/views.py:1939 voucher/views.py:137
 #: voucher/views.py:139
 msgid "The submitted form is not valid. Verify the form fields"
 msgstr ""
 
-#: dashboard/views.py:1946 voucher/views.py:205
+#: dashboard/views.py:2000 voucher/views.py:205
 msgid "Used Voucher Details"
 msgstr ""
 
-#: dashboard/views.py:1984 dashboard/views.py:2057 voucher/views.py:249
+#: dashboard/views.py:2038 dashboard/views.py:2111 voucher/views.py:249
 msgid "Sold Voucher Details"
 msgstr ""
 
-#: dashboard/views.py:1998 voucher/views.py:266
+#: dashboard/views.py:2052 voucher/views.py:266
 msgid "Voucher Generator"
 msgstr ""
 
-#: dashboard/views.py:2048 voucher/views.py:317
+#: dashboard/views.py:2102 voucher/views.py:317
 msgid "Recharge List"
 msgstr ""
 
@@ -2319,13 +2229,6 @@ msgstr "Solde actuel"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: payments/resources/ui_strings.py:24
-#: payments/templates/payments/balance_activities.html:29
-#: payments/templates/tags/payments_links.html:3
-#: payments/templates/tags/payments_links.html:8
-msgid "Transactions"
-msgstr "Transactions"
-
 #: payments/resources/ui_strings.py:27
 msgid "Transactions verification"
 msgstr "vérification de transactions"
@@ -2349,28 +2252,6 @@ msgstr "Utilise ce service"
 #: payments/templates/payments/available_service_list.html:39
 msgid "There is currently no service available"
 msgstr "Il n'y a aucun service"
-
-#: payments/templates/payments/balance_activity.html:6
-msgid "ACTIVITY"
-msgstr "Activité"
-
-#: payments/templates/payments/balance_activity.html:11
-#: templates/tags/activity_list_snippet.html:10
-#: templates/tags/balance_activities_snippet.html:11
-msgid "Activities"
-msgstr "Activitées"
-
-#: payments/templates/payments/balance_activity.html:23
-#: templates/reports/activities_invoice.html:14
-#: templates/reports/activities_invoice.html:24
-#: templates/reports/payment_reports.html:11
-#: templates/reports/payment_reports.html:21
-#: templates/tags/activity_list_snippet.html:14
-#: templates/tags/activity_list_snippet.html:24
-#: templates/tags/balance_activities_snippet.html:15
-#: templates/tags/balance_activities_snippet.html:25
-msgid "Activity"
-msgstr "Activité"
 
 #: payments/templates/payments/claim_list.html:4
 msgid "Claim History"
@@ -2462,6 +2343,21 @@ msgstr "Votre numéro de référence de facture, le cas échéant"
 msgid "Your customer reference"
 msgstr "Votre référence client"
 
+#: payments/templates/payments/new_service.html:29
+#: payments/templates/tags/service_form.html:22
+msgid "your customer number as known by the operator"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:33
+#: payments/templates/tags/service_form.html:26
+msgid "Enter the price of the service"
+msgstr ""
+
+#: payments/templates/payments/new_service.html:38
+#: payments/templates/tags/service_form.html:30
+msgid "Enter the date when the bill was delivered, if applicable"
+msgstr ""
+
 #: payments/templates/payments/new_service.html:41
 #: payments/templates/tags/service_form.html:33
 msgid "Payment Description"
@@ -2478,6 +2374,27 @@ msgstr "Entrez la description du service ici"
 #: payments/templates/tags/service_form.html:39
 msgid "Pay"
 msgstr "Payer"
+
+#: payments/templates/payments/new_transaction.html:18
+#: payments/templates/tags/transaction_dialog.html:10
+msgid "Nom du destinataire"
+msgstr ""
+
+#: payments/templates/payments/new_transaction.html:19
+#: payments/templates/tags/transaction_dialog.html:11
+msgid "Montant"
+msgstr ""
+
+#: payments/templates/payments/new_transaction.html:20
+#: payments/templates/tags/transaction_dialog.html:12
+msgid "Description du transfert"
+msgstr ""
+
+#: payments/templates/payments/new_transaction.html:27
+#: payments/templates/payments/new_transfer.html:25
+#: payments/templates/tags/transfer_form.html:20
+msgid "Send Money"
+msgstr "Transfert"
 
 #: payments/templates/payments/new_transfer.html:4
 msgid "SEND MONEY"
@@ -2550,6 +2467,13 @@ msgstr ""
 #: payments/templates/payments/payment_details.html:31
 msgid "Refund"
 msgstr "Rembourssement"
+
+#: payments/templates/payments/payment_details.html:17
+#: payments/templates/payments/payment_details.html:20
+#: payments/templates/payments/service_mail_confirmation_incoming.html:116
+#: templates/reports/recharge_report.html:13
+msgid "Price"
+msgstr ""
 
 #: payments/templates/payments/payment_details.html:33
 msgid "Last Change"
@@ -2629,9 +2553,9 @@ msgstr "Verifier"
 
 #: payments/templates/payments/payment_verify.html:64
 #, fuzzy
-#| msgid "Payment successfully verified."
-msgid "Payment successdfully verified."
-msgstr "Paiement vérifié avec succès."
+#| msgid "Transfer successdfully verified."
+msgid "Payment successfully verified."
+msgstr "Le transfert a pu être vérifié"
 
 #: payments/templates/payments/payment_verify.html:91
 #: payments/templates/payments/service_verify.html:69
@@ -2674,12 +2598,6 @@ msgstr "Recharge du solde"
 msgid "Recharge my Account"
 msgstr "Recharge"
 
-#: payments/templates/payments/recharge_done_email.html:61
-#, fuzzy
-#| msgid "You have successfully recharged your account"
-msgid "You have successfuly recharged your account "
-msgstr "Vous avez rechargé votre compte avec succès"
-
 #: payments/templates/payments/service_archive.html:4
 msgid "Service Payment Archive"
 msgstr ""
@@ -2711,7 +2629,7 @@ msgstr ""
 
 #: payments/templates/payments/service_list.html:9
 msgid "Available services"
-msgstr ""
+msgstr "Services disponible"
 
 #: payments/templates/payments/service_mail_confirmation_incoming.html:61
 msgid "You have received a new payment from "
@@ -2778,6 +2696,15 @@ msgstr ""
 msgid "TRANSACTIONS"
 msgstr ""
 
+#: payments/templates/payments/transactions_home.html:14
+#: payments/templates/payments/transfer_list.html:4
+msgid "Transfer History"
+msgstr "Historiques des transferts"
+
+#: payments/templates/payments/transactions_home.html:15
+msgid "Payments History"
+msgstr "Historique de paiements"
+
 #: payments/templates/payments/transactions_home.html:17
 msgid "Archive"
 msgstr ""
@@ -2822,7 +2749,9 @@ msgid "TRANSFER VERIFICATION"
 msgstr "Vérification du transfert"
 
 #: payments/templates/payments/transfer_verify.html:67
-msgid "Transfer successdfully verified."
+#, fuzzy
+#| msgid "Transfer successdfully verified."
+msgid "Transfer successfully verified."
 msgstr "Le transfert a pu être vérifié"
 
 #: payments/templates/payments/transfer_verify.html:94
@@ -2837,8 +2766,28 @@ msgstr "Aucun transfert trouvé"
 msgid "NEW ID CARD  UPLOAD"
 msgstr ""
 
+#: payments/templates/tags/available_service_form.html:10
+msgid "Enter the service code"
+msgstr ""
+
+#: payments/templates/tags/available_service_form.html:11
+msgid "Enter the service name"
+msgstr ""
+
 #: payments/templates/tags/available_service_form.html:12
 msgid "Enter the operator name"
+msgstr ""
+
+#: payments/templates/tags/available_service_form.html:15
+msgid "Select a category please"
+msgstr ""
+
+#: payments/templates/tags/available_service_form.html:17
+msgid "{{cat.category_name}}"
+msgstr ""
+
+#: payments/templates/tags/available_service_form.html:25
+msgid "Create the Service"
 msgstr ""
 
 #: payments/templates/tags/category_list_snippet.html:4
@@ -2848,7 +2797,7 @@ msgstr "Offres de services"
 #: payments/templates/tags/category_list_snippet.html:4
 #: templates/tags/payment_list_snippet.html:8
 #: templates/tags/service_list_snippet.html:8
-#: templates/tags/transaction_list_snippets.html:9
+#: templates/tags/transaction_list_snippets.html:10
 #: templates/tags/transfer_list_snippet.html:9
 msgid "See all"
 msgstr "Tout voir"
@@ -2861,28 +2810,52 @@ msgstr "Bientôt disponible ..."
 
 #: payments/templates/tags/idcard_upload_form.html:16
 msgid "Valid until "
-msgstr ""
+msgstr "Valide jusqu'au "
 
 #: payments/templates/tags/idcard_upload_form.html:20
 msgid "Where was it delivered ?"
-msgstr ""
+msgstr "Où a-t-il été délivré ?"
 
 #: payments/templates/tags/idcard_upload_form.html:25
 msgid "Select your ID card image"
 msgstr ""
 
+#: payments/templates/tags/payment_idcard_update_form.html:20
+msgid "Epire at "
+msgstr ""
+
 #: payments/templates/tags/payments_links.html:6
 #: payments/templates/tags/payments_links.html:11
 msgid "Transaction Verification"
+msgstr "Vérification de transactions"
+
+#: payments/templates/tags/reduction_form.html:11
+msgid "Enter the percent to apply"
+msgstr ""
+
+#: payments/templates/tags/reduction_form.html:15
+msgid "Create reduction"
+msgstr ""
+
+#: payments/templates/tags/service_category_form.html:10
+msgid "Enter the service category"
+msgstr ""
+
+#: payments/templates/tags/service_category_form.html:13
+msgid "Enter the category name"
+msgstr ""
+
+#: payments/templates/tags/service_category_form.html:20
+msgid "Create category"
 msgstr ""
 
 #: payments/templates/tags/service_snippet.html:36
 msgid "Customer Reference"
-msgstr ""
+msgstr "Reférence du client"
 
 #: payments/templates/tags/transaction_done_content.html:4
 msgid "Your transaction was succesfull."
-msgstr ""
+msgstr "Votre transaction a été exécutée avec success"
 
 #: payments/templates/tags/transaction_done_content.html:5
 #: payments/templates/tags/transfer_done_content.html:6
@@ -2903,7 +2876,7 @@ msgstr ""
 
 #: payments/templates/tags/transfer_done_content.html:5
 msgid "Your transaction was succesfull. "
-msgstr ""
+msgstr "Votre transaction a été exécutée avec success"
 
 #: payments/templates/tags/upload_idcard_done_content.html:4
 msgid "Your Id  was succesfull uploaded."
@@ -3040,7 +3013,7 @@ msgstr ""
 
 #: templates/400.html:7
 msgid "Bad Request ! "
-msgstr ""
+msgstr "Mauvaise requette"
 
 #: templates/400.html:10
 msgid "The server did not understand your request."
@@ -3192,23 +3165,23 @@ msgstr ""
 
 #: templates/dashboard_base.html:80
 msgid "ONLINE PAYMENT SYSTEM"
-msgstr ""
+msgstr "SYSTÈME DE PAIEMENT EN LIGNE"
 
 #: templates/dashboard_base.html:100
 msgid "Search"
-msgstr ""
+msgstr "Recherche"
 
 #: templates/dashboard_base.html:106
 msgid "Administrator"
-msgstr ""
+msgstr "Administrateur"
 
 #: templates/faq_flat.html:35
 msgid "Knowledge Base"
-msgstr ""
+msgstr "Base de connaissance"
 
 #: templates/faq_flat.html:47
 msgid "What is a Transfer ?"
-msgstr ""
+msgstr "Qu'est-ce que c'est qu'un transfert ?"
 
 #: templates/faq_flat.html:51
 msgid ""
@@ -3223,7 +3196,7 @@ msgstr ""
 
 #: templates/faq_flat.html:63
 msgid "What is a Payment ?"
-msgstr ""
+msgstr "Qu'est-ce que c'est qu'un paiement ?"
 
 #: templates/faq_flat.html:67
 msgid ""
@@ -3254,7 +3227,7 @@ msgstr ""
 
 #: templates/faq_flat.html:95
 msgid "How do I find the available services ?"
-msgstr ""
+msgstr "Comment puis-je trouver les services disponible ?"
 
 #: templates/faq_flat.html:99
 msgid ""
@@ -3287,21 +3260,22 @@ msgstr ""
 
 #: templates/faq_flat.html:128
 msgid "Where can I buy voucher ?"
-msgstr ""
+msgstr "Où puis-je achéter un bon de recharge ?"
 
 #: templates/faq_flat.html:131
 msgid "You can buy Voucher Code from our sell points in Douala."
 msgstr ""
+"Vous pouvez acheter un bon de recharge à un de nos points de vente à Douala"
 
 #: templates/faq_flat.html:146
 msgid "Who can make Transfer ?"
-msgstr ""
+msgstr "Qui peut éffectuer un transfert ?"
 
 #: templates/faq_flat.html:150
 msgid ""
 "Only user with private account can make Transfer. Transfer Transactions are "
 "not allowed for business Account."
-msgstr ""
+msgstr "Les transferts ne sont possible qu'entre comptes privés"
 
 #: templates/home.html:12
 msgid "Don't waste your time waiting in line to pay your bill"
@@ -3428,16 +3402,16 @@ msgstr ""
 #: templates/tags/registration_form.html:23
 #: templates/tags/signup_dialog.html:31
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: templates/registration/login.html:45
 #: templates/registration/password_reset_form.html:16
 msgid "Forgot your password ?"
-msgstr ""
+msgstr "Mot de passe oublié ?"
 
 #: templates/registration/login.html:48
 msgid "New here ? "
-msgstr ""
+msgstr "Nouveau par ici ?"
 
 #: templates/registration/login.html:48
 msgid "Register"
@@ -3506,7 +3480,7 @@ msgstr ""
 #: templates/registration/password_reset_confirm.html:7
 #: templates/registration/password_reset_done.html:8
 msgid "Confirmation"
-msgstr ""
+msgstr "Confirmation"
 
 #: templates/registration/password_reset_confirm.html:8
 #: templates/registration/password_reset_done.html:9
@@ -3520,7 +3494,7 @@ msgstr ""
 
 #: templates/registration/password_reset_confirm.html:29
 msgid "Change"
-msgstr ""
+msgstr "Modifier"
 
 #: templates/registration/password_reset_confirm.html:34
 msgid ""
@@ -3532,7 +3506,7 @@ msgstr ""
 #: templates/registration/password_reset_form.html:8
 #: templates/registration/password_reset_subject.txt:2
 msgid "Password reset"
-msgstr ""
+msgstr "Réinitialisation du mot de passe"
 
 #: templates/registration/password_reset_done.html:17
 msgid ""
@@ -3636,29 +3610,24 @@ msgstr ""
 #: templates/reports/recharge_report.html:9
 #: templates/reports/sold_vouchers_report.html:11
 msgid "Pos."
-msgstr ""
+msgstr "Pos."
 
-#: templates/reports/activities_invoice.html:34
-#: templates/reports/payment_reports.html:31
-#: templates/reports/recharge_report.html:31
-#: templates/reports/report_content.html:13
-#: templates/reports/sold_vouchers_report.html:33
-msgid "Total"
-msgstr ""
+#: templates/reports/activities_invoice.html:32
+#: templates/reports/payment_reports.html:29
+#: templates/reports/recharge_report.html:29
+#: templates/reports/report_content.html:12
+#: templates/reports/sold_vouchers_report.html:31
+msgid "Summary"
+msgstr "Resumé"
 
 #: templates/reports/recharge_report.html:10
 #: templates/reports/sold_vouchers_report.html:12
 msgid "Card Name"
 msgstr ""
 
-#: templates/reports/recharge_report.html:11
-#: templates/reports/sold_vouchers_report.html:13
-msgid "Code"
-msgstr ""
-
 #: templates/reports/report_footer.html:7
 msgid "Your online payment solution !"
-msgstr ""
+msgstr "Votre solution de paiment en ligne !"
 
 #: templates/reports/report_header.html:7
 msgid "Date interval"
@@ -3670,7 +3639,7 @@ msgstr ""
 
 #: templates/reports/sold_vouchers_report.html:34
 msgid "Numbers of card sold"
-msgstr ""
+msgstr "Nombre de bon vendu"
 
 #: templates/site_account_base.html:7
 msgid "Welcome"
@@ -3686,11 +3655,11 @@ msgstr "Aucune activitées."
 
 #: templates/tags/channel.html:3
 msgid "Send Mail"
-msgstr ""
+msgstr "Envoyer un mail"
 
 #: templates/tags/channel.html:4
 msgid "Contact us on Facebook"
-msgstr ""
+msgstr "Contactez nous sur Facebook"
 
 #: templates/tags/footer_content.html:6
 msgid "Our Engagement"
@@ -3737,23 +3706,23 @@ msgstr "Recharge Infor"
 
 #: templates/tags/recharge_snippet.html:13
 msgid "Recharge Date"
-msgstr ""
+msgstr "Date de recharge"
 
 #: templates/tags/recharge_snippet.html:16
 msgid "Executed by"
-msgstr ""
+msgstr "Exécuté par"
 
 #: templates/tags/recharge_snippet.html:19
 msgid "Recharged User"
-msgstr ""
+msgstr "Utilisateur rechargé"
 
 #: templates/tags/registration_form.html:28
 msgid "Password Confirmation"
-msgstr ""
+msgstr "Confirmation du mot de passe"
 
 #: templates/tags/registration_form.html:41
 msgid "Date of birth"
-msgstr ""
+msgstr "Date de naissance"
 
 #: templates/tags/signup_dialog.html:7
 msgid "Accedez à PAY"
@@ -3761,15 +3730,15 @@ msgstr ""
 
 #: templates/tags/signup_dialog.html:13
 msgid "I have a PAY account"
-msgstr ""
+msgstr "J'ai déjà un compte"
 
 #: templates/tags/signup_dialog.html:16
 msgid "I want to create an PAY account"
-msgstr ""
+msgstr "Je veux créer un compte"
 
 #: templates/tags/signup_dialog.html:50
 msgid "Your Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: templates/tags/signup_dialog.html:51
 msgid "Enter Your Password again"
@@ -3777,75 +3746,72 @@ msgstr ""
 
 #: templates/tags/signup_dialog.html:53
 msgid "Phone-Number"
-msgstr ""
+msgstr "Numéro de téléphone"
 
 #: templates/tags/signup_dialog.html:56
 msgid "Create My PAY Account"
 msgstr ""
 
-#: templates/tags/transaction_list_snippets.html:59
+#: templates/tags/transaction_list_snippets.html:60
 msgid "There is no transactions yet."
 msgstr "Aucune transactions"
 
 #: templates/tags/transfer_list_snippet.html:31
 msgid "You haven't made any Transfers"
-msgstr ""
+msgstr "Aucun transfert"
 
 #: templates/tags/unauthorized.html:4
 msgid "The requested Page was not found."
 msgstr ""
 
-#: templates/tags/used_voucher_list_snippet.html:33
+#: templates/tags/used_voucher_list_snippet.html:25
+#: templates/tags/voucher_list_snippet.html:26
+msgid "activated,deactivated"
+msgstr "activé,déactivé"
+
+#: templates/tags/used_voucher_list_snippet.html:35
 msgid "There are no used Voucher now."
-msgstr ""
+msgstr "Aucun bon vendu"
 
 #: templates/tags/voucher_generate_form.html:9
 #: voucher/templates/tags/voucher_generate_form_del.html:7
 msgid "Voucher Card Name"
-msgstr ""
+msgstr "Nom de la carte de bon"
 
 #: templates/tags/voucher_generate_form.html:14
 #: voucher/templates/tags/voucher_generate_form_del.html:12
 msgid "Voucher Recharge Credit"
-msgstr ""
+msgstr "Crédit du bon de recharge"
 
 #: templates/tags/voucher_generate_form.html:19
 #: voucher/templates/tags/voucher_generate_form_del.html:17
 msgid "Number of Voucher card to generate"
-msgstr ""
+msgstr "Nombre de bon à générer"
 
 #: templates/tags/voucher_generate_form.html:25
 #: voucher/templates/tags/voucher_generate_form_del.html:23
 msgid "Generate"
-msgstr ""
-
-#: templates/tags/voucher_list_snippet.html:12
-msgid "Voucher Name"
-msgstr ""
-
-#: templates/tags/voucher_list_snippet.html:26
-msgid "activated,deactivated"
-msgstr ""
+msgstr "Générer"
 
 #: templates/tags/voucher_snippet.html:24
 msgid "Activated by"
-msgstr ""
+msgstr "Activé par"
 
 #: templates/tags/voucher_snippet.html:31
 msgid "Sold by"
-msgstr ""
+msgstr "Vendu par"
 
 #: templates/tags/voucher_snippet.html:36
 msgid "Used by"
-msgstr ""
+msgstr "Utilisé par"
 
 #: templates/tags/voucher_snippet.html:46
 msgid "Activate this Voucher"
-msgstr ""
+msgstr "Activer ce bon"
 
 #: templates/voucher_base.html:23 templates/voucher_base.html:32
 msgid "Recharge Account"
-msgstr ""
+msgstr "Recharde de compte"
 
 #: voucher/models.py:53
 msgid "SoldVoucher"
@@ -3865,11 +3831,29 @@ msgstr ""
 
 #: voucher/templates/voucher_base.html:25
 msgid "Recharges History"
-msgstr ""
+msgstr "Historique de recharges"
 
 #: voucher/views.py:129
 msgid "The customer balance has been successfully recharged"
-msgstr ""
+msgstr "Le solde du client a été rechargé avec succès"
+
+#~ msgid "Activated"
+#~ msgstr "Activé"
+
+#~ msgid "Add new Category Service"
+#~ msgstr "Ajouter une categorie"
+
+#~ msgid "Service Category Name"
+#~ msgstr "Nom"
+
+#~ msgid "Service Category Code"
+#~ msgstr "Code"
+
+#~ msgid "Transfer History Page"
+#~ msgstr "Historiques des transferts"
+
+#~ msgid "Voucher Name"
+#~ msgstr "Bon"
 
 #~ msgid "Balance Activities"
 #~ msgstr "Historique de votre solde"
