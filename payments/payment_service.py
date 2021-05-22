@@ -613,9 +613,42 @@ def update_balance(data):
     activity = data['activity']
     fee = data['fee']
     is_payment = data['is_payment']
-    
-    BalanceHistory.objects.create(balance=sender.balance, balance_ref_id=sender.balance.pk,is_incoming=False,  activity=activity, current_amount=amount,  balance_amount=sender.balance.balance, sender=sender, receiver=recipient)
-    BalanceHistory.objects.create(balance=recipient.balance, balance_ref_id=recipient.balance.pk,is_incoming=True,  activity=activity, current_amount=amount ,balance_amount=recipient.balance.balance, sender=sender, receiver=recipient)
+    create_data_sender = {
+        'balance': sender.balance,
+        'balance_ref_id' : sender.balance.pk,
+        'is_incoming': False,
+        'activity': activity,
+        'current_amount': amount,
+        'balance_amount': sender.balance.balance,
+        'sender' : sender,
+        'receiver': recipient,
+        'payment': data.get('payment'),
+        'transfer': data.get('transfer'),
+        'recharge': data.get('recharge'),
+        'refund': data.get('refund'),
+        'service': data.get('service'),
+        'cashout': data.get('cashout'),
+        'voucher': data.get('voucher'),
+    }
+    create_data_recipient = {
+        'balance': recipient.balance,
+        'balance_ref_id' : recipient.balance.pk,
+        'is_incoming': True,
+        'activity': activity,
+        'current_amount': amount,
+        'balance_amount': recipient.balance.balance,
+        'sender' : sender,
+        'receiver': recipient,
+        'payment': data.get('payment'),
+        'transfer': data.get('transfer'),
+        'recharge': data.get('recharge'),
+        'refund': data.get('refund'),
+        'service': data.get('service'),
+        'cashout': data.get('cashout'),
+        'voucher': data.get('voucher'),
+    }
+    BalanceHistory.objects.create(**create_data_sender)
+    BalanceHistory.objects.create(**create_data_recipient)
 
     Balance.objects.filter(user=recipient).update(balance=F('balance') + amount)
     Balance.objects.filter(user=sender).update(balance=F('balance') - amount)
@@ -651,7 +684,7 @@ def create_transfer(data):
     amount = form.cleaned_data.get('amount')
     sender = form.cleaned_data.get('sender')
     recipient = form.cleaned_data.get('recipient')
-
+    transfer = form.save()
     data = {
             'amount' : amount,
             'sender' : sender,
@@ -660,9 +693,10 @@ def create_transfer(data):
             'recipient_amount' : amount,
             'activity': Constants.BALANCE_ACTIVITY_TRANSFER,
             'fee' : 0,
+            'transfer': transfer,
             'is_payment' : False
         }
-    transfer = form.save()
+    
     update_balance(data)
     logger.info("Transfer Operation was successfull")
 
@@ -683,6 +717,9 @@ def create_payment(data):
     pay_fee, recipient_amount, succeed = PaymentService.get_commission(amount=amount, applied_commision=commission)
     payment = None
     if succeed:
+        payment = form.save(commit=False)
+        payment.fee = pay_fee
+        payment.save()
         data = {
             'amount' : amount,
             'sender' : sender,
@@ -691,14 +728,13 @@ def create_payment(data):
             'recipient_amount' : recipient_amount,
             'activity': Constants.BALANCE_ACTIVITY_PAYMENT,
             'fee' : pay_fee,
+            'payment': payment,
             'is_payment' : True
         }
         update_balance(data)
 
         logger.info("Payment Operation was successfull")
-        payment = form.save(commit=False)
-        payment.fee = pay_fee
-        payment.save()
+        
     else:
         logger.warn("Payment could not be processed")
     return payment
@@ -767,7 +803,7 @@ def accept_refund(requester, payment):
     if payment.recipient != requester:
         logger.warn(f"Refund not accepted. Recipient \"{payment.recipient.username}\" is not the requester \"{requester.username}\"")
         return None
-    
+    refund = None
     try:
         refund = Refund.objects.get(payment=payment, status=Constants.REFUND_PENDING)
     except Refund.DoesNotExist as e:
@@ -781,7 +817,7 @@ def accept_refund(requester, payment):
     
     amount = payment.amount
     fee = payment.fee
-    recipient_amount = amount - fee
+    recipient_amount = amount
     sender = payment.sender
     recipient = payment.recipient
     pay = User.objects.get(username=settings.PAY_USER)
@@ -794,6 +830,7 @@ def accept_refund(requester, payment):
         'recipient_amount' : recipient_amount,
         'activity' : Constants.BALANCE_ACTIVITY_REFUND,
         'fee' : fee,
+        'refund': refund,
         'is_payment' : False
     }
     update_balance(data)
@@ -825,9 +862,10 @@ def create_accept_refund(requester, payment):
         data['declined_reason'] = Constants.REFUND_DECLINED_UNSUFFICIENT_FUND
     else:
         data['status'] : Constants.REFUND_PAID
+        refund = Refund.objects.create(**data)
         amount = payment.amount
         fee = payment.fee
-        recipient_amount = amount - fee
+        recipient_amount = amount
         sender = payment.sender
         recipient = payment.recipient
         pay = User.objects.get(username=settings.PAY_USER)
@@ -839,6 +877,7 @@ def create_accept_refund(requester, payment):
             'recipient_amount' : recipient_amount,
             'activity' : Constants.BALANCE_ACTIVITY_REFUND,
             'fee' : fee,
+            'refund': refund,
             'is_payment' : False
         }
         update_balance(balance_data)
@@ -851,7 +890,7 @@ def create_accept_refund(requester, payment):
         #Balance.objects.filter(user=sender).update(balance=F('balance') + amount, balance_without_fee=F('balance_without_fee') + amount)
         #Balance.objects.filter(user=pay).update(balance=F('balance') - fee)
 
-    refund = Refund.objects.create(**data)
+    
     return refund
 
 

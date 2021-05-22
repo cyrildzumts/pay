@@ -216,7 +216,7 @@ def new_transfer(request):
     page_title = _("New Transfer" + " - " + settings.SITE_NAME)
     
     if request.method == "POST":
-        tranfer = payment_service.create_transfer(utils.get_postdata(request))
+        transfer = payment_service.create_transfer(utils.get_postdata(request))
         if transfer:
             return redirect('payments:transaction-done')
         else : 

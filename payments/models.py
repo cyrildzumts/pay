@@ -51,6 +51,7 @@ class BalanceHistory(models.Model):
     cashout = models.ForeignKey('payments.Cashout', related_name='cashout', null=True,blank=True, on_delete=models.SET_NULL)
     service = models.ForeignKey('payments.Service', related_name='service', null=True,blank=True, on_delete=models.SET_NULL)
     recharge = models.ForeignKey('voucher.Recharge', related_name='balance_history', null=True,blank=True, on_delete=models.SET_NULL)
+    service = models.ForeignKey('payments.Refund', related_name='balance_refunds', null=True,blank=True, on_delete=models.SET_NULL)
     payment = models.ForeignKey('payments.Payment', related_name='payment', null=True,blank=True, on_delete=models.SET_NULL)
     transfer = models.ForeignKey('payments.Transfer', related_name='transfer', null=True,blank=True, on_delete=models.SET_NULL)
     voucher = models.ForeignKey('voucher.Voucher', related_name="balance_history", blank=True, null=True, on_delete=models.SET_NULL)
