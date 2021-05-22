@@ -24,7 +24,7 @@
                         <td data-label="{% trans 'Voucher' %}"><span>{{v.voucher_code}}</span></td>
                         <td data-label="{% trans 'Status' %}"><span><i class="fas fa-circle icon {% if v.activated %}success{% else %}warning{% endif %}"></i><span>{{v.activated|yesno:_('activated,deactivated')}}</span></span></td>
                         <td data-label="{% trans 'Usage Date' %}"><span>{{v.used_at|date:"F j,Y H:i:s"}}</span></td>
-                        <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-default" href="{% url VOUCHER_URL v.voucher_uuid %}"><span>{% trans "Details" %}</span></a></td>
+                        <td data-label="{% trans 'Details' %}"><a class="mat-button mat-button-outlined" href="{% url VOUCHER_URL v.voucher_uuid %}"><span>{% trans "Details" %}</span></a></td>
                         </tr>
                         {% endfor %}        
                 </tbody>
