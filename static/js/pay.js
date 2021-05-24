@@ -723,14 +723,6 @@ var TableFilter = (function(){
     }
     return TableFilter;
 })();
-//var trans = new Transaction();
-var issue_descr = "J'ai acheter un article le 23.03.2019."
-" Jusqu'aujourd'hui je n'ai toujours pas recu la commande."
-" Je souhaite recevoir mon article dans les plus bref delai sinon j'aimerai me faire rembourser.";
-
-var options = {label: 'Reception', label_attr_title: 'Entrant', title: 'Reception venant de Cyrille', date: '04-05-2019', amount: 25000, initials: 'CN',initials_title: 'Cyrille Ngassam', is_seller: false};
-
-
 
 var notify = new Notify();
 
