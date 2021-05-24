@@ -919,14 +919,14 @@ def policy_create(request):
     template_name = "dashboard/policy_create.html"
     form = None
     if request.method =="POST":
-        form = forms.PolicyForm(request.POST)
+        form = forms.PolicyForm(utils.get_postdata(request))
         if form.is_valid():
             logger.info("PolicyForm for instance %s is valid", form.cleaned_data['commission'])
             form.save()
             return redirect('dashboard:policies')
         else:
-            form = forms.PolicyForm()
             logger.info("Edit ServiceCategoryForm is not valid. Errors : %s", form.errors)
+            form = forms.PolicyForm()
     elif request.method == "GET":
         form = forms.PolicyForm()
 
