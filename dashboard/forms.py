@@ -11,7 +11,7 @@ class PolicyForm(forms.ModelForm):
     
     class Meta:
         model = Policy
-        fields = ("daily_limit","weekly_limit", "monthly_limit", "commission",)
+        fields = ("monthly_limit", "commission",)
 
 class PolicyGroupForm(forms.ModelForm):
 
