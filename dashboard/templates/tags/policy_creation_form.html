@@ -5,7 +5,7 @@
 <div class="container">
 
     <div class="mat-box">
-        <form id="policy-form" name="available_services" action="{% url 'dashboard:policies' %}" method="POST">{% csrf_token %}
+        <form id="policy-form" name="policy-form" action="{% url 'dashboard:policy-create' %}" method="POST">{% csrf_token %}
             <input type="hidden" name="created_by" value="{{request.user.pk}}">
             <div class="form-group">
                 <label for="commission">{% trans "Transaction Commission" %}</label>
