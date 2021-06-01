@@ -97,229 +97,6 @@ var Slider = (function(){
 })();
 
 
-var Account = (function(){
-    function Account(){
-        this.is_logged = false;
-    };
-
-    Account.prototype.init = function(){
-        $(".dialog-btn").click(function(event){
-            var target = $(this).data('target');
-            $(target).toggle();
-         });
-         $(".close").click(function(event){
-            var target = $(this).data('target');
-            $(target).hide();
-         });
-         var lang_form = $("#lang-form");
-         var input = $("#current-lang");
-         lang_form.submit(function(event){
-            //event.preventDefault();
-            console.log("lang-form submitted");
-            return true;
-         });
-         $(".js-lang").click(function(event){
-            var span = $(this);
-            if(!span.hasClass("active")){
-                console.log("span content [lang] : ");
-                console.log(span.text());
-                input.val(span.text());
-                lang_form.submit();
-            }
-         });
-         var login_form = $("#login-form");
-         var transaction_form = $('#transaction-form');
-         if(login_form.length == 0){
-             console.log("no Login form found in this page");
-             return;
-         }
-         else{
-            console.log("Login form found in this page");
-            login_form.submit(function(event){
-                //event.preventDefault();
-                var flag = false;
-                console.log("Login received");
-                var username = $('input[name="username"]', login_form).val();
-                var password = $('input[name="password"]', login_form).val();
-                var error_div = $("#error-login", login_form);
-                var error_msg = "";
-                if((username.length > 0) && (password.length > 0)){
-                    
-                    error_div.hide();
-                    console.log("form : username = ", username);
-                    console.log("form : password = ", password);
-                    flag = true;
-                }
-                else{
-                    error_msg = "Votre nom d'utilisateur ou votre mot est incoreecte. Veuillez verifier ces informations et essayez à nouveau."
-                    console.log("form error : username or password is empty.");
-                    error_div.html(error_msg).show();
-                }
-                return flag;
-             });
-         }
-        if(transaction_form.length != 0){
-            transaction_form.submit(function(event){
-                //event.preventDefault();
-                var flag = false;
-                var error_div = $("#error-login", login_form);
-                var error_msg = "";
-                var recipient =  $('input[name="recipient"]', transaction_form).val();
-                var amount =  $('input[name="amount"]', transaction_form).val();
-                var details =  $('input[name="details"]', transaction_form).val();
-                if((recipient.length > 0) && (details.length > 0) ){
-                    if(parseInt(amount) > 0 ){
-                        flag = true;
-                        error_div.hide();
-                    }
-                    else{
-                        flag = false;
-                        error_msg = "Verifier les informations saisies."
-                        error_div.html(error_msg).show();
-                    }
-                    
-                }
-
-                return flag;
-            });
-        }
-         
-         
-        
-
-         
-    };
-
-    return Account;
-})();
-
-
-var CardFactory = (function(){
-    function CardFactory(options){
-        this.required_keys = ["label", "label_attr_title", "title", "date", "amount", "initials", "initials_title", "is_seller"];
-        this.default_option = options;
-        this.template = $('#list-card-template');
-        this.template_found = this.template.length > 0;
-    }
-
-    CardFactory.prototype.isOptionsValide = function(options){
-        var flag = true;
-        if(options){
-            if (Object.keys(options).length < 0){
-                flag = false;
-            }
-            else{
-                flag = this.required_keys.every(function(key, index){
-                    return options.hasOwnProperty(key);
-                });
-            }
-        }
-        else{
-            flag = false;
-        }
-        return flag;
-    };
-
-    CardFactory.prototype.createCard = function(options){
-        var card = null;
-        if(this.isOptionsValide(options)){
-            if(this.template_found){
-                var $template = this.template.clone();
-                $('.card-label', $template).attr('title', options.label_attr_title).html(options.label);
-                $('.list-card-title', $template).html(options.title);
-                $('.date', $template).html(options.date);
-                $('.amount', $template).html(options.amount);
-                $('.member-initials', $template).attr('title', options.initials_title).html(options.initials);
-                if(options.is_seller){
-                    $('.member-is-a-seller', $template).attr('title', 'Ce membre est un prestataire de services').removeClass('hide');
-                }
-                card = $template;
-                card.removeAttr('id');
-            }
-            else{
-                console.log('No card template could be found');
-            }
-            
-
-        }
-        else{
-            console.log('No valid card actions');
-        }
-        return card;
-    };
-
-    CardFactory.prototype.default_card = function(){
-        return this.createCard(this.default_option);
-    }
-
-
-    return CardFactory;
-})();
-
-var Transaction = (function(){
-    function Transaction(){
-        this.template =$("#transaction-form-wrapper.template");
-        this.init();
-        
-    }
-
-    Transaction.prototype.init = function(){
-        this.re = RegExp('^[0-9]+$');
-        var form = $('.template #transaction-form');
-        console.log("Intialization transaction Form.");
-        if(form.length == 0){
-            console.log("transaction Form not found.");
-            return;
-        }
-        regex = this.re;
-        console.log("Found transaction Form.");
-        $("#transaction-modal .modal-body").on("submit","#transaction-form", function(event){
-            var form = $(this);
-            var flag = true;
-            event.preventDefault();
-            var recipient = $("#recipient", this).val();
-            var amount = 0;
-            var amount_val = $("#amount", this).val();
-            var description = $("#description", this).val();
-            var fields = [recipient, amount_val, description];
-            var errors_fields = $("#recipient-error , #amount-error , #description-error",this);
-            
-            fields.forEach(function(field, index){
-                //console.log("Field #\n",index);
-                if(field.length > 0){
-                    $(errors_fields[index]).hide();
-                }else{
-                    //console.log("Field #", index, " is incorrect\n");
-                    $(errors_fields[index]).show();
-                    flag = false;
-                }
-            });
-            if(!regex.test(amount_val)){
-                $('#amount-error', this).html('Le montant doit être un numbre').show();
-                console.log("the field amount must be a number");
-            }
-            else{
-                amount = parseInt(amount_val);
-            }
-            if(flag){
-                console.log("Recipient : ", recipient, "Amount : ", amount, "Description : ", description);
-            }
-            
-            return flag;
-        });
-        
-    };
-
-    Transaction.prototype.create = function(){
-        var transaction = null;
-        transaction = this.template.clone().removeClass("template");
-        console.log("new transaction element created");
-        return transaction;
-    };
-
-    return Transaction;
-})();
-
 var UserRechargeAccount = (function(){
     function UserRechargeAccount(){
         this.form = $("voucher-recharge-form");
@@ -906,96 +683,89 @@ function prevent_leaving(){
 }
 
 $(document).ready(function(){
-let account = new Account();
-account.init();
-let tabs = new Tabs();
-tabs.init();
+    let tabs = new Tabs();
+    tabs.init();
 
-var jsfilter = new JSFilter();
+    var jsfilter = new JSFilter();
 
-var filter = new TableFilter();
-filter.init();
+    var filter = new TableFilter();
+    filter.init();
 
-var permissionManager = new PermissionGroupManager();
+    var permissionManager = new PermissionGroupManager();
 
-var group = new Group();
-permissionManager.init();
-group.init();
-//$(window).on('beforeunload', onbeforeunload);
-window.addEventListener('beforeunload', askConfirmation);
-var scheduled_query = false;
-var query_delay = 800;
-var $user_search_result = $('#user-search-result');
-var $user_search_target = $($user_search_result.data('target'));
-var $user_search_target_name = $($user_search_result.data('target-name'));
+    var group = new Group();
+    permissionManager.init();
+    group.init();
+    //$(window).on('beforeunload', onbeforeunload);
+    window.addEventListener('beforeunload', askConfirmation);
+    var scheduled_query = false;
+    var query_delay = 800;
+    var $user_search_result = $('#user-search-result');
+    var $user_search_target = $($user_search_result.data('target'));
+    var $user_search_target_name = $($user_search_result.data('target-name'));
 
-var userSearch = function(options){
+    var userSearch = function(options){
 
-    var promise = ajax(options).then(function(response){
-        //console.log("User Search succeed");
-        //console.log(response);
-        $user_search_result.empty();
-        response.forEach(function(user, index){
-            var full_name = user.first_name + " " +  user.last_name;
-            $('<li>').data('user-id', user.id).data('user-name', full_name).html(full_name + " [" + user.username + "]").
-            on('click', function(event){
-                event.stopPropagation();
-                var user_id = $(this).data('user-id');
-                var user_name = $(this).data('user-name');
-                $user_search_target.val(user_id);
-                //$(".js-user-search").val(user_name);
-                $user_search_target_name.val(user_name);
-                $user_search_result.hide();
-                $user_search_result.empty();
-            }).appendTo($user_search_result);
-            $user_search_result.show();
+        var promise = ajax(options).then(function(response){
+            //console.log("User Search succeed");
+            //console.log(response);
+            $user_search_result.empty();
+            response.forEach(function(user, index){
+                var full_name = user.first_name + " " +  user.last_name;
+                $('<li>').data('user-id', user.id).data('user-name', full_name).html(full_name + " [" + user.username + "]").
+                on('click', function(event){
+                    event.stopPropagation();
+                    var user_id = $(this).data('user-id');
+                    var user_name = $(this).data('user-name');
+                    $user_search_target.val(user_id);
+                    //$(".js-user-search").val(user_name);
+                    $user_search_target_name.val(user_name);
+                    $user_search_result.hide();
+                    $user_search_result.empty();
+                }).appendTo($user_search_result);
+                $user_search_result.show();
+            });
+
+        }, function(error){
+            console.log("User Search failed");
+            console.log(error);
         });
+    }
 
-    }, function(error){
-        console.log("User Search failed");
-        console.log(error);
+    $('.js-user-search').on('keyup', function(event){
+        event.stopPropagation();
+        var query = $(this).val();
+        query = query.trim()
+        if(query.length == 0 ){
+            return;
+        }
+        var options = {
+            url:'/api/user-search/',
+            type: 'GET',
+            data : {'search': query},
+            dataType: 'json'
+        };
+        if(scheduled_query){
+            clearTimeout(scheduled_query);
+        }
+        scheduled_query = setTimeout(userSearch, query_delay, options);
     });
-}
 
-$('.js-user-search').on('keyup', function(event){
-    event.stopPropagation();
-    var query = $(this).val();
-    query = query.trim()
-    if(query.length == 0 ){
-        return;
-    }
-    var options = {
-        url:'/api/user-search/',
-        type: 'GET',
-        data : {'search': query},
-        dataType: 'json'
-    };
-    if(scheduled_query){
-        clearTimeout(scheduled_query);
-    }
-    scheduled_query = setTimeout(userSearch, query_delay, options);
-});
+    $('.js-table-update').on('click', function(event){
+        console.log("Updating the Table");
+    });
+    $('.js-table-next').on('click', function(event){
+        console.log("Displaying the next %s row of the Table", filter.rowStep);
+        filter.next();
+        
+    });
 
-$('.js-table-update').on('click', function(event){
-    console.log("Updating the Table");
-});
-$('.js-table-next').on('click', function(event){
-    console.log("Displaying the next %s row of the Table", filter.rowStep);
-    filter.next();
-    
-});
+    $('.js-table-previous').on('click', function(event){
+        console.log("Displaying the next %s row of the Table", filter.rowStep);
+        filter.previous();
+        
+    });
 
-$('.js-table-previous').on('click', function(event){
-    console.log("Displaying the next %s row of the Table", filter.rowStep);
-    filter.previous();
-    
-});
-let slider = new Slider();
-slider.init();
-    var factory = new CardFactory(options);
-    var list = $('.list-cards');
-    var transaction = new Transaction();
-    var cases = new CaseIssue();
     var collapsible = new Collapsible();
     collapsible.init();
     
