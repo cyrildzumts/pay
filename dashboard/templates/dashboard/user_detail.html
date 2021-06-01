@@ -2,13 +2,15 @@
 {% load i18n %}
 {% load core_tags %}
 
-{% block ACTIONS %}
+<div class="actions">
+{% if perms.auth.delete_user %}
 <a class="mat-button mat-button-outlined warn" href="{% url 'dashboard:user-delete' user_instance.pk %}"><i class="fas fa-remove icon"></i><span>{% trans "Delete" %}</span></a>
+{% endif %}
 <a class="mat-button mat-button-outlined" href="{% url 'dashboard:send-welcome-mail' user_instance.pk %}"><i class="fas fa-envelope icon"></i><span>{% trans "Send Welcome Mail" %}</span></a>
 {% if user_instance.account and not user_instance.account.email_validated %}
 <a class="mat-button mat-button-outlined" href="{% url 'accounts:send-validation' user_instance.account.account_uuid %}">{% trans "Send Validation Link" %}</a>
 {% endif %}
-{% endblock ACTIONS %}
+</div>
 
 {%block CONTENT %}
 

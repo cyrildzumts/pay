@@ -285,9 +285,10 @@ LOGGING = {
         },
         'file': {
             'level': 'DEBUG',
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'formatter': 'file',
-            'filename':'logs/pay.log'
+            'filename':'logs/pay.log',
+            'when' : 'midnight'
         },
         'mail_admins': {
             'level': 'ERROR',
