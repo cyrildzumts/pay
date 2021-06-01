@@ -2,6 +2,9 @@
 {% load i18n %}
 {% load core_tags %}
 
+
+
+{%block CONTENT %}
 <div class="actions">
 {% if perms.auth.delete_user %}
 <a class="mat-button mat-button-outlined warn" href="{% url 'dashboard:user-delete' user_instance.pk %}"><i class="fas fa-remove icon"></i><span>{% trans "Delete" %}</span></a>
@@ -11,9 +14,6 @@
 <a class="mat-button mat-button-outlined" href="{% url 'accounts:send-validation' user_instance.account.account_uuid %}">{% trans "Send Validation Link" %}</a>
 {% endif %}
 </div>
-
-{%block CONTENT %}
-
                 
 <div class="container">
 
