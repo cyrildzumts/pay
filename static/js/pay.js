@@ -686,8 +686,6 @@ $(document).ready(function(){
     let tabs = new Tabs();
     tabs.init();
 
-    var jsfilter = new JSFilter();
-
     var filter = new TableFilter();
     filter.init();
 
@@ -769,19 +767,7 @@ $(document).ready(function(){
     var collapsible = new Collapsible();
     collapsible.init();
     
-    var modal = new Modal({transaction_factory: transaction, factories: {transaction : transaction, cases : cases, notify : notify}});
-
-    //setTimeout(fetchTransaction, 60000);
-    $('.js-add-another').click(function(event){
-        var card = factory.default_card();
-        if(card != null){
-            card.appendTo(list).addClass('list-card').hide().fadeIn(600);
-            console.log("Added new card");
-        }
-        else{
-            console.log("Card not created");
-        }
-    });
+    
 
     $('.js-grid-enable').on('click', function(){
         $(this).toggleClass('active');
